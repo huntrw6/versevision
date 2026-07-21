@@ -1,0 +1,347 @@
+{
+  "communities": {
+    "0": [
+      "message",
+      "protocol",
+      "src_versebridge_presentation_backup",
+      "src_versebridge_presentation_backup_create_backup",
+      "src_versebridge_presentation_backup_py_path",
+      "src_versebridge_presentation_backup_restore_backup",
+      "src_versebridge_presentation_base",
+      "src_versebridge_presentation_base_presentationinfo",
+      "src_versebridge_presentation_base_presentationwriter",
+      "src_versebridge_presentation_base_presentationwriter_append_synthetic_slide",
+      "src_versebridge_presentation_base_presentationwriter_inspect",
+      "src_versebridge_presentation_base_presentationwriter_verify",
+      "src_versebridge_presentation_base_py_basemodel",
+      "src_versebridge_presentation_base_py_path",
+      "src_versebridge_presentation_base_verificationresult",
+      "src_versebridge_presentation_base_writeresult",
+      "src_versebridge_presentation_compatibility",
+      "src_versebridge_presentation_compatibility_compatibilitypolicy",
+      "src_versebridge_presentation_compatibility_compatibilitypolicy_validate",
+      "src_versebridge_presentation_init",
+      "src_versebridge_presentation_protobuf_writer",
+      "src_versebridge_presentation_protobuf_writer_all_uuids",
+      "src_versebridge_presentation_protobuf_writer_escape_rtf",
+      "src_versebridge_presentation_protobuf_writer_protobufpresentationwriter",
+      "src_versebridge_presentation_protobuf_writer_protobufpresentationwriter_append_synthetic_slide",
+      "src_versebridge_presentation_protobuf_writer_protobufpresentationwriter_init",
+      "src_versebridge_presentation_protobuf_writer_protobufpresentationwriter_inspect",
+      "src_versebridge_presentation_protobuf_writer_protobufpresentationwriter_read",
+      "src_versebridge_presentation_protobuf_writer_protobufpresentationwriter_verify",
+      "src_versebridge_presentation_protobuf_writer_py_path",
+      "src_versebridge_presentation_protobuf_writer_refresh_uuids",
+      "src_versebridge_presentation_protobuf_writer_replace_rtf_text",
+      "src_versebridge_presentation_protobuf_writer_sha256",
+      "tests_integration_test_protobuf_writer",
+      "tests_integration_test_protobuf_writer_test_append_verify_and_restore",
+      "tests_integration_test_protobuf_writer_test_unknown_application_version_is_rejected_without_changes"
+    ],
+    "1": [
+      "src_versebridge_references_books",
+      "src_versebridge_references_books_book",
+      "src_versebridge_references_books_key",
+      "src_versebridge_references_books_recognize_book",
+      "src_versebridge_references_formatter",
+      "src_versebridge_references_formatter_format_reference",
+      "src_versebridge_references_formatter_point",
+      "src_versebridge_references_models",
+      "src_versebridge_references_models_parseissue",
+      "src_versebridge_references_models_parseresult",
+      "src_versebridge_references_models_passagereference",
+      "src_versebridge_references_models_py_basemodel",
+      "src_versebridge_references_models_versepoint",
+      "src_versebridge_references_models_versespan",
+      "src_versebridge_references_parser",
+      "src_versebridge_references_parser_cursor",
+      "src_versebridge_references_parser_cursor_init",
+      "src_versebridge_references_parser_cursor_peek",
+      "src_versebridge_references_parser_cursor_take",
+      "src_versebridge_references_parser_cursor_word",
+      "src_versebridge_references_parser_parse_after_book",
+      "src_versebridge_references_parser_span",
+      "src_versebridge_references_parser_version",
+      "src_versebridge_references_tokenizer",
+      "src_versebridge_references_tokenizer_token",
+      "src_versebridge_references_tokenizer_tokenize",
+      "src_versebridge_references_validator",
+      "src_versebridge_references_validator_validate_spans",
+      "src_versebridge_versions_init",
+      "src_versebridge_versions_registry",
+      "src_versebridge_versions_registry_canonical_version",
+      "tests_unit_test_models",
+      "tests_unit_test_models_test_warnings_are_not_shared"
+    ],
+    "2": [
+      "src_versebridge_presentation_generated_action_pb2",
+      "src_versebridge_presentation_generated_alignmentguide_pb2",
+      "src_versebridge_presentation_generated_alphatype_pb2",
+      "src_versebridge_presentation_generated_applicationinfo_pb2",
+      "src_versebridge_presentation_generated_background_pb2",
+      "src_versebridge_presentation_generated_collectionelementtype_pb2",
+      "src_versebridge_presentation_generated_color_pb2",
+      "src_versebridge_presentation_generated_cue_pb2",
+      "src_versebridge_presentation_generated_customoptions_pb2",
+      "src_versebridge_presentation_generated_digitalaudio_pb2",
+      "src_versebridge_presentation_generated_effects_pb2",
+      "src_versebridge_presentation_generated_fileproperties_pb2",
+      "src_versebridge_presentation_generated_font_pb2",
+      "src_versebridge_presentation_generated_graphicsdata_pb2",
+      "src_versebridge_presentation_generated_groups_pb2",
+      "src_versebridge_presentation_generated_hotkey_pb2",
+      "src_versebridge_presentation_generated_input_pb2",
+      "src_versebridge_presentation_generated_intrange_pb2",
+      "src_versebridge_presentation_generated_layers_pb2",
+      "src_versebridge_presentation_generated_messages_pb2",
+      "src_versebridge_presentation_generated_musickeyscale_pb2",
+      "src_versebridge_presentation_generated_presentation_pb2",
+      "src_versebridge_presentation_generated_presentationslide_pb2",
+      "src_versebridge_presentation_generated_propslide_pb2",
+      "src_versebridge_presentation_generated_rvtimestamp_pb2",
+      "src_versebridge_presentation_generated_slide_pb2",
+      "src_versebridge_presentation_generated_stage_pb2",
+      "src_versebridge_presentation_generated_templateidentification_pb2",
+      "src_versebridge_presentation_generated_timers_pb2",
+      "src_versebridge_presentation_generated_url_pb2",
+      "src_versebridge_presentation_generated_uuid_pb2",
+      "src_versebridge_presentation_generated_version_pb2"
+    ],
+    "3": [
+      "argument",
+      "exception",
+      "help",
+      "option",
+      "src_versebridge_cli",
+      "src_versebridge_cli_main",
+      "src_versebridge_cli_parse_command",
+      "src_versebridge_cli_py_path",
+      "src_versebridge_cli_rationale_20",
+      "src_versebridge_cli_rationale_29",
+      "src_versebridge_documents_base",
+      "src_versebridge_documents_base_extract_text",
+      "src_versebridge_documents_base_py_path",
+      "src_versebridge_documents_init",
+      "src_versebridge_errors",
+      "src_versebridge_errors_documenterror",
+      "src_versebridge_errors_rationale_2",
+      "src_versebridge_errors_referencevalidationerror",
+      "src_versebridge_errors_versebridgeerror"
+    ],
+    "4": [
+      "docs_feasibility_atomic_presentation_write",
+      "docs_feasibility_compatibility_gate",
+      "docs_feasibility_milestone_0_feasibility_report",
+      "docs_feasibility_remaining_production_support",
+      "docs_feasibility_windows_feasibility_spike",
+      "proto_readme_minimal_python_binding_generation",
+      "proto_readme_propresenter_protobuf_bindings",
+      "proto_readme_proto_19beta_schema_snapshot",
+      "proto_readme_unofficial_schema_safety_policy",
+      "proto_source_propresenter19_readme_build_318767123",
+      "proto_source_propresenter19_readme_v19_beta_proto_dump",
+      "readme_direct_pro_writing_gate",
+      "readme_milestone_1",
+      "readme_reference_parser",
+      "readme_supported_inputs",
+      "readme_versebridge_cli"
+    ],
+    "5": [
+      "src_versebridge_references_init",
+      "src_versebridge_references_normalizer",
+      "src_versebridge_references_normalizer_normalize_fragment",
+      "src_versebridge_references_parser_parse_references",
+      "tests_unit_test_parser",
+      "tests_unit_test_parser_properties",
+      "tests_unit_test_parser_properties_test_range_delimiters_and_version_case_are_stable",
+      "tests_unit_test_parser_test_composite_is_one_logical_reference",
+      "tests_unit_test_parser_test_invalid_references_are_reported",
+      "tests_unit_test_parser_test_semicolon_inherits_book_as_new_passage",
+      "tests_unit_test_parser_test_supported_references",
+      "tests_unit_test_parser_test_unrecognized_books_are_ignored",
+      "tests_unit_test_parser_test_unrelated_and_is_not_consumed"
+    ],
+    "6": [
+      "scripts_update_proto_bindings",
+      "scripts_update_proto_bindings_dependency_closure",
+      "scripts_update_proto_bindings_main",
+      "scripts_update_proto_bindings_rationale_1"
+    ],
+    "7": [
+      "scripts_build_macos",
+      "scripts_build_macos_sh__entry"
+    ],
+    "8": [
+      "pkg_versebridge"
+    ],
+    "9": [
+      "scripts_build_windows"
+    ],
+    "10": [
+      "src_versebridge_init"
+    ],
+    "11": [
+      "src_versebridge_presentation_generated_init"
+    ]
+  },
+  "cohesion": {
+    "0": 0.12380952380952381,
+    "1": 0.18181818181818182,
+    "2": 0.2157258064516129,
+    "3": 0.14035087719298245,
+    "4": 0.14166666666666666,
+    "5": 0.21794871794871795,
+    "6": 0.6666666666666666,
+    "7": 1.0,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0
+  },
+  "gods": [
+    {
+      "id": "src_versebridge_references_parser_cursor",
+      "label": "_Cursor",
+      "degree": 15
+    },
+    {
+      "id": "src_versebridge_references_parser_parse_after_book",
+      "label": "_parse_after_book()",
+      "degree": 14
+    },
+    {
+      "id": "src_versebridge_references_parser_parse_references",
+      "label": "parse_references()",
+      "degree": 14
+    },
+    {
+      "id": "src_versebridge_presentation_protobuf_writer_protobufpresentationwriter",
+      "label": "ProtobufPresentationWriter",
+      "degree": 13
+    },
+    {
+      "id": "src_versebridge_cli_parse_command",
+      "label": "parse_command()",
+      "degree": 9
+    },
+    {
+      "id": "src_versebridge_presentation_base_writeresult",
+      "label": "WriteResult",
+      "degree": 8
+    },
+    {
+      "id": "src_versebridge_references_models_versespan",
+      "label": "VerseSpan",
+      "degree": 8
+    },
+    {
+      "id": "src_versebridge_references_models_passagereference",
+      "label": "PassageReference",
+      "degree": 8
+    },
+    {
+      "id": "src_versebridge_references_tokenizer_token",
+      "label": "Token",
+      "degree": 8
+    },
+    {
+      "id": "src_versebridge_references_books_book",
+      "label": "Book",
+      "degree": 7
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Direct .pro Writing Safety Gate",
+      "target": "ProPresenter Compatibility Gate",
+      "source_files": [
+        "README.md",
+        "docs/FEASIBILITY.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "ProPresenter Compatibility Gate",
+      "target": "Unofficial Schema Safety Policy",
+      "source_files": [
+        "docs/FEASIBILITY.md",
+        "proto/README.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "test_unknown_application_version_is_rejected_without_changes()",
+      "target": "ProtobufPresentationWriter",
+      "source_files": [
+        "tests/integration/test_protobuf_writer.py",
+        "src/versebridge/presentation/protobuf_writer.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; peripheral node `test_unknown_application_version_is_rejected_without_changes()` unexpectedly reaches hub `ProtobufPresentationWriter`"
+    },
+    {
+      "source": "test_warnings_are_not_shared()",
+      "target": "PassageReference",
+      "source_files": [
+        "tests/unit/test_models.py",
+        "src/versebridge/references/models.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; peripheral node `test_warnings_are_not_shared()` unexpectedly reaches hub `PassageReference`"
+    },
+    {
+      "source": "test_range_delimiters_and_version_case_are_stable()",
+      "target": "parse_references()",
+      "source_files": [
+        "tests/unit/test_parser_properties.py",
+        "src/versebridge/references/parser.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; peripheral node `test_range_delimiters_and_version_case_are_stable()` unexpectedly reaches hub `parse_references()`"
+    }
+  ],
+  "questions": [
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `VerseBridge CLI` and `Windows ProPresenter Feasibility Spike`?",
+      "why": "Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `parse_references()` connect `Community 5` to `Community 1`, `Community 3`?",
+      "why": "High betweenness centrality (0.097) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `parse_command()` connect `Community 3` to `Community 5`?",
+      "why": "High betweenness centrality (0.074) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `_parse_after_book()` connect `Community 1` to `Community 5`?",
+      "why": "High betweenness centrality (0.028) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 7 inferred relationships involving `_Cursor` (e.g. with `Book` and `ParseIssue`) actually correct?",
+      "why": "`_Cursor` has 7 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 8 inferred relationships involving `parse_references()` (e.g. with `parse_command()` and `test_range_delimiters_and_version_case_are_stable()`) actually correct?",
+      "why": "`parse_references()` has 8 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 6 inferred relationships involving `ProtobufPresentationWriter` (e.g. with `PresentationInfo` and `VerificationResult`) actually correct?",
+      "why": "`ProtobufPresentationWriter` has 6 INFERRED edges - model-reasoned connections that need verification."
+    }
+  ]
+}

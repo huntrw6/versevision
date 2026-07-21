@@ -1,0 +1,4 @@
+C:\Users\hunte\Documents\Visual Studio\Repository\versebridge\README.md
+C:\Users\hunte\Documents\Visual Studio\Repository\versebridge\docs\FEASIBILITY.md
+C:\Users\hunte\Documents\Visual Studio\Repository\versebridge\proto\README.md
+C:\Users\hunte\Documents\Visual Studio\Repository\versebridge\proto\source\propresenter19\README.md

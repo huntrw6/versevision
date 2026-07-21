@@ -1,0 +1,254 @@
+import customOptions_pb2 as _customOptions_pb2
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
+
+DESCRIPTOR: _descriptor.FileDescriptor
+
+class KeyCode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    KEY_CODE_UNKNOWN: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_A: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_B: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_C: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_D: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_E: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_F: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_G: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_H: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_I: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_J: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_K: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_L: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_M: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_N: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_O: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_P: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_Q: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_R: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_S: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_T: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_U: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_V: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_W: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_X: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_Y: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_Z: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_0: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_1: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_2: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_3: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_4: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_5: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_6: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_7: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_8: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_9: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_EQUAL: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_MINUS: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_RIGHT_BRACKET: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_LEFT_BRACKET: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_QUOTE: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_SEMICOLON: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_BACKSLASH: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_COMMA: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_SLASH: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_PERIOD: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_GRAVE: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_DECIMAL: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_PLUS: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_CLEAR: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_DIVIDE: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_ENTER: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_MINUS: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_EQUALS: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_0: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_1: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_2: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_3: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_4: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_5: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_6: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_7: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_8: _ClassVar[KeyCode]
+    KEY_CODE_ANSI_KEYPAD_9: _ClassVar[KeyCode]
+    KEY_CODE_F1: _ClassVar[KeyCode]
+    KEY_CODE_F2: _ClassVar[KeyCode]
+    KEY_CODE_F3: _ClassVar[KeyCode]
+    KEY_CODE_F4: _ClassVar[KeyCode]
+    KEY_CODE_F5: _ClassVar[KeyCode]
+    KEY_CODE_F6: _ClassVar[KeyCode]
+    KEY_CODE_F7: _ClassVar[KeyCode]
+    KEY_CODE_F8: _ClassVar[KeyCode]
+    KEY_CODE_F9: _ClassVar[KeyCode]
+    KEY_CODE_F10: _ClassVar[KeyCode]
+    KEY_CODE_F11: _ClassVar[KeyCode]
+    KEY_CODE_F12: _ClassVar[KeyCode]
+    KEY_CODE_F13: _ClassVar[KeyCode]
+    KEY_CODE_F14: _ClassVar[KeyCode]
+    KEY_CODE_F15: _ClassVar[KeyCode]
+    KEY_CODE_F16: _ClassVar[KeyCode]
+    KEY_CODE_F17: _ClassVar[KeyCode]
+    KEY_CODE_F18: _ClassVar[KeyCode]
+    KEY_CODE_F19: _ClassVar[KeyCode]
+    KEY_CODE_F20: _ClassVar[KeyCode]
+    KEY_CODE_FUNCTION: _ClassVar[KeyCode]
+    KEY_CODE_RETURN: _ClassVar[KeyCode]
+    KEY_CODE_TAB: _ClassVar[KeyCode]
+    KEY_CODE_SPACE: _ClassVar[KeyCode]
+    KEY_CODE_DELETE: _ClassVar[KeyCode]
+    KEY_CODE_ESCAPE: _ClassVar[KeyCode]
+    KEY_CODE_COMMAND: _ClassVar[KeyCode]
+    KEY_CODE_SHIFT: _ClassVar[KeyCode]
+    KEY_CODE_CAPS_LOCK: _ClassVar[KeyCode]
+    KEY_CODE_OPTION: _ClassVar[KeyCode]
+    KEY_CODE_CONTROL: _ClassVar[KeyCode]
+    KEY_CODE_RIGHT_SHIFT: _ClassVar[KeyCode]
+    KEY_CODE_RIGHT_OPTION: _ClassVar[KeyCode]
+    KEY_CODE_RIGHT_CONTROL: _ClassVar[KeyCode]
+    KEY_CODE_VOLUME_UP: _ClassVar[KeyCode]
+    KEY_CODE_VOLUME_DOWN: _ClassVar[KeyCode]
+    KEY_CODE_MUTE: _ClassVar[KeyCode]
+    KEY_CODE_HELP: _ClassVar[KeyCode]
+    KEY_CODE_HOME: _ClassVar[KeyCode]
+    KEY_CODE_PAGE_UP: _ClassVar[KeyCode]
+    KEY_CODE_FORWARD_DELETE: _ClassVar[KeyCode]
+    KEY_CODE_END: _ClassVar[KeyCode]
+    KEY_CODE_PAGE_DOWN: _ClassVar[KeyCode]
+    KEY_CODE_LEFT_ARROW: _ClassVar[KeyCode]
+    KEY_CODE_RIGHT_ARROW: _ClassVar[KeyCode]
+    KEY_CODE_DOWN_ARROW: _ClassVar[KeyCode]
+    KEY_CODE_UP_ARROW: _ClassVar[KeyCode]
+    KEY_CODE_ISO_SELECTION: _ClassVar[KeyCode]
+    KEY_CODE_JIS_YEN: _ClassVar[KeyCode]
+    KEY_CODE_JIS_UNDERSCORE: _ClassVar[KeyCode]
+    KEY_CODE_JIS_KEYPAD_COMMA: _ClassVar[KeyCode]
+    KEY_CODE_JIS_EISU: _ClassVar[KeyCode]
+    KEY_CODE_JIS_KANA: _ClassVar[KeyCode]
+KEY_CODE_UNKNOWN: KeyCode
+KEY_CODE_ANSI_A: KeyCode
+KEY_CODE_ANSI_B: KeyCode
+KEY_CODE_ANSI_C: KeyCode
+KEY_CODE_ANSI_D: KeyCode
+KEY_CODE_ANSI_E: KeyCode
+KEY_CODE_ANSI_F: KeyCode
+KEY_CODE_ANSI_G: KeyCode
+KEY_CODE_ANSI_H: KeyCode
+KEY_CODE_ANSI_I: KeyCode
+KEY_CODE_ANSI_J: KeyCode
+KEY_CODE_ANSI_K: KeyCode
+KEY_CODE_ANSI_L: KeyCode
+KEY_CODE_ANSI_M: KeyCode
+KEY_CODE_ANSI_N: KeyCode
+KEY_CODE_ANSI_O: KeyCode
+KEY_CODE_ANSI_P: KeyCode
+KEY_CODE_ANSI_Q: KeyCode
+KEY_CODE_ANSI_R: KeyCode
+KEY_CODE_ANSI_S: KeyCode
+KEY_CODE_ANSI_T: KeyCode
+KEY_CODE_ANSI_U: KeyCode
+KEY_CODE_ANSI_V: KeyCode
+KEY_CODE_ANSI_W: KeyCode
+KEY_CODE_ANSI_X: KeyCode
+KEY_CODE_ANSI_Y: KeyCode
+KEY_CODE_ANSI_Z: KeyCode
+KEY_CODE_ANSI_0: KeyCode
+KEY_CODE_ANSI_1: KeyCode
+KEY_CODE_ANSI_2: KeyCode
+KEY_CODE_ANSI_3: KeyCode
+KEY_CODE_ANSI_4: KeyCode
+KEY_CODE_ANSI_5: KeyCode
+KEY_CODE_ANSI_6: KeyCode
+KEY_CODE_ANSI_7: KeyCode
+KEY_CODE_ANSI_8: KeyCode
+KEY_CODE_ANSI_9: KeyCode
+KEY_CODE_ANSI_EQUAL: KeyCode
+KEY_CODE_ANSI_MINUS: KeyCode
+KEY_CODE_ANSI_RIGHT_BRACKET: KeyCode
+KEY_CODE_ANSI_LEFT_BRACKET: KeyCode
+KEY_CODE_ANSI_QUOTE: KeyCode
+KEY_CODE_ANSI_SEMICOLON: KeyCode
+KEY_CODE_ANSI_BACKSLASH: KeyCode
+KEY_CODE_ANSI_COMMA: KeyCode
+KEY_CODE_ANSI_SLASH: KeyCode
+KEY_CODE_ANSI_PERIOD: KeyCode
+KEY_CODE_ANSI_GRAVE: KeyCode
+KEY_CODE_ANSI_KEYPAD_DECIMAL: KeyCode
+KEY_CODE_ANSI_KEYPAD_PLUS: KeyCode
+KEY_CODE_ANSI_KEYPAD_CLEAR: KeyCode
+KEY_CODE_ANSI_KEYPAD_DIVIDE: KeyCode
+KEY_CODE_ANSI_KEYPAD_ENTER: KeyCode
+KEY_CODE_ANSI_KEYPAD_MINUS: KeyCode
+KEY_CODE_ANSI_KEYPAD_EQUALS: KeyCode
+KEY_CODE_ANSI_KEYPAD_0: KeyCode
+KEY_CODE_ANSI_KEYPAD_1: KeyCode
+KEY_CODE_ANSI_KEYPAD_2: KeyCode
+KEY_CODE_ANSI_KEYPAD_3: KeyCode
+KEY_CODE_ANSI_KEYPAD_4: KeyCode
+KEY_CODE_ANSI_KEYPAD_5: KeyCode
+KEY_CODE_ANSI_KEYPAD_6: KeyCode
+KEY_CODE_ANSI_KEYPAD_7: KeyCode
+KEY_CODE_ANSI_KEYPAD_8: KeyCode
+KEY_CODE_ANSI_KEYPAD_9: KeyCode
+KEY_CODE_F1: KeyCode
+KEY_CODE_F2: KeyCode
+KEY_CODE_F3: KeyCode
+KEY_CODE_F4: KeyCode
+KEY_CODE_F5: KeyCode
+KEY_CODE_F6: KeyCode
+KEY_CODE_F7: KeyCode
+KEY_CODE_F8: KeyCode
+KEY_CODE_F9: KeyCode
+KEY_CODE_F10: KeyCode
+KEY_CODE_F11: KeyCode
+KEY_CODE_F12: KeyCode
+KEY_CODE_F13: KeyCode
+KEY_CODE_F14: KeyCode
+KEY_CODE_F15: KeyCode
+KEY_CODE_F16: KeyCode
+KEY_CODE_F17: KeyCode
+KEY_CODE_F18: KeyCode
+KEY_CODE_F19: KeyCode
+KEY_CODE_F20: KeyCode
+KEY_CODE_FUNCTION: KeyCode
+KEY_CODE_RETURN: KeyCode
+KEY_CODE_TAB: KeyCode
+KEY_CODE_SPACE: KeyCode
+KEY_CODE_DELETE: KeyCode
+KEY_CODE_ESCAPE: KeyCode
+KEY_CODE_COMMAND: KeyCode
+KEY_CODE_SHIFT: KeyCode
+KEY_CODE_CAPS_LOCK: KeyCode
+KEY_CODE_OPTION: KeyCode
+KEY_CODE_CONTROL: KeyCode
+KEY_CODE_RIGHT_SHIFT: KeyCode
+KEY_CODE_RIGHT_OPTION: KeyCode
+KEY_CODE_RIGHT_CONTROL: KeyCode
+KEY_CODE_VOLUME_UP: KeyCode
+KEY_CODE_VOLUME_DOWN: KeyCode
+KEY_CODE_MUTE: KeyCode
+KEY_CODE_HELP: KeyCode
+KEY_CODE_HOME: KeyCode
+KEY_CODE_PAGE_UP: KeyCode
+KEY_CODE_FORWARD_DELETE: KeyCode
+KEY_CODE_END: KeyCode
+KEY_CODE_PAGE_DOWN: KeyCode
+KEY_CODE_LEFT_ARROW: KeyCode
+KEY_CODE_RIGHT_ARROW: KeyCode
+KEY_CODE_DOWN_ARROW: KeyCode
+KEY_CODE_UP_ARROW: KeyCode
+KEY_CODE_ISO_SELECTION: KeyCode
+KEY_CODE_JIS_YEN: KeyCode
+KEY_CODE_JIS_UNDERSCORE: KeyCode
+KEY_CODE_JIS_KEYPAD_COMMA: KeyCode
+KEY_CODE_JIS_EISU: KeyCode
+KEY_CODE_JIS_KANA: KeyCode
+
+class HotKey(_message.Message):
+    __slots__ = ("code", "control_identifier")
+    CODE_FIELD_NUMBER: _ClassVar[int]
+    CONTROL_IDENTIFIER_FIELD_NUMBER: _ClassVar[int]
+    code: KeyCode
+    control_identifier: str
+    def __init__(self, code: _Optional[_Union[KeyCode, str]] = ..., control_identifier: _Optional[str] = ...) -> None: ...

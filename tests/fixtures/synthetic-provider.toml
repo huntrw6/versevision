@@ -1,0 +1,46 @@
+[propresenter]
+host = "127.0.0.1"
+port = 1025
+timeout_seconds = 5.0
+
+[slides]
+break_on_new_verse = true
+max_characters = 350
+max_verses_per_slide = 1
+preserve_poetry_lines = true
+include_verse_numbers = false
+reference_format = "{book} {chapter}:{verses} {version}"
+reference_label_mode = "verse"
+max_body_lines = 5
+line_width_units = 48.0
+prefer_punctuation_breaks = true
+repeat_reference_on_continuation = true
+
+[presentation_template]
+presentation_uuid = "ee748d35-fbf6-4076-aae8-4f4c878b66bd"
+presentation_name = "Verses"
+library_name = "VerseBridge Test - Safe to Modify"
+cue_uuid = "74d5e14c-1b45-4ced-ab09-6ba5ec608dcc"
+reference_object = "Reference"
+body_object = "Verse"
+style_fingerprint = "b082a854ea05dfc13e5e35623fbeac6f3b91505a0fc6ff2d25e7b7d50e5b2b68"
+
+[bible.version_routes]
+NIV = "synthetic_niv"
+NKJV = "synthetic_nkjv"
+
+[bible.providers.synthetic_niv]
+type = "usfm"
+version = "NIV"
+path = "tests/fixtures/usfm/synthetic"
+name = "Synthetic NIV acceptance fixture"
+copyright = "Synthetic test content — not Scripture"
+cache_policy = "fresh"
+
+[bible.providers.synthetic_nkjv]
+type = "usfm"
+version = "NKJV"
+path = "tests/fixtures/usfm/synthetic"
+name = "Synthetic NKJV acceptance fixture"
+copyright = "Synthetic test content — not Scripture"
+cache_policy = "fresh"
