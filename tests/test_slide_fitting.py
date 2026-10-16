@@ -1,4 +1,4 @@
-from versebridge.slides.fitting import split_verse_text, wrap_body_lines
+from versevision.slides.fitting import split_verse_text, wrap_body_lines
 
 
 def test_long_verse_prefers_balanced_punctuation_break_and_repeats_safely() -> None:

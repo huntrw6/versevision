@@ -1,4 +1,4 @@
-from versebridge.references import parse_references
+from versevision.references import parse_references
 
 
 def test_standalone_references_after_newlines_are_not_skipped() -> None:

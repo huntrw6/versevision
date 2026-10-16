@@ -1,6 +1,6 @@
 from hypothesis import given, strategies as st
 
-from versebridge.references import parse_references
+from versevision.references import parse_references
 
 
 @given(

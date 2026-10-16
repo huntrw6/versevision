@@ -1,10 +1,10 @@
 import asyncio
 from pathlib import Path
 
-from versebridge.bibles.cache import ScriptureCache
-from versebridge.bibles.registry import ProviderRegistry
-from versebridge.config import load_config
-from versebridge.workflow import dry_run_import
+from versevision.bibles.cache import ScriptureCache
+from versevision.bibles.registry import ProviderRegistry
+from versevision.config import load_config
+from versevision.workflow import dry_run_import
 
 
 SOURCE = """Luke 11:1 NKJV

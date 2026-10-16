@@ -6,4 +6,4 @@ __pycache__/
 build/
 dist/
 *.spec
-src/versebridge/_bundled_credentials.py
+src/versevision/_bundled_credentials.py

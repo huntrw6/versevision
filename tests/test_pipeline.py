@@ -7,14 +7,14 @@ from pathlib import Path
 import pytest
 
 from fakes import FakeNode
-from versebridge.config import AppConfig, PresentationTemplateConfig
-from versebridge.errors import VerificationRollbackError
-from versebridge.history import HistoryStore
-from versebridge.node.transport import sha256_file
-from versebridge.presentation.generated import presentation_pb2
-from versebridge.presentation.template import inspect_point_candidates, inspect_template_candidates
-from versebridge.workflow import pipeline
-from versebridge.workflow.pipeline import apply_import, plan_for_transport, undo_import
+from versevision.config import AppConfig, PresentationTemplateConfig
+from versevision.errors import VerificationRollbackError
+from versevision.history import HistoryStore
+from versevision.node.transport import sha256_file
+from versevision.presentation.generated import presentation_pb2
+from versevision.presentation.template import inspect_point_candidates, inspect_template_candidates
+from versevision.workflow import pipeline
+from versevision.workflow.pipeline import apply_import, plan_for_transport, undo_import
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sample" / "Sample.pro"
 NOTES = "Title\n“For God so loved the world.”\nJohn 3:16 NIV\n1) First point\nPsalm 23:1 NIV\n2) Second point\n"
@@ -36,14 +36,14 @@ def env(tmp_path, monkeypatch):
     shutil.copy(FIXTURE, pres)
     node = FakeNode(tmp_path / "bk", pres)
     # offline: stand in for the Bible providers with fixed text
-    from versebridge.bibles.models import BibleVerse, ResolvedPassage
+    from versevision.bibles.models import BibleVerse, ResolvedPassage
 
     async def fake_fetch(self, reference):
         verses = [BibleVerse(book_id=reference.book_id, chapter=s.start.chapter, verse=v, text=f"Text of verse {v}.", version=reference.version or "NIV")
                   for s in reference.spans for v in range(s.start.verse, (s.end or s.start).verse + 1)]
         return ResolvedPassage(reference=reference, resolved_version=reference.version or "NIV", verses=verses)
 
-    monkeypatch.setattr("versebridge.bibles.registry.ProviderRegistry.fetch", fake_fetch)
+    monkeypatch.setattr("versevision.bibles.registry.ProviderRegistry.fetch", fake_fetch)
     return tmp_path, pres, node, _config(pres), HistoryStore(tmp_path / "imports.json")
 
 
@@ -112,7 +112,7 @@ def test_flagged_lines_are_reported_and_never_become_slides(env):
 
 
 def test_report_marks_flagged_and_clean(env):
-    from versebridge.workflow.report import build_report
+    from versevision.workflow.report import build_report
     tmp, pres, node, config, history = env
     plan, _ = _plan(node, config)
     assert build_report(plan)["clean"] is True
@@ -137,8 +137,8 @@ def test_target_is_found_from_disk_when_propresenter_is_closed(env):
 
 
 # ----------------------------------------------------------------------------- new presentation (the default)
-from versebridge.notes.title import document_title, safe_presentation_name, unique_name
-from versebridge.presentation.protobuf_writer import ProtobufPresentationWriter
+from versevision.notes.title import document_title, safe_presentation_name, unique_name
+from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
 
 
 def test_publish_new_creates_separate_presentation_without_touching_the_original(env):
@@ -171,7 +171,7 @@ def test_undo_of_a_new_presentation_deletes_only_that_file(env):
 
 
 def test_undo_refuses_to_delete_a_presentation_that_was_edited(env):
-    from versebridge.errors import PresentationWriteError
+    from versevision.errors import PresentationWriteError
     tmp, pres, node, config, history = env
     plan, _ = _plan(node, config)
     r = pipeline.publish_new(NOTES, "n.txt", "Message", plan, config, node, history=history, verify_timeout=3)
@@ -184,7 +184,7 @@ def test_undo_refuses_to_delete_a_presentation_that_was_edited(env):
 
 # ----------------------------------------------------------------------------- --replace keeps blank and background slides
 def test_replace_removes_only_verse_and_point_slides(env):
-    from versebridge.slides.models import PlannedSlide, SlidePlan
+    from versevision.slides.models import PlannedSlide, SlidePlan
     tmp, pres, node, config, history = env
     # give the presentation some non-verse slides by cloning the template cue and stripping its text objects
     m = presentation_pb2.Presentation()
@@ -240,7 +240,7 @@ def test_names_are_file_safe_and_unique():
 
 def test_template_slides_in_the_same_file_are_never_treated_as_generated(env):
     """--replace on the presentation that also holds the template must keep the template slides."""
-    from versebridge.presentation.protobuf_writer import ProtobufPresentationWriter
+    from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
 
     tmp, pres, node, config, history = env
     message = ProtobufPresentationWriter()._read(pres)

@@ -19,267 +19,267 @@
     "ast_hash": "b02f98616d2733f704061f32240a08d5",
     "semantic_hash": "b02f98616d2733f704061f32240a08d5"
   },
-  "src/versebridge/__init__.py": {
+  "src/versevision/__init__.py": {
     "mtime": 1784422913.0014033,
     "ast_hash": "91a1e7e766d25b84e814523b0c10944a",
     "semantic_hash": "91a1e7e766d25b84e814523b0c10944a"
   },
-  "src/versebridge/cli.py": {
+  "src/versevision/cli.py": {
     "mtime": 1784422996.7778876,
     "ast_hash": "338805b08b392870e630f620e1596282",
     "semantic_hash": "338805b08b392870e630f620e1596282"
   },
-  "src/versebridge/documents/__init__.py": {
+  "src/versevision/documents/__init__.py": {
     "mtime": 1784422960.4762888,
     "ast_hash": "24e3bde7620ab7c9a8e546e8c1a146bb",
     "semantic_hash": "24e3bde7620ab7c9a8e546e8c1a146bb"
   },
-  "src/versebridge/documents/base.py": {
+  "src/versevision/documents/base.py": {
     "mtime": 1784422960.4752655,
     "ast_hash": "e615ba061ae834fcfc45b3eea4a51294",
     "semantic_hash": "e615ba061ae834fcfc45b3eea4a51294"
   },
-  "src/versebridge/errors.py": {
+  "src/versevision/errors.py": {
     "mtime": 1784422913.0014033,
     "ast_hash": "178bbb67515c797436b3493ae1faf370",
     "semantic_hash": "178bbb67515c797436b3493ae1faf370"
   },
-  "src/versebridge/presentation/__init__.py": {
+  "src/versevision/presentation/__init__.py": {
     "mtime": 1784425026.017683,
     "ast_hash": "1ef2994c74e22f88e737e27d4fa84e28",
     "semantic_hash": "1ef2994c74e22f88e737e27d4fa84e28"
   },
-  "src/versebridge/presentation/backup.py": {
+  "src/versevision/presentation/backup.py": {
     "mtime": 1784425166.752427,
     "ast_hash": "99ab26fe716f45580e6dbd8cbdefc1f7",
     "semantic_hash": "99ab26fe716f45580e6dbd8cbdefc1f7"
   },
-  "src/versebridge/presentation/base.py": {
+  "src/versevision/presentation/base.py": {
     "mtime": 1784425026.0186834,
     "ast_hash": "7507149891cfa1a2709edef2fee6ee3a",
     "semantic_hash": "7507149891cfa1a2709edef2fee6ee3a"
   },
-  "src/versebridge/presentation/compatibility.py": {
+  "src/versevision/presentation/compatibility.py": {
     "mtime": 1784425026.0186834,
     "ast_hash": "089e5fdd2175ad412e2e540ef00efe27",
     "semantic_hash": "089e5fdd2175ad412e2e540ef00efe27"
   },
-  "src/versebridge/presentation/generated/__init__.py": {
+  "src/versevision/presentation/generated/__init__.py": {
     "mtime": 1784425031.5534797,
     "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
-  "src/versebridge/presentation/generated/action_pb2.py": {
+  "src/versevision/presentation/generated/action_pb2.py": {
     "mtime": 1784425031.4780254,
     "ast_hash": "c23974dcb09e3e8e5b53531880360211",
     "semantic_hash": "c23974dcb09e3e8e5b53531880360211"
   },
-  "src/versebridge/presentation/generated/alignmentGuide_pb2.py": {
+  "src/versevision/presentation/generated/alignmentGuide_pb2.py": {
     "mtime": 1784425031.5016217,
     "ast_hash": "6340704bac3feb8c764d63e8eec14660",
     "semantic_hash": "6340704bac3feb8c764d63e8eec14660"
   },
-  "src/versebridge/presentation/generated/alphaType_pb2.py": {
+  "src/versevision/presentation/generated/alphaType_pb2.py": {
     "mtime": 1784425031.5026214,
     "ast_hash": "33b7e7e2cee02ebeb86884a470311cd4",
     "semantic_hash": "33b7e7e2cee02ebeb86884a470311cd4"
   },
-  "src/versebridge/presentation/generated/applicationInfo_pb2.py": {
+  "src/versevision/presentation/generated/applicationInfo_pb2.py": {
     "mtime": 1784425031.5026214,
     "ast_hash": "868bb8036299c8b8951ca1e301096c6b",
     "semantic_hash": "868bb8036299c8b8951ca1e301096c6b"
   },
-  "src/versebridge/presentation/generated/background_pb2.py": {
+  "src/versevision/presentation/generated/background_pb2.py": {
     "mtime": 1784425031.5038867,
     "ast_hash": "1f243093227b41660a2f89fbfe5946f9",
     "semantic_hash": "1f243093227b41660a2f89fbfe5946f9"
   },
-  "src/versebridge/presentation/generated/collectionElementType_pb2.py": {
+  "src/versevision/presentation/generated/collectionElementType_pb2.py": {
     "mtime": 1784425031.5048864,
     "ast_hash": "0f4fdf5352c5be9d05efa4fa2030fd65",
     "semantic_hash": "0f4fdf5352c5be9d05efa4fa2030fd65"
   },
-  "src/versebridge/presentation/generated/color_pb2.py": {
+  "src/versevision/presentation/generated/color_pb2.py": {
     "mtime": 1784425031.5048864,
     "ast_hash": "58304935caacf4afd74ecdf1dadfd818",
     "semantic_hash": "58304935caacf4afd74ecdf1dadfd818"
   },
-  "src/versebridge/presentation/generated/cue_pb2.py": {
+  "src/versevision/presentation/generated/cue_pb2.py": {
     "mtime": 1784425031.5059192,
     "ast_hash": "00a44dc94687b0bb94d8d90a52c7d16c",
     "semantic_hash": "00a44dc94687b0bb94d8d90a52c7d16c"
   },
-  "src/versebridge/presentation/generated/customOptions_pb2.py": {
+  "src/versevision/presentation/generated/customOptions_pb2.py": {
     "mtime": 1784425031.5069225,
     "ast_hash": "ed643ba461e512dd9b436fb30ff70db9",
     "semantic_hash": "ed643ba461e512dd9b436fb30ff70db9"
   },
-  "src/versebridge/presentation/generated/digitalAudio_pb2.py": {
+  "src/versevision/presentation/generated/digitalAudio_pb2.py": {
     "mtime": 1784425031.5081384,
     "ast_hash": "f415daaab8b90cc30465da8c6c9a5fdb",
     "semantic_hash": "f415daaab8b90cc30465da8c6c9a5fdb"
   },
-  "src/versebridge/presentation/generated/effects_pb2.py": {
+  "src/versevision/presentation/generated/effects_pb2.py": {
     "mtime": 1784425031.5081384,
     "ast_hash": "d3b88ea7afde6d01c442aa32dcd91375",
     "semantic_hash": "d3b88ea7afde6d01c442aa32dcd91375"
   },
-  "src/versebridge/presentation/generated/fileProperties_pb2.py": {
+  "src/versevision/presentation/generated/fileProperties_pb2.py": {
     "mtime": 1784425031.5096438,
     "ast_hash": "648ffed50887ac8c2f1d8d29bacb1e60",
     "semantic_hash": "648ffed50887ac8c2f1d8d29bacb1e60"
   },
-  "src/versebridge/presentation/generated/font_pb2.py": {
+  "src/versevision/presentation/generated/font_pb2.py": {
     "mtime": 1784425031.510154,
     "ast_hash": "f8c9769f39fd4bf4a80175d147779d7a",
     "semantic_hash": "f8c9769f39fd4bf4a80175d147779d7a"
   },
-  "src/versebridge/presentation/generated/graphicsData_pb2.py": {
+  "src/versevision/presentation/generated/graphicsData_pb2.py": {
     "mtime": 1784425031.5111554,
     "ast_hash": "75621363c978819d3fd49688dc78f230",
     "semantic_hash": "75621363c978819d3fd49688dc78f230"
   },
-  "src/versebridge/presentation/generated/groups_pb2.py": {
+  "src/versevision/presentation/generated/groups_pb2.py": {
     "mtime": 1784425031.5116594,
     "ast_hash": "32f6a36b119489cfd4de536032ef396e",
     "semantic_hash": "32f6a36b119489cfd4de536032ef396e"
   },
-  "src/versebridge/presentation/generated/hotKey_pb2.py": {
+  "src/versevision/presentation/generated/hotKey_pb2.py": {
     "mtime": 1784425031.5121634,
     "ast_hash": "18b52668eb3c7aa067d8f09a631fb623",
     "semantic_hash": "18b52668eb3c7aa067d8f09a631fb623"
   },
-  "src/versebridge/presentation/generated/input_pb2.py": {
+  "src/versevision/presentation/generated/input_pb2.py": {
     "mtime": 1784425031.5131638,
     "ast_hash": "e5217d8c464c80b4e2c764565b3f249c",
     "semantic_hash": "e5217d8c464c80b4e2c764565b3f249c"
   },
-  "src/versebridge/presentation/generated/intRange_pb2.py": {
+  "src/versevision/presentation/generated/intRange_pb2.py": {
     "mtime": 1784425031.5131638,
     "ast_hash": "7e3e744778d155ae51bf913b8b9949de",
     "semantic_hash": "7e3e744778d155ae51bf913b8b9949de"
   },
-  "src/versebridge/presentation/generated/layers_pb2.py": {
+  "src/versevision/presentation/generated/layers_pb2.py": {
     "mtime": 1784425031.5143628,
     "ast_hash": "1badcfb4555b5e7d034200208fa081ec",
     "semantic_hash": "1badcfb4555b5e7d034200208fa081ec"
   },
-  "src/versebridge/presentation/generated/messages_pb2.py": {
+  "src/versevision/presentation/generated/messages_pb2.py": {
     "mtime": 1784425031.5143628,
     "ast_hash": "b684c1682a3883518086552a76d3316b",
     "semantic_hash": "b684c1682a3883518086552a76d3316b"
   },
-  "src/versebridge/presentation/generated/musicKeyScale_pb2.py": {
+  "src/versevision/presentation/generated/musicKeyScale_pb2.py": {
     "mtime": 1784425031.5153632,
     "ast_hash": "a5b92327a44ab515f477f34051ec3379",
     "semantic_hash": "a5b92327a44ab515f477f34051ec3379"
   },
-  "src/versebridge/presentation/generated/presentationSlide_pb2.py": {
+  "src/versevision/presentation/generated/presentationSlide_pb2.py": {
     "mtime": 1784425031.5163708,
     "ast_hash": "07213f064f4942db1e9e91090ad6748e",
     "semantic_hash": "07213f064f4942db1e9e91090ad6748e"
   },
-  "src/versebridge/presentation/generated/presentation_pb2.py": {
+  "src/versevision/presentation/generated/presentation_pb2.py": {
     "mtime": 1784425031.5168798,
     "ast_hash": "a151a62dd83c599f83226f81b7ac3c28",
     "semantic_hash": "a151a62dd83c599f83226f81b7ac3c28"
   },
-  "src/versebridge/presentation/generated/propSlide_pb2.py": {
+  "src/versevision/presentation/generated/propSlide_pb2.py": {
     "mtime": 1784425031.5183897,
     "ast_hash": "c5174c1dbcb4326e5937a5afe90be10a",
     "semantic_hash": "c5174c1dbcb4326e5937a5afe90be10a"
   },
-  "src/versebridge/presentation/generated/rvtimestamp_pb2.py": {
+  "src/versevision/presentation/generated/rvtimestamp_pb2.py": {
     "mtime": 1784425031.5199099,
     "ast_hash": "1f46c89da337870498b1f6c13a47c728",
     "semantic_hash": "1f46c89da337870498b1f6c13a47c728"
   },
-  "src/versebridge/presentation/generated/slide_pb2.py": {
+  "src/versevision/presentation/generated/slide_pb2.py": {
     "mtime": 1784425031.520429,
     "ast_hash": "69624d6cc89a55f6a311c3174a6ad3f9",
     "semantic_hash": "69624d6cc89a55f6a311c3174a6ad3f9"
   },
-  "src/versebridge/presentation/generated/stage_pb2.py": {
+  "src/versevision/presentation/generated/stage_pb2.py": {
     "mtime": 1784425031.5214298,
     "ast_hash": "2f36d4bbef6e6c53e350402c04618e24",
     "semantic_hash": "2f36d4bbef6e6c53e350402c04618e24"
   },
-  "src/versebridge/presentation/generated/templateIdentification_pb2.py": {
+  "src/versevision/presentation/generated/templateIdentification_pb2.py": {
     "mtime": 1784425031.522445,
     "ast_hash": "a2995d7081d1ed3e396a010da33cfd06",
     "semantic_hash": "a2995d7081d1ed3e396a010da33cfd06"
   },
-  "src/versebridge/presentation/generated/timers_pb2.py": {
+  "src/versevision/presentation/generated/timers_pb2.py": {
     "mtime": 1784425031.523445,
     "ast_hash": "9c73cc00785e1b486442c31a9ec4126a",
     "semantic_hash": "9c73cc00785e1b486442c31a9ec4126a"
   },
-  "src/versebridge/presentation/generated/url_pb2.py": {
+  "src/versevision/presentation/generated/url_pb2.py": {
     "mtime": 1784425031.52395,
     "ast_hash": "30316c7abee3093d5217a5820428fa15",
     "semantic_hash": "30316c7abee3093d5217a5820428fa15"
   },
-  "src/versebridge/presentation/generated/uuid_pb2.py": {
+  "src/versevision/presentation/generated/uuid_pb2.py": {
     "mtime": 1784425031.5249505,
     "ast_hash": "980ebe72ff5f26c0f0d495a1c66bc633",
     "semantic_hash": "980ebe72ff5f26c0f0d495a1c66bc633"
   },
-  "src/versebridge/presentation/generated/version_pb2.py": {
+  "src/versevision/presentation/generated/version_pb2.py": {
     "mtime": 1784425031.5249505,
     "ast_hash": "761e53234cf8d281f4a70a0e825c3a91",
     "semantic_hash": "761e53234cf8d281f4a70a0e825c3a91"
   },
-  "src/versebridge/presentation/protobuf_writer.py": {
+  "src/versevision/presentation/protobuf_writer.py": {
     "mtime": 1784425026.019915,
     "ast_hash": "777b36dafa46f10cebef7e1bc34ed0cc",
     "semantic_hash": "777b36dafa46f10cebef7e1bc34ed0cc"
   },
-  "src/versebridge/references/__init__.py": {
+  "src/versevision/references/__init__.py": {
     "mtime": 1784422913.0306382,
     "ast_hash": "db2bd79d403cb84f258c6c244095a8d5",
     "semantic_hash": "db2bd79d403cb84f258c6c244095a8d5"
   },
-  "src/versebridge/references/books.py": {
+  "src/versevision/references/books.py": {
     "mtime": 1784422913.0031884,
     "ast_hash": "484e12eb7bc6938a3711071c90b6fe16",
     "semantic_hash": "484e12eb7bc6938a3711071c90b6fe16"
   },
-  "src/versebridge/references/formatter.py": {
+  "src/versevision/references/formatter.py": {
     "mtime": 1784422913.028672,
     "ast_hash": "63c7b9c393a4d3a8e017dde16b01f69c",
     "semantic_hash": "63c7b9c393a4d3a8e017dde16b01f69c"
   },
-  "src/versebridge/references/models.py": {
+  "src/versevision/references/models.py": {
     "mtime": 1784422913.00268,
     "ast_hash": "fbf03e38e9531e2635134cd3f217d980",
     "semantic_hash": "fbf03e38e9531e2635134cd3f217d980"
   },
-  "src/versebridge/references/normalizer.py": {
+  "src/versevision/references/normalizer.py": {
     "mtime": 1784422913.0031884,
     "ast_hash": "79f99013f1eeb5ccfe21aa5352d305b0",
     "semantic_hash": "79f99013f1eeb5ccfe21aa5352d305b0"
   },
-  "src/versebridge/references/parser.py": {
+  "src/versevision/references/parser.py": {
     "mtime": 1784422980.4475307,
     "ast_hash": "f9465b85caaac48bf6f645600741078a",
     "semantic_hash": "f9465b85caaac48bf6f645600741078a"
   },
-  "src/versebridge/references/tokenizer.py": {
+  "src/versevision/references/tokenizer.py": {
     "mtime": 1784422913.0272505,
     "ast_hash": "7ca19bf6c4ad571b4f9de68cc348cca4",
     "semantic_hash": "7ca19bf6c4ad571b4f9de68cc348cca4"
   },
-  "src/versebridge/references/validator.py": {
+  "src/versevision/references/validator.py": {
     "mtime": 1784422980.4475307,
     "ast_hash": "d731f8605eb311cdad89b0c657d37698",
     "semantic_hash": "d731f8605eb311cdad89b0c657d37698"
   },
-  "src/versebridge/versions/__init__.py": {
+  "src/versevision/versions/__init__.py": {
     "mtime": 1784422913.0306382,
     "ast_hash": "eaf60570dfacf28155a2f5fdec971770",
     "semantic_hash": "eaf60570dfacf28155a2f5fdec971770"
   },
-  "src/versebridge/versions/registry.py": {
+  "src/versevision/versions/registry.py": {
     "mtime": 1784422913.0272505,
     "ast_hash": "710c822af0cd85a740076f1682675305",
     "semantic_hash": "710c822af0cd85a740076f1682675305"

@@ -937,7 +937,7 @@ wheels = [
 ]
 
 [[package]]
-name = "versebridge"
+name = "versevision"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

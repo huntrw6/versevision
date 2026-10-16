@@ -4,10 +4,10 @@ import httpx
 import pytest
 import respx
 
-from versebridge.errors import ConfigurationError, ProPresenterConnectionError, UnsupportedProPresenterError
-from versebridge.propresenter.api_client import ProPresenterApiClient
-from versebridge.propresenter.models import PresentationSummary
-from versebridge.propresenter.selection import select_unique_presentation
+from versevision.errors import ConfigurationError, ProPresenterConnectionError, UnsupportedProPresenterError
+from versevision.propresenter.api_client import ProPresenterApiClient
+from versevision.propresenter.models import PresentationSummary
+from versevision.propresenter.selection import select_unique_presentation
 
 
 @respx.mock

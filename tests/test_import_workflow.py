@@ -2,9 +2,9 @@ import asyncio
 
 import pytest
 
-from versebridge.config import AppConfig, BibleConfig
-from versebridge.errors import ConfigurationError
-from versebridge.workflow import dry_run_import
+from versevision.config import AppConfig, BibleConfig
+from versevision.errors import ConfigurationError
+from versevision.workflow import dry_run_import
 
 
 def test_dry_run_applies_default_and_never_changes_files() -> None:

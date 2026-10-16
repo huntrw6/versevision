@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "proto" / "source" / "propresenter19"
-OUTPUT = ROOT / "src" / "versebridge" / "presentation" / "generated"
+OUTPUT = ROOT / "src" / "versevision" / "presentation" / "generated"
 IMPORT = re.compile(r'^import\s+"([^"]+)"\s*;', re.MULTILINE)
 
 

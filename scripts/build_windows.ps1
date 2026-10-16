@@ -1,10 +1,10 @@
 $ErrorActionPreference = "Stop"
-$bundledModule = Join-Path $PSScriptRoot "..\src\versebridge\_bundled_credentials.py"
+$bundledModule = Join-Path $PSScriptRoot "..\src\versevision\_bundled_credentials.py"
 # Every provider key the app can use. A key may come from the environment, the Windows user environment,
-# or keys.env (NAME=value lines) in %APPDATA%\versebridge. Missing keys are skipped with a warning;
+# or keys.env (NAME=value lines) in %APPDATA%\versevision. Missing keys are skipped with a warning;
 # at least one key is required.
 $names = @("API_BIBLE_API_KEY", "YOUVERSION_API_KEY", "ESV_API_KEY")
-$keysFile = Join-Path $env:APPDATA "versebridge\keys.env"
+$keysFile = Join-Path $env:APPDATA "versevision\keys.env"
 $fromFile = @{}
 if (Test-Path -LiteralPath $keysFile) {
     foreach ($line in Get-Content -LiteralPath $keysFile) {
@@ -28,17 +28,17 @@ try {
     $module = ($values.GetEnumerator() | ForEach-Object { "$($_.Key) = '$(ConvertTo-PythonString $_.Value)'" }) -join "`n"
     [System.IO.File]::WriteAllText($bundledModule, $module + "`n", [System.Text.UTF8Encoding]::new($false))
     uv sync --extra dev
-    $generatedPath = Join-Path $PSScriptRoot "..\src\versebridge\presentation\generated"
+    $generatedPath = Join-Path $PSScriptRoot "..\src\versevision\presentation\generated"
     $pyinstallerArgs = @(
-        "--onefile", "--name", "versebridge",
+        "--onefile", "--name", "versevision",
         "--paths", $generatedPath,
-        "--add-data", "src\versebridge\web\index.html;versebridge\web",
-        "--hidden-import", "versebridge._bundled_credentials"
+        "--add-data", "src\versevision\web\index.html;versevision\web",
+        "--hidden-import", "versevision._bundled_credentials"
     )
     foreach ($binding in Get-ChildItem -LiteralPath $generatedPath -Filter "*_pb2.py") {
         $pyinstallerArgs += @("--hidden-import", $binding.BaseName)
     }
-    $pyinstallerArgs += "src/versebridge/cli.py"
+    $pyinstallerArgs += "src/versevision/cli.py"
     uv run pyinstaller @pyinstallerArgs
 }
 finally {

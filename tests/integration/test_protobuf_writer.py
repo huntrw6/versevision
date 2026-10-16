@@ -1,8 +1,8 @@
 from pathlib import Path
 import shutil
 
-from versebridge.presentation import ProtobufPresentationWriter
-from versebridge.presentation.backup import restore_backup
+from versevision.presentation import ProtobufPresentationWriter
+from versevision.presentation.backup import restore_backup
 
 
 FIXTURE = Path(__file__).parents[1] / "fixtures" / "propresenter19" / "Verses.original.pro"
@@ -14,7 +14,7 @@ def test_append_verify_and_restore(tmp_path):
     original = target.read_bytes()
     writer = ProtobufPresentationWriter()
 
-    result = writer.append_synthetic_slide(target, "Synthetic verse-like text", "VerseBridge Test")
+    result = writer.append_synthetic_slide(target, "Synthetic verse-like text", "VerseVision Test")
 
     assert result.cue_count_before == 1
     assert result.cue_count_after == 2
@@ -43,4 +43,4 @@ def test_unknown_application_version_is_rejected_without_changes(tmp_path):
         raise AssertionError("unsupported document was accepted")
 
     assert target.read_bytes() == unsupported
-    assert not list(tmp_path.glob("*.versebridge-backup-*"))
+    assert not list(tmp_path.glob("*.versevision-backup-*"))

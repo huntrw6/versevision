@@ -1,9 +1,9 @@
 import asyncio
 
-from versebridge.bibles.cache import ScriptureCache
-from versebridge.bibles.registry import ProviderRegistry
-from versebridge.config import AppConfig, BibleConfig, LocalUsfmProviderConfig
-from versebridge.workflow import dry_run_import
+from versevision.bibles.cache import ScriptureCache
+from versevision.bibles.registry import ProviderRegistry
+from versevision.config import AppConfig, BibleConfig, LocalUsfmProviderConfig
+from versevision.workflow import dry_run_import
 
 
 def test_fetched_dry_run_places_text_and_attribution_on_slides(tmp_path) -> None:

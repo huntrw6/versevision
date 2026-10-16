@@ -4,11 +4,11 @@ from pathlib import Path
 import httpx
 import respx
 
-from versebridge.config import AppConfig
-from versebridge.presentation.base import PlanWriteResult
-from versebridge.slides.models import PlannedSlide, SlidePlan
-from versebridge.workflow.result import TargetResult
-from versebridge.workflow.write_workflow import verify_import_via_api
+from versevision.config import AppConfig
+from versevision.presentation.base import PlanWriteResult
+from versevision.slides.models import PlannedSlide, SlidePlan
+from versevision.workflow.result import TargetResult
+from versevision.workflow.write_workflow import verify_import_via_api
 
 
 @respx.mock

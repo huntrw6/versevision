@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
-# Builds a self-contained `versebridge` executable that includes every provider key you have.
-# Keys come from the environment or from ~/.config/versebridge/keys.env (NAME=value lines).
+# Builds a self-contained `versevision` executable that includes every provider key you have.
+# Keys come from the environment or from ~/.config/versevision/keys.env (NAME=value lines).
 set -eu
 cd "$(dirname "$0")/.."
-KEYS="${VERSEBRIDGE_KEYS:-$HOME/.config/versebridge/keys.env}"
-MODULE="src/versebridge/_bundled_credentials.py"
+KEYS="${VERSEVISION_KEYS:-$HOME/.config/versevision/keys.env}"
+MODULE="src/versevision/_bundled_credentials.py"
 trap 'rm -f "$MODULE"' EXIT
 : > "$MODULE"
 found=0
@@ -25,6 +25,6 @@ PY
 done
 [ "$found" -gt 0 ] || { echo "No provider keys found." >&2; exit 1; }
 uv sync --extra dev
-uv run pyinstaller --onefile --name versebridge --paths src/versebridge/presentation/generated \
-  --add-data "src/versebridge/web/index.html:versebridge/web" \
-  --hidden-import versebridge._bundled_credentials src/versebridge/cli.py
+uv run pyinstaller --onefile --name versevision --paths src/versevision/presentation/generated \
+  --add-data "src/versevision/web/index.html:versevision/web" \
+  --hidden-import versevision._bundled_credentials src/versevision/cli.py

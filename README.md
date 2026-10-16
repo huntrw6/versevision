@@ -1,6 +1,6 @@
-# VerseBridge CLI
+# VerseVision CLI
 
-VerseBridge is a Python 3.12+ command-line application for turning Bible references in ordinary documents into explicitly targeted ProPresenter slide imports. It is designed to work without AI, UI automation, AppleScript, simulated input, or accessibility permissions.
+VerseVision is a Python 3.12+ command-line application for turning Bible references in ordinary documents into explicitly targeted ProPresenter slide imports. It is designed to work without AI, UI automation, AppleScript, simulated input, or accessibility permissions.
 
 The current implementation includes:
 
@@ -18,27 +18,27 @@ The current implementation includes:
 ```powershell
 uv sync --extra dev
 uv run pytest
-uv run versebridge parse --text "John 1:14-18 & 20-23 & 25 NLT" --output json
-uv run versebridge import --text "John 3:16-18 NIV" --dry-run --no-fetch --non-interactive --output json
-uv run versebridge doctor --port 1025 --output json
-uv run versebridge providers test
-uv run versebridge cache inspect
-uv run versebridge template inspect --target-presentation Verses
-uv run versebridge template select --target-presentation Verses
-uv run versebridge template validate
+uv run versevision parse --text "John 1:14-18 & 20-23 & 25 NLT" --output json
+uv run versevision import --text "John 3:16-18 NIV" --dry-run --no-fetch --non-interactive --output json
+uv run versevision doctor --port 1025 --output json
+uv run versevision providers test
+uv run versevision cache inspect
+uv run versevision template inspect --target-presentation Verses
+uv run versevision template select --target-presentation Verses
+uv run versevision template validate
 ```
 
 After providers and a template are configured, a production import requires an explicit destination and confirmation:
 
 ```powershell
-uv run versebridge import sermon.pdf `
+uv run versevision import sermon.pdf `
   --target-uuid PRESENTATION_UUID `
   --yes
 ```
 
-If ProPresenter is running, VerseBridge asks the operator to close it completely before writing and reopen it afterward. It then verifies every generated slide through the Network API. Noninteractive production writes also require ProPresenter to be closed. Failed API verification triggers a guided rollback with exit code 8; the CLI never modifies playlists as a side effect of presentation import.
+If ProPresenter is running, VerseVision asks the operator to close it completely before writing and reopen it afterward. It then verifies every generated slide through the Network API. Noninteractive production writes also require ProPresenter to be closed. Failed API verification triggers a guided rollback with exit code 8; the CLI never modifies playlists as a side effect of presentation import.
 
-Run `uv run versebridge --help` for the command tree. Omit `--no-fetch` to use configured providers.
+Run `uv run versevision --help` for the command tree. Omit `--no-fetch` to use configured providers.
 
 Example local USFM configuration:
 
@@ -95,13 +95,13 @@ repeat_reference_on_continuation = true
 ## Quick start (sermon notes)
 
 ```bash
-versebridge node                          # check the connection to the ProPresenter computer
-versebridge template setup -t Verses --verse-slide 2   # pick the verse and sermon-point template slides
-versebridge run notes.pdf -t Verses --dry-run          # plan and report; changes nothing
-versebridge run notes.pdf -t Verses                    # import (closes and reopens ProPresenter)
-versebridge history                                    # earlier imports
-versebridge undo IMPORT_ID                             # remove exactly the slides that import added
-versebridge serve                                      # local web page: drag and drop, review, import
+versevision node                          # check the connection to the ProPresenter computer
+versevision template setup -t Verses --verse-slide 2   # pick the verse and sermon-point template slides
+versevision run notes.pdf -t Verses --dry-run          # plan and report; changes nothing
+versevision run notes.pdf -t Verses                    # import (closes and reopens ProPresenter)
+versevision history                                    # earlier imports
+versevision undo IMPORT_ID                             # remove exactly the slides that import added
+versevision serve                                      # local web page: drag and drop, review, import
 ```
 
 `run` reads `.pdf .docx .txt .md .html`, plans verse and sermon-point slides in document order, and imports them. Importing the same file again **replaces** its earlier slides instead of adding a second copy (`--no-replace` to append). `--output json` gives a machine-readable report for scripts.
@@ -129,11 +129,11 @@ name = "jpl-graphics-imac"
 app_path = "/Applications/ProPresenter 19.1.app"
 ```
 
-For a remote Mac VerseBridge reads the presentation file, backs it up, writes the new slides, installs the file only if it did not change meanwhile, reopens ProPresenter and checks every new slide through the ProPresenter API. If that check fails it restores the backup. If ProPresenter shows an "Are you sure you want to quit?" or "Save changes?" prompt, someone at that computer must answer it; VerseBridge then stops with nothing changed.
+For a remote Mac VerseVision reads the presentation file, backs it up, writes the new slides, installs the file only if it did not change meanwhile, reopens ProPresenter and checks every new slide through the ProPresenter API. If that check fails it restores the backup. If ProPresenter shows an "Are you sure you want to quit?" or "Save changes?" prompt, someone at that computer must answer it; VerseVision then stops with nothing changed.
 
 ### Web page
 
-`versebridge serve` listens on `127.0.0.1:8777`. Drop a file, review what was understood and what was flagged, then import. Use `--host 0.0.0.0` to open it to your network; it then requires the private access token printed at startup.
+`versevision serve` listens on `127.0.0.1:8777`. Drop a file, review what was understood and what was flagged, then import. Use `--host 0.0.0.0` to open it to your network; it then requires the private access token printed at startup.
 
 ## Safety and compatibility
 

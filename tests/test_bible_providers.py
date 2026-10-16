@@ -5,13 +5,13 @@ import httpx
 import pytest
 import respx
 
-from versebridge.bibles.api_bible import ApiBibleProvider
-from versebridge.bibles.cache import ScriptureCache
-from versebridge.bibles.local_usfm import LocalUsfmProvider
-from versebridge.bibles.youversion import YouVersionProvider
-from versebridge.config import ApiBibleProviderConfig, LocalUsfmProviderConfig, YouVersionProviderConfig
-from versebridge.errors import BibleProviderError
-from versebridge.references.models import VersePoint, VerseSpan
+from versevision.bibles.api_bible import ApiBibleProvider
+from versevision.bibles.cache import ScriptureCache
+from versevision.bibles.local_usfm import LocalUsfmProvider
+from versevision.bibles.youversion import YouVersionProvider
+from versevision.config import ApiBibleProviderConfig, LocalUsfmProviderConfig, YouVersionProviderConfig
+from versevision.errors import BibleProviderError
+from versevision.references.models import VersePoint, VerseSpan
 
 
 def _usfm(tmp_path: Path) -> Path:
@@ -51,7 +51,7 @@ def test_scripture_cache_round_trip(tmp_path: Path) -> None:
 
 @respx.mock
 def test_api_bible_lists_and_fetches_without_leaking_key(monkeypatch) -> None:
-    monkeypatch.setenv("VERSEBRIDGE_TEST_BIBLE_KEY", "do-not-log-this")
+    monkeypatch.setenv("VERSEVISION_TEST_BIBLE_KEY", "do-not-log-this")
     respx.get("https://example.test/v1/bibles").mock(return_value=httpx.Response(200, json={"data": [{
         "id": "bible-id", "abbreviation": "TST", "name": "Synthetic Bible", "language": {"id": "eng"},
         "copyright": "Synthetic copyright",
@@ -60,7 +60,7 @@ def test_api_bible_lists_and_fetches_without_leaking_key(monkeypatch) -> None:
         return_value=httpx.Response(200, json={"data": {"content": "<p>[16] Synthetic API verse.</p>"}})
     )
     provider = ApiBibleProvider("api", ApiBibleProviderConfig(
-        api_key_env="VERSEBRIDGE_TEST_BIBLE_KEY", base_url="https://example.test/v1",
+        api_key_env="VERSEVISION_TEST_BIBLE_KEY", base_url="https://example.test/v1",
     ))
 
     async def run():
@@ -75,19 +75,19 @@ def test_api_bible_lists_and_fetches_without_leaking_key(monkeypatch) -> None:
 
 
 def test_api_bible_missing_key_names_environment_variable_only() -> None:
-    provider = ApiBibleProvider("api", ApiBibleProviderConfig(api_key_env="DEFINITELY_MISSING_VERSEBRIDGE_KEY"))
+    provider = ApiBibleProvider("api", ApiBibleProviderConfig(api_key_env="DEFINITELY_MISSING_VERSEVISION_KEY"))
     async def run():
         try:
             await provider.list_versions()
         finally:
             await provider.aclose()
-    with pytest.raises(BibleProviderError, match="DEFINITELY_MISSING_VERSEBRIDGE_KEY"):
+    with pytest.raises(BibleProviderError, match="DEFINITELY_MISSING_VERSEVISION_KEY"):
         asyncio.run(run())
 
 
 @respx.mock
 def test_youversion_aliases_configured_id_and_fetches_text(monkeypatch) -> None:
-    monkeypatch.setenv("VERSEBRIDGE_TEST_YV_KEY", "do-not-log-this")
+    monkeypatch.setenv("VERSEVISION_TEST_YV_KEY", "do-not-log-this")
     respx.get("https://youversion.test/v1/bibles").mock(return_value=httpx.Response(200, json={"data": [{
         "id": 111, "abbreviation": "NIV11", "localized_title": "New International Version",
         "language_tag": "en", "copyright": "Synthetic copyright",
@@ -96,7 +96,7 @@ def test_youversion_aliases_configured_id_and_fetches_text(monkeypatch) -> None:
         return_value=httpx.Response(200, json={"content": "Synthetic YouVersion verse."})
     )
     provider = YouVersionProvider("youversion", YouVersionProviderConfig(
-        api_key_env="VERSEBRIDGE_TEST_YV_KEY", base_url="https://youversion.test/v1",
+        api_key_env="VERSEVISION_TEST_YV_KEY", base_url="https://youversion.test/v1",
         bible_ids={"NIV": "111"},
     ))
 

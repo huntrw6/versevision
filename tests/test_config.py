@@ -2,14 +2,14 @@ from pathlib import Path
 
 import pytest
 
-from versebridge.config import (
+from versevision.config import (
     AppConfig, BibleConfig, LocalUsfmProviderConfig, YouVersionProviderConfig, load_config, save_config,
 )
-from versebridge.errors import ConfigurationError
+from versevision.errors import ConfigurationError
 
 
 def test_config_round_trip(tmp_path: Path) -> None:
-    path = tmp_path / "versebridge.toml"
+    path = tmp_path / "versevision.toml"
     expected = AppConfig(bible=BibleConfig(default_version="ESV"))
 
     save_config(expected, path)
@@ -24,7 +24,7 @@ def test_missing_config_returns_defaults(tmp_path: Path) -> None:
 
 
 def test_provider_config_round_trip_preserves_paths(tmp_path: Path) -> None:
-    path = tmp_path / "versebridge.toml"
+    path = tmp_path / "versevision.toml"
     expected = AppConfig(bible=BibleConfig(
         providers={"local": LocalUsfmProviderConfig(version="NKJV", path=tmp_path / "usfm")},
         version_routes={"NKJV": "local"},

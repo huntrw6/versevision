@@ -3,8 +3,8 @@ import re
 import shutil
 from pathlib import Path
 
-from versebridge.node.transport import sha256_file
-from versebridge.presentation.generated import presentation_pb2
+from versevision.node.transport import sha256_file
+from versevision.presentation.generated import presentation_pb2
 
 
 class FakeNode:
@@ -109,7 +109,7 @@ def _delete(self, remote, expected_cues):
     m = presentation_pb2.Presentation()
     m.ParseFromString(Path(remote).read_bytes())
     if len(m.cues) != expected_cues:
-        from versebridge.errors import PresentationWriteError
+        from versevision.errors import PresentationWriteError
         raise PresentationWriteError("edited")
     Path(remote).unlink()
     getattr(self, "extra", {}).pop(Path(remote).stem, None)

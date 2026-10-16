@@ -1,6 +1,6 @@
 import json
 
-from versebridge.logging import AuditEntry, append_audit_entry, redact_fields
+from versevision.logging import AuditEntry, append_audit_entry, redact_fields
 
 
 def test_redaction_and_audit_jsonl(tmp_path) -> None:

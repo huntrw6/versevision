@@ -19,7 +19,7 @@ repeat_reference_on_continuation = true
 [presentation_template]
 presentation_uuid = "ee748d35-fbf6-4076-aae8-4f4c878b66bd"
 presentation_name = "Verses"
-library_name = "VerseBridge Test - Safe to Modify"
+library_name = "VerseVision Test - Safe to Modify"
 cue_uuid = "74d5e14c-1b45-4ced-ab09-6ba5ec608dcc"
 reference_object = "Reference"
 body_object = "Verse"

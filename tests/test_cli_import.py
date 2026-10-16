@@ -2,7 +2,7 @@ import json
 
 from typer.testing import CliRunner
 
-from versebridge.cli import app
+from versevision.cli import app
 
 
 runner = CliRunner()

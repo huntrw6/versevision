@@ -36,11 +36,11 @@
 - `ProPresenter Compatibility Gate` --semantically_similar_to--> `Unofficial Schema Safety Policy`  [INFERRED] [semantically similar]
   docs/FEASIBILITY.md → proto/README.md
 - `test_unknown_application_version_is_rejected_without_changes()` --calls--> `ProtobufPresentationWriter`  [INFERRED]
-  tests/integration/test_protobuf_writer.py → src/versebridge/presentation/protobuf_writer.py
+  tests/integration/test_protobuf_writer.py → src/versevision/presentation/protobuf_writer.py
 - `test_warnings_are_not_shared()` --calls--> `PassageReference`  [INFERRED]
-  tests/unit/test_models.py → src/versebridge/references/models.py
+  tests/unit/test_models.py → src/versevision/references/models.py
 - `test_range_delimiters_and_version_case_are_stable()` --calls--> `parse_references()`  [INFERRED]
-  tests/unit/test_parser_properties.py → src/versebridge/references/parser.py
+  tests/unit/test_parser_properties.py → src/versevision/references/parser.py
 
 ## Import Cycles
 - None detected.
@@ -61,7 +61,7 @@ Nodes (19): Book, recognize_book(), format_reference(), _point(), ParseIssue, Pa
 
 ### Community 3 - "CLI and Document Extraction"
 Cohesion: 0.14
-Nodes (15): Argument, Exception, help, Option, main(), parse_command(), Path, VerseBridge command line application. (+7 more)
+Nodes (15): Argument, Exception, help, Option, main(), parse_command(), Path, VerseVision command line application. (+7 more)
 
 ### Community 4 - "Architecture and Feasibility"
 Cohesion: 0.14
@@ -76,18 +76,18 @@ Cohesion: 0.67
 Nodes (3): dependency_closure(), main(), Generate the minimal Python binding closure needed for Presentation files.
 
 ## Ambiguous Edges - Review These
-- `VerseBridge CLI` → `Windows ProPresenter Feasibility Spike`  [AMBIGUOUS]
+- `VerseVision CLI` → `Windows ProPresenter Feasibility Spike`  [AMBIGUOUS]
   README.md · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **9 isolated node(s):** `versebridge`, `build_macos.sh script`, `Grammar-Based Bible Reference Parser`, `Supported Document Inputs`, `Milestone 0 Feasibility Report` (+4 more)
+- **9 isolated node(s):** `versevision`, `build_macos.sh script`, `Grammar-Based Bible Reference Parser`, `Supported Document Inputs`, `Milestone 0 Feasibility Report` (+4 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What is the exact relationship between `VerseBridge CLI` and `Windows ProPresenter Feasibility Spike`?**
+- **What is the exact relationship between `VerseVision CLI` and `Windows ProPresenter Feasibility Spike`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
 - **Why does `parse_references()` connect `Parser Tests and Normalization` to `Reference Parsing Core`, `CLI and Document Extraction`?**
   _High betweenness centrality (0.097) - this node is a cross-community bridge._
