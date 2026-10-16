@@ -46,13 +46,28 @@ def resolve_note_versions(
     resolved: list[tuple[int, PassageReference | None, str]] = []
     last_explicit: str | None = None
     default_name = canonical_version(default) if default else None
-    for item in document.verses:
+    verses = document.verses
+
+    def same_passage(a: PassageReference, b: PassageReference) -> bool:
+        return a.book_id == b.book_id and a.spans == b.spans
+
+    def comparison(index: int) -> bool:
+        """Same passage shown in two versions back to back (a study comparison)."""
+        here = verses[index].reference
+        return any(
+            0 <= other < len(verses) and same_passage(here, verses[other].reference)
+            and verses[other].reference.version != here.version
+            for other in (index - 1, index + 1)
+        )
+
+    for index, item in enumerate(verses):
         reference = item.reference
         for warning in item.warnings:
             if "read as" in warning or "unrecognized" in warning:
                 notices.append(ProblemEntry(line=item.line, text=reference.source_text.strip(), problem=warning))
         if reference.version:
-            last_explicit = reference.version
+            if not comparison(index):          # a comparison pair never sets the version for later verses
+                last_explicit = reference.version
             resolved.append((item.line, reference, ""))
             continue
         chosen = last_explicit or default_name

@@ -52,3 +52,10 @@ def test_rtf_without_cb_marker():
 def test_esv_provider_is_never_cached_and_label_stays():
     from versebridge.bibles.esv import EsvProvider
     assert EsvProvider.cacheable is False
+
+
+def test_comparison_pair_does_not_carry_version_forward():
+    from versebridge.workflow.notes_workflow import resolve_note_versions
+    doc = classify_document("Psalm 46:1 NKJV\nPsalm 81:10 ESV\nPsalm 81:10 TPT\nPsalm 46:2\nGalatians 3:3")
+    resolved, _ = resolve_note_versions(doc, default=None)
+    assert [ref.version for _, ref, _ in resolved] == ["NKJV", "ESV", "TPT", "NKJV", "NKJV"]
