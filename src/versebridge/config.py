@@ -49,6 +49,11 @@ class PresentationTemplateConfig(BaseModel):
     point_style_fingerprint: str | None = None
 
 
+class OutputConfig(BaseModel):
+    """Where new presentations go. The default is a NEW presentation in this library (no restart needed)."""
+    library: str = "Verses"
+
+
 class ApiBibleProviderConfig(BaseModel):
     type: Literal["api_bible"] = "api_bible"
     api_key_env: str = "API_BIBLE_API_KEY"
@@ -120,6 +125,7 @@ class AppConfig(BaseModel):
     slides: SlideConfig = Field(default_factory=SlideConfig)
     presentation: PresentationConfig = Field(default_factory=PresentationConfig)
     presentation_template: PresentationTemplateConfig | None = None
+    output: OutputConfig = Field(default_factory=OutputConfig)
     bible: BibleConfig = Field(default_factory=BibleConfig)
 
 

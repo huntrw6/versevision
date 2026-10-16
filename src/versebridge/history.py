@@ -32,6 +32,9 @@ class ImportRecord(BaseModel):
     backup_path: str | None = None
     status: str = "active"          # active | replaced | undone | rolled_back
     replaces: str | None = None
+    mode: str = "append"            # new (own presentation) | append | replace
+    library: str | None = None
+    file_path: str | None = None
 
 
 class HistoryStore:

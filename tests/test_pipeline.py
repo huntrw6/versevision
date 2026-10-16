@@ -134,3 +134,104 @@ def test_target_is_found_from_disk_when_propresenter_is_closed(env):
     plan, _ = asyncio.run(plan_for_transport(NOTES, config, node, default_version="NIV", target_uuid=None, target_name="Sample", library=None))
     result = apply_import(NOTES, "n.txt", plan, (lib, uuid_, name, path, {}), config, node, history=history)
     assert result.slide_count == 4 and not result.reopened and node.log == ["install"]
+
+
+# ----------------------------------------------------------------------------- new presentation (the default)
+from versebridge.notes.title import document_title, safe_presentation_name, unique_name
+from versebridge.presentation.protobuf_writer import ProtobufPresentationWriter
+
+
+def test_publish_new_creates_separate_presentation_without_touching_the_original(env):
+    tmp, pres, node, config, history = env
+    before = sha256_file(pres)
+    plan, _ = _plan(node, config)
+    result = pipeline.publish_new(NOTES, "n.txt", "9/27/26 Heroes: Martin Luther", plan, config, node, history=history, verify_timeout=3)
+    assert result.mode == "new" and result.presentation_name == "9-27-26 Heroes - Martin Luther" and not result.restart_needed
+    assert sha256_file(pres) == before                         # existing presentation never touched
+    assert node.log == ["create"]                              # no quit, no launch, no install
+    assert (pres.parent / "9-27-26 Heroes - Martin Luther.pro").exists()
+
+
+def test_publish_new_twice_never_overwrites_and_numbers_the_second(env):
+    tmp, pres, node, config, history = env
+    plan, _ = _plan(node, config)
+    a = pipeline.publish_new(NOTES, "n.txt", "Message", plan, config, node, history=history, verify_timeout=3)
+    b = pipeline.publish_new(NOTES, "n.txt", "Message", plan, config, node, history=history, verify_timeout=3)
+    assert (a.presentation_name, b.presentation_name) == ("Message", "Message (2)")
+
+
+def test_undo_of_a_new_presentation_deletes_only_that_file(env):
+    tmp, pres, node, config, history = env
+    plan, _ = _plan(node, config)
+    r = pipeline.publish_new(NOTES, "n.txt", "Message", plan, config, node, history=history, verify_timeout=3)
+    created = pres.parent / "Message.pro"
+    assert created.exists()
+    undo_import(r.import_id, config, node, history=history)
+    assert not created.exists() and pres.exists()
+
+
+def test_undo_refuses_to_delete_a_presentation_that_was_edited(env):
+    from versebridge.errors import PresentationWriteError
+    tmp, pres, node, config, history = env
+    plan, _ = _plan(node, config)
+    r = pipeline.publish_new(NOTES, "n.txt", "Message", plan, config, node, history=history, verify_timeout=3)
+    created = pres.parent / "Message.pro"
+    ProtobufPresentationWriter().append_plan(created, plan.slide_plan, config.presentation_template, template_path=pres)   # someone added slides
+    with pytest.raises(PresentationWriteError):
+        undo_import(r.import_id, config, node, history=history)
+    assert created.exists()
+
+
+# ----------------------------------------------------------------------------- --replace keeps blank and background slides
+def test_replace_removes_only_verse_and_point_slides(env):
+    from versebridge.slides.models import PlannedSlide, SlidePlan
+    tmp, pres, node, config, history = env
+    # give the presentation some non-verse slides by cloning the template cue and stripping its text objects
+    m = presentation_pb2.Presentation()
+    m.ParseFromString(pres.read_bytes())
+    blank = m.cues.add()
+    blank.CopyFrom(m.cues[0])
+    blank.uuid.string = "00000000-1111-2222-3333-444444444444"
+    for action in blank.actions:
+        if action.WhichOneof("ActionTypeData") == "slide":
+            del action.slide.presentation.base_slide.elements[:]
+            action.label.text = "Background"
+    group = m.cue_groups.add()
+    group.CopyFrom(m.cue_groups[0])
+    group.group.uuid.string = "aaaaaaaa-1111-2222-3333-444444444444"
+    del group.cue_identifiers[:]
+    group.cue_identifiers.add().string = blank.uuid.string
+    pres.write_bytes(m.SerializeToString(deterministic=True))
+    # keep a template presentation outside the target so the template cue survives clearing
+    template_copy = pres.parent / "template.pro"
+    shutil.copy(pres, template_copy)
+    plan, target = _plan(node, config)
+    original_fetch = node.fetch_file
+
+    def fetch(remote, local):
+        sha = original_fetch(remote, local)
+        return sha
+
+    apply_import(NOTES, "n.txt", plan, target, config, node, replace=True, clear_generated=True, history=history)
+    after = presentation_pb2.Presentation()
+    after.ParseFromString(pres.read_bytes())
+    labels = [a.label.text for c in after.cues for a in c.actions]
+    assert "Background" in labels                                # kept
+    kept_original = {c.uuid.string for c in after.cues} & {c.uuid.string for c in m.cues}
+    assert kept_original == {blank.uuid.string}                  # the template's verse/point cues were cleared
+    assert len(after.cues) == 1 + len(plan.slide_plan.slides)
+
+
+# ----------------------------------------------------------------------------- titles and names
+def test_document_title_rules():
+    assert document_title("JPL 8/23/26 Summer in the Psalms\nJohn 3:16 NIV", "x.pdf") == "JPL 8-23-26 Summer in the Psalms"
+    assert document_title("Illuminary <a@b.com>\nSunday Scripture List\nJohn 3:16", "x.pdf") == "Sunday Scripture List"
+    assert document_title("John 3:16 NIV\n1) A point", "Easter_Notes.pdf") == "Easter Notes"
+    assert document_title("“A quote.”\nJohn 3:16", "") == "Sermon Notes"
+
+
+def test_names_are_file_safe_and_unique():
+    assert safe_presentation_name('A/B: C*D?') == "A-B - CD"
+    assert unique_name("Verses", {"verses"}) == "Verses (2)"
+    assert unique_name("X", {"x", "x (2)"}) == "X (3)"
+    assert len(safe_presentation_name("word " * 80)) <= 100

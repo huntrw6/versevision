@@ -87,3 +87,53 @@ def _find(self, name, library):
 
 
 FakeNode.find_presentation = _find
+
+
+def _folder(self, library):
+    return str(self.file.parent)
+
+
+def _create(self, local, remote):
+    target = Path(remote)
+    if target.exists():
+        raise FileExistsError(remote)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(local, target)
+    self.extra = getattr(self, "extra", {})
+    self.extra[target.stem] = target
+    self.log.append("create")
+    return sha256_file(target)
+
+
+def _delete(self, remote, expected_cues):
+    m = presentation_pb2.Presentation()
+    m.ParseFromString(Path(remote).read_bytes())
+    if len(m.cues) != expected_cues:
+        from versebridge.errors import PresentationWriteError
+        raise PresentationWriteError("edited")
+    Path(remote).unlink()
+    getattr(self, "extra", {}).pop(Path(remote).stem, None)
+    return "Presentation removed"
+
+
+FakeNode.library_folder = _folder
+FakeNode.create_file = _create
+FakeNode.delete_created_file = _delete
+_orig_api = FakeNode.api_get
+
+
+def _api(self, route):
+    extra = getattr(self, "extra", {})
+    if route == "/v1/library/L1":
+        return {"items": [{"uuid": "P1", "name": self.name}] + [{"uuid": f"X-{n}", "name": n} for n in extra]}
+    if route.startswith("/v1/presentation/X-"):
+        name = route.split("X-", 1)[1]
+        other = FakeNode(self.store, extra[name])
+        other.running = False
+        result = other.api_get("/v1/presentation/P1")
+        result["presentation"]["id"]["name"] = name
+        return result
+    return _orig_api(self, route)
+
+
+FakeNode.api_get = _api

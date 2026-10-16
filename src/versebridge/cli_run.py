@@ -21,7 +21,7 @@ from versebridge.node.transport import make_transport
 from versebridge.presentation.template import (
     create_template_definition, inspect_point_candidates, inspect_template_candidates,
 )
-from versebridge.workflow.pipeline import _target_from_api, apply_import, plan_for_transport, undo_import
+from versebridge.workflow.pipeline import _target_from_api, apply_import, plan_for_transport, publish_new, undo_import
 from versebridge.workflow.report import build_report
 
 console = Console(stderr=True)
@@ -75,36 +75,81 @@ def _print_report(report: dict) -> None:
 
 
 def register(app: typer.Typer, template_app: typer.Typer) -> None:
+    @app.command("presentations")
+    def presentations_command(
+        node: Annotated[Optional[str], typer.Option("--node")] = None,
+        library: Annotated[Optional[str], typer.Option("--library")] = None,
+        output: Annotated[str, typer.Option("--output")] = "terminal",
+    ) -> None:
+        """List the presentations in ProPresenter (use a name with `run --replace/--append -p NAME`)."""
+        as_json = output.casefold() == "json"
+        try:
+            from versebridge.workflow.pipeline import list_presentations
+            config = _config_with_node(load_config(), node, None, None)
+            items = list_presentations(make_transport(config.propresenter, config.node))
+            if library:
+                items = [i for i in items if i["library"].casefold() == library.casefold()]
+            if as_json:
+                typer.echo(json.dumps(items, indent=2, ensure_ascii=False))
+                return
+            table = Table("Library", "Presentation", "UUID")
+            for item in items:
+                table.add_row(item["library"], item["name"], item["uuid"])
+            Console().print(table)
+        except Exception as exc:
+            _fail(exc, as_json)
+
     @app.command("run")
     def run_command(
         file: Annotated[Optional[Path], typer.Argument(help="Notes file (.pdf .docx .txt .md .html)")] = None,
         text: Annotated[Optional[str], typer.Option("--text")] = None,
-        target_presentation: Annotated[Optional[str], typer.Option("--target-presentation", "-t")] = None,
-        target_uuid: Annotated[Optional[str], typer.Option("--target-uuid")] = None,
-        library: Annotated[Optional[str], typer.Option("--library")] = None,
+        presentation: Annotated[Optional[str], typer.Option("--presentation", "-p", help="Existing presentation to change instead of making a new one (needs --replace or --append)")] = None,
+        presentation_uuid: Annotated[Optional[str], typer.Option("--presentation-uuid")] = None,
+        title: Annotated[Optional[str], typer.Option("--title", help="Name for the new presentation (default: the document's title)")] = None,
+        library: Annotated[Optional[str], typer.Option("--library", help="Library for the new presentation (default: Verses)")] = None,
+        replace: Annotated[bool, typer.Option("--replace", help="In the chosen presentation, delete its verse and sermon-point slides (blank/background/media slides stay) and add the new ones")] = False,
+        append: Annotated[bool, typer.Option("--append", help="Add the slides to the end of the chosen presentation")] = False,
         node: Annotated[Optional[str], typer.Option("--node", help="Remote computer running ProPresenter")] = None,
         default_version: Annotated[Optional[str], typer.Option("--default-version")] = None,
         dry_run: Annotated[bool, typer.Option("--dry-run", help="Plan and report only; change nothing")] = False,
         yes: Annotated[bool, typer.Option("--yes", help="Import even when some lines are flagged")] = False,
-        no_replace: Annotated[bool, typer.Option("--no-replace", help="Append even if this file was imported before")] = False,
-        no_close: Annotated[bool, typer.Option("--no-close", help="Never close ProPresenter automatically")] = False,
+        no_close: Annotated[bool, typer.Option("--no-close", help="Never close ProPresenter automatically (replace/append only)")] = False,
         no_reopen: Annotated[bool, typer.Option("--no-reopen")] = False,
         output: Annotated[str, typer.Option("--output")] = "terminal",
+        target_presentation: Annotated[Optional[str], typer.Option("--target-presentation", "-t", hidden=True)] = None,
+        target_uuid: Annotated[Optional[str], typer.Option("--target-uuid", hidden=True)] = None,
     ) -> None:
-        """Turn sermon notes into ProPresenter slides (verses and sermon points)."""
+        """Turn sermon notes into ProPresenter slides (verses and sermon points).
+
+        By default this creates a NEW presentation named after the document; ProPresenter stays open and
+        shows it at once. To change an existing presentation instead, name it with -p and choose
+        --replace (swap its verse/point slides) or --append; that mode needs ProPresenter closed.
+        """
         as_json = output.casefold() == "json"
         try:
             config = _config_with_node(load_config(), node, None, None)
             source, source_name = _read(file, text)
-            if not (target_presentation or target_uuid):
-                raise ConfigurationError("a target is required: --target-presentation NAME or --target-uuid UUID")
+            chosen = presentation or target_presentation
+            chosen_uuid = presentation_uuid or target_uuid
+            editing = bool(chosen or chosen_uuid)
+            if replace and append:
+                raise ConfigurationError("choose either --replace or --append, not both")
+            if (replace or append) and not editing:
+                raise ConfigurationError("--replace and --append change an existing presentation: name it with -p NAME (see: versebridge presentations)")
+            if editing and not (replace or append):
+                raise ConfigurationError("-p changes an existing presentation: add --replace (swap its verse and point slides) or --append. Leave -p out to make a new presentation")
             transport = make_transport(config.propresenter, config.node)
             plan, target = asyncio.run(plan_for_transport(
                 source, config, transport, default_version=default_version,
-                target_uuid=target_uuid, target_name=target_presentation, library=library,
+                target_uuid=chosen_uuid, target_name=chosen, library=library if editing else None,
             ))
+            from versebridge.notes.title import document_title
+            new_title = title or document_title(source, source_name)
             report = build_report(plan, source_name=source_name)
+            report["mode"] = "replace" if replace else "append" if append else "new"
+            report["title"] = new_title
             report["target"] = {"name": target[2], "uuid": target[1], "library": target[0]} if target else None
+            report["library"] = library or config.output.library
             report["node"] = transport.description
             flags = bool(report["flagged"])
             if dry_run:
@@ -115,17 +160,21 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
                 report.update(ok=False, error="Some lines are flagged. Fix them, or rerun with --yes to import the rest.", exit_code=int(ExitCode.PARSING_OR_VALIDATION))
                 typer.echo(json.dumps(report, indent=2, ensure_ascii=False)) if as_json else _print_report(report)
                 raise typer.Exit(int(ExitCode.PARSING_OR_VALIDATION))
-            applied = apply_import(
-                source, source_name, plan, target, config, transport,
-                replace=not no_replace, close_app=not no_close, reopen=not no_reopen,
-                progress=(lambda m: console.print(f"[cyan]{m}[/cyan]")) if not as_json else (lambda m: None),
-            )
+            progress = (lambda m: console.print(f"[cyan]{m}[/cyan]")) if not as_json else (lambda m: None)
+            if editing:
+                applied = apply_import(
+                    source, source_name, plan, target, config, transport,
+                    replace=True, clear_generated=replace, close_app=not no_close, reopen=not no_reopen, progress=progress,
+                )
+            else:
+                applied = publish_new(source, source_name, new_title, plan, config, transport, library=library, progress=progress)
             report.update(ok=True, applied=applied.model_dump(), exit_code=int(ExitCode.COMPLETED_WITH_FLAGS if flags else 0))
             if as_json:
                 typer.echo(json.dumps(report, indent=2, ensure_ascii=False))
             else:
                 _print_report(report)
-                console.print(f"[green]Imported {applied.slide_count} slides into {applied.target_name}[/green] (import {applied.import_id})")
+                what = "new presentation" if applied.mode == "new" else "presentation"
+                console.print(f"[green]Imported {applied.slide_count} slides into {what} '{applied.presentation_name or applied.target_name}'[/green] (import {applied.import_id})")
                 console.print(applied.verification)
             raise typer.Exit(report["exit_code"])
         except typer.Exit:

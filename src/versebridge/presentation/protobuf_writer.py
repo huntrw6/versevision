@@ -3,6 +3,7 @@ from __future__ import annotations
 from copy import deepcopy
 import hashlib
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 import re
 import sys
@@ -273,10 +274,14 @@ class ProtobufPresentationWriter:
             original_hash = _sha256(path)
             original = self._read(path)
             self.policy.validate(original)
-            template_message = original
             if template_path and template_path.resolve() != path:
                 template_message = self._read(template_path.resolve(strict=True))
                 self.policy.validate(template_message)
+            else:
+                # the template lives in this very presentation: snapshot it BEFORE any slide is removed,
+                # otherwise clearing the old verse/point slides would delete the template being cloned
+                template_message = presentation_pb2.Presentation()
+                template_message.CopyFrom(original)
             before_cues, before_groups = len(original.cues), len(original.cue_groups)
             removed_cues = removed_groups = 0
             if remove_cue_uuids:
@@ -323,6 +328,99 @@ class ProtobufPresentationWriter:
                 os.replace(backup, path)
                 raise ValueError("verification failed; rollback completed")
             return result
+
+    # ------------------------------------------------------------------ new presentation
+    def create_presentation(
+        self, template_path: Path, output_path: Path, slide_plan: SlidePlan, definition: PresentationTemplateConfig,
+        *, name: str,
+    ) -> PlanWriteResult:
+        """Build a brand-new presentation file named ``name`` from the template presentation.
+
+        The new file keeps the template's application/document headers, background and timeline, has no cues
+        of its own, and receives every planned slide. Nothing existing is modified; ``output_path`` must not exist.
+        """
+        if not slide_plan.slides:
+            raise ValueError("slide plan is empty")
+        template_path = template_path.resolve(strict=True)
+        output_path = output_path.resolve()
+        if output_path.exists():
+            raise ValueError(f"{output_path.name} already exists; a new presentation never overwrites a file")
+        template = self._read(template_path)
+        self.policy.validate(template)
+        # keep the template's pieces to clone from, then empty the new presentation
+        shell = presentation_pb2.Presentation()
+        shell.CopyFrom(template)
+        _refresh_uuids(shell)                       # new presentation id (and no UUID shared with the template)
+        shell.name = name
+        del shell.cues[:]
+        del shell.cue_groups[:]
+        del shell.arrangements[:]
+        shell.ClearField("selected_arrangement")
+        now = datetime.now(timezone.utc)
+        for field in ("last_date_used", "last_modified_date"):
+            stamp = getattr(shell, field)
+            stamp.seconds, stamp.nanos = int(now.timestamp()), 0
+        created = self._render_plan(shell, slide_plan, definition, template)
+        data = shell.SerializeToString(deterministic=True)
+        temp_path: Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="wb", prefix=f".{output_path.name}.versebridge-", suffix=".tmp", dir=output_path.parent, delete=False
+            ) as stream:
+                temp_path = Path(stream.name)
+                stream.write(data)
+                stream.flush()
+                os.fsync(stream.fileno())
+            reparsed = self._read(temp_path)
+            if len(reparsed.cues) != len(created) or reparsed.name != name:
+                raise ValueError("new presentation did not reread correctly")
+            if output_path.exists():
+                raise ValueError(f"{output_path.name} appeared while it was being written")
+            os.link(temp_path, output_path)          # fails instead of replacing an existing file
+            temp_path.unlink()
+            temp_path = None
+        finally:
+            if temp_path and temp_path.exists():
+                temp_path.unlink()
+        return PlanWriteResult(
+            path=output_path, backup_path=output_path, cue_uuids=created,
+            cue_count_before=0, cue_count_after=len(created), group_count_before=0,
+            group_count_after=len({item.source_passage_index for item in slide_plan.slides}),
+            output_sha256=_sha256(output_path), original_sha256="",
+        )
+
+    # ------------------------------------------------------------------ replace in place
+    def replace_generated(
+        self, path: Path, slide_plan: SlidePlan, definition: PresentationTemplateConfig,
+        *, template_path: Path | None = None,
+    ) -> PlanWriteResult:
+        """Remove VerseBridge-style verse and sermon-point cues from ``path`` (keeping every other slide,
+        such as blanks, backgrounds, titles and media) and append the planned slides."""
+        if not slide_plan.slides:
+            raise ValueError("slide plan is empty")
+        original = self._read(path.resolve(strict=True))
+        victims = self.generated_cue_uuids(original, definition)
+        return self.append_plan(path, slide_plan, definition, template_path=template_path, remove_cue_uuids=victims or None)
+
+    @staticmethod
+    def generated_cue_uuids(message, definition: PresentationTemplateConfig) -> list[str]:
+        """Cues that hold only a verse (Reference + Verse objects) or a sermon point, never blanks or media."""
+        wanted = {
+            (definition.reference_object, definition.body_object),
+            (definition.point_object,),
+        }
+        found: list[str] = []
+        for cue in message.cues:
+            actions = [a for a in cue.actions if a.WhichOneof("ActionTypeData") == "slide"]
+            if len(actions) != 1 or len(cue.actions) != 1:
+                continue
+            elements = actions[0].slide.presentation.base_slide.elements
+            texts = tuple(sorted(e.element.name for e in elements if e.element.HasField("text")))
+            if len(texts) != len(elements):
+                continue                      # has a shape/image/other object: not a plain generated slide
+            if texts in {tuple(sorted(item)) for item in wanted}:
+                found.append(cue.uuid.string)
+        return found
 
     def append_synthetic_slide(self, path: Path, body_text: str, label: str) -> WriteResult:
         path = path.resolve(strict=True)

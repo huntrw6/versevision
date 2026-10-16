@@ -44,6 +44,9 @@ class Transport(Protocol):
     def fetch_file(self, remote_path: str, local_path: Path) -> str: ...
     def install_file(self, local_path: Path, remote_path: str, expected_remote_sha: str) -> str: ...
     def find_presentation(self, name: str, library: str | None) -> list[str]: ...
+    def library_folder(self, library: str) -> str: ...
+    def create_file(self, local_path: Path, remote_path: str) -> str: ...
+    def delete_created_file(self, remote_path: str, expected_cues: int) -> str: ...
     def backup_file(self, remote_path: str) -> str: ...
     def restore_backup(self, backup_path: str, remote_path: str) -> None: ...
 
@@ -91,6 +94,42 @@ class LocalTransport:
                 os.fsync(stream.fileno())
             os.replace(temp, target)
             temp = None
+        finally:
+            if temp and temp.exists():
+                temp.unlink()
+        return sha256_file(target)
+
+    def library_folder(self, library: str) -> str:
+        return str(Path(os.path.expandvars(self.node.library_root)).expanduser() / library)
+
+    def delete_created_file(self, remote_path: str, expected_cues: int) -> str:
+        from versebridge.presentation.generated import presentation_pb2
+        target = Path(remote_path)
+        if not target.is_file():
+            return "The presentation file was already gone"
+        message = presentation_pb2.Presentation()
+        message.ParseFromString(target.read_bytes())
+        if len(message.cues) != expected_cues:
+            raise PresentationWriteError(
+                f"{target.name} has {len(message.cues)} slides now, not the {expected_cues} VerseBridge added, so it was edited. "
+                "It was not deleted; remove it in ProPresenter if you no longer want it"
+            )
+        target.unlink()
+        return "Presentation removed"
+
+    def create_file(self, local_path: Path, remote_path: str) -> str:
+        """Copy a new file into place. Never replaces an existing file."""
+        target = Path(remote_path)
+        if target.exists():
+            raise PresentationWriteError(f"{target.name} already exists; nothing was changed")
+        temp = None
+        try:
+            with tempfile.NamedTemporaryFile(prefix=f".{target.name}.versebridge-", suffix=".tmp", dir=target.parent, delete=False) as stream:
+                temp = Path(stream.name)
+                stream.write(local_path.read_bytes())
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.link(temp, target)
         finally:
             if temp and temp.exists():
                 temp.unlink()
@@ -234,6 +273,52 @@ class HermesRemoteTransport:
         if installed != local_sha:
             raise PresentationWriteError("Installed file did not match the staged file; restore the backup")
         return installed
+
+    def library_folder(self, library: str) -> str:
+        return f"{self.node.library_root}/{library}"
+
+    def delete_created_file(self, remote_path: str, expected_cues: int) -> str:
+        # verify the file is still the one VerseBridge made (same slide count) before deleting it
+        fetch_to = Path(tempfile.mkdtemp(prefix="versebridge-")) / "check.pro"
+        code, out = self._sh(f'[ -f "{remote_path}" ] && echo present || echo gone', gui=True)
+        if out.strip().endswith("gone"):
+            return "The presentation file was already gone"
+        self.fetch_file(remote_path, fetch_to)
+        from versebridge.presentation.generated import presentation_pb2
+        message = presentation_pb2.Presentation()
+        message.ParseFromString(fetch_to.read_bytes())
+        if len(message.cues) != expected_cues:
+            raise PresentationWriteError(
+                f"{Path(remote_path).name} has {len(message.cues)} slides now, not the {expected_cues} VerseBridge added, so it was edited. "
+                "It was not deleted; remove it in ProPresenter if you no longer want it"
+            )
+        code, out = self._sh(f'rm -f "{remote_path}" && echo removed', gui=True)
+        if "removed" not in out:
+            raise PresentationWriteError(f"Could not remove {Path(remote_path).name} on {self.name}: {out[-200:]}")
+        return "Presentation removed"
+
+    def create_file(self, local_path: Path, remote_path: str) -> str:
+        """Copy a new file into place on the node. Never replaces an existing file."""
+        tmp = self._remote_tmp()
+        local_sha = sha256_file(local_path)
+        pushed = self._invoke(["push", self.name, str(local_path), tmp], 120)
+        if pushed.returncode != 0:
+            raise PresentationWriteError(f"Transfer to {self.name} failed: {(pushed.stdout + pushed.stderr).strip()[-200:]}")
+        try:
+            dest = f'"{remote_path}"'
+            code, out = self._sh(
+                f"[ \"$(shasum -a 256 < {self._q(tmp)} | cut -d' ' -f1)\" = {local_sha} ] || {{ echo STAGED_MISMATCH; exit 5; }}\n"
+                f"[ -e {dest} ] && {{ echo EXISTS; exit 3; }}\n"
+                f"cp {self._q(tmp)} {dest} && shasum -a 256 {dest}",
+                gui=True,
+            )
+        finally:
+            self._sh(f"rm -f {self._q(tmp)}", gui=False)
+        if code == 3:
+            raise PresentationWriteError(f"{Path(remote_path).name} already exists on {self.name}; nothing was changed")
+        if code != 0 or not out or out.split()[0] != local_sha:
+            raise PresentationWriteError(f"Could not place the new presentation on {self.name} ({out[-200:] or 'no output'})")
+        return out.split()[0]
 
     def find_presentation(self, name: str, library: str | None) -> list[str]:
         folder = shlex.quote(library) if library else "*"

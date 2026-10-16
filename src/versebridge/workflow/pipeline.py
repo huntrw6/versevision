@@ -36,6 +36,9 @@ def _noop(_: str) -> None:
 
 
 class ApplyResult(BaseModel):
+    mode: str = "new"
+    presentation_name: str = ""
+    restart_needed: bool = False
     import_id: str
     target_name: str
     node: str
@@ -48,6 +51,16 @@ class ApplyResult(BaseModel):
     verified: bool = False
     reopened: bool = False
     steps: list[str] = Field(default_factory=list)
+
+
+def list_presentations(transport: Transport) -> list[dict]:
+    """Every presentation ProPresenter knows about, grouped by library, for pickers."""
+    out: list[dict] = []
+    for lib in transport.api_get("/v1/libraries"):
+        contents = transport.api_get(f"/v1/library/{lib['uuid']}")
+        for item in contents.get("items", []):
+            out.append({"uuid": item["uuid"], "name": item["name"], "library": lib["name"], "library_uuid": lib["uuid"]})
+    return out
 
 
 def source_fingerprint(text: str) -> str:
@@ -147,9 +160,15 @@ def verify_via_api(transport: Transport, presentation_uuid: str, plan, expected_
 
 def apply_import(
     text: str, source_name: str, plan: NotesImportResult, target: tuple, config: AppConfig, transport: Transport,
-    *, replace: bool = True, close_app: bool = True, reopen: bool = True, history: HistoryStore | None = None,
-    progress: Progress = _noop,
+    *, replace: bool = True, clear_generated: bool = False, close_app: bool = True, reopen: bool = True,
+    history: HistoryStore | None = None, progress: Progress = _noop,
 ) -> ApplyResult:
+    """Change an EXISTING presentation in place. This needs ProPresenter closed (it ignores edits to an open file).
+
+    replace=True removes the slides an earlier import of the same file added.
+    clear_generated=True removes every verse and sermon-point slide in the presentation first
+    (blank, background, title and media slides are kept).
+    """
     library_name, presentation_uuid, presentation_name, path, _detail = target
     history = history or HistoryStore()
     definition = config.presentation_template
@@ -160,7 +179,7 @@ def apply_import(
     node_name = config.node.name or "local"
     steps: list[str] = []
 
-    previous = history.latest_active(target_uuid=presentation_uuid, source_name=source_name, node=node_name) if replace else None
+    previous = history.latest_active(target_uuid=presentation_uuid, source_name=source_name, node=node_name) if (replace and not clear_generated) else None
     remove = previous.cue_uuids if previous else []
     if previous:
         steps.append(f"replacing earlier import {previous.import_id} ({len(previous.cue_uuids)} slides)")
@@ -195,9 +214,14 @@ def apply_import(
         backup = transport.backup_file(path)
         steps.append(f"backup: {backup}")
         progress("Writing slides")
-        written = ProtobufPresentationWriter().append_plan(
-            local_copy, plan.slide_plan, definition, remove_cue_uuids=remove or None,
-        )
+        writer = ProtobufPresentationWriter()
+        if clear_generated:
+            from versebridge.presentation.generated import presentation_pb2
+            current = presentation_pb2.Presentation()
+            current.ParseFromString(local_copy.read_bytes())
+            remove = writer.generated_cue_uuids(current, definition)
+            steps.append(f"clearing {len(remove)} verse and sermon-point slides (other slides are kept)")
+        written = writer.append_plan(local_copy, plan.slide_plan, definition, remove_cue_uuids=remove or None)
         transport.install_file(local_copy, path, original_sha)
         installed = True
         steps.append("installed updated presentation")
@@ -250,7 +274,8 @@ def apply_import(
         target_uuid=presentation_uuid, target_name=presentation_name, node=node_name,
         cue_uuids=written.cue_uuids, slide_count=len(written.cue_uuids),
         verse_count=plan.verse_count, point_count=plan.point_count, backup_path=backup,
-        replaces=previous.import_id if previous else None,
+        replaces=previous.import_id if previous else None, mode="replace" if clear_generated else "append",
+        library=library_name,
     ))
     from platformdirs import user_log_path
     append_audit_entry(user_log_path("versebridge") / "audit.jsonl", AuditEntry(
@@ -261,6 +286,7 @@ def apply_import(
         verification_result=message,
     ))
     return ApplyResult(
+        mode="replace" if clear_generated else "append", presentation_name=presentation_name, restart_needed=reopen_after is False and not was_running,
         import_id=import_id, target_name=presentation_name, node=node_name,
         slide_count=len(written.cue_uuids), cue_count_before=written.cue_count_before,
         cue_count_after=written.cue_count_after, removed_slides=written.removed_cue_count,
@@ -277,6 +303,8 @@ def undo_import(
     record = history.get(import_id)
     if not record or record.status != "active":
         raise ConfigurationError(f"No active import with id {import_id}")
+    if record.mode == "new":
+        return _undo_new(record, config, transport, history, progress)
     definition = config.presentation_template
     if not definition:
         raise ConfigurationError("No template is configured")
@@ -310,4 +338,115 @@ def undo_import(
         slide_count=0, cue_count_before=written.cue_count_before, cue_count_after=written.cue_count_after,
         removed_slides=written.removed_cue_count, backup_path=backup, verification="Slides removed", verified=True,
         reopened=bool(was_running and reopen),
+    )
+
+
+def publish_new(
+    text: str, source_name: str, title: str, plan: NotesImportResult, config: AppConfig, transport: Transport,
+    *, library: str | None = None, history: HistoryStore | None = None, progress: Progress = _noop,
+    verify_timeout: float = 25.0,
+) -> ApplyResult:
+    """Create a NEW presentation named after the document. ProPresenter can stay open: it shows new files at once."""
+    from versebridge.notes.title import safe_presentation_name, unique_name
+
+    history = history or HistoryStore()
+    definition = config.presentation_template
+    if not definition:
+        raise ConfigurationError("No template is configured; run versebridge template setup")
+    if not plan.slide_plan.slides:
+        raise ConfigurationError("There are no slides to import")
+    lib_name = library or config.output.library
+    folder = transport.library_folder(lib_name)
+    node_name = config.node.name or "local"
+    name = safe_presentation_name(title)
+
+    # existing names: from the library listing when ProPresenter answers, else from disk
+    existing: set[str] = set()
+    try:
+        existing = {item["name"] for item in list_presentations(transport) if item["library"].casefold() == lib_name.casefold()}
+    except Exception:
+        pass
+    name = unique_name(name, existing)
+    # also guard against a file that exists on disk but is not in the listing
+    for _ in range(50):
+        if not transport.find_presentation(name, lib_name):
+            break
+        name = unique_name(name, existing | {name})
+    steps = [f"new presentation: {name}"]
+
+    template_target = _target_from_api(transport, uuid_=definition.presentation_uuid, name=None, library=None)
+    workdir = Path(tempfile.mkdtemp(prefix="versebridge-"))
+    template_local = workdir / "template.pro"
+    progress("Reading the template")
+    transport.fetch_file(template_target[3], template_local)
+    validate_template(template_local, definition)
+    out_local = workdir / f"{name}.pro"
+    progress("Building the presentation")
+    written = ProtobufPresentationWriter().create_presentation(
+        template_local, out_local, plan.slide_plan, definition, name=name,
+    )
+    remote_path = f"{folder}/{name}.pro"
+    progress("Adding it to ProPresenter")
+    transport.create_file(out_local, remote_path)
+    steps.append(f"placed {remote_path}")
+
+    verified, message, new_uuid = False, "Placed in the library folder", ""
+    was_running = transport.is_running()
+    if was_running:
+        progress("Checking ProPresenter shows it")
+        deadline = time.monotonic() + verify_timeout
+        problem = "ProPresenter has not listed the new presentation yet"
+        while time.monotonic() < deadline:
+            try:
+                match = next((i for i in list_presentations(transport) if i["name"] == name and i["library"].casefold() == lib_name.casefold()), None)
+                if match:
+                    new_uuid = match["uuid"]
+                    ok, message = verify_via_api(transport, new_uuid, plan.slide_plan, len(plan.slide_plan.slides), timeout=max(5.0, deadline - time.monotonic()))
+                    if ok:
+                        verified = True
+                        break
+                    problem = message
+            except Exception as exc:
+                problem = str(exc)
+            time.sleep(1.5)
+        if not verified:
+            raise VerificationRollbackError(
+                f"ProPresenter did not show the new presentation ({problem}). The file {remote_path} was left in place; "
+                "reopen ProPresenter to see it, or remove the file."
+            )
+    else:
+        verified, message = True, "Placed in the library folder; ProPresenter will list it the next time it opens"
+
+    import_id = uuid.uuid4().hex[:10]
+    history.add(ImportRecord(
+        import_id=import_id, source_name=source_name, source_sha256=source_fingerprint(text),
+        target_uuid=new_uuid or written.cue_uuids[0], target_name=name, node=node_name,
+        cue_uuids=written.cue_uuids, slide_count=len(written.cue_uuids), verse_count=plan.verse_count,
+        point_count=plan.point_count, backup_path=None, mode="new", library=lib_name, file_path=remote_path,
+    ))
+    from platformdirs import user_log_path
+    append_audit_entry(user_log_path("versebridge") / "audit.jsonl", AuditEntry(
+        application_version=__version__, propresenter_version="19.0.1", target_uuid=new_uuid or None,
+        presentation_name=name, reference_count=plan.verse_count, slide_count=len(written.cue_uuids),
+        versions=sorted({s.version_text for s in plan.slide_plan.slides if s.version_text}),
+        verification_result=message,
+    ))
+    return ApplyResult(
+        mode="new", presentation_name=name, restart_needed=False, import_id=import_id, target_name=name, node=node_name,
+        slide_count=len(written.cue_uuids), cue_count_before=0, cue_count_after=len(written.cue_uuids),
+        verification=message, verified=verified, steps=steps,
+    )
+
+
+def _undo_new(record: ImportRecord, config: AppConfig, transport: Transport, history: HistoryStore, progress: Progress) -> ApplyResult:
+    """Undo a "new presentation" import: delete that file. Only a file VerseBridge created and that is unchanged."""
+    if not record.file_path:
+        raise ConfigurationError("This import has no recorded file; remove the presentation in ProPresenter instead")
+    progress("Removing the presentation")
+    removed = transport.delete_created_file(record.file_path, expected_cues=len(record.cue_uuids))
+    history.set_status(record.import_id, "undone")
+    return ApplyResult(
+        mode="new", presentation_name=record.target_name, import_id=record.import_id, target_name=record.target_name,
+        node=config.node.name or "local", slide_count=0, cue_count_before=len(record.cue_uuids), cue_count_after=0,
+        removed_slides=len(record.cue_uuids), verification=removed, verified=True,
     )
