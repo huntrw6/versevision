@@ -44,6 +44,9 @@ class PresentationTemplateConfig(BaseModel):
     reference_object: str = "Reference"
     body_object: str = "Verse"
     style_fingerprint: str
+    point_cue_uuid: str | None = None
+    point_object: str = "Sermon Point"
+    point_style_fingerprint: str | None = None
 
 
 class ApiBibleProviderConfig(BaseModel):
@@ -82,6 +85,7 @@ ProviderConfig = Annotated[
 
 class BibleConfig(BaseModel):
     default_version: str | None = None
+    version_aliases: dict[str, str] = Field(default_factory=lambda: {"YLT": "NLT"})
     version_routes: dict[str, str] = Field(default_factory=dict)
     providers: dict[str, ProviderConfig] = Field(default_factory=dict)
 

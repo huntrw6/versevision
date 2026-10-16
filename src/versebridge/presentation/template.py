@@ -89,6 +89,20 @@ def inspect_template_candidates(
     return candidates
 
 
+def inspect_point_candidates(path: Path, *, point_object: str = "Sermon Point") -> list[tuple[int, str, str]]:
+    """Cues with exactly one text element named ``point_object``: (slide number, cue uuid, fingerprint)."""
+    found: list[tuple[int, str, str]] = []
+    for index, cue in enumerate(_read(path).cues):
+        elements = _slide_elements(cue)
+        points = [item for item in elements if item.element.name == point_object and item.element.HasField("text")]
+        if len(points) != 1 or any(item.element.HasField("text") and item is not points[0] for item in elements):
+            continue
+        clone = deepcopy(points[0])
+        clone.element.text.rtf_data = b""
+        found.append((index + 1, cue.uuid.string, hashlib.sha256(clone.SerializeToString(deterministic=True)).hexdigest()))
+    return found
+
+
 def create_template_definition(
     path: Path,
     *,

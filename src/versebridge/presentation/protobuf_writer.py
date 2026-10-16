@@ -54,14 +54,36 @@ def _escape_rtf(text: str) -> bytes:
     return "".join(pieces).encode("ascii")
 
 
+_HEADER_GROUPS = re.compile(rb"\{\\(?:fonttbl|colortbl|\*\\expandedcolortbl|stylesheet|\*\\listtable)[^{}]*(?:\{[^{}]*\}[^{}]*)*\}", re.DOTALL)
+_CONTROL = re.compile(rb"\\(?P<word>[A-Za-z]+)(?P<num>-?\d+)? ?|\\\*|[\r\n]+")
+
+
+def _text_start(rtf: bytes) -> int:
+    """Index where visible text begins: after the RTF header and the last formatting control word."""
+    markers = list(re.finditer(rb"\\cb\d+\s?", rtf))
+    if markers:                                   # Windows-style output ends its header with \cbN
+        return markers[-1].end()
+    position = 0
+    for group in _HEADER_GROUPS.finditer(rtf):
+        position = group.end()
+    if not position:
+        raise ValueError("template RTF has no recognizable header")
+    while position < len(rtf):
+        match = _CONTROL.match(rtf, position)
+        if not match:
+            break
+        word = match.group("word")
+        if word == b"u" and match.group("num"):    # \u8217? is text, not formatting
+            break
+        position = match.end()
+    return position
+
+
 def _replace_rtf_text(rtf: bytes, text: str) -> bytes:
     if not rtf.startswith(b"{\\rtf") or not rtf.rstrip().endswith(b"}"):
         raise ValueError("template text element does not contain supported RTF")
     trimmed = rtf.rstrip()
-    markers = list(re.finditer(rb"\\cb\d+\s?", trimmed))
-    if not markers:
-        raise ValueError("template RTF has no final background-color marker")
-    prefix = trimmed[:markers[-1].end()]
+    prefix = trimmed[:_text_start(trimmed)]
     if not prefix.endswith((b" ", b"\n", b"\r", b"\t")):
         prefix += b" "
     return prefix + _escape_rtf(text) + b"}"
@@ -121,36 +143,53 @@ class ProtobufPresentationWriter:
         )
 
     @staticmethod
-    def _template_parts(message, definition: PresentationTemplateConfig):
-        cue = next((item for item in message.cues if item.uuid.string.casefold() == definition.cue_uuid.casefold()), None)
+    def _cue_and_group(message, cue_uuid: str):
+        cue = next((item for item in message.cues if item.uuid.string.casefold() == cue_uuid.casefold()), None)
         if cue is None:
             raise ValueError("configured template cue no longer exists")
         actions = [action for action in cue.actions if action.WhichOneof("ActionTypeData") == "slide"]
         if len(actions) != 1:
             raise ValueError("template cue must contain exactly one slide action")
-        elements = actions[0].slide.presentation.base_slide.elements
-        references = [item for item in elements if item.element.name == definition.reference_object and item.element.HasField("text")]
-        bodies = [item for item in elements if item.element.name == definition.body_object and item.element.HasField("text")]
-        if len(references) != 1 or len(bodies) != 1:
-            raise ValueError("template must contain exactly one configured reference and verse object")
         group = next((
             item for item in message.cue_groups
             if any(identifier.string == cue.uuid.string for identifier in item.cue_identifiers)
         ), None)
         if group is None:
             raise ValueError("template cue is not assigned to a cue group")
+        return cue, group, actions[0]
+
+    @staticmethod
+    def _template_parts(message, definition: PresentationTemplateConfig):
+        cue, group, action = ProtobufPresentationWriter._cue_and_group(message, definition.cue_uuid)
+        elements = action.slide.presentation.base_slide.elements
+        references = [item for item in elements if item.element.name == definition.reference_object and item.element.HasField("text")]
+        bodies = [item for item in elements if item.element.name == definition.body_object and item.element.HasField("text")]
+        if len(references) != 1 or len(bodies) != 1:
+            raise ValueError("template must contain exactly one configured reference and verse object")
         return cue, group
 
     def _render_plan(
         self, original, slide_plan: SlidePlan, definition: PresentationTemplateConfig, template_message=None
     ) -> list[str]:
-        template_cue, template_group = self._template_parts(template_message or original, definition)
+        source = template_message or original
+        verse_cue = verse_group = point_cue = point_group = None
+        if any(item.kind == "verse" for item in slide_plan.slides):
+            verse_cue, verse_group = self._template_parts(source, definition)
+        if any(item.kind == "point" for item in slide_plan.slides):
+            if not definition.point_cue_uuid:
+                raise ValueError("no sermon-point template is configured; run versebridge template select-point")
+            point_cue, point_group, point_action = self._cue_and_group(source, definition.point_cue_uuid)
+            if len([e for e in point_action.slide.presentation.base_slide.elements
+                    if e.element.name == definition.point_object and e.element.HasField("text")]) != 1:
+                raise ValueError("sermon-point template must contain exactly one configured point text object")
         existing_uuids = set(_all_uuids(original))
         created: list[str] = []
         grouped: dict[int, list[str]] = {}
         group_labels: dict[int, str] = {}
+        group_templates: dict[int, object] = {}
         for planned in slide_plan.slides:
-            cue = deepcopy(template_cue)
+            is_point = planned.kind == "point"
+            cue = deepcopy(point_cue if is_point else verse_cue)
             new_uuids = _refresh_uuids(cue)
             if existing_uuids & new_uuids:
                 raise ValueError("new cue UUID collides with the presentation")
@@ -158,20 +197,27 @@ class ProtobufPresentationWriter:
             cue_uuid = cue.uuid.string
             actions = [action for action in cue.actions if action.WhichOneof("ActionTypeData") == "slide"]
             action = actions[0]
-            reference_label = f"{planned.reference_text} ({planned.version_text})" if planned.version_text else planned.reference_text
-            action.label.text = reference_label
             elements = action.slide.presentation.base_slide.elements
-            reference = next(item for item in elements if item.element.name == definition.reference_object)
-            body = next(item for item in elements if item.element.name == definition.body_object)
-            reference.element.text.rtf_data = _replace_rtf_text(reference.element.text.rtf_data, reference_label)
-            body.element.text.rtf_data = _replace_rtf_text(body.element.text.rtf_data, planned.body_text)
+            if is_point:
+                label = planned.body_text.replace("\n", " ")[:60]
+                action.label.text = label
+                body = next(item for item in elements if item.element.name == definition.point_object)
+                body.element.text.rtf_data = _replace_rtf_text(body.element.text.rtf_data, planned.body_text)
+            else:
+                label = f"{planned.reference_text} ({planned.version_text})" if planned.version_text else planned.reference_text
+                action.label.text = label
+                reference = next(item for item in elements if item.element.name == definition.reference_object)
+                body = next(item for item in elements if item.element.name == definition.body_object)
+                reference.element.text.rtf_data = _replace_rtf_text(reference.element.text.rtf_data, label)
+                body.element.text.rtf_data = _replace_rtf_text(body.element.text.rtf_data, planned.body_text)
             original.cues.append(cue)
             created.append(cue_uuid)
             grouped.setdefault(planned.source_passage_index, []).append(cue_uuid)
-            group_labels.setdefault(planned.source_passage_index, reference_label)
+            group_labels.setdefault(planned.source_passage_index, label)
+            group_templates.setdefault(planned.source_passage_index, point_group if is_point else verse_group)
 
         for passage_index, cue_uuids in grouped.items():
-            group = deepcopy(template_group)
+            group = deepcopy(group_templates[passage_index])
             _refresh_uuids(group.group)
             label = group_labels[passage_index]
             group.group.name = label

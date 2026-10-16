@@ -28,7 +28,7 @@ from versebridge.presentation.template import create_template_definition, inspec
 from versebridge.propresenter.process import is_propresenter_running
 from versebridge.references import parse_references
 from versebridge.versions.registry import known_versions
-from versebridge.workflow import dry_run_import, verify_import_via_api
+from versebridge.workflow import dry_run_import, plan_notes, verify_import_via_api
 from versebridge.workflow.result import ImportResult
 
 app = typer.Typer(help="Import Bible references into explicitly selected ProPresenter presentations.", no_args_is_help=True)
@@ -365,6 +365,39 @@ def propresenter_playlists(output: Annotated[str, typer.Option("--output")] = "t
     _propresenter_list("playlists", output)
 
 
+class _NotesAdapter:
+    """Presents a notes plan with the attributes the shared write path expects."""
+
+    def __init__(self, plan) -> None:
+        from types import SimpleNamespace
+        self.target, self.slide_plan = plan.target, plan.slide_plan
+        versions = {slide.version_text for slide in plan.slide_plan.slides if slide.kind == "verse" and slide.version_text}
+        self.references = [SimpleNamespace(version=value) for value in sorted(versions)]
+        self.references += [SimpleNamespace(version=None)] * (plan.verse_count + plan.point_count - len(self.references))
+
+
+def _print_notes_report(result) -> None:
+    table = Table("#", "Type", "Slide text")
+    for index, slide in enumerate(result.slide_plan.slides, 1):
+        if slide.kind == "point":
+            table.add_row(str(index), "point", slide.body_text.replace("\n", " / ")[:70])
+        else:
+            label = f"{slide.reference_text} {slide.version_text}".strip()
+            table.add_row(str(index), "verse", f"{label}: {slide.body_text[:50]}")
+    console.print(table)
+    console.print(f"Slides planned: {len(result.slide_plan.slides)} ({result.verse_count} verse passages, {result.point_count} points)")
+    for title, entries, style in (
+        ("NOT ADDED (failed)", result.failed, "red"),
+        ("NEEDS REVIEW (unclear lines)", result.review, "yellow"),
+        ("Corrections / defaults applied", result.notices, "cyan"),
+        ("Left out on purpose", result.skipped, "dim"),
+    ):
+        if entries:
+            console.print(f"[{style}]{title}: {len(entries)}[/{style}]")
+            for entry in entries:
+                console.print(f"  [{style}]line {entry.line}: {entry.text[:60]!r} - {entry.problem}[/{style}]")
+
+
 @app.command("import")
 def import_command(
     file: Annotated[Optional[Path], typer.Argument(help="Document path, or - for stdin")] = None,
@@ -379,6 +412,7 @@ def import_command(
     no_fetch: Annotated[bool, typer.Option("--no-fetch")] = False,
     non_interactive: Annotated[bool, typer.Option("--non-interactive")] = False,
     yes: Annotated[bool, typer.Option("--yes", help="Confirm the reviewed write transaction")] = False,
+    notes: Annotated[bool, typer.Option("--notes", help="Treat the document as sermon notes: verses plus sermon points")] = False,
     output: Annotated[str, typer.Option("--output")] = "terminal",
 ) -> None:
     """Plan or execute an explicitly targeted Scripture-slide import.
@@ -392,17 +426,36 @@ def import_command(
         if not dry_run and not (target_uuid or target_presentation):
             raise typer.BadParameter("production imports require --target-uuid or --target-presentation")
         config = _with_pp_overrides(load_config(), host, port)
-        result = asyncio.run(dry_run_import(
-            _read_source(file, text), config, default_version=default_version,
-            non_interactive=non_interactive, target_uuid=target_uuid,
-            target_name=target_presentation, library=library,
-            validate_target=bool(target_uuid or target_presentation),
-            no_fetch=no_fetch,
-        ))
-        if dry_run and output.casefold() == "json":
+        if notes:
+            result = asyncio.run(plan_notes(
+                _read_source(file, text), config, default_version=default_version, no_fetch=no_fetch,
+                target_uuid=target_uuid, target_name=target_presentation, library=library,
+            ))
+            if output.casefold() == "json":
+                typer.echo(result.model_dump_json(indent=2))
+            else:
+                _print_notes_report(result)
+            if dry_run:
+                console.print("Dry run: no files or playlists changed.")
+                return
+            if result.needs_attention and not yes:
+                raise ConfigurationError(
+                    f"{len(result.failed)} item(s) failed and {len(result.review)} need review; "
+                    "fix them or rerun with --yes to import only the slides that were planned"
+                )
+            result = _NotesAdapter(result)
+        else:
+            result = asyncio.run(dry_run_import(
+                _read_source(file, text), config, default_version=default_version,
+                non_interactive=non_interactive, target_uuid=target_uuid,
+                target_name=target_presentation, library=library,
+                validate_target=bool(target_uuid or target_presentation),
+                no_fetch=no_fetch,
+            ))
+        if dry_run and not notes and output.casefold() == "json":
             typer.echo(result.model_dump_json(indent=2))
             return
-        if output.casefold() != "json":
+        if output.casefold() != "json" and not notes:
             table = Table("#", "Reference", "Version", "Status")
             for index, reference in enumerate(result.references, 1):
                 status = "Default applied" if "default version applied" in reference.warnings else "Ready"

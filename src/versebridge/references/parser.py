@@ -6,7 +6,7 @@ from .models import ParseIssue, ParseResult, PassageReference, VersePoint, Verse
 from .normalizer import normalize_fragment
 from .tokenizer import Token, tokenize
 from .validator import validate_spans
-from versebridge.versions.registry import canonical_version
+from versebridge.versions.registry import DEFAULT_USER_ALIASES, canonical_version, correct_version, is_real_version
 
 
 class _Cursor:
@@ -23,17 +23,52 @@ class _Cursor:
         return None
 
 
-def _version(cursor: _Cursor) -> str | None:
+def _version(cursor: _Cursor, source: str = "", user_aliases: dict[str, str] | None = None) -> str | None:
     opening = cursor.take("(", "[")
+    start = cursor.i
     token = cursor.peek("WORD")
-    version = canonical_version(token.value) if token else None
+    if not token:
+        if opening: cursor.i -= 1
+        return None
+    label = token.value
+    end_index = cursor.i + 1
+    nxt = cursor.tokens[end_index] if end_index < len(cursor.tokens) else None
+    if nxt and nxt.kind == "NUMBER" and nxt.start == token.end:   # NASB1995, NIV11
+        label += nxt.value
+        end_index += 1
+    version = canonical_version(label)
+    override = next((v for k, v in (user_aliases or {}).items() if k.casefold() == label.casefold()), None)
+    if override and canonical_version(override):
+        version = canonical_version(override)
+        cursor.warnings.append(f"version '{label.upper()}' read as {version} (configured alias)")
+    elif not version and (opening or (label.isupper() and 2 <= len(label) <= 10 and source[token.start:token.start + len(label)] == label)):
+        if is_real_version(label):
+            version = label.upper()          # real translation we may not have: keep as typed
+        elif opening:
+            fixed = correct_version(label)
+            if fixed:
+                version = fixed
+                cursor.warnings.append(f"version '{label}' read as {fixed} (spelling corrected)")
+            else:
+                cursor.warnings.append(f"unrecognized version label '{label}'")
+                cursor.i = start - (1 if opening else 0)
+                return None
+        else:
+            fixed = correct_version(label)
+            if fixed:
+                version = fixed
+                cursor.warnings.append(f"version '{label}' read as {fixed} (spelling corrected)")
     if not version:
         if opening: cursor.i -= 1
         return None
-    cursor.i += 1
+    cursor.i = end_index
     if opening:
         expected = ")" if opening.kind == "(" else "]"
-        if not cursor.take(expected): cursor.i -= 2; return None
+        if not cursor.take(expected):
+            cursor.i = start - 1
+            return None
+    if label.upper() == "NASB" and version == "NASB2020":
+        cursor.warnings.append("NASB read as NASB2020")
     return version
 
 
@@ -65,7 +100,9 @@ def _span(cursor: _Cursor, chapter: int | None) -> tuple[VerseSpan, int] | None:
     if cursor.take("-") or cursor.word("to", "through"):
         end_first = cursor.take("NUMBER")
         if not end_first: return None
-        if cursor.take(":"):
+        following = cursor.tokens[cursor.i + 1] if cursor.i + 1 < len(cursor.tokens) else None
+        if cursor.peek(":") and following is not None and following.kind == "NUMBER":
+            cursor.take(":")
             end_chapter = int(end_first.value)
             end_verse_token = cursor.take("NUMBER")
             if not end_verse_token: return None
@@ -78,7 +115,7 @@ def _span(cursor: _Cursor, chapter: int | None) -> tuple[VerseSpan, int] | None:
     return VerseSpan(start=start), chapter
 
 
-def _parse_after_book(text: str, source: str, book: Book, book_start: int, content_start: int) -> tuple[list[PassageReference], list[ParseIssue], int]:
+def _parse_after_book(text: str, source: str, book: Book, book_start: int, content_start: int, aliases: dict[str, str] | None = None) -> tuple[list[PassageReference], list[ParseIssue], int]:
     cursor = _Cursor(tokenize(text[content_start:], content_start))
     passages: list[PassageReference] = []
     issues: list[ParseIssue] = []
@@ -101,7 +138,7 @@ def _parse_after_book(text: str, source: str, book: Book, book_start: int, conte
                 break
             span, chapter = parsed
             spans.append(span)
-        version = _version(cursor)
+        version = _version(cursor, text, aliases)
         end = cursor.tokens[cursor.i - 1].end if cursor.i else content_start
         raw = source[logical_start:end]
         reference = PassageReference(book_id=book.id, book_display_name=book.name, spans=spans, version=version,
@@ -123,7 +160,8 @@ def _parse_after_book(text: str, source: str, book: Book, book_start: int, conte
     return passages, issues, consumed
 
 
-def parse_references(source: str) -> ParseResult:
+def parse_references(source: str, aliases: dict[str, str] | None = None) -> ParseResult:
+    aliases = DEFAULT_USER_ALIASES if aliases is None else aliases
     normalized = normalize_fragment(source)
     result = ParseResult()
     occupied_until = 0
@@ -137,7 +175,7 @@ def parse_references(source: str) -> ParseResult:
         recognized = recognize_book(normalized, start)
         if not recognized: continue
         book, after = recognized
-        refs, issues, consumed = _parse_after_book(normalized, source, book, start, after)
+        refs, issues, consumed = _parse_after_book(normalized, source, book, start, after, aliases)
         if refs or issues:
             result.references.extend(refs); result.issues.extend(issues); occupied_until = consumed
     return result

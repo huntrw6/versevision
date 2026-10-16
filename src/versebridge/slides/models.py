@@ -1,7 +1,10 @@
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
 class PlannedSlide(BaseModel):
+    kind: Literal["verse", "point"] = "verse"
     body_text: str
     reference_text: str
     version_text: str
