@@ -59,3 +59,64 @@ def test_comparison_pair_does_not_carry_version_forward():
     doc = classify_document("Psalm 46:1 NKJV\nPsalm 81:10 ESV\nPsalm 81:10 TPT\nPsalm 46:2\nGalatians 3:3")
     resolved, _ = resolve_note_versions(doc, default=None)
     assert [ref.version for _, ref, _ in resolved] == ["NKJV", "ESV", "TPT", "NKJV", "NKJV"]
+
+
+WRAPPED = (
+    "JPL 1/1/26 Title of the message\n"
+    "“For God so loved the world that he gave his one and only Son, that whoever believes in him\n"
+    "shall not perish but have eternal life.” \n"
+    "John 3:16 NIV\n"
+    "1) First point title here\n"
+    "Be still and know that I am God, I will be exalted among the nations, exalted in the earth. \n"
+    "Psalm 46:10 ESV\n"
+    "Next verse text without quote marks, long enough to reach the margin of the page here ok. \n"
+    "Romans 8:28 ESV\n"
+    "2. Second point\n"
+)
+
+
+def test_hard_wrapped_quote_then_reference_is_one_verse_and_no_review():
+    doc = classify_document(WRAPPED)
+    assert [v.reference.normalized_text for v in doc.verses] == ["John 3:16 NIV", "Psalms 46:10 ESV", "Romans 8:28 ESV"]
+    assert [p.display for p in doc.points] == ["1) First point title here", "2. Second point"]
+    assert not doc.review
+
+
+def test_unlabeled_prose_is_flagged_for_review_not_guessed():
+    doc = classify_document("1) A point\nThis is a long sentence of ordinary prose that is not a point, a reference, or a cue at all.")
+    assert doc.review or "joined" in " ".join(doc.points[0].warnings)
+
+
+def test_reference_inside_a_point_is_not_a_verse_slide():
+    doc = classify_document("1. We rest in him, see Psalm 46:10 for more.\nJohn 3:16 NIV")
+    assert len(doc.verses) == 1 and "Psalm" not in doc.verses[0].reference.normalized_text
+
+
+def test_title_with_chapter_and_date_is_a_header():
+    doc = classify_document("Psalm 42–8/2/26\nJohn 3:16 NIV")
+    assert doc.skipped[0].category == "header" and len(doc.verses) == 1
+
+
+def test_verse_fragment_is_not_a_point_marker():
+    doc = classify_document("2 Corinthians\n12:9 NKJV")
+    assert not doc.points
+
+
+def test_bullets_keep_their_bullet_and_lettered_items_keep_letters():
+    doc = classify_document("- Point one\n• Point two\nA. First\nB) Second")
+    assert [p.display for p in doc.points] == ["• Point one", "• Point two", "A. First", "B) Second"]
+
+
+def test_numbered_reference_is_a_verse_not_a_point():
+    doc = classify_document("1. John 3:16 NIV\n2. Romans 8:28 NKJV")
+    assert len(doc.verses) == 2 and not doc.points
+
+
+def test_notes_to_self_are_skipped():
+    doc = classify_document("(ask Amy to cue the video)\nNOTE: remember offering\nTODO fix this")
+    assert [i.category for i in doc.skipped] == ["stage_note"] * 3 and not doc.review
+
+
+def test_bare_chapter_and_midsentence_reference_go_to_review():
+    doc = classify_document("Psalm 23\nSee Romans 8:28 for context")
+    assert len(doc.review) == 2 and not doc.verses

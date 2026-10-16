@@ -14,15 +14,18 @@ from pydantic import BaseModel, Field
 
 from versebridge.references import parse_references
 from versebridge.references.models import ParseIssue, PassageReference
+from versebridge.versions.registry import is_real_version
 
 # A numbered / lettered marker at the start of a line: "1)", "1.", "#1:", "a)", "2:".
-_MARKER = re.compile(r"^\s*(?P<hash>#\s*)?(?P<label>\d{1,3}|[A-Za-z](?=\)))\s*(?P<punct>[).:])\s*(?P<rest>.*)$")
+_MARKER = re.compile(r"^\s*(?P<hash>#\s*)?(?P<label>\d{1,3}|[A-Za-z](?=[).]\s))\s*(?P<punct>[).:])\s*(?P<rest>.*)$")
+_BULLET = re.compile(r"^\s*[•▪◦●‣*\-–—]\s+(?P<rest>\S.*)$")
 _SLIDE_TAG = re.compile(r"^\s*\[\s*slide\s*\]\s*[-–—:]*\s*(?P<rest>.*)$", re.IGNORECASE)
 _STAGE = re.compile(
     r"^\s*(show|play|put|start|cue|fade|transition|bring up|display|run|roll|when i (?:mention|say|get|talk|read|come)|"
     r"after (?:this|that)|at the end|end with|stop)\b",
     re.IGNORECASE,
 )
+_NOTE = re.compile(r"^\s*(\(.*\)\s*$|\[(?!\s*slide)[^\]]*\]\s*$|(note|notes|todo|to do|reminder|remember|ask|tell|check|fix|tbd|fyi)\b\s*[:\-]?)", re.IGNORECASE)
 _URL = re.compile(r"https?://|www\.", re.IGNORECASE)
 _MEDIA_WORDS = re.compile(r"\b(slide|photo|picture|image|video|clip|screen|portrait|graphic|manuscript)\b", re.IGNORECASE)
 _RECAP = re.compile(r"^\s*recap\b", re.IGNORECASE)
@@ -90,16 +93,6 @@ class NoteDocument(BaseModel):
         return [item for item in self.items if isinstance(item, ReviewItem)]
 
 
-class _Block:
-    def __init__(self, kind: str, line: int, text: str, **extra) -> None:
-        self.kind, self.line, self.text, self.extra = kind, line, text.strip(), extra
-        self.last_line_len = len(text)
-
-    def append(self, text: str) -> None:
-        self.text = f"{self.text} {text.strip()}".strip()
-        self.last_line_len = len(text)
-
-
 def _lead_references(text: str, aliases) -> tuple[list[PassageReference], list[ParseIssue]]:
     """References that open a line (and any chained with ';' or ',' directly after)."""
     parsed = parse_references(text, aliases)
@@ -132,71 +125,136 @@ def _trailing_references(text: str, aliases) -> list[PassageReference]:
     return chain
 
 
-def _line_width(lines: list[str]) -> int:
+class _Para:
+    def __init__(self, line: int, text: str, last_len: int) -> None:
+        self.line, self.end, self.text, self.last_len = line, line, text.strip(), last_len
+        self.kind = "other"
+        self.refs: list[PassageReference] = []
+        self.extra: dict = {}
+
+    def append(self, text: str, last_len: int, line: int = 0) -> None:
+        self.text = f"{self.text} {text.strip()}".strip()
+        self.last_len = last_len
+        self.end = line or self.end
+
+
+_DATE = re.compile(r"\d{1,2}/\d{1,2}/\d{2,4}")
+_CLOSERS = ("”", '"', "’", "'")
+
+
+def _marker(stripped: str):
+    """A numbered/lettered point marker, or None. Rejects '12: 9 NKJV'-style verse fragments."""
+    match = _MARKER.match(stripped)
+    if not match or not match.group("rest").strip():
+        return None
+    if match.group("punct") == ":" and match.group("rest").lstrip()[:1].isdigit():
+        return None
+    return match
+
+
+def _wrap_geometry(lines: list[str]) -> tuple[bool, int]:
+    """Detect hard-wrapped text (PDF/email) and the width at which a line counts as full."""
     lengths = sorted(len(line.rstrip()) for line in lines if line.strip())
-    if not lengths:
-        return 0
-    return lengths[int(len(lengths) * 0.9)]
+    if len(lengths) < 8:
+        return False, 0
+    p95 = lengths[max(0, int(len(lengths) * 0.95) - 1)]
+    near = sum(1 for n in lengths if 0.86 * p95 <= n <= 1.05 * p95)
+    return (p95 <= 140 and near / len(lengths) >= 0.15), int(0.86 * p95)
 
 
 def classify_document(text: str, aliases: dict[str, str] | None = None) -> NoteDocument:
-    """Classify every line of a document, preserving document order."""
-    lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
-    width = _line_width(lines)
-    wrap_threshold = max(40, int(width * 0.8))
+    """Classify a document into verse / point / skipped / review items, in document order."""
+    lines = text.replace("\r\n", "\n").replace("\r", "\n").replace("\xa0", " ").split("\n")
+    hard_wrap, threshold = _wrap_geometry(lines)
 
-    blocks: list[_Block] = []
-    current: _Block | None = None
+    def starts_new(stripped: str, current: _Para) -> bool:
+        if _SLIDE_TAG.match(stripped) or _STAGE.match(stripped) or _URL.search(stripped) or _RECAP.match(stripped) or _NOTE.match(stripped):
+            return True
+        if _BULLET.match(stripped):
+            return True
+        if _marker(stripped) and not _is_reference_start(stripped, aliases):
+            return True
+        if stripped.startswith(_QUOTE_OPEN) and current.text.endswith(_CLOSERS):
+            return True
+        first = re.match(r"[\[(]?([A-Za-z0-9]+)", stripped)
+        if _trailing_references(current.text, aliases) and not (first and is_real_version(first.group(1))):
+            return True          # a reference at the end of a line closes that entry
+        if _is_reference_start(stripped, aliases):
+            # a reference line either finishes a quote above it, or starts a new verse entry
+            return _is_reference_start(current.text, aliases) or bool(_trailing_references(current.text, aliases))
+        return False
 
-    def wrapped(block: _Block | None) -> bool:
-        """The previous line ran to the right margin, so the next one continues it."""
-        return bool(block) and block.last_line_len >= wrap_threshold and not block.text.rstrip().endswith(_SENTENCE_END[:3])
-
+    paras: list[_Para] = []
+    current: _Para | None = None
     for number, raw in enumerate(lines, 1):
         line = raw.rstrip()
-        if not line.strip():
+        stripped = line.strip()
+        if not stripped:
             current = None
             continue
-        stripped = line.strip()
+        if (
+            current is not None and hard_wrap and current.last_len >= threshold and not starts_new(stripped, current)
+            and not (_marker(current.text) and current.text.endswith(_SENTENCE_END[:5]) and stripped[:1].isupper())
+        ):
+            current.append(stripped, len(line), number)
+            continue
+        current = _Para(number, stripped, len(line))
+        paras.append(current)
 
-        tag = _SLIDE_TAG.match(stripped)
-        if tag:
-            current = _Block("slide_tag", number, tag.group("rest"))
-            blocks.append(current)
-            continue
-        if _STAGE.match(stripped) or _URL.search(stripped):
-            current = _Block("stage", number, stripped)
-            blocks.append(current)
-            continue
-        if _RECAP.match(stripped):
-            current = _Block("header", number, stripped, why="recap heading")
-            blocks.append(current)
-            continue
-        marker = _MARKER.match(stripped)
-        if marker and not _is_reference_start(stripped, aliases):
-            label = marker.group("label")
-            punct = marker.group("punct")
-            display = f"#{label}{punct}" if marker.group("hash") else f"{label}{punct}"
-            current = _Block("marker", number, marker.group("rest"), label=display, number=int(label) if label.isdigit() else None,
-                             letter=label if not label.isdigit() else None)
-            blocks.append(current)
-            continue
-        leads, _ = _lead_references(stripped, aliases)
-        if leads:
-            current = _Block("verse", number, stripped)
-            blocks.append(current)
-            continue
-        if current is not None and wrapped(current):
-            current.append(stripped)
-            continue
-        if stripped.startswith(_QUOTE_OPEN):
-            current = _Block("quote", number, stripped)
-            blocks.append(current)
-            continue
-        current = _Block("other", number, stripped)
-        blocks.append(current)
+    for para in paras:
+        _label(para, aliases)
+    return _build(paras, aliases)
 
-    return _build(blocks, aliases)
+
+def _label(para: _Para, aliases) -> None:
+    text = para.text
+    tag = _SLIDE_TAG.match(text)
+    if tag:
+        para.kind, para.text = "slide_tag", tag.group("rest").strip()
+        return
+    if _STAGE.match(text) or _URL.search(text) or _NOTE.match(text):
+        para.kind = "stage"
+        return
+    bullet = _BULLET.match(text)
+    if bullet and not _is_reference_start(bullet.group("rest"), aliases):
+        para.kind, para.text = "marker", bullet.group("rest").strip()
+        para.extra.update(label="•", number=None, bullet=True)
+        para.refs = parse_references(para.text, aliases).references
+        return
+    if _RECAP.match(text):
+        para.kind, para.extra["why"] = "header", "recap heading"
+        return
+    if _DATE.search(text) and not re.search(r"\d:\d", text):
+        para.kind, para.extra["why"] = "header", "title / date line"
+        return
+    marker = _marker(text)
+    if marker:
+        inner, _ = _lead_references(marker.group("rest").strip(), aliases)
+        if inner and not _is_reference_start(text, aliases):
+            para.kind, para.refs = "verse", inner
+            para.extra["numbered_verse"] = True
+            return
+    if marker and not _is_reference_start(text, aliases):
+        label = marker.group("label")
+        display = f"#{label}{marker.group('punct')}" if marker.group("hash") else f"{label}{marker.group('punct')}"
+        para.kind = "marker"
+        para.text = marker.group("rest").strip()
+        para.extra.update(label=display, number=int(label) if label.isdigit() else None)
+        para.refs = parse_references(para.text, aliases).references
+        return
+    leads, _ = _lead_references(text, aliases)
+    if leads:
+        para.kind, para.refs = "verse", leads
+        return
+    trailing = _trailing_references(text, aliases)
+    if trailing:
+        para.kind, para.refs = "verse", trailing
+        return
+    found = parse_references(text, aliases)
+    if found.references:
+        para.kind, para.refs = "midref", found.references
+        return
+    para.kind = "quote" if text.startswith(_QUOTE_OPEN) else "other"
 
 
 def _is_reference_start(text: str, aliases) -> bool:
@@ -204,68 +262,64 @@ def _is_reference_start(text: str, aliases) -> bool:
     return bool(leads)
 
 
-def _build(blocks: list[_Block], aliases) -> NoteDocument:
+def _build(paras: list[_Para], aliases) -> NoteDocument:
     doc = NoteDocument()
     last_point = 0
-    seen_points = False
-    index = 0
-    while index < len(blocks):
-        block = blocks[index]
-        index += 1
-        if block.kind == "slide_tag":
-            if not block.text:
-                doc.items.append(ReviewItem(line=block.line, text="[slide]", reason="[slide] tag with no text"))
-            elif _MEDIA_WORDS.search(block.text) and len(block.text) < 60:
-                doc.items.append(SkippedItem(
-                    line=block.line, category="media_marker", text=block.text,
-                    reason="[slide] tag that points at an existing slide or media item",
-                ))
+    for index, para in enumerate(paras):
+        kind, line, text = para.kind, para.line, para.text
+        if kind == "slide_tag":
+            if not text:
+                doc.items.append(ReviewItem(line=line, text="[slide]", reason="[slide] tag with no text"))
+            elif _MEDIA_WORDS.search(text) and len(text) < 60:
+                doc.items.append(SkippedItem(line=line, category="media_marker", text=text,
+                                             reason="[slide] tag that points at an existing slide or media item"))
             else:
-                doc.items.append(PointItem(line=block.line, role="slide_note", label="•", text=block.text))
-        elif block.kind == "stage":
-            doc.items.append(SkippedItem(line=block.line, category="stage_note", text=block.text, reason="stage/production cue"))
-        elif block.kind == "header":
-            doc.items.append(SkippedItem(line=block.line, category="header", text=block.text, reason=block.extra.get("why", "heading")))
-        elif block.kind == "marker":
-            number = block.extra["number"]
-            label = block.extra["label"]
-            if number is None:                      # lettered item, e.g. "a)"
-                role = "list_item"
+                doc.items.append(PointItem(line=line, role="slide_note", label="•", text=text, detail_end=line))
+        elif kind == "stage":
+            doc.items.append(SkippedItem(line=line, category="stage_note", text=text, reason="stage/production cue"))
+        elif kind == "header":
+            doc.items.append(SkippedItem(line=line, category="header", text=text, reason=para.extra.get("why", "heading")))
+        elif kind == "marker":
+            number, label = para.extra["number"], para.extra["label"]
+            if number is None:
+                role = "list_item"            # bullets and lettered items
             elif number == 1 or number == last_point + 1:
-                role = "point"
+                role, last_point = "point", number
             else:
                 role = "list_item"
-            if role == "point":
-                last_point, seen_points = number, True
             warnings = []
             if role == "list_item" and number is not None:
                 warnings.append(f"numbered out of sequence (after point {last_point}); treated as a list item")
-            if not block.text:
-                doc.items.append(ReviewItem(line=block.line, text=label, reason="marker with no text"))
+            for ref in para.refs:
+                warnings.append(f"text mentions {ref.normalized_text}; not added as a verse slide")
+            doc.items.append(PointItem(line=line, role=role, label=label, text=text, warnings=warnings, detail_end=line))
+        elif kind == "verse":
+            doc.issues.extend(_lead_references(text, aliases)[1])
+            _emit_verses(doc, para, para.refs)
+            if para.extra.get("numbered_verse"):
+                doc.items[-1].warnings.append("numbered line holds a reference; treated as a verse, not a sermon point")
+        elif kind == "midref":
+            names = ", ".join(ref.normalized_text for ref in para.refs[:3])
+            doc.items.append(ReviewItem(
+                line=line, text=text,
+                reason=f"mentions {names} inside text; put the reference on its own line to add it as a slide",
+            ))
+        elif kind == "quote":
+            nxt = paras[index + 1] if index + 1 < len(paras) else None
+            if nxt is not None and nxt.kind == "verse" and nxt.line - para.end <= 3:
+                doc.items.append(SkippedItem(line=line, category="quoted_text", text=text,
+                                             reason="verse text quoted above its reference; text is fetched from the Bible provider"))
             else:
-                doc.items.append(PointItem(line=block.line, role=role, label=label, text=block.text, warnings=warnings, detail_end=block.line))
-        elif block.kind == "verse":
-            refs, issues = _lead_references(block.text, aliases)
-            doc.issues.extend(issues)
-            _emit_verses(doc, block, refs)
-        elif block.kind == "quote":
-            refs = _trailing_references(block.text, aliases)
-            nxt = blocks[index] if index < len(blocks) else None
-            if refs:
-                _emit_verses(doc, block, refs)
-            elif nxt is not None and nxt.kind == "verse" and nxt.line - block.line <= 6:
-                doc.items.append(SkippedItem(line=block.line, category="quoted_text", text=block.text, reason="verse text quoted above its reference; text is fetched from the Bible provider"))
-            else:
-                doc.items.append(ReviewItem(line=block.line, text=block.text, reason="quoted text with no reference"))
+                doc.items.append(ReviewItem(line=line, text=text, reason="quoted text with no reference"))
         else:
-            item = _other(block, block.text)
+            item = _other(para, text)
             prior = doc.items[-1] if doc.items else None
             if (
                 isinstance(item, ReviewItem) and isinstance(prior, PointItem) and prior.role in {"point", "list_item"}
-                and block.line - prior.line <= 4 and prior.detail_end >= block.line - 1
+                and line - prior.detail_end <= 2
             ):
-                prior.text += "\n" + block.text
-                prior.detail_end = block.line
+                prior.text += "\n" + text
+                prior.detail_end = line
                 note = "joined unlabeled detail line(s) under this point"
                 if note not in prior.warnings:
                     prior.warnings.append(note)
@@ -274,20 +328,21 @@ def _build(blocks: list[_Block], aliases) -> NoteDocument:
     return doc
 
 
-def _emit_verses(doc: NoteDocument, block: _Block, refs: list[PassageReference]) -> None:
+def _emit_verses(doc: NoteDocument, para: _Para, refs: list[PassageReference]) -> None:
     for ref in refs:
-        if ref.warnings and any("whole chapter" in warning for warning in ref.warnings):
+        if any("whole chapter" in warning for warning in ref.warnings):
             doc.items.append(ReviewItem(
-                line=block.line, text=ref.source_text,
+                line=para.line, text=ref.source_text,
                 reason="whole-chapter reference; add verse numbers to include it",
             ))
             continue
-        doc.items.append(VerseItem(line=block.line, reference=ref, warnings=list(ref.warnings)))
+        doc.items.append(VerseItem(line=para.line, reference=ref, warnings=list(ref.warnings)))
 
 
-def _other(block: _Block, text: str):
-    if re.match(r"^(part|week|session|series)\s*\d+\s*[:.-]", text, re.IGNORECASE) or re.match(r"^\d{1,2}/\d{1,2}/\d{2,4}\b", text) or text.endswith(":"):
-        return SkippedItem(line=block.line, category="header", text=text, reason="title / heading line")
+def _other(para: _Para, text: str):
+    line = para.line
+    if re.match(r"^(part|week|session|series)\s*\d+\s*[:.-]", text, re.IGNORECASE) or text.endswith(":"):
+        return SkippedItem(line=line, category="header", text=text, reason="title / heading line")
     if len(text) <= 80 and not text.endswith((".", "?", "!")):
-        return SkippedItem(line=block.line, category="header", text=text, reason="unlabeled short line treated as a heading")
-    return ReviewItem(line=block.line, text=text, reason="unlabeled line; not a reference, point, or known cue")
+        return SkippedItem(line=line, category="header", text=text, reason="unlabeled short line treated as a heading")
+    return ReviewItem(line=line, text=text, reason="unlabeled line; not a reference, point, or known cue")
