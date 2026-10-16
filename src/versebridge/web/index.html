@@ -301,9 +301,12 @@ async function autostart(){
 }
 $('auto').onchange = async (ev)=>{
   const want = ev.target.checked; ev.target.disabled = true;
-  try{ await api('/api/autostart', {method:'POST', body:JSON.stringify({enabled: want})}); }
-  catch(e){ alert(e.message); ev.target.checked = !want; }
-  ev.target.disabled = false; autostart();
+  try{
+    await api('/api/autostart', {method:'POST', body:JSON.stringify({enabled: want})});
+    $('autoNote').textContent = want ? `On: it starts at login at ${location.origin}/` : 'Off. This page keeps running until you close VerseBridge or restart the computer.';
+  }catch(e){ alert(e.message); ev.target.checked = !want; }
+  ev.target.disabled = false;
+  if(want) setTimeout(autostart, 1500);
 };
 
 status(); history(); autostart();

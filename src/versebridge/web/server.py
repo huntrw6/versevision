@@ -280,7 +280,12 @@ def make_handler(state: AppState):
                         port = int(self.server.server_address[1])
                         self._json(200, autostart.enable("127.0.0.1", port).model_dump())
                     else:
-                        self._json(200, autostart.disable().model_dump())
+                        # Turning it off may stop the very service that is answering this request, so
+                        # reply first (with the new state) and remove the login item a moment later.
+                        current = autostart.status().model_dump()
+                        current.update(enabled=False, port=None, host=None)
+                        self._json(200, current)
+                        threading.Timer(0.5, autostart.disable).start()
                 elif parsed.path == "/api/undo":
                     body = json.loads(self._body() or b"{}")
                     job = start_undo(state, body.get("id", ""))
