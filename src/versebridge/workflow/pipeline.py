@@ -374,7 +374,11 @@ def publish_new(
         name = unique_name(name, existing | {name})
     steps = [f"new presentation: {name}"]
 
-    template_target = _target_from_api(transport, uuid_=definition.presentation_uuid, name=None, library=None)
+    try:
+        template_target = _target_from_api(transport, uuid_=definition.presentation_uuid, name=None, library=None)
+    except ConfigurationError:
+        # the saved id can go stale (the presentation was recreated); fall back to its name
+        template_target = _target_from_api(transport, uuid_=None, name=definition.presentation_name, library=definition.library_name)
     workdir = Path(tempfile.mkdtemp(prefix="versebridge-"))
     template_local = workdir / "template.pro"
     progress("Reading the template")

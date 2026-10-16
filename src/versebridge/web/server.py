@@ -23,7 +23,7 @@ from versebridge.documents import extract_text
 from versebridge.errors import DocumentError, VerseBridgeError
 from versebridge.history import HistoryStore
 from versebridge.node.transport import make_transport
-from versebridge.workflow.pipeline import apply_import, plan_for_transport, undo_import
+from versebridge.workflow.pipeline import apply_import, list_presentations, plan_for_transport, publish_new, undo_import
 from versebridge.workflow.report import build_report
 
 MAX_UPLOAD = 25 * 1024 * 1024
@@ -44,6 +44,10 @@ class Job:
         self.name = ""
         self.plan: Any = None
         self.target: Any = None
+        self.mode = "new"
+        self.title = ""
+        self.title_override: str | None = None
+        self.library: str | None = None
 
 
 class AppState:
@@ -85,9 +89,11 @@ def _spawn(state: AppState, job: Job, fn) -> None:
     threading.Thread(target=runner, daemon=True).start()
 
 
-def start_plan(state: AppState, name: str, data: bytes, default_version: str | None, target: str | None) -> Job:
+def start_plan(state: AppState, name: str, data: bytes, default_version: str | None, target: str | None,
+               mode: str = "new", title: str | None = None, library: str | None = None) -> Job:
     job = Job("plan")
     job.name = name
+    job.mode, job.title_override, job.library = mode, title, library
 
     def work(j: Job) -> None:
         suffix = Path(name).suffix.casefold()
@@ -98,22 +104,36 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
             path.write_bytes(data)
             j.message = "Reading the document"
             j.text = extract_text(path)
-        wanted = target or state.target_name()
-        if not wanted:
-            raise DocumentError("No target presentation is set. Run: versebridge template setup")
+        if mode not in {"new", "replace", "append"}:
+            raise DocumentError("Unknown mode")
+        if not state.config.presentation_template:
+            raise DocumentError("No template is set up yet. Run: versebridge template setup")
         j.message = "Finding verses and fetching Scripture"
         transport = state.transport()
         j.message = "Checking ProPresenter"
-        plan, tgt = asyncio.run(plan_for_transport(
-            j.text, state.config, transport, default_version=default_version,
-            target_uuid=None, target_name=wanted, library=None,
-        ))
+        tgt = None
+        if mode != "new":
+            if not target:
+                raise DocumentError("Choose which presentation to change")
+            plan, tgt = asyncio.run(plan_for_transport(
+                j.text, state.config, transport, default_version=default_version,
+                target_uuid=target, target_name=None, library=None,
+            ))
+        else:
+            plan, _ = asyncio.run(plan_for_transport(
+                j.text, state.config, transport, default_version=default_version,
+                target_uuid=None, target_name=None, library=None,
+            ))
         j.plan, j.target = plan, tgt
+        from versebridge.notes.title import document_title, safe_presentation_name
+        j.title = safe_presentation_name(title) if title else document_title(j.text, name)
         report = build_report(plan, source_name=name)
-        report["target"] = {"name": tgt[2], "library": tgt[0]} if tgt else None
+        report["mode"] = mode
+        report["title"] = j.title
+        report["library"] = library or state.config.output.library
+        report["target"] = {"name": tgt[2], "library": tgt[0], "uuid": tgt[1]} if tgt else None
         report["node"] = transport.description
-        previous = state.history.latest_active(target_uuid=tgt[1], source_name=name, node=state.config.node.name or "local") if tgt else None
-        report["replaces"] = {"import_id": previous.import_id, "slides": len(previous.cue_uuids)} if previous else None
+        report["replaces"] = None
         j.result = report
         j.message = "Ready to review"
 
@@ -123,7 +143,7 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
 
 def start_apply(state: AppState, plan_job_id: str, accept_flags: bool) -> Job:
     source = state.jobs.get(plan_job_id)
-    if not source or source.kind != "plan" or not source.plan or not source.target:
+    if not source or source.kind != "plan" or not source.plan or (source.mode != "new" and not source.target):
         raise VerseBridgeError("That review is no longer available; drop the file again")
     if source.result and source.result["flagged"] and not accept_flags:
         raise VerseBridgeError("Some lines are flagged; confirm you want to import the rest")
@@ -136,11 +156,19 @@ def start_apply(state: AppState, plan_job_id: str, accept_flags: bool) -> Job:
     def work(j: Job) -> None:
         def progress(message: str) -> None:
             j.message = message
-        assert source.plan is not None and source.target is not None
-        applied = apply_import(
-            source.text, source.name, source.plan, source.target, state.config, state.transport(),
-            replace=True, close_app=True, reopen=True, history=state.history, progress=progress,
-        )
+        assert source.plan is not None
+        if source.mode == "new":
+            applied = publish_new(
+                source.text, source.name, source.title, source.plan, state.config, state.transport(),
+                library=source.library, history=state.history, progress=progress,
+            )
+        else:
+            assert source.target is not None
+            applied = apply_import(
+                source.text, source.name, source.plan, source.target, state.config, state.transport(),
+                replace=True, clear_generated=(source.mode == "replace"), close_app=True, reopen=True,
+                history=state.history, progress=progress,
+            )
         j.result = applied.model_dump()
         j.message = "Done"
 
@@ -222,7 +250,7 @@ def make_handler(state: AppState):
                 self._json(200, {
                     "target": state.target_name(), "node": cfg.node.name or "this computer",
                     "default_version": cfg.bible.default_version, "version": "0.2",
-                    "template_ready": bool(cfg.presentation_template),
+                    "template_ready": bool(cfg.presentation_template), "library": cfg.output.library,
                 })
             elif path == "/api/check":
                 try:
@@ -238,6 +266,13 @@ def make_handler(state: AppState):
                     return
                 self._json(200, {"id": job.id, "kind": job.kind, "state": job.state, "message": job.message,
                                  "result": job.result, "error": job.error, "exit_code": job.exit_code})
+            elif path == "/api/presentations":
+                try:
+                    items = list_presentations(state.transport())
+                    libraries = sorted({item["library"] for item in items} | {state.config.output.library})
+                    self._json(200, {"presentations": items, "libraries": libraries, "default_library": state.config.output.library})
+                except Exception as exc:
+                    self._json(200, {"presentations": [], "libraries": [state.config.output.library], "default_library": state.config.output.library, "error": str(exc)})
             elif path == "/api/autostart":
                 from versebridge import autostart
                 try:
@@ -247,7 +282,7 @@ def make_handler(state: AppState):
             elif path == "/api/history":
                 self._json(200, [
                     {"id": r.import_id, "when": r.created.isoformat(), "source": r.source_name, "target": r.target_name,
-                     "slides": r.slide_count, "status": r.status}
+                     "slides": r.slide_count, "status": r.status, "mode": r.mode}
                     for r in reversed(state.history.load())
                 ][:30])
             else:
@@ -265,7 +300,11 @@ def make_handler(state: AppState):
                     if Path(name).suffix.casefold() not in ALLOWED:
                         raise DocumentError(f"Unsupported file type {Path(name).suffix or '(none)'}. Use PDF, Word (.docx), text, Markdown or HTML.")
                     version = (query.get("version") or [None])[0] or None
-                    job = start_plan(state, name, self._body(), version, (query.get("target") or [None])[0] or None)
+                    job = start_plan(
+                        state, name, self._body(), version, (query.get("target") or [None])[0] or None,
+                        mode=(query.get("mode") or ["new"])[0], title=(query.get("title") or [None])[0] or None,
+                        library=(query.get("library") or [None])[0] or None,
+                    )
                     self._json(202, {"job": job.id})
                 elif parsed.path == "/api/apply":
                     body = json.loads(self._body() or b"{}")
