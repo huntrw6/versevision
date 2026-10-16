@@ -238,6 +238,12 @@ def make_handler(state: AppState):
                     return
                 self._json(200, {"id": job.id, "kind": job.kind, "state": job.state, "message": job.message,
                                  "result": job.result, "error": job.error, "exit_code": job.exit_code})
+            elif path == "/api/autostart":
+                from versebridge import autostart
+                try:
+                    self._json(200, autostart.status().model_dump())
+                except Exception as exc:
+                    self._json(200, {"supported": False, "enabled": False, "detail": str(exc)})
             elif path == "/api/history":
                 self._json(200, [
                     {"id": r.import_id, "when": r.created.isoformat(), "source": r.source_name, "target": r.target_name,
@@ -265,6 +271,16 @@ def make_handler(state: AppState):
                     body = json.loads(self._body() or b"{}")
                     job = start_apply(state, body.get("job", ""), bool(body.get("accept_flags")))
                     self._json(202, {"job": job.id})
+                elif parsed.path == "/api/autostart":
+                    from versebridge import autostart
+                    if self.server.server_address[0] not in {"127.0.0.1", "::1"}:
+                        raise VerseBridgeError("Start-at-login can only be changed from the page running on this computer (127.0.0.1)")
+                    body = json.loads(self._body() or b"{}")
+                    if body.get("enabled"):
+                        port = int(self.server.server_address[1])
+                        self._json(200, autostart.enable("127.0.0.1", port).model_dump())
+                    else:
+                        self._json(200, autostart.disable().model_dump())
                 elif parsed.path == "/api/undo":
                     body = json.loads(self._body() or b"{}")
                     job = start_undo(state, body.get("id", ""))

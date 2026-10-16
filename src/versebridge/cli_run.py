@@ -178,6 +178,43 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         finally:
             server.server_close()
 
+    autostart_app = typer.Typer(help="Start the web page automatically when you log in.")
+    app.add_typer(autostart_app, name="autostart")
+
+    @autostart_app.command("status")
+    def autostart_status(output: Annotated[str, typer.Option("--output")] = "terminal") -> None:
+        from versebridge import autostart
+        state = autostart.status()
+        if output.casefold() == "json":
+            typer.echo(state.model_dump_json(indent=2))
+        else:
+            console.print(("[green]On[/green]" if state.enabled else "Off") + f" ({state.platform})" + (f", http://{state.host}:{state.port}/" if state.enabled and state.port else ""))
+
+    @autostart_app.command("enable")
+    def autostart_enable(
+        host: Annotated[str, typer.Option("--host")] = "127.0.0.1",
+        port: Annotated[int, typer.Option("--port")] = 8777,
+    ) -> None:
+        """Turn on: the web page starts when you log in and restarts if it stops."""
+        try:
+            from versebridge import autostart
+            state = autostart.enable(host, port)
+            console.print(f"[green]On[/green]: VerseBridge will start when you log in at http://{host}:{port}/")
+            if state.file:
+                console.print(f"Service file: {state.file}")
+        except Exception as exc:
+            _fail(exc, False)
+
+    @autostart_app.command("disable")
+    def autostart_disable() -> None:
+        """Turn off and remove the login item."""
+        try:
+            from versebridge import autostart
+            autostart.disable()
+            console.print("Off: VerseBridge will no longer start at login.")
+        except Exception as exc:
+            _fail(exc, False)
+
     @app.command("history")
     def history_command(output: Annotated[str, typer.Option("--output")] = "terminal") -> None:
         """List earlier imports."""

@@ -121,7 +121,7 @@
   <h2 class="sec">Earlier imports</h2>
   <div id="hist"></div>
 </main>
-<footer>Slides are added to the presentation and ProPresenter is briefly closed and reopened. A backup is made first, and every import can be undone.</footer>
+<footer id="foot"><label id="autoWrap" class="hidden"><input type="checkbox" id="auto"> Start VerseBridge automatically when I log in to this computer</label><div id="autoNote" style="margin:4px 0 14px"></div>Slides are added to the presentation and ProPresenter is briefly closed and reopened. A backup is made first, and every import can be undone.</footer>
 
 <script>
 const TOKEN = new URLSearchParams(location.search).get('token') || '';
@@ -291,7 +291,22 @@ drop.addEventListener('drop', e=>handleFile(e.dataTransfer.files[0]));
 window.addEventListener('dragover', e=>e.preventDefault());
 window.addEventListener('drop', e=>e.preventDefault());
 
-status(); history();
+async function autostart(){
+  try{
+    const s = await api('/api/autostart');
+    const wrap = $('autoWrap'); wrap.classList.toggle('hidden', !s.supported);
+    $('auto').checked = !!s.enabled;
+    $('autoNote').textContent = s.enabled && s.port ? `On: it starts at login at http://${s.host||'127.0.0.1'}:${s.port}/` : '';
+  }catch(e){}
+}
+$('auto').onchange = async (ev)=>{
+  const want = ev.target.checked; ev.target.disabled = true;
+  try{ await api('/api/autostart', {method:'POST', body:JSON.stringify({enabled: want})}); }
+  catch(e){ alert(e.message); ev.target.checked = !want; }
+  ev.target.disabled = false; autostart();
+};
+
+status(); history(); autostart();
 </script>
 </body>
 </html>
