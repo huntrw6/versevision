@@ -80,3 +80,10 @@ class FakeNode:
         assert not self.running, "app must be closed"
         shutil.copy2(backup, remote)
         self.log.append("restore")
+
+
+def _find(self, name, library):
+    return [str(self.file)] if name == self.name else []
+
+
+FakeNode.find_presentation = _find

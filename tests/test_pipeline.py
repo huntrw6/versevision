@@ -119,3 +119,18 @@ def test_report_marks_flagged_and_clean(env):
     flagged, _ = asyncio.run(plan_for_transport("Psalm 23\nJohn 3:16 NIV", config, node, default_version="NIV", target_uuid=None, target_name="Sample", library=None))
     report = build_report(flagged)
     assert report["clean"] is False and report["flagged"][0]["status"] == "needs_review"
+
+
+def test_target_is_found_from_disk_when_propresenter_is_closed(env):
+    tmp, pres, node, config, history = env
+    node.running = False
+
+    def offline(route):
+        raise ConnectionError("API down")
+
+    node.api_get = offline
+    lib, uuid_, name, path, _ = pipeline._target_from_api(node, uuid_=None, name="Sample", library=None)
+    assert name and path == str(pres) and uuid_
+    plan, _ = asyncio.run(plan_for_transport(NOTES, config, node, default_version="NIV", target_uuid=None, target_name="Sample", library=None))
+    result = apply_import(NOTES, "n.txt", plan, (lib, uuid_, name, path, {}), config, node, history=history)
+    assert result.slide_count == 4 and not result.reopened and node.log == ["install"]

@@ -54,8 +54,44 @@ def source_fingerprint(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
+def _target_from_disk(transport: Transport, *, uuid_: str | None, name: str | None, library: str | None):
+    """Find the target by its file when ProPresenter is closed (the API is unavailable)."""
+    import tempfile
+    from versebridge.presentation.generated import presentation_pb2
+    wanted = name
+    if not wanted:
+        record = next((r for r in HistoryStore().load() if uuid_ and r.target_uuid.casefold() == uuid_.casefold()), None)
+        wanted = record.target_name if record else None
+    if not wanted:
+        raise ConfigurationError("ProPresenter is not running, so the presentation cannot be looked up by id; give its name")
+    paths = transport.find_presentation(wanted, library)
+    if not paths:
+        raise ConfigurationError(f"ProPresenter is not running and no file named {wanted}.pro was found in its library folder")
+    if len(paths) > 1:
+        raise ConfigurationError("Presentation target is ambiguous: " + ", ".join(paths))
+    local = Path(tempfile.mkdtemp(prefix="versebridge-")) / Path(paths[0]).name
+    transport.fetch_file(paths[0], local)
+    message = presentation_pb2.Presentation()
+    message.ParseFromString(local.read_bytes())
+    return Path(paths[0]).parent.name, message.uuid.string, message.name or wanted, paths[0], {"from_disk": True}
+
+
 def _target_from_api(transport: Transport, *, uuid_: str | None, name: str | None, library: str | None):
-    """Find the target presentation and its file path through the ProPresenter API."""
+    """Find the target presentation and its file path: through the ProPresenter API, or from disk when it is closed."""
+    try:
+        return _target_from_api_only(transport, uuid_=uuid_, name=name, library=library)
+    except ConfigurationError:
+        raise
+    except Exception as api_error:
+        if transport.is_running():
+            raise
+        try:
+            return _target_from_disk(transport, uuid_=uuid_, name=name, library=library)
+        except ConfigurationError as disk_error:
+            raise ConfigurationError(f"{disk_error} (the ProPresenter API was also unavailable: {api_error})") from disk_error
+
+
+def _target_from_api_only(transport: Transport, *, uuid_: str | None, name: str | None, library: str | None):
     libraries = transport.api_get("/v1/libraries")
     found = []
     for lib in libraries:
@@ -178,7 +214,7 @@ def apply_import(
                 pass
         raise
 
-    verified, message, reopened = False, "Structural verification passed; ProPresenter was not reopened", False
+    verified, message, reopened = False, "Written and checked in the file; ProPresenter was closed, so the slides appear the next time you open it", False
     if reopen_after:
         progress("Reopening ProPresenter")
         transport.launch_app()

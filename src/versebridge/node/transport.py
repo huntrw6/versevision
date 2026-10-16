@@ -43,6 +43,7 @@ class Transport(Protocol):
     def launch_app(self) -> None: ...
     def fetch_file(self, remote_path: str, local_path: Path) -> str: ...
     def install_file(self, local_path: Path, remote_path: str, expected_remote_sha: str) -> str: ...
+    def find_presentation(self, name: str, library: str | None) -> list[str]: ...
     def backup_file(self, remote_path: str) -> str: ...
     def restore_backup(self, backup_path: str, remote_path: str) -> None: ...
 
@@ -94,6 +95,13 @@ class LocalTransport:
             if temp and temp.exists():
                 temp.unlink()
         return sha256_file(target)
+
+    def find_presentation(self, name: str, library: str | None) -> list[str]:
+        root = Path(os.path.expandvars(self.node.library_root)).expanduser()
+        if not root.exists():
+            return []
+        folders = [root / library] if library else [item for item in root.iterdir() if item.is_dir()]
+        return sorted(str(folder / f"{name}.pro") for folder in folders if (folder / f"{name}.pro").is_file())
 
     def backup_file(self, remote_path: str) -> str:
         from versebridge.presentation.backup import create_backup
@@ -226,6 +234,13 @@ class HermesRemoteTransport:
         if installed != local_sha:
             raise PresentationWriteError("Installed file did not match the staged file; restore the backup")
         return installed
+
+    def find_presentation(self, name: str, library: str | None) -> list[str]:
+        folder = shlex.quote(library) if library else "*"
+        # $HOME in library_root must expand on the remote side, so only the variable parts are quoted
+        command = f'for f in "{self.node.library_root}"/{folder}/{shlex.quote(name + ".pro")}; do [ -f "$f" ] && echo "$f"; done'
+        code, out = self._sh(command, gui=True)
+        return [line.strip() for line in out.splitlines() if line.strip().endswith(".pro")]
 
     def backup_file(self, remote_path: str) -> str:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")

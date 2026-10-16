@@ -107,6 +107,7 @@ class NodeConfig(BaseModel):
     app_path: str = "/Applications/ProPresenter.app"
     process_pattern: str = "MacOS/ProPresenter$"
     backup_dir: str = "$HOME/VerseBridge-backups"
+    library_root: str = "$HOME/Documents/ProPresenter/Libraries"
     retries: int = Field(default=2, ge=0, le=5)
     retry_delay_seconds: float = Field(default=20.0, ge=0, le=120)
     quit_wait_seconds: float = Field(default=25.0, ge=1, le=300)
