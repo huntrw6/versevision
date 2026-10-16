@@ -33,6 +33,7 @@ class PlanWriteResult(BaseModel):
     group_count_after: int
     output_sha256: str
     original_sha256: str
+    removed_cue_count: int = 0
 
 
 class VerificationResult(BaseModel):

@@ -228,11 +228,44 @@ class ProtobufPresentationWriter:
             original.cue_groups.append(group)
         return created
 
+    @staticmethod
+    def _remove_cues(message, cue_uuids: set[str]) -> tuple[int, int]:
+        """Remove cues and drop them from groups; groups left empty are removed along with
+        their arrangement references. Returns (cues removed, groups removed)."""
+        wanted = {item.casefold() for item in cue_uuids}
+        kept = [cue for cue in message.cues if cue.uuid.string.casefold() not in wanted]
+        removed = len(message.cues) - len(kept)
+        if removed:
+            del message.cues[:]
+            message.cues.extend(kept)
+        removed_groups: set[str] = set()
+        surviving = []
+        for group in message.cue_groups:
+            identifiers = [item.string for item in group.cue_identifiers if item.string.casefold() not in wanted]
+            if len(identifiers) != len(group.cue_identifiers):
+                del group.cue_identifiers[:]
+                for identifier in identifiers:
+                    group.cue_identifiers.add().string = identifier
+                if not identifiers:
+                    removed_groups.add(group.group.uuid.string)
+                    continue
+            surviving.append(group)
+        if removed_groups:
+            del message.cue_groups[:]
+            message.cue_groups.extend(surviving)
+            for arrangement in message.arrangements:
+                keep = [item.string for item in arrangement.group_identifiers if item.string not in removed_groups]
+                del arrangement.group_identifiers[:]
+                for identifier in keep:
+                    arrangement.group_identifiers.add().string = identifier
+        return removed, len(removed_groups)
+
     def append_plan(
         self, path: Path, slide_plan: SlidePlan, definition: PresentationTemplateConfig,
-        *, template_path: Path | None = None,
+        *, template_path: Path | None = None, remove_cue_uuids: list[str] | None = None,
     ) -> PlanWriteResult:
-        if not slide_plan.slides:
+        """Append a plan, optionally removing an earlier import's cues in the same atomic write."""
+        if not slide_plan.slides and not remove_cue_uuids:
             raise ValueError("slide plan is empty")
         path = path.resolve(strict=True)
         lock = FileLock(str(path) + ".versebridge.lock", timeout=10)
@@ -245,7 +278,13 @@ class ProtobufPresentationWriter:
                 template_message = self._read(template_path.resolve(strict=True))
                 self.policy.validate(template_message)
             before_cues, before_groups = len(original.cues), len(original.cue_groups)
-            cue_uuids = self._render_plan(original, slide_plan, definition, template_message)
+            removed_cues = removed_groups = 0
+            if remove_cue_uuids:
+                removed_cues, removed_groups = self._remove_cues(original, set(remove_cue_uuids))
+            cue_uuids = self._render_plan(original, slide_plan, definition, template_message) if slide_plan.slides else []
+            added_groups = len({item.source_passage_index for item in slide_plan.slides})
+            expected_cues = before_cues - removed_cues + len(cue_uuids)
+            expected_groups = before_groups - removed_groups + added_groups
             backup = create_backup(path)
             temp_path: Path | None = None
             try:
@@ -257,13 +296,14 @@ class ProtobufPresentationWriter:
                     stream.flush()
                     os.fsync(stream.fileno())
                 reparsed = self._read(temp_path)
-                if len(reparsed.cues) != before_cues + len(cue_uuids):
+                if len(reparsed.cues) != expected_cues:
                     raise ValueError("temporary presentation cue count differs")
-                if len(reparsed.cue_groups) != before_groups + len({item.source_passage_index for item in slide_plan.slides}):
+                if len(reparsed.cue_groups) != expected_groups:
                     raise ValueError("temporary presentation group count differs")
-                appended = {item.uuid.string for item in reparsed.cues[-len(cue_uuids):]}
-                if appended != set(cue_uuids):
-                    raise ValueError("temporary presentation is missing generated cue UUIDs")
+                if cue_uuids:
+                    appended = {item.uuid.string for item in reparsed.cues[-len(cue_uuids):]}
+                    if appended != set(cue_uuids):
+                        raise ValueError("temporary presentation is missing generated cue UUIDs")
                 if _sha256(path) != original_hash:
                     raise ValueError("presentation changed while VerseBridge was preparing the import; no files changed")
                 os.replace(temp_path, path)
@@ -274,10 +314,10 @@ class ProtobufPresentationWriter:
                 raise
             result = PlanWriteResult(
                 path=path, backup_path=backup, cue_uuids=cue_uuids,
-                cue_count_before=before_cues, cue_count_after=before_cues + len(cue_uuids),
-                group_count_before=before_groups,
-                group_count_after=before_groups + len({item.source_passage_index for item in slide_plan.slides}),
+                cue_count_before=before_cues, cue_count_after=expected_cues,
+                group_count_before=before_groups, group_count_after=expected_groups,
                 output_sha256=_sha256(path), original_sha256=original_hash,
+                removed_cue_count=removed_cues,
             )
             if _sha256(path) != result.output_sha256:
                 os.replace(backup, path)

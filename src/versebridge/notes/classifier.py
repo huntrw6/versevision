@@ -131,11 +131,19 @@ class _Para:
         self.kind = "other"
         self.refs: list[PassageReference] = []
         self.extra: dict = {}
+        self.first = False
 
     def append(self, text: str, last_len: int, line: int = 0) -> None:
         self.text = f"{self.text} {text.strip()}".strip()
         self.last_len = last_len
         self.end = line or self.end
+
+
+_EMAIL_HEADER = re.compile(r"^\s*(from|to|cc|bcc|subject|date|sent)\s*:|<[^>\s]+@[^>\s]+>|^\[quoted text hidden\]$", re.IGNORECASE)
+
+
+def _header_like(words: list[str]) -> bool:
+    return bool(words) and all(w[:1].isupper() or w[:1].isdigit() for w in words)
 
 
 _DATE = re.compile(r"\d{1,2}/\d{1,2}/\d{2,4}")
@@ -159,7 +167,7 @@ def _wrap_geometry(lines: list[str]) -> tuple[bool, int]:
         return False, 0
     p95 = lengths[max(0, int(len(lengths) * 0.95) - 1)]
     near = sum(1 for n in lengths if 0.86 * p95 <= n <= 1.05 * p95)
-    return (p95 <= 140 and near / len(lengths) >= 0.15), int(0.86 * p95)
+    return (60 <= p95 <= 140 and near / len(lengths) >= 0.15), int(0.86 * p95)
 
 
 def classify_document(text: str, aliases: dict[str, str] | None = None) -> NoteDocument:
@@ -201,6 +209,8 @@ def classify_document(text: str, aliases: dict[str, str] | None = None) -> NoteD
         current = _Para(number, stripped, len(line))
         paras.append(current)
 
+    if paras:
+        paras[0].first = True
     for para in paras:
         _label(para, aliases)
     return _build(paras, aliases)
@@ -265,7 +275,11 @@ def _is_reference_start(text: str, aliases) -> bool:
 def _build(paras: list[_Para], aliases) -> NoteDocument:
     doc = NoteDocument()
     last_point = 0
+    seen_content = False
     for index, para in enumerate(paras):
+        para.extra["seen_content"] = seen_content
+        if para.kind in {"verse", "marker", "slide_tag", "midref"}:
+            seen_content = True
         kind, line, text = para.kind, para.line, para.text
         if kind == "slide_tag":
             if not text:
@@ -343,6 +357,15 @@ def _other(para: _Para, text: str):
     line = para.line
     if re.match(r"^(part|week|session|series)\s*\d+\s*[:.-]", text, re.IGNORECASE) or text.endswith(":"):
         return SkippedItem(line=line, category="header", text=text, reason="title / heading line")
+    words = text.split()
+    if _EMAIL_HEADER.search(text):
+        return SkippedItem(line=line, category="header", text=text, reason="email header line")
+    if para.first and not text.endswith((".", "?", "!")):
+        return SkippedItem(line=line, category="header", text=text, reason="document title (first line)")
+    if len(words) <= 2 and _header_like(words) and not text.endswith((".", "?", "!")):
+        return SkippedItem(line=line, category="header", text=text, reason="one or two capitalized words: looks like a heading")
     if len(text) <= 80 and not text.endswith((".", "?", "!")):
-        return SkippedItem(line=line, category="header", text=text, reason="unlabeled short line treated as a heading")
+        if not para.extra.get("seen_content"):
+            return SkippedItem(line=line, category="header", text=text, reason="title/preamble before the first verse or point")
+        return ReviewItem(line=line, text=text, reason="short unlabeled line: a heading, or a point missing its number? add a number or bullet to make it a slide")
     return ReviewItem(line=line, text=text, reason="unlabeled line; not a reference, point, or known cue")
