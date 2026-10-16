@@ -410,7 +410,10 @@ class ProtobufPresentationWriter:
             (definition.point_object,),
         }
         found: list[str] = []
+        protected = {u.casefold() for u in (definition.cue_uuid, definition.point_cue_uuid) if u}
         for cue in message.cues:
+            if cue.uuid.string.casefold() in protected:
+                continue                      # the template slides themselves are never "generated" slides
             actions = [a for a in cue.actions if a.WhichOneof("ActionTypeData") == "slide"]
             if len(actions) != 1 or len(cue.actions) != 1:
                 continue

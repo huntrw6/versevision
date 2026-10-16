@@ -218,8 +218,9 @@ def test_replace_removes_only_verse_and_point_slides(env):
     labels = [a.label.text for c in after.cues for a in c.actions]
     assert "Background" in labels                                # kept
     kept_original = {c.uuid.string for c in after.cues} & {c.uuid.string for c in m.cues}
-    assert kept_original == {blank.uuid.string}                  # the template's verse/point cues were cleared
-    assert len(after.cues) == 1 + len(plan.slide_plan.slides)
+    t = config.presentation_template
+    assert kept_original == {blank.uuid.string, t.cue_uuid, t.point_cue_uuid}   # blank + the template slides themselves are kept
+    assert len(after.cues) == len(kept_original) + len(plan.slide_plan.slides)
 
 
 # ----------------------------------------------------------------------------- titles and names
@@ -235,3 +236,14 @@ def test_names_are_file_safe_and_unique():
     assert unique_name("Verses", {"verses"}) == "Verses (2)"
     assert unique_name("X", {"x", "x (2)"}) == "X (3)"
     assert len(safe_presentation_name("word " * 80)) <= 100
+
+
+def test_template_slides_in_the_same_file_are_never_treated_as_generated(env):
+    """--replace on the presentation that also holds the template must keep the template slides."""
+    from versebridge.presentation.protobuf_writer import ProtobufPresentationWriter
+
+    tmp, pres, node, config, history = env
+    message = ProtobufPresentationWriter()._read(pres)
+    victims = {u.casefold() for u in ProtobufPresentationWriter.generated_cue_uuids(message, config.presentation_template)}
+    for cue in (config.presentation_template.cue_uuid, config.presentation_template.point_cue_uuid):
+        assert cue.casefold() not in victims
