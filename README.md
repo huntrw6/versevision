@@ -92,17 +92,48 @@ prefer_punctuation_breaks = true
 repeat_reference_on_continuation = true
 ```
 
-## Sermon notes
+## Quick start (sermon notes)
 
-`import --notes` treats the document as sermon notes and plans verse slides *and* sermon-point slides in document order:
+```bash
+versebridge node                          # check the connection to the ProPresenter computer
+versebridge template setup -t Verses --verse-slide 2   # pick the verse and sermon-point template slides
+versebridge run notes.pdf -t Verses --dry-run          # plan and report; changes nothing
+versebridge run notes.pdf -t Verses                    # import (closes and reopens ProPresenter)
+versebridge history                                    # earlier imports
+versebridge undo IMPORT_ID                             # remove exactly the slides that import added
+versebridge serve                                      # local web page: drag and drop, review, import
+```
 
-- A reference becomes verse slides. A verse with no version uses the nearest version listed above it, then `--default-version` / `bible.default_version`.
-- A numbered or lettered line (`1)`, `#2:`, `a)`) becomes a point slide that keeps its label. A numbered line out of sequence (for example thesis numbers inside point 2) becomes a list-item slide in the same format. A `[slide] text` line becomes a bulleted slide.
-- Stage cues (`Show Photo...`, `When I say...`, `Start...`, URLs), headings, `Recap` headings and quoted verse text are left out and listed in the report. Unclear lines go to a review list instead of being guessed.
-- Duplicates are kept on purpose. Every verse that cannot be added (unknown version, provider failure) is listed as failed; a production run stops until you fix it or pass `--yes`.
-- Version labels are spell-checked, but a real version name is never altered, even without a provider (`CSB` stays `CSB`). `YLT` is read as `NLT` (`bible.version_aliases`); plain `NASB` is `NASB2020`.
+`run` reads `.pdf .docx .txt .md .html`, plans verse and sermon-point slides in document order, and imports them. Importing the same file again **replaces** its earlier slides instead of adding a second copy (`--no-replace` to append). `--output json` gives a machine-readable report for scripts.
 
-Set the point slide with `versebridge template select-point` (a slide with one text object named `Sermon Point`). ESV text comes from the Crossway API (`type = "esv"`, key in `ESV_API_KEY`), is never cached, and carries the required copyright notice.
+Exit codes: `0` success, `10` finished but some lines were flagged, `3` flagged lines blocked the import (rerun with `--yes`), `1` general failure, `4` Bible provider, `5` ProPresenter connection, `7` write failure, `8` verification failed and the original was restored, `2` bad arguments.
+
+### How notes are read
+
+- A reference becomes verse slides. A verse with no version of its own uses the nearest version listed above it, then `--default-version` / `bible.default_version`. Two versions of the same passage back to back are treated as a comparison and do not change the version for later verses.
+- A numbered or lettered line (`1)`, `#2:`, `a)`) becomes a point slide that keeps its label. A numbered line out of sequence (for example thesis numbers inside point 2) becomes a list-item slide in the same format. Bullets keep a bullet. A `[slide] text` line becomes a bulleted slide.
+- Stage cues (`Show Photo...`, `When I say...`, `Start...`, URLs), notes to self (`NOTE:`, `TODO`, `(ask Amy...)`), email headers, titles and `Recap` headings are left out and listed in the report.
+- Anything unclear is **flagged**, never guessed: bare chapters (`Psalm 23`), references mentioned inside a sentence, quoted text with no reference, unlabeled prose, and short unlabeled lines (a heading, or a point missing its number?). Only one- or two-word capitalized lines are skipped silently as headings.
+- Duplicates are kept on purpose. Every verse that cannot be added (unknown version, provider failure) is listed as **not added** with the reason. A run with flagged lines stops until you pass `--yes`.
+- Version labels are spell-checked, but a real version name is never altered, even without a provider (`CSB` stays `CSB`). `YLT` is read as `NLT` (`bible.version_aliases`); plain `NASB` is `NASB2020`. Slides carry only the reference and verse text, never a copyright line. ESV text is never cached.
+
+### Where ProPresenter runs
+
+```toml
+[propresenter]
+port = 1025
+
+[node]
+type = "hermes-remote"        # or "local" when ProPresenter runs on this computer
+name = "jpl-graphics-imac"
+app_path = "/Applications/ProPresenter 19.1.app"
+```
+
+For a remote Mac VerseBridge reads the presentation file, backs it up, writes the new slides, installs the file only if it did not change meanwhile, reopens ProPresenter and checks every new slide through the ProPresenter API. If that check fails it restores the backup. If ProPresenter shows an "Are you sure you want to quit?" or "Save changes?" prompt, someone at that computer must answer it; VerseBridge then stops with nothing changed.
+
+### Web page
+
+`versebridge serve` listens on `127.0.0.1:8777`. Drop a file, review what was understood and what was flagged, then import. Use `--host 0.0.0.0` to open it to your network; it then requires the private access token printed at startup.
 
 ## Safety and compatibility
 

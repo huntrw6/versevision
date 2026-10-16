@@ -153,6 +153,31 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         except Exception as exc:
             _fail(exc, as_json)
 
+    @app.command("serve")
+    def serve_command(
+        host: Annotated[str, typer.Option("--host", help="Address to listen on; the default keeps it on this computer")] = "127.0.0.1",
+        port: Annotated[int, typer.Option("--port")] = 8777,
+        node: Annotated[Optional[str], typer.Option("--node")] = None,
+        open_browser: Annotated[bool, typer.Option("--open/--no-open")] = False,
+    ) -> None:
+        """Start the local web page (drag and drop notes, review, import)."""
+        from versebridge.web.server import serve
+        config = _config_with_node(load_config(), node, None, None)
+        server, state = serve(config, host=host, port=port)
+        link = f"http://{host if host not in {'0.0.0.0', '::'} else '127.0.0.1'}:{port}/" + (f"?token={state.token}" if state.token else "")
+        console.print(f"[green]VerseBridge is running[/green]  {link}")
+        if state.token:
+            console.print("This address is open to your network, so the link above includes a private access token.")
+        if open_browser:
+            import webbrowser
+            webbrowser.open(link)
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            console.print("Stopped.")
+        finally:
+            server.server_close()
+
     @app.command("history")
     def history_command(output: Annotated[str, typer.Option("--output")] = "terminal") -> None:
         """List earlier imports."""

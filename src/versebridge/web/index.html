@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VerseBridge</title>
+<style>
+  :root{
+    --paper:#f5f0e6; --card:#fffdf8; --ink:#1d1b17; --muted:#6e675a; --line:#ddd4c3;
+    --ember:#c2410c; --ember-d:#9a3412; --leaf:#2f6b4f; --leaf-bg:#e6f0ea; --warn:#a15c07; --warn-bg:#fbefd5;
+    --bad:#a61e1e; --bad-bg:#f8e3e0; --shadow:0 1px 0 rgba(0,0,0,.04),0 8px 24px -12px rgba(60,40,10,.25);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+  header{max-width:980px;margin:0 auto;padding:28px 24px 8px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+  h1{font:600 30px/1 Georgia,"Times New Roman",serif;margin:0;letter-spacing:-.01em}
+  h1 span{color:var(--ember)}
+  .where{color:var(--muted);font-size:14px}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#b9b09d;margin-right:6px;vertical-align:baseline}
+  .dot.ok{background:var(--leaf)} .dot.bad{background:var(--bad)}
+  main{max-width:980px;margin:0 auto;padding:8px 24px 64px}
+  #drop{margin-top:16px;border:2px dashed #b9ad94;border-radius:18px;background:var(--card);padding:48px 24px;text-align:center;cursor:pointer;transition:.15s;box-shadow:var(--shadow)}
+  #drop:hover,#drop.over{border-color:var(--ember);background:#fff7ef}
+  #drop h2{font:600 24px/1.2 Georgia,serif;margin:0 0 6px}
+  #drop p{margin:0;color:var(--muted)}
+  #drop .small{margin-top:14px;font-size:13px}
+  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0 0;color:var(--muted);font-size:14px}
+  input[type=text]{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;width:110px}
+  button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:#fff;padding:9px 16px;color:var(--ink)}
+  button:hover{border-color:#b9ad94}
+  button.primary{background:var(--ember);border-color:var(--ember-d);color:#fff;font-weight:600}
+  button.primary:hover{background:var(--ember-d)}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .hidden{display:none!important}
+  #progress{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+  .bar{height:6px;background:#eadfca;border-radius:6px;overflow:hidden;margin-top:10px}
+  .bar i{display:block;height:100%;width:35%;background:var(--ember);border-radius:6px;animation:slide 1.2s ease-in-out infinite}
+  @keyframes slide{0%{margin-left:-35%}100%{margin-left:100%}}
+  .summary{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 6px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;min-width:132px;box-shadow:var(--shadow)}
+  .stat b{display:block;font:600 28px/1.1 Georgia,serif}
+  .stat span{color:var(--muted);font-size:13px}
+  .stat.flag b{color:var(--warn)} .stat.good b{color:var(--leaf)}
+  .banner{margin:16px 0;padding:14px 18px;border-radius:14px;font-size:15px}
+  .banner.good{background:var(--leaf-bg);border:1px solid #bcd7c8;color:#1f4d38}
+  .banner.warn{background:var(--warn-bg);border:1px solid #ecd49b;color:#6b3f04}
+  .banner.bad{background:var(--bad-bg);border:1px solid #e8b8b2;color:#7a1717}
+  .cols{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;align-items:start}
+  @media (max-width:820px){.cols{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+  .panel h3{margin:0;padding:14px 18px;font:600 17px/1 Georgia,serif;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+  .panel h3 em{font:500 13px ui-sans-serif,system-ui;color:var(--muted);font-style:normal}
+  .list{max-height:560px;overflow:auto}
+  .item{padding:11px 18px;border-bottom:1px solid #efe8d9;display:grid;grid-template-columns:34px 1fr;gap:10px}
+  .item:last-child{border-bottom:0}
+  .n{color:var(--muted);font-size:13px;padding-top:2px;text-align:right}
+  .t{font-weight:600}
+  .t .chip{font:600 11px/1 ui-sans-serif;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border-radius:99px;margin-left:8px;vertical-align:2px}
+  .chip.verse{background:#f1e4cc;color:#6b4a12} .chip.point{background:#dfe9f5;color:#24476f}
+  .x{color:var(--muted);font-size:14px;margin-top:2px;overflow-wrap:anywhere}
+  .flag .t{color:var(--ink)}
+  .flag .why{font-size:14px;margin-top:3px}
+  .tag{display:inline-block;font:600 11px/1 ui-sans-serif;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border-radius:99px;margin-right:6px}
+  .tag.not_added{background:var(--bad-bg);color:var(--bad)} .tag.needs_review{background:var(--warn-bg);color:var(--warn)}
+  .empty{padding:22px 18px;color:var(--muted)}
+  details{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 18px}
+  summary{cursor:pointer;padding:12px 0;font-weight:600}
+  details .item{padding-left:0;padding-right:0}
+  .actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:24px 0 0;padding:18px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+  .actions .grow{flex:1;min-width:220px;color:var(--muted);font-size:14px}
+  h2.sec{font:600 20px/1 Georgia,serif;margin:44px 0 12px}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid #efe8d9}
+  th{color:var(--muted);font-weight:600;background:#faf6ec}
+  tr:last-child td{border-bottom:0}
+  .pill{font-size:12px;padding:2px 8px;border-radius:99px;background:#eee7d6}
+  .pill.active{background:var(--leaf-bg);color:var(--leaf)}
+  footer{max-width:980px;margin:0 auto;padding:0 24px 40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Verse<span>Bridge</span></h1>
+  <div class="where" id="where"><span class="dot"></span>Checking…</div>
+</header>
+<main>
+  <section id="dropWrap">
+    <div id="drop" tabindex="0" role="button" aria-label="Drop a sermon notes file here or press Enter to choose one">
+      <h2>Drop your sermon notes here</h2>
+      <p>PDF, Word, text or Markdown. VerseBridge finds the verses and the sermon points.</p>
+      <p class="small">or click to choose a file</p>
+      <input id="file" type="file" accept=".pdf,.docx,.txt,.md,.html,.htm" class="hidden">
+    </div>
+    <div class="row">
+      <label>Default version <input id="ver" type="text" placeholder="e.g. NKJV" maxlength="12"></label>
+      <span>used only for verses that have no version of their own and none above them</span>
+    </div>
+  </section>
+
+  <section id="progress" class="hidden">
+    <div id="progMsg" style="font-weight:600">Working…</div>
+    <div class="bar"><i></i></div>
+  </section>
+
+  <section id="result" class="hidden">
+    <div id="banner"></div>
+    <div class="summary" id="stats"></div>
+    <div class="cols">
+      <div class="panel"><h3>Ready to import <em id="addedCount"></em></h3><div class="list" id="added"></div></div>
+      <div class="panel"><h3>Needs a look <em id="flagCount"></em></h3><div class="list" id="flagged"></div></div>
+    </div>
+    <details id="adjD"><summary>Changes the tool made for you <span id="adjN"></span></summary><div id="adj"></div></details>
+    <details id="leftD"><summary>Left out on purpose <span id="leftN"></span></summary><div id="left"></div></details>
+    <div class="actions">
+      <div class="grow" id="actionNote"></div>
+      <button id="again">Start over</button>
+      <button id="go" class="primary">Import</button>
+    </div>
+  </section>
+
+  <h2 class="sec">Earlier imports</h2>
+  <div id="hist"></div>
+</main>
+<footer>Slides are added to the presentation and ProPresenter is briefly closed and reopened. A backup is made first, and every import can be undone.</footer>
+
+<script>
+const TOKEN = new URLSearchParams(location.search).get('token') || '';
+const H = TOKEN ? {'X-VerseBridge-Token': TOKEN} : {};
+const $ = id => document.getElementById(id);
+let current = null;     // {job, report}
+
+function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=text; return e; }
+async function api(path, opts={}){
+  const r = await fetch(path, {...opts, headers:{...H, ...(opts.headers||{})}});
+  const j = await r.json().catch(()=>({error:'Unreadable response'}));
+  if(!r.ok) throw new Error(j.error || ('HTTP '+r.status));
+  return j;
+}
+function show(id, on){ $(id).classList.toggle('hidden', !on); }
+
+async function status(){
+  try{
+    const s = await api('/api/status'); const c = await api('/api/check');
+    const w = $('where'); w.textContent='';
+    const d = el('span','dot '+(c.ok?'ok':'bad')); w.append(d);
+    w.append(document.createTextNode(c.ok ? `Connected to ProPresenter on ${s.node}` + (s.target?` · importing into “${s.target}”`:'') : `Can't reach ProPresenter on ${s.node}. ${c.error||''}`));
+    if(s.default_version) $('ver').placeholder = s.default_version;
+    if(!s.template_ready){ const b=$('where'); b.append(document.createTextNode(' · template not set up (run: versebridge template setup)')); }
+  }catch(e){ $('where').textContent = e.message; }
+}
+
+async function poll(jobId, onTick){
+  for(;;){
+    const j = await api('/api/jobs/'+jobId);
+    onTick && onTick(j);
+    if(j.state!=='running') return j;
+    await new Promise(r=>setTimeout(r,700));
+  }
+}
+
+async function handleFile(file){
+  if(!file) return;
+  show('dropWrap', false); show('result', false); show('progress', true);
+  $('progMsg').textContent = 'Uploading '+file.name+'…';
+  try{
+    const v = $('ver').value.trim();
+    const q = v ? '?version='+encodeURIComponent(v) : '';
+    const {job} = await api('/api/plan'+q, {method:'POST', body:file, headers:{'X-File-Name': file.name}});
+    const done = await poll(job, j=>{ $('progMsg').textContent=j.message; });
+    if(done.state==='error') throw new Error(done.error);
+    current = {job, report: done.result};
+    render(done.result);
+  }catch(e){
+    show('progress', false); show('result', true); show('dropWrap', false);
+    $('banner').replaceChildren(banner('bad','That didn’t work: '+e.message));
+    for(const id of ['stats','added','flagged','adj','left']) $(id).replaceChildren();
+    show('adjD',false); show('leftD',false); $('go').classList.add('hidden'); $('actionNote').textContent='';
+    current = null;
+  }
+}
+function banner(kind, text){ const b=el('div','banner '+kind,text); return b; }
+
+function render(r){
+  show('progress', false); show('result', true); $('go').classList.remove('hidden');
+  const s = r.summary;
+  const stats = $('stats'); stats.replaceChildren();
+  const stat = (n,l,cls)=>{ const d=el('div','stat '+(cls||'')); d.append(el('b','',String(n)), el('span','',l)); return d; };
+  stats.append(stat(s.slides,'slides ready','good'), stat(s.verse_slides,'verse slides'), stat(s.point_slides,'sermon points'), stat(s.flagged,'need a look', s.flagged?'flag':''));
+
+  const b = $('banner'); b.replaceChildren();
+  if(s.slides===0) b.append(banner('bad','No slides were found in this file.'));
+  else if(r.clean) b.append(banner('good',`Everything was understood. ${s.slides} slides are ready for “${r.target?r.target.name:''}”.`));
+  else b.append(banner('warn',`${s.slides} slides are ready. ${s.flagged} line${s.flagged===1?'':'s'} could not be added automatically; they are listed on the right and will be skipped.`));
+  if(r.replaces) b.append(banner('warn',`This file was imported before. Importing again will replace those ${r.replaces.slides} slides, not add a second copy.`));
+
+  const added = $('added'); added.replaceChildren();
+  for(const sl of r.slides){
+    const it = el('div','item'); it.append(el('div','n',String(sl.n)));
+    const body = el('div'); const t = el('div','t',sl.title); t.append(el('span','chip '+sl.kind, sl.kind==='point'?'point':'verse'));
+    body.append(t);
+    if(sl.kind==='verse') body.append(el('div','x',sl.text));
+    it.append(body); added.append(it);
+  }
+  if(!r.slides.length) added.append(el('div','empty','Nothing to import.'));
+  $('addedCount').textContent = r.slides.length+' slides';
+
+  const fl = $('flagged'); fl.replaceChildren();
+  for(const f of r.flagged){
+    const it = el('div','item flag'); it.append(el('div','n','L'+f.line));
+    const body = el('div'); const t = el('div','t');
+    t.append(el('span','tag '+f.status, f.status==='not_added'?'Not added':'Needs review'), document.createTextNode(f.text.length>110?f.text.slice(0,110)+'…':f.text));
+    body.append(t, el('div','why x',f.detail)); it.append(body); fl.append(it);
+  }
+  if(!r.flagged.length) fl.append(el('div','empty','Nothing was flagged.'));
+  $('flagCount').textContent = r.flagged.length ? r.flagged.length+' flagged' : 'all clear';
+
+  fill('adj','adjD','adjN', r.adjustments); fill('left','leftD','leftN', r.left_out);
+  const go = $('go');
+  go.textContent = `Import ${s.slides} slide${s.slides===1?'':'s'}` + (r.flagged.length?' and skip the flagged lines':'');
+  go.disabled = s.slides===0;
+  $('actionNote').textContent = 'ProPresenter will close for a minute, then reopen. A backup is made first.';
+}
+function fill(listId, detId, nId, rows){
+  const box = $(listId); box.replaceChildren();
+  for(const x of rows){
+    const it = el('div','item'); it.append(el('div','n','L'+x.line));
+    const body = el('div'); body.append(el('div','t',x.text.length>100?x.text.slice(0,100)+'…':x.text), el('div','x',x.detail)); it.append(body); box.append(it);
+  }
+  $(nId).textContent = rows.length ? '('+rows.length+')' : '';
+  show(detId, rows.length>0);
+}
+
+$('go').onclick = async ()=>{
+  if(!current) return;
+  const r = current.report;
+  const proceed = r.flagged.length ? confirm(`${r.flagged.length} line(s) are flagged and will be skipped. Import the other ${r.summary.slides} slides?`) : true;
+  if(!proceed) return;
+  $('go').disabled = true; show('progress', true); $('progMsg').textContent='Starting…';
+  try{
+    const {job} = await api('/api/apply', {method:'POST', body:JSON.stringify({job: current.job, accept_flags: true})});
+    const done = await poll(job, j=>{ $('progMsg').textContent=j.message; });
+    show('progress', false);
+    if(done.state==='error') throw new Error(done.error);
+    const a = done.result;
+    $('banner').replaceChildren(banner(a.verified?'good':'warn',`Imported ${a.slide_count} slides into “${a.target_name}”. ${a.verification}`));
+    $('go').classList.add('hidden'); $('actionNote').textContent = 'Done. You can undo this below.';
+    history();
+  }catch(e){
+    show('progress', false); $('go').disabled=false;
+    $('banner').replaceChildren(banner('bad','The import did not finish: '+e.message));
+  }
+};
+$('again').onclick = ()=>{ show('result',false); show('progress',false); show('dropWrap',true); $('file').value=''; current=null; };
+
+async function history(){
+  const rows = await api('/api/history').catch(()=>[]);
+  const box = $('hist'); box.replaceChildren();
+  if(!rows.length){ box.append(el('div','empty','Nothing imported yet.')); return; }
+  const t = el('table'); const hr = el('tr');
+  for(const h of ['When','File','Into','Slides','']) hr.append(el('th','',h));
+  t.append(hr);
+  for(const r of rows){
+    const tr = el('tr');
+    tr.append(el('td','',new Date(r.when).toLocaleString()), el('td','',r.source), el('td','',r.target), el('td','',String(r.slides)));
+    const last = el('td');
+    if(r.status==='active'){
+      const b = el('button','','Undo'); b.onclick = ()=>undo(r.id, b); last.append(b);
+    } else last.append(el('span','pill',r.status));
+    tr.append(last); t.append(tr);
+  }
+  box.append(t);
+}
+async function undo(id, btn){
+  if(!confirm('Remove the slides this import added? Other changes to the presentation are kept.')) return;
+  btn.disabled = true; show('progress', true); $('progMsg').textContent='Starting…';
+  try{
+    const {job} = await api('/api/undo', {method:'POST', body:JSON.stringify({id})});
+    const done = await poll(job, j=>{ $('progMsg').textContent=j.message; });
+    if(done.state==='error') throw new Error(done.error);
+  }catch(e){ alert(e.message); }
+  show('progress', false); history();
+}
+
+const drop = $('drop'), fileInput = $('file');
+drop.addEventListener('click', ()=>fileInput.click());
+drop.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fileInput.click(); }});
+fileInput.addEventListener('change', ()=>handleFile(fileInput.files[0]));
+for(const ev of ['dragenter','dragover']) drop.addEventListener(ev, e=>{ e.preventDefault(); drop.classList.add('over'); });
+for(const ev of ['dragleave','drop']) drop.addEventListener(ev, e=>{ e.preventDefault(); drop.classList.remove('over'); });
+drop.addEventListener('drop', e=>handleFile(e.dataTransfer.files[0]));
+window.addEventListener('dragover', e=>e.preventDefault());
+window.addEventListener('drop', e=>e.preventDefault());
+
+status(); history();
+</script>
+</body>
+</html>

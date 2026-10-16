@@ -136,9 +136,11 @@ async def plan_notes(
                     if not passage.verses:
                         raise VerseBridgeError("provider returned no verses")
                 except Exception as exc:  # one unavailable verse never stops the rest
+                    inherited = reference.version != item.reference.version
+                    hint = f" (version {reference.version} was taken from the verse above; add a version to this verse to change it)" if inherited else ""
                     result.failed.append(ProblemEntry(
                         line=line, text=reference.normalized_text,
-                        problem=f"not added: {exc}",
+                        problem=f"not added: {exc}{hint}",
                     ))
                     continue
                 planned = plan_slides([passage], config.slides).slides

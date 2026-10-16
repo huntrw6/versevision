@@ -330,7 +330,7 @@ def _build(paras: list[_Para], aliases) -> NoteDocument:
             prior = doc.items[-1] if doc.items else None
             if (
                 isinstance(item, ReviewItem) and isinstance(prior, PointItem) and prior.role in {"point", "list_item"}
-                and line - prior.detail_end <= 2
+                and line - prior.detail_end <= 2 and text.rstrip().endswith((".", "?", "!", "”", '"'))
             ):
                 prior.text += "\n" + text
                 prior.detail_end = line

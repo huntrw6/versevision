@@ -120,3 +120,10 @@ def test_notes_to_self_are_skipped():
 def test_bare_chapter_and_midsentence_reference_go_to_review():
     doc = classify_document("Psalm 23\nSee Romans 8:28 for context")
     assert len(doc.review) == 2 and not doc.verses
+
+
+def test_short_line_under_a_point_is_flagged_not_merged_but_sentences_are_merged():
+    doc = classify_document("1) A point\nOpen with prayer")
+    assert doc.points[0].text == "A point" and len(doc.review) == 1
+    doc = classify_document("1) A point\nTo obey God rather than human beings.")
+    assert "obey God" in doc.points[0].text and not doc.review
