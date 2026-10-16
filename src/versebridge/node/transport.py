@@ -255,6 +255,15 @@ class HermesRemoteTransport:
             if "PRESSED" in out or "NOT_RUNNING" in out:
                 return
             time.sleep(1.0)
+        # The scripted quit can be cancelled by the app itself ("User canceled"); a real Cmd-Q goes through
+        # the normal menu path and is answered by the same helper.
+        self._sh(
+            f'osascript -e {self._q(f"tell application \"{self._app_name}\" to activate")}; sleep 1; '
+            f'(osascript -e {self._q("tell application \"System Events\" to keystroke \"q\" using command down")} >/dev/null 2>&1 &); '
+            f'for i in 1 2 3 4 5 6 7 8 9 10; do r=$({helper} {self._q(self.node.process_name)} {self._q("Are you sure you want to quit")} OK); '
+            f'case "$r" in PRESSED|NOT_RUNNING) break;; esac; sleep 0.5; done',
+            gui=True, timeout=60,
+        )
 
     def launch_app(self) -> None:
         code, out = self._sh(f"open {self._q(self.node.app_path)}", gui=True)
