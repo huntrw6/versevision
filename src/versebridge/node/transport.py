@@ -244,11 +244,15 @@ class HermesRemoteTransport:
 
     def backup_file(self, remote_path: str) -> str:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-        folder = self.node.backup_dir
         name = Path(remote_path).name
-        backup = f"{folder}/{name}.versebridge-{stamp}"
-        code, out = self._sh(f"mkdir -p {folder} && cp -p {self._q(remote_path)} {self._q(backup)} && echo {self._q(backup)}", gui=True)
-        if code != 0:
+        # $HOME (and other variables) in backup_dir must expand on the remote side, so the folder is double-quoted
+        folder = f'"{self.node.backup_dir}"'
+        code, out = self._sh(
+            f"mkdir -p {folder} && cp -p {self._q(remote_path)} {folder}/{self._q(f'{name}.versebridge-{stamp}')} "
+            f"&& echo {folder}/{self._q(f'{name}.versebridge-{stamp}')}",
+            gui=True,
+        )
+        if code != 0 or not out:
             raise PresentationWriteError(f"Could not back up {remote_path} on {self.name}: {out[-200:]}")
         return out.splitlines()[-1].strip()
 
