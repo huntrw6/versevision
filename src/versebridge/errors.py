@@ -12,6 +12,7 @@ class ExitCode(IntEnum):
     PRESENTATION_WRITE = 7
     VERIFICATION_ROLLBACK = 8
     USER_CANCELLATION = 9
+    COMPLETED_WITH_FLAGS = 10
 
 
 class VerseBridgeError(Exception):

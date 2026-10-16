@@ -609,5 +609,10 @@ def import_command(
         _fail(exc)
 
 
+from versebridge.cli_run import register as _register_run  # noqa: E402
+
+_register_run(app, template_app)
+
+
 if __name__ == "__main__":
     app()

@@ -1,0 +1,253 @@
+"""Where ProPresenter runs: this computer, or another one reached through a remote-access tool.
+
+A transport answers six questions: what does the ProPresenter API say, is the app running,
+close/open it, and move the presentation file safely (checksummed) to and from this computer.
+All file moves are verified by SHA-256 and refuse to overwrite a file that changed since it was read.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+import re
+import shlex
+import shutil
+import subprocess
+import tempfile
+import time
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Protocol
+
+import httpx
+
+from versebridge.config import NodeConfig, ProPresenterConfig
+from versebridge.errors import ConfigurationError, ProPresenterConnectionError, PresentationWriteError
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+class Transport(Protocol):
+    description: str
+
+    def api_get(self, route: str) -> Any: ...
+    def is_running(self) -> bool: ...
+    def quit_app(self) -> None: ...
+    def launch_app(self) -> None: ...
+    def fetch_file(self, remote_path: str, local_path: Path) -> str: ...
+    def install_file(self, local_path: Path, remote_path: str, expected_remote_sha: str) -> str: ...
+    def backup_file(self, remote_path: str) -> str: ...
+    def restore_backup(self, backup_path: str, remote_path: str) -> None: ...
+
+
+class LocalTransport:
+    """ProPresenter runs on this computer."""
+
+    def __init__(self, pp: ProPresenterConfig, node: NodeConfig):
+        self.pp, self.node = pp, node
+        self.description = f"this computer ({pp.host}:{pp.port})"
+
+    def api_get(self, route: str) -> Any:
+        try:
+            response = httpx.get(f"http://{self.pp.host}:{self.pp.port}{route}", timeout=self.pp.timeout_seconds)
+            response.raise_for_status()
+            return response.json()
+        except httpx.HTTPError as exc:
+            raise ProPresenterConnectionError(f"Could not reach ProPresenter at {self.pp.host}:{self.pp.port}: {exc}") from exc
+
+    def is_running(self) -> bool:
+        from versebridge.propresenter.process import is_propresenter_running
+        return is_propresenter_running()
+
+    def quit_app(self) -> None:
+        raise ConfigurationError("Automatic quit is only available through a remote node; close ProPresenter yourself")
+
+    def launch_app(self) -> None:
+        raise ConfigurationError("Automatic launch is only available through a remote node; reopen ProPresenter yourself")
+
+    def fetch_file(self, remote_path: str, local_path: Path) -> str:
+        local_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(remote_path, local_path)
+        return sha256_file(local_path)
+
+    def install_file(self, local_path: Path, remote_path: str, expected_remote_sha: str) -> str:
+        target = Path(remote_path)
+        if sha256_file(target) != expected_remote_sha:
+            raise PresentationWriteError("The presentation changed after VerseBridge read it; no files changed")
+        temp = None
+        try:
+            with tempfile.NamedTemporaryFile(prefix=f".{target.name}.versebridge-", suffix=".tmp", dir=target.parent, delete=False) as stream:
+                temp = Path(stream.name)
+                stream.write(local_path.read_bytes())
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.replace(temp, target)
+            temp = None
+        finally:
+            if temp and temp.exists():
+                temp.unlink()
+        return sha256_file(target)
+
+    def backup_file(self, remote_path: str) -> str:
+        from versebridge.presentation.backup import create_backup
+        return str(create_backup(Path(remote_path)))
+
+    def restore_backup(self, backup_path: str, remote_path: str) -> None:
+        from versebridge.presentation.backup import restore_backup
+        restore_backup(Path(remote_path), Path(backup_path))
+
+
+class HermesRemoteTransport:
+    """ProPresenter runs on another Mac enrolled with the `hermes-remote` tool.
+
+    File access to ~/Documents needs the permissioned helper app (`hermes-remote gui`), so every
+    file operation goes through it; API calls use plain `run`.
+    """
+
+    def __init__(self, pp: ProPresenterConfig, node: NodeConfig):
+        if not node.name:
+            raise ConfigurationError("A node name is required (--node NAME or [node] name in the configuration)")
+        if not shutil.which(node.command):
+            raise ConfigurationError(f"{node.command!r} was not found on this computer")
+        self.pp, self.node = pp, node
+        self.name = node.name
+        self.description = f"{node.name} via {node.command}"
+        self._app_name = Path(node.app_path).stem
+        self._port = pp.port
+
+    # --- plumbing ---------------------------------------------------------
+    def _invoke(self, args: list[str], timeout: float) -> subprocess.CompletedProcess:
+        last: subprocess.CompletedProcess | None = None
+        for attempt in range(self.node.retries + 1):
+            last = subprocess.run([self.node.command, *args], capture_output=True, text=True, timeout=timeout)
+            combined = (last.stdout or "") + (last.stderr or "")
+            if "helper app did not answer" not in combined and "unreachable" not in combined.lower():
+                return last
+            if attempt < self.node.retries:
+                time.sleep(self.node.retry_delay_seconds)
+        assert last is not None
+        return last
+
+    def _sh(self, command: str, *, gui: bool, timeout: float = 90.0) -> tuple[int, str]:
+        wrapped = f"{command}\nrc=$?\necho\necho \"__VB_RC=$rc\""
+        if gui:
+            result = self._invoke(["gui", "--sh", self.name, wrapped], timeout)
+        else:
+            result = self._invoke(["run", self.name, "--", "/bin/sh", "-c", wrapped], timeout)
+        text = ((result.stdout or "") + (result.stderr or "")).replace("\r", "")
+        match = list(re.finditer(r"__VB_RC=(\d+)", text))
+        if not match:
+            raise ProPresenterConnectionError(f"{self.node.command} did not complete on {self.name}: {text.strip()[-300:] or 'no output'}")
+        last = match[-1]
+        return int(last.group(1)), text[:last.start()].strip()
+
+    @staticmethod
+    def _q(value: str) -> str:
+        return shlex.quote(value)
+
+    def _remote_tmp(self, suffix: str = ".pro") -> str:
+        return f"/tmp/versebridge-{uuid.uuid4().hex[:12]}{suffix}"
+
+    # --- Transport --------------------------------------------------------
+    def api_get(self, route: str) -> Any:
+        code, body = self._sh(f"curl -s -m {int(self.pp.timeout_seconds) + 5} http://127.0.0.1:{self._port}{route}", gui=False)
+        if code != 0 or not body:
+            raise ProPresenterConnectionError(
+                f"ProPresenter API on {self.name} did not answer for {route}. Is ProPresenter running with its Network API enabled?"
+            )
+        try:
+            return json.loads(body)
+        except ValueError as exc:
+            raise ProPresenterConnectionError(f"Malformed ProPresenter response for {route} from {self.name}") from exc
+
+    def is_running(self) -> bool:
+        code, _ = self._sh(f"pgrep -f {self._q(self.node.process_pattern)} >/dev/null", gui=False)
+        return code == 0
+
+    def quit_app(self) -> None:
+        # Asks the app to quit and returns at once: the app may show an "Are you sure?" or
+        # "Save changes?" prompt that only a person at that computer should answer.
+        script = f'tell application "{self._app_name}" to quit'
+        self._sh(f"nohup osascript -e {self._q(script)} >/dev/null 2>&1 &\nsleep 1", gui=True, timeout=30)
+
+    def launch_app(self) -> None:
+        code, out = self._sh(f"open {self._q(self.node.app_path)}", gui=True)
+        if code != 0:
+            raise ProPresenterConnectionError(f"Could not open ProPresenter on {self.name}: {out[-200:]}")
+
+    def fetch_file(self, remote_path: str, local_path: Path) -> str:
+        tmp = self._remote_tmp()
+        code, out = self._sh(f"cp {self._q(remote_path)} {self._q(tmp)} && shasum -a 256 {self._q(tmp)}", gui=True)
+        if code != 0 or not out:
+            raise ProPresenterConnectionError(f"Could not read {remote_path} on {self.name}: {out[-200:]}")
+        remote_sha = out.split()[0]
+        try:
+            local_path.parent.mkdir(parents=True, exist_ok=True)
+            pulled = self._invoke(["pull", self.name, tmp, str(local_path)], 120)
+            if pulled.returncode != 0 or not local_path.exists():
+                raise ProPresenterConnectionError(f"Transfer from {self.name} failed: {(pulled.stdout + pulled.stderr).strip()[-200:]}")
+        finally:
+            self._sh(f"rm -f {self._q(tmp)}", gui=False)
+        local_sha = sha256_file(local_path)
+        if local_sha != remote_sha:
+            raise ProPresenterConnectionError("Transferred file did not match the original checksum; nothing was changed")
+        return local_sha
+
+    def install_file(self, local_path: Path, remote_path: str, expected_remote_sha: str) -> str:
+        tmp = self._remote_tmp()
+        local_sha = sha256_file(local_path)
+        pushed = self._invoke(["push", self.name, str(local_path), tmp], 120)
+        if pushed.returncode != 0:
+            raise PresentationWriteError(f"Transfer to {self.name} failed: {(pushed.stdout + pushed.stderr).strip()[-200:]}")
+        try:
+            code, out = self._sh(
+                f"[ \"$(shasum -a 256 < {self._q(tmp)} | cut -d' ' -f1)\" = {local_sha} ] || {{ echo STAGED_MISMATCH; exit 5; }}\n"
+                f"pgrep -f {self._q(self.node.process_pattern)} >/dev/null && {{ echo APP_RUNNING; exit 4; }}\n"
+                f"[ \"$(shasum -a 256 < {self._q(remote_path)} | cut -d' ' -f1)\" = {expected_remote_sha} ] || {{ echo CHANGED; exit 3; }}\n"
+                f"cp {self._q(tmp)} {self._q(remote_path)} && shasum -a 256 {self._q(remote_path)}",
+                gui=True,
+            )
+        finally:
+            self._sh(f"rm -f {self._q(tmp)}", gui=False)
+        if code == 4:
+            raise PresentationWriteError("ProPresenter is running on the node; close it completely before writing. No files changed")
+        if code == 3:
+            raise PresentationWriteError("The presentation changed after VerseBridge read it; no files changed")
+        if code != 0 or not out:
+            raise PresentationWriteError(f"Install failed on {self.name} ({out[-200:] or 'no output'}); no files changed")
+        installed = out.split()[0]
+        if installed != local_sha:
+            raise PresentationWriteError("Installed file did not match the staged file; restore the backup")
+        return installed
+
+    def backup_file(self, remote_path: str) -> str:
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+        folder = self.node.backup_dir
+        name = Path(remote_path).name
+        backup = f"{folder}/{name}.versebridge-{stamp}"
+        code, out = self._sh(f"mkdir -p {folder} && cp -p {self._q(remote_path)} {self._q(backup)} && echo {self._q(backup)}", gui=True)
+        if code != 0:
+            raise PresentationWriteError(f"Could not back up {remote_path} on {self.name}: {out[-200:]}")
+        return out.splitlines()[-1].strip()
+
+    def restore_backup(self, backup_path: str, remote_path: str) -> None:
+        code, out = self._sh(
+            f"pgrep -f {self._q(self.node.process_pattern)} >/dev/null && {{ echo APP_RUNNING; exit 4; }}\n"
+            f"cp -p {self._q(backup_path)} {self._q(remote_path)}",
+            gui=True,
+        )
+        if code != 0:
+            raise PresentationWriteError(f"Restore failed ({out[-200:]}); restore {backup_path} over {remote_path} by hand")
+
+
+def make_transport(pp: ProPresenterConfig, node: NodeConfig) -> Transport:
+    if node.type == "hermes-remote":
+        return HermesRemoteTransport(pp, node)
+    return LocalTransport(pp, node)

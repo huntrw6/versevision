@@ -18,9 +18,10 @@ from .models import (
 
 
 class ProPresenterApiClient:
-    def __init__(self, host: str = "127.0.0.1", port: int = 50001, timeout_seconds: float = 5.0):
+    def __init__(self, host: str = "127.0.0.1", port: int = 50001, timeout_seconds: float = 5.0, fetch=None):
         self.base_url = f"http://{host}:{port}"
         self._client = httpx.AsyncClient(base_url=self.base_url, timeout=timeout_seconds)
+        self._fetch = fetch      # optional async callable(route) -> json, used for remote nodes
 
     async def __aenter__(self):
         return self
@@ -32,6 +33,11 @@ class ProPresenterApiClient:
         await self._client.aclose()
 
     async def _get(self, route: str):
+        if self._fetch is not None:
+            try:
+                return await self._fetch(route)
+            except (ValueError, TypeError) as exc:
+                raise ProPresenterConnectionError(f"Malformed ProPresenter response for {route}: {exc}") from exc
         try:
             response = await self._client.get(route)
             response.raise_for_status()

@@ -99,8 +99,23 @@ class BibleConfig(BaseModel):
     providers: dict[str, ProviderConfig] = Field(default_factory=dict)
 
 
+class NodeConfig(BaseModel):
+    """Where ProPresenter runs. ``local`` is this computer; ``hermes-remote`` is another Mac."""
+    type: Literal["local", "hermes-remote"] = "local"
+    name: str | None = None
+    command: str = "hermes-remote"
+    app_path: str = "/Applications/ProPresenter.app"
+    process_pattern: str = "MacOS/ProPresenter$"
+    backup_dir: str = "$HOME/VerseBridge-backups"
+    retries: int = Field(default=2, ge=0, le=5)
+    retry_delay_seconds: float = Field(default=20.0, ge=0, le=120)
+    quit_wait_seconds: float = Field(default=25.0, ge=1, le=300)
+    launch_wait_seconds: float = Field(default=90.0, ge=5, le=600)
+
+
 class AppConfig(BaseModel):
     propresenter: ProPresenterConfig = Field(default_factory=ProPresenterConfig)
+    node: NodeConfig = Field(default_factory=NodeConfig)
     slides: SlideConfig = Field(default_factory=SlideConfig)
     presentation: PresentationConfig = Field(default_factory=PresentationConfig)
     presentation_template: PresentationTemplateConfig | None = None
