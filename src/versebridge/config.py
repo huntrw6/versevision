@@ -67,6 +67,15 @@ class YouVersionProviderConfig(BaseModel):
     cache_policy: Literal["allowed", "fresh"] = "allowed"
 
 
+class EsvProviderConfig(BaseModel):
+    type: Literal["esv"] = "esv"
+    api_key_env: str = "ESV_API_KEY"
+    base_url: str = "https://api.esv.org/v3"
+    timeout_seconds: float = Field(default=15.0, gt=0, le=120)
+    # Crossway's terms limit local storage, so ESV text is never cached.
+    cache_policy: Literal["fresh"] = "fresh"
+
+
 class LocalUsfmProviderConfig(BaseModel):
     type: Literal["usfm"] = "usfm"
     version: str
@@ -78,7 +87,7 @@ class LocalUsfmProviderConfig(BaseModel):
 
 
 ProviderConfig = Annotated[
-    ApiBibleProviderConfig | YouVersionProviderConfig | LocalUsfmProviderConfig,
+    ApiBibleProviderConfig | YouVersionProviderConfig | EsvProviderConfig | LocalUsfmProviderConfig,
     Field(discriminator="type"),
 ]
 

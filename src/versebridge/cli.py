@@ -24,7 +24,9 @@ from versebridge.presentation import ProtobufPresentationWriter
 from versebridge.presentation.backup import restore_backup
 from versebridge.propresenter import ProPresenterApiClient
 from versebridge.propresenter.selection import select_unique_presentation
-from versebridge.presentation.template import create_template_definition, inspect_template_candidates, validate_template
+from versebridge.presentation.template import (
+    create_template_definition, inspect_point_candidates, inspect_template_candidates, validate_template,
+)
 from versebridge.propresenter.process import is_propresenter_running
 from versebridge.references import parse_references
 from versebridge.versions.registry import known_versions
@@ -292,6 +294,47 @@ def template_select(
         })
         save_config(updated, overwrite=True)
         console.print(f"Template saved from slide {chosen.slide_number}: {chosen.reference_preview}")
+    except typer.BadParameter:
+        raise
+    except Exception as exc:
+        _fail(exc)
+
+
+@template_app.command("select-point")
+def template_select_point(
+    cue_uuid: Annotated[Optional[str], typer.Option("--cue-uuid", help="Cue holding the sermon-point template slide")] = None,
+    point_object: Annotated[str, typer.Option("--object", help="Name of the point text object")] = "Sermon Point",
+) -> None:
+    """Choose the slide used for sermon points (a slide with one text object named 'Sermon Point')."""
+    try:
+        config = load_config()
+        definition = config.presentation_template
+        if not definition:
+            raise typer.BadParameter("select the verse template first: versebridge template select")
+        selected, metadata = asyncio.run(_resolve_template_target(config, definition.presentation_uuid, None, definition.library_name))
+        candidates = inspect_point_candidates(metadata.presentation_path, point_object=point_object)
+        if not candidates:
+            raise typer.BadParameter(f"no slide in {selected.name} has exactly one text object named {point_object!r}")
+        chosen = next((item for item in candidates if cue_uuid and item[1].casefold() == cue_uuid.casefold()), None)
+        if cue_uuid and not chosen:
+            raise typer.BadParameter("--cue-uuid is not one of the viable sermon-point cues")
+        if not chosen:
+            if len(candidates) == 1:
+                chosen = candidates[0]
+            else:
+                table = Table("Choice", "Slide", "Cue UUID")
+                for number, item in enumerate(candidates, 1):
+                    table.add_row(str(number), str(item[0]), item[1])
+                console.print(table)
+                choice = typer.prompt("Choose sermon-point template", type=int)
+                if choice < 1 or choice > len(candidates):
+                    raise typer.BadParameter("choice is out of range")
+                chosen = candidates[choice - 1]
+        updated = definition.model_copy(update={
+            "point_cue_uuid": chosen[1], "point_object": point_object, "point_style_fingerprint": chosen[2],
+        })
+        save_config(config.model_copy(update={"presentation_template": updated}), overwrite=True)
+        console.print(f"Sermon-point template saved from slide {chosen[0]} of {selected.name}")
     except typer.BadParameter:
         raise
     except Exception as exc:

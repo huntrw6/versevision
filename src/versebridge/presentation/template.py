@@ -137,4 +137,11 @@ def validate_template(path: Path, definition: PresentationTemplateConfig) -> Tem
         raise ConfigurationError("Configured template cue or named text objects no longer exist")
     if candidate.style_fingerprint != definition.style_fingerprint:
         raise ConfigurationError("Configured template styling or geometry changed; select the template again")
+    if definition.point_cue_uuid:
+        point = next((item for item in inspect_point_candidates(path, point_object=definition.point_object)
+                      if item[1].casefold() == definition.point_cue_uuid.casefold()), None)
+        if not point:
+            raise ConfigurationError("Configured sermon-point template cue no longer exists; run template select-point")
+        if definition.point_style_fingerprint and point[2] != definition.point_style_fingerprint:
+            raise ConfigurationError("Sermon-point template styling changed; run template select-point again")
     return candidate

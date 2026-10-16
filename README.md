@@ -38,7 +38,7 @@ uv run versebridge import sermon.pdf `
 
 If ProPresenter is running, VerseBridge asks the operator to close it completely before writing and reopen it afterward. It then verifies every generated slide through the Network API. Noninteractive production writes also require ProPresenter to be closed. Failed API verification triggers a guided rollback with exit code 8; the CLI never modifies playlists as a side effect of presentation import.
 
-Run `uv run versebridge --help` for the command tree. Presentation writing remains disabled, so `import` currently requires `--dry-run`. Omit `--no-fetch` to use configured providers.
+Run `uv run versebridge --help` for the command tree. Omit `--no-fetch` to use configured providers.
 
 Example local USFM configuration:
 
@@ -91,6 +91,18 @@ line_width_units = 48.0
 prefer_punctuation_breaks = true
 repeat_reference_on_continuation = true
 ```
+
+## Sermon notes
+
+`import --notes` treats the document as sermon notes and plans verse slides *and* sermon-point slides in document order:
+
+- A reference becomes verse slides. A verse with no version uses the nearest version listed above it, then `--default-version` / `bible.default_version`.
+- A numbered or lettered line (`1)`, `#2:`, `a)`) becomes a point slide that keeps its label. A numbered line out of sequence (for example thesis numbers inside point 2) becomes a list-item slide in the same format. A `[slide] text` line becomes a bulleted slide.
+- Stage cues (`Show Photo...`, `When I say...`, `Start...`, URLs), headings, `Recap` headings and quoted verse text are left out and listed in the report. Unclear lines go to a review list instead of being guessed.
+- Duplicates are kept on purpose. Every verse that cannot be added (unknown version, provider failure) is listed as failed; a production run stops until you fix it or pass `--yes`.
+- Version labels are spell-checked, but a real version name is never altered, even without a provider (`CSB` stays `CSB`). `YLT` is read as `NLT` (`bible.version_aliases`); plain `NASB` is `NASB2020`.
+
+Set the point slide with `versebridge template select-point` (a slide with one text object named `Sermon Point`). ESV text comes from the Crossway API (`type = "esv"`, key in `ESV_API_KEY`), is never cached, and carries the required copyright notice.
 
 ## Safety and compatibility
 

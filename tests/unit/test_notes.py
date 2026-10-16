@@ -47,3 +47,8 @@ def test_slide_tag_is_bulleted_and_duplicates_kept():
 def test_rtf_without_cb_marker():
     rtf = b"{\\rtf1\\ansi{\\fonttbl\\f0\\fnil Helvetica;}\n{\\colortbl;\\red0\\green0\\blue0;}\n\\pard\\f0\\fs20 \\cf1 old text}"
     assert _replace_rtf_text(rtf, "new").endswith(b"\\cf1 new}")
+
+
+def test_esv_provider_is_never_cached_and_label_stays():
+    from versebridge.bibles.esv import EsvProvider
+    assert EsvProvider.cacheable is False

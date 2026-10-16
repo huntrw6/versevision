@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from versebridge.config import ApiBibleProviderConfig, BibleConfig, LocalUsfmProviderConfig, YouVersionProviderConfig
+from versebridge.config import ApiBibleProviderConfig, BibleConfig, EsvProviderConfig, LocalUsfmProviderConfig, YouVersionProviderConfig
 from versebridge.errors import BibleProviderError, ConfigurationError
 from versebridge.references.models import PassageReference
 
 from .api_bible import ApiBibleProvider
+from .esv import EsvProvider
 from .base import BibleProvider
 from .cache import ScriptureCache
 from .local_usfm import LocalUsfmProvider
@@ -22,6 +23,8 @@ class ProviderRegistry:
                 self.providers[name] = ApiBibleProvider(name, provider_config)
             elif isinstance(provider_config, YouVersionProviderConfig):
                 self.providers[name] = YouVersionProvider(name, provider_config)
+            elif isinstance(provider_config, EsvProviderConfig):
+                self.providers[name] = EsvProvider(name, provider_config)
             elif isinstance(provider_config, LocalUsfmProviderConfig):
                 self.providers[name] = LocalUsfmProvider(name, provider_config)
 
@@ -66,7 +69,7 @@ class ProviderRegistry:
             return ResolvedPassage(reference=reference, resolved_version=metadata.abbreviation, verses=cached)
 
         verses = await provider.fetch_passage(reference.version, reference.book_id, reference.spans)
-        for verse in verses:
+        for verse in verses if getattr(provider, "cacheable", True) else []:
             self.cache.put(provider_name, metadata.provider_version_id, verse)
         return ResolvedPassage(reference=reference, resolved_version=metadata.abbreviation, verses=verses)
 
