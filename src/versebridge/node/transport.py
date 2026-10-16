@@ -218,11 +218,43 @@ class HermesRemoteTransport:
         code, _ = self._sh(f"pgrep -f {self._q(self.node.process_pattern)} >/dev/null", gui=False)
         return code == 0
 
+    def _ensure_helper(self) -> str | None:
+        """Compile the small dialog helper on the node once. Returns its path, or None if unavailable."""
+        helper = f'"{self.node.helper_dir}/vvdialog"'
+        code, out = self._sh(f"[ -x {helper} ] && echo ready", gui=True)
+        if "ready" in out:
+            return helper
+        source = Path(__file__).with_name("vvdialog.swift")
+        if not source.exists():
+            return None
+        tmp = self._remote_tmp(".swift")
+        pushed = self._invoke(["push", self.name, str(source), tmp], 120)
+        if pushed.returncode != 0:
+            return None
+        code, out = self._sh(
+            f'mkdir -p "{self.node.helper_dir}" && swiftc -O -o {helper} {self._q(tmp)} 2>&1 | tail -3; rm -f {self._q(tmp)}; [ -x {helper} ] && echo ready',
+            gui=True, timeout=240,
+        )
+        return helper if "ready" in out else None
+
     def quit_app(self) -> None:
-        # Asks the app to quit and returns at once: the app may show an "Are you sure?" or
-        # "Save changes?" prompt that only a person at that computer should answer.
+        """Ask the app to quit. If it shows its "Are you sure you want to quit?" box, press OK.
+
+        Only that one box is answered. A "Save changes?" box is never touched: that choice belongs to a person.
+        """
         script = f'tell application "{self._app_name}" to quit'
         self._sh(f"nohup osascript -e {self._q(script)} >/dev/null 2>&1 &\nsleep 1", gui=True, timeout=30)
+        if not self.node.confirm_quit:
+            return
+        helper = self._ensure_helper()
+        if not helper:
+            return
+        deadline = time.monotonic() + 15
+        while time.monotonic() < deadline:
+            code, out = self._sh(f"{helper} {self._q(self.node.process_name)} {self._q('Are you sure you want to quit')} OK", gui=True, timeout=30)
+            if "PRESSED" in out or "NOT_RUNNING" in out:
+                return
+            time.sleep(1.0)
 
     def launch_app(self) -> None:
         code, out = self._sh(f"open {self._q(self.node.app_path)}", gui=True)

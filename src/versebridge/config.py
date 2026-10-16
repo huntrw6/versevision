@@ -111,8 +111,11 @@ class NodeConfig(BaseModel):
     command: str = "hermes-remote"
     app_path: str = "/Applications/ProPresenter.app"
     process_pattern: str = "MacOS/ProPresenter$"
+    process_name: str = "ProPresenter"      # the name macOS shows for the running app
     backup_dir: str = "$HOME/VerseBridge-backups"
     library_root: str = "$HOME/Documents/ProPresenter/Libraries"
+    helper_dir: str = "$HOME/VerseBridge-tools"
+    confirm_quit: bool = True        # press OK on ProPresenter's "Are you sure you want to quit?" box (nothing else)
     retries: int = Field(default=2, ge=0, le=5)
     retry_delay_seconds: float = Field(default=20.0, ge=0, le=120)
     quit_wait_seconds: float = Field(default=25.0, ge=1, le=300)
