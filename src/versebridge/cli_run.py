@@ -79,9 +79,10 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
     def presentations_command(
         node: Annotated[Optional[str], typer.Option("--node")] = None,
         library: Annotated[Optional[str], typer.Option("--library")] = None,
+        all_libraries: Annotated[bool, typer.Option("--all", help="Include every library (songs too)")] = False,
         output: Annotated[str, typer.Option("--output")] = "terminal",
     ) -> None:
-        """List the presentations in ProPresenter (use a name with `run --replace/--append -p NAME`)."""
+        """List presentations in the output library (default: Verses). Use a name with `run -p NAME --replace/--append`."""
         as_json = output.casefold() == "json"
         try:
             from versebridge.workflow.pipeline import list_presentations
@@ -89,6 +90,8 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
             items = list_presentations(make_transport(config.propresenter, config.node))
             if library:
                 items = [i for i in items if i["library"].casefold() == library.casefold()]
+            elif not all_libraries and not as_json:
+                items = [i for i in items if i["library"].casefold() == config.output.library.casefold()]
             if as_json:
                 typer.echo(json.dumps(items, indent=2, ensure_ascii=False))
                 return
