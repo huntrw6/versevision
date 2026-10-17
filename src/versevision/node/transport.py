@@ -13,6 +13,7 @@ import re
 import shlex
 import shutil
 import subprocess
+import sys
 import tempfile
 import time
 import uuid
@@ -70,11 +71,53 @@ class LocalTransport:
         from versevision.propresenter.process import is_propresenter_running
         return is_propresenter_running()
 
+    @staticmethod
+    def _sh(command: str, timeout: float = 60.0) -> str:
+        result = subprocess.run(["/bin/sh", "-c", command], capture_output=True, text=True, timeout=timeout)
+        return (result.stdout or "") + (result.stderr or "")
+
+    @property
+    def _app_name(self) -> str:
+        return Path(self.node.app_path).stem
+
+    def _ensure_helper(self) -> str | None:
+        helper_dir = os.path.expandvars(self.node.helper_dir)
+        helper = os.path.join(helper_dir, "vvdialog")
+        if os.access(helper, os.X_OK):
+            return shlex.quote(helper)
+        source = Path(__file__).with_name("vvdialog.swift")
+        if sys.platform != "darwin" or not source.exists():
+            return None
+        os.makedirs(helper_dir, exist_ok=True)
+        self._sh(f"swiftc -O -o {shlex.quote(helper)} {shlex.quote(str(source))}", timeout=240)
+        return shlex.quote(helper) if os.access(helper, os.X_OK) else None
+
     def quit_app(self) -> None:
-        raise ConfigurationError("Automatic quit is only available through a remote node; close ProPresenter yourself")
+        """Close ProPresenter. Its "Are you sure you want to quit?" box is answered; "Save changes?" never is."""
+        if sys.platform != "darwin":
+            raise ConfigurationError("Automatic quit is only available on macOS; close ProPresenter yourself")
+        app = shlex.quote(self._app_name)
+        subprocess.Popen(["osascript", "-e", f'tell application "{self._app_name}" to quit'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if not self.node.confirm_quit:
+            return
+        helper = self._ensure_helper()
+        if not helper:
+            return
+        question, name = shlex.quote("Are you sure you want to quit"), shlex.quote(self.node.process_name)
+        for _ in range(15):
+            out = self._sh(f"{helper} {name} {question} OK")
+            if "PRESSED" in out or "NOT_RUNNING" in out:
+                return
+            time.sleep(1.0)
+        # a scripted quit can be cancelled by the app ("User canceled"); a real Cmd-Q goes through the menu path
+        self._sh(f"osascript -e 'tell application {app} to activate'; sleep 1; "
+                 f"(osascript -e 'tell application \"System Events\" to keystroke \"q\" using command down' >/dev/null 2>&1 &); "
+                 f"for i in 1 2 3 4 5 6 7 8 9 10; do r=$({helper} {name} {question} OK); case \"$r\" in PRESSED|NOT_RUNNING) break;; esac; sleep 0.5; done")
 
     def launch_app(self) -> None:
-        raise ConfigurationError("Automatic launch is only available through a remote node; reopen ProPresenter yourself")
+        if sys.platform != "darwin":
+            raise ConfigurationError("Automatic launch is only available on macOS; reopen ProPresenter yourself")
+        subprocess.run(["open", self.node.app_path], check=False)
 
     def fetch_file(self, remote_path: str, local_path: Path) -> str:
         local_path.parent.mkdir(parents=True, exist_ok=True)

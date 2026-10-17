@@ -49,8 +49,14 @@ app.add_typer(template_app, name="template")
 console = Console()
 
 
+def _show_version(value: bool) -> None:
+    if value:
+        typer.echo(f"VerseVision {__version__}")
+        raise typer.Exit()
+
+
 @app.callback()
-def main() -> None:
+def main(version: Annotated[bool, typer.Option("--version", help="Show the version and exit", callback=_show_version, is_eager=True)] = False) -> None:
     """VerseVision command line application."""
 
 

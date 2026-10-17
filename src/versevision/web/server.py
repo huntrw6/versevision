@@ -249,7 +249,7 @@ def make_handler(state: AppState):
                 cfg = state.config
                 self._json(200, {
                     "target": state.target_name(), "node": cfg.node.name or "this computer",
-                    "default_version": cfg.bible.default_version, "version": "0.2",
+                    "default_version": cfg.bible.default_version, "version": __import__("versevision").__version__,
                     "template_ready": bool(cfg.presentation_template), "library": cfg.output.library,
                 })
             elif path == "/api/check":

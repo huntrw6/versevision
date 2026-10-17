@@ -142,3 +142,28 @@ Direct `.pro` writing is an unofficial ProPresenter integration. The Windows fea
 The writer never edits bytes in place: it locks the target, fingerprints the source, creates a backup, writes a same-directory temporary file, reparses and verifies it, checks for concurrent changes, then atomically replaces the original. Unknown document versions are rejected by default. ProPresenter must be fully closed for the write. Version 19.0.1 retained its in-memory copy and created duplicate `.pro.pro` files when an externally replaced presentation was opened, so merely switching to another presentation is not safe. See [the feasibility report](docs/FEASIBILITY.md) for the tested matrix and remaining gates.
 
 No copyrighted Bible text is bundled. The repository's USFM acceptance corpus contains synthetic verse-like text only. Provider attribution is retained on planned slides and API keys are never serialized into configuration or error output.
+
+## Installing on a Mac (update and uninstall)
+
+Everything lives in the user's home folder; no admin rights are needed.
+
+```sh
+sh scripts/deploy-to-node.sh jpl-graphics-imac     # install, or update to the current code (settings and history are kept)
+```
+
+On the Mac itself, `sh install-macos.sh install versevision-*.whl` does the same from a built wheel.
+
+| What | Where on macOS |
+|---|---|
+| Program | `~/.local/bin/versevision` (managed by `uv tool`) |
+| Settings and API keys | `~/Library/Application Support/versevision/config.toml`, `keys.env` |
+| Import history (for Undo) | `~/Library/Application Support/versevision/imports.json` |
+| Backups and helper | `~/VerseVision-backups`, `~/VerseVision-tools` |
+| Start at login | `~/Library/LaunchAgents/org.versevision.serve.plist` (`versevision autostart enable/disable`) |
+
+Open the page at `http://127.0.0.1:8777/` on that Mac.
+
+```sh
+sh install-macos.sh uninstall          # removes the program and the login item; keeps settings, history, backups
+sh install-macos.sh uninstall --purge  # removes everything above
+```
