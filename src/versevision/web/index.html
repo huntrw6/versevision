@@ -65,6 +65,10 @@
   #drop h2{margin:6px 0 0;font-size:20px;font-weight:500}
   #drop p{margin:0;color:var(--dim)}
   .hint{font-size:12px;color:var(--dim)}
+  #dropveil{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:#1e1e1ecc;pointer-events:none}
+  #dropveil.on{display:flex}
+  #dropveil div{border:3px dashed var(--blue);border-radius:16px;background:#1f2733;padding:34px 60px;font-size:20px;font-weight:500}
+  #dropveil.bad div{border-color:var(--amber);background:#3a2e16}
 
   .opts{display:grid;grid-template-columns:1.25fr 1fr 1.35fr .8fr;gap:16px;margin-bottom:22px;align-items:start}
   @media (max-width:1100px){.opts{grid-template-columns:1fr 1fr}}
@@ -150,6 +154,8 @@
 </style>
 </head>
 <body>
+
+<div id="dropveil"><div id="veilText">Drop to import</div></div>
 
 <div id="toolbar">
   <div class="brand"><b>V</b>VerseVision</div>
@@ -497,9 +503,26 @@ drop.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preven
 fileInput.addEventListener('change', ()=>handleFile(fileInput.files[0]));
 for(const ev of ['dragenter','dragover']) drop.addEventListener(ev, e=>{ e.preventDefault(); drop.classList.add('over'); });
 for(const ev of ['dragleave','drop']) drop.addEventListener(ev, e=>{ e.preventDefault(); drop.classList.remove('over'); });
-drop.addEventListener('drop', e=>handleFile(e.dataTransfer.files[0]));
-window.addEventListener('dragover', e=>e.preventDefault());
-window.addEventListener('drop', e=>e.preventDefault());
+/* A file dropped anywhere on the page is imported, not only on the box. */
+const OK_EXT = ['.pdf','.docx','.txt','.md','.html','.htm'];
+let dragDepth = 0;
+const hasFile = e => e.dataTransfer && [...(e.dataTransfer.types||[])].includes('Files');
+const busy = () => !$('progress').classList.contains('hidden');
+function veil(on, bad, text){ $('dropveil').classList.toggle('on', on); $('dropveil').classList.toggle('bad', !!bad); if(text) $('veilText').textContent = text; }
+function lockedNow(){ return state.mode!=='new' && !state.target; }
+window.addEventListener('dragenter', e=>{ if(!hasFile(e)) return; e.preventDefault(); dragDepth++;
+  veil(true, busy()||lockedNow(), busy() ? 'Hold on, still working\u2026' : lockedNow() ? 'Pick a presentation first' : 'Drop to import'); });
+window.addEventListener('dragover', e=>{ e.preventDefault(); if(e.dataTransfer) e.dataTransfer.dropEffect = (busy()||lockedNow()) ? 'none' : 'copy'; });
+window.addEventListener('dragleave', e=>{ if(!hasFile(e)) return; dragDepth = Math.max(0, dragDepth-1); if(!dragDepth) veil(false); });
+window.addEventListener('drop', e=>{
+  e.preventDefault(); dragDepth = 0; veil(false);
+  const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  if(!file || busy()) return;
+  const ext = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+  if(!OK_EXT.includes(ext)){ setView('import'); show('result', false); show('setup', true); flash('Use a PDF, Word, text, Markdown or HTML file.'); return; }
+  if(state.view!=='import') setView('import');
+  handleFile(file);
+});
 
 async function autostart(){
   try{
