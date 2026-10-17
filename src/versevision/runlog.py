@@ -110,7 +110,8 @@ class RunLog:
                    traceback="".join(traceback.format_exception(type(exc), exc, exc.__traceback__))[-3000:])
 
     def finish(self, outcome: str, report: dict | None = None, applied: dict | None = None, error: str | None = None) -> None:
-        self.event("run_end", level="error" if outcome != "ok" else "info", outcome=outcome, error=error)
+        bad = outcome == "failed" or bool(error)
+        self.event("run_end", level="error" if bad else "warn" if outcome.startswith("stopped") else "info", outcome=outcome, error=error)
         try:
             (self.folder / "summary.txt").write_text(render_summary(self, outcome, report, applied, error), encoding="utf-8")
         except Exception as exc:  # pragma: no cover - summary is best effort

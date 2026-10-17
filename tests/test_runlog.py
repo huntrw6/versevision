@@ -59,3 +59,17 @@ def test_old_runs_are_pruned(tmp_path, monkeypatch):
         (tmp_path / "runs" / f"2026010{i}-000000-aaaaaa").mkdir(parents=True)
     runlog.RunLog.start("run", source="a", mode="new")
     assert len(list((tmp_path / "runs").iterdir())) == 3
+
+
+def test_dry_runs_and_reviews_are_not_logged_as_errors(tmp_path, monkeypatch):
+    monkeypatch.setenv("VERSEVISION_LOGS", str(tmp_path))
+    for outcome in ("dry run", "reviewed, not imported yet", "ok"):
+        run = runlog.RunLog.start("run", source="a", mode="new")
+        run.finish(outcome)
+        assert runlog.read_events(run.id)[-1]["level"] == "info"
+    run = runlog.RunLog.start("run", source="a", mode="new")
+    run.finish("stopped: flagged lines")
+    assert runlog.read_events(run.id)[-1]["level"] == "warn"
+    run = runlog.RunLog.start("run", source="a", mode="new")
+    run.finish("failed", error="boom")
+    assert runlog.read_events(run.id)[-1]["level"] == "error"

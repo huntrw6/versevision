@@ -273,20 +273,10 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         finally:
             server.server_close()
 
-    log_app = typer.Typer(help="Read the record of what VerseVision did (one folder per run).", invoke_without_command=True)
+    log_app = typer.Typer(help="Read the record of what VerseVision did (one folder per run).", no_args_is_help=False)
     app.add_typer(log_app, name="log")
 
-    @log_app.callback()
-    def log_main(
-        ctx: typer.Context,
-        run_id: Annotated[Optional[str], typer.Argument(help="Run id (or the end of it), or 'latest'")] = None,
-        events: Annotated[bool, typer.Option("--events", help="Show every logged step instead of the summary")] = False,
-        problems: Annotated[bool, typer.Option("--problems", help="Show only warnings and errors")] = False,
-        path: Annotated[bool, typer.Option("--path", help="Print the folder path only")] = False,
-    ) -> None:
-        """Show the summary of a run (default: the latest). Use `versevision log list` for all runs."""
-        if ctx.invoked_subcommand:
-            return
+    def _show_run(run_id: str | None, events: bool, problems: bool, path: bool) -> None:
         from versevision import runlog
         found = runlog.resolve(run_id or "latest")
         if not found:
@@ -306,6 +296,22 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         summary = folder / "summary.txt"
         typer.echo(summary.read_text(encoding="utf-8") if summary.exists() else "No summary yet (the run may still be going, or it was cut off). Showing the steps:\n" +
                    "\n".join(f"[{e['elapsed']}s] {e['step']} {e.get('message', '')}" for e in runlog.read_events(found)))
+
+    @log_app.callback(invoke_without_command=True)
+    def log_main(ctx: typer.Context) -> None:
+        """With no subcommand, shows the latest run's summary."""
+        if ctx.invoked_subcommand is None:
+            _show_run(None, False, False, False)
+
+    @log_app.command("show")
+    def log_show(
+        run_id: Annotated[Optional[str], typer.Argument(help="Run id (or the end of it); default: the latest")] = None,
+        events: Annotated[bool, typer.Option("--events", help="Every logged step instead of the summary")] = False,
+        problems: Annotated[bool, typer.Option("--problems", help="Only warnings and errors")] = False,
+        path: Annotated[bool, typer.Option("--path", help="Print the folder path only")] = False,
+    ) -> None:
+        """Show one run: the readable summary, or --events / --problems."""
+        _show_run(run_id, events, problems, path)
 
     @log_app.command("list")
     def log_list(count: Annotated[int, typer.Option("--count", "-n")] = 20, output: Annotated[str, typer.Option("--output")] = "terminal") -> None:
