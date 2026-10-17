@@ -35,6 +35,9 @@ class ImportRecord(BaseModel):
     mode: str = "append"            # new (own presentation) | append | replace
     library: str | None = None
     file_path: str | None = None
+    file_cue_count: int = 0                 # slides in the written file (for the "unchanged since" check on undo)
+    copied_from: str | None = None          # presentation this file was copied from (replace / append)
+    playlist_items: list[dict] = Field(default_factory=list)   # [{"playlist": id, "item": id}] added for this file
 
 
 class HistoryStore:

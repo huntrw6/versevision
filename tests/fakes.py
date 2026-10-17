@@ -137,3 +137,41 @@ def _api(self, route):
 
 
 FakeNode.api_get = _api
+
+
+# ---- playlists: one playlist holding the presentation, like a service order
+_PL_ID = "PL1"
+
+
+def _playlist_state(self):
+    if not hasattr(self, "playlist"):
+        self.playlist = [
+            {"id": {"uuid": "H1", "name": "Sermon", "index": 0}, "type": "header", "is_hidden": False, "is_pco": False, "header_color": {"red": .5, "green": .5, "blue": .5, "alpha": 1.0}},
+            {"id": {"uuid": "I1", "name": self.name, "index": 1}, "type": "presentation", "is_hidden": False, "is_pco": False,
+             "presentation_info": {"presentation_uuid": "P1", "arrangement_name": ""}},
+            {"id": {"uuid": "H2", "name": "Closing", "index": 2}, "type": "header", "is_hidden": False, "is_pco": False, "header_color": {"red": .5, "green": .5, "blue": .5, "alpha": 1.0}},
+        ]
+    return self.playlist
+
+
+def _api_put(self, route, body):
+    if route == f"/v1/playlist/{_PL_ID}":
+        self.playlist = body
+        self.log.append("playlist-put")
+        return
+    raise KeyError(route)
+
+
+_api2_prev = FakeNode.api_get
+
+
+def _api2(self, route):
+    if route == "/v1/playlists":
+        return [{"id": {"uuid": _PL_ID, "name": "Sunday", "index": 0}, "field_type": "playlist", "children": []}]
+    if route == f"/v1/playlist/{_PL_ID}":
+        return {"id": {"uuid": _PL_ID, "name": "Sunday", "index": 0}, "items": _playlist_state(self)}
+    return _api2_prev(self, route)
+
+
+FakeNode.api_put = _api_put
+FakeNode.api_get = _api2

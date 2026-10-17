@@ -164,10 +164,9 @@ def start_apply(state: AppState, plan_job_id: str, accept_flags: bool) -> Job:
             )
         else:
             assert source.target is not None
-            applied = apply_import(
-                source.text, source.name, source.plan, source.target, state.config, state.transport(),
-                replace=True, clear_generated=(source.mode == "replace"), close_app=True, reopen=True,
-                history=state.history, progress=progress,
+            applied = publish_new(
+                source.text, source.name, source.title, source.plan, state.config, state.transport(),
+                history=state.history, progress=progress, base=source.target, clear_generated=(source.mode == "replace"),
             )
         j.result = applied.model_dump()
         j.message = "Done"

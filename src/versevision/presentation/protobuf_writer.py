@@ -119,6 +119,30 @@ def _all_uuids(message: Message) -> list[str]:
     return found
 
 
+def _remap_owned_ids(message: Message) -> dict[str, str]:
+    """Give every id inside a copied presentation a new value, keeping references between them consistent."""
+    mapping: dict[str, str] = {}
+
+    def swap(item) -> None:
+        if item.string and item.string != _NIL_UUID:
+            item.string = mapping.setdefault(item.string.casefold(), str(uuid.uuid4()).upper())
+
+    def walk(node: Message) -> None:
+        for field, value in node.ListFields():
+            if field.message_type is None:
+                continue
+            items = value if field.is_repeated else [value]
+            if field.message_type.full_name == "rv.data.UUID":
+                for item in items:
+                    swap(item)
+            else:
+                for item in items:
+                    walk(item)
+
+    walk(message)
+    return mapping
+
+
 class ProtobufPresentationWriter:
     def __init__(self, policy: CompatibilityPolicy | None = None):
         self.policy = policy or CompatibilityPolicy()
@@ -387,6 +411,77 @@ class ProtobufPresentationWriter:
             cue_count_before=0, cue_count_after=len(created), group_count_before=0,
             group_count_after=len({item.source_passage_index for item in slide_plan.slides}),
             output_sha256=_sha256(output_path), original_sha256="",
+        )
+
+    # ------------------------------------------------------------------ copy of an existing presentation
+    def derive_presentation(
+        self, source_path: Path, output_path: Path, slide_plan: SlidePlan, definition: PresentationTemplateConfig,
+        *, name: str, clear_generated: bool, template_path: Path | None = None,
+    ) -> PlanWriteResult:
+        """Write ``output_path`` as a COPY of ``source_path`` with the planned slides added.
+
+        clear_generated=True first drops the copy's verse and sermon-point slides (blank, background, title and
+        media slides stay). The source file is never touched, and ``output_path`` must not exist, so ProPresenter
+        sees a brand-new file and lists it at once. Every id inside the copy is new, so it never collides with the source.
+        """
+        if not slide_plan.slides:
+            raise ValueError("slide plan is empty")
+        source_path = source_path.resolve(strict=True)
+        output_path = output_path.resolve()
+        if output_path.exists():
+            raise ValueError(f"{output_path.name} already exists; a new presentation never overwrites a file")
+        source = self._read(source_path)
+        self.policy.validate(source)
+        if template_path and template_path.resolve() != source_path:
+            template = self._read(template_path.resolve(strict=True))
+            self.policy.validate(template)
+        else:
+            template = presentation_pb2.Presentation()
+            template.CopyFrom(source)               # snapshot BEFORE anything is cleared: the template may live in this file
+        copy = presentation_pb2.Presentation()
+        copy.CopyFrom(source)
+        removed_cues = removed_groups = 0
+        if clear_generated:
+            victims = self.generated_cue_uuids(copy, definition)
+            if victims:
+                removed_cues, removed_groups = self._remove_cues(copy, set(victims))
+        before_cues, before_groups = len(copy.cues), len(copy.cue_groups)
+        _remap_owned_ids(copy)
+        copy.name = name
+        now = datetime.now(timezone.utc)
+        for field in ("last_date_used", "last_modified_date"):
+            stamp = getattr(copy, field)
+            stamp.seconds, stamp.nanos = int(now.timestamp()), 0
+        created = self._render_plan(copy, slide_plan, definition, template)
+        expected = before_cues + len(created)
+        data = copy.SerializeToString(deterministic=True)
+        temp_path: Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="wb", prefix=f".{output_path.name}.versevision-", suffix=".tmp", dir=output_path.parent, delete=False
+            ) as stream:
+                temp_path = Path(stream.name)
+                stream.write(data)
+                stream.flush()
+                os.fsync(stream.fileno())
+            reparsed = self._read(temp_path)
+            if len(reparsed.cues) != expected or reparsed.name != name:
+                raise ValueError("new presentation did not reread correctly")
+            if {c.uuid.string for c in reparsed.cues[-len(created):]} != set(created):
+                raise ValueError("new presentation is missing the generated slides")
+            if output_path.exists():
+                raise ValueError(f"{output_path.name} appeared while it was being written")
+            os.link(temp_path, output_path)          # fails instead of replacing an existing file
+            temp_path.unlink()
+            temp_path = None
+        finally:
+            if temp_path and temp_path.exists():
+                temp_path.unlink()
+        return PlanWriteResult(
+            path=output_path, backup_path=output_path, cue_uuids=created,
+            cue_count_before=len(source.cues), cue_count_after=expected,
+            group_count_before=len(source.cue_groups), group_count_after=before_groups + len({i.source_passage_index for i in slide_plan.slides}),
+            output_sha256=_sha256(output_path), original_sha256=_sha256(source_path), removed_cue_count=removed_cues,
         )
 
     # ------------------------------------------------------------------ replace in place

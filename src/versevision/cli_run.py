@@ -110,13 +110,15 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         presentation_uuid: Annotated[Optional[str], typer.Option("--presentation-uuid")] = None,
         title: Annotated[Optional[str], typer.Option("--title", help="Name for the new presentation (default: the document's title)")] = None,
         library: Annotated[Optional[str], typer.Option("--library", help="Library for the new presentation (default: Verses)")] = None,
-        replace: Annotated[bool, typer.Option("--replace", help="In the chosen presentation, delete its verse and sermon-point slides (blank/background/media slides stay) and add the new ones")] = False,
-        append: Annotated[bool, typer.Option("--append", help="Add the slides to the end of the chosen presentation")] = False,
+        replace: Annotated[bool, typer.Option("--replace", help="Copy the chosen presentation without its verse and point slides (blank/background/media stay) and add the new ones")] = False,
+        append: Annotated[bool, typer.Option("--append", help="Copy the chosen presentation and add the slides to the end")] = False,
         node: Annotated[Optional[str], typer.Option("--node", help="Remote computer running ProPresenter")] = None,
         default_version: Annotated[Optional[str], typer.Option("--default-version")] = None,
         dry_run: Annotated[bool, typer.Option("--dry-run", help="Plan and report only; change nothing")] = False,
         yes: Annotated[bool, typer.Option("--yes", help="Import even when some lines are flagged")] = False,
-        no_close: Annotated[bool, typer.Option("--no-close", help="Never close ProPresenter automatically (replace/append only)")] = False,
+        no_playlist: Annotated[bool, typer.Option("--no-playlist", help="Do not add the new file to the playlists that hold the original")] = False,
+        in_place: Annotated[bool, typer.Option("--in-place", help="Edit the original file instead of saving a copy (closes ProPresenter)")] = False,
+        no_close: Annotated[bool, typer.Option("--no-close", help="With --in-place: never close ProPresenter automatically")] = False,
         no_reopen: Annotated[bool, typer.Option("--no-reopen")] = False,
         output: Annotated[str, typer.Option("--output")] = "terminal",
         target_presentation: Annotated[Optional[str], typer.Option("--target-presentation", "-t", hidden=True)] = None,
@@ -124,9 +126,10 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
     ) -> None:
         """Turn sermon notes into ProPresenter slides (verses and sermon points).
 
-        By default this creates a NEW presentation named after the document; ProPresenter stays open and
-        shows it at once. To change an existing presentation instead, name it with -p and choose
-        --replace (swap its verse/point slides) or --append; that mode needs ProPresenter closed.
+        By default this creates a NEW presentation named after the document. With -p NAME and --replace
+        (swap its verse and point slides) or --append (add to the end), it saves a COPY next to the original
+        ("NAME 2") and puts it under the original in any playlist. ProPresenter stays open and shows the new
+        file at once; nothing existing changes. (--in-place edits the original instead and needs a restart.)
         """
         as_json = output.casefold() == "json"
         try:
@@ -164,10 +167,15 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
                 typer.echo(json.dumps(report, indent=2, ensure_ascii=False)) if as_json else _print_report(report)
                 raise typer.Exit(int(ExitCode.PARSING_OR_VALIDATION))
             progress = (lambda m: console.print(f"[cyan]{m}[/cyan]")) if not as_json else (lambda m: None)
-            if editing:
+            if editing and in_place:
                 applied = apply_import(
                     source, source_name, plan, target, config, transport,
                     replace=True, clear_generated=replace, close_app=not no_close, reopen=not no_reopen, progress=progress,
+                )
+            elif editing:
+                applied = publish_new(
+                    source, source_name, new_title, plan, config, transport, progress=progress,
+                    base=target, clear_generated=replace, add_to_playlists=not no_playlist,
                 )
             else:
                 applied = publish_new(source, source_name, new_title, plan, config, transport, library=library, progress=progress)
@@ -176,7 +184,7 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
                 typer.echo(json.dumps(report, indent=2, ensure_ascii=False))
             else:
                 _print_report(report)
-                what = "new presentation" if applied.mode == "new" else "presentation"
+                what = "new presentation" if applied.mode == "new" else "new copy"
                 console.print(f"[green]Imported {applied.slide_count} slides into {what} '{applied.presentation_name or applied.target_name}'[/green] (import {applied.import_id})")
                 console.print(applied.verification)
             raise typer.Exit(report["exit_code"])

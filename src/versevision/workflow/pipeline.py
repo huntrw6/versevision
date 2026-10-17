@@ -341,13 +341,78 @@ def undo_import(
     )
 
 
+def _find_playlist_slots(transport: Transport, presentation_uuid: str) -> list[dict]:
+    """Every playlist that holds the presentation, with its current items (so we can insert right under it)."""
+    found: list[dict] = []
+
+    def walk(nodes: list[dict]) -> None:
+        for node in nodes:
+            if node.get("field_type") == "playlist" or not node.get("children"):
+                pid = node["id"]["uuid"]
+                try:
+                    items = transport.api_get(f"/v1/playlist/{pid}").get("items", [])
+                except Exception:
+                    items = []
+                for position, item in enumerate(items):
+                    info = item.get("presentation_info") or {}
+                    if item.get("type") == "presentation" and info.get("presentation_uuid", "").casefold() == presentation_uuid.casefold():
+                        found.append({"playlist": pid, "playlist_name": node["id"]["name"], "position": position, "items": items})
+            walk(node.get("children") or [])
+
+    walk(transport.api_get("/v1/playlists"))
+    return found
+
+
+def _add_under_in_playlists(transport: Transport, slots: list[dict], new_uuid: str, new_name: str) -> list[dict]:
+    """Put the new presentation directly under the original in each playlist that had the original."""
+    added: list[dict] = []
+    for slot in slots:
+        item_id = str(uuid.uuid4()).upper()
+        entry = {
+            "id": {"uuid": item_id, "name": new_name, "index": slot["position"] + 1},
+            "type": "presentation", "is_hidden": False, "is_pco": False,
+            "presentation_info": {"presentation_uuid": new_uuid, "arrangement_name": ""},
+        }
+        items = slot["items"]
+        merged = items[: slot["position"] + 1] + [entry] + items[slot["position"] + 1:]
+        for index, item in enumerate(merged):          # keep the order numbers in step with the order
+            item.setdefault("id", {})["index"] = index
+        transport.api_put(f"/v1/playlist/{slot['playlist']}", merged)
+        added.append({"playlist": slot["playlist"], "item": item_id, "name": new_name})
+    return added
+
+
+def _wait_listed(transport: Transport, name: str, lib_name: str, plan, expected: int, timeout: float) -> tuple[bool, str, str]:
+    deadline = time.monotonic() + timeout
+    problem = "ProPresenter has not listed the new presentation yet"
+    while time.monotonic() < deadline:
+        try:
+            match = next((i for i in list_presentations(transport) if i["name"] == name and i["library"].casefold() == lib_name.casefold()), None)
+            if match:
+                ok, message = verify_via_api(transport, match["uuid"], plan.slide_plan, expected, timeout=max(5.0, deadline - time.monotonic()))
+                if ok:
+                    return True, message, match["uuid"]
+                problem = message
+        except Exception as exc:
+            problem = str(exc)
+        time.sleep(1.5)
+    return False, problem, ""
+
+
 def publish_new(
     text: str, source_name: str, title: str, plan: NotesImportResult, config: AppConfig, transport: Transport,
     *, library: str | None = None, history: HistoryStore | None = None, progress: Progress = _noop,
-    verify_timeout: float = 25.0,
+    verify_timeout: float = 25.0, base: tuple | None = None, clear_generated: bool = False,
+    numbered: bool = False, add_to_playlists: bool = True,
 ) -> ApplyResult:
-    """Create a NEW presentation named after the document. ProPresenter can stay open: it shows new files at once."""
-    from versevision.notes.title import safe_presentation_name, unique_name
+    """Write the result as a NEW file. ProPresenter lists new files at once, so it never needs to restart.
+
+    base=None  : a fresh presentation named after the document (the default).
+    base=target: a COPY of that presentation. With clear_generated its verse and point slides are dropped first
+                 (Replace); without it the new slides go at the end (Append). The copy is saved next to the
+                 original as "Name 2", "Name 3"... and, when the original is in a playlist, it is added just under it.
+    """
+    from versevision.notes.title import numbered_name, safe_presentation_name, unique_name
 
     history = history or HistoryStore()
     definition = config.presentation_template
@@ -355,29 +420,32 @@ def publish_new(
         raise ConfigurationError("No template is configured; run versevision template setup")
     if not plan.slide_plan.slides:
         raise ConfigurationError("There are no slides to import")
-    lib_name = library or config.output.library
-    folder = transport.library_folder(lib_name)
     node_name = config.node.name or "local"
-    name = safe_presentation_name(title)
 
-    # existing names: from the library listing when ProPresenter answers, else from disk
+    if base:
+        base_library, base_uuid, base_name, base_path, _ = base
+        lib_name = base_library
+        wanted = base_name
+    else:
+        lib_name = library or config.output.library
+        wanted = safe_presentation_name(title)
+    folder = transport.library_folder(lib_name)
+
     existing: set[str] = set()
     try:
         existing = {item["name"] for item in list_presentations(transport) if item["library"].casefold() == lib_name.casefold()}
     except Exception:
         pass
-    name = unique_name(name, existing)
-    # also guard against a file that exists on disk but is not in the listing
-    for _ in range(50):
+    name = numbered_name(wanted, existing) if (numbered or base) else unique_name(wanted, existing)
+    for _ in range(50):                      # also guard against a file on disk that the listing does not show
         if not transport.find_presentation(name, lib_name):
             break
-        name = unique_name(name, existing | {name})
-    steps = [f"new presentation: {name}"]
+        name = numbered_name(wanted, existing | {name}) if (numbered or base) else unique_name(wanted, existing | {name})
+    steps = [f"new file: {name}" + (f" (copy of {base_name})" if base else "")]
 
     try:
         template_target = _target_from_api(transport, uuid_=definition.presentation_uuid, name=None, library=None)
     except ConfigurationError:
-        # the saved id can go stale (the presentation was recreated); fall back to its name
         template_target = _target_from_api(transport, uuid_=None, name=definition.presentation_name, library=definition.library_name)
     workdir = Path(tempfile.mkdtemp(prefix="versevision-"))
     template_local = workdir / "template.pro"
@@ -385,39 +453,43 @@ def publish_new(
     transport.fetch_file(template_target[3], template_local)
     validate_template(template_local, definition)
     out_local = workdir / f"{name}.pro"
-    progress("Building the presentation")
-    written = ProtobufPresentationWriter().create_presentation(
-        template_local, out_local, plan.slide_plan, definition, name=name,
-    )
+    writer = ProtobufPresentationWriter()
+    if base:
+        base_local = workdir / "base.pro"
+        progress(f"Copying {base_name}")
+        transport.fetch_file(base_path, base_local)
+        progress("Building the new file")
+        written = writer.derive_presentation(
+            base_local, out_local, plan.slide_plan, definition, name=name, clear_generated=clear_generated, template_path=template_local,
+        )
+    else:
+        progress("Building the presentation")
+        written = writer.create_presentation(template_local, out_local, plan.slide_plan, definition, name=name)
     remote_path = f"{folder}/{name}.pro"
     progress("Adding it to ProPresenter")
     transport.create_file(out_local, remote_path)
     steps.append(f"placed {remote_path}")
 
+    expected_total = written.cue_count_after
     verified, message, new_uuid = False, "Placed in the library folder", ""
-    was_running = transport.is_running()
-    if was_running:
-        progress("Checking ProPresenter shows it")
-        deadline = time.monotonic() + verify_timeout
-        problem = "ProPresenter has not listed the new presentation yet"
-        while time.monotonic() < deadline:
-            try:
-                match = next((i for i in list_presentations(transport) if i["name"] == name and i["library"].casefold() == lib_name.casefold()), None)
-                if match:
-                    new_uuid = match["uuid"]
-                    ok, message = verify_via_api(transport, new_uuid, plan.slide_plan, len(plan.slide_plan.slides), timeout=max(5.0, deadline - time.monotonic()))
-                    if ok:
-                        verified = True
-                        break
-                    problem = message
-            except Exception as exc:
-                problem = str(exc)
-            time.sleep(1.5)
+    playlist_items: list[dict] = []
+    if transport.is_running():
+        progress("Waiting for ProPresenter to show it")
+        verified, message, new_uuid = _wait_listed(transport, name, lib_name, plan, len(plan.slide_plan.slides), verify_timeout)
         if not verified:
             raise VerificationRollbackError(
-                f"ProPresenter did not show the new presentation ({problem}). The file {remote_path} was left in place; "
+                f"ProPresenter did not show the new file ({message}). The file {remote_path} was left in place; "
                 "reopen ProPresenter to see it, or remove the file."
             )
+        if base and add_to_playlists:
+            try:
+                slots = _find_playlist_slots(transport, base_uuid)
+                if slots:
+                    progress("Adding it to the playlist")
+                    playlist_items = _add_under_in_playlists(transport, slots, new_uuid, name)
+                    steps.append("added to playlist " + ", ".join(sorted({s["playlist_name"] for s in slots})))
+            except Exception as exc:       # the file is in place and listed; a playlist problem should not undo that
+                steps.append(f"could not add it to the playlist: {exc}")
     else:
         verified, message = True, "Placed in the library folder; ProPresenter will list it the next time it opens"
 
@@ -427,6 +499,8 @@ def publish_new(
         target_uuid=new_uuid or written.cue_uuids[0], target_name=name, node=node_name,
         cue_uuids=written.cue_uuids, slide_count=len(written.cue_uuids), verse_count=plan.verse_count,
         point_count=plan.point_count, backup_path=None, mode="new", library=lib_name, file_path=remote_path,
+        copied_from=base_name if base else None, playlist_items=playlist_items,
+        file_cue_count=expected_total,
     ))
     from platformdirs import user_log_path
     append_audit_entry(user_log_path("versevision") / "audit.jsonl", AuditEntry(
@@ -436,10 +510,24 @@ def publish_new(
         verification_result=message,
     ))
     return ApplyResult(
-        mode="new", presentation_name=name, restart_needed=False, import_id=import_id, target_name=name, node=node_name,
-        slide_count=len(written.cue_uuids), cue_count_before=0, cue_count_after=len(written.cue_uuids),
-        verification=message, verified=verified, steps=steps,
+        mode="replace" if (base and clear_generated) else "append" if base else "new",
+        presentation_name=name, restart_needed=False, import_id=import_id, target_name=name, node=node_name,
+        slide_count=len(written.cue_uuids), cue_count_before=written.cue_count_before, cue_count_after=expected_total,
+        removed_slides=written.removed_cue_count, verification=message, verified=verified, steps=steps,
     )
+
+
+def _remove_from_playlists(transport: Transport, record: ImportRecord) -> None:
+    for entry in record.playlist_items:
+        try:
+            items = transport.api_get(f"/v1/playlist/{entry['playlist']}").get("items", [])
+            kept = [i for i in items if i.get("id", {}).get("uuid", "").casefold() != entry["item"].casefold()]
+            for index, item in enumerate(kept):
+                item.setdefault("id", {})["index"] = index
+            if len(kept) != len(items):
+                transport.api_put(f"/v1/playlist/{entry['playlist']}", kept)
+        except Exception:
+            pass        # the playlist may be gone or ProPresenter closed; deleting the file is what matters
 
 
 def _undo_new(record: ImportRecord, config: AppConfig, transport: Transport, history: HistoryStore, progress: Progress) -> ApplyResult:
@@ -447,7 +535,9 @@ def _undo_new(record: ImportRecord, config: AppConfig, transport: Transport, his
     if not record.file_path:
         raise ConfigurationError("This import has no recorded file; remove the presentation in ProPresenter instead")
     progress("Removing the presentation")
-    removed = transport.delete_created_file(record.file_path, expected_cues=len(record.cue_uuids))
+    if record.playlist_items:
+        _remove_from_playlists(transport, record)
+    removed = transport.delete_created_file(record.file_path, expected_cues=record.file_cue_count or len(record.cue_uuids))
     history.set_status(record.import_id, "undone")
     return ApplyResult(
         mode="new", presentation_name=record.target_name, import_id=record.import_id, target_name=record.target_name,

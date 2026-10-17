@@ -71,3 +71,14 @@ def unique_name(name: str, existing: set[str]) -> str:
     while f"{name} ({counter})".casefold() in taken:
         counter += 1
     return f"{name} ({counter})"
+
+
+def numbered_name(name: str, existing: set[str]) -> str:
+    """'Name' -> 'Name 2', 'Name 3'... (the number that follows the highest one already used)."""
+    import re
+    base = re.sub(r"\s+\d+$", "", name)
+    taken = {item.casefold() for item in existing}
+    counter = 2
+    while f"{base} {counter}".casefold() in taken:
+        counter += 1
+    return f"{base} {counter}"

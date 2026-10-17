@@ -39,6 +39,7 @@ class Transport(Protocol):
     description: str
 
     def api_get(self, route: str) -> Any: ...
+    def api_put(self, route: str, body: Any) -> None: ...
     def is_running(self) -> bool: ...
     def quit_app(self) -> None: ...
     def launch_app(self) -> None: ...
@@ -66,6 +67,13 @@ class LocalTransport:
             return response.json()
         except httpx.HTTPError as exc:
             raise ProPresenterConnectionError(f"Could not reach ProPresenter at {self.pp.host}:{self.pp.port}: {exc}") from exc
+
+    def api_put(self, route: str, body: Any) -> None:
+        try:
+            response = httpx.put(f"http://{self.pp.host}:{self.pp.port}{route}", json=body, timeout=self.pp.timeout_seconds + 5)
+            response.raise_for_status()
+        except httpx.HTTPError as exc:
+            raise ProPresenterConnectionError(f"ProPresenter did not accept the change to {route}: {exc}") from exc
 
     def is_running(self) -> bool:
         from versevision.propresenter.process import is_propresenter_running
@@ -256,6 +264,18 @@ class HermesRemoteTransport:
             return json.loads(body)
         except ValueError as exc:
             raise ProPresenterConnectionError(f"Malformed ProPresenter response for {route} from {self.name}") from exc
+
+    def api_put(self, route: str, body: Any) -> None:
+        payload = json.dumps(body)
+        if "VVEOF" in payload:
+            raise ProPresenterConnectionError("Unsupported characters in the playlist data")
+        code, out = self._sh(
+            f"curl -s -m {int(self.pp.timeout_seconds) + 10} -o /dev/null -w '%{{http_code}}' -X PUT "
+            f"-H 'Content-Type: application/json' --data-binary @- http://127.0.0.1:{self._port}{route} <<'VVEOF'\n{payload}\nVVEOF",
+            gui=False,
+        )
+        if code != 0 or not out.strip().endswith(("200", "204")):
+            raise ProPresenterConnectionError(f"ProPresenter on {self.name} did not accept the change to {route} (answer: {out.strip()[-40:] or 'none'})")
 
     def is_running(self) -> bool:
         code, _ = self._sh(f"pgrep -f {self._q(self.node.process_pattern)} >/dev/null", gui=False)

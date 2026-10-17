@@ -14,7 +14,7 @@ from versevision.node.transport import sha256_file
 from versevision.presentation.generated import presentation_pb2
 from versevision.presentation.template import inspect_point_candidates, inspect_template_candidates
 from versevision.workflow import pipeline
-from versevision.workflow.pipeline import apply_import, plan_for_transport, undo_import
+from versevision.workflow.pipeline import apply_import, plan_for_transport, publish_new, undo_import
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sample" / "Sample.pro"
 NOTES = "Title\n“For God so loved the world.”\nJohn 3:16 NIV\n1) First point\nPsalm 23:1 NIV\n2) Second point\n"
@@ -247,3 +247,80 @@ def test_template_slides_in_the_same_file_are_never_treated_as_generated(env):
     victims = {u.casefold() for u in ProtobufPresentationWriter.generated_cue_uuids(message, config.presentation_template)}
     for cue in (config.presentation_template.cue_uuid, config.presentation_template.point_cue_uuid):
         assert cue.casefold() not in victims
+
+
+# ----------------------------------------------------------------------------- copies: no restart, original untouched
+def _sha(path):
+    import hashlib
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _cues(path):
+    m = presentation_pb2.Presentation()
+    m.ParseFromString(path.read_bytes())
+    return m
+
+
+def test_replace_makes_a_numbered_copy_and_never_closes_the_app(env):
+    from versevision.notes.title import numbered_name
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    before = _sha(pres)
+    result = publish_new("n", "n.txt", "T", plan, config, node, history=history, base=target, clear_generated=True)
+    assert "quit" not in node.log and "launch" not in node.log          # ProPresenter never restarted
+    assert node.running
+    assert _sha(pres) == before                                          # the original is byte-for-byte untouched
+    copy = pres.parent / "Sample 2.pro"
+    assert copy.exists() and result.presentation_name == "Sample 2" and result.mode == "replace"
+    m = _cues(copy)
+    assert m.name == "Sample 2"
+    assert len(m.cues) == result.cue_count_after
+    original = _cues(pres)
+    assert not ({c.uuid.string for c in m.cues} & {c.uuid.string for c in original.cues})   # all ids are new
+    assert m.uuid.string != original.uuid.string
+
+
+def test_append_copy_keeps_every_original_slide_and_adds_to_the_end(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    original = _cues(pres)
+    result = publish_new("n", "n.txt", "T", plan, config, node, history=history, base=target, clear_generated=False)
+    m = _cues(pres.parent / "Sample 2.pro")
+    assert result.mode == "append"
+    assert len(m.cues) == len(original.cues) + len(plan.slide_plan.slides)
+    assert [c.actions[0].label.text for c in m.cues[:len(original.cues)]] == [c.actions[0].label.text for c in original.cues]
+
+
+def test_second_copy_is_numbered_three(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    publish_new("n", "n.txt", "T", plan, config, node, history=history, base=target, clear_generated=True)
+    second = publish_new("n", "n.txt", "T", plan, config, node, history=history, base=target, clear_generated=True)
+    assert second.presentation_name == "Sample 3"
+    assert (pres.parent / "Sample 3.pro").exists()
+
+
+def test_copy_is_put_in_the_playlist_directly_under_the_original_and_undo_removes_it(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    result = publish_new("n", "n.txt", "T", plan, config, node, history=history, base=target, clear_generated=True)
+    names = [i["id"]["name"] for i in node.playlist]
+    assert names == ["Sermon", "Sample", "Sample 2", "Closing"]            # directly under the original, header order kept
+    assert [i["id"]["index"] for i in node.playlist] == [0, 1, 2, 3]       # indexes stay in order
+    undo_import(result.import_id, config, node, history=history)
+    assert [i["id"]["name"] for i in node.playlist] == ["Sermon", "Sample", "Closing"]
+    assert not (pres.parent / "Sample 2.pro").exists()
+
+
+def test_no_playlist_flag_leaves_playlists_alone(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    publish_new("n", "n.txt", "T", plan, config, node, history=history, base=target, clear_generated=True, add_to_playlists=False)
+    assert [i["id"]["name"] for i in node.api_get("/v1/playlist/PL1")["items"]] == ["Sermon", "Sample", "Closing"]
+
+
+def test_a_new_document_presentation_is_not_added_to_any_playlist(env):
+    tmp, pres, node, config, history = env
+    plan, _ = _plan(node, config)
+    publish_new("n", "n.txt", "Fresh Notes", plan, config, node, history=history, library=None)
+    assert [i["id"]["name"] for i in node.api_get("/v1/playlist/PL1")["items"]] == ["Sermon", "Sample", "Closing"]
