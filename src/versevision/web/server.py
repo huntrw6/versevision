@@ -323,6 +323,15 @@ def make_handler(state: AppState):
                     return
                 self._json(200, {"id": job.id, "kind": job.kind, "state": job.state, "message": job.message,
                                  "result": job.result, "error": job.error, "exit_code": job.exit_code})
+            elif path == "/api/runs":
+                self._json(200, runlog.list_runs(30))
+            elif path.startswith("/api/run/"):
+                run_id = runlog.resolve(path.rsplit("/", 1)[-1])
+                summary = (runlog.runs_dir() / run_id / "summary.txt") if run_id else None
+                if not run_id or not summary or not summary.exists():
+                    self._json(404, {"error": "No such run"})
+                else:
+                    self._json(200, {"id": run_id, "summary": summary.read_text(encoding="utf-8"), "folder": str(runlog.runs_dir() / run_id)})
             elif path == "/api/presentations":
                 try:
                     items = list_presentations(state.transport())

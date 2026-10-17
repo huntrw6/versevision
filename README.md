@@ -182,3 +182,30 @@ ProPresenter ignores changes made to a file it already has open, but it lists a 
 Copies are saved next to the original as `Name 2`, `Name 3`, and so on, and are added to every playlist that holds the original, directly under it (`--no-playlist` skips this). The original file is never touched. `Undo` deletes the copy and takes it out of the playlist.
 
 `--in-place` keeps the older behaviour of editing the original file (this closes and reopens ProPresenter).
+
+## Logs: auditing a run
+
+Every import, dry run and undo gets its own folder, so any run can be checked afterwards.
+
+| Where | Path |
+|---|---|
+| macOS | `~/Library/Logs/versevision/runs/<run id>/` |
+| Linux | `~/.local/state/versevision/log/runs/<run id>/` |
+
+| File | What it holds |
+|---|---|
+| `summary.txt` | Plain-language account: result, document, action, every slide, flagged / adjusted / skipped lines, each Bible lookup (provider, live or cache, time), what was written and whether ProPresenter confirmed it, a timeline |
+| `events.jsonl` | Every step with a timestamp: document read, each lookup, each command sent to ProPresenter, playlist changes, errors with their traceback |
+| `source.txt` | The exact text read from the document |
+| `report.json` | The full plan |
+
+```sh
+versevision log                      # the latest run's summary
+versevision log list                 # recent runs, newest first
+versevision log show <run id>        # one run (the end of the id is enough)
+versevision log show --problems      # only warnings and errors
+versevision log show --events        # every step
+versevision log show --path          # the folder
+```
+
+The web page shows the run id on the review screen and lists runs under History > Logs. Logs never contain API keys, tokens or file contents; the last 200 runs are kept. The older `audit.jsonl` one-line-per-import file is still written.

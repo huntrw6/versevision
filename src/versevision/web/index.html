@@ -234,7 +234,9 @@
       </div>
 
       <div id="viewHistory" class="hidden">
-        <div class="panel"><h3>History</h3><div id="hist"></div></div>
+        <div class="panel"><h3>Imports</h3><div id="hist"></div></div>
+        <div class="panel" style="margin-top:16px"><h3>Logs <em id="logFolder"></em></h3><div id="runs"></div></div>
+        <div class="panel hidden" id="runBox" style="margin-top:16px"><h3>Log <em id="runId"></em><span><button class="btn sm" id="runClose">Close</button></span></h3><pre id="runText" style="margin:0;padding:14px;white-space:pre-wrap;font:12px/1.5 ui-monospace,Menlo,monospace;max-height:55vh;overflow:auto"></pre></div>
       </div>
     </div>
 
@@ -426,7 +428,7 @@ function render(r){
   const go = $('go');
   go.textContent = r.mode==='new' ? 'Create' : r.mode==='replace' ? 'Replace' : 'Append';
   go.disabled = s.slides===0;
-  $('actionNote').textContent = 'Nothing existing changes. ProPresenter stays open.';
+  $('actionNote').textContent = 'Nothing existing changes. ProPresenter stays open.' + (r.run_id ? '  Log: ' + r.run_id : '');
 }
 function fill(listId, detId, nId, rows){
   const box = $(listId); box.replaceChildren();
@@ -451,7 +453,7 @@ $('go').onclick = async ()=>{
     const a = done.result;
     $('banner').replaceChildren(banner(a.verified?'good':'warn',
       'Created \u201c'+a.presentation_name+'\u201d ('+a.cue_count_after+' slides).'+(a.steps.some(x=>x.startsWith('added to playlist')) ? ' It is in the playlist under the original.' : '')));
-    show('go', false); $('actionNote').textContent = 'Done. Undo is in History.';
+    show('go', false); $('actionNote').textContent = 'Done. Undo is in History.' + (state.current && state.current.report.run_id ? '  Log: ' + state.current.report.run_id : '');
     loadPresentations(); loadHistory();
   }catch(e){
     show('progress', false); show('result', true); $('go').disabled=false;
@@ -477,6 +479,30 @@ async function loadHistory(){
   }
   box.append(t);
 }
+async function loadRuns(){
+  const rows = await api('/api/runs').catch(()=>[]);
+  const box = $('runs'); box.replaceChildren();
+  if(!rows.length){ box.append(el('div','empty','Nothing yet.')); return; }
+  $('logFolder').textContent = rows[0].path.replace(/[^/\\]+$/, '');
+  const t = el('table'); const hr = el('tr');
+  for(const h of ['When','Action','File','Result','']) hr.append(el('th','',h));
+  t.append(hr);
+  for(const r of rows){
+    const tr = el('tr');
+    const when = r.id.slice(0,8).replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3') + ' ' + r.id.slice(9,15).replace(/(\d{2})(\d{2})(\d{2})/, '$1:$2:$3');
+    const result = el('span','pill', r.outcome); if(r.outcome==='ok') result.classList.add('active');
+    const td = el('td'); td.append(result);
+    tr.append(el('td','',when), el('td','',r.mode), el('td','',r.source), td);
+    const last = el('td'); const b = el('button','btn sm','View'); b.onclick = ()=>openRun(r.id); last.append(b); tr.append(last); t.append(tr);
+  }
+  box.append(t);
+}
+async function openRun(id){
+  try{ const d = await api('/api/run/'+id); $('runText').textContent = d.summary; $('runId').textContent = d.id; show('runBox', true); $('runBox').scrollIntoView({behavior:'smooth'}); }
+  catch(e){ alert(e.message); }
+}
+$('runClose').onclick = ()=>show('runBox', false);
+
 async function undo(r, btn){
   const msg = r.mode==='new' ? 'Delete \u201c'+r.target+'\u201d?' : 'Remove the slides this added? Other changes stay.';
   if(!confirm(msg)) return;
@@ -492,7 +518,7 @@ async function undo(r, btn){
 function setView(v){
   state.view = v; show('viewImport', v==='import'); show('viewHistory', v==='history');
   $('tab-import').classList.toggle('on', v==='import'); $('tab-history').classList.toggle('on', v==='history');
-  if(v==='history'){ $('ttl').textContent='History'; $('meta').textContent=''; loadHistory(); show('actions', false); }
+  if(v==='history'){ $('ttl').textContent='History'; $('meta').textContent=''; loadHistory(); loadRuns(); show('actions', false); }
   else if(state.current){ show('actions', true); } else { setMode(state.mode); }
 }
 document.querySelectorAll('.tool').forEach(b=>b.onclick = ()=>setView(b.dataset.view));

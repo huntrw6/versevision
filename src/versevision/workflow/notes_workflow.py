@@ -64,7 +64,8 @@ def resolve_note_versions(
         reference = item.reference
         for warning in item.warnings:
             if "read as" in warning or "unrecognized" in warning:
-                notices.append(ProblemEntry(line=item.line, text=reference.source_text.strip(), problem=warning))
+                notices.append(ProblemEntry(line=item.line, text=reference.source_text.strip(), problem=warning + (
+                    "; ignored, so the verse uses the nearest version above or the default" if "unrecognized" in warning else "")))
         if reference.version:
             if not comparison(index):          # a comparison pair never sets the version for later verses
                 last_explicit = reference.version

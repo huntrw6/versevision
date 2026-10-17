@@ -218,7 +218,13 @@ def render_summary(run: RunLog, outcome: str, report: dict | None, applied: dict
     src = next((e for e in events if e["step"] == "source_saved"), None)
     if src:
         add(f"Source text:   {src['characters']} characters, {src['lines']} lines (sha256 {src['sha256'][:12]}), kept in source.txt")
-    if applied:
+    if applied and start.get("mode") == "undo":
+        add("")
+        add("What was undone")
+        add("-" * 60)
+        add(f"Removed:       {applied.get('presentation_name') or applied.get('target_name')} ({applied.get('removed_slides')} slides)")
+        add(f"Result:        {applied.get('verification', '')}")
+    elif applied:
         add("")
         add("What was written")
         add("-" * 60)
