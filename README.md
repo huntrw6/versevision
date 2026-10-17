@@ -167,3 +167,18 @@ Open the page at `http://127.0.0.1:8777/` on that Mac.
 sh install-macos.sh uninstall          # removes the program and the login item; keeps settings, history, backups
 sh install-macos.sh uninstall --purge  # removes everything above
 ```
+
+
+## Replace and Append never restart ProPresenter
+
+ProPresenter ignores changes made to a file it already has open, but it lists a *new* file straight away. So every action writes a new file:
+
+| Action | Result |
+|---|---|
+| New | A new presentation named after the document. |
+| Replace | A copy of the chosen presentation with its verse and sermon-point slides removed and the new ones added. Blank, background, title and media slides stay. |
+| Append | A copy of the chosen presentation with the new slides at the end. |
+
+Copies are saved next to the original as `Name 2`, `Name 3`, and so on, and are added to every playlist that holds the original, directly under it (`--no-playlist` skips this). The original file is never touched. `Undo` deletes the copy and takes it out of the playlist.
+
+`--in-place` keeps the older behaviour of editing the original file (this closes and reopens ProPresenter).

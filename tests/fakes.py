@@ -156,6 +156,11 @@ def _playlist_state(self):
 
 def _api_put(self, route, body):
     if route == f"/v1/playlist/{_PL_ID}":
+        import uuid as _u
+        for item in body:                                 # like ProPresenter: every save hands out new item AND presentation ids
+            item["id"]["uuid"] = str(_u.uuid4()).upper()
+            if item.get("presentation_info"):
+                item["presentation_info"]["presentation_uuid"] = str(_u.uuid4()).upper()
         self.playlist = body
         self.log.append("playlist-put")
         return

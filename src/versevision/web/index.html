@@ -314,9 +314,9 @@ $('target').onchange = e=>{ state.target = e.target.value; drawSidebar(); update
 $('target').addEventListener('change', ()=>{});
 
 const HELP = {
-  new:'Makes a new presentation. ProPresenter stays open.',
-  replace:'Swaps the verse and point slides. Other slides stay.',
-  append:'Adds the slides to the end.'
+  new:'Makes a new presentation.',
+  replace:'Saves a copy with new verses and points. Other slides stay.',
+  append:'Saves a copy with the slides added at the end.'
 };
 function setMode(m){
   state.mode = m;
@@ -388,8 +388,8 @@ function render(r){
 
   else if(s.flagged>0) b.append(banner('warn',s.flagged+' line'+(s.flagged===1?'':'s')+' to check. They are skipped unless you fix the notes.'));
   if(r.mode==='new') b.append(banner('info','Makes \u201c'+r.title+'\u201d in '+r.library+'.'));
-  else if(r.mode==='replace') b.append(banner('warn','Replaces the verse and point slides in \u201c'+r.target.name+'\u201d. Other slides stay.'));
-  else b.append(banner('info','Adds '+s.slides+' slides to the end of \u201c'+r.target.name+'\u201d.'));
+  else if(r.mode==='replace') b.append(banner('info','Saves a copy of \u201c'+r.target.name+'\u201d with new verses and points. The original stays.'));
+  else b.append(banner('info','Saves a copy of \u201c'+r.target.name+'\u201d with '+s.slides+' slides added. The original stays.'));
 
   const added = $('added'); added.replaceChildren();
   for(const sl of r.slides){
@@ -420,7 +420,7 @@ function render(r){
   const go = $('go');
   go.textContent = r.mode==='new' ? 'Create' : r.mode==='replace' ? 'Replace' : 'Append';
   go.disabled = s.slides===0;
-  $('actionNote').textContent = r.mode==='new' ? 'Nothing existing changes.' : 'ProPresenter closes for a minute, then reopens. A backup is made first.';
+  $('actionNote').textContent = 'Nothing existing changes. ProPresenter stays open.';
 }
 function fill(listId, detId, nId, rows){
   const box = $(listId); box.replaceChildren();
@@ -436,7 +436,6 @@ $('go').onclick = async ()=>{
   if(!state.current) return;
   const r = state.current.report;
   if(r.flagged.length && !confirm(r.flagged.length+' line(s) will be skipped. Continue with the other '+r.summary.slides+' slides?')) return;
-  if(r.mode==='replace' && !confirm('Replace the verse and point slides in \u201c'+r.target.name+'\u201d? ProPresenter will close briefly.')) return;
   $('go').disabled = true; show('result', false); show('progress', true); $('progMsg').textContent='Starting\u2026';
   try{
     const {job} = await api('/api/apply', {method:'POST', body:JSON.stringify({job: state.current.job, accept_flags: true})});
@@ -445,7 +444,7 @@ $('go').onclick = async ()=>{
     if(done.state==='error') throw new Error(done.error);
     const a = done.result;
     $('banner').replaceChildren(banner(a.verified?'good':'warn',
-      a.mode==='new' ? 'Created \u201c'+a.presentation_name+'\u201d ('+a.slide_count+' slides).' : 'Updated \u201c'+a.target_name+'\u201d ('+a.slide_count+' slides).'));
+      'Created \u201c'+a.presentation_name+'\u201d ('+a.cue_count_after+' slides).'+(a.steps.some(x=>x.startsWith('added to playlist')) ? ' It is in the playlist under the original.' : '')));
     show('go', false); $('actionNote').textContent = 'Done. Undo is in History.';
     loadPresentations(); loadHistory();
   }catch(e){

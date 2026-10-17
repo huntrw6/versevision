@@ -378,7 +378,7 @@ def _add_under_in_playlists(transport: Transport, slots: list[dict], new_uuid: s
         for index, item in enumerate(merged):          # keep the order numbers in step with the order
             item.setdefault("id", {})["index"] = index
         transport.api_put(f"/v1/playlist/{slot['playlist']}", merged)
-        added.append({"playlist": slot["playlist"], "item": item_id, "name": new_name})
+        added.append({"playlist": slot["playlist"], "item": item_id, "name": new_name, "presentation": new_uuid})
     return added
 
 
@@ -517,17 +517,20 @@ def publish_new(
     )
 
 
-def _remove_from_playlists(transport: Transport, record: ImportRecord) -> None:
+def _remove_from_playlists(transport: Transport, record: ImportRecord, progress: Progress = _noop) -> None:
     for entry in record.playlist_items:
         try:
             items = transport.api_get(f"/v1/playlist/{entry['playlist']}").get("items", [])
-            kept = [i for i in items if i.get("id", {}).get("uuid", "").casefold() != entry["item"].casefold()]
+            # ProPresenter hands out new item ids AND new presentation ids when it saves a playlist, so neither can be
+            # matched later. The name is stable, and a copy always has a unique numbered name.
+            gone = (entry.get("name") or "").casefold()
+            kept = [i for i in items if not (i.get("type") == "presentation" and gone and i.get("id", {}).get("name", "").casefold() == gone)]
             for index, item in enumerate(kept):
                 item.setdefault("id", {})["index"] = index
             if len(kept) != len(items):
                 transport.api_put(f"/v1/playlist/{entry['playlist']}", kept)
-        except Exception:
-            pass        # the playlist may be gone or ProPresenter closed; deleting the file is what matters
+        except Exception as exc:
+            progress(f"Could not take it out of the playlist ({exc}); remove it there by hand")
 
 
 def _undo_new(record: ImportRecord, config: AppConfig, transport: Transport, history: HistoryStore, progress: Progress) -> ApplyResult:
@@ -536,7 +539,7 @@ def _undo_new(record: ImportRecord, config: AppConfig, transport: Transport, his
         raise ConfigurationError("This import has no recorded file; remove the presentation in ProPresenter instead")
     progress("Removing the presentation")
     if record.playlist_items:
-        _remove_from_playlists(transport, record)
+        _remove_from_playlists(transport, record, progress)
     removed = transport.delete_created_file(record.file_path, expected_cues=record.file_cue_count or len(record.cue_uuids))
     history.set_status(record.import_id, "undone")
     return ApplyResult(
