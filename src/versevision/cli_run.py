@@ -132,9 +132,20 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         file at once; nothing existing changes. (--in-place edits the original instead and needs a restart.)
         """
         as_json = output.casefold() == "json"
+        from versevision import runlog
+        run, token, st = None, None, {"outcome": "failed", "error": None, "report": None, "applied": None}
         try:
             config = _config_with_node(load_config(), node, None, None)
             source, source_name = _read(file, text)
+            mode_name = "replace" if replace else "append" if append else "new"
+            run = runlog.RunLog.start(
+                "run", source=source_name, mode=mode_name + (" (dry run)" if dry_run else ""), title=title, library=library,
+                target=presentation or target_presentation or presentation_uuid or target_uuid, node=config.node.name or "this computer",
+                default_version=default_version or config.bible.default_version,
+                flags=", ".join(f for f, on in (("--yes", yes), ("--no-playlist", no_playlist), ("--in-place", in_place)) if on) or None,
+            )
+            token = runlog.activate(run)
+            run.save_source(source, source_name)
             chosen = presentation or target_presentation
             chosen_uuid = presentation_uuid or target_uuid
             editing = bool(chosen or chosen_uuid)
@@ -158,15 +169,19 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
             report["library"] = library or config.output.library
             report["node"] = transport.description
             flags = bool(report["flagged"])
+            st["report"] = report
+            run.save_report(report)
             if dry_run:
+                st["outcome"] = "dry run"
                 report.update(ok=True, dry_run=True, exit_code=int(ExitCode.COMPLETED_WITH_FLAGS if flags else 0))
                 typer.echo(json.dumps(report, indent=2, ensure_ascii=False)) if as_json else _print_report(report)
                 raise typer.Exit(report["exit_code"])
             if flags and not yes:
+                st["outcome"] = "stopped: flagged lines (rerun with --yes to import the rest)"
                 report.update(ok=False, error="Some lines are flagged. Fix them, or rerun with --yes to import the rest.", exit_code=int(ExitCode.PARSING_OR_VALIDATION))
                 typer.echo(json.dumps(report, indent=2, ensure_ascii=False)) if as_json else _print_report(report)
                 raise typer.Exit(int(ExitCode.PARSING_OR_VALIDATION))
-            progress = (lambda m: console.print(f"[cyan]{m}[/cyan]")) if not as_json else (lambda m: None)
+            progress = runlog.wrap_progress((lambda m: console.print(f"[cyan]{m}[/cyan]")) if not as_json else (lambda m: None))
             if editing and in_place:
                 applied = apply_import(
                     source, source_name, plan, target, config, transport,
@@ -180,6 +195,8 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
             else:
                 applied = publish_new(source, source_name, new_title, plan, config, transport, library=library, progress=progress)
             report.update(ok=True, applied=applied.model_dump(), exit_code=int(ExitCode.COMPLETED_WITH_FLAGS if flags else 0))
+            st["outcome"], st["applied"] = "ok", applied.model_dump()
+            report["run_id"] = run.id
             if as_json:
                 typer.echo(json.dumps(report, indent=2, ensure_ascii=False))
             else:
@@ -187,11 +204,20 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
                 what = "new presentation" if applied.mode == "new" else "new copy"
                 console.print(f"[green]Imported {applied.slide_count} slides into {what} '{applied.presentation_name or applied.target_name}'[/green] (import {applied.import_id})")
                 console.print(applied.verification)
+                console.print(f"[dim]Log: {run.folder}[/dim]")
             raise typer.Exit(report["exit_code"])
         except typer.Exit:
             raise
         except Exception as exc:
+            st["error"] = str(exc)
+            if run:
+                run.failed(exc)
             _fail(exc, as_json)
+        finally:
+            if run:
+                run.finish(st["outcome"], st["report"], st["applied"], st["error"])
+            if token is not None:
+                runlog.deactivate(token)
 
     @app.command("undo")
     def undo_command(
@@ -202,16 +228,25 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
     ) -> None:
         """Remove the slides a previous import added (and nothing else)."""
         as_json = output.casefold() == "json"
+        from versevision import runlog
+        run = runlog.RunLog.start("undo", source=f"undo of import {import_id}", mode="undo")
+        token, st = runlog.activate(run), {"outcome": "failed", "error": None, "applied": None}
         try:
             config = _config_with_node(load_config(), node, None, None)
             result = undo_import(import_id, config, make_transport(config.propresenter, config.node), close_app=not no_close,
-                                 progress=(lambda m: console.print(f"[cyan]{m}[/cyan]")) if not as_json else (lambda m: None))
+                                 progress=runlog.wrap_progress((lambda m: console.print(f"[cyan]{m}[/cyan]")) if not as_json else (lambda m: None)))
+            st["outcome"], st["applied"] = "ok", result.model_dump()
             if as_json:
                 typer.echo(json.dumps({"ok": True, **result.model_dump()}, indent=2))
             else:
                 console.print(f"[green]Removed {result.removed_slides} slides from {result.target_name}[/green]")
         except Exception as exc:
+            st["error"] = str(exc)
+            run.failed(exc)
             _fail(exc, as_json)
+        finally:
+            run.finish(st["outcome"], None, st["applied"], st["error"])
+            runlog.deactivate(token)
 
     @app.command("serve")
     def serve_command(
@@ -237,6 +272,54 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
             console.print("Stopped.")
         finally:
             server.server_close()
+
+    log_app = typer.Typer(help="Read the record of what VerseVision did (one folder per run).", invoke_without_command=True)
+    app.add_typer(log_app, name="log")
+
+    @log_app.callback()
+    def log_main(
+        ctx: typer.Context,
+        run_id: Annotated[Optional[str], typer.Argument(help="Run id (or the end of it), or 'latest'")] = None,
+        events: Annotated[bool, typer.Option("--events", help="Show every logged step instead of the summary")] = False,
+        problems: Annotated[bool, typer.Option("--problems", help="Show only warnings and errors")] = False,
+        path: Annotated[bool, typer.Option("--path", help="Print the folder path only")] = False,
+    ) -> None:
+        """Show the summary of a run (default: the latest). Use `versevision log list` for all runs."""
+        if ctx.invoked_subcommand:
+            return
+        from versevision import runlog
+        found = runlog.resolve(run_id or "latest")
+        if not found:
+            console.print("[red]No such run.[/red] Try: versevision log list")
+            raise typer.Exit(1)
+        folder = runlog.runs_dir() / found
+        if path:
+            typer.echo(str(folder))
+            return
+        if events or problems:
+            for e in runlog.read_events(found):
+                if problems and e.get("level") not in ("warn", "error"):
+                    continue
+                extra = {k: v for k, v in e.items() if k not in ("t", "elapsed", "step", "level")}
+                typer.echo(f"[{e['elapsed']:>7}s] {e['level'].upper():<5} {e['step']:<16} {json.dumps(extra, ensure_ascii=False, default=str)[:300]}")
+            return
+        summary = folder / "summary.txt"
+        typer.echo(summary.read_text(encoding="utf-8") if summary.exists() else "No summary yet (the run may still be going, or it was cut off). Showing the steps:\n" +
+                   "\n".join(f"[{e['elapsed']}s] {e['step']} {e.get('message', '')}" for e in runlog.read_events(found)))
+
+    @log_app.command("list")
+    def log_list(count: Annotated[int, typer.Option("--count", "-n")] = 20, output: Annotated[str, typer.Option("--output")] = "terminal") -> None:
+        """List recent runs, newest first."""
+        from versevision import runlog
+        rows = runlog.list_runs(count)
+        if output.casefold() == "json":
+            typer.echo(json.dumps(rows, indent=2))
+            return
+        table = Table("Run", "Result", "Action", "Document")
+        for r in rows:
+            table.add_row(r["id"], r["outcome"], r["mode"], r["source"][:50])
+        console.print(table)
+        console.print(f"[dim]{runlog.runs_dir()}[/dim]")
 
     autostart_app = typer.Typer(help="Start the web page automatically when you log in.")
     app.add_typer(autostart_app, name="autostart")

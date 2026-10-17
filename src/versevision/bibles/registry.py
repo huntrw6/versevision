@@ -44,6 +44,21 @@ class ProviderRegistry:
         return route, self.providers[route]
 
     async def fetch(self, reference: PassageReference) -> ResolvedPassage:
+        import time as _time
+        from versevision import runlog
+        started = _time.monotonic()
+        label = getattr(reference, "normalized_text", "") or str(reference)
+        info = {"reference": label, "version": reference.version}
+        try:
+            passage, provider_name, source = await self._fetch(reference)
+        except Exception as exc:
+            runlog.event("bible_fetch", level="warn", error=str(exc), ms=round((_time.monotonic() - started) * 1000), **info)
+            raise
+        runlog.event("bible_fetch", provider=provider_name, source=source, verses=len(passage.verses),
+                     ms=round((_time.monotonic() - started) * 1000), **info)
+        return passage
+
+    async def _fetch(self, reference: PassageReference) -> tuple[ResolvedPassage, str, str]:
         if not reference.version:
             raise BibleProviderError("Cannot fetch a reference without a resolved version")
         provider_name, provider = self._provider(reference.version)
@@ -66,12 +81,13 @@ class ProviderRegistry:
             for chapter, verse in expected
         ] if cacheable and provider_config.cache_policy == "allowed" else []
         if cacheable and cached and all(cached):
-            return ResolvedPassage(reference=reference, resolved_version=metadata.abbreviation, verses=cached)
+            return ResolvedPassage(reference=reference, resolved_version=metadata.abbreviation, verses=cached), provider_name, "cache"
 
         verses = await provider.fetch_passage(reference.version, reference.book_id, reference.spans)
         for verse in verses if getattr(provider, "cacheable", True) else []:
             self.cache.put(provider_name, metadata.provider_version_id, verse)
-        return ResolvedPassage(reference=reference, resolved_version=metadata.abbreviation, verses=verses)
+        return ResolvedPassage(reference=reference, resolved_version=metadata.abbreviation, verses=verses), provider_name, (
+            "live (not stored)" if not getattr(provider, "cacheable", True) else "live")
 
     async def health_checks(self) -> list[ProviderHealth]:
         if not self.providers:

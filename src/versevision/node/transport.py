@@ -23,6 +23,7 @@ from typing import Any, Protocol
 
 import httpx
 
+from versevision import runlog
 from versevision.config import NodeConfig, ProPresenterConfig
 from versevision.errors import ConfigurationError, ProPresenterConnectionError, PresentationWriteError
 
@@ -51,6 +52,12 @@ class Transport(Protocol):
     def delete_created_file(self, remote_path: str, expected_cues: int) -> str: ...
     def backup_file(self, remote_path: str) -> str: ...
     def restore_backup(self, backup_path: str, remote_path: str) -> None: ...
+
+
+def _short(command: str) -> str:
+    """The first line of a shell command, trimmed. Payloads (playlist JSON, file data) are never logged."""
+    first = command.strip().splitlines()[0] if command.strip() else ""
+    return first[:160]
 
 
 class LocalTransport:
@@ -234,6 +241,17 @@ class HermesRemoteTransport:
         return last
 
     def _sh(self, command: str, *, gui: bool, timeout: float = 90.0) -> tuple[int, str]:
+        started = time.monotonic()
+        try:
+            code, out = self._sh_raw(command, gui=gui, timeout=timeout)
+        except Exception as exc:
+            runlog.event("node_action", level="error", action=_short(command), gui=gui, error=str(exc), ms=round((time.monotonic() - started) * 1000))
+            raise
+        runlog.event("node_action", level="info" if code == 0 else "warn", action=_short(command), gui=gui, exit=code,
+                     ms=round((time.monotonic() - started) * 1000), output=out[-200:])
+        return code, out
+
+    def _sh_raw(self, command: str, *, gui: bool, timeout: float = 90.0) -> tuple[int, str]:
         wrapped = f"{command}\nrc=$?\necho\necho \"__VB_RC=$rc\""
         if gui:
             result = self._invoke(["gui", "--sh", self.name, wrapped], timeout)

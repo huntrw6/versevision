@@ -23,6 +23,7 @@ from versevision.documents import extract_text
 from versevision.errors import DocumentError, VerseVisionError
 from versevision.history import HistoryStore
 from versevision.node.transport import make_transport
+from versevision import runlog
 from versevision.workflow.pipeline import apply_import, list_presentations, plan_for_transport, publish_new, undo_import
 from versevision.workflow.report import build_report
 
@@ -94,8 +95,28 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
     job = Job("plan")
     job.name = name
     job.mode, job.title_override, job.library = mode, title, library
+    job.run_id = ""
 
     def work(j: Job) -> None:
+        run = runlog.RunLog.start("web", source=name, mode=mode, title=title, library=library, target=target,
+                                  node=state.config.node.name or "this computer",
+                                  default_version=default_version or state.config.bible.default_version)
+        j.run_id = run.id
+        token = runlog.activate(run)
+        outcome, error = "failed", None
+        try:
+            _plan_work(j)
+            outcome = "reviewed, not imported yet"
+        except Exception as exc:
+            error = str(exc)
+            run.failed(exc)
+            raise
+        finally:
+            run.finish(outcome, j.result, None, error)
+            runlog.deactivate(token)
+
+    def _plan_work(j: Job) -> None:
+        run = runlog.current()
         suffix = Path(name).suffix.casefold()
         if suffix not in ALLOWED:
             raise DocumentError(f"Unsupported file type {suffix or '(none)'}. Use PDF, Word (.docx), text, Markdown or HTML.")
@@ -104,6 +125,8 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
             path.write_bytes(data)
             j.message = "Reading the document"
             j.text = extract_text(path)
+            run.event("document_read", message=f"{name} ({len(data)} bytes)", file=name, bytes=len(data), type=suffix)
+        run.save_source(j.text, name)
         if mode not in {"new", "replace", "append"}:
             raise DocumentError("Unknown mode")
         if not state.config.presentation_template:
@@ -135,6 +158,8 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
         report["node"] = transport.description
         report["replaces"] = None
         j.result = report
+        report["run_id"] = j.run_id
+        run.save_report(report)
         j.message = "Ready to review"
 
     _spawn(state, job, work)
@@ -154,7 +179,24 @@ def start_apply(state: AppState, plan_job_id: str, accept_flags: bool) -> Job:
     job = Job("apply")
 
     def work(j: Job) -> None:
+        run = runlog.RunLog.reopen(getattr(source, "run_id", "")) or runlog.RunLog.start("web", source=source.name, mode=source.mode)
+        token = runlog.activate(run)
+        run.event("apply_start", message=f"{source.mode}: importing after review", accept_flags=accept_flags)
+        outcome, error, result = "failed", None, None
+        try:
+            result = _apply_work(j, run)
+            outcome = "ok"
+        except Exception as exc:
+            error = str(exc)
+            run.failed(exc)
+            raise
+        finally:
+            run.finish(outcome, source.result, result, error)
+            runlog.deactivate(token)
+
+    def _apply_work(j: Job, run) -> dict:
         def progress(message: str) -> None:
+            run.event("progress", message=message)
             j.message = message
         assert source.plan is not None
         if source.mode == "new":
@@ -170,6 +212,7 @@ def start_apply(state: AppState, plan_job_id: str, accept_flags: bool) -> Job:
             )
         j.result = applied.model_dump()
         j.message = "Done"
+        return j.result
 
     _spawn(state, job, work)
     return job
@@ -183,9 +226,24 @@ def start_undo(state: AppState, import_id: str) -> Job:
     job = Job("apply")
 
     def work(j: Job) -> None:
-        result = undo_import(import_id, state.config, state.transport(), history=state.history, progress=lambda m: setattr(j, "message", m))
-        j.result = result.model_dump()
-        j.message = "Done"
+        run = runlog.RunLog.start("undo", source=f"undo of import {import_id}", mode="undo")
+        token = runlog.activate(run)
+        outcome, error, applied = "failed", None, None
+        try:
+            def progress(m: str) -> None:
+                run.event("progress", message=m)
+                j.message = m
+            result = undo_import(import_id, state.config, state.transport(), history=state.history, progress=progress)
+            j.result = applied = result.model_dump()
+            outcome = "ok"
+            j.message = "Done"
+        except Exception as exc:
+            error = str(exc)
+            run.failed(exc)
+            raise
+        finally:
+            run.finish(outcome, None, applied, error)
+            runlog.deactivate(token)
 
     _spawn(state, job, work)
     return job

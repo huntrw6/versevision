@@ -58,6 +58,8 @@ def _version(cursor: _Cursor, source: str = "", user_aliases: dict[str, str] | N
             if fixed:
                 version = fixed
                 cursor.warnings.append(f"version '{label}' read as {fixed} (spelling corrected)")
+            else:
+                cursor.warnings.append(f"unrecognized version label '{label}'")     # ignored, but never silently
     if not version:
         if opening: cursor.i -= 1
         return None

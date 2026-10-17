@@ -16,7 +16,7 @@ from typing import Callable
 
 from pydantic import BaseModel, Field
 
-from versevision import __version__
+from versevision import __version__, runlog
 from versevision.config import AppConfig
 from versevision.errors import (
     ConfigurationError, PresentationWriteError, VerificationRollbackError, VerseVisionError,
@@ -127,10 +127,14 @@ async def plan_for_transport(
     text: str, config: AppConfig, transport: Transport, *, default_version: str | None,
     target_uuid: str | None, target_name: str | None, library: str | None, no_fetch: bool = False,
 ) -> tuple[NotesImportResult, tuple | None]:
+    runlog.event("plan_start", default_version=default_version or config.bible.default_version, no_fetch=no_fetch, characters=len(text))
     result = await plan_notes(text, config, default_version=default_version, no_fetch=no_fetch)
+    runlog.event("plan_ready", message=f"{len(result.slide_plan.slides)} slides, {len(result.failed)} not added, {len(result.review)} to check, "
+                                       f"{len(result.skipped)} left out, {len(result.notices)} adjustments")
     target = None
     if target_uuid or target_name:
         target = await asyncio.to_thread(_target_from_api, transport, uuid_=target_uuid, name=target_name, library=library)
+        runlog.event("target", name=target[2], library=target[0], uuid=target[1], path=target[3])
     return result, target
 
 
@@ -469,6 +473,8 @@ def publish_new(
     progress("Adding it to ProPresenter")
     transport.create_file(out_local, remote_path)
     steps.append(f"placed {remote_path}")
+    runlog.event("file_placed", message=remote_path, path=remote_path, slides=written.cue_count_after, sha256=written.output_sha256[:16],
+                 original_sha256=(written.original_sha256 or "")[:16], removed=written.removed_cue_count)
 
     expected_total = written.cue_count_after
     verified, message, new_uuid = False, "Placed in the library folder", ""
@@ -476,6 +482,7 @@ def publish_new(
     if transport.is_running():
         progress("Waiting for ProPresenter to show it")
         verified, message, new_uuid = _wait_listed(transport, name, lib_name, plan, len(plan.slide_plan.slides), verify_timeout)
+        runlog.event("verify", level="info" if verified else "error", message=message, verified=verified, presentation_uuid=new_uuid)
         if not verified:
             raise VerificationRollbackError(
                 f"ProPresenter did not show the new file ({message}). The file {remote_path} was left in place; "
@@ -487,13 +494,17 @@ def publish_new(
                 if slots:
                     progress("Adding it to the playlist")
                     playlist_items = _add_under_in_playlists(transport, slots, new_uuid, name)
+                    runlog.event("playlist", message="added under the original in " + ", ".join(s["playlist_name"] for s in slots),
+                                 playlists=[s["playlist_name"] for s in slots], positions=[s["position"] + 1 for s in slots])
                     steps.append("added to playlist " + ", ".join(sorted({s["playlist_name"] for s in slots})))
             except Exception as exc:       # the file is in place and listed; a playlist problem should not undo that
                 steps.append(f"could not add it to the playlist: {exc}")
+                runlog.event("playlist", level="warn", message=f"could not add it to the playlist: {exc}")
     else:
         verified, message = True, "Placed in the library folder; ProPresenter will list it the next time it opens"
 
     import_id = uuid.uuid4().hex[:10]
+    runlog.event("history_recorded", message=f"import {import_id}", import_id=import_id, cue_uuids=len(written.cue_uuids))
     history.add(ImportRecord(
         import_id=import_id, source_name=source_name, source_sha256=source_fingerprint(text),
         target_uuid=new_uuid or written.cue_uuids[0], target_name=name, node=node_name,
@@ -519,6 +530,7 @@ def publish_new(
 
 def _remove_from_playlists(transport: Transport, record: ImportRecord, progress: Progress = _noop) -> None:
     for entry in record.playlist_items:
+        runlog.event("playlist", message=f"removing {entry.get('name')} from playlist {entry['playlist']}")
         try:
             items = transport.api_get(f"/v1/playlist/{entry['playlist']}").get("items", [])
             # ProPresenter hands out new item ids AND new presentation ids when it saves a playlist, so neither can be
@@ -530,6 +542,7 @@ def _remove_from_playlists(transport: Transport, record: ImportRecord, progress:
             if len(kept) != len(items):
                 transport.api_put(f"/v1/playlist/{entry['playlist']}", kept)
         except Exception as exc:
+            runlog.event("playlist", level="warn", message=f"could not take it out of the playlist: {exc}")
             progress(f"Could not take it out of the playlist ({exc}); remove it there by hand")
 
 
