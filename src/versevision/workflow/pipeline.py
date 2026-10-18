@@ -360,7 +360,10 @@ def _template_target(transport: Transport, definition) -> tuple:
     try:
         return _target_from_api(transport, uuid_=definition.presentation_uuid, name=None, library=None)
     except ConfigurationError:
-        return _target_from_api(transport, uuid_=None, name=definition.presentation_name, library=definition.library_name)
+        found = _target_from_api(transport, uuid_=None, name=definition.presentation_name, library=definition.library_name)
+        runlog.event("template_id_refreshed", level="warn", message=f"saved id was stale; found {found[2]!r} by name",
+                     saved=definition.presentation_uuid, now=found[1])
+        return found
 
 
 def _find_playlist_slots(transport: Transport, presentation_uuid: str) -> list[dict]:

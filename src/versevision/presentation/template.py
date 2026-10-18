@@ -56,12 +56,33 @@ def _plain_rtf(value: bytes) -> str:
     return " ".join(text.split())
 
 
+def _unsign_zeros(message) -> None:
+    """Treat -0.0 and 0.0 as the same number. Different machines write the same style with either sign, and the
+    difference is invisible, so it must not count as "the styling changed"."""
+    for field, value in message.ListFields():
+        if field.message_type is not None:
+            for item in (value if field.is_repeated else [value]):
+                _unsign_zeros(item)
+        elif field.type in (field.TYPE_DOUBLE, field.TYPE_FLOAT):
+            if field.is_repeated:
+                for i, v in enumerate(value):
+                    if v == 0.0:
+                        value[i] = 0.0
+            elif value == 0.0:
+                setattr(message, field.name, 0.0)
+
+
+def _fingerprint_bytes(wrapper) -> bytes:
+    clone = deepcopy(wrapper)
+    clone.element.text.rtf_data = b""
+    _unsign_zeros(clone)
+    return clone.SerializeToString(deterministic=True)
+
+
 def _style_fingerprint(reference, body) -> str:
     digest = hashlib.sha256()
     for wrapper in (reference, body):
-        clone = deepcopy(wrapper)
-        clone.element.text.rtf_data = b""
-        digest.update(clone.SerializeToString(deterministic=True))
+        digest.update(_fingerprint_bytes(wrapper))
     return digest.hexdigest()
 
 
@@ -97,9 +118,7 @@ def inspect_point_candidates(path: Path, *, point_object: str = "Sermon Point") 
         points = [item for item in elements if item.element.name == point_object and item.element.HasField("text")]
         if len(points) != 1 or any(item.element.HasField("text") and item is not points[0] for item in elements):
             continue
-        clone = deepcopy(points[0])
-        clone.element.text.rtf_data = b""
-        found.append((index + 1, cue.uuid.string, hashlib.sha256(clone.SerializeToString(deterministic=True)).hexdigest()))
+        found.append((index + 1, cue.uuid.string, hashlib.sha256(_fingerprint_bytes(points[0])).hexdigest()))
     return found
 
 

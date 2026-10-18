@@ -24,7 +24,7 @@ from versevision.presentation.template import (
     create_template_definition, inspect_point_candidates, inspect_template_candidates,
 )
 from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
-from versevision.workflow.pipeline import _target_from_api, apply_import, list_presentations, plan_for_transport, publish_new, undo_import
+from versevision.workflow.pipeline import _target_from_api, _template_target, apply_import, list_presentations, plan_for_transport, publish_new, undo_import
 from versevision.workflow.report import build_report
 
 console = Console(stderr=True)
@@ -411,7 +411,7 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
             if not definition:
                 raise ConfigurationError("no template is configured; run: versevision template setup")
             transport = make_transport(config.propresenter, config.node)
-            lib, uuid_, name, path, _ = _target_from_api(transport, uuid_=definition.presentation_uuid, name=None, library=None)
+            lib, uuid_, name, path, _ = _template_target(transport, definition)
             import tempfile
             local = Path(tempfile.mkdtemp(prefix="versevision-")) / Path(path).name
             transport.fetch_file(path, local)

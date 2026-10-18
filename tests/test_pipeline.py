@@ -343,3 +343,30 @@ def test_template_file_holds_only_the_two_template_slides_and_a_sermon_replace_c
     ProtobufPresentationWriter().append_plan(sermon, plan.slide_plan, t, template_path=out, remove_cue_uuids=ProtobufPresentationWriter.generated_cue_uuids(_cues(sermon), t) or None)
     after = _cues(sermon)
     assert len(after.cues) >= len(plan.slide_plan.slides)
+
+
+def test_template_is_found_by_name_when_propresenter_has_reissued_its_id(env):
+    from versevision.workflow.pipeline import _template_target
+    tmp, pres, node, config, history = env
+    stale = config.presentation_template.model_copy(update={"presentation_uuid": "00000000-DEAD-BEEF-0000-000000000000"})
+    assert _template_target(node, stale)[2] == "Sample"
+
+
+def test_style_fingerprint_ignores_the_sign_of_zero(env):
+    """A template copied through another machine can come back with -0.0 instead of 0.0; that is not a style change."""
+    from versevision.presentation.template import inspect_point_candidates
+    tmp, pres, node, config, history = env
+    point_cue = config.presentation_template.point_cue_uuid
+    before = {c.casefold(): fp for _, c, fp in inspect_point_candidates(pres)}
+    m = _cues(pres)
+    for cue in m.cues:
+        if cue.uuid.string.casefold() == point_cue.casefold():
+            for a in cue.actions:
+                if a.WhichOneof("ActionTypeData") == "slide":
+                    for e in a.slide.presentation.base_slide.elements:
+                        if e.element.name == "Sermon Point":
+                            e.element.text.attributes.stroke_width = -0.0
+    flipped = tmp / "flipped.pro"
+    flipped.write_bytes(m.SerializeToString(deterministic=True))
+    after = {c.casefold(): fp for _, c, fp in inspect_point_candidates(flipped)}
+    assert before[point_cue.casefold()] == after[point_cue.casefold()]
