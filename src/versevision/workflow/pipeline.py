@@ -28,6 +28,8 @@ from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
 from versevision.presentation.template import validate_template
 from versevision.workflow.notes_workflow import NotesImportResult, plan_notes
 
+MIN_GAP_SECONDS = 3.0           # ProPresenter needs about 2 s after a rename before a new file may appear at the old name;
+                                # writing sooner leaves it with a dead entry for that name (measured on the iMac, 0.5 s fails every time)
 SETTLE_SECONDS = 15.0            # how long each swap step waits for ProPresenter to notice a file change
 SWAP_WAIT_SECONDS = 30.0        # how long a swap waits for ProPresenter to list and show the new file
 Progress = Callable[[str], None]
@@ -653,8 +655,10 @@ def _swap_core(
     progress("Renaming the original")
     transport.rename_file(path, temp_path)
     renamed, created, playlist_undo = True, False, []
+    renamed_at = time.monotonic()
     if not _wait_library(transport, lib_name, lambda n: temp_name in n and name not in n, SETTLE_SECONDS):
         runlog.event("swap_pacing", level="warn", message="ProPresenter was slow to show the rename; continuing")
+    time.sleep(max(0.0, MIN_GAP_SECONDS - (time.monotonic() - renamed_at)))      # do not write the new file too soon
 
     def rollback(reason: str) -> None:
         runlog.event("swap_rollback", level="error", message=reason)
@@ -670,6 +674,7 @@ def _swap_core(
                 runlog.event("swap_rollback", level="error", message=f"could not remove the new file: {exc}")
         if created:
             _wait_library(transport, lib_name, lambda n: name not in n, SETTLE_SECONDS)       # let it notice the removal first
+            time.sleep(MIN_GAP_SECONDS)
         if renamed:
             try:
                 transport.rename_file(temp_path, path)

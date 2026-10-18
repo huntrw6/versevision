@@ -425,6 +425,7 @@ def test_swap_puts_everything_back_if_propresenter_never_shows_the_new_version(e
     plan, target = _plan(node, config)
     monkeypatch.setattr(pipeline, "SWAP_WAIT_SECONDS", 0.2)
     monkeypatch.setattr(pipeline, "SETTLE_SECONDS", 0.5)
+    monkeypatch.setattr(pipeline, "MIN_GAP_SECONDS", 0.0)
     monkeypatch.setattr(pipeline, "verify_via_api", lambda *a, **k: (False, "not shown"))
     before = _sha(pres)
     with pytest.raises(Exception, match="did not show"):
@@ -491,3 +492,18 @@ def test_playlist_entry_is_found_by_name_when_its_id_was_reissued(env):
     node.playlist[1]["presentation_info"]["presentation_uuid"] = "SOMETHING-ELSE"
     assert _find_playlist_slots(node, "P1") == []
     assert len(_find_playlist_slots(node, "P1", "Sample")) == 1
+
+
+def test_swap_never_writes_the_new_file_sooner_than_the_minimum_gap_after_the_rename(env, monkeypatch):
+    """ProPresenter ends up with a dead entry if a new file appears at the old name within ~2 s of a rename."""
+    import time as _time
+    from versevision.workflow import pipeline
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    monkeypatch.setattr(pipeline, "MIN_GAP_SECONDS", 1.0)
+    stamps = {}
+    real_rename, real_create = node.rename_file, node.create_file
+    node.rename_file = lambda a, b: (stamps.setdefault("rename", _time.monotonic()), real_rename(a, b))[1]
+    node.create_file = lambda a, b: (stamps.setdefault("create", _time.monotonic()), real_create(a, b))[1]
+    publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    assert stamps["create"] - stamps["rename"] >= 0.95
