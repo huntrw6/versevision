@@ -323,8 +323,8 @@ $('target').addEventListener('change', ()=>{});
 
 const HELP = {
   new:'Makes a new presentation.',
-  replace:'Swaps the verse and point slides. Other slides stay.',
-  append:'Adds the slides to the end.'
+  replace:'Saves a copy with new verses and points. Other slides stay.',
+  append:'Saves a copy with the slides added at the end.'
 };
 function setMode(m){
   state.mode = m;
@@ -396,8 +396,8 @@ function render(r){
 
   else if(s.flagged>0) b.append(banner('warn',s.flagged+' line'+(s.flagged===1?'':'s')+' to check. They are skipped unless you fix the notes.'));
   if(r.mode==='new') b.append(banner('info','Makes \u201c'+r.title+'\u201d in '+r.library+'.'));
-  else if(r.mode==='replace') b.append(banner('info','Replaces the verse and point slides in \u201c'+r.target.name+'\u201d. A backup is kept, and the playlist keeps working.'));
-  else b.append(banner('info','Adds '+s.slides+' slides to the end of \u201c'+r.target.name+'\u201d. A backup is kept, and the playlist keeps working.'));
+  else if(r.mode==='replace') b.append(banner('info','Saves a copy of \u201c'+r.target.name+'\u201d with new verses and points. The original stays.'));
+  else b.append(banner('info','Saves a copy of \u201c'+r.target.name+'\u201d with '+s.slides+' slides added. The original stays.'));
 
   const added = $('added'); added.replaceChildren();
   for(const sl of r.slides){
@@ -428,7 +428,7 @@ function render(r){
   const go = $('go');
   go.textContent = r.mode==='new' ? 'Create' : r.mode==='replace' ? 'Replace' : 'Append';
   go.disabled = s.slides===0;
-  $('actionNote').textContent = (r.mode==='new' ? 'Nothing existing changes.' : 'The original is backed up first.') + ' ProPresenter stays open.' + (r.run_id ? '  Log: ' + r.run_id : '');
+  $('actionNote').textContent = 'Nothing existing changes. ProPresenter stays open.' + (r.run_id ? '  Log: ' + r.run_id : '');
 }
 function fill(listId, detId, nId, rows){
   const box = $(listId); box.replaceChildren();
