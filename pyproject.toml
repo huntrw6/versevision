@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "versevision"
-version = "0.5.0"
+version = "0.5.1"
 description = "Cross-platform Bible reference importer foundations for ProPresenter"
 readme = "README.md"
 requires-python = ">=3.12"

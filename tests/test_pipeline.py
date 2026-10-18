@@ -324,3 +324,22 @@ def test_a_new_document_presentation_is_not_added_to_any_playlist(env):
     plan, _ = _plan(node, config)
     publish_new("n", "n.txt", "Fresh Notes", plan, config, node, history=history, library=None)
     assert [i["id"]["name"] for i in node.api_get("/v1/playlist/PL1")["items"]] == ["Sermon", "Sample", "Closing"]
+
+
+# ----------------------------------------------------------------------------- templates in their own file
+def test_template_file_holds_only_the_two_template_slides_and_a_sermon_replace_cannot_delete_them(env):
+    from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
+    tmp, pres, node, config, history = env
+    t = config.presentation_template
+    out = tmp / "Templates.pro"
+    ProtobufPresentationWriter().create_template_file(pres, out, t, name="Templates")
+    m = _cues(out)
+    assert m.name == "Templates" and {c.uuid.string.casefold() for c in m.cues} == {t.cue_uuid.casefold(), t.point_cue_uuid.casefold()}
+    assert m.uuid.string != _cues(pres).uuid.string
+    # a sermon presentation that does NOT hold the templates can be cleared and refilled with the templates coming from the other file
+    plan, target = _plan(node, config)
+    sermon = tmp / "Sermon.pro"
+    shutil.copy(pres, sermon)
+    ProtobufPresentationWriter().append_plan(sermon, plan.slide_plan, t, template_path=out, remove_cue_uuids=ProtobufPresentationWriter.generated_cue_uuids(_cues(sermon), t) or None)
+    after = _cues(sermon)
+    assert len(after.cues) >= len(plan.slide_plan.slides)

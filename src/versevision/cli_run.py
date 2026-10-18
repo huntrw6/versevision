@@ -6,6 +6,8 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
+import time
 from pathlib import Path
 from typing import Annotated, Optional
 
@@ -21,7 +23,8 @@ from versevision.node.transport import make_transport
 from versevision.presentation.template import (
     create_template_definition, inspect_point_candidates, inspect_template_candidates,
 )
-from versevision.workflow.pipeline import _target_from_api, apply_import, plan_for_transport, publish_new, undo_import
+from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
+from versevision.workflow.pipeline import _target_from_api, apply_import, list_presentations, plan_for_transport, publish_new, undo_import
 from versevision.workflow.report import build_report
 
 console = Console(stderr=True)
@@ -417,6 +420,56 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
             typer.echo(json.dumps(payload, indent=2)) if as_json else console.print(f"[green]Templates are valid[/green] in {name} (verse slide {candidate.slide_number})")
         except Exception as exc:
             _fail(exc, as_json)
+
+    @template_app.command("new-file")
+    def template_new_file(
+        source_file: Annotated[Optional[str], typer.Option("--source-file", help="A presentation FILE that still holds the template slides (a backup works)")] = None,
+        source: Annotated[Optional[str], typer.Option("--source", help="Name of a presentation in ProPresenter that holds them")] = None,
+        name: Annotated[str, typer.Option("--name")] = "VerseVision Template",
+        library: Annotated[Optional[str], typer.Option("--library", help="Library for the template file (default: the output library)")] = None,
+        node: Annotated[Optional[str], typer.Option("--node")] = None,
+    ) -> None:
+        """Move the template slides into their own presentation, so a sermon edit can never delete them."""
+        try:
+            from versevision import runlog
+            config = _config_with_node(load_config(), node, None, None)
+            definition = config.presentation_template
+            if not definition:
+                raise ConfigurationError("No template is configured; run: versevision template setup")
+            transport = make_transport(config.propresenter, config.node)
+            lib = library or config.output.library
+            import tempfile
+            work = Path(tempfile.mkdtemp(prefix="versevision-"))
+            if source_file:
+                src_path = source_file
+            else:
+                src_path = _target_from_api(transport, uuid_=None, name=source or definition.presentation_name, library=None)[3]
+            local = work / "source.pro"
+            transport.fetch_file(os.path.expandvars(src_path) if "$" in src_path else src_path, local)
+            out = work / f"{name}.pro"
+            ProtobufPresentationWriter().create_template_file(local, out, definition, name=name)
+            folder = transport.library_folder(lib)
+            if transport.find_presentation(name, lib):
+                raise ConfigurationError(f"a presentation named {name!r} already exists in {lib}; nothing was changed")
+            transport.create_file(out, f"{folder}/{name}.pro")
+            console.print(f"[cyan]Created {name} in {lib}; waiting for ProPresenter to list it[/cyan]")
+            listed = None
+            for _ in range(20):
+                try:
+                    listed = next((i for i in list_presentations(transport) if i["name"] == name and i["library"].casefold() == lib.casefold()), None)
+                except Exception:
+                    listed = None
+                if listed:
+                    break
+                time.sleep(1.5)
+            if not listed:
+                raise ConfigurationError("The file was created but ProPresenter has not listed it yet. Run this command again after it appears (it will keep the file).")
+            updated = config.model_copy(update={"presentation_template": definition.model_copy(update={
+                "presentation_uuid": listed["uuid"], "presentation_name": name, "library_name": lib})})
+            save_config(updated, overwrite=True)
+            console.print(f"[green]Done.[/green] The templates now live in {lib} / {name}. Settings updated.")
+        except Exception as exc:
+            _fail(exc, False)
 
     @template_app.command("setup")
     def template_setup(

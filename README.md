@@ -209,3 +209,13 @@ versevision log show --path          # the folder
 ```
 
 The web page shows the run id on the review screen and lists runs under History > Logs. Logs never contain API keys, tokens or file contents; the last 200 runs are kept. The older `audit.jsonl` one-line-per-import file is still written.
+
+## Keeping the template slides safe
+
+The verse and sermon-point template slides can live in their own presentation (default name `VerseVision Template`), so cleaning up or replacing a sermon can never delete them:
+
+```sh
+versevision template new-file --source-file /path/to/a/backup.pro   # or: --source "Verses"
+```
+
+This writes the small template presentation into the Verses library and points the saved settings at it. A template slide is never treated as a generated slide, so Replace skips it even if it is still in the same file as a sermon.

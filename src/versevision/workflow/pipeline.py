@@ -188,6 +188,17 @@ def apply_import(
     if previous:
         steps.append(f"replacing earlier import {previous.import_id} ({len(previous.cue_uuids)} slides)")
 
+    # The template slides live in their own presentation. Fetch it now, while ProPresenter can still answer.
+    workdir = Path(tempfile.mkdtemp(prefix="versevision-"))
+    template_local: Path | None = None
+    try:
+        template_where = _template_target(transport, definition)
+        if template_where[3] != path:
+            template_local = workdir / "template.pro"
+            transport.fetch_file(template_where[3], template_local)
+    except ConfigurationError:
+        template_local = None            # older setups keep the templates inside the target itself
+
     was_running = transport.is_running()
     reopen_after = reopen and was_running
     if was_running:
@@ -206,14 +217,13 @@ def apply_import(
             )
         steps.append("closed ProPresenter")
 
-    workdir = Path(tempfile.mkdtemp(prefix="versevision-"))
     local_copy = workdir / Path(path).name
     backup = None
     installed = False
     try:
         progress("Reading the presentation")
         original_sha = transport.fetch_file(path, local_copy)
-        validate_template(local_copy, definition)
+        validate_template(template_local or local_copy, definition)
         progress("Backing up")
         backup = transport.backup_file(path)
         steps.append(f"backup: {backup}")
@@ -225,7 +235,7 @@ def apply_import(
             current.ParseFromString(local_copy.read_bytes())
             remove = writer.generated_cue_uuids(current, definition)
             steps.append(f"clearing {len(remove)} verse and sermon-point slides (other slides are kept)")
-        written = writer.append_plan(local_copy, plan.slide_plan, definition, remove_cue_uuids=remove or None)
+        written = writer.append_plan(local_copy, plan.slide_plan, definition, template_path=template_local, remove_cue_uuids=remove or None)
         transport.install_file(local_copy, path, original_sha)
         installed = True
         steps.append("installed updated presentation")
@@ -345,6 +355,14 @@ def undo_import(
     )
 
 
+def _template_target(transport: Transport, definition) -> tuple:
+    """The presentation that holds the template slides: by its saved id, else by name (ProPresenter can re-issue ids)."""
+    try:
+        return _target_from_api(transport, uuid_=definition.presentation_uuid, name=None, library=None)
+    except ConfigurationError:
+        return _target_from_api(transport, uuid_=None, name=definition.presentation_name, library=definition.library_name)
+
+
 def _find_playlist_slots(transport: Transport, presentation_uuid: str) -> list[dict]:
     """Every playlist that holds the presentation, with its current items (so we can insert right under it)."""
     found: list[dict] = []
@@ -447,10 +465,7 @@ def publish_new(
         name = numbered_name(wanted, existing | {name}) if (numbered or base) else unique_name(wanted, existing | {name})
     steps = [f"new file: {name}" + (f" (copy of {base_name})" if base else "")]
 
-    try:
-        template_target = _target_from_api(transport, uuid_=definition.presentation_uuid, name=None, library=None)
-    except ConfigurationError:
-        template_target = _target_from_api(transport, uuid_=None, name=definition.presentation_name, library=definition.library_name)
+    template_target = _template_target(transport, definition)
     workdir = Path(tempfile.mkdtemp(prefix="versevision-"))
     template_local = workdir / "template.pro"
     progress("Reading the template")

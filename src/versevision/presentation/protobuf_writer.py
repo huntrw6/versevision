@@ -413,6 +413,63 @@ class ProtobufPresentationWriter:
             output_sha256=_sha256(output_path), original_sha256="",
         )
 
+    # ------------------------------------------------------------------ a presentation that holds only the template slides
+    def create_template_file(
+        self, source_path: Path, output_path: Path, definition: PresentationTemplateConfig, *, name: str,
+    ) -> PlanWriteResult:
+        """Write a small presentation holding ONLY the verse and sermon-point template slides of ``source_path``.
+
+        The template slides keep their ids (so the saved configuration stays valid); the file itself is a new
+        presentation. Keeping the templates apart from the sermon presentations means that cleaning up a sermon
+        can never delete them.
+        """
+        source_path = source_path.resolve(strict=True)
+        output_path = output_path.resolve()
+        if output_path.exists():
+            raise ValueError(f"{output_path.name} already exists; nothing was changed")
+        source = self._read(source_path)
+        self.policy.validate(source)
+        wanted = [u for u in (definition.cue_uuid, definition.point_cue_uuid) if u]
+        present = {c.uuid.string.casefold() for c in source.cues}
+        missing = [u for u in wanted if u.casefold() not in present]
+        if missing:
+            raise ValueError("the source presentation no longer holds the template slide(s): " + ", ".join(missing))
+        copy = presentation_pb2.Presentation()
+        copy.CopyFrom(source)
+        others = {c.uuid.string for c in copy.cues if c.uuid.string.casefold() not in {u.casefold() for u in wanted}}
+        self._remove_cues(copy, others)
+        del copy.arrangements[:]
+        copy.ClearField("selected_arrangement")
+        copy.uuid.string = str(uuid.uuid4()).upper()
+        copy.name = name
+        now = datetime.now(timezone.utc)
+        for field in ("last_date_used", "last_modified_date"):
+            stamp = getattr(copy, field)
+            stamp.seconds, stamp.nanos = int(now.timestamp()), 0
+        temp_path: Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="wb", prefix=f".{output_path.name}.versevision-", suffix=".tmp", dir=output_path.parent, delete=False
+            ) as stream:
+                temp_path = Path(stream.name)
+                stream.write(copy.SerializeToString(deterministic=True))
+                stream.flush()
+                os.fsync(stream.fileno())
+            reparsed = self._read(temp_path)
+            if {c.uuid.string.casefold() for c in reparsed.cues} != {u.casefold() for u in wanted}:
+                raise ValueError("the template file did not reread correctly")
+            os.link(temp_path, output_path)
+            temp_path.unlink()
+            temp_path = None
+        finally:
+            if temp_path and temp_path.exists():
+                temp_path.unlink()
+        return PlanWriteResult(
+            path=output_path, backup_path=output_path, cue_uuids=wanted, cue_count_before=len(source.cues), cue_count_after=len(wanted),
+            group_count_before=len(source.cue_groups), group_count_after=len(copy.cue_groups),
+            output_sha256=_sha256(output_path), original_sha256=_sha256(source_path),
+        )
+
     # ------------------------------------------------------------------ copy of an existing presentation
     def derive_presentation(
         self, source_path: Path, output_path: Path, slide_plan: SlidePlan, definition: PresentationTemplateConfig,
