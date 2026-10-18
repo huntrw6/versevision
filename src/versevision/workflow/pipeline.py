@@ -636,7 +636,8 @@ def _swap_core(
         raise ConfigurationError(f"Could not find exactly one presentation named {name!r} in {lib_name}")
     old_uuid = mine[0]["uuid"]
     existing = {i["name"] for i in listing if i["library"].casefold() == lib_name.casefold()}
-    temp_name = unique_name(f"{name} (old)", existing)
+    # a name that has never been used: ProPresenter keeps stale entries for paths that were deleted and then reused
+    temp_name = unique_name(f"{name} (old {uuid.uuid4().hex[:6]})", existing)
     temp_path = f"{folder}/{temp_name}.pro"
 
     workdir = Path(tempfile.mkdtemp(prefix="versevision-"))
