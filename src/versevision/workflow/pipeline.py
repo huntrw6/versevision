@@ -28,6 +28,7 @@ from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
 from versevision.presentation.template import validate_template
 from versevision.workflow.notes_workflow import NotesImportResult, plan_notes
 
+SETTLE_SECONDS = 15.0            # how long each swap step waits for ProPresenter to notice a file change
 SWAP_WAIT_SECONDS = 30.0        # how long a swap waits for ProPresenter to list and show the new file
 Progress = Callable[[str], None]
 
@@ -598,6 +599,21 @@ def _repoint_playlists(transport: Transport, slots: list[dict], old_uuid: str, n
     return undo
 
 
+def _wait_library(transport: Transport, lib_name: str, ready, timeout: float) -> bool:
+    """Wait until ProPresenter's library listing satisfies ``ready(names)``. Pacing the steps on its own reaction
+    keeps its file watcher in step (renaming, writing and deleting within a second leaves stale entries behind)."""
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        try:
+            names = {i["name"] for i in list_presentations(transport) if i["library"].casefold() == lib_name.casefold()}
+            if ready(names):
+                return True
+        except Exception:
+            pass
+        time.sleep(0.5)
+    return False
+
+
 def _swap_core(
     transport: Transport, lib_name: str, name: str, new_local: Path, *, verify, progress: Progress,
 ) -> dict:
@@ -636,6 +652,8 @@ def _swap_core(
     progress("Renaming the original")
     transport.rename_file(path, temp_path)
     renamed, created, playlist_undo = True, False, []
+    if not _wait_library(transport, lib_name, lambda n: temp_name in n and name not in n, SETTLE_SECONDS):
+        runlog.event("swap_pacing", level="warn", message="ProPresenter was slow to show the rename; continuing")
 
     def rollback(reason: str) -> None:
         runlog.event("swap_rollback", level="error", message=reason)
@@ -649,6 +667,8 @@ def _swap_core(
                 transport.delete_file(path, created_sha[0])
             except Exception as exc:
                 runlog.event("swap_rollback", level="error", message=f"could not remove the new file: {exc}")
+        if created:
+            _wait_library(transport, lib_name, lambda n: name not in n, SETTLE_SECONDS)       # let it notice the removal first
         if renamed:
             try:
                 transport.rename_file(temp_path, path)
@@ -696,6 +716,8 @@ def _swap_core(
         progress("Removing the renamed original")
         outcome = transport.delete_file(temp_path, old_sha)
         renamed = False
+        if not _wait_library(transport, lib_name, lambda n: temp_name not in n, SETTLE_SECONDS):
+            runlog.event("swap_pacing", level="warn", message=f"ProPresenter still lists {temp_name!r} after it was deleted")
         steps.append(f"removed {temp_name}.pro ({outcome})")
         runlog.event("swap_done", message=f"{name} replaced; original removed ({outcome})")
     except Exception as exc:

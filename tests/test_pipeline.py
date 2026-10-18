@@ -424,6 +424,7 @@ def test_swap_puts_everything_back_if_propresenter_never_shows_the_new_version(e
     tmp, pres, node, config, history = env
     plan, target = _plan(node, config)
     monkeypatch.setattr(pipeline, "SWAP_WAIT_SECONDS", 0.2)
+    monkeypatch.setattr(pipeline, "SETTLE_SECONDS", 0.5)
     monkeypatch.setattr(pipeline, "verify_via_api", lambda *a, **k: (False, "not shown"))
     before = _sha(pres)
     with pytest.raises(Exception, match="did not show"):
