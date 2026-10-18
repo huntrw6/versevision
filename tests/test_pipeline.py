@@ -14,7 +14,7 @@ from versevision.node.transport import sha256_file
 from versevision.presentation.generated import presentation_pb2
 from versevision.presentation.template import inspect_point_candidates, inspect_template_candidates
 from versevision.workflow import pipeline
-from versevision.workflow.pipeline import apply_import, plan_for_transport, publish_new, undo_import
+from versevision.workflow.pipeline import apply_import, plan_for_transport, publish_new, publish_swap, undo_import
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sample" / "Sample.pro"
 NOTES = "Title\n“For God so loved the world.”\nJohn 3:16 NIV\n1) First point\nPsalm 23:1 NIV\n2) Second point\n"
@@ -370,3 +370,123 @@ def test_style_fingerprint_ignores_the_sign_of_zero(env):
     flipped.write_bytes(m.SerializeToString(deterministic=True))
     after = {c.casefold(): fp for _, c, fp in inspect_point_candidates(flipped)}
     assert before[point_cue.casefold()] == after[point_cue.casefold()]
+
+
+# ----------------------------------------------------------------------------- swap: replace / append under the original name
+def _folder_files(pres):
+    return sorted(p.name for p in pres.parent.glob("*.pro"))
+
+
+def _playlist_names(node):
+    return [i["id"]["name"] for i in node.api_get("/v1/playlist/PL1")["items"]]
+
+
+def test_replace_swaps_in_place_without_restart_and_the_playlist_keeps_one_entry(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    original_slides = len(_cues(pres).cues)
+    result = publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    assert "quit" not in node.log and "launch" not in node.log and node.running            # never restarted
+    assert result.mode == "replace" and result.presentation_name == "Sample" and result.verified
+    assert _folder_files(pres) == ["Sample.pro"]                                            # the old one is gone, only one file
+    assert _playlist_names(node) == ["Sermon", "Sample", "Closing"]                         # still ONE entry, same place
+    entry = next(i for i in node.api_get("/v1/playlist/PL1")["items"] if i["type"] == "presentation")
+    assert entry["presentation_info"]["presentation_uuid"] != "P1"                          # it opens the NEW file now
+    assert node.api_get("/v1/presentation/" + entry["presentation_info"]["presentation_uuid"])["presentation"]["groups"][0]["slides"]
+    assert len(_cues(pres).cues) == result.cue_count_after
+    backup = next(node.store.glob("Sample.pro.bak*"))                                       # the original was backed up first
+    assert len(_cues(backup).cues) == original_slides
+
+
+def test_append_swap_keeps_every_original_slide(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    original = _cues(pres)
+    result = publish_swap("n", "n.txt", plan, config, node, target, clear_generated=False, history=history)
+    new = _cues(pres)
+    assert result.mode == "append" and len(new.cues) == len(original.cues) + len(plan.slide_plan.slides)
+    assert [c.actions[0].label.text for c in new.cues[:len(original.cues)]] == [c.actions[0].label.text for c in original.cues]
+    assert _folder_files(pres) == ["Sample.pro"]
+
+
+def test_swap_needs_propresenter_open_and_changes_nothing_if_it_is_not(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    node.running = False
+    before = _sha(pres)
+    with pytest.raises(Exception, match="must be open"):
+        publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    assert _sha(pres) == before and _folder_files(pres) == ["Sample.pro"]
+
+
+def test_swap_puts_everything_back_if_propresenter_never_shows_the_new_version(env, monkeypatch):
+    from versevision.workflow import pipeline
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    monkeypatch.setattr(pipeline, "SWAP_WAIT_SECONDS", 0.2)
+    monkeypatch.setattr(pipeline, "verify_via_api", lambda *a, **k: (False, "not shown"))
+    before = _sha(pres)
+    with pytest.raises(Exception, match="did not show"):
+        publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    assert _folder_files(pres) == ["Sample.pro"] and _sha(pres) == before                   # original back, byte for byte
+    assert _playlist_names(node) == ["Sermon", "Sample", "Closing"]
+    assert history.load() == []
+
+
+def test_swap_puts_everything_back_if_the_playlist_cannot_be_updated(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    node.fail_playlist_put = True
+    before = _sha(pres)
+    with pytest.raises(Exception, match="refused"):
+        publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    assert _folder_files(pres) == ["Sample.pro"] and _sha(pres) == before
+    entry = next(i for i in node.api_get("/v1/playlist/PL1")["items"] if i["type"] == "presentation")
+    assert entry["presentation_info"]["presentation_uuid"] == "P1"                          # still the original
+
+
+def test_swap_does_not_delete_a_renamed_original_that_changed_underneath(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    real_rename = node.rename_file
+
+    def rename_then_edit(old, new):
+        real_rename(old, new)
+        Path(new).write_bytes(Path(new).read_bytes() + b"\x00")          # someone edits it after we read it
+    node.rename_file = rename_then_edit
+    with pytest.raises(Exception, match="changed since"):
+        publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    assert "Sample.pro" in _folder_files(pres)                                              # the edited original is not lost
+    assert _playlist_names(node) == ["Sermon", "Sample", "Closing"]
+
+
+def test_undo_of_a_swap_brings_the_previous_version_back_under_the_same_name(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    before = _sha(pres)
+    before_slides = len(_cues(pres).cues)
+    result = publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    assert _sha(pres) != before
+    undo_import(result.import_id, config, node, history=history)
+    assert len(_cues(pres).cues) == before_slides and _folder_files(pres) == ["Sample.pro"]
+    assert _playlist_names(node) == ["Sermon", "Sample", "Closing"]
+    assert "quit" not in node.log
+
+
+def test_undo_of_a_swap_refuses_if_the_presentation_was_edited_afterwards(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    result = publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    pres.write_bytes(pres.read_bytes() + b"\x00")
+    with pytest.raises(Exception, match="edited after"):
+        undo_import(result.import_id, config, node, history=history)
+    assert history.get(result.import_id).status == "active"
+
+
+def test_playlist_entry_is_found_by_name_when_its_id_was_reissued(env):
+    from versevision.workflow.pipeline import _find_playlist_slots
+    tmp, pres, node, config, history = env
+    node.api_get("/v1/playlist/PL1")  # touch
+    node.playlist[1]["presentation_info"]["presentation_uuid"] = "SOMETHING-ELSE"
+    assert _find_playlist_slots(node, "P1") == []
+    assert len(_find_playlist_slots(node, "P1", "Sample")) == 1

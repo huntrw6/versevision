@@ -24,7 +24,7 @@ from versevision.presentation.template import (
     create_template_definition, inspect_point_candidates, inspect_template_candidates,
 )
 from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
-from versevision.workflow.pipeline import _target_from_api, _template_target, apply_import, list_presentations, plan_for_transport, publish_new, undo_import
+from versevision.workflow.pipeline import _target_from_api, _template_target, apply_import, list_presentations, plan_for_transport, publish_new, publish_swap, undo_import
 from versevision.workflow.report import build_report
 
 console = Console(stderr=True)
@@ -120,6 +120,7 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         dry_run: Annotated[bool, typer.Option("--dry-run", help="Plan and report only; change nothing")] = False,
         yes: Annotated[bool, typer.Option("--yes", help="Import even when some lines are flagged")] = False,
         no_playlist: Annotated[bool, typer.Option("--no-playlist", help="Do not add the new file to the playlists that hold the original")] = False,
+        as_copy: Annotated[bool, typer.Option("--as-copy", help="Keep the original and save the result as a numbered copy (Name 2) instead of replacing it")] = False,
         in_place: Annotated[bool, typer.Option("--in-place", help="Edit the original file instead of saving a copy (closes ProPresenter)")] = False,
         no_close: Annotated[bool, typer.Option("--no-close", help="With --in-place: never close ProPresenter automatically")] = False,
         no_reopen: Annotated[bool, typer.Option("--no-reopen")] = False,
@@ -130,9 +131,10 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         """Turn sermon notes into ProPresenter slides (verses and sermon points).
 
         By default this creates a NEW presentation named after the document. With -p NAME and --replace
-        (swap its verse and point slides) or --append (add to the end), it saves a COPY next to the original
-        ("NAME 2") and puts it under the original in any playlist. ProPresenter stays open and shows the new
-        file at once; nothing existing changes. (--in-place edits the original instead and needs a restart.)
+        (swap its verse and point slides) or --append (add to the end), the presentation is replaced under its
+        own name: the original is backed up, renamed, replaced by the new version, and removed once ProPresenter
+        shows the new one. Playlists keep pointing at it. ProPresenter stays open the whole time.
+        --as-copy keeps the original and saves "NAME 2"; --in-place edits the file itself (needs a restart).
         """
         as_json = output.casefold() == "json"
         from versevision import runlog
@@ -190,11 +192,13 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
                     source, source_name, plan, target, config, transport,
                     replace=True, clear_generated=replace, close_app=not no_close, reopen=not no_reopen, progress=progress,
                 )
-            elif editing:
+            elif editing and as_copy:
                 applied = publish_new(
                     source, source_name, new_title, plan, config, transport, progress=progress,
                     base=target, clear_generated=replace, add_to_playlists=not no_playlist,
                 )
+            elif editing:
+                applied = publish_swap(source, source_name, plan, config, transport, target, clear_generated=replace, progress=progress)
             else:
                 applied = publish_new(source, source_name, new_title, plan, config, transport, library=library, progress=progress)
             report.update(ok=True, applied=applied.model_dump(), exit_code=int(ExitCode.COMPLETED_WITH_FLAGS if flags else 0))
@@ -204,7 +208,7 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
                 typer.echo(json.dumps(report, indent=2, ensure_ascii=False))
             else:
                 _print_report(report)
-                what = "new presentation" if applied.mode == "new" else "new copy"
+                what = "new presentation" if applied.mode == "new" else ("new copy" if as_copy else "presentation")
                 console.print(f"[green]Imported {applied.slide_count} slides into {what} '{applied.presentation_name or applied.target_name}'[/green] (import {applied.import_id})")
                 console.print(applied.verification)
                 console.print(f"[dim]Log: {run.folder}[/dim]")

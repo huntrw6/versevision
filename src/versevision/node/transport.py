@@ -50,6 +50,8 @@ class Transport(Protocol):
     def library_folder(self, library: str) -> str: ...
     def create_file(self, local_path: Path, remote_path: str) -> str: ...
     def delete_created_file(self, remote_path: str, expected_cues: int) -> str: ...
+    def rename_file(self, old_path: str, new_path: str) -> None: ...
+    def delete_file(self, remote_path: str, expected_sha: str) -> str: ...
     def backup_file(self, remote_path: str) -> str: ...
     def restore_backup(self, backup_path: str, remote_path: str) -> None: ...
 
@@ -192,6 +194,27 @@ class LocalTransport:
             if temp and temp.exists():
                 temp.unlink()
         return sha256_file(target)
+
+    def rename_file(self, old_path: str, new_path: str) -> None:
+        """Rename without ever replacing an existing file (link + unlink fails if the target exists)."""
+        old, new = Path(old_path), Path(new_path)
+        if not old.is_file():
+            raise PresentationWriteError(f"{old.name} is not there to rename")
+        try:
+            os.link(old, new)
+        except FileExistsError as exc:
+            raise PresentationWriteError(f"{new.name} already exists; nothing was renamed") from exc
+        os.unlink(old)
+
+    def delete_file(self, remote_path: str, expected_sha: str) -> str:
+        """Delete a file only if it is still exactly the one we expect."""
+        target = Path(remote_path)
+        if not target.is_file():
+            return "already gone"
+        if sha256_file(target) != expected_sha:
+            raise PresentationWriteError(f"{target.name} changed since VerseVision read it, so it was not deleted")
+        target.unlink()
+        return "removed"
 
     def find_presentation(self, name: str, library: str | None) -> list[str]:
         root = Path(os.path.expandvars(self.node.library_root)).expanduser()
@@ -398,6 +421,32 @@ class HermesRemoteTransport:
 
     def library_folder(self, library: str) -> str:
         return f"{self.node.library_root}/{library}"
+
+    def rename_file(self, old_path: str, new_path: str) -> None:
+        code, out = self._sh(
+            f'[ -f "{old_path}" ] || {{ echo MISSING; exit 4; }}\n'
+            f'[ -e "{new_path}" ] && {{ echo EXISTS; exit 3; }}\n'
+            f'mv -n "{old_path}" "{new_path}" && [ -f "{new_path}" ] && [ ! -e "{old_path}" ] && echo renamed',
+            gui=True,
+        )
+        if "renamed" not in out:
+            why = "is not there" if code == 4 else "already exists" if code == 3 else (out[-200:] or "no answer")
+            raise PresentationWriteError(f"Could not rename {Path(old_path).name} on {self.name}: {why}")
+
+    def delete_file(self, remote_path: str, expected_sha: str) -> str:
+        code, out = self._sh(
+            f'[ -f "{remote_path}" ] || {{ echo GONE; exit 0; }}\n'
+            f'[ "$(shasum -a 256 < "{remote_path}" | cut -d\' \' -f1)" = {expected_sha} ] || {{ echo CHANGED; exit 5; }}\n'
+            f'rm -f "{remote_path}" && echo removed',
+            gui=True,
+        )
+        if "CHANGED" in out:
+            raise PresentationWriteError(f"{Path(remote_path).name} changed since VerseVision read it, so it was not deleted")
+        if "removed" in out:
+            return "removed"
+        if "GONE" in out:
+            return "already gone"
+        raise PresentationWriteError(f"Could not delete {Path(remote_path).name} on {self.name}: {out[-200:] or 'no answer'}")
 
     def delete_created_file(self, remote_path: str, expected_cues: int) -> str:
         # verify the file is still the one VerseVision made (same slide count) before deleting it

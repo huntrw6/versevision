@@ -24,7 +24,7 @@ from versevision.errors import DocumentError, VerseVisionError
 from versevision.history import HistoryStore
 from versevision.node.transport import make_transport
 from versevision import runlog
-from versevision.workflow.pipeline import apply_import, list_presentations, plan_for_transport, publish_new, undo_import
+from versevision.workflow.pipeline import apply_import, list_presentations, plan_for_transport, publish_new, publish_swap, undo_import
 from versevision.workflow.report import build_report
 
 MAX_UPLOAD = 25 * 1024 * 1024
@@ -206,9 +206,9 @@ def start_apply(state: AppState, plan_job_id: str, accept_flags: bool) -> Job:
             )
         else:
             assert source.target is not None
-            applied = publish_new(
-                source.text, source.name, source.title, source.plan, state.config, state.transport(),
-                history=state.history, progress=progress, base=source.target, clear_generated=(source.mode == "replace"),
+            applied = publish_swap(
+                source.text, source.name, source.plan, state.config, state.transport(), source.target,
+                clear_generated=(source.mode == "replace"), history=state.history, progress=progress,
             )
         j.result = applied.model_dump()
         j.message = "Done"

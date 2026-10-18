@@ -28,6 +28,7 @@ from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
 from versevision.presentation.template import validate_template
 from versevision.workflow.notes_workflow import NotesImportResult, plan_notes
 
+SWAP_WAIT_SECONDS = 30.0        # how long a swap waits for ProPresenter to list and show the new file
 Progress = Callable[[str], None]
 
 
@@ -319,6 +320,8 @@ def undo_import(
         raise ConfigurationError(f"No active import with id {import_id}")
     if record.mode == "new":
         return _undo_new(record, config, transport, history, progress)
+    if record.mode == "swap":
+        return _undo_swap(record, config, transport, history, progress)
     definition = config.presentation_template
     if not definition:
         raise ConfigurationError("No template is configured")
@@ -366,9 +369,13 @@ def _template_target(transport: Transport, definition) -> tuple:
         return found
 
 
-def _find_playlist_slots(transport: Transport, presentation_uuid: str) -> list[dict]:
-    """Every playlist that holds the presentation, with its current items (so we can insert right under it)."""
+def _find_playlist_slots(transport: Transport, presentation_uuid: str, name: str | None = None) -> list[dict]:
+    """Every playlist that holds the presentation, with its current items (so we can insert right under it).
+
+    Matches by id. If no playlist matches by id (ProPresenter can re-issue ids) it falls back to the entry's name.
+    """
     found: list[dict] = []
+    by_name: list[dict] = []
 
     def walk(nodes: list[dict]) -> None:
         for node in nodes:
@@ -380,12 +387,17 @@ def _find_playlist_slots(transport: Transport, presentation_uuid: str) -> list[d
                     items = []
                 for position, item in enumerate(items):
                     info = item.get("presentation_info") or {}
-                    if item.get("type") == "presentation" and info.get("presentation_uuid", "").casefold() == presentation_uuid.casefold():
-                        found.append({"playlist": pid, "playlist_name": node["id"]["name"], "position": position, "items": items})
+                    if item.get("type") != "presentation":
+                        continue
+                    slot = {"playlist": pid, "playlist_name": node["id"]["name"], "position": position, "items": items}
+                    if info.get("presentation_uuid", "").casefold() == presentation_uuid.casefold():
+                        found.append(slot)
+                    elif name and item.get("id", {}).get("name", "").casefold() == name.casefold():
+                        by_name.append(slot)
             walk(node.get("children") or [])
 
     walk(transport.api_get("/v1/playlists"))
-    return found
+    return found or by_name
 
 
 def _add_under_in_playlists(transport: Transport, slots: list[dict], new_uuid: str, new_name: str) -> list[dict]:
@@ -562,6 +574,237 @@ def _remove_from_playlists(transport: Transport, record: ImportRecord, progress:
         except Exception as exc:
             runlog.event("playlist", level="warn", message=f"could not take it out of the playlist: {exc}")
             progress(f"Could not take it out of the playlist ({exc}); remove it there by hand")
+
+
+def _repoint_playlists(transport: Transport, slots: list[dict], old_uuid: str, new_uuid: str, name: str = "") -> list[dict]:
+    """Make every playlist entry that opened the old presentation open the new one. Returns what to put back on failure."""
+    import copy
+    undo: list[dict] = []
+    for slot in slots:
+        fresh = transport.api_get(f"/v1/playlist/{slot['playlist']}").get("items", [])
+        before = copy.deepcopy(fresh)
+        changed = 0
+        for item in fresh:
+            info = item.get("presentation_info") or {}
+            same_id = info.get("presentation_uuid", "").casefold() == old_uuid.casefold()
+            same_name = bool(name) and item.get("id", {}).get("name", "").casefold() == name.casefold()
+            if item.get("type") == "presentation" and (same_id or (same_name and slot.get("by_name"))):
+                info["presentation_uuid"] = new_uuid
+                changed += 1
+        if changed:
+            transport.api_put(f"/v1/playlist/{slot['playlist']}", fresh)
+            undo.append({"playlist": slot["playlist"], "items": before, "name": slot["playlist_name"]})
+            runlog.event("playlist", message=f"entry in {slot['playlist_name']} now opens the new file", playlist=slot["playlist_name"], entries=changed)
+    return undo
+
+
+def _swap_core(
+    transport: Transport, lib_name: str, name: str, new_local: Path, *, verify, progress: Progress,
+) -> dict:
+    """Put ``new_local`` in place of the presentation called ``name`` without restarting ProPresenter.
+
+    1. back the original up   2. rename it out of the way   3. write the new file under the original name
+    4. wait until ProPresenter lists and shows it   5. repoint playlist entries   6. delete the renamed original.
+    Any failure puts everything back exactly as it was.
+    """
+    from versevision.notes.title import unique_name
+
+    if not transport.is_running():
+        raise ConfigurationError("ProPresenter must be open for this (it keeps playlists and the library in memory). "
+                                 "Open it, or use --in-place which closes and reopens it")
+    folder = transport.library_folder(lib_name)
+    path = f"{folder}/{name}.pro"
+    listing = list_presentations(transport)
+    mine = [i for i in listing if i["name"] == name and i["library"].casefold() == lib_name.casefold()]
+    if len(mine) != 1 or not transport.find_presentation(name, lib_name):
+        raise ConfigurationError(f"Could not find exactly one presentation named {name!r} in {lib_name}")
+    old_uuid = mine[0]["uuid"]
+    existing = {i["name"] for i in listing if i["library"].casefold() == lib_name.casefold()}
+    temp_name = unique_name(f"{name} (old)", existing)
+    temp_path = f"{folder}/{temp_name}.pro"
+
+    workdir = Path(tempfile.mkdtemp(prefix="versevision-"))
+    progress("Backing up the original")
+    old_sha = transport.fetch_file(path, workdir / "old.pro")
+    backup = transport.backup_file(path)
+    slots = _find_playlist_slots(transport, old_uuid, name)
+    for slot in slots:
+        slot["by_name"] = not any((i.get("presentation_info") or {}).get("presentation_uuid", "").casefold() == old_uuid.casefold() for i in slot["items"])
+    steps = [f"backup: {backup}"]
+    runlog.event("swap_start", message=f"{name}: original {old_uuid[:8]}, {len(slots)} playlist entries", backup=backup, old_sha256=old_sha[:16], temp=temp_name)
+
+    progress("Renaming the original")
+    transport.rename_file(path, temp_path)
+    renamed, created, playlist_undo = True, False, []
+
+    def rollback(reason: str) -> None:
+        runlog.event("swap_rollback", level="error", message=reason)
+        try:
+            for entry in playlist_undo:
+                transport.api_put(f"/v1/playlist/{entry['playlist']}", entry["items"])
+        except Exception as exc:
+            runlog.event("swap_rollback", level="error", message=f"could not restore a playlist: {exc}")
+        if created:
+            try:
+                transport.delete_file(path, created_sha[0])
+            except Exception as exc:
+                runlog.event("swap_rollback", level="error", message=f"could not remove the new file: {exc}")
+        if renamed:
+            try:
+                transport.rename_file(temp_path, path)
+            except Exception as exc:
+                raise PresentationWriteError(f"{reason}. Your original is safe at {temp_path} (rename it back to {name}.pro): {exc}") from exc
+
+    created_sha = [""]
+    try:
+        progress("Writing the new file")
+        created_sha[0] = transport.create_file(new_local, path)
+        created = True
+        steps.append(f"renamed original to {temp_name}; wrote new {name}.pro")
+        runlog.event("file_placed", message=path, path=path, sha256=created_sha[0][:16])
+
+        progress("Waiting for ProPresenter to show it")
+        deadline = time.monotonic() + SWAP_WAIT_SECONDS
+        new_uuid, problem = "", "ProPresenter has not listed the new file yet"
+        while time.monotonic() < deadline:
+            try:
+                found = [i for i in list_presentations(transport) if i["name"] == name and i["library"].casefold() == lib_name.casefold()
+                         and i["uuid"].casefold() != old_uuid.casefold()]
+                if found:
+                    ok, problem = verify(found[0]["uuid"])
+                    if ok:
+                        new_uuid = found[0]["uuid"]
+                        break
+            except Exception as exc:
+                problem = str(exc)
+            time.sleep(1.5)
+        if not new_uuid:
+            raise VerificationRollbackError(f"ProPresenter did not show the new version ({problem})")
+        runlog.event("verify", message=problem, verified=True, presentation_uuid=new_uuid)
+
+        if slots:
+            progress("Updating the playlist")
+            playlist_undo = _repoint_playlists(transport, slots, old_uuid, new_uuid, name)
+            time.sleep(1.0)
+            for slot in slots:
+                left = [i for i in transport.api_get(f"/v1/playlist/{slot['playlist']}").get("items", [])
+                        if i.get("type") == "presentation" and (i.get("presentation_info") or {}).get("presentation_uuid", "").casefold() == old_uuid.casefold()]
+                if left:
+                    raise PresentationWriteError(f"the playlist {slot['playlist_name']} still points at the old file")
+            steps.append("playlist now opens the new file: " + ", ".join(sorted({s["playlist_name"] for s in slots})))
+
+        progress("Removing the renamed original")
+        outcome = transport.delete_file(temp_path, old_sha)
+        renamed = False
+        steps.append(f"removed {temp_name}.pro ({outcome})")
+        runlog.event("swap_done", message=f"{name} replaced; original removed ({outcome})")
+    except Exception as exc:
+        rollback(str(exc))
+        raise
+    return {"new_uuid": new_uuid, "old_uuid": old_uuid, "backup": backup, "sha256": created_sha[0], "steps": steps, "playlists": len(slots)}
+
+
+def publish_swap(
+    text: str, source_name: str, plan: NotesImportResult, config: AppConfig, transport: Transport, base: tuple,
+    *, clear_generated: bool, history: HistoryStore | None = None, progress: Progress = _noop,
+) -> ApplyResult:
+    """Replace or append in the chosen presentation WITHOUT restarting ProPresenter and without a second entry in the playlist."""
+    history = history or HistoryStore()
+    definition = config.presentation_template
+    if not definition:
+        raise ConfigurationError("No template is configured; run versevision template setup")
+    if not plan.slide_plan.slides:
+        raise ConfigurationError("There are no slides to import")
+    lib_name, base_uuid, name, base_path, _ = base
+    node_name = config.node.name or "local"
+    workdir = Path(tempfile.mkdtemp(prefix="versevision-"))
+    template_target = _template_target(transport, definition)
+    template_local = workdir / "template.pro"
+    progress("Reading the template")
+    transport.fetch_file(template_target[3], template_local)
+    validate_template(template_local, definition)
+    base_local = workdir / "base.pro"
+    progress(f"Reading {name}")
+    transport.fetch_file(base_path, base_local)
+    out_local = workdir / f"{name}.pro"
+    progress("Building the new version")
+    written = ProtobufPresentationWriter().derive_presentation(
+        base_local, out_local, plan.slide_plan, definition, name=name, clear_generated=clear_generated, template_path=template_local,
+    )
+    expected = len(plan.slide_plan.slides)
+
+    def verify(uuid_: str) -> tuple[bool, str]:
+        return verify_via_api(transport, uuid_, plan.slide_plan, expected, timeout=8.0)
+
+    core = _swap_core(transport, lib_name, name, out_local, verify=verify, progress=progress)
+    import_id = uuid.uuid4().hex[:10]
+    runlog.event("history_recorded", message=f"import {import_id}", import_id=import_id)
+    history.add(ImportRecord(
+        import_id=import_id, source_name=source_name, source_sha256=source_fingerprint(text), target_uuid=core["new_uuid"], target_name=name,
+        node=node_name, cue_uuids=written.cue_uuids, slide_count=len(written.cue_uuids), verse_count=plan.verse_count,
+        point_count=plan.point_count, backup_path=core["backup"], mode="swap", library=lib_name, file_path=f"{transport.library_folder(lib_name)}/{name}.pro",
+        copied_from=name, file_sha256=core["sha256"], file_cue_count=written.cue_count_after,
+    ))
+    from platformdirs import user_log_path
+    append_audit_entry(user_log_path("versevision") / "audit.jsonl", AuditEntry(
+        application_version=__version__, propresenter_version="19.0.1", target_uuid=core["new_uuid"], presentation_name=name,
+        reference_count=plan.verse_count, slide_count=len(written.cue_uuids),
+        versions=sorted({s.version_text for s in plan.slide_plan.slides if s.version_text}),
+        backup_path=Path(core["backup"]) if core["backup"] else None, verification_result="ProPresenter shows the new version",
+    ))
+    return ApplyResult(
+        mode="replace" if clear_generated else "append", presentation_name=name, restart_needed=False, import_id=import_id,
+        target_name=name, node=node_name, slide_count=len(written.cue_uuids), cue_count_before=written.cue_count_before,
+        cue_count_after=written.cue_count_after, removed_slides=written.removed_cue_count, backup_path=core["backup"],
+        verification=f"ProPresenter reports all {expected} generated slides", verified=True, steps=core["steps"],
+    )
+
+
+def _undo_swap(record: ImportRecord, config: AppConfig, transport: Transport, history: HistoryStore, progress: Progress) -> ApplyResult:
+    """Put the previous version back the same way (rename, write, repoint, delete)."""
+    if not record.backup_path or not record.library:
+        raise ConfigurationError("This import has no backup recorded, so it cannot be undone automatically")
+    name, lib = record.target_name, record.library
+    folder = transport.library_folder(lib)
+    path = f"{folder}/{name}.pro"
+    workdir = Path(tempfile.mkdtemp(prefix="versevision-"))
+    current = workdir / "current.pro"
+    progress("Checking nothing changed since the import")
+    sha = transport.fetch_file(path, current)
+    if record.file_sha256 and sha != record.file_sha256:
+        raise PresentationWriteError(
+            f"{name} was edited after VerseVision wrote it, so it was not changed. "
+            f"The previous version is saved at {record.backup_path} if you want it back"
+        )
+    restore = workdir / f"{name}.pro"
+    transport.fetch_file(record.backup_path, restore)
+    from versevision.presentation.generated import presentation_pb2
+    prior = presentation_pb2.Presentation()
+    prior.ParseFromString(restore.read_bytes())
+    wanted = len(prior.cues)
+
+    def verify(uuid_: str) -> tuple[bool, str]:
+        deadline = time.monotonic() + 8
+        problem = "ProPresenter did not report the presentation"
+        while time.monotonic() < deadline:
+            try:
+                detail = transport.api_get(f"/v1/presentation/{uuid_}")["presentation"]
+                count = sum(len(g["slides"]) for g in detail["groups"])
+                if count == wanted:
+                    return True, f"{count} slides"
+                problem = f"ProPresenter shows {count} slides; expected {wanted}"
+            except Exception as exc:
+                problem = str(exc)
+            time.sleep(1.0)
+        return False, problem
+
+    _swap_core(transport, lib, name, restore, verify=verify, progress=progress)
+    history.set_status(record.import_id, "undone")
+    return ApplyResult(
+        mode="swap", presentation_name=name, import_id=record.import_id, target_name=name, node=config.node.name or "local",
+        slide_count=0, cue_count_before=len(record.cue_uuids), cue_count_after=wanted, removed_slides=len(record.cue_uuids),
+        verification=f"Put the previous version of {name} back ({wanted} slides)", verified=True,
+    )
 
 
 def _undo_new(record: ImportRecord, config: AppConfig, transport: Transport, history: HistoryStore, progress: Progress) -> ApplyResult:

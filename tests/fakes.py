@@ -82,11 +82,15 @@ class FakeNode:
         self.log.append("restore")
 
 
+def _ids(self):
+    if not hasattr(self, "_ident"):
+        self._ident = {str(self.file): "P1"}
+    return self._ident
+
+
 def _find(self, name, library):
-    return [str(self.file)] if name == self.name else []
-
-
-FakeNode.find_presentation = _find
+    folder = self.file.parent
+    return [str(p) for p in (folder / f"{name}.pro",) if p.is_file()]
 
 
 def _folder(self, library):
@@ -99,10 +103,32 @@ def _create(self, local, remote):
         raise FileExistsError(remote)
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(local, target)
-    self.extra = getattr(self, "extra", {})
-    self.extra[target.stem] = target
+    import uuid as _u
+    _ids(self)[str(target)] = f"X-{_u.uuid4().hex[:10]}"          # like ProPresenter: a new file always gets a new id
     self.log.append("create")
     return sha256_file(target)
+
+
+def _rename(self, old, new):
+    from versevision.errors import PresentationWriteError
+    if Path(new).exists():
+        raise PresentationWriteError("exists")
+    Path(old).rename(new)
+    ids = _ids(self)
+    ids[str(new)] = ids.pop(str(old))
+    self.log.append("rename")
+
+
+def _delete_file(self, remote, expected_sha):
+    from versevision.errors import PresentationWriteError
+    if not Path(remote).is_file():
+        return "already gone"
+    if sha256_file(Path(remote)) != expected_sha:
+        raise PresentationWriteError("changed since")
+    Path(remote).unlink()
+    _ids(self).pop(str(remote), None)
+    self.log.append("delete")
+    return "removed"
 
 
 def _delete(self, remote, expected_cues):
@@ -112,31 +138,45 @@ def _delete(self, remote, expected_cues):
         from versevision.errors import PresentationWriteError
         raise PresentationWriteError("edited")
     Path(remote).unlink()
-    getattr(self, "extra", {}).pop(Path(remote).stem, None)
+    _ids(self).pop(str(remote), None)
     return "Presentation removed"
 
 
+FakeNode.find_presentation = _find
 FakeNode.library_folder = _folder
 FakeNode.create_file = _create
+FakeNode.rename_file = _rename
+FakeNode.delete_file = _delete_file
 FakeNode.delete_created_file = _delete
-_orig_api = FakeNode.api_get
+
+
+def _slides_of(self, path):
+    keep, self.file = self.file, Path(path)
+    try:
+        return self._slides()
+    finally:
+        self.file = keep
 
 
 def _api(self, route):
-    extra = getattr(self, "extra", {})
+    ids = _ids(self)
+    if route == "/v1/libraries":
+        return [{"uuid": "L1", "name": "Verses"}]
     if route == "/v1/library/L1":
-        return {"items": [{"uuid": "P1", "name": self.name}] + [{"uuid": f"X-{n}", "name": n} for n in extra]}
-    if route.startswith("/v1/presentation/X-"):
-        name = route.split("X-", 1)[1]
-        other = FakeNode(self.store, extra[name])
-        other.running = False
-        result = other.api_get("/v1/presentation/P1")
-        result["presentation"]["id"]["name"] = name
-        return result
-    return _orig_api(self, route)
-
-
-FakeNode.api_get = _api
+        return {"items": [{"uuid": u, "name": Path(p).stem} for p, u in ids.items() if Path(p).is_file()]}
+    if route.startswith("/v1/presentation/"):
+        uuid_ = route.rsplit("/", 1)[-1]
+        path = next((p for p, u in ids.items() if u == uuid_ and Path(p).is_file()), None)
+        if path is None:
+            raise KeyError(route)
+        slides = _slides_of(self, path)
+        if self.show_wrong_text and self.running and uuid_ == "P1":
+            slides = slides[:3]
+        return {"presentation": {"id": {"uuid": uuid_, "name": Path(path).stem}, "presentation_path": path,
+                                   "groups": [{"name": "", "slides": slides}]}}
+    if route == "/version":
+        return {"host_description": "fake", "api_version": "v1"}
+    raise KeyError(route)
 
 
 # ---- playlists: one playlist holding the presentation, like a service order
@@ -156,26 +196,24 @@ def _playlist_state(self):
 
 def _api_put(self, route, body):
     if route == f"/v1/playlist/{_PL_ID}":
+        if getattr(self, "fail_playlist_put", False):
+            raise RuntimeError("playlist write refused")
         import uuid as _u
-        for item in body:                                 # like ProPresenter: every save hands out new item AND presentation ids
+        for item in body:                                 # like ProPresenter: every save hands out new item ids
             item["id"]["uuid"] = str(_u.uuid4()).upper()
-            if item.get("presentation_info"):
-                item["presentation_info"]["presentation_uuid"] = str(_u.uuid4()).upper()
         self.playlist = body
         self.log.append("playlist-put")
         return
     raise KeyError(route)
 
 
-_api2_prev = FakeNode.api_get
-
-
 def _api2(self, route):
     if route == "/v1/playlists":
         return [{"id": {"uuid": _PL_ID, "name": "Sunday", "index": 0}, "field_type": "playlist", "children": []}]
     if route == f"/v1/playlist/{_PL_ID}":
-        return {"id": {"uuid": _PL_ID, "name": "Sunday", "index": 0}, "items": _playlist_state(self)}
-    return _api2_prev(self, route)
+        import copy
+        return {"id": {"uuid": _PL_ID, "name": "Sunday", "index": 0}, "items": copy.deepcopy(_playlist_state(self))}
+    return _api(self, route)
 
 
 FakeNode.api_put = _api_put
