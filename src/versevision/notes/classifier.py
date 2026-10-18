@@ -21,13 +21,15 @@ _MARKER = re.compile(r"^\s*(?P<hash>#\s*)?(?P<label>\d{1,3}|[A-Za-z](?=[).]\s))\
 _BULLET = re.compile(r"^\s*[•▪◦●‣*\-–—]\s+(?P<rest>\S.*)$")
 _SLIDE_TAG = re.compile(r"^\s*\[\s*slide\s*\]\s*[-–—:]*\s*(?P<rest>.*)$", re.IGNORECASE)
 _STAGE = re.compile(
-    r"^\s*(show|play|put|start|cue|fade|transition|bring up|display|run|roll|when i (?:mention|say|get|talk|read|come)|"
+    r"^\s*(show|play|put|start|cue|fade|transition|bring up|display|run|roll|when i (?:mention(?:ed)?|sa(?:y|id)|get|got|talk(?:ed)?|read|come|came)|"
     r"after (?:this|that)|at the end|end with|stop)\b",
     re.IGNORECASE,
 )
 _NOTE = re.compile(r"^\s*(\(.*\)\s*$|\[(?!\s*slide)[^\]]*\]\s*$|(note|notes|todo|to do|reminder|remember|ask|tell|check|fix|tbd|fyi)\b\s*[:\-]?)", re.IGNORECASE)
 _URL = re.compile(r"https?://|www\.", re.IGNORECASE)
 _MEDIA_WORDS = re.compile(r"\b(slide|photo|picture|image|video|clip|screen|portrait|graphic|manuscript)\b", re.IGNORECASE)
+_LABELLED = re.compile(
+    r"^\s*(conclusion|application|invitation|challenge|summary|closing|takeaway|big idea|main point)\s*[:\-–—]\s*\S", re.IGNORECASE)
 _RECAP = re.compile(r"^\s*recap\b", re.IGNORECASE)
 _QUOTE_OPEN = ("“", '"', "‘", "'", "«")
 _SENTENCE_END = (".", "?", "!", "”", '"', ":", ";")
@@ -176,7 +178,12 @@ def classify_document(text: str, aliases: dict[str, str] | None = None) -> NoteD
     hard_wrap, threshold = _wrap_geometry(lines)
 
     def starts_new(stripped: str, current: _Para) -> bool:
-        if _SLIDE_TAG.match(stripped) or _STAGE.match(stripped) or _URL.search(stripped) or _RECAP.match(stripped) or _NOTE.match(stripped):
+        if _SLIDE_TAG.match(stripped) or _STAGE.match(stripped) or _URL.search(stripped) or _RECAP.match(stripped):
+            return True
+        if _NOTE.match(stripped):
+            inside_quote = current.text.startswith(_QUOTE_OPEN) and not current.text.rstrip().endswith(_CLOSERS)
+            if inside_quote and not re.match(r"^\s*\w+\s*[:\-]", stripped) and not stripped.startswith(("(", "[")):
+                return False          # a wrapped line of a quote ("remember me when You come into Your kingdom")
             return True
         if _BULLET.match(stripped):
             return True
@@ -222,6 +229,10 @@ def _label(para: _Para, aliases) -> None:
     if tag:
         para.kind, para.text = "slide_tag", tag.group("rest").strip()
         return
+    paren = _paren_reference(text, aliases)
+    if paren:
+        para.kind, para.refs = "verse", paren
+        return
     if _STAGE.match(text) or _URL.search(text) or _NOTE.match(text):
         para.kind = "stage"
         return
@@ -265,6 +276,19 @@ def _label(para: _Para, aliases) -> None:
         para.kind, para.refs = "midref", found.references
         return
     para.kind = "quote" if text.startswith(_QUOTE_OPEN) else "other"
+
+
+def _paren_reference(text: str, aliases) -> list[PassageReference]:
+    """'(Romans 8:16)' or '(Romans 8:16 NKJV)': a whole line that is just a reference in brackets."""
+    match = re.match(r"^\s*[(\[]\s*(?P<inner>[^()\[\]]+?)\s*[)\]]\s*$", text)
+    if not match:
+        return []
+    inner = match.group("inner")
+    parsed = parse_references(inner, aliases)
+    if len(parsed.references) != 1 or parsed.issues:
+        return []
+    ref = parsed.references[0]
+    return [ref] if ref.source_start <= 1 and len(inner) - ref.source_end <= 1 else []
 
 
 def _is_reference_start(text: str, aliases) -> bool:
@@ -325,6 +349,10 @@ def _build(paras: list[_Para], aliases) -> NoteDocument:
                                              reason="verse text quoted above its reference; text is fetched from the Bible provider"))
             else:
                 doc.items.append(ReviewItem(line=line, text=text, reason="quoted text with no reference"))
+        elif _LABELLED.match(text) and not para.first:
+            # "Conclusion: Will You Let God Use Your Life?" is a different sentence from the point above it: its own slide
+            doc.items.append(PointItem(line=line, role="slide_note", label="", text=text, detail_end=line,
+                                       warnings=["labelled line made its own slide (not joined to the point above)"]))
         else:
             item = _other(para, text)
             prior = doc.items[-1] if doc.items else None

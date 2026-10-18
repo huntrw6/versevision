@@ -117,6 +117,21 @@ def _span(cursor: _Cursor, chapter: int | None) -> tuple[VerseSpan, int] | None:
     return VerseSpan(start=start), chapter
 
 
+def _skip_comma_before_version(cursor: "_Cursor") -> None:
+    """'James 2:17, KJV' — a comma between the reference and a version we know belongs to the reference."""
+    if not cursor.peek(","):
+        return
+    after = cursor.tokens[cursor.i + 1] if cursor.i + 1 < len(cursor.tokens) else None
+    if after is None or after.kind != "WORD":
+        return
+    label = after.value
+    nxt = cursor.tokens[cursor.i + 2] if cursor.i + 2 < len(cursor.tokens) else None
+    if nxt and nxt.kind == "NUMBER" and nxt.start == after.end:      # NASB1995
+        label += nxt.value
+    if canonical_version(label) or (label.isupper() and is_real_version(label)):
+        cursor.i += 1
+
+
 def _parse_after_book(text: str, source: str, book: Book, book_start: int, content_start: int, aliases: dict[str, str] | None = None) -> tuple[list[PassageReference], list[ParseIssue], int]:
     cursor = _Cursor(tokenize(text[content_start:], content_start))
     passages: list[PassageReference] = []
@@ -140,6 +155,7 @@ def _parse_after_book(text: str, source: str, book: Book, book_start: int, conte
                 break
             span, chapter = parsed
             spans.append(span)
+        _skip_comma_before_version(cursor)
         version = _version(cursor, text, aliases)
         end = cursor.tokens[cursor.i - 1].end if cursor.i else content_start
         raw = source[logical_start:end]

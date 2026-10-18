@@ -127,3 +127,83 @@ def test_short_line_under_a_point_is_flagged_not_merged_but_sentences_are_merged
     assert doc.points[0].text == "A point" and len(doc.review) == 1
     doc = classify_document("1) A point\nTo obey God rather than human beings.")
     assert "obey God" in doc.points[0].text and not doc.review
+
+
+# ----------------------------------------------------------------------------- 10/18/26 John Wesley (real document)
+WESLEY = (__import__("pathlib").Path(__file__).parents[1] / "fixtures" / "notes" / "wesley_2026_10_18.txt").read_text()
+
+
+def _wesley():
+    from versevision.notes.classifier import classify_document
+    return classify_document(WESLEY, {})
+
+
+def test_wesley_every_verse_and_point_is_found_in_document_order():
+    got = []
+    for item in _wesley().items:
+        if item.kind == "verse":
+            got.append(item.reference.normalized_text)
+        elif item.kind == "point":
+            got.append(item.display)
+    assert got == [
+        "1) A Person Must Realize They are Lost Before they are Saved.",
+        "Luke 23:39-43 NKJV",
+        "Romans 8:16",
+        "2) You Must Be Born Again and Set On Fire",
+        "Luke 2:49 NKJV",
+        "James 2:17 KJV",
+        "3) A Disciplined Faith Must Become a Living Faith",
+        "Luke 14:23",
+        "4) Identify Your Go",
+        "5) One Surrendered Life Can Influence Generations",
+        "Conclusion: Will You Let God Use Your Life?",
+        "Romans 12:1 KJV",
+    ]
+
+
+def test_a_comma_before_the_version_belongs_to_the_reference():
+    from versevision.references import parse_references
+    ref = parse_references("— James 2:17, KJV", {}).references[0]
+    assert ref.version == "KJV" and ref.normalized_text == "James 2:17 KJV"
+    # but a comma between verses is still a list of verses
+    again = parse_references("John 3:16, 17", {}).references[0]
+    assert again.version is None and len(again.spans) == 2
+
+
+def test_a_reference_alone_in_brackets_is_a_verse_not_a_stage_note():
+    from versevision.notes.classifier import classify_document
+    doc = classify_document('1) Point\n"Quote."\n(Romans 8:16)\n', {})
+    assert [v.reference.normalized_text for v in doc.verses] == ["Romans 8:16"]
+    assert not [s for s in doc.skipped if s.category == "stage_note"]
+    # a parenthetical remark that merely mentions a verse is still a note
+    other = classify_document("1) Point\n(see me about this later)\n", {})
+    assert not other.verses
+
+
+def test_a_conclusion_line_is_its_own_slide_not_joined_to_the_point_above():
+    doc = _wesley()
+    points = [p.display for p in doc.points]
+    assert "5) One Surrendered Life Can Influence Generations" in points
+    assert "Conclusion: Will You Let God Use Your Life?" in points
+
+
+def test_a_version_less_verse_uses_the_nearest_version_above():
+    from types import SimpleNamespace
+    from versevision.workflow.notes_workflow import resolve_note_versions
+    resolved, notices = resolve_note_versions(_wesley(), default="NKJV")
+    by_ref = {r.normalized_text.split(" ")[0] + r.normalized_text.split(" ")[1]: r.version for _, r, _ in resolved if r}
+    assert by_ref["Romans8:16"] == "NKJV"      # nearest above is Luke 23 NKJV
+    assert by_ref["Luke14:23"] == "KJV"        # nearest above is James 2:17 KJV
+
+
+def test_a_past_tense_stage_cue_is_not_a_quote_or_a_slide():
+    doc = _wesley()
+    cue = [s for s in doc.skipped if s.text.startswith("When I mentioned")]
+    assert cue and cue[0].category == "stage_note"
+    assert not doc.review
+
+
+def test_a_wrapped_quote_line_starting_with_remember_stays_in_its_quote():
+    doc = _wesley()
+    assert len(doc.verses) >= 5
+    assert not [r for r in doc.review if "remember me" in r.text]
