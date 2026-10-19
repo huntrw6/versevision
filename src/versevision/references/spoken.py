@@ -99,10 +99,61 @@ class SpokenReference:
 _CLEAN = re.compile(r"[^a-z0-9: ]+")
 
 
+_HOMOPHONES = {"for": "four", "fore": "four", "to": "two", "too": "two", "won": "one", "ate": "eight", "tree": "three"}
+
+
+_CONTINUERS = {"and", "then", "also", "next", "or", "versus", "compare", "see", "plus", "says", "said", "tells", "teaches", "reads", "is", "was",
+               "through", "thru", "to", "dash"}
+
+
+def _reference_ends_here(words: list[str], k: int) -> bool:
+    """True when what follows the sound-alike looks like the end of a reference, not the start of a sentence.
+
+    The reference is over if the sentence ends there, or the next word joins references/introduces a comment
+    ("and", "then", "says"), or another book name starts. "John 3 for God so loved" fails all three, so is left alone.
+    """
+    if k >= len(words):
+        return True
+    if words[k] in _CONTINUERS:
+        return True
+    return _book_at(words, k) is not None
+
+
+def _fix_homophones(words: list[str]) -> list[str]:
+    """"Habakkuk 2 for" is "Habakkuk 2:4". Only a word that comes right after book + chapter number is changed,
+    so ordinary sentences ("pray for us", "to the church") are never touched."""
+    out = list(words)
+    i = 0
+    while i < len(out):
+        hit = _book_at(out, i)
+        if not hit:
+            i += 1
+            continue
+        _, j = hit
+        while j < len(out) and out[j] in {"chapter", "chapters"}:
+            j += 1
+        chap = _read_number(out, j)
+        if chap:
+            k = chap[1]
+            while k < len(out) and out[k] in {"verse", "verses"}:
+                k += 1
+            if k < len(out) and out[k] in _HOMOPHONES and _reference_ends_here(out, k + 1):
+                out[k] = _HOMOPHONES[out[k]]
+        i = max(i + 1, j)
+    return out
+
+
 def _words(text: str) -> list[str]:
-    text = text.lower().replace("-", " ").replace("–", " ").replace("—", " ")
+    text = text.lower()
+    # Whisper writes verses as "2.4" or "13.4" or "Isaiah 40-31". Turn those into chapter:verse first.
+    text = re.sub(r"(?<![\d.])(\d{1,3})\.(\d{1,3})(?![\d.]\d)", r"\1:\2", text)
+    # Right after a book name, "2-4" / "8-28" / "40-31" is chapter-verse (a speaker says "Habakkuk two four"; a speaker who
+    # means chapters says "chapters two through four"). Elsewhere a dash between numbers is a range of verses.
+    text = re.sub(r"([a-z]\.?\s+)(\d{1,3})\s*[-–—]\s*(\d{1,3})\b(?!\s*:)", r"\1\2:\3", text)
+    text = re.sub(r"(\d)\s*[-–—]\s*(\d)", r"\1 through \2", text)
+    text = text.replace("-", " ").replace("–", " ").replace("—", " ")
     text = re.sub(r"(\d)\s*:\s*(\d)", r"\1:\2", text)
-    return _CLEAN.sub(" ", text).split()
+    return _fix_homophones(_CLEAN.sub(" ", text).split())
 
 
 def spoken_to_written(text: str) -> list[tuple[str, str]]:

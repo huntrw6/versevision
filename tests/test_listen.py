@@ -108,3 +108,59 @@ def test_a_reference_at_the_very_end_of_speech_is_shown_after_a_pause():
     run(stream(("partial", 10.0, "turn to John 316"), ("status", 11.0, "tick"), ("status", 12.0, "tick"), ("status", 12.5, "tick")),
         show=lambda r: shown.append(r) or True, log=lambda s: None)
     assert shown == ["John 3:16"]
+
+
+def test_what_whisper_writes_is_understood():
+    """Captured from whisper small.en/base.en on the iMac: dots for colons, hyphens for chapter-verse, commas."""
+    assert refs("Habakkuk 2.4 says the righteous shall live by faith") == ["Habakkuk 2:4"]
+    assert refs("In 1 Corinthians 13.4, Paul tells us love is patient") == ["1 Corinthians 13:4"]
+    assert refs("open to Isaiah 40-31, and Genesis 1-1") == ["Isaiah 40:31", "Genesis 1:1"]
+    assert refs("Compare that with Ephesians 2.8-9 and Zephaniah 3.17") == ["Ephesians 2:8-9", "Zephaniah 3:17"]
+    assert refs("then look at Romans 8, 28.") == ["Romans 8:28"]
+    assert refs("Psalm 119.105 is a lamp to my feet") == ["Psalms 119:105"]
+    assert refs("2 Timothy 3.16 and 17") == ["2 Timothy 3:16"]
+    assert refs("Philippians 4 13 he says") == ["Philippians 4:13"]
+    assert refs("it costs 3.5 percent and 12.99 dollars") == []
+
+
+def test_a_sound_alike_number_right_after_book_and_chapter_is_a_verse_number():
+    """Whisper wrote 'Habakkuk 2 for' and 'Corinthians 13 for' when the pastor said four."""
+    assert refs("Look at 1 Corinthians 13 for then Psalm 23 1 through 3.") == ["1 Corinthians 13:4", "Psalms 23:1-3"]
+    assert refs("Open your Bible to Habakkuk 2 for and 2nd Timothy 3 16") == ["Habakkuk 2:4", "2 Timothy 3:16"]
+
+
+def test_ordinary_words_after_a_reference_are_left_alone():
+    assert refs("John 3 for God so loved the world") == []          # not John 3:4
+    assert refs("we read John 3 and then we pray for us") == []
+    assert refs("Romans 8 to the church in Rome") == []
+
+
+def test_whisper_dash_after_a_book_is_chapter_and_verse():
+    assert refs("Open your Bible to Habakkuk 2-4, and then look at Jude 24.") == ["Habakkuk 2:4", "Jude 1:24"]
+    assert refs("Romans 8-28") == ["Romans 8:28"]
+    assert refs("John 3-16") == ["John 3:16"]
+    assert refs("Psalm 23 1-3") == ["Psalms 23:1-3"]            # a verse range after a chapter stays a range
+    assert refs("Ephesians 2:8-9") == ["Ephesians 2:8-9"]
+
+
+def test_a_reference_split_by_a_pause_is_read_whole():
+    """Seen live: Whisper ended one sentence at 'John 3.' and the next began with 'verse 16'."""
+    shown = []
+    run(stream(("partial", 17.0, "Good evening. Please turn with me to John 3."), ("final", 18.6, "Good evening. Please turn with me to John 3."),
+               ("partial", 19.4, "verse 16"), ("final", 20.0, "verse 16."), ("status", 24.0, "tick")),
+        show=lambda r: shown.append(r) or True, log=lambda s: None)
+    assert shown == ["John 3:16"]
+
+
+def test_psalms_is_looked_up_as_psalm():
+    from versevision.listen_cli import _lookup_text
+    assert _lookup_text("Psalms 23:1-3") == "Psalm 23:1-3"
+    assert _lookup_text("John 3:16") == "John 3:16"
+
+
+def test_listen_defaults_are_dante_displayed_thirty_seconds_into_verses():
+    import inspect
+    from versevision.listen_cli import listen_command
+    p = inspect.signature(listen_command).parameters
+    assert p["device"].default == "Dante" and p["hold"].default == 30.0 and p["presentation"].default == "Verses"
+    assert p["dry_run"].default is False and p["no_add"].default is False and p["follow"].default is True and p["content"].default is True

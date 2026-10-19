@@ -15,8 +15,8 @@ func key(_ code: CGKeyCode) { for d in [true, false] { CGEvent(keyboardEventSour
 func api(_ path: String) -> [String: Any]? { guard let u = URL(string: "http://127.0.0.1:1025" + path), let d = try? Data(contentsOf: u) else { return nil }; return (try? JSONSerialization.jsonObject(with: d)) as? [String: Any] }
 
 let args = Array(CommandLine.arguments.dropFirst())
-var mode = "add"; var refs: [String] = []; var trace = false; var verifyEach = false; var waitMenu = false; var showSeconds = 0.0
-for a in args { if a == "--live" { mode = "live" } else if a == "--trace" { trace = true } else if a == "--verify-each" { verifyEach = true } else if a == "--wait-menu" { waitMenu = true } else if a.hasPrefix("--show=") { showSeconds = Double(a.dropFirst(7)) ?? 10; mode = "live" } else { refs.append(a) } }
+var mode = "add"; var refs: [String] = []; var trace = false; var verifyEach = false; var waitMenu = false; var showSeconds = 0.0; var keepOnScreen = false; var alsoAdd = false
+for a in args { if a == "--live" { mode = "live" } else if a == "--trace" { trace = true } else if a == "--verify-each" { verifyEach = true } else if a == "--wait-menu" { waitMenu = true } else if a == "--keep" { keepOnScreen = true; mode = "live" } else if a == "--add" { alsoAdd = true } else if a.hasPrefix("--show=") { showSeconds = Double(a.dropFirst(7)) ?? 10; mode = "live" } else { refs.append(a) } }
 guard let app = NSRunningApplication.runningApplications(withBundleIdentifier: "com.renewedvision.propresenter").first else { print("ProPresenter not running"); exit(1) }
 let ax = AXUIElementCreateApplication(app.processIdentifier)
 // Bring ProPresenter to the front first, because typed keys and clicks go to whatever app is in front.
@@ -81,6 +81,21 @@ if let f = api("/v1/presentation/focused"), let u = f["uuid"] as? String { targe
 var baseline = 0
 if !target.isEmpty, let a = api("/v1/presentation/" + target), let p = a["presentation"] as? [String: Any], let gs = p["groups"] as? [[String: Any]] { baseline = gs.count }
 
+func copyToSelected(_ m: (String) -> Void) -> Bool {
+    for attempt in 0..<3 {
+        AXUIElementPerformAction(saveAs, kAXPressAction as CFString)
+        var item: AXUIElement? = nil; let d2 = now() + 0.8
+        while item == nil && now() < d2 { item = find(saveAs, 0, { s($0, kAXRoleAttribute) == "AXMenuItem" && s($0, kAXTitleAttribute) == "Copy to Selected Presentation" }); if item == nil { usleep(3_000) } }
+        if let it = item { AXUIElementPerformAction(it, kAXPressAction as CFString); m("copied"); return true }
+        key(53); usleep(60_000); m("retry\(attempt + 1)")
+    }
+    return false
+}
+func liveLayer() -> Bool { (api("/v1/status/layers")?["slide"] as? Bool) ?? false }
+func activeName() -> String {
+    guard let a = api("/v1/presentation/active"), let p = a["presentation"] as? [String: Any], let g = (p["groups"] as? [[String: Any]])?.first else { return "" }
+    return g["name"] as? String ?? ""
+}
 let T0 = now()
 var ok = 0, failed: [String] = [], wrong: [String] = []
 for ref in refs {
@@ -98,34 +113,31 @@ for ref in refs {
     m(started ? "started" : "nostart")
     if started { let t2 = now() + 4; while now() < t2 && busy() { usleep(1_000) } } else { usleep(60_000) }
     m("loaded")
-    if mode == "live", let r = results { click(CGPoint(x: r.minX + 333, y: r.minY + 190)); m("clicked") }
-    if showSeconds > 0 {
-        // Put it on screen, hold it, then clear the slide layer. Nothing is added to any presentation.
-        func live() -> Bool { (api("/v1/status/layers")?["slide"] as? Bool) ?? false }
-        let dl5 = now() + 2.0; var tries = 0
-        while !live() && now() < dl5 && tries < 6 {
+    if mode == "live" && showSeconds == 0 && !keepOnScreen, let r = results { click(CGPoint(x: r.minX + 333, y: r.minY + 190)); m("clicked") }
+    if showSeconds > 0 || keepOnScreen {
+        // Click the first result, then make sure ProPresenter reports THIS verse as the live one (not just "something is live",
+        // which would already be true while a previous verse is still up).
+        let want = norm(ref)
+        var okLive = false, tries = 0
+        let dl5 = now() + 2.5
+        while !okLive && now() < dl5 && tries < 6 {
             if let r = results { click(CGPoint(x: r.minX + 333, y: r.minY + 190)); tries += 1; m("click\(tries)") }
-            let w = now() + 0.3; while !live() && now() < w { usleep(5_000) }
+            let w = now() + 0.35
+            while now() < w { if liveLayer() && norm(activeName()).hasPrefix(want) { okLive = true; break }; usleep(5_000) }
         }
-        if !live() { failed.append(ref); print("  never went live: \(ref)"); continue }
+        if !okLive { failed.append(ref); print("  never went live: \(ref) (screen shows '\(activeName())')"); continue }
         let shownAt = (now() - t0) * 1000; m("LIVE")
-        var text = ""
-        if let a = api("/v1/presentation/active"), let p = a["presentation"] as? [String: Any], let g = (p["groups"] as? [[String: Any]])?.first { text = g["name"] as? String ?? "" }
-        print(String(format: "  %-22@ live after %4.0f ms (shows: %@), holding %.0f s", ref as NSString, shownAt, text, showSeconds) + (trace ? "   [" + marks.joined(separator: ", ") + "]" : ""))
+        var addedNote = ""
+        if alsoAdd { addedNote = copyToSelected(m) ? ", added to the presentation" : ", COULD NOT add to the presentation" }
+        print(String(format: "  %-22@ live after %4.0f ms (shows: %@)%@", ref as NSString, shownAt, activeName(), addedNote) + (keepOnScreen ? ", staying up" : String(format: ", holding %.0f s", showSeconds)) + (trace ? "   [" + marks.joined(separator: ", ") + "]" : ""))
+        if keepOnScreen { ok += 1; continue }
         usleep(UInt32(showSeconds * 1_000_000))
         if let u = URL(string: "http://127.0.0.1:1025/v1/clear/layer/slide") { _ = try? Data(contentsOf: u) }
-        let dl6 = now() + 1; while live() && now() < dl6 { usleep(5_000) }
-        print(live() ? "  could not clear the screen!" : "  cleared")
+        let dl6 = now() + 1; while liveLayer() && now() < dl6 { usleep(5_000) }
+        print(liveLayer() ? "  could not clear the screen!" : "  cleared")
         ok += 1; continue
     }
-    var done = false
-    for attempt in 0..<3 {
-        AXUIElementPerformAction(saveAs, kAXPressAction as CFString)
-        var item: AXUIElement? = nil; let d2 = now() + 0.8
-        while item == nil && now() < d2 { item = find(saveAs, 0, { s($0, kAXRoleAttribute) == "AXMenuItem" && s($0, kAXTitleAttribute) == "Copy to Selected Presentation" }); if item == nil { usleep(3_000) } }
-        if let it = item { AXUIElementPerformAction(it, kAXPressAction as CFString); done = true; m("copied"); break }
-        key(53); usleep(60_000); m("retry\(attempt + 1)")
-    }
+    let done = copyToSelected(m)
     if !done { failed.append(ref); print("  FAILED to add \(ref)"); continue }
     if waitMenu { let d3 = now() + 1; while menuOpen() && now() < d3 { usleep(3_000) }; m("menu closed") }
     var good = true
@@ -138,7 +150,7 @@ for ref in refs {
     print(String(format: "  %-22@ %4.0f ms", ref as NSString, (now() - t0) * 1000) + (good ? "" : "  <-- got \(lastGroupName(target))") + (trace ? "   [" + marks.joined(separator: ", ") + "]" : ""))
 }
 var finalNote = ""
-if !verifyEach && !target.isEmpty && ok > 0 {
+if !verifyEach && !target.isEmpty && ok > 0 && showSeconds == 0 && !keepOnScreen {      // the add-only batch check; show/keep modes report per verse
     let tv = now(); var names: [String] = []
     let dv = now() + 2.5
     while now() < dv { if let a = api("/v1/presentation/" + target), let p = a["presentation"] as? [String: Any], let gs = p["groups"] as? [[String: Any]] { names = gs.compactMap { $0["name"] as? String }; if names.count >= ok + baseline { break } }; usleep(20_000) }
