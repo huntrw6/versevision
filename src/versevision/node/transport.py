@@ -196,15 +196,13 @@ class LocalTransport:
         return sha256_file(target)
 
     def rename_file(self, old_path: str, new_path: str) -> None:
-        """Rename without ever replacing an existing file (link + unlink fails if the target exists)."""
+        """Plain rename (a hard link + unlink leaves ProPresenter with a wrong id), refusing to replace an existing file."""
         old, new = Path(old_path), Path(new_path)
         if not old.is_file():
             raise PresentationWriteError(f"{old.name} is not there to rename")
-        try:
-            os.link(old, new)
-        except FileExistsError as exc:
-            raise PresentationWriteError(f"{new.name} already exists; nothing was renamed") from exc
-        os.unlink(old)
+        if new.exists():
+            raise PresentationWriteError(f"{new.name} already exists; nothing was renamed")
+        os.rename(old, new)
 
     def delete_file(self, remote_path: str, expected_sha: str) -> str:
         """Delete a file only if it is still exactly the one we expect."""

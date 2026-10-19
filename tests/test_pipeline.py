@@ -482,7 +482,10 @@ def test_undo_of_a_swap_refuses_if_the_presentation_was_edited_afterwards(env):
     tmp, pres, node, config, history = env
     plan, target = _plan(node, config)
     result = publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
-    pres.write_bytes(pres.read_bytes() + b"\x00")
+    edited = presentation_pb2.Presentation()
+    edited.ParseFromString(pres.read_bytes())
+    del edited.cues[0]                                         # the operator deleted a slide afterwards
+    pres.write_bytes(edited.SerializeToString())
     with pytest.raises(Exception, match="edited after"):
         undo_import(result.import_id, config, node, history=history)
     assert history.get(result.import_id).status == "active"
@@ -510,3 +513,51 @@ def test_swap_never_writes_the_new_file_sooner_than_the_minimum_gap_after_the_re
     node.create_file = lambda a, b: (stamps.setdefault("create", _time.monotonic()), real_create(a, b))[1]
     publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
     assert stamps["create"] - stamps["rename"] >= 0.95
+
+
+def test_swap_accepts_a_renamed_original_that_propresenter_rewrote_with_a_new_name_and_id(env):
+    """ProPresenter rewrites a renamed file (new id and name, same slides); that must not block removing it."""
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    real_rename = node.rename_file
+
+    def rename_then_rewrite(old, new):
+        real_rename(old, new)
+        m = presentation_pb2.Presentation()
+        m.ParseFromString(Path(new).read_bytes())
+        m.name = Path(new).stem
+        m.uuid.string = "11111111-2222-3333-4444-555555555555"
+        Path(new).write_bytes(m.SerializeToString())
+    node.rename_file = rename_then_rewrite
+    result = publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    assert result.verified and _folder_files(pres) == ["Sample.pro"]
+
+
+def test_undo_of_a_swap_works_even_if_propresenter_rewrote_the_file_without_changing_slides(env):
+    tmp, pres, node, config, history = env
+    plan, target = _plan(node, config)
+    before_slides = len(_cues(pres).cues)
+    result = publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    m = presentation_pb2.Presentation()
+    m.ParseFromString(pres.read_bytes())
+    m.uuid.string = "99999999-8888-7777-6666-555555555555"      # new id and bytes, same slides
+    for cue in m.cues:
+        cue.uuid.string = cue.uuid.string.upper()                # ProPresenter upper-cases ids
+    pres.write_bytes(m.SerializeToString())
+    undo_import(result.import_id, config, node, history=history)
+    assert len(_cues(pres).cues) == before_slides
+
+
+def test_replace_and_append_use_the_swap_by_default_and_copies_only_when_asked(env, monkeypatch):
+    """The default for -p NAME --replace/--append is the in-place swap; --as-copy keeps the numbered copy."""
+    from typer.testing import CliRunner
+    from versevision import cli_run
+    from versevision.workflow import pipeline
+    tmp, pres, node, config, history = env
+    calls = []
+    monkeypatch.setattr(cli_run, "publish_swap", lambda *a, **k: calls.append("swap") or (_ for _ in ()).throw(RuntimeError("stop")))
+    monkeypatch.setattr(cli_run, "publish_new", lambda *a, **k: calls.append("copy") or (_ for _ in ()).throw(RuntimeError("stop")))
+    import inspect
+    src = inspect.getsource(cli_run)
+    assert "elif editing and as_copy:" in src and "publish_swap(source, source_name, plan, config, transport, target" in src
+    assert 'swap: Annotated[bool, typer.Option("--swap", hidden=True' in src
