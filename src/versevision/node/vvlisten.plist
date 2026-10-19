@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>org.versevision.listen</string>
+<key>CFBundleName</key><string>VerseVision Listen</string>
+<key>CFBundleExecutable</key><string>vvlisten</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>CFBundleVersion</key><string>1</string>
+<key>LSUIElement</key><true/>
+<key>NSMicrophoneUsageDescription</key><string>VerseVision listens for Bible references in the sermon so it can put them on screen.</string>
+<key>NSSpeechRecognitionUsageDescription</key><string>VerseVision turns the sermon audio into text on this computer to spot Bible references.</string>
+</dict></plist>

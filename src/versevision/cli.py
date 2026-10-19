@@ -40,6 +40,8 @@ versions_app = typer.Typer(help="Inspect known Bible translations.")
 providers_app = typer.Typer(help="Inspect configured Bible providers.")
 cache_app = typer.Typer(help="Inspect or clear the Scripture cache.")
 template_app = typer.Typer(help="Select and validate a styled ProPresenter Scripture slide.")
+from versevision.listen_cli import listen_command
+app.command("listen")(listen_command)
 app.add_typer(config_app, name="config")
 app.add_typer(propresenter_app, name="propresenter")
 app.add_typer(versions_app, name="versions")
