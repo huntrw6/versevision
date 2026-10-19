@@ -155,7 +155,7 @@ def listen_command(
                 return
         verses = range_verses(index, act.book_id, act.chapter, act.verse, act.range_end)
         text = _lookup_text(_range_text(act.book, act.chapter, act.verse, act.range_end if len(verses) > 1 else None))
-        adding = bool(target["uuid"]) and not (act.late_version and act.reference in loaded)     # a re-show in another version is not a new slide
+        adding = bool(target["uuid"])                  # every verse shown is added, including a re-show in a version named afterwards
         want_version = pp_version(act.version)
         cmd = [str(VVADD), "--keep", "--back"] + (["--add"] if adding else []) + ([f"--version={want_version}"] if want_version else []) + [text]
         if act.version:
