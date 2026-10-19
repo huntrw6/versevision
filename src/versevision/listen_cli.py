@@ -110,27 +110,84 @@ def listen_command(
         except Exception as exc:
             log(f"            could not clear the screen: {exc}")
 
+    loaded: dict[str, tuple[str, int]] = {}          # reference -> (presentation uuid, slide index) for verses already added
+
+    def trigger_loaded(reference: str) -> bool:
+        """A verse that is already in the presentation needs no Bible lookup: trigger its slide through the API (about 75 ms)."""
+        import httpx
+        uuid, idx = loaded[reference]
+        try:
+            httpx.get(f"{PP}/v1/presentation/{uuid}/{idx}/trigger", timeout=3).raise_for_status()
+            end = time.time() + 1.2
+            while time.time() < end:
+                cur = (_pp_get("/v1/presentation/slide_index") or {}).get("presentation_index") or {}
+                if cur.get("index") == idx and (cur.get("presentation_id") or {}).get("uuid", "").upper() == uuid.upper():
+                    return True
+                time.sleep(0.03)
+        except Exception as exc:
+            log(f"            could not trigger the loaded slide: {exc}")
+        return False
+
+    def focused_uuid() -> str:
+        try:
+            return (_pp_get("/v1/presentation/focused") or {}).get("uuid", "") or ""
+        except Exception:
+            return ""
+
     def perform(act: Action) -> None:
         if act.kind == "clear":
             log(f"[{_stamp(act.t)}] clear           {act.reason}")
             if not dry_run:
                 clear_screen()
             return
-        log(f"[{_stamp(act.t)}] {'would show' if dry_run else 'show      '}      {act.reference:22} because {act.reason}; heard: {act.heard!r}")
+        flag = " (tentative: earliest of several equally good matches)" if act.tentative else ""
+        log(f"[{_stamp(act.t)}] {'would show' if dry_run else 'show      '}      {act.reference:22} because {act.reason}; heard: {act.heard!r}{flag}")
         if dry_run:
             return
-        cmd = [str(VVADD), "--keep", _lookup_text(act.reference)]
-        if target["uuid"] and act.reference not in added:
-            cmd.insert(1, "--add")
         t0 = time.time()
+        if act.reference in loaded:
+            ok = trigger_loaded(act.reference)
+            log(f"            {'on screen' if ok else 'trigger FAILED'} in {time.time() - t0:.2f}s (already in the presentation, no lookup needed)")
+            if ok:
+                return
+        verses = range_verses(index, act.book_id, act.chapter, act.verse, act.range_end)
+        text = _lookup_text(_range_text(act.book, act.chapter, act.verse, act.range_end if len(verses) > 1 else None))
+        adding = bool(target["uuid"])
+        cmd = [str(VVADD), "--keep", "--back"] + (["--add"] if adding else []) + [text]
+        prev = focused_uuid() if adding else ""
+        before = slide_count(target["uuid"]) if adding else -1
+        if adding and prev.upper() != target["uuid"].upper():
+            try:
+                _pp_get(f"/v1/presentation/{target['uuid']}/focus")
+                time.sleep(0.15)
+            except Exception:
+                pass
         try:
             res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
             ok = "live after" in res.stdout
-            if ok and "--add" in cmd:
-                added.add(act.reference)
-            log(f"            {'on screen' if ok else 'FAILED'} in {time.time() - t0:.2f}s: {res.stdout.strip().splitlines()[-1][:110] if res.stdout.strip() else res.stderr[-100:]}")
+            tail = res.stdout.strip().splitlines()[0][:100] if res.stdout.strip() else res.stderr[-100:]
+            log(f"            {'on screen' if ok else 'FAILED'} in {time.time() - t0:.2f}s: {tail}")
+            if ok and adding and before >= 0:
+                end = time.time() + 1.5                  # the slides appear in the API a moment after the copy
+                after = slide_count(target["uuid"])
+                while after <= before and time.time() < end:
+                    time.sleep(0.05); after = slide_count(target["uuid"])
+                added_n = after - before
+                if added_n == len(verses):
+                    for i, (c, v) in enumerate(verses):
+                        loaded[f"{act.book} {c}:{v}"] = (target["uuid"], before + i)
+                    if len(verses) > 1:
+                        log(f"            all {len(verses)} verses of the range are loaded; the next ones will be triggered directly")
+                elif added_n >= 1:
+                    loaded[act.reference] = (target["uuid"], before)
         except Exception as exc:                           # never let a display problem stop the listening
             log(f"            show failed for {act.reference}: {exc}")
+        finally:
+            if adding and prev and prev.upper() != target["uuid"].upper():
+                try:
+                    _pp_get(f"/v1/presentation/{prev}/focus")      # give the operator back the presentation they had selected
+                except Exception:
+                    pass
 
     deadline = time.time() + seconds + 3 if seconds else None
     try:
@@ -154,12 +211,56 @@ def listen_command(
     typer.echo(f"Stopped. Log: {run_dir}")
 
 
+PP = "http://127.0.0.1:1025"
+
+
+def _pp_get(path: str, timeout: float = 3.0):
+    import httpx
+    r = httpx.get(PP + path, timeout=timeout)
+    return r.json() if r.content and r.headers.get("content-type", "").startswith("application/json") else None
+
+
+def slide_count(uuid: str) -> int:
+    try:
+        d = _pp_get(f"/v1/presentation/{uuid}")["presentation"]
+        return sum(len(g["slides"]) for g in d["groups"])
+    except Exception:
+        return -1
+
+
+def range_verses(index, book_id: str, chapter: int, verse: int, range_end: tuple[int, int] | None) -> list[tuple[int, int]]:
+    """The (chapter, verse) pairs a lookup of the named passage produces, in order."""
+    if not range_end:
+        return [(chapter, verse)]
+    out: list[tuple[int, int]] = []
+    c, v = chapter, verse
+    guard = 0
+    while (c, v) <= range_end and guard < 400:
+        if index is not None and not index.has_verse(book_id, c, v):
+            if index.has_verse(book_id, c + 1, 1) and v > 1:
+                c, v = c + 1, 1                     # ran off the end of the chapter
+                continue
+            break
+        out.append((c, v))
+        v += 1
+        guard += 1
+    return out or [(chapter, verse)]
+
+
+def _range_text(book: str, chapter: int, verse: int, range_end: tuple[int, int] | None) -> str:
+    base = f"{book} {chapter}:{verse}"
+    if not range_end or range_end == (chapter, verse):
+        return base
+    rc, rv = range_end
+    return f"{base}-{rv}" if rc == chapter else f"{base}-{rc}:{rv}"
+
+
 def _stamp(t: float) -> str:
     return time.strftime("%H:%M:%S", time.localtime(t)) if t > 1e9 else f"{t:8.2f}s"
 
 
 def _select_presentation(name: str, log) -> str:
-    """Select the named presentation so ProPresenter's "Copy to Selected Presentation" adds the verses to it."""
+    """Find the presentation verses are added to. It is selected only for the moment of each add, then the operator's own selection is restored."""
     try:
         import httpx
         libs = httpx.get("http://127.0.0.1:1025/v1/libraries", timeout=5).json()
@@ -167,7 +268,6 @@ def _select_presentation(name: str, log) -> str:
             items = httpx.get(f"http://127.0.0.1:1025/v1/library/{lib['uuid']}", timeout=5).json().get("items", [])
             for item in items:
                 if item["name"] == name:
-                    httpx.get(f"http://127.0.0.1:1025/v1/presentation/{item['uuid']}/focus", timeout=5)
                     log(f"Verses will be added to '{name}'.")
                     return item["uuid"]
         log(f"Could not find a presentation named '{name}', so shown verses will not be added to one.")

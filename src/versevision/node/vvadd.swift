@@ -15,8 +15,8 @@ func key(_ code: CGKeyCode) { for d in [true, false] { CGEvent(keyboardEventSour
 func api(_ path: String) -> [String: Any]? { guard let u = URL(string: "http://127.0.0.1:1025" + path), let d = try? Data(contentsOf: u) else { return nil }; return (try? JSONSerialization.jsonObject(with: d)) as? [String: Any] }
 
 let args = Array(CommandLine.arguments.dropFirst())
-var mode = "add"; var refs: [String] = []; var trace = false; var verifyEach = false; var waitMenu = false; var showSeconds = 0.0; var keepOnScreen = false; var alsoAdd = false
-for a in args { if a == "--live" { mode = "live" } else if a == "--trace" { trace = true } else if a == "--verify-each" { verifyEach = true } else if a == "--wait-menu" { waitMenu = true } else if a == "--keep" { keepOnScreen = true; mode = "live" } else if a == "--add" { alsoAdd = true } else if a.hasPrefix("--show=") { showSeconds = Double(a.dropFirst(7)) ?? 10; mode = "live" } else { refs.append(a) } }
+var mode = "add"; var refs: [String] = []; var trace = false; var verifyEach = false; var waitMenu = false; var showSeconds = 0.0; var keepOnScreen = false; var alsoAdd = false; var backToShow = false
+for a in args { if a == "--live" { mode = "live" } else if a == "--trace" { trace = true } else if a == "--verify-each" { verifyEach = true } else if a == "--wait-menu" { waitMenu = true } else if a == "--keep" { keepOnScreen = true; mode = "live" } else if a == "--add" { alsoAdd = true } else if a == "--back" { backToShow = true } else if a.hasPrefix("--show=") { showSeconds = Double(a.dropFirst(7)) ?? 10; mode = "live" } else { refs.append(a) } }
 guard let app = NSRunningApplication.runningApplications(withBundleIdentifier: "com.renewedvision.propresenter").first else { print("ProPresenter not running"); exit(1) }
 let ax = AXUIElementCreateApplication(app.processIdentifier)
 // Bring ProPresenter to the front first, because typed keys and clicks go to whatever app is in front.
@@ -129,6 +129,10 @@ for ref in refs {
         let shownAt = (now() - t0) * 1000; m("LIVE")
         var addedNote = ""
         if alsoAdd { addedNote = copyToSelected(m) ? ", added to the presentation" : ", COULD NOT add to the presentation" }
+        // Hand the screen back to the operator: the verse is up and saved, so leave Bible mode for Show as soon as possible.
+        if backToShow, let b = find(win, 0, { s($0, kAXRoleAttribute) == "AXRadioButton" && s($0, kAXDescriptionAttribute) == "Show" }) {
+            AXUIElementPerformAction(b, kAXPressAction as CFString); m("back to Show")
+        }
         print(String(format: "  %-22@ live after %4.0f ms (shows: %@)%@", ref as NSString, shownAt, activeName(), addedNote) + (keepOnScreen ? ", staying up" : String(format: ", holding %.0f s", showSeconds)) + (trace ? "   [" + marks.joined(separator: ", ") + "]" : ""))
         if keepOnScreen { ok += 1; continue }
         usleep(UInt32(showSeconds * 1_000_000))

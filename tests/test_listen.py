@@ -164,3 +164,15 @@ def test_listen_defaults_are_dante_displayed_thirty_seconds_into_verses():
     p = inspect.signature(listen_command).parameters
     assert p["device"].default == "Dante" and p["hold"].default == 30.0 and p["presentation"].default == "Verses"
     assert p["dry_run"].default is False and p["no_add"].default is False and p["follow"].default is True and p["content"].default is True
+
+
+def test_a_named_range_is_expanded_to_the_verses_a_lookup_produces():
+    from versevision.listen_cli import _range_text, range_verses
+    from versevision.scripture import ScriptureIndex, Verse
+    idx = ScriptureIndex({"KJV": [Verse("PSA", "Psalms", 23, n, f"verse {n} text of the psalm here today") for n in range(1, 7)]
+                          + [Verse("GEN", "Genesis", 1, 31, "x y z a b c d e"), Verse("GEN", "Genesis", 2, 1, "x y z a b c d e"), Verse("GEN", "Genesis", 2, 2, "x y z a b c d e")]})
+    assert range_verses(idx, "PSA", 23, 1, (23, 3)) == [(23, 1), (23, 2), (23, 3)]
+    assert range_verses(idx, "PSA", 23, 4, None) == [(23, 4)]
+    assert range_verses(idx, "GEN", 1, 31, (2, 2)) == [(1, 31), (2, 1), (2, 2)]
+    assert _range_text("Psalms", 23, 1, (23, 3)) == "Psalms 23:1-3" and _range_text("Genesis", 1, 31, (2, 2)) == "Genesis 1:31-2:2"
+    assert _range_text("John", 3, 16, None) == "John 3:16"

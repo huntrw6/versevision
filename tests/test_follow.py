@@ -169,3 +169,50 @@ def test_follow_and_content_can_be_switched_off(idx):
     acts = say(f, (1.0, "final", "John 3 16"), (3.0, "partial", "for God sent not his son into the world to condemn the world"),
                (5.0, "partial", "trust in the Lord with all thine heart and lean not unto thine own understanding"))
     assert [a.reference for a in acts if a.kind == "show"] == ["John 3:16"]
+
+
+# ---------------------------------------------------------------- ties: parallel passages
+PARALLEL = {
+    ("MAT", "Matthew", 4): [""] * 3 + ["But he answered and said, It is written, Man shall not live by bread alone, but by every word that proceedeth out of the mouth of God."],
+    ("LUK", "Luke", 4): [""] * 3 + ["And Jesus answered him, saying, It is written, That man shall not live by bread alone, but by every word that proceedeth out of the mouth of God."],
+}
+
+
+def parallel_index():
+    verses = [Verse(b, n, c, i, x) for (b, n, c), texts in PARALLEL.items() for i, x in enumerate(texts, 1) if x]
+    return ScriptureIndex({"KJV": verses})
+
+
+def test_when_two_verses_fit_equally_the_earlier_one_in_the_bible_is_chosen():
+    m = parallel_index().match("it is written man shall not live by bread alone but by every word that proceedeth out of the mouth of God")
+    assert m is not None and m.tied and m.verse.reference == "Matthew 4:4" and [a.reference for a in m.alternatives] == ["Luke 4:4"]
+
+
+def test_context_overrides_the_earlier_default():
+    m = parallel_index().match("it is written man shall not live by bread alone but by every word that proceedeth out of the mouth of God", prefer=("LUK", 4))
+    assert m is not None and not m.tied and m.verse.reference == "Luke 4:4"
+
+
+def test_more_words_that_only_fit_one_verse_beat_the_default():
+    idx = parallel_index()
+    f = Follower(index=idx, hold=30)
+    acts = say(f, (1.0, "partial", "it is written man shall not live by bread alone but by every word that proceedeth out of the mouth of God"),
+               (2.3, "partial", "it is written man shall not live by bread alone but by every word that proceedeth out of the mouth of God"),
+               (6.0, "partial", "and Jesus answered him saying it is written that man shall not live by bread alone but by every word that proceedeth out of the mouth of God"),
+               (7.4, "partial", "and Jesus answered him saying it is written that man shall not live by bread alone but by every word that proceedeth out of the mouth of God"))
+    shows = [a for a in acts if a.kind == "show"]
+    assert [a.reference for a in shows] == ["Matthew 4:4", "Luke 4:4"] and shows[0].tentative and not shows[1].tentative
+
+
+def test_a_stock_phrase_found_in_many_verses_is_not_treated_as_a_quotation():
+    verses = [Verse("EXO", "Exodus", 6 + i, 1, "And the LORD spoke unto Moses, saying, Speak unto the children of Israel and say unto them these words") for i in range(6)]
+    assert ScriptureIndex({"KJV": verses}).match("and the Lord spoke unto Moses saying speak unto the children of Israel and say unto them these words") is None
+
+
+def test_the_first_show_of_a_named_range_carries_the_range_so_it_can_be_loaded_at_once(idx):
+    f = Follower(index=idx, hold=30)
+    acts = say(f, (1.0, "final", "look at Psalm 23 1 through 3"))
+    first = [a for a in acts if a.kind == "show"][0]
+    assert first.reference == "Psalms 23:1" and first.range_end == (23, 3)
+    more = say(f, (4.0, "partial", "the Lord is my shepherd I shall not want he makes me lie down in green pastures"))
+    assert [a.range_end for a in more if a.kind == "show"] == [None]

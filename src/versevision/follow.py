@@ -29,6 +29,8 @@ class Action:
     chapter: int = 0
     verse: int = 0
     heard: str = ""
+    range_end: tuple[int, int] | None = None     # (chapter, verse) when the speaker named a range: the whole range can be loaded at once
+    tentative: bool = False                      # chosen as the earliest of several equally good matches
 
     @property
     def reference(self) -> str:
@@ -162,10 +164,12 @@ class Follower:
         words = text.split()
         prefer = (self.current.book_id, self.current.chapter) if self.current else None
         found = None
-        for n in (12, 18, 26, 40):
-            window = " ".join(words[-n:])
-            found = self.index.match(window, prefer=prefer)
-            if found:
+        # Look at the longest stretch of speech first: more words is more evidence, and it is what can tell parallel
+        # passages apart. Shorter windows only matter when a long one is diluted by unrelated talk before the verse.
+        for n in (40, 26, 18, 12):
+            hit = self.index.match(" ".join(words[-n:]), prefer=prefer)
+            if hit is not None:
+                found = hit
                 break
         if not found:
             self._cand, self._cand_count = None, 0
@@ -184,7 +188,11 @@ class Follower:
         if self._cand_count < 2 and not final:
             return None                          # one clean read of the same verse twice in a row, or the sentence has ended
         self._cand, self._cand_count = None, 0
-        return self._show(t, v.book_id, v.book, v.chapter, v.verse, reason=f"heard the verse itself ({found.version} {found.score:.2f})", heard=" ".join(words[-14:]))
+        note = " , tied with " + ", ".join(f"{a.book} {a.chapter}:{a.verse}" for a in found.alternatives) + "; earliest chosen" if found.tied else ""
+        act = self._show(t, v.book_id, v.book, v.chapter, v.verse, reason=f"heard the verse itself ({found.version} {found.score:.2f}){note}", heard=" ".join(words[-14:]))
+        if act and found.tied:
+            act.tentative = True
+        return act
 
     # ------------------------------------------------------------------ the one place that decides to show
     def _show(self, t: float, book_id: str, book: str, chapter: int, verse: int, *, reason: str, heard: str = "",
@@ -196,4 +204,5 @@ class Follower:
         self.shown_at[key] = t
         self.current = Shown(book_id, book, chapter, verse, t, t, range_end=range_end, followed=followed)
         self._cand, self._cand_count = None, 0
-        return Action("show", t, reason=reason, book_id=book_id, book=book, chapter=chapter, verse=verse, heard=heard)
+        return Action("show", t, reason=reason, book_id=book_id, book=book, chapter=chapter, verse=verse, heard=heard,
+                      range_end=range_end if (range_end and range_end[0] == chapter and not followed) else None)

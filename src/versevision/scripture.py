@@ -52,6 +52,8 @@ class ContentMatch:
     score: float
     words: int                 # how many words of the speech lined up with the verse
     version: str
+    tied: bool = False         # True when other verses fit about as well and this one was chosen for being earliest in the Bible
+    alternatives: tuple = ()   # the other verses that fit (empty unless tied)
 
 
 def default_dir() -> Path:
@@ -123,6 +125,7 @@ class ScriptureIndex:
         total = max(1, len(self.entries))
         self.idf = {w: math.log(total / (1 + c)) for w, c in doc_freq.items()}
         self.idf_default = math.log(total)
+        self._book_order = {b.id: i for i, b in enumerate(BOOKS)}
 
     @classmethod
     def load(cls, directory: Path | None = None) -> "ScriptureIndex":
@@ -136,6 +139,10 @@ class ScriptureIndex:
 
     def __bool__(self) -> bool:
         return bool(self.entries)
+
+    def canonical_key(self, verse: Verse) -> tuple[int, int, int]:
+        """Position in the Bible: book order, then chapter, then verse."""
+        return (self._book_order.get(verse.book_id, 999), verse.chapter, verse.verse)
 
     # ------------------------------------------------------------------ lookups used by the follower
     def verse_texts(self, book_id: str, chapter: int, verse: int) -> list[str]:
@@ -172,7 +179,7 @@ class ScriptureIndex:
         return len(matched_s), w_matched / w_speech, w_matched / w_verse, span
 
     def match(self, speech: str, *, min_words: int = 8, min_cover: float = 0.62, margin: float = 0.08,
-              prefer: tuple[str, int] | None = None) -> ContentMatch | None:
+              prefer: tuple[str, int] | None = None, max_ties: int = 4) -> ContentMatch | None:
         """Find the one verse whose wording best matches ``speech``. None if there is none, or it is ambiguous.
 
         A verse counts when at least ``min_words`` of the speech's words line up with it in order, and those words are
@@ -211,14 +218,20 @@ class ScriptureIndex:
             return None
         ranked = sorted(best_per_verse.values(), key=lambda x: -x[0])
         score, version, verse, matched = ranked[0]
-        if len(ranked) > 1 and ranked[1][0] >= score - margin:
-            if prefer is not None:
-                tied = [r for r in ranked if r[0] >= score - margin]
-                near = [r for r in tied if (r[2].book_id, r[2].chapter) == prefer]
-                if len(near) == 1:
-                    return ContentMatch(near[0][2], near[0][0], near[0][3], near[0][1])
-            return None
-        return ContentMatch(verse, score, matched, version)
+        tied = [r for r in ranked if r[0] >= score - margin]
+        if len(tied) == 1:
+            return ContentMatch(verse, score, matched, version)
+        # Two or more verses fit about equally (parallel passages: the same saying in Matthew and Luke).
+        # Context decides if there is any; otherwise the one earliest in the Bible wins.
+        if prefer is not None:
+            near = [r for r in tied if (r[2].book_id, r[2].chapter) == prefer]
+            if len(near) == 1:
+                return ContentMatch(near[0][2], near[0][0], near[0][3], near[0][1])
+        if len(tied) > max_ties:
+            return None                       # a stock phrase found all over Scripture ("the LORD said to Moses"), not a quotation
+        tied.sort(key=lambda r: self.canonical_key(r[2]))
+        first = tied[0]
+        return ContentMatch(first[2], first[0], first[3], first[1], tied=True, alternatives=tuple(r[2] for r in tied[1:]))
 
     def opening_matches(self, speech_tail: str, book_id: str, chapter: int, verse: int, *, words: int = 6, min_score: float = 84.0) -> float:
         """How well the end of ``speech_tail`` matches the OPENING words of a given verse (0-100). Used to notice that
