@@ -28,7 +28,7 @@ from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
 from versevision.presentation.template import validate_template
 from versevision.workflow.notes_workflow import NotesImportResult, plan_notes
 
-MIN_GAP_SECONDS = 3.0           # ProPresenter needs about 2 s after a rename before a new file may appear at the old name;
+MIN_GAP_SECONDS = 4.0           # ProPresenter needs about 2 s after a rename before a new file may appear at the old name;
                                 # writing sooner leaves it with a dead entry for that name (measured on the iMac, 0.5 s fails every time)
 SETTLE_SECONDS = 15.0            # how long each swap step waits for ProPresenter to notice a file change
 SWAP_WAIT_SECONDS = 30.0        # how long a swap waits for ProPresenter to list and show the new file
@@ -429,7 +429,7 @@ def _wait_listed(transport: Transport, name: str, lib_name: str, plan, expected:
         try:
             match = next((i for i in list_presentations(transport) if i["name"] == name and i["library"].casefold() == lib_name.casefold()), None)
             if match:
-                ok, message = verify_via_api(transport, match["uuid"], plan.slide_plan, expected, timeout=max(5.0, deadline - time.monotonic()))
+                ok, message = verify_via_api(transport, match["uuid"], plan.slide_plan, expected, timeout=min(4.0, max(1.0, deadline - time.monotonic())))   # short: ProPresenter may re-issue the id, so re-read the listing
                 if ok:
                     return True, message, match["uuid"]
                 problem = message
@@ -591,7 +591,7 @@ def _repoint_playlists(transport: Transport, slots: list[dict], old_uuid: str, n
             info = item.get("presentation_info") or {}
             same_id = info.get("presentation_uuid", "").casefold() == old_uuid.casefold()
             same_name = bool(name) and item.get("id", {}).get("name", "").casefold() == name.casefold()
-            if item.get("type") == "presentation" and (same_id or (same_name and slot.get("by_name"))):
+            if item.get("type") == "presentation" and (same_id or same_name):
                 info["presentation_uuid"] = new_uuid
                 changed += 1
         if changed:
@@ -655,10 +655,10 @@ def _swap_core(
     progress("Renaming the original")
     transport.rename_file(path, temp_path)
     renamed, created, playlist_undo = True, False, []
-    renamed_at = time.monotonic()
-    if not _wait_library(transport, lib_name, lambda n: temp_name in n and name not in n, SETTLE_SECONDS):
-        runlog.event("swap_pacing", level="warn", message="ProPresenter was slow to show the rename; continuing")
-    time.sleep(max(0.0, MIN_GAP_SECONDS - (time.monotonic() - renamed_at)))      # do not write the new file too soon
+    # Do NOT query ProPresenter here: measured on the iMac, reading its library right after a rename makes it keep a
+    # dead entry for the old name. A plain pause lets it notice the rename on its own.
+    time.sleep(MIN_GAP_SECONDS)
+    renamed, created, playlist_undo = True, False, []
 
     def rollback(reason: str) -> None:
         runlog.event("swap_rollback", level="error", message=reason)
@@ -714,13 +714,27 @@ def _swap_core(
             time.sleep(1.0)
             for slot in slots:
                 left = [i for i in transport.api_get(f"/v1/playlist/{slot['playlist']}").get("items", [])
-                        if i.get("type") == "presentation" and (i.get("presentation_info") or {}).get("presentation_uuid", "").casefold() == old_uuid.casefold()]
+                        if i.get("type") == "presentation" and i.get("id", {}).get("name", "").casefold() == name.casefold()
+                        and (i.get("presentation_info") or {}).get("presentation_uuid", "").casefold() != new_uuid.casefold()]
                 if left:
                     raise PresentationWriteError(f"the playlist {slot['playlist_name']} still points at the old file")
             steps.append("playlist now opens the new file: " + ", ".join(sorted({s["playlist_name"] for s in slots})))
 
         progress("Removing the renamed original")
-        outcome = transport.delete_file(temp_path, old_sha)
+        # ProPresenter gives a renamed file a new id and name, so compare what matters: the same slides
+        check = workdir / "renamed.pro"
+        now_sha = transport.fetch_file(temp_path, check)
+        if now_sha != old_sha:
+            from versevision.presentation.generated import presentation_pb2 as _pb
+            before, after = _pb.Presentation(), _pb.Presentation()
+            before.ParseFromString((workdir / "old.pro").read_bytes())
+            after.ParseFromString(check.read_bytes())
+            same = ([c.uuid.string for c in before.cues] == [c.uuid.string for c in after.cues]
+                    and [g.uuid.string for g in before.cue_groups] == [g.uuid.string for g in after.cue_groups])
+            if not same:
+                raise PresentationWriteError(f"{temp_name}.pro changed since VerseVision read it, so it was not deleted")
+            runlog.event("swap_note", message="the renamed original was rewritten by ProPresenter but holds the same slides")
+        outcome = transport.delete_file(temp_path, now_sha)
         renamed = False
         if not _wait_library(transport, lib_name, lambda n: temp_name not in n, SETTLE_SECONDS):
             runlog.event("swap_pacing", level="warn", message=f"ProPresenter still lists {temp_name!r} after it was deleted")
@@ -762,7 +776,7 @@ def publish_swap(
     expected = len(plan.slide_plan.slides)
 
     def verify(uuid_: str) -> tuple[bool, str]:
-        return verify_via_api(transport, uuid_, plan.slide_plan, expected, timeout=8.0)
+        return verify_via_api(transport, uuid_, plan.slide_plan, expected, timeout=4.0)
 
     core = _swap_core(transport, lib_name, name, out_local, verify=verify, progress=progress)
     import_id = uuid.uuid4().hex[:10]

@@ -454,7 +454,10 @@ def test_swap_does_not_delete_a_renamed_original_that_changed_underneath(env):
 
     def rename_then_edit(old, new):
         real_rename(old, new)
-        Path(new).write_bytes(Path(new).read_bytes() + b"\x00")          # someone edits it after we read it
+        edited = presentation_pb2.Presentation()                       # someone deletes a slide after we read it
+        edited.ParseFromString(Path(new).read_bytes())
+        del edited.cues[-1]
+        Path(new).write_bytes(edited.SerializeToString())
     node.rename_file = rename_then_edit
     with pytest.raises(Exception, match="changed since"):
         publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
