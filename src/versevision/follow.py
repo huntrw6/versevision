@@ -16,7 +16,8 @@ from dataclasses import dataclass, field
 
 from .listen import Continuer, Detection, Detector, clock
 from .references.models import PassageReference
-from .scripture import ScriptureIndex
+from .references.spoken import _version_at
+from .scripture import ScriptureIndex, normalize
 
 
 @dataclass
@@ -30,6 +31,9 @@ class Action:
     verse: int = 0
     heard: str = ""
     range_end: tuple[int, int] | None = None     # (chapter, verse) when the speaker named a range: the whole range can be loaded at once
+    version: str = ""                            # a Bible version to switch to first (e.g. "NIV"); empty = leave the selector alone
+    version_source: str = ""                     # "said" or "wording"
+    late_version: bool = False                   # the version was said after the verse was already shown: show the same verse again in it
     tentative: bool = False                      # chosen as the earliest of several equally good matches
 
     @property
@@ -47,6 +51,8 @@ class Shown:
     last_activity: float
     range_end: tuple[int, int] | None = None     # (chapter, verse) when the speaker named a range
     followed: int = 0                            # how many next-verse steps we have taken from it
+    version_said: bool = False                   # a version has been named for this verse (with it, or just after it)
+    version_shown: str = ""
 
 
 @dataclass
@@ -91,6 +97,10 @@ class Follower:
             if self.index.reading_score(text, self.current.book_id, self.current.chapter, self.current.verse) >= 78:
                 self.current.last_activity = t
         if not referenced:
+            late = self._late_version(t, text)
+            if late:
+                actions.append(late)
+        if not referenced and not any(a.late_version for a in actions):
             nxt = self._next_verse(t, text) if self.follow else None
             if nxt:
                 actions.append(nxt)
@@ -133,7 +143,31 @@ class Follower:
             if end and not self.current.range_end:
                 self.current.range_end = end
             return None
-        return self._show(t, ref.book_id, ref.book_display_name, chapter, verse, range_end=end, reason="the speaker said the reference", heard=det.heard)
+        act = self._show(t, ref.book_id, ref.book_display_name, chapter, verse, range_end=end, reason="the speaker said the reference", heard=det.heard)
+        if act and ref.version:
+            act.version, act.version_source = ref.version, "said"
+            if self.current:
+                self.current.version_said, self.current.version_shown = True, ref.version
+        return act
+
+    def _late_version(self, t: float, text: str) -> Action | None:
+        """"Romans 8:28" ... pause ... "in the New Living Translation": Whisper often splits these. A version named within a few
+        seconds of a verse being shown, when none was named with it, applies to that verse."""
+        cur = self.current
+        if not cur or cur.version_said or t - cur.shown_at > 8:
+            return None
+        words = normalize(text).split()
+        for i in range(max(0, len(words) - 14), len(words)):
+            hit = _version_at(words, i)
+            if hit and (i == 0 or words[i - 1] not in {"a", "an"}) and (hit[0] != "AMP" or words[i:i + 2] == ["amplified", "classic"] or True):
+                if hit[0] == cur.version_shown:
+                    return None
+                cur.version_said = True
+                act = Action("show", t, reason=f"the speaker named the version ({hit[0]}) after the verse", book_id=cur.book_id, book=cur.book,
+                             chapter=cur.chapter, verse=cur.verse, heard=" ".join(words[-8:]), version=hit[0], version_source="said", late_version=True,
+                             range_end=None)
+                return act
+        return None
 
     # ------------------------------------------------------------------ 2. the speaker moves on to the next verse
     def _next_verse(self, t: float, text: str) -> Action | None:
@@ -149,7 +183,10 @@ class Follower:
                 break
             if not self.index.has_verse(cur.book_id, cur.chapter, v):
                 break
-            score = self.index.opening_matches(text, cur.book_id, cur.chapter, v, words=self.next_words)
+            after, ended = self.index.words_after_ending(text, cur.book_id, cur.chapter, cur.verse)
+            if not ended and self.index.reading_score(text, cur.book_id, cur.chapter, cur.verse) >= 78:
+                break                          # still reading the current verse (its ending is not yet heard): do not run ahead
+            score = self.index.opening_matches(after, cur.book_id, cur.chapter, v, words=self.next_words)
             if score >= self.next_threshold:
                 best = (score, v)            # the furthest verse that has begun: if two openings are in the text, the speaker is on the later one
         if not best:
@@ -192,6 +229,10 @@ class Follower:
         act = self._show(t, v.book_id, v.book, v.chapter, v.verse, reason=f"heard the verse itself ({found.version} {found.score:.2f}){note}", heard=" ".join(words[-14:]))
         if act and found.tied:
             act.tentative = True
+        if act and found.version_clear and not found.tied:
+            act.version, act.version_source = found.version, "wording"
+            if self.current:
+                self.current.version_said, self.current.version_shown = True, found.version
         return act
 
     # ------------------------------------------------------------------ the one place that decides to show

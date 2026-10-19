@@ -238,3 +238,65 @@ def test_propresenter_usx_bibles_are_read_without_footnotes_or_headings(tmp_path
     assert verses[(3, 16)] == "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish."
     assert verses[(3, 17)] == "For God did not send his Son into the world." and "God So Loved" not in " ".join(verses.values())
     assert got == {}
+
+
+# ---------------------------------------------------------------- Bible version
+def test_a_version_said_after_the_reference_is_carried_on_the_action(idx):
+    f = Follower(index=idx)
+    acts = say(f, (1.0, "final", "turn to John 3 16 in the NIV"))
+    shown_ = [a for a in acts if a.kind == "show"][0]
+    assert (shown_.reference, shown_.version, shown_.version_source) == ("John 3:16", "NIV", "said")
+
+
+def test_no_version_said_means_none_is_requested(idx):
+    f = Follower(index=idx)
+    acts = say(f, (1.0, "final", "turn to John 3 16"))
+    assert [a.version for a in acts if a.kind == "show"] == [""]
+
+
+def test_a_version_is_recognised_from_the_wording_only_when_one_bible_clearly_fits_best():
+    nivish = "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
+    esvish = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life."
+    kjv = "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
+    verses = lambda text: [Verse("JHN", "John", 3, 16, text)]
+    idx = ScriptureIndex({"NIV": verses(nivish), "ESV": verses(esvish), "KJV": verses(kjv)})
+    m = idx.match("for God so loved the world that he gave his one and only Son that whoever believes in him shall not perish but have eternal life")
+    assert m and m.version == "NIV" and m.version_clear
+    same = ScriptureIndex({"NIV": verses(esvish), "ESV": verses(esvish), "KJV": verses(esvish)})
+    m2 = same.match("for God so loved the world that he gave his only Son that whoever believes in him should not perish but have eternal life")
+    assert m2 and not m2.version_clear
+
+
+def test_pp_version_names():
+    from versevision.listen_cli import pp_version
+    assert pp_version("NIV") == "New International Version" and pp_version("NASB") == "New American Standard Bible 1995"
+    assert pp_version("MSG") == "" and pp_version("") == ""
+
+
+def test_it_does_not_jump_ahead_when_a_phrase_from_the_next_verse_occurs_inside_the_current_one():
+    v16 = "For God so loved the world, that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
+    v17 = "For God did not send his Son into the world to condemn the world, but to save the world through him."
+    v18 = "Whoever believes in him is not condemned, but whoever does not believe stands condemned already."
+    idx = ScriptureIndex({"NIV": [Verse("JHN", "John", 3, 16, v16), Verse("JHN", "John", 3, 17, v17), Verse("JHN", "John", 3, 18, v18)]})
+    f = Follower(index=idx, hold=30)
+    acts = say(f, (1.0, "final", "John 3 16"), (3.0, "partial", "his one and only son that whoever believes in him shall not perish but have eternal life"))
+    assert [a.reference for a in acts if a.kind == "show"] == ["John 3:16"]
+    more = say(f, (8.0, "partial", "shall not perish but have eternal life for God did not send his son into the world to condemn the world"))
+    assert [a.reference for a in more if a.kind == "show"] == ["John 3:17"]
+
+
+def test_a_version_named_just_after_the_verse_re_shows_it_in_that_version(idx):
+    f = Follower(index=idx, hold=30)
+    first = say(f, (1.0, "final", "Romans 8 28"))
+    later = say(f, (3.5, "final", "in the New Living Translation"))
+    shows = [a for a in first + later if a.kind == "show"]
+    assert [(a.reference, a.version) for a in shows] == [("Romans 8:28", ""), ("Romans 8:28", "NLT")] and shows[1].late_version
+
+
+def test_a_late_version_is_ignored_after_a_while_or_when_one_was_already_said(idx):
+    f = Follower(index=idx, hold=60)
+    say(f, (1.0, "final", "Romans 8 28 in the NIV"))
+    assert [a for a in say(f, (3.0, "final", "the English Standard Version")) if a.kind == "show"] == []
+    g = Follower(index=idx, hold=60)
+    say(g, (1.0, "final", "Romans 8 28"))
+    assert [a for a in say(g, (20.0, "final", "the New Living Translation")) if a.kind == "show"] == []

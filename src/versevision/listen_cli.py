@@ -112,6 +112,7 @@ def listen_command(
         except Exception as exc:
             log(f"            could not clear the screen: {exc}")
 
+    loaded_version: dict[str, str] = {}              # reference -> the version it was added under, when we chose one
     loaded: dict[str, tuple[str, int]] = {}          # reference -> (presentation uuid, slide index) for verses already added
 
     def trigger_loaded(reference: str) -> bool:
@@ -147,15 +148,19 @@ def listen_command(
         if dry_run:
             return
         t0 = time.time()
-        if act.reference in loaded:
+        if act.reference in loaded and not act.late_version and (not pp_version(act.version) or loaded_version.get(act.reference) == pp_version(act.version)):
             ok = trigger_loaded(act.reference)
             log(f"            {'on screen' if ok else 'trigger FAILED'} in {time.time() - t0:.2f}s (already in the presentation, no lookup needed)")
             if ok:
                 return
         verses = range_verses(index, act.book_id, act.chapter, act.verse, act.range_end)
         text = _lookup_text(_range_text(act.book, act.chapter, act.verse, act.range_end if len(verses) > 1 else None))
-        adding = bool(target["uuid"])
-        cmd = [str(VVADD), "--keep", "--back"] + (["--add"] if adding else []) + [text]
+        adding = bool(target["uuid"]) and not (act.late_version and act.reference in loaded)     # a re-show in another version is not a new slide
+        want_version = pp_version(act.version)
+        cmd = [str(VVADD), "--keep", "--back"] + (["--add"] if adding else []) + ([f"--version={want_version}"] if want_version else []) + [text]
+        if act.version:
+            log(f"            version {'said' if act.version_source == 'said' else 'recognised from the wording'}: {act.version}"
+                + (f" -> selecting '{want_version}'" if want_version else " (not one ProPresenter has; selector left as it was)"))
         prev = focused_uuid() if adding else ""
         before = slide_count(target["uuid"]) if adding else -1
         if adding and prev.upper() != target["uuid"].upper():
@@ -178,10 +183,14 @@ def listen_command(
                 if added_n == len(verses):
                     for i, (c, v) in enumerate(verses):
                         loaded[f"{act.book} {c}:{v}"] = (target["uuid"], before + i)
+                        if want_version:
+                            loaded_version[f"{act.book} {c}:{v}"] = want_version
                     if len(verses) > 1:
                         log(f"            all {len(verses)} verses of the range are loaded; the next ones will be triggered directly")
                 elif added_n >= 1:
                     loaded[act.reference] = (target["uuid"], before)
+                    if want_version:
+                        loaded_version[act.reference] = want_version
         except Exception as exc:                           # never let a display problem stop the listening
             log(f"            show failed for {act.reference}: {exc}")
         finally:
@@ -214,6 +223,17 @@ def listen_command(
 
 
 PP = "http://127.0.0.1:1025"
+
+# Names in ProPresenter's Bible-version dropdown. A version not listed here (or not installed) leaves the selector as it was.
+PP_VERSION_NAMES = {
+    "NIV": "New International Version", "ESV": "English Standard Version", "NLT": "New Living Translation",
+    "NKJV": "New King James Version", "KJV": "King James Version", "NASB1995": "New American Standard Bible 1995",
+    "NASB": "New American Standard Bible 1995", "AMPC": "Amplified Bible, Classic Edition", "KJ21": "21st Century King James Version",
+}
+
+
+def pp_version(abbreviation: str) -> str:
+    return PP_VERSION_NAMES.get((abbreviation or "").upper(), "")
 
 
 def _pp_get(path: str, timeout: float = 3.0):

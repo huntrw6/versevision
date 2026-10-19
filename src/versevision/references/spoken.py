@@ -156,6 +156,37 @@ def _words(text: str) -> list[str]:
     return _fix_homophones(_CLEAN.sub(" ", text).split())
 
 
+# Versions as people say them after a reference: "in the NIV", "N I V", "New Living Translation", "King James".
+_SPOKEN_VERSIONS = [
+    (("new", "international", "version"), "NIV"), (("english", "standard", "version"), "ESV"), (("new", "living", "translation"), "NLT"),
+    (("new", "king", "james"), "NKJV"), (("king", "james"), "KJV"), (("new", "american", "standard", "bible"), "NASB1995"), (("new", "american", "standard"), "NASB1995"),
+    (("amplified", "classic"), "AMPC"), (("amplified",), "AMP"),
+    (("n", "i", "v"), "NIV"), (("e", "s", "v"), "ESV"), (("n", "l", "t"), "NLT"), (("n", "k", "j", "v"), "NKJV"), (("k", "j", "v"), "KJV"),
+    (("n", "a", "s", "b"), "NASB1995"), (("niv",), "NIV"), (("esv",), "ESV"), (("nlt",), "NLT"), (("nkjv",), "NKJV"), (("kjv",), "KJV"),
+    (("nasb",), "NASB1995"), (("nasb95",), "NASB1995"), (("nasb1995",), "NASB1995"), (("ampc",), "AMPC"),
+]
+_VERSION_LEAD = {"in", "the", "from", "of", "version", "translation", "reading", "using", "its", "say", "says"}
+
+
+def _version_at(words: list[str], n: int) -> tuple[str, int] | None:
+    """A version named in the first few words after a reference. Returns (abbreviation, next index)."""
+    k = n
+    while k < len(words) and k < n + 3 and words[k] in _VERSION_LEAD:
+        k += 1
+    for phrase, abbr in _SPOKEN_VERSIONS:
+        if tuple(words[k:k + len(phrase)]) == phrase:
+            return abbr, k + len(phrase)
+    return None
+
+
+def _emit(found: list, words: list[str], start: int, written: str, n: int) -> int:
+    ver = None if re.search(r"\b[A-Z]{2,6}\d{0,4}\s*$", written) else _version_at(words, n)    # one already written next to it ("John 3:16 NIV")
+    if ver:
+        written, n = f"{written} {ver[0]}", ver[1]
+    found.append((written, " ".join(words[start:n])))
+    return n
+
+
 def spoken_to_written(text: str) -> list[tuple[str, str]]:
     """Find book + chapter (+ verse [through verse]) groups in speech. Returns [(written, heard_words)]."""
     words = _words(text)
@@ -178,7 +209,7 @@ def spoken_to_written(text: str) -> list[tuple[str, str]]:
             tail = _range_tail(words, j, words[j - 1].split(":")[0])
             if tail:
                 written, j = written + tail[0], tail[1]
-            found.append((written, " ".join(words[start:j])))
+            j = _emit(found, words, start, written, j)
             i = j
             continue
         if j < len(words) and words[j].isdigit() and len(words[j]) >= 3 and (j + 1 >= len(words) or not words[j + 1].isdigit()):
@@ -189,7 +220,7 @@ def spoken_to_written(text: str) -> list[tuple[str, str]]:
                 n = j + 1
                 if tail:
                     written, n = written + tail[0], tail[1]
-                found.append((written, " ".join(words[start:n])))
+                n = _emit(found, words, start, written, n)
                 i = n
                 continue
         chap = None
@@ -215,7 +246,7 @@ def spoken_to_written(text: str) -> list[tuple[str, str]]:
             tail = _range_tail(words, n, str(chapter))
             if tail:
                 written, n = written + tail[0], tail[1]
-            found.append((written, " ".join(words[start:n])))
+            n = _emit(found, words, start, written, n)
             i = n
             continue
         if had_verse_word or (k < len(words) and words[k - 1] == "chapter"):

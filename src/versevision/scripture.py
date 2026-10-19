@@ -52,6 +52,7 @@ class ContentMatch:
     score: float
     words: int                 # how many words of the speech lined up with the verse
     version: str
+    version_clear: bool = False  # True when this Bible's wording fits clearly better than every other Bible's for the same verse
     tied: bool = False         # True when other verses fit about as well and this one was chosen for being earliest in the Bible
     alternatives: tuple = ()   # the other verses that fit (empty unless tied)
 
@@ -260,7 +261,7 @@ class ScriptureIndex:
         return len(matched_s), w_matched / w_speech, w_matched / w_verse, span
 
     def match(self, speech: str, *, min_words: int = 8, min_cover: float = 0.62, margin: float = 0.08,
-              prefer: tuple[str, int] | None = None, max_ties: int = 4) -> ContentMatch | None:
+              prefer: tuple[str, int] | None = None, max_ties: int = 4, version_margin: float = 0.05) -> ContentMatch | None:
         """Find the one verse whose wording best matches ``speech``. None if there is none, or it is ambiguous.
 
         A verse counts when at least ``min_words`` of the speech's words line up with it in order, and those words are
@@ -280,7 +281,7 @@ class ScriptureIndex:
         if not votes:
             return None
         best_per_verse: dict[tuple[str, int, int], tuple[float, str, Verse, int]] = {}
-        for idx, count in sorted(votes.items(), key=lambda kv: -kv[1])[:40]:
+        for idx, count in sorted(votes.items(), key=lambda kv: -kv[1])[:80]:
             version, verse, vnorm = self.entries[idx]
             vwords = vnorm.split()
             if len(vwords) < 7:
@@ -297,17 +298,34 @@ class ScriptureIndex:
                 best_per_verse[key] = (score, version, verse, matched)
         if not best_per_verse:
             return None
+
+        def edition(key: tuple[str, int, int]) -> tuple[str, bool]:
+            """Which Bible the wording is closest to, and whether it is CLEARLY that one. The chosen verse is compared with
+            every loaded Bible's text of it. Many verses read the same in several editions; then nothing is claimed."""
+            texts = self.by_ref.get(key, {})
+            scores = {ver: LCSseq.normalized_similarity(words, vnorm.split()) for ver, vnorm in texts.items()}
+            if not scores:
+                return "", False
+            ordered = sorted(scores.items(), key=lambda kv: -kv[1])
+            best, top = ordered[0]
+            second = ordered[1][1] if len(ordered) > 1 else 0.0
+            return best, (top - second >= version_margin and top >= 0.8)
+
         ranked = sorted(best_per_verse.values(), key=lambda x: -x[0])
         score, version, verse, matched = ranked[0]
         tied = [r for r in ranked if r[0] >= score - margin]
         if len(tied) == 1:
-            return ContentMatch(verse, score, matched, version)
+            key = (verse.book_id, verse.chapter, verse.verse)
+            best_edition, is_clear = edition(key)
+            return ContentMatch(verse, score, matched, best_edition or version, version_clear=is_clear)
         # Two or more verses fit about equally (parallel passages: the same saying in Matthew and Luke).
         # Context decides if there is any; otherwise the one earliest in the Bible wins.
         if prefer is not None:
             near = [r for r in tied if (r[2].book_id, r[2].chapter) == prefer]
             if len(near) == 1:
-                return ContentMatch(near[0][2], near[0][0], near[0][3], near[0][1])
+                nv = near[0][2]
+                best_edition, is_clear = edition((nv.book_id, nv.chapter, nv.verse))
+                return ContentMatch(nv, near[0][0], near[0][3], best_edition or near[0][1], version_clear=is_clear)
         if len(tied) > max_ties:
             return None                       # a stock phrase found all over Scripture ("the LORD said to Moses"), not a quotation
         tied.sort(key=lambda r: self.canonical_key(r[2]))
@@ -334,3 +352,22 @@ class ScriptureIndex:
             if tail and text:
                 best = max(best, fuzz.partial_ratio(tail, text) if len(tail) <= len(text) else fuzz.partial_ratio(text, tail))
         return best
+
+    def words_after_ending(self, speech: str, book_id: str, chapter: int, verse: int) -> tuple[str, bool]:
+        """The part of ``speech`` that comes after the last words of this verse, and whether those last words were heard.
+
+        Used before moving to the next verse: a phrase near the start of verse 18 ("whoever believes in him") can also occur
+        inside verse 16, so the opening of the next verse only counts if it comes AFTER the end of the current one."""
+        words = normalize(speech).split()
+        best_k = -1
+        for text in self.verse_texts(book_id, chapter, verse):
+            tail = text.split()[-3:]
+            if len(tail) < 3:
+                continue
+            for k in range(len(words) - 3, -1, -1):
+                if words[k:k + 3] == tail:
+                    best_k = max(best_k, k + 3)
+                    break
+        if best_k < 0:
+            return speech, False
+        return " ".join(words[best_k:]), True

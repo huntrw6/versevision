@@ -15,8 +15,8 @@ func key(_ code: CGKeyCode) { for d in [true, false] { CGEvent(keyboardEventSour
 func api(_ path: String) -> [String: Any]? { guard let u = URL(string: "http://127.0.0.1:1025" + path), let d = try? Data(contentsOf: u) else { return nil }; return (try? JSONSerialization.jsonObject(with: d)) as? [String: Any] }
 
 let args = Array(CommandLine.arguments.dropFirst())
-var mode = "add"; var refs: [String] = []; var trace = false; var verifyEach = false; var waitMenu = false; var showSeconds = 0.0; var keepOnScreen = false; var alsoAdd = false; var backToShow = false
-for a in args { if a == "--live" { mode = "live" } else if a == "--trace" { trace = true } else if a == "--verify-each" { verifyEach = true } else if a == "--wait-menu" { waitMenu = true } else if a == "--keep" { keepOnScreen = true; mode = "live" } else if a == "--add" { alsoAdd = true } else if a == "--back" { backToShow = true } else if a.hasPrefix("--show=") { showSeconds = Double(a.dropFirst(7)) ?? 10; mode = "live" } else { refs.append(a) } }
+var mode = "add"; var refs: [String] = []; var trace = false; var verifyEach = false; var waitMenu = false; var showSeconds = 0.0; var keepOnScreen = false; var alsoAdd = false; var backToShow = false; var wantVersion = ""
+for a in args { if a == "--live" { mode = "live" } else if a == "--trace" { trace = true } else if a == "--verify-each" { verifyEach = true } else if a == "--wait-menu" { waitMenu = true } else if a == "--keep" { keepOnScreen = true; mode = "live" } else if a == "--add" { alsoAdd = true } else if a == "--back" { backToShow = true } else if a.hasPrefix("--version=") { wantVersion = String(a.dropFirst(10)) } else if a.hasPrefix("--show=") { showSeconds = Double(a.dropFirst(7)) ?? 10; mode = "live" } else { refs.append(a) } }
 guard let app = NSRunningApplication.runningApplications(withBundleIdentifier: "com.renewedvision.propresenter").first else { print("ProPresenter not running"); exit(1) }
 let ax = AXUIElementCreateApplication(app.processIdentifier)
 // Bring ProPresenter to the front first, because typed keys and clicks go to whatever app is in front.
@@ -58,6 +58,27 @@ if lookupField() == nil {
 var fields: [AXUIElement] = []
 findAll(win, 0, { s($0, kAXRoleAttribute) == "AXTextField" && s($0, kAXSubroleAttribute) != "AXSearchField" && (frame($0).map { $0.width > 240 && $0.minX > 250 && $0.minX < 300 && $0.minY > 90 && $0.minY < 120 } ?? false) }, &fields)
 guard let lookup = fields.first else { print("lookup field not found - is Bible mode open?"); exit(2) }
+// Bible version: pick it in the dropdown under the lookup field when one was asked for. An unknown name leaves it alone.
+func versionPopup() -> AXUIElement? {
+    var pops: [AXUIElement] = []
+    findAll(win, 0, { s($0, kAXRoleAttribute) == "AXPopUpButton" && (frame($0).map { $0.minX > 250 && $0.minX < 300 && $0.minY > 125 && $0.minY < 160 && $0.width > 200 } ?? false) }, &pops)
+    return pops.first
+}
+var versionNote = ""
+if !wantVersion.isEmpty, let pop = versionPopup() {
+    let tv = now(); let was = s(pop, kAXValueAttribute)
+    if was == wantVersion { versionNote = "version already \(wantVersion)" } else {
+        AXUIElementPerformAction(pop, kAXPressAction as CFString)
+        var items: [AXUIElement] = []; let dlv = now() + 1.0
+        while items.isEmpty && now() < dlv { findAll(pop, 0, { s($0, kAXRoleAttribute) == "AXMenuItem" }, &items); if items.isEmpty { usleep(3_000) } }
+        if let it = items.first(where: { s($0, kAXTitleAttribute) == wantVersion }) {
+            AXUIElementPerformAction(it, kAXPressAction as CFString)
+            let dlw = now() + 1.0; while s(pop, kAXValueAttribute) != wantVersion && now() < dlw { usleep(5_000) }
+            versionNote = s(pop, kAXValueAttribute) == wantVersion ? String(format: "version %@ -> %@ (%.0f ms)", was, wantVersion, (now() - tv) * 1000) : "could not switch the version (still \(s(pop, kAXValueAttribute)))"
+        } else { key(53); usleep(30_000); versionNote = "version '\(wantVersion)' is not in ProPresenter, left on \(was)" }
+    }
+    print("  " + versionNote)
+}
 guard let area = find(win, 0, { s($0, kAXRoleAttribute) == "AXGroup" && (frame($0).map { $0.width > 1500 && $0.height > 1000 && $0.minX > 240 && $0.minX < 270 } ?? false) }) else { print("bible area not found"); exit(3) }
 guard let saveAs = find(win, 0, { s($0, kAXRoleAttribute) == "AXMenuButton" && (s($0, kAXDescriptionAttribute) == "Save As…" || s($0, kAXTitleAttribute) == "Save As…") }) else { print("Save As not found"); exit(4) }
 var scrolls: [AXUIElement] = []
