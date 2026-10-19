@@ -94,6 +94,85 @@ def _load_file(path: Path, version: str) -> list[Verse]:
     return out
 
 
+# ---------------------------------------------------------------------------- ProPresenter's own installed Bibles
+# ProPresenter keeps each licensed Bible as a zip of USX XML. Reading them locally (never copying them anywhere) lets the
+# matcher hear the wording the congregation actually uses (ESV, NIV, NASB, NKJV, NLT ...).
+_USX_BOOK_IDS = {b.id for b in BOOKS}
+_SKIP_CHAR_STYLES = {"x", "xo", "xt", "f", "fr", "ft", "fq", "fk", "fqa", "ef", "ex"}
+
+
+def propresenter_bibles_dir() -> Path:
+    return Path.home() / "Library" / "Application Support" / "RenewedVision" / "RVBibles" / "v2"
+
+
+def _usx_book(xml_bytes: bytes) -> dict[tuple[int, int], str]:
+    import xml.etree.ElementTree as ET
+    root = ET.fromstring(xml_bytes.lstrip(b"\xef\xbb\xbf"))
+    out: dict[tuple[int, int], list[str]] = {}
+    chapter, verse = 0, 0
+
+    def walk(node, skip: bool) -> None:
+        nonlocal chapter, verse
+        for child in node:
+            tag = child.tag
+            if tag == "chapter":
+                chapter, verse = int(child.get("number", "0") or 0), 0
+            elif tag == "verse":
+                n = child.get("number")
+                if n and n.split("-")[0].isdigit():
+                    verse = int(n.split("-")[0])
+                out.setdefault((chapter, verse), []) if (chapter and verse) else None
+            elif tag == "note" or (tag == "char" and child.get("style") in _SKIP_CHAR_STYLES):
+                pass                                    # footnotes and cross references are not part of the verse
+            else:
+                if child.text and chapter and verse and tag in {"para", "char", "wj", "ca", "va"} and child.get("style", "") not in {"s1", "s2", "r", "mt1", "mt2", "toc1", "toc2", "h", "rem", "ide", "d", "sp"}:
+                    out.setdefault((chapter, verse), []).append(child.text)
+                walk(child, skip)
+            if child.tail and chapter and verse and node.tag in {"para", "char", "wj"} and node.get("style", "") not in {"s1", "s2", "r", "mt1", "mt2", "toc1", "toc2", "h", "rem", "ide", "d", "sp"}:
+                out.setdefault((chapter, verse), []).append(child.tail)
+
+    walk(root, False)
+    return {k: " ".join("".join(v).split()) for k, v in out.items() if "".join(v).strip()}
+
+
+def load_propresenter_bibles(directory: Path | None = None, *, only: tuple[str, ...] = ()) -> dict[str, list[Verse]]:
+    """{short name: verses} for each installed ProPresenter Bible that has the standard 66 books."""
+    import zipfile
+    directory = directory or propresenter_bibles_dir()
+    bibles: dict[str, list[Verse]] = {}
+    if not directory.exists():
+        return bibles
+    for path in sorted(directory.glob("*.rvbible")):
+        short = _short_name(path.stem)
+        if only and short not in only:
+            continue
+        try:
+            with zipfile.ZipFile(path) as z:
+                names = {Path(n).stem: n for n in z.namelist() if n.endswith(".usx") and Path(n).stem in _USX_BOOK_IDS}
+                if len(names) < 66 or any(n.count("/") != 2 for n in names.values()):
+                    continue                            # not a standard USX Bible (an audio or study edition, or a non-English one)
+                verses: list[Verse] = []
+                for book in BOOKS:
+                    if book.id not in names:
+                        continue
+                    for (c, v), text in sorted(_usx_book(z.read(names[book.id])).items()):
+                        verses.append(Verse(book.id, book.name, c, v, text))
+        except (zipfile.BadZipFile, KeyError, ValueError, OSError):
+            continue
+        if len(verses) > 20000:
+            bibles[short] = verses
+    return bibles
+
+
+def _short_name(stem: str) -> str:
+    low = stem.lower()
+    for key, name in (("english_standard", "ESV"), ("international_version", "NIV"), ("king_james_version", "NKJV"), ("new_american_standard", "NASB"),
+                      ("new_living", "NLT"), ("amplified2015", "AMP2015"), ("amplified_classic", "AMPC"), ("kjv21", "KJV21"), ("kjv", "KJVPP")):
+        if key in low:
+            return name
+    return stem
+
+
 class ScriptureIndex:
     """Searchable verses from one or more Bibles."""
 
@@ -128,13 +207,15 @@ class ScriptureIndex:
         self._book_order = {b.id: i for i, b in enumerate(BOOKS)}
 
     @classmethod
-    def load(cls, directory: Path | None = None) -> "ScriptureIndex":
+    def load(cls, directory: Path | None = None, *, propresenter: bool = True, only: tuple[str, ...] = ()) -> "ScriptureIndex":
         directory = directory or default_dir()
         bibles = {}
         for name in SOURCES:
             path = directory / f"{name}.json"
-            if path.exists():
+            if path.exists() and (not only or name in only):
                 bibles[name] = _load_file(path, name)
+        if propresenter:
+            bibles.update(load_propresenter_bibles(only=only))
         return cls(bibles)
 
     def __bool__(self) -> bool:

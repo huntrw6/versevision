@@ -71,6 +71,8 @@ def listen_command(
         except Exception as exc:
             typer.secho(f"Could not fetch the Bible text ({exc}). Continuing with spoken references only.", fg="yellow")
             content = follow = False
+    if index:
+        typer.echo("Verse wording loaded for recognition: " + ", ".join(sorted(index.bibles)))
     stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     run_dir = _log_dir() / stamp
     run_dir.mkdir(parents=True)

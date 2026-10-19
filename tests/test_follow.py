@@ -216,3 +216,25 @@ def test_the_first_show_of_a_named_range_carries_the_range_so_it_can_be_loaded_a
     assert first.reference == "Psalms 23:1" and first.range_end == (23, 3)
     more = say(f, (4.0, "partial", "the Lord is my shepherd I shall not want he makes me lie down in green pastures"))
     assert [a.range_end for a in more if a.kind == "show"] == [None]
+
+
+def test_propresenter_usx_bibles_are_read_without_footnotes_or_headings(tmp_path):
+    import zipfile
+    from versevision.references.books import BOOKS
+    from versevision.scripture import load_propresenter_bibles
+    usx = ('<?xml version="1.0" encoding="utf-8"?><usx version="2.6"><book code="JHN" style="id" /><para style="h">John</para>'
+           '<chapter number="3" style="c" /><para style="s1">God So Loved the World</para><para style="p">'
+           '<verse number="16" style="v" /><note caller="+" style="x"><char style="xo">3:16 </char><char style="xt">Rom. 5:8</char></note>'
+           'For God so loved the world, that he gave his only Son, <char style="wj">that whoever believes</char> in him <note style="f">footnote</note>should not perish.'
+           '<verse number="17" style="v" />For God did not send his Son into the world.</para></usx>')
+    path = tmp_path / "Test_English_Standard_Version_1.rvbible"
+    with zipfile.ZipFile(path, "w") as z:
+        for b in BOOKS:
+            z.writestr(f"release/USX_1/{b.id}.usx", usx if b.id == "JHN" else "<usx><book code='X'/></usx>")
+    got = load_propresenter_bibles(tmp_path)
+    # a Bible with almost no verses is skipped by the size check, so look at the parser directly
+    from versevision.scripture import _usx_book
+    verses = _usx_book(usx.encode())
+    assert verses[(3, 16)] == "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish."
+    assert verses[(3, 17)] == "For God did not send his Son into the world." and "God So Loved" not in " ".join(verses.values())
+    assert got == {}
