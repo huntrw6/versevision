@@ -162,7 +162,7 @@ On the Mac itself, `sh install-macos.sh install versevision-*.whl` does the same
 | Program | `~/.local/bin/versevision` (managed by `uv tool`) |
 | Settings and API keys | `~/Library/Application Support/versevision/config.toml`, `keys.env` |
 | Import history (for Undo) | `~/Library/Application Support/versevision/imports.json` |
-| Backups and helper | `~/VerseVision-backups`, `~/VerseVision-tools` |
+| Backups and helper | `~/VerseVision-backups`, `~/VerseVision-tools/vvdialog` (VerseVision STT, the listener, keeps its own files in `~/VerseVision-STT`) |
 | Start at login | `~/Library/LaunchAgents/org.versevision.serve.plist` (`versevision autostart enable/disable`) |
 
 Open the page at `http://127.0.0.1:8777/` on that Mac.

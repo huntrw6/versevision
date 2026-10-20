@@ -3,9 +3,10 @@
 #   install/update:  sh install-macos.sh install  versevision-*.whl
 #   remove:          sh install-macos.sh uninstall [--purge]
 # Installed files: ~/.local/bin/versevision, ~/.local/share/uv/tools/versevision, ~/.config/versevision,
-#                  ~/.local/share/versevision (history), ~/VerseVision-backups, ~/VerseVision-tools.
+#                  ~/.local/share/versevision (history), ~/VerseVision-backups, ~/VerseVision-tools/vvdialog.
+# Separate from VerseVision STT (huntrw6/versevision-stt), which has its own tool, command and ~/VerseVision-STT folder.
 # `uninstall` removes the program and the start-at-login item. --purge also removes settings, keys,
-# history and helper tools. ProPresenter backups in ~/VerseVision-backups are only removed with --purge.
+# history and the vvdialog helper. ProPresenter backups in ~/VerseVision-backups are only removed with --purge.
 set -eu
 export PATH="$HOME/.local/bin:$PATH"
 cmd="${1:-}"; shift || true
@@ -23,8 +24,12 @@ case "$cmd" in
     rm -f "$HOME/Library/LaunchAgents/org.versevision.serve.plist"
     uv tool uninstall versevision >/dev/null 2>&1 || true
     if [ "${1:-}" = "--purge" ]; then
-      rm -rf "$HOME/.config/versevision" "$HOME/.local/share/versevision" "$HOME/.local/state/versevision" "$HOME/VerseVision-tools" "$HOME/VerseVision-backups"
-      echo "Removed VerseVision and all of its settings, history, helpers and backups."
+      rm -rf "$HOME/.config/versevision" "$HOME/.local/share/versevision" "$HOME/.local/state/versevision" "$HOME/VerseVision-backups"
+      # Helper folder: remove ONLY the file this program put there. ~/VerseVision-tools may also hold the VerseVision STT listener
+      # (an earlier combined install kept it there), so the folder itself is never deleted wholesale.
+      rm -f "$HOME/VerseVision-tools/vvdialog"
+      rmdir "$HOME/VerseVision-tools" 2>/dev/null || true
+      echo "Removed VerseVision and all of its settings, history and backups. (VerseVision STT, if installed, was not touched.)"
     else
       echo "Removed the VerseVision program and start-at-login item. Settings, history and backups were kept (use --purge to remove them)."
     fi
