@@ -93,7 +93,8 @@ def test_it_does_not_run_past_the_end_of_a_named_range(idx):
     acts = say(f, (1.0, "final", "look at Psalm 23 1 through 2"), (3.0, "partial", "the Lord is my shepherd I shall not want he makes me lie down in green pastures"),
                (6.0, "partial", "he leads me in the paths of righteousness for his name's sake"),
                (9.0, "partial", "yea though I walk through the valley of the shadow of death"))
-    assert [a.reference for a in acts if a.kind == "show"] == ["Psalms 23:1", "Psalms 23:2"]
+    assert [a.reference for a in acts if a.kind == "show"][:2] == ["Psalms 23:1", "Psalms 23:2"]
+    assert "Psalms 23:3" not in [a.reference for a in acts if a.kind == "show"]
 
 
 def test_a_single_verse_reference_keeps_following_when_the_speaker_reads_on(idx):
@@ -401,7 +402,8 @@ def test_a_wrong_assumption_is_withdrawn_when_the_speaker_moves_on_to_something_
     say(f, (4.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge"))
     voice(f, 6.0)
     acts = say(f, (9.5, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge so what does this mean for us today as a church"))
-    assert [a.kind for a in acts] == ["clear"] and f.current is None
+    shows = [a for a in acts if a.kind == "show"]
+    assert [a.reference for a in shows] == ["2 Peter 1:5"] and "back to the verse before" in shows[0].reason
 
 
 def test_a_wrong_assumption_returns_to_the_previous_verse_when_the_speaker_was_only_pausing():
@@ -549,3 +551,48 @@ def test_a_guess_is_not_withdrawn_in_its_first_seconds_on_garbled_words_alone():
     voice(f, 4.6)
     acts = say(f, (5.8, "partial", "so and the bible says for the most glorious kinds of"))
     assert [a for a in acts if a.kind in ("show", "clear")] == [] and f.current.verse == 3
+
+
+# ---------------------------------------------------------------- the verse slide map
+def test_slide_map_finds_verse_slides_from_their_text():
+    from versevision.slidemap import SlideMap
+    texts = ["1) Test point", "John 3:16 (NIV)\nFor God so loved", "James 1:2 (ESV)\nCount it all joy", "James 1:3 (ESV)\nfor you know", "James 1:4 (NIV)\nAnd let", "Psalm 23:1 (NKJV)\nThe LORD"]
+    m = SlideMap.from_texts("U", texts)
+    assert m.find("JAS", 1, 3).index == 3 and m.find("JAS", 1, 4).version == "NIV" and m.find("PSA", 23, 1).index == 5
+    assert m.find("JAS", 1, 9) is None and m.find("JAS", 1, 4, version="ESV") is None
+    assert m.find("JAS", 1, 3, version="ESV").index == 3
+
+
+def test_slide_map_prefers_the_version_in_use_and_otherwise_the_newest():
+    from versevision.slidemap import SlideMap
+    m = SlideMap.from_texts("U", ["James 1:3 (ESV)\nx", "James 1:3 (NIV)\nx", "James 1:3 (ESV)\nx"])
+    assert m.find("JAS", 1, 3, prefer="NIV").index == 1 and m.find("JAS", 1, 3).index == 2
+
+
+def test_slide_map_reports_which_verses_ahead_are_already_slides():
+    from versevision.slidemap import SlideMap
+    m = SlideMap.from_texts("U", ["James 1:2 (ESV)\nx", "James 1:3 (ESV)\nx", "James 1:4 (ESV)\nx", "James 1:6 (ESV)\nx"])
+    have, missing = m.ahead("JAS", 1, 2, 4)
+    assert have == [3, 4, 6] and missing == [5]
+
+
+def test_slide_map_ignores_slides_that_are_not_bible_lookups():
+    from versevision.slidemap import SlideMap
+    m = SlideMap.from_texts("U", ["Title Slide 10sec", "Welcome to church at 10:30 (the service)", "", "Romans 8:28 (NIV) And we know"])
+    assert list(m.verses) == [("ROM", 8, 28)]
+
+
+# ---------------------------------------------------------------- replays of real listening logs (regression)
+def _replay_score(path, book, chapter):
+    import importlib.util, pathlib
+    spec = importlib.util.spec_from_file_location("score_listen", pathlib.Path(__file__).with_name("score_listen.py"))
+    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    return mod.run(path, book, chapter)
+
+
+@pytest.mark.skipif("ESV" not in ScriptureIndex.load().bibles, reason="the logged reading is ESV; needs ProPresenter's installed ESV (present on the church iMac)")
+def test_real_log_1_corinthians_14_stays_mostly_on_the_verse_being_read():
+    import pathlib
+    stats, flicker, lat, events = _replay_score(str(pathlib.Path(__file__).parent / "fixtures" / "listen" / "live_1cor14.jsonl"), "1CO", 14)
+    n = max(1, stats["rows"])
+    assert stats["ok"] / n >= 0.75 and stats["early"] / n <= 0.15 and flicker <= 10

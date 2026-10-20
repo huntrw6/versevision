@@ -224,7 +224,7 @@ final class WhisperListener {
         if !prompt.isEmpty { field("prompt", prompt) }
         body.append("--\(boundary)\r\nContent-Disposition: form-data; name=\"file\"; filename=\"a.wav\"\r\nContent-Type: audio/wav\r\n\r\n".data(using: .utf8)!)
         body.append(wav(s)); body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
-        var req = URLRequest(url: url.appendingPathComponent("inference")); req.httpMethod = "POST"; req.timeoutInterval = 20
+        var req = URLRequest(url: url.appendingPathComponent("inference")); req.httpMethod = "POST"; req.timeoutInterval = 7
         req.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type"); req.httpBody = body
         var result: String? = nil
         let done = DispatchSemaphore(value: 0)
@@ -248,7 +248,7 @@ func dB(_ x: Float) -> String { x < 0.00001 ? "-inf" : String(format: "%.0f", 20
 if engineName == "whisper" {
     guard let u = opt("--whisper"), let url = URL(string: u) else { emit("status", "--whisper http://host:port is required", t0); exit(8) }
     let wl = WhisperListener(url: url, prompt: opt("--prompt") ?? "", t0: t0, step: Double(opt("--step") ?? "") ?? 0.5,
-                             silence: Double(opt("--silence") ?? "") ?? 0.6, maxUtter: Double(opt("--max-utterance") ?? "") ?? 14)
+                             silence: Double(opt("--silence") ?? "") ?? 0.6, maxUtter: Double(opt("--max-utterance") ?? "") ?? 9)
     guard let target = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 16000, channels: 1, interleaved: false),
           let monoFmt = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: fmt.sampleRate, channels: 1, interleaved: false),
           let conv = AVAudioConverter(from: monoFmt, to: target) else { emit("status", "cannot convert audio", t0); exit(9) }

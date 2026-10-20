@@ -102,8 +102,9 @@ class Follower:
     pending: list = field(default_factory=list)
     _last_text: str = ""
     wps: float = 2.7                     # the speaker's reading pace in words per second of speech; learned as verses are read
+    min_read_seconds: float = 2.5        # a verse must have been on screen this long before the next one can be guessed
     est_progress: float = 0.85           # an assumption needs this much of the verse to be accounted for by speaking time
-    min_transcript_share: float = 0.4    # ... while the transcript must already show it is this verse (it lags the voice by ~1.5 s)
+    min_transcript_share: float = 0.55    # ... while the transcript must already show it is this verse (it lags the voice by ~1.5 s)
     _segments: list = field(default_factory=list)   # [start, end] of each stretch of speech heard; end is None while it is going on
     _voice_at: float = -1e9              # when speech was last heard to start
     _quiet_since: float = -1e9
@@ -335,7 +336,10 @@ class Follower:
         if words < 4:
             return cur.reading_share
         spoken = self._speaking_since(cur.read_started, t) * self.wps
-        return max(cur.reading_share, min(1.0, spoken / words))
+        # The transcript is about 2 s behind the voice, so the speaker can be at most that far ahead of what it shows: the timing
+        # estimate may add the words of those 2 s to the transcript's share, but no more (a long pause or an aside is not reading).
+        ahead = min(1.0, cur.reading_share + (self.wps * 2.2) / words)
+        return max(cur.reading_share, min(spoken / words, ahead))
 
     def _learn_pace(self, cur: "Shown", t: float) -> None:
         """A verse that was read through and confirmed teaches the pace (words per second of speech)."""
@@ -352,6 +356,8 @@ class Follower:
             return None                                   # one guess at a time: a guess is never built on a guess
         if self._estimated_share(cur, t) < self.est_progress or t - cur.last_activity > self.assume_window + 6:
             return None
+        if t - cur.shown_at < self.min_read_seconds:
+            return None                                   # the verse only just came up: it cannot have been read through yet
         nxt = self._next_in_line(cur)
         return (cur, nxt) if nxt else None
 
@@ -426,19 +432,15 @@ class Follower:
                 self.current.reading_share = 1.0
             return [act] if act else []
         if waited >= 3.0 and (len(after) >= self.verify_words or (waited >= self.verify_timeout and len(after) >= 3)):
-            # not the next verse. Is it still the verse before (a pause in the middle of it), or something else?
-            back = self.index.reading_score(" ".join(words[-14:]), pb, pc, pv)
+            # Not the next verse. Go back to the verse before: it was read to its end, so it is the right thing to leave up (the hold
+            # timer clears it later). Anything the speaker says next is read from there.
             cur.assumed = False
-            if back >= 70:
-                self.current = None
-                act = self._show(t, pb, cur.book, pc, pv, range_end=cur.range_end, reason="the guess at the next verse was wrong: the speaker is still in the one before", heard=" ".join(after[:8]))
-                if act:
-                    self.current.reading_share = 0.5
-                return [act] if act else []
             self.shown_at.pop((book_id, chapter, verse), None)
-            self.last = self.current
             self.current = None
-            return [Action("clear", t, reason=f"the guess at {cur.book} {chapter}:{verse} was not confirmed by what followed")]
+            act = self._show(t, pb, cur.book, pc, pv, range_end=cur.range_end, reason="the guess at the next verse was wrong: back to the verse before", heard=" ".join(after[:8]))
+            if act:
+                self.current.reading_share = 1.0
+            return [act] if act else []
         if waited >= 12:                                  # nothing more heard for a long time: let the normal hold timer decide
             cur.confirmed = True
         return []
@@ -586,6 +588,10 @@ class Follower:
         self.current = Shown(book_id, book, chapter, verse, t, t, range_end=range_end, followed=followed)
         self.last = self.current
         if self.current:
+            if reason.startswith(("the speaker began reading", "heard the verse itself", "heard only a chapter")) and self.index:
+                # the words that made us show it were the verse's opening: the speaker is already part-way into it
+                share, _ = self.index.progress(heard, book_id, chapter, verse)
+                self.current.reading_share = max(self.current.reading_share, share)
             if reason.startswith("assumed"):
                 self.current.read_started = t
             elif reason.startswith(("the speaker began reading", "heard the verse itself")):

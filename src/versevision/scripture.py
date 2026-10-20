@@ -396,6 +396,69 @@ class ScriptureIndex:
                 run_start = k
         return best_len, w_kept / w_all, kept[-1] >= len(speech_words) - 3, best_start
 
+    def progress(self, speech: str, book_id: str, chapter: int, verse: int, *, last_words: int = 60) -> tuple[float, int]:
+        """How far through this verse has the speaker got? Returns (share of the verse read, 0-1; index in the speech's words just
+        after the verse's ending, or -1 if the ending has not been heard).
+
+        The share counts a dense run of the verse's words heard in order, starting at the verse's OPENING. Scattered matches (a few
+        words that the previous or next verse happens to share) do not count: that used to make a verse look finished while the
+        speaker was still part-way through it."""
+        words = normalize(speech).split()[-last_words:]
+        best = (0.0, -1)
+        for text in self.verse_texts(book_id, chapter, verse):
+            vw = text.split()
+            if len(vw) < 4 or len(words) < 3:
+                continue
+            ops = LCSseq.editops(words, vw)
+            gone_s = {op.src_pos for op in ops if op.tag == "delete"}
+            gone_v = {op.dest_pos for op in ops if op.tag == "insert"}
+            pairs = list(zip([i for i in range(len(words)) if i not in gone_s], [j for j in range(len(vw)) if j not in gone_v]))
+            run_best: list[tuple[int, int]] = []
+            run: list[tuple[int, int]] = []
+            for si, vj in pairs:
+                if run and (vj - run[-1][1] > 3 or si - run[-1][0] > 5):
+                    run = []
+                run.append((si, vj))
+                if run[0][1] <= max(3, int(0.25 * len(vw))) and len(run) > len(run_best):
+                    run_best = list(run)
+            share = len(run_best) / len(vw)
+            end = -1
+            tail = " ".join(vw[-3:])
+            if share >= 0.5:
+                for k in range(len(words), 2, -1):                   # a fuzzy match of the verse's last three words
+                    if fuzz.ratio(" ".join(words[k - 3:k]), tail) >= 80:
+                        end = k
+                        break
+            if end >= 0:
+                share = max(share, 0.95)
+            if (share, end) > best:
+                best = (share, end)
+        return best
+
+    def tail_fit(self, speech_words: list[str], verse_words: list[str]) -> tuple[int, float, bool, int]:
+        """How well the END of the speech fits one verse: (words that line up in order, weighted share of the speech that lines up,
+        whether the speaker's very last words are among them, where in the verse the first matched word sits)."""
+        if not speech_words or not verse_words:
+            return 0, 0.0, False, 0
+        ops = LCSseq.editops(speech_words, verse_words)
+        gone = {op.src_pos for op in ops if op.tag == "delete"}
+        gone_v = {op.dest_pos for op in ops if op.tag == "insert"}
+        kept = [i for i in range(len(speech_words)) if i not in gone]
+        kept_v = [j for j in range(len(verse_words)) if j not in gone_v]
+        if not kept:
+            return 0, 0.0, False, 0
+        w_all = sum(self._idf(w) for w in speech_words) or 1.0
+        w_kept = sum(self._idf(speech_words[i]) for i in kept)
+        # Where the matched words sit in the verse. Words scattered across a long verse (an early "and", then "of the Lord Jesus
+        # Christ" near its end) are a coincidence, not a quotation: count only the densest run of matched verse positions.
+        best_start, best_len, run_start = 0, 0, 0
+        for k in range(1, len(kept_v) + 1):
+            if k == len(kept_v) or kept_v[k] - kept_v[k - 1] > 2:
+                if k - run_start > best_len:
+                    best_start, best_len = kept_v[run_start], k - run_start
+                run_start = k
+        return best_len, w_kept / w_all, kept[-1] >= len(speech_words) - 3, best_start
+
     def progress(self, speech: str, book_id: str, chapter: int, verse: int, *, last_words: int = 45) -> tuple[float, int]:
         """How far through this verse has the speaker got? Returns (share of the verse's words heard in order, 0-1; index in the
         speech's words just after the verse's ending, or -1 if the ending has not been heard)."""

@@ -1,0 +1,226 @@
+{"kind":"status","text":"checking Microphone permission (an Allow box appears only the first time)","t":0.0050000000000000001,"w":1792463929.914}
+{"w":1792463930.154,"kind":"status","t":0.245,"text":"input: Dante Virtual Soundcard"}
+{"w":1792463930.1889999,"text":"VerseVision Listen 0.9 - Whisper (48000 Hz input, server http:\/\/127.0.0.1:8178)","kind":"status","t":0.28000000000000003}
+{"t":5.2800000000000002,"kind":"status","text":"level 0.000 gain x1.0 (+0 dB); input peak -66 dBFS, rms -79 dBFS; after gain peak -66 dBFS (ch1 0.000, ch2 0.001)","w":1792463935.1889999}
+{"kind":"status","w":1792463939.3889999,"t":9.4800000000000004,"text":"speech start"}
+{"kind":"status","t":10.279999999999999,"w":1792463940.1889999,"text":"level 0.008 gain x1.5 (+3 dB); input peak -25 dBFS, rms -39 dBFS; after gain peak -21 dBFS (ch1 0.000, ch2 0.057)"}
+{"t":12.096,"w":1792463942.0050001,"kind":"partial","text":"Pursue love and earnestly desire"}
+{"kind":"status","t":12.880000000000001,"w":1792463942.789,"text":"speech end"}
+{"kind":"partial","t":12.898999999999999,"w":1792463942.8080001,"text":"Pursue love and earnestly desire the spiritual gift"}
+{"t":13.08,"kind":"status","text":"speech start","w":1792463942.9890001}
+{"t":13.728,"text":"\"Pursue love and earnestly desire the spiritual gifts,","kind":"partial","w":1792463943.6370001}
+{"t":14.536,"w":1792463944.4449999,"kind":"partial","text":"Pursue love and earnestly desire the spiritual gifts, especially that"}
+{"kind":"status","w":1792463944.8889999,"t":14.98,"text":"speech end"}
+{"w":1792463945.1889999,"t":15.279999999999999,"text":"level 0.005 gain x3.2 (+10 dB); input peak -30 dBFS, rms -42 dBFS; after gain peak -20 dBFS (ch1 0.000, ch2 0.030)","kind":"status"}
+{"w":1792463945.3699999,"text":"Pursue love and earnestly desire the spiritual gifts, especially that you may prophesy.","kind":"partial","t":15.461}
+{"kind":"status","t":17.079999999999998,"w":1792463946.9890001,"text":"speech start"}
+{"kind":"final","t":17.206,"w":1792463947.115,"text":"Pursue love and earnestly desire the spiritual gifts, especially that you may prophesy."}
+{"kind":"partial","w":1792463947.9949999,"text":"For","t":18.085999999999999}
+{"kind":"partial","t":18.914999999999999,"w":1792463948.8239999,"text":"For one who does not speak,"}
+{"text":"speech end","t":19.379999999999999,"kind":"status","w":1792463949.289}
+{"kind":"status","t":19.579000000000001,"w":1792463949.4879999,"text":"speech start"}
+{"w":1792463949.622,"text":"For one who does not speak in a tongue,","kind":"partial","t":19.713000000000001}
+{"kind":"status","w":1792463950.1889999,"t":20.280000000000001,"text":"level 0.012 gain x4.1 (+12 dB); input peak -32 dBFS, rms -44 dBFS; after gain peak -20 dBFS (ch1 0.000, ch2 0.026)"}
+{"kind":"status","t":21.978999999999999,"w":1792463951.888,"text":"speech end"}
+{"text":"speech start","t":22.379999999999999,"kind":"status","w":1792463952.289}
+{"w":1792463953.1889999,"t":23.280000000000001,"kind":"status","text":"speech end"}
+{"text":"speech start","kind":"status","w":1792463953.9890001,"t":24.079999999999998}
+{"kind":"status","t":24.780000000000001,"w":1792463954.6889999,"text":"speech end"}
+{"kind":"status","t":25.178999999999998,"w":1792463955.0880001,"text":"speech start"}
+{"text":"level 0.004 gain x4.6 (+13 dB); input peak -32 dBFS, rms -45 dBFS; after gain peak -18 dBFS (ch1 0.000, ch2 0.026)","w":1792463955.188,"t":25.279,"kind":"status"}
+{"w":1792463955.388,"text":"speech end","kind":"status","t":25.478999999999999}
+{"kind":"status","t":25.678999999999998,"w":1792463955.5880001,"text":"speech start"}
+{"w":1792463956.763,"text":"For one who does not speak in a tongue, speak in a tongue.","kind":"partial","t":26.853999999999999}
+{"t":28.978999999999999,"w":1792463958.888,"kind":"status","text":"speech end"}
+{"kind":"status","t":29.178999999999998,"w":1792463959.0880001,"text":"speech start"}
+{"kind":"status","t":30.279,"w":1792463960.188,"text":"speech end"}
+{"kind":"status","t":30.279,"w":1792463960.188,"text":"level 0.022 gain x3.8 (+12 dB); input peak -24 dBFS, rms -35 dBFS; after gain peak -12 dBFS (ch1 0.000, ch2 0.065)"}
+{"kind":"status","w":1792463960.388,"t":30.478999999999999,"text":"speech start"}
+{"w":1792463960.404,"t":30.495000000000001,"text":"For one who does not speak in a tongue speaks not to men, but to God.","kind":"final"}
+{"w":1792463961.0710001,"t":31.161999999999999,"text":"No one understands him.","kind":"partial"}
+{"kind":"partial","t":32.064,"w":1792463961.973,"text":"No one understands him, but he utters mysteries in the spirit. On the other hand, the one who prophesied"}
+{"t":33.027000000000001,"w":1792463962.9360001,"kind":"partial","text":"No one understands him, but he utters mysteries in the spirit. On the other hand, the one who prophesies speaks to"}
+{"kind":"status","text":"speech end","t":33.878999999999998,"w":1792463963.7880001}
+{"t":34.161999999999999,"kind":"partial","text":"No one understands him, but he utters mysteries in the spirit. On the other hand, the one who prophesies speaks to people for their up-to-date.","w":1792463964.0710001}
+{"t":34.179000000000002,"kind":"status","text":"speech start","w":1792463964.0880001}
+{"t":35.079000000000001,"kind":"status","text":"speech end","w":1792463964.9879999}
+{"t":35.148000000000003,"w":1792463965.0580001,"kind":"partial","text":"He understands him, but he utters mysteries in the spirit. On the other hand, the one who prophesies speaks to people for their upbringing,"}
+{"t":35.279000000000003,"w":1792463965.188,"kind":"status","text":"speech start"}
+{"t":35.279000000000003,"w":1792463965.188,"kind":"status","text":"level 0.020 gain x4.0 (+12 dB); input peak -27 dBFS, rms -36 dBFS; after gain peak -15 dBFS (ch1 0.000, ch2 0.045)"}
+{"t":35.965000000000003,"w":1792463965.8740001,"kind":"partial","text":"The one who prophesies speaks to people for their upbringing, upbuilding,"}
+{"kind":"partial","text":"On the other hand, the one who prophesies speaks to people for their upbringing, upbuilding and encouragement.","w":1792463966.7509999,"t":36.841999999999999}
+{"w":1792463967.6700001,"text":"On the other hand, the one who prophesies speaks to people for their upbringing, upbuilding and encouragement and connection.","kind":"partial","t":37.761000000000003}
+{"w":1792463967.9879999,"t":38.079000000000001,"text":"speech end","kind":"status"}
+{"t":38.619,"w":1792463968.5280001,"kind":"partial","text":"And the one who prophesies speaks to people for their upbringing, upbuilding and encouragement and consolidation."}
+{"kind":"status","t":38.978999999999999,"w":1792463968.888,"text":"speech start"}
+{"w":1792463969.444,"t":39.534999999999997,"kind":"partial","text":"The prophet who prophesies speaks to people for their upbringing, upbuilding and encouragement and consolidation."}
+{"text":"speech end","t":39.978000000000002,"kind":"status","w":1792463969.8870001}
+{"t":40.279000000000003,"kind":"status","w":1792463970.188,"text":"level 0.010 gain x4.1 (+12 dB); input peak -26 dBFS, rms -39 dBFS; after gain peak -14 dBFS (ch1 0.000, ch2 0.051)"}
+{"text":"speech start","t":40.579000000000001,"kind":"status","w":1792463970.4879999}
+{"t":40.639000000000003,"kind":"final","text":"No one understands him, but he utters mysteries in the spirit. On the other hand, the one who prophesies speaks to people for their upbringing, upbuilding, and building.","w":1792463970.5480001}
+{"t":41.536000000000001,"kind":"partial","text":"And consolidation.","w":1792463971.4449999}
+{"text":"The one who speaks","w":1792463972.1860001,"t":42.277000000000001,"kind":"partial"}
+{"kind":"status","text":"speech end","t":42.978999999999999,"w":1792463972.888}
+{"kind":"status","w":1792463973.8870001,"t":43.978000000000002,"text":"speech start"}
+{"t":45.277999999999999,"kind":"status","w":1792463975.187,"text":"speech end"}
+{"t":45.279000000000003,"kind":"status","w":1792463975.188,"text":"level 0.019 gain x4.2 (+12 dB); input peak -24 dBFS, rms -36 dBFS; after gain peak -12 dBFS (ch1 0.000, ch2 0.060)"}
+{"kind":"status","w":1792463976.0880001,"t":46.179000000000002,"text":"speech start"}
+{"w":1792463978.3570001,"t":48.448,"text":"Consolation, the one who speaks in a tongue,","kind":"partial"}
+{"text":"speech end","t":48.878999999999998,"w":1792463978.7880001,"kind":"status"}
+{"w":1792463979.131,"kind":"final","text":"Consolation, the one who speaks in a tongue,","t":49.222000000000001}
+{"kind":"status","t":49.878999999999998,"w":1792463979.7880001,"text":"speech start"}
+{"kind":"final","text":"The one who speaks in a tongue builds up himself.","w":1792463979.9230001,"t":50.014000000000003}
+{"w":1792463980.188,"t":50.279000000000003,"text":"level 0.046 gain x4.3 (+13 dB); input peak -28 dBFS, rms -39 dBFS; after gain peak -16 dBFS (ch1 0.000, ch2 0.038)","kind":"status"}
+{"kind":"partial","t":50.807000000000002,"w":1792463980.7160001,"text":"Builds up himself, but the one that prophesies builds up the church."}
+{"t":51.616,"text":"Builds up himself, but the one that prophesies builds up the church.","kind":"final","w":1792463981.5250001}
+{"t":52.341999999999999,"kind":"partial","w":1792463982.2509999,"text":"The one that prophesies builds up the church."}
+{"text":"speech end","t":53.078000000000003,"kind":"status","w":1792463982.987}
+{"kind":"partial","text":"The one that prophesies builds up the church. Now I want you all to speak in tongues.","w":1792463983.128,"t":53.219000000000001}
+{"t":53.677999999999997,"kind":"status","text":"speech start","w":1792463983.5869999}
+{"w":1792463985.036,"text":"The one that prophesies builds up the church. Now I want you all to speak in tongues, but even more","t":55.127000000000002,"kind":"partial"}
+{"kind":"status","w":1792463985.187,"text":"level 0.020 gain x3.8 (+12 dB); input peak -25 dBFS, rms -35 dBFS; after gain peak -13 dBFS (ch1 0.000, ch2 0.059)","t":55.277999999999999}
+{"t":55.378,"kind":"status","text":"speech end","w":1792463985.2869999}
+{"w":1792463985.8940001,"text":"Now I want you all to speak in tongues, but even more to prophesy.","kind":"partial","t":55.984999999999999}
+{"kind":"status","w":1792463985.987,"t":56.078000000000003,"text":"speech start"}
+{"t":57.716000000000001,"kind":"partial","text":"Now I want you all to speak in tongues, but even more to prophesy, the one who writes","w":1792463987.625}
+{"t":58.478000000000002,"kind":"status","text":"speech end","w":1792463988.3870001}
+{"kind":"partial","t":58.654000000000003,"w":1792463988.563,"text":"Now I want you all to speak in tongues, but even more to prophesy. The one who writes prophecies is"}
+{"w":1792463988.687,"text":"speech start","kind":"status","t":58.777999999999999}
+{"kind":"partial","t":59.557000000000002,"w":1792463989.4660001,"text":"You all to speak in tongues, but even more to prophesy. The one who writes prophecies is great."}
+{"kind":"status","w":1792463990.187,"t":60.277999999999999,"text":"level 0.015 gain x3.9 (+12 dB); input peak -28 dBFS, rms -40 dBFS; after gain peak -16 dBFS (ch1 0.000, ch2 0.039)"}
+{"w":1792463990.211,"text":"The one who writes prophecies is greater than the","kind":"partial","t":60.302}
+{"w":1792463991.115,"text":"But even more to prophesy, the one who writes prophecies is greater than the one who speaks","kind":"partial","t":61.206000000000003}
+{"w":1792463991.3870001,"text":"speech end","t":61.478000000000002,"kind":"status"}
+{"w":1792463991.8870001,"text":"speech start","t":61.978000000000002,"kind":"status"}
+{"w":1792463995.187,"text":"level 0.016 gain x4.1 (+12 dB); input peak -27 dBFS, rms -38 dBFS; after gain peak -15 dBFS (ch1 0.000, ch2 0.044)","kind":"status","t":65.278000000000006}
+{"kind":"status","t":65.778000000000006,"w":1792463995.687,"text":"speech end"}
+{"t":66.376999999999995,"kind":"status","text":"speech start","w":1792463996.286}
+{"kind":"status","w":1792463997.2869999,"text":"speech end","t":67.378}
+{"t":67.578000000000003,"kind":"status","text":"speech start","w":1792463997.487}
+{"kind":"status","w":1792463999.687,"text":"speech end","t":69.778000000000006}
+{"kind":"status","w":1792463999.8870001,"text":"speech start","t":69.977999999999994}
+{"t":70.278000000000006,"w":1792464000.187,"kind":"status","text":"level 0.060 gain x4.0 (+12 dB); input peak -23 dBFS, rms -35 dBFS; after gain peak -11 dBFS (ch1 0.000, ch2 0.070)"}
+{"t":70.986000000000004,"text":"I want you all to speak in tongues, but even more to prophesy, the one who write the one who write the one who write the one who write the one who write the one that prophesies and builds up the church. Now I want you all to speak in tongues, but even more to prophesy.","w":1792464000.895,"kind":"final"}
+{"t":71.700999999999993,"text":"Then the one who speaks in tongues.","w":1792464001.6099999,"kind":"partial"}
+{"kind":"partial","t":72.716999999999999,"w":1792464002.6259999,"text":"But the church may be built up. Now brothers, if I come to you speaking in tongues, how will I benefit you in less"}
+{"t":73.667000000000002,"kind":"partial","text":"Now brothers, if I come to you speaking in tongues, how will I benefit you unless I bring you some","w":1792464003.576}
+{"w":1792464003.8870001,"text":"speech end","t":73.977999999999994,"kind":"status"}
+{"w":1792464004.0869999,"t":74.177999999999997,"text":"speech start","kind":"status"}
+{"w":1792464005.187,"text":"level 0.020 gain x4.1 (+12 dB); input peak -27 dBFS, rms -39 dBFS; after gain peak -15 dBFS (ch1 0.000, ch2 0.045)","t":75.278000000000006,"kind":"status"}
+{"kind":"status","t":76.477000000000004,"text":"speech end","w":1792464006.3859999}
+{"w":1792464007.3859999,"text":"speech start","t":77.477000000000004,"kind":"status"}
+{"w":1792464010.1860001,"text":"level 0.032 gain x4.2 (+12 dB); input peak -24 dBFS, rms -37 dBFS; after gain peak -12 dBFS (ch1 0.000, ch2 0.062)","t":80.277000000000001,"kind":"status"}
+{"t":81.376999999999995,"w":1792464011.286,"kind":"status","text":"speech end"}
+{"w":1792464011.586,"text":"speech start","t":81.677000000000007,"kind":"status"}
+{"t":83.376999999999995,"kind":"status","text":"speech end","w":1792464013.286}
+{"kind":"final","text":"1 Thessalonians, Ephesians, Revelation, Revelation, verse 8","w":1792464013.2969999,"t":83.388000000000005}
+{"kind":"status","t":83.777000000000001,"w":1792464013.6860001,"text":"speech start"}
+{"kind":"partial","t":84.055999999999997,"w":1792464013.9649999,"text":"I bring you some revelation."}
+{"kind":"final","text":"I bring you some revelation or knowledge or prophecy or teaching.","t":84.802999999999997,"w":1792464014.7119999}
+{"w":1792464015.1860001,"text":"level 0.033 gain x4.4 (+13 dB); input peak -26 dBFS, rms -38 dBFS; after gain peak -13 dBFS (ch1 0.000, ch2 0.049)","kind":"status","t":85.277000000000001}
+{"w":1792464015.573,"text":"If even lifeless instruments such as the flute or the harp do not give distinct notes, how will any","kind":"partial","t":85.664000000000001}
+{"kind":"status","w":1792464015.6860001,"t":85.777000000000001,"text":"speech end"}
+{"w":1792464016.5020001,"text":"Even lifeless instruments such as the flute or the harp do not give distinct notes. How will anyone know what is played?","t":86.593000000000004,"kind":"partial"}
+{"kind":"status","w":1792464017.9860001,"text":"speech start","t":88.076999999999998}
+{"t":90.277000000000001,"kind":"status","text":"level 0.023 gain x2.7 (+9 dB); input peak -22 dBFS, rms -32 dBFS; after gain peak -14 dBFS (ch1 0.000, ch2 0.077)","w":1792464020.1860001}
+{"kind":"status","t":90.576999999999998,"w":1792464020.4860001,"text":"speech end"}
+{"w":1792464020.6849999,"t":90.775999999999996,"kind":"status","text":"speech start"}
+{"kind":"status","t":92.177000000000007,"w":1792464022.086,"text":"speech end"}
+{"kind":"status","w":1792464023.286,"t":93.376999999999995,"text":"speech start"}
+{"t":95.275999999999996,"kind":"status","text":"level 0.043 gain x2.6 (+8 dB); input peak -21 dBFS, rms -31 dBFS; after gain peak -13 dBFS (ch1 0.000, ch2 0.086)","w":1792464025.1849999}
+{"w":1792464027.714,"text":"knowledge or prophecy or teaching? If even lifeless instruments such as the flute or the harp do not give distinct notes, how will anyone know?","t":97.805000000000007,"kind":"final"}
+{"kind":"partial","t":98.540000000000006,"w":1792464028.4489999,"text":"How will anyone know what is played?"}
+{"text":"speech end","w":1792464029.2850001,"t":99.376000000000005,"kind":"status"}
+{"kind":"final","w":1792464029.421,"t":99.512,"text":"How will anyone know what is played? And if the bugle gives an indistinct sound, who will get ready for battle?"}
+{"kind":"status","text":"speech start","w":1792464029.4849999,"t":99.575999999999993}
+{"kind":"status","t":100.276,"w":1792464030.1849999,"text":"level 0.027 gain x2.6 (+8 dB); input peak -24 dBFS, rms -33 dBFS; after gain peak -16 dBFS (ch1 0.000, ch2 0.062)"}
+{"w":1792464030.306,"text":"Who will get ready for battle? So with yourselves, if with your tongue you utter speech that is not in","t":100.39700000000001,"kind":"partial"}
+{"w":1792464031.2750001,"kind":"partial","text":"So with yourselves, if with your tongue you utter speech that is not intelligible, how will anyone know","t":101.366}
+{"w":1792464031.385,"kind":"status","text":"speech end","t":101.476}
+{"kind":"status","w":1792464031.8859999,"text":"speech start","t":101.977}
+{"w":1792464032.2379999,"kind":"partial","text":"But with yourselves, if with your tongue you utter speech that is not intelligible, how will anyone know what is said?","t":102.32899999999999}
+{"t":103.31999999999999,"text":"If with your tongue you utter speech that is not intelligible, how will anyone know what is said? For you will be","kind":"partial","w":1792464033.2290001}
+{"w":1792464033.9849999,"kind":"status","text":"speech end","t":104.07599999999999}
+{"text":"With your tongue you utter speech that is not intelligible. How will anyone know what is said? For you will be speaking into the","w":1792464034.2249999,"kind":"partial","t":104.316}
+{"w":1792464035.1849999,"kind":"status","t":105.276,"text":"level 0.003 gain x2.7 (+9 dB); input peak -23 dBFS, rms -35 dBFS; after gain peak -15 dBFS (ch1 0.000, ch2 0.069)"}
+{"kind":"status","w":1792464035.7850001,"text":"speech start","t":105.876}
+{"kind":"status","t":107.376,"w":1792464037.2850001,"text":"speech end"}
+{"kind":"status","w":1792464038.7850001,"text":"speech start","t":108.876}
+{"text":"level 0.019 gain x2.8 (+9 dB); input peak -24 dBFS, rms -35 dBFS; after gain peak -15 dBFS (ch1 0.000, ch2 0.066)","w":1792464040.1849999,"t":110.276,"kind":"status"}
+{"kind":"status","t":111.676,"w":1792464041.585,"text":"speech end"}
+{"w":1792464042.2839999,"t":112.375,"kind":"status","text":"speech start"}
+{"w":1792464043.7850001,"text":"speech end","kind":"status","t":113.875}
+{"kind":"status","text":"level 0.003 gain x2.9 (+9 dB); input peak -28 dBFS, rms -39 dBFS; after gain peak -19 dBFS (ch1 0.000, ch2 0.039)","t":115.276,"w":1792464045.1849999}
+{"t":116.66500000000001,"kind":"final","w":1792464046.5739999,"text":"So with yourselves, if with your tongue you utter speech that is not intelligible"}
+{"kind":"partial","w":1792464047.2739999,"t":117.36499999999999,"text":"\"Speaking into the air.\""}
+{"kind":"final","w":1792464047.951,"t":118.042,"text":"\"Speaking into the air.\""}
+{"kind":"status","t":118.27500000000001,"text":"speech start","w":1792464048.184}
+{"kind":"final","w":1792464048.7449999,"t":118.836,"text":"For you will be speaking into the air. There are many doubtless"}
+{"w":1792464049.619,"text":"There are many doubtless, many different languages in the world, and none is without meaning.","t":119.70999999999999,"kind":"final"}
+{"t":120.27500000000001,"w":1792464050.1849999,"kind":"status","text":"level 0.025 gain x3.0 (+10 dB); input peak -23 dBFS, rms -34 dBFS; after gain peak -14 dBFS (ch1 0.000, ch2 0.068)"}
+{"kind":"partial","t":120.423,"w":1792464050.332,"text":"And none is without meaning."}
+{"w":1792464050.984,"kind":"status","t":121.075,"text":"speech end"}
+{"text":"The sun is without meaning. But if I do not know the meaning of the language,","w":1792464051.2219999,"kind":"partial","t":121.313}
+{"w":1792464051.5840001,"text":"speech start","t":121.675,"kind":"status"}
+{"w":1792464052.1760001,"text":"I do not know the meaning of the language, but if I do not know the meaning of the language,","t":122.267,"kind":"partial"}
+{"w":1792464053.043,"text":"But if I do not know the meaning of the language, I will be a foreign","t":123.133,"kind":"partial"}
+{"kind":"partial","w":1792464053.971,"text":"But if I do not know the meaning of the language, I will be a foreigner to the speaker","t":124.062}
+{"text":"But if I do not know the meaning of the language, I will be a foreigner to the speaker and the speaker.","w":1792464054.9130001,"kind":"partial","t":125.004}
+{"w":1792464055.184,"text":"level 0.012 gain x3.2 (+10 dB); input peak -28 dBFS, rms -39 dBFS; after gain peak -17 dBFS (ch1 0.000, ch2 0.041)","t":125.27500000000001,"kind":"status"}
+{"w":1792464055.3840001,"text":"speech end","t":125.47499999999999,"kind":"status"}
+{"kind":"partial","t":126.06699999999999,"w":1792464055.9760001,"text":"But if I do not know the meaning of the language, I will be a foreigner to the speaker and the speaker a foreigner to me."}
+{"kind":"status","t":127.175,"w":1792464057.0840001,"text":"speech start"}
+{"t":129.76400000000001,"w":1792464059.6730001,"kind":"final","text":"And none is without meaning. But if I do not know the meaning of the language, I will..."}
+{"kind":"status","w":1792464060.184,"text":"level 0.034 gain x3.4 (+11 dB); input peak -26 dBFS, rms -36 dBFS; after gain peak -15 dBFS (ch1 0.000, ch2 0.049)","t":130.27500000000001}
+{"kind":"final","t":130.482,"w":1792464060.391,"text":"\"A foreigner to me.\""}
+{"t":131.23400000000001,"w":1792464061.1429999,"kind":"partial","text":"And the speaker of foreigner to me."}
+{"kind":"status","t":131.97499999999999,"w":1792464061.8840001,"text":"speech end"}
+{"t":132.047,"w":1792464061.9560001,"kind":"partial","text":"So with yourselves, sense you are eager for manifestation."}
+{"t":132.57499999999999,"w":1792464062.484,"kind":"status","text":"speech start"}
+{"t":132.852,"w":1792464062.7609999,"kind":"partial","text":"So with yourselves, since you are eager for manifestations,"}
+{"w":1792464063.5840001,"t":133.67500000000001,"text":"So with yourselves, since you are eager for manifestations of the","kind":"partial"}
+{"text":"So, with yourselves, since you are eager for manifestations of the Spirit,","w":1792464064.4779999,"t":134.56899999999999,"kind":"partial"}
+{"w":1792464065.184,"t":135.27500000000001,"text":"level 0.042 gain x3.7 (+11 dB); input peak -24 dBFS, rms -36 dBFS; after gain peak -13 dBFS (ch1 0.000, ch2 0.061)","kind":"status"}
+{"t":135.369,"kind":"partial","text":"So with yourselves, since you are eager for manifestations of the Spirit, strive to","w":1792464065.279}
+{"t":136.20099999999999,"w":1792464066.1099999,"kind":"partial","text":"Strive yourselves, since you are eager for manifestations of the Spirit, strive to excel in building"}
+{"kind":"status","t":136.57499999999999,"w":1792464066.484,"text":"speech end"}
+{"kind":"partial","t":137.15700000000001,"w":1792464067.066,"text":"1 Thessalonians, since you are eager for manifestations of the Spirit, strive to excel in building up the Church."}
+{"w":1792464067.2839999,"kind":"status","t":137.375,"text":"speech start"}
+{"text":"speech end","w":1792464070.0840001,"t":140.17500000000001,"kind":"status"}
+{"w":1792464070.184,"t":140.27500000000001,"text":"level 0.031 gain x3.8 (+12 dB); input peak -25 dBFS, rms -35 dBFS; after gain peak -13 dBFS (ch1 0.000, ch2 0.059)","kind":"status"}
+{"text":"speech start","w":1792464070.283,"t":140.374,"kind":"status"}
+{"w":1792464072.283,"t":142.374,"kind":"status","text":"speech end"}
+{"text":"level 0.001 gain x3.9 (+12 dB); input peak -28 dBFS, rms -39 dBFS; after gain peak -16 dBFS (ch1 0.000, ch2 0.039)","t":145.27500000000001,"w":1792464075.184,"kind":"status"}
+{"kind":"status","w":1792464078.983,"text":"speech start","t":149.07400000000001}
+{"w":1792464080.184,"t":150.274,"text":"level 0.032 gain x4.0 (+12 dB); input peak -29 dBFS, rms -41 dBFS; after gain peak -17 dBFS (ch1 0.000, ch2 0.035)","kind":"status"}
+{"w":1792464081.582,"kind":"final","text":"and the Speaker a foreigner to me. So with yourselves, since you are eager for manifestations of the spirit of the Spirit, of the spirit of the Spirit of the Spirit of the Spirit of the Spirit of the Spirit of the Spirit. The Spirit is eager for manifestations of the spirit of the Spirit of the Spirit of the Spirit. The Spirit is eager for manifestations of the Spirit of the Spirit of the Spirit. The Spirit is eager for manifestations of the Spirit of the Spirit of the Spirit of the Spirit of the Spirit of the Spirit. The Spirit is eager for manifestations of the Spirit of the Spirit of the Spirit of the Spirit of the Spirit of the Spirit of the Spirit of the Spirit. So with yourselves, since you are eager So with yourselves, since you are eager","t":151.673}
+{"w":1792464082.234,"text":"Search.","t":152.32499999999999,"kind":"final"}
+{"w":1792464082.783,"t":152.874,"kind":"status","text":"speech end"}
+{"w":1792464082.9790001,"text":"They have to excel in building up the church.","kind":"partial","t":153.06999999999999}
+{"w":1792464083.789,"kind":"final","text":"Therefore, one who speaks in a tongue should pray that he may interpret.","t":153.88}
+{"w":1792464084.5969999,"text":"Therefore, one who speaks in a tongue should pray that he may interpret.","t":154.68799999999999,"kind":"partial"}
+{"kind":"status","w":1792464085.1830001,"t":155.274,"text":"level 0.001 gain x4.1 (+12 dB); input peak -26 dBFS, rms -40 dBFS; after gain peak -14 dBFS (ch1 0.000, ch2 0.049)"}
+{"text":"Therefore, one who speaks in a tongue should pray that he may interpret.","t":155.49199999999999,"w":1792464085.401,"kind":"final"}
+{"w":1792464089.983,"text":"speech start","t":160.07400000000001,"kind":"status"}
+{"w":1792464090.1830001,"text":"level 0.032 gain x4.1 (+12 dB); input peak -31 dBFS, rms -41 dBFS; after gain peak -19 dBFS (ch1 0.000, ch2 0.027)","kind":"status","t":160.274}
+{"t":160.958,"w":1792464090.8670001,"kind":"partial","text":"There you go."}
+{"kind":"status","text":"speech end","w":1792464090.8829999,"t":160.97399999999999}
+{"w":1792464091.582,"t":161.673,"text":"speech start","kind":"status"}
+{"kind":"status","text":"speech end","t":162.17400000000001,"w":1792464092.0829999}
+{"kind":"status","text":"speech start","w":1792464092.3829999,"t":162.47399999999999}
+{"kind":"status","text":"speech end","w":1792464092.783,"t":162.874}
+{"w":1792464093.0680001,"text":"There you go. Oh, no.","kind":"partial","t":163.15899999999999}
+{"kind":"final","w":1792464094.4560001,"text":"There you go. Oh, no.","t":164.547}
+{"t":165.273,"w":1792464095.1819999,"kind":"status","text":"level 0.003 gain x4.2 (+12 dB); input peak -26 dBFS, rms -38 dBFS; after gain peak -13 dBFS (ch1 0.000, ch2 0.052)"}
+{"text":"speech start","t":165.47399999999999,"kind":"status","w":1792464095.3829999}
+{"kind":"partial","w":1792464095.5179999,"text":"Oh, no.","t":165.60900000000001}
+{"kind":"partial","text":"Oh, no. You went to the","t":166.357,"w":1792464096.266}
+{"t":167.107,"w":1792464097.016,"kind":"partial","text":"Oh, no. You went to the verse after that."}
+{"kind":"status","text":"speech end","t":167.37299999999999,"w":1792464097.2820001}
+{"kind":"status","w":1792464098.2820001,"text":"speech start","t":168.37299999999999}
+{"w":1792464098.612,"text":"Oh, no. You went to the verse after that.","t":168.703,"kind":"final"}
+{"text":"speech end","t":168.97300000000001,"kind":"status","w":1792464098.882}
+{"w":1792464099.3099999,"text":"And it went to the verse after that.","t":169.40100000000001,"kind":"partial"}
+{"t":170.179,"w":1792464100.0880001,"kind":"partial","text":"It went to the verse after that. No."}
+{"t":170.273,"w":1792464100.1819999,"kind":"status","text":"level 0.003 gain x4.3 (+13 dB); input peak -32 dBFS, rms -43 dBFS; after gain peak -19 dBFS (ch1 0.000, ch2 0.026)"}
+{"w":1792464100.803,"kind":"final","t":170.89400000000001,"text":"It went to the verse after that. No."}
