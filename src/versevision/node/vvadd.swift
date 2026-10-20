@@ -42,12 +42,26 @@ let allWins = (attr(ax, kAXWindowsAttribute) as? [AXUIElement]) ?? []
 // the main window is the biggest one (other windows can be a welcome or update panel)
 guard let win = allWins.max(by: { (frame($0).map { $0.width * $0.height } ?? 0) < (frame($1).map { $0.width * $0.height } ?? 0) }) else { print("no window"); exit(1) }
 
-// Open Bible mode (the 4th toolbar button; the shortcut clicks button 1 then 4 to force a refresh). Only if it is not already open.
-func lookupField() -> AXUIElement? {
-    var f: [AXUIElement] = []
-    findAll(win, 0, { s($0, kAXRoleAttribute) == "AXTextField" && s($0, kAXSubroleAttribute) != "AXSearchField" && (frame($0).map { $0.width > 240 && $0.minX > 250 && $0.minX < 300 && $0.minY > 90 && $0.minY < 120 } ?? false) }, &f)
-    return f.first
+let winFrame = frame(win) ?? CGRect(x: 0, y: 0, width: 1600, height: 1000)
+// The lookup box and the version menu have no label of their own, but their neighbours do. Everything is found from the labelled
+// "search" button of the Bible panel and from the lookup box itself, so the window size and sidebar width do not matter.
+func parent(_ e: AXUIElement) -> AXUIElement? { attr(e, kAXParentAttribute).map { $0 as! AXUIElement } }
+func searchButton() -> AXUIElement? { find(win, 0, { s($0, kAXRoleAttribute) == "AXButton" && s($0, kAXDescriptionAttribute) == "search" }) }
+func bibleAreaGroup() -> AXUIElement? {          // the big panel that contains the search button
+    var cur = searchButton()
+    while let c = cur {
+        if s(c, kAXRoleAttribute) == "AXGroup", let f = frame(c), f.height > winFrame.height * 0.5, f.width > winFrame.width * 0.3 { return c }
+        cur = parent(c)
+    }
+    return nil
 }
+func lookupField() -> AXUIElement? {             // the wide, non-search text box on the same row as the search button, to its left
+    guard let sb = searchButton(), let sf = frame(sb) else { return nil }
+    var f: [AXUIElement] = []
+    findAll(win, 0, { e in s(e, kAXRoleAttribute) == "AXTextField" && s(e, kAXSubroleAttribute) != "AXSearchField" && (frame(e).map { $0.width > 150 && abs($0.midY - sf.midY) < 14 && $0.maxX <= sf.minX + 5 } ?? false) }, &f)
+    return f.max(by: { (frame($0)?.maxX ?? 0) < (frame($1)?.maxX ?? 0) })      // the closest one to the left of the search box (sidebar names are further left)
+}
+// Open Bible mode (the 4th toolbar button; the shortcut clicks button 1 then 4 to force a refresh). Only if it is not already open.
 if lookupField() == nil {
     let bible = find(win, 0, { s($0, kAXRoleAttribute) == "AXRadioButton" && s($0, kAXDescriptionAttribute) == "Bible" })
     guard let b = bible else { print("could not find the Bible toolbar button"); exit(5) }
@@ -56,12 +70,13 @@ if lookupField() == nil {
 }
 // find the controls ONCE (the original script re-walks a ten-level path for every click)
 var fields: [AXUIElement] = []
-findAll(win, 0, { s($0, kAXRoleAttribute) == "AXTextField" && s($0, kAXSubroleAttribute) != "AXSearchField" && (frame($0).map { $0.width > 240 && $0.minX > 250 && $0.minX < 300 && $0.minY > 90 && $0.minY < 120 } ?? false) }, &fields)
+if let lf = lookupField() { fields = [lf] }
 guard let lookup = fields.first else { print("lookup field not found - is Bible mode open?"); exit(2) }
 // Bible version: pick it in the dropdown under the lookup field when one was asked for. An unknown name leaves it alone.
 func versionPopup() -> AXUIElement? {
+    guard let lf = frame(lookup) else { return nil }
     var pops: [AXUIElement] = []
-    findAll(win, 0, { s($0, kAXRoleAttribute) == "AXPopUpButton" && (frame($0).map { $0.minX > 250 && $0.minX < 300 && $0.minY > 125 && $0.minY < 160 && $0.width > 200 } ?? false) }, &pops)
+    findAll(win, 0, { e in s(e, kAXRoleAttribute) == "AXPopUpButton" && (frame(e).map { abs($0.minX - lf.minX) < 25 && $0.minY > lf.maxY - 5 && $0.minY < lf.maxY + 70 && $0.width > 150 } ?? false) }, &pops)
     return pops.first
 }
 var versionNote = ""
@@ -79,11 +94,13 @@ if !wantVersion.isEmpty, let pop = versionPopup() {
     }
     print("  " + versionNote)
 }
-guard let area = find(win, 0, { s($0, kAXRoleAttribute) == "AXGroup" && (frame($0).map { $0.width > 1500 && $0.height > 1000 && $0.minX > 240 && $0.minX < 270 } ?? false) }) else { print("bible area not found"); exit(3) }
+guard let area = bibleAreaGroup() else { print("bible area not found"); exit(3) }
+let areaFrame = frame(area) ?? winFrame
 guard let saveAs = find(win, 0, { s($0, kAXRoleAttribute) == "AXMenuButton" && (s($0, kAXDescriptionAttribute) == "Save As…" || s($0, kAXTitleAttribute) == "Save As…") }) else { print("Save As not found"); exit(4) }
 var scrolls: [AXUIElement] = []
-findAll(win, 0, { s($0, kAXRoleAttribute) == "AXScrollArea" && (frame($0).map { $0.width > 1200 && $0.height > 800 } ?? false) }, &scrolls)
+findAll(area, 0, { s($0, kAXRoleAttribute) == "AXScrollArea" && (frame($0).map { $0.width > areaFrame.width * 0.6 && $0.height > winFrame.height * 0.4 } ?? false) }, &scrolls)
 let results = scrolls.first.flatMap { frame($0) }
+if trace { print("  [lookup \(frame(lookup).map { "\($0)" } ?? "?"), area \(areaFrame), results \(results.map { "\($0)" } ?? "none"), scrolls \(scrolls.count)]") }
 func busy() -> Bool {                      // while a lookup runs ProPresenter shows a small "stop progress" button
     for b in kids(area) where s(b, kAXRoleAttribute) == "AXButton" && s(b, kAXDescriptionAttribute) == "stop progress" { return true }
     return false

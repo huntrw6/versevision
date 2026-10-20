@@ -162,7 +162,7 @@ def test_listen_defaults_are_dante_displayed_thirty_seconds_into_verses():
     import inspect
     from versevision.listen_cli import listen_command
     p = inspect.signature(listen_command).parameters
-    assert p["device"].default == "Dante" and p["hold"].default == 30.0 and p["presentation"].default == "Verses"
+    assert p["device"].default == "Dante" and p["hold"].default == 30.0 and p["presentation"].default == ""
     assert p["dry_run"].default is False and p["no_add"].default is False and p["follow"].default is True and p["content"].default is True
 
 

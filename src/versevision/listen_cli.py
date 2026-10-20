@@ -40,7 +40,7 @@ def listen_command(
     device: Annotated[str, typer.Option("--device", help="Part of the input's name (default: Dante)")] = "Dante",
     dry_run: Annotated[bool, typer.Option("--dry-run", help="Only log what it would show; put nothing on screen")] = False,
     hold: Annotated[float, typer.Option("--hold", help="Seconds a verse stays on screen after the speaker last touched it")] = 30.0,
-    presentation: Annotated[str, typer.Option("--presentation", help="Add every verse it shows to this presentation")] = "Verses",
+    presentation: Annotated[str, typer.Option("--presentation", help="Add every verse to this named presentation. Default: whichever presentation is open (selected) in ProPresenter at that moment")] = "",
     no_add: Annotated[bool, typer.Option("--no-add", help="Do not add shown verses to a presentation")] = False,
     follow: Annotated[bool, typer.Option("--follow/--no-follow", help="Move on to the next verse when the speaker starts reading it")] = True,
     content: Annotated[bool, typer.Option("--content/--no-content", help="Recognise a verse from its words when no reference was said")] = True,
@@ -54,7 +54,7 @@ def listen_command(
     """Listen to the sermon and put the verses on screen. Ctrl-C stops it (and clears the screen).
 
     By default it listens on Dante, shows each verse for 30 seconds after the speaker last touches it, and adds every shown verse
-    to the "Verses" presentation. It acts when the speaker says a reference, follows along as a passage is read, and recognises a
+    to the presentation that is open in ProPresenter. It acts when the speaker says a reference, follows along as a passage is read, and recognises a
     verse from its words when the reference was never said.
     """
     from versevision.follow import Action, Follower
@@ -94,7 +94,7 @@ def listen_command(
     if seconds: args += ["--seconds", str(seconds)]
     stop_allow = _auto_allow()
     subprocess.run(args, check=True)
-    where = presentation if (not no_add and not dry_run) else "nowhere"
+    where = (presentation or "the presentation open in ProPresenter") if (not no_add and not dry_run) else "nowhere"
     log(f"Listening on '{device or 'the default input'}' with {engine}{' ' + model if engine == 'whisper' else ''}. "
         f"{'DRY RUN, nothing is shown.' if dry_run else f'Verses stay up {hold:.0f} s and are added to: {where}.'}  Log: {run_dir}")
 
@@ -102,8 +102,8 @@ def listen_command(
     follower.detector.settle = settle
     added: set[str] = set()
     target = {"uuid": ""}
-    if not dry_run and not no_add:
-        target["uuid"] = _select_presentation(presentation, log)
+    if not dry_run and not no_add and presentation:
+        target["uuid"] = _select_presentation(presentation, log)         # a fixed, named target; otherwise the open one is used each time
 
     def clear_screen() -> None:
         try:
@@ -148,11 +148,15 @@ def listen_command(
         if dry_run:
             return
         t0 = time.time()
-        if act.reference in loaded and not act.late_version and (not pp_version(act.version) or loaded_version.get(act.reference) == pp_version(act.version)):
+        if act.reference in loaded and not act.late_version and (no_add or presentation or loaded[act.reference][0].upper() == focused_uuid().upper()) and (not pp_version(act.version) or loaded_version.get(act.reference) == pp_version(act.version)):
             ok = trigger_loaded(act.reference)
             log(f"            {'on screen' if ok else 'trigger FAILED'} in {time.time() - t0:.2f}s (already in the presentation, no lookup needed)")
             if ok:
                 return
+        if not no_add and not presentation:
+            target["uuid"] = focused_uuid()                  # whichever presentation the operator has open right now
+            if not target["uuid"]:
+                log("            no presentation is open, so this verse is shown but not added")
         verses = range_verses(index, act.book_id, act.chapter, act.verse, act.range_end)
         text = _lookup_text(_range_text(act.book, act.chapter, act.verse, act.range_end if len(verses) > 1 else None))
         adding = bool(target["uuid"])                  # every verse shown is added, including a re-show in a version named afterwards
