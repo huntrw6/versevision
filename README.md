@@ -1,3 +1,7 @@
+> **Live listening moved out.** The "listen to the sermon and put the verses on screen" feature (`versevision listen`: Whisper speech
+> recognition, spoken-reference and verse-content matching, following a passage as it is read, version selection) is now its own project:
+> [huntrw6/versevision-stt](https://github.com/huntrw6/versevision-stt). This repository is the sermon-notes importer only (since 0.16.0).
+
 # VerseVision CLI
 
 VerseVision is a Python 3.12+ command-line application for turning Bible references in ordinary documents into explicitly targeted ProPresenter slide imports. It is designed to work without AI, UI automation, AppleScript, simulated input, or accessibility permissions.
