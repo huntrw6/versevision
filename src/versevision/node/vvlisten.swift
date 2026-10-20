@@ -90,6 +90,9 @@ final class WhisperListener {
     let lock = NSLock()
     var floorLevel: Float = 0.004
     var inUtterance = false
+    var speakingRun = 0
+    var announcedOn = false
+    var announcedAt = Date.distantPast
     var utterStart = 0
     var lastSpeechAt = Date.distantPast
     var lastRequestAt = Date.distantPast
@@ -102,6 +105,7 @@ final class WhisperListener {
     let silenceSeconds: Double
     let maxUtterance: Double
     let overlapSeconds = 3.0
+    let partialSeconds = Double(opt("--partial-seconds") ?? "") ?? 8.0     // live updates look at the last 8 s only; the final cut keeps the whole sentence
 
     init(url: URL, prompt: String, t0: Date, step: Double, silence: Double, maxUtter: Double) {
         self.url = url; self.prompt = prompt; self.t0 = t0; stepSeconds = step; silenceSeconds = silence; maxUtterance = maxUtter
@@ -128,6 +132,10 @@ final class WhisperListener {
         if rms < floorLevel { floorLevel = floorLevel * 0.8 + rms * 0.2 } else if !inUtterance { floorLevel = min(floorLevel * 1.003 + 0.00002, 0.03) }
         let speaking = rms > max(0.0025, floorLevel * 2.5)           // a quiet room mic gives ~0.01 for speech; a mixer feed is far louder
         if speaking { lastSpeechAt = now }
+        // Tell the other end the instant speech begins (before any word is transcribed). Needs 0.15 s of sound so a click is ignored.
+        if speaking { speakingRun += 1 } else { speakingRun = 0 }
+        if !announcedOn, speakingRun >= 2 { announcedOn = true; announcedAt = now; emit("status", "speech start", t0) }
+        if announcedOn, !speaking, now.timeIntervalSince(lastSpeechAt) >= 0.3 { announcedOn = false; emit("status", "speech end", t0) }
         if !inUtterance, speaking {
             inUtterance = true
             utterStart = max(base, end - Int(0.4 * Double(rate)))
@@ -151,7 +159,7 @@ final class WhisperListener {
                 if length >= maxUtterance && silentFor < silenceSeconds {
                     inUtterance = true; utterStart = end - Int(1.5 * Double(rate))
                 }
-            } else if now.timeIntervalSince(lastRequestAt) >= stepSeconds && length > 0.8 && !inFlight {
+            } else if now.timeIntervalSince(lastRequestAt) >= stepSeconds && length > 0.6 && !inFlight {
                 job = (utterStart, end, false)
             }
         }
@@ -168,11 +176,19 @@ final class WhisperListener {
     func submit(_ start: Int, _ end: Int, _ final: Bool) {
         lock.lock()
         if !final && inFlight { lock.unlock(); return }
-        let from = max(base, start) - base, to = min(total, end) - base
+        let window = final ? Int.max : Int(partialSeconds * Double(rate))
+        let from = max(max(base, start), end - window) - base, to = min(total, end) - base
         let slice = from < to ? Array(samples[from..<to]) : []
         if !final { inFlight = true; lastRequestAt = Date() }
         lock.unlock()
         if slice.count < rate * 3 / 10 { if !final { lock.lock(); inFlight = false; lock.unlock() }; return }
+        // Whisper invents words (often the end of its own prompt) when it is given near-silence, so audio with no real speech in it
+        // is never sent. "Real speech" = the loudest tenth of a second is clearly above the room noise.
+        var loudest: Float = 0
+        let hop = rate / 10
+        var i0 = 0
+        while i0 < slice.count { let e = min(slice.count, i0 + hop); var ss: Float = 0; for k in i0..<e { ss += slice[k] * slice[k] }; loudest = max(loudest, (ss / Float(e - i0)).squareRoot()); i0 = e }
+        if loudest < max(0.012, floorLevel * 3) { if !final { lock.lock(); inFlight = false; lock.unlock() }; return }
         if let dir = opt("--debug-dir") {            // keep each cut of audio for troubleshooting (off by default)
             try? FileManager.default.createDirectory(atPath: dir, withIntermediateDirectories: true)
             let name = String(format: "%@/%07.2f-%@.wav", dir, Date().timeIntervalSince(t0), final ? "final" : "partial")
@@ -227,9 +243,11 @@ final class WhisperListener {
 }
 
 var chanPeak = [Float](repeating: 0, count: 8)
+var mixPeak: Float = 0, mixRms: Float = 0, curGain: Float = 1
+func dB(_ x: Float) -> String { x < 0.00001 ? "-inf" : String(format: "%.0f", 20 * log10(Double(x))) }
 if engineName == "whisper" {
     guard let u = opt("--whisper"), let url = URL(string: u) else { emit("status", "--whisper http://host:port is required", t0); exit(8) }
-    let wl = WhisperListener(url: url, prompt: opt("--prompt") ?? "", t0: t0, step: Double(opt("--step") ?? "") ?? 1.0,
+    let wl = WhisperListener(url: url, prompt: opt("--prompt") ?? "", t0: t0, step: Double(opt("--step") ?? "") ?? 0.5,
                              silence: Double(opt("--silence") ?? "") ?? 0.6, maxUtter: Double(opt("--max-utterance") ?? "") ?? 14)
     guard let target = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 16000, channels: 1, interleaved: false),
           let monoFmt = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: fmt.sampleRate, channels: 1, interleaved: false),
@@ -237,26 +255,39 @@ if engineName == "whisper" {
     // Mixer and Dante feeds are often on one channel only and can be very quiet. So: mix down ALL channels together (or only the one
     // named with --channel N), and level the volume with a slow automatic gain so the silence detector works.
     let forcedChannel = Int(opt("--channel") ?? "") ?? 0
-    var slowPeak = [Float](repeating: 0, count: 16)
+    let targetRMS: Float = 0.07                // loud-ish speech: about -23 dBFS RMS. Whisper does best with a healthy level
+    let maxGain: Float = 30                    // never boost more than +29.5 dB
+    var speechEnv: Float = 0                   // how loud the speaker has been lately (RMS of the loud buffers, decaying slowly)
+    var peakEnv: Float = 0                     // recent peaks, so a boost never clips
+    var noiseFloor: Float = 0.0005
     var agc: Float = 1
     engine.inputNode.installTap(onBus: 0, bufferSize: 2048, format: fmt) { buf, _ in
         guard let cd = buf.floatChannelData, buf.frameLength > 0 else { return }
         let n = Int(buf.frameLength), nch = min(Int(buf.format.channelCount), 16)
-        for c in 0..<nch {
-            var m: Float = 0; for i in 0..<n { m = max(m, abs(cd[c][i])) }
-            if c < 8 { chanPeak[c] = max(chanPeak[c], m) }
-            slowPeak[c] = max(m, slowPeak[c] * 0.9995)
-        }
-        let loudest = slowPeak.prefix(nch).max() ?? 0
-        let use: [Int] = forcedChannel > 0 ? [min(forcedChannel, nch) - 1] : Array(0..<nch)      // default: always listen to every channel (both Dante channels), mixed together
+        for c in 0..<min(nch, 8) { var m: Float = 0; for i in 0..<n { m = max(m, abs(cd[c][i])) }; chanPeak[c] = max(chanPeak[c], m) }
         guard let mono = AVAudioPCMBuffer(pcmFormat: monoFmt, frameCapacity: buf.frameLength), let md = mono.floatChannelData?[0] else { return }
         mono.frameLength = buf.frameLength
-        let chans = use.isEmpty ? [0] : use
-        for i in 0..<n { var x: Float = 0; for c in chans { x += cd[c][i] }; md[i] = x / Float(chans.count) }
-        var peak: Float = 0; for i in 0..<n { peak = max(peak, abs(md[i])) }
-        let used = chans.map { slowPeak[$0] }.max() ?? 0
-        let wantGain = min(40, max(1, 0.25 / max(used, 0.0005)))       // aim for peaks around 0.25; never more than 40x
-        agc = wantGain < agc ? wantGain : agc * 0.999 + wantGain * 0.001
+        let chans: [Int] = forcedChannel > 0 ? [min(forcedChannel, nch) - 1] : Array(0..<nch)      // default: every channel (both Dante channels)
+        // Mix the channels that carry sound. A dead channel (silence) must not halve the signal of the live one, so the mix is
+        // the sum divided by the number of channels that are actually active (at least one).
+        var act: [Int] = []
+        for c in chans { var m: Float = 0; for i in 0..<n { m = max(m, abs(cd[c][i])) }; if m > 0.0002 { act.append(c) } }
+        let use = act.isEmpty ? chans : act
+        var sumSq: Float = 0, peak: Float = 0
+        for i in 0..<n { var x: Float = 0; for c in use { x += cd[c][i] }; x /= Float(use.count); md[i] = x; sumSq += x * x; peak = max(peak, abs(x)) }
+        let rms = (sumSq / Float(n)).squareRoot()
+        mixPeak = max(mixPeak, peak); mixRms = max(mixRms, rms)
+        // Level control. The 'speech' buffers (clearly above the noise) set the target; silence leaves the gain alone, so the
+        // room noise is never pumped up.
+        if rms < noiseFloor * 2 { noiseFloor = noiseFloor * 0.98 + rms * 0.02 } else if rms < noiseFloor * 3 { noiseFloor = min(noiseFloor * 1.002, 0.01) }
+        let speechy = rms > max(0.0015, noiseFloor * 4)
+        peakEnv = max(peak, peakEnv * 0.9977)                       // about 12 s half-life
+        if speechy { speechEnv = max(rms, speechEnv * 0.9977) }
+        if speechEnv > 0 {
+            let want = min(maxGain, max(1, targetRMS / speechEnv), 0.9 / max(peakEnv, 0.001))
+            if want < agc { agc = want }                            // too loud: come down at once
+            else if speechy { agc += (want - agc) * 0.01 }          // quieter speaker: come up over a few seconds, only while talking
+        }
         if agc != 1 { for i in 0..<n { md[i] = max(-1, min(1, md[i] * agc)) } }
         let cap = AVAudioFrameCount(Double(n) * 16000.0 / fmt.sampleRate) + 32
         guard let out = AVAudioPCMBuffer(pcmFormat: target, frameCapacity: cap) else { return }
@@ -267,6 +298,7 @@ if engineName == "whisper" {
             fed = true; status.pointee = .haveData; return mono
         }
         if let ch = out.floatChannelData?[0], out.frameLength > 0 { wl.append(Array(UnsafeBufferPointer(start: ch, count: Int(out.frameLength)))) }
+        curGain = agc
     }
     engine.prepare()
     do { try engine.start() } catch { emit("status", "audio engine failed: \(error.localizedDescription)", t0); exit(6) }
@@ -275,7 +307,8 @@ if engineName == "whisper" {
     Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
         let n = Int(fmt.channelCount)
         let per = (0..<min(n, 8)).map { String(format: "ch%d %.3f", $0 + 1, chanPeak[$0]) }.joined(separator: ", ")
-        emit("status", String(format: "level %.3f gain x%.0f (%@)", level, agc, per), t0); chanPeak = [Float](repeating: 0, count: 8)
+        emit("status", String(format: "level %.3f gain x%.1f (%+.0f dB); input peak %@ dBFS, rms %@ dBFS; after gain peak %@ dBFS (%@)", level, curGain, 20 * log10(Double(max(curGain, 0.001))), dB(mixPeak), dB(mixRms), dB(min(1, mixPeak * curGain)), per), t0)
+        chanPeak = [Float](repeating: 0, count: 8); mixPeak = 0; mixRms = 0
     }
     if let s = opt("--seconds"), let n = Double(s) { DispatchQueue.main.asyncAfter(deadline: .now() + n) { engine.stop(); exit(0) } }
     RunLoop.main.run()

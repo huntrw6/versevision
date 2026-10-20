@@ -26,7 +26,7 @@ WHISPER_PORT = 8178
 # Telling Whisper which words to expect makes it spell books and numbers the way Scripture does.
 PROMPT = ("Sermon. Bible references: Genesis, Exodus, Psalm, Proverbs, Isaiah, Jeremiah, Habakkuk, Zephaniah, Matthew, Mark, Luke, John, Acts, "
           "Romans, 1 Corinthians, 2 Corinthians, Galatians, Ephesians, Philippians, Colossians, 1 Thessalonians, 2 Timothy, Philemon, Hebrews, "
-          "James, 1 Peter, Jude, Revelation. John 3:16. Romans 8:28.")
+          "James, 1 Peter, Jude, Revelation.")
 
 
 def _log_dir() -> Path:
@@ -143,7 +143,7 @@ def listen_command(
             if not dry_run:
                 clear_screen()
             return
-        flag = " (tentative: earliest of several equally good matches)" if act.tentative else ""
+        flag = (" (a guess: checked against the words that follow)" if act.reason.startswith("assumed") else " (tentative: earliest of several equally good matches)") if act.tentative else ""
         log(f"[{_stamp(act.t)}] {'would show' if dry_run else 'show      '}      {act.reference:22} because {act.reason}; heard: {act.heard!r}{flag}")
         if dry_run:
             return
@@ -282,7 +282,7 @@ def _range_text(book: str, chapter: int, verse: int, range_end: tuple[int, int] 
 
 
 def _stamp(t: float) -> str:
-    return time.strftime("%H:%M:%S", time.localtime(t)) if t > 1e9 else f"{t:8.2f}s"
+    return (time.strftime("%H:%M:%S", time.localtime(t)) + f".{int((t % 1) * 1000):03d}") if t > 1e9 else f"{t:8.2f}s"
 
 
 def _select_presentation(name: str, log) -> str:
@@ -347,7 +347,9 @@ def _ensure_whisper_server(model: str) -> "subprocess.Popen | None":
     if not WHISPER_SERVER.exists() or not model_file.exists():
         typer.secho(f"Whisper is not installed ({WHISPER_SERVER} / {model_file.name}). Use --engine apple, or run the Whisper setup.", fg="red")
         raise typer.Exit(2)
-    proc = subprocess.Popen([str(WHISPER_SERVER), "-m", str(model_file), "-t", "6", "--port", str(WHISPER_PORT), "--host", "127.0.0.1"],
+    # -t 10: all the iMac Pro's cores; -ac 512: a 10 s attention window instead of 30 s (4x faster, same words for sentences this short)
+    proc = subprocess.Popen([str(WHISPER_SERVER), "-m", str(model_file), "-t", str(min(10, max(4, (os.cpu_count() or 8) // 2))), "-ac", "512",
+                             "--port", str(WHISPER_PORT), "--host", "127.0.0.1"],
                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env={**os.environ, "DYLD_LIBRARY_PATH": str(WHISPER_DIR / "build2" / "bin")})
     for _ in range(100):
         if _server_up(): break

@@ -52,6 +52,12 @@ class Shown:
     range_end: tuple[int, int] | None = None     # (chapter, verse) when the speaker named a range
     followed: int = 0                            # how many next-verse steps we have taken from it
     version_said: bool = False                   # a version has been named for this verse (with it, or just after it)
+    reading_share: float = 0.0                   # how much of this verse the speaker has been heard reading (0-1)
+    assumed: bool = False                        # this verse was put up on the assumption that the speaker carried straight on
+    assumed_at: float = 0.0
+    assumed_from: tuple[str, int, int] | None = None   # the verse that was on screen before the assumption
+    confirmed: bool = False
+    read_started: float = 0.0                    # when the speaker began reading this verse (first voice after it came up)
     version_shown: str = ""
 
 
@@ -68,6 +74,22 @@ class Follower:
     detector: Detector = field(default_factory=Detector)
     continuer: Continuer = field(default_factory=Continuer)
     current: Shown | None = None
+    last: Shown | None = None            # where the speaker was, kept after the screen clears so reading on from there is still understood
+    context_keep: float = 300.0          # seconds the "where we are in the chapter" context is kept
+    look_ahead: int = 6                  # how many verses ahead of the last one are checked
+    tail_words: int = 10                 # the latest words of speech compared with those verses
+    assume: bool = True                  # put the next verse up as soon as the speaker carries on after finishing the one on screen
+    assume_progress: float = 0.8         # how much of the verse on screen must have been heard before an assumption is made
+    assume_window: float = 8.0           # ... and speech must resume within this many seconds of its ending (or of the last read words)
+    verify_words: int = 6                # words after the assumed verse starts before the guess is checked
+    verify_timeout: float = 4.0          # seconds after which an unchecked guess is judged on whatever was heard
+    _last_text: str = ""
+    wps: float = 2.7                     # the speaker's reading pace in words per second of speech; learned as verses are read
+    est_progress: float = 0.85           # an assumption needs this much of the verse to be accounted for by speaking time
+    min_transcript_share: float = 0.4    # ... while the transcript must already show it is this verse (it lags the voice by ~1.5 s)
+    _segments: list = field(default_factory=list)   # [start, end] of each stretch of speech heard; end is None while it is going on
+    _voice_at: float = -1e9              # when speech was last heard to start
+    _quiet_since: float = -1e9
     shown_at: dict[tuple[str, int, int], float] = field(default_factory=dict)
     _cand: tuple[str, int, int] | None = None
     _cand_count: int = 0
@@ -80,9 +102,21 @@ class Follower:
             return []
         t = clock(item)
         if kind == "status":
-            return self.tick(t)
+            txt = item.get("text", "")
+            if txt == "speech start":
+                if not self._segments or self._segments[-1][1] is not None:
+                    self._segments.append([t, None])
+                self._segments = self._segments[-60:]
+                return self._voice_started(t) + self.tick(t)
+            if txt == "speech end":
+                self._quiet_since = t
+                if self._segments and self._segments[-1][1] is None:
+                    self._segments[-1][1] = t
+                return self.tick(t) + self._judge_assumption(t, self._last_text, speech_ended=True)
+            return self.tick(t) + self._judge_assumption(t, self._last_text)
         item = self.continuer.process(item)
         text = item.get("text", "")
+        self._last_text = text
         final = kind == "final"
         actions: list[Action] = []
         referenced = False
@@ -92,15 +126,34 @@ class Follower:
                 actions.append(act)
                 referenced = True
         actions += self._tick_detector(t)
-        # the speaker is reading what is on screen: keep it up
+        # the speaker is reading what is on screen: keep it up, and note how far through it they are
         if self.current and self.index:
             if self.index.reading_score(text, self.current.book_id, self.current.chapter, self.current.verse) >= 78:
                 self.current.last_activity = t
-        if not referenced:
+            if not self.current.assumed:
+                share, _ = self.index.progress(text, self.current.book_id, self.current.chapter, self.current.verse)
+                self.current.reading_share = max(self.current.reading_share, share)
+        judged = self._judge_assumption(t, text)
+        if judged:
+            actions += judged
+            referenced = True if any(a.kind == "show" for a in judged) else referenced
+        # While a guess is waiting to be checked, only the check (or a spoken reference) may change the screen: the transcript
+        # is still catching up with the voice, so reading it as "the speaker moved on" would just undo the guess.
+        guessing = bool(self.current and self.current.assumed and not self.current.confirmed)
+        if not referenced and not guessing:
+            assumed = self._assume_from_words(t, text)
+            if assumed:
+                actions.append(assumed)
+                referenced = True
+        if not referenced and not guessing:
+            seq = self._sequential(t, text)
+            if seq:
+                actions.append(seq)
+        if not referenced and not guessing and not any(a.kind == "show" for a in actions):
             late = self._late_version(t, text)
             if late:
                 actions.append(late)
-        if not referenced and not any(a.late_version for a in actions):
+        if not referenced and not guessing and not any(a.late_version for a in actions):
             nxt = self._next_verse(t, text) if self.follow else None
             if nxt:
                 actions.append(nxt)
@@ -118,6 +171,7 @@ class Follower:
             out += self._tick_detector(t)
         if self.current and t - self.current.last_activity >= self.hold:
             out.append(Action("clear", t, reason=f"{self.hold:.0f} s since the speaker last touched {self.current.book} {self.current.chapter}:{self.current.verse}"))
+            self.last = self.current
             self.current = None
             self._cand, self._cand_count = None, 0
         return out
@@ -168,6 +222,202 @@ class Follower:
                              range_end=None)
                 return act
         return None
+
+    # ------------------------------------------------------------------ 1b. confident but assumptive: the next verse straight away
+    def _next_in_line(self, ctx: "Shown") -> tuple[int, int] | None:
+        """The verse that comes next after ``ctx`` in its chapter (None at the end of the chapter or of a named range)."""
+        if not self.index:
+            return None
+        v = ctx.verse + 1
+        if not self.index.has_verse(ctx.book_id, ctx.chapter, v):
+            return None
+        if ctx.range_end and ctx.chapter == ctx.range_end[0] and v > ctx.range_end[1]:
+            return None
+        return ctx.chapter, v
+
+    def _speaking_since(self, since: float, now: float) -> float:
+        total = 0.0
+        for s, e in self._segments:
+            e = now if e is None else e
+            total += max(0.0, min(e, now) - max(s, since))
+        return total
+
+    def _estimated_share(self, cur: "Shown", t: float) -> float:
+        """How much of the verse the speaker has probably said, from how long they have been talking and at what pace, once the
+        transcript confirms this is the verse. (The transcript itself is 1-2 s behind the voice.)"""
+        if not self.index or not cur.read_started or cur.reading_share < self.min_transcript_share:
+            return cur.reading_share
+        words = max((len(x.split()) for x in self.index.verse_texts(cur.book_id, cur.chapter, cur.verse)), default=0)
+        if words < 4:
+            return cur.reading_share
+        spoken = self._speaking_since(cur.read_started, t) * self.wps
+        return max(cur.reading_share, min(1.0, spoken / words))
+
+    def _learn_pace(self, cur: "Shown", t: float) -> None:
+        """A verse that was read through and confirmed teaches the pace (words per second of speech)."""
+        if not self.index or not cur.read_started:
+            return
+        words = max((len(x.split()) for x in self.index.verse_texts(cur.book_id, cur.chapter, cur.verse)), default=0)
+        secs = self._speaking_since(cur.read_started, t)
+        if words >= 8 and secs >= 1.5 and cur.reading_share >= 0.9:
+            self.wps = max(1.6, min(4.2, 0.6 * self.wps + 0.4 * (words / secs)))
+
+    def _can_assume(self, t: float) -> "tuple[Shown, tuple[int, int]] | None":
+        cur = self.current
+        if not (self.assume and cur and self.index) or cur.assumed:
+            return None                                   # one guess at a time: a guess is never built on a guess
+        if self._estimated_share(cur, t) < self.est_progress or t - cur.last_activity > self.assume_window + 6:
+            return None
+        nxt = self._next_in_line(cur)
+        return (cur, nxt) if nxt else None
+
+    def _assume(self, t: float, cur: "Shown", nxt: tuple[int, int], why: str, heard: str = "") -> Action | None:
+        prev = (cur.book_id, cur.chapter, cur.verse)
+        self._learn_pace(cur, t)
+        act = self._show(t, cur.book_id, cur.book, nxt[0], nxt[1], range_end=cur.range_end, reason=why, heard=heard, followed=cur.followed + 1)
+        if act and self.current:
+            self.current.assumed, self.current.assumed_at, self.current.assumed_from = True, t, prev
+            self.current.reading_share = 0.0
+            act.tentative = True
+        return act
+
+    def _voice_started(self, t: float) -> list[Action]:
+        """Speech started again. If the verse on screen has been read to its end, this is almost certainly the next verse: put it
+        up now (before a single word has been transcribed) and let the words that follow confirm or correct it."""
+        self._voice_at = t
+        if self.current and not self.current.read_started:
+            self.current.read_started = t            # the first voice after a verse comes up is the speaker reading it
+        got = self._can_assume(t)
+        if not got:
+            return []
+        cur, nxt = got
+        act = self._assume(t, cur, nxt, f"assumed: the speaker carried on after reading {cur.book} {cur.chapter}:{cur.verse}")
+        return [act] if act else []
+
+    def _assume_from_words(self, t: float, text: str) -> Action | None:
+        """The same assumption, made from the first words heard (when no voice-onset signal arrived, e.g. the Apple engine)."""
+        got = self._can_assume(t)
+        if not got or not self.index:
+            return None
+        cur, nxt = got
+        share, end = self.index.progress(text, cur.book_id, cur.chapter, cur.verse)
+        if end < 0:
+            return None                                   # the end of the verse has not been heard, so these words may still belong to it
+        after = normalize(text).split()[end:]
+        if not after:
+            return None
+        return self._assume(t, cur, nxt, f"assumed: the speaker carried on after reading {cur.book} {cur.chapter}:{cur.verse}", heard=" ".join(after[:8]))
+
+    def _judge_assumption(self, t: float, text: str, speech_ended: bool = False) -> list[Action]:
+        """Check a guess against the words that followed it. Confirmed: keep it. Contradicted: go back to the verse before, or
+        clear the screen if the speaker has moved on to something that is not Scripture."""
+        cur = self.current
+        if not (cur and cur.assumed and not cur.confirmed and self.index and cur.assumed_from):
+            return []
+        words = normalize(text).split()
+        book_id, chapter, verse = cur.book_id, cur.chapter, cur.verse
+        # words spoken since the guess: everything after the end of the previous verse
+        pb, pc, pv = cur.assumed_from
+        _, end = self.index.progress(text, pb, pc, pv)
+        after = words[end:] if end >= 0 else words[-self.verify_words:]
+        opening = self.index.opening_matches(" ".join(after), book_id, chapter, verse, words=min(5, max(2, len(after)))) if after else 0.0
+        if len(after) >= 2 and opening >= 80 or (len(after) >= self.verify_words and opening >= 62):
+            cur.confirmed = True
+            prev_obj = self.last if self.last is not cur else None
+            cur.last_activity = t
+            return []
+        waited = t - cur.assumed_at
+        if speech_ended and not after and waited >= 0.3:
+            # The "start of speech" was only a blip (a breath, a dip inside the last word): nothing new was said before it went quiet again.
+            cur.assumed = False
+            self.current = None
+            act = self._show(t, pb, cur.book, pc, pv, range_end=cur.range_end, reason="the guess at the next verse was wrong: nothing new was said", heard="")
+            if act:
+                self.current.reading_share = 1.0
+            return [act] if act else []
+        if len(after) >= self.verify_words or (waited >= self.verify_timeout and len(after) >= 3):
+            # not the next verse. Is it still the verse before (a pause in the middle of it), or something else?
+            back = self.index.reading_score(" ".join(words[-14:]), pb, pc, pv)
+            cur.assumed = False
+            if back >= 70:
+                self.current = None
+                act = self._show(t, pb, cur.book, pc, pv, range_end=cur.range_end, reason="the guess at the next verse was wrong: the speaker is still in the one before", heard=" ".join(after[:8]))
+                if act:
+                    self.current.reading_share = 0.5
+                return [act] if act else []
+            self.shown_at.pop((book_id, chapter, verse), None)
+            self.last = self.current
+            self.current = None
+            return [Action("clear", t, reason=f"the guess at {cur.book} {chapter}:{verse} was not confirmed by what followed")]
+        if waited >= 12:                                  # nothing more heard for a long time: let the normal hold timer decide
+            cur.confirmed = True
+        return []
+
+    # ------------------------------------------------------------------ 2a. the speaker is reading on through the chapter
+    def _sequential(self, t: float, text: str) -> Action | None:
+        """Where in the chapter is the speaker NOW? Compare the latest words with the verses around the last one shown (the one
+        before it up to ``look_ahead`` after it) instead of searching the whole Bible. That is quick, tolerant of a few misheard
+        words, copes with a skipped verse, and keeps working after the screen has cleared."""
+        ctx = self.current or (self.last if self.last and t - self.last.last_activity <= self.context_keep else None)
+        if not ctx or not self.index:
+            return None
+        words = normalize(text).split()
+        if len(words) < 4:
+            return None
+        idx = self.index
+        cands: list[tuple[int, int]] = []
+        c, v = ctx.chapter, max(1, ctx.verse - 1)
+        for _ in range(self.look_ahead + 2):
+            if not idx.has_verse(ctx.book_id, c, v):
+                if idx.has_verse(ctx.book_id, c + 1, 1):
+                    c, v = c + 1, 1
+                else:
+                    break
+            cands.append((c, v))
+            v += 1
+        best = None
+        for c, v in cands:
+            step = (c - ctx.chapter) * 1000 + (v - ctx.verse)
+            # Several window sizes: just after the speaker starts a new verse the last 10 words are half old verse, half new, so a
+            # short window (the last 5-6 words) is what first fits the new one; a long window is what makes a match convincing.
+            fits = []
+            for size in (5, 7, self.tail_words):
+                tail = words[-size:]
+                if len(tail) < min(size, 5):
+                    continue
+                for vn in idx.verse_texts(ctx.book_id, c, v):
+                    m_, cov_, last_, first_ = idx.tail_fit(tail, vn.split())
+                    if first_ > 7 and m_ < 8:
+                        continue          # a few words matching the MIDDLE or END of a verse is a coincidence ("of the Lord Jesus Christ"); beginning to read a verse means its opening
+                    if last_ and m_ >= min(5, len(tail)):
+                        fits.append((m_, cov_, size))
+            if not fits:
+                continue                                                  # the speaker's last words must be in this verse
+            matched, cover, _ = max(fits, key=lambda x: (x[1], x[0]))
+            if step == 0:
+                if matched >= 4 and cover >= 0.6:
+                    ctx.last_activity = t                                   # still in the verse that is up
+                continue
+            if ctx.range_end and (c, v) > ctx.range_end:
+                continue                                                      # the speaker named a range: stop at its end
+            if step == 1:
+                need_matched, need_cover = 5, 0.7
+            elif step < 0:
+                continue                                                      # never go backwards on a transcript: a late sentence looks like a re-read
+            else:
+                need_matched, need_cover = 7, 0.8                             # skipped ahead, or reading on past a named range
+            if matched < min(need_matched, len(tail)) or cover < need_cover:
+                continue
+            score = cover + 0.02 * matched
+            if best is None or score > best[0] + 0.05 or (abs(score - best[0]) <= 0.05 and step > best[4]):
+                best = (score, c, v, matched, step, cover)
+        if not best:
+            return None
+        _, c, v, matched, step, cover = best
+        if c != ctx.chapter:
+            return None                                                   # crossing into the next chapter needs a spoken reference or a clear read
+        return self._show(t, ctx.book_id, ctx.book, c, v, range_end=ctx.range_end,
+                          reason=f"the speaker began reading verse {v} (in sequence: {matched} words, {cover:.0%})", heard=" ".join(words[-8:]), followed=ctx.followed + 1)
 
     # ------------------------------------------------------------------ 2. the speaker moves on to the next verse
     def _next_verse(self, t: float, text: str) -> Action | None:
@@ -240,10 +490,18 @@ class Follower:
               range_end: tuple[int, int] | None = None, followed: int = 0) -> Action | None:
         key = (book_id, chapter, verse)
         last = self.shown_at.get(key)
-        if last is not None and t - last < self.cooldown and not reason.startswith("the speaker began reading"):
+        if last is not None and t - last < self.cooldown and not reason.startswith(("the speaker began reading", "the guess", "assumed")):
             return None                          # the same verse was just shown
         self.shown_at[key] = t
         self.current = Shown(book_id, book, chapter, verse, t, t, range_end=range_end, followed=followed)
+        self.last = self.current
+        if self.current:
+            if reason.startswith("assumed"):
+                self.current.read_started = t
+            elif reason.startswith(("the speaker began reading", "heard the verse itself")):
+                self.current.read_started = max(0.0, t - 1.5)          # the words are heard ~1.5 s after they are spoken
+            else:
+                self.current.read_started = 0.0
         self._cand, self._cand_count = None, 0
         return Action("show", t, reason=reason, book_id=book_id, book=book, chapter=chapter, verse=verse, heard=heard,
                       range_end=range_end if (range_end and range_end[0] == chapter and not followed) else None)

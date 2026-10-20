@@ -85,7 +85,7 @@ def test_a_verse_range_follows_the_speaker_one_verse_at_a_time(idx):
     got = shown(acts)
     assert got[0][0] == "Psalms 23:1" and "reference" in got[0][1]
     assert [g[0] for g in got] == ["Psalms 23:1", "Psalms 23:2", "Psalms 23:3"]
-    assert all("began reading" in g[1] for g in got[1:])
+    assert all(("began reading" in g[1] or "assumed" in g[1]) for g in got[1:])
 
 
 def test_it_does_not_run_past_the_end_of_a_named_range(idx):
@@ -300,3 +300,170 @@ def test_a_late_version_is_ignored_after_a_while_or_when_one_was_already_said(id
     g = Follower(index=idx, hold=60)
     say(g, (1.0, "final", "Romans 8 28"))
     assert [a for a in say(g, (20.0, "final", "the New Living Translation")) if a.kind == "show"] == []
+
+
+# ---------------------------------------------------------------- reading on through the chapter
+def chapter_index():
+    v = {
+        3: "His divine power has granted to us all things that pertain to life and godliness, through the knowledge of him who called us to his own glory and excellence",
+        4: "by which he has granted to us his precious and very great promises, so that through them you may become partakers of the divine nature",
+        5: "For this reason make every effort to supplement your faith with virtue, and virtue with knowledge",
+        6: "and knowledge with self-control, and self-control with steadfastness, and steadfastness with godliness",
+        7: "and godliness with brotherly affection, and brotherly affection with love",
+        8: "For if these qualities are yours and increasing, they keep you from being ineffective or unfruitful in the knowledge of our Lord Jesus Christ",
+    }
+    return ScriptureIndex({"ESV": [Verse("2PE", "2 Peter", 1, n, x) for n, x in v.items()]})
+
+
+def test_the_next_verse_is_picked_up_from_just_its_first_words():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 3"))
+    acts = say(f, (6.0, "partial", "of him who called us to his own glory and excellence by which he has granted"))
+    assert [a.reference for a in acts if a.kind == "show"] == ["2 Peter 1:4"]
+
+
+def test_a_misheard_word_or_two_does_not_lose_the_place():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    acts = say(f, (6.0, "partial", "with knowledge and knowledge with self control and self control with steadfastness and steadfastness with goveliness"))
+    assert [a.reference for a in acts if a.kind == "show"] == ["2 Peter 1:6"]
+
+
+def test_it_keeps_the_place_after_the_screen_clears():
+    f = Follower(index=chapter_index(), hold=5)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    assert [a.kind for a in f.tick(10.0)] == ["clear"]
+    acts = say(f, (40.0, "partial", "and knowledge with self-control and self-control with steadfastness"))
+    assert [a.reference for a in acts if a.kind == "show"] == ["2 Peter 1:6"]
+
+
+def test_it_can_skip_a_verse_and_still_find_the_place():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 4"))
+    acts = say(f, (6.0, "partial", "and knowledge with self-control and self-control with steadfastness and steadfastness with godliness"))
+    assert [a.reference for a in acts if a.kind == "show"] == ["2 Peter 1:6"]
+
+
+def test_a_few_words_matching_the_end_of_a_later_verse_do_not_move_it():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 7"))
+    acts = say(f, (6.0, "partial", "James a servant of God and of the Lord Jesus Christ"))
+    assert [a for a in acts if a.kind == "show"] == []
+
+
+def test_unrelated_talk_never_moves_it():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    acts = say(f, (6.0, "partial", "so what does this mean for us today as a community of faith in this city"))
+    assert [a for a in acts if a.kind == "show"] == []
+
+
+# ---------------------------------------------------------------- confident but assumptive
+def voice(f, t, what="speech start"):
+    return f.feed({"kind": "status", "t": t, "text": what})
+
+
+def test_when_the_speaker_carries_on_after_a_finished_verse_the_next_one_goes_up_before_any_word_is_transcribed():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    say(f, (4.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge"))
+    voice(f, 5.2, "speech end")
+    acts = voice(f, 6.0)                                                   # the next sentence begins; no words yet
+    assert [(a.reference, a.tentative) for a in acts if a.kind == "show"] == [("2 Peter 1:6", True)]
+
+
+def test_no_assumption_is_made_when_the_verse_on_screen_was_not_finished():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    say(f, (4.0, "partial", "for this reason make every effort to supplement"))
+    acts = voice(f, 6.0)
+    assert [a for a in acts if a.kind == "show"] == []
+
+
+def test_no_assumption_is_made_when_the_speaker_never_read_the_verse():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    assert [a for a in voice(f, 6.0) if a.kind == "show"] == []
+
+
+def test_an_assumption_is_confirmed_by_the_first_words_and_stays():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    say(f, (4.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge"))
+    voice(f, 6.0)
+    acts = say(f, (7.5, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge and knowledge with self control"))
+    assert [a for a in acts if a.kind in ("show", "clear")] == [] and f.current.confirmed and f.current.verse == 6
+
+
+def test_a_wrong_assumption_is_withdrawn_when_the_speaker_moves_on_to_something_else():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    say(f, (4.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge"))
+    voice(f, 6.0)
+    acts = say(f, (8.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge so what does this mean for us today as a church"))
+    assert [a.kind for a in acts] == ["clear"] and f.current is None
+
+
+def test_a_wrong_assumption_returns_to_the_previous_verse_when_the_speaker_was_only_pausing():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    say(f, (4.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge"))
+    voice(f, 6.0)
+    acts = say(f, (8.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge for this reason make every effort"))
+    shows = [a for a in acts if a.kind == "show"]
+    assert [a.reference for a in shows] == ["2 Peter 1:5"]
+
+
+def test_assumptions_never_chain_and_never_pass_the_end_of_a_named_range():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verses 5 through 6"))
+    say(f, (4.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge"))
+    assert [a.reference for a in voice(f, 6.0) if a.kind == "show"] == ["2 Peter 1:6"]
+    assert [a for a in voice(f, 6.2) if a.kind == "show"] == []             # a guess is not built on a guess
+    say(f, (7.5, "partial", "and knowledge with self-control and self-control with steadfastness and steadfastness with godliness"))
+    assert [a for a in voice(f, 12.0) if a.kind == "show"] == []             # 6 was the end of the range
+
+
+def test_the_assumption_can_be_switched_off():
+    f = Follower(index=chapter_index(), hold=30, assume=False)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    say(f, (4.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge"))
+    assert [a for a in voice(f, 6.0) if a.kind == "show"] == []
+
+
+def test_a_blip_of_sound_after_a_finished_verse_is_taken_back_as_soon_as_it_goes_quiet_again():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    say(f, (4.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge"))
+    guess = [a for a in voice(f, 4.2) if a.kind == "show"]
+    assert [a.reference for a in guess] == ["2 Peter 1:6"]
+    back = [a for a in voice(f, 5.0, "speech end") if a.kind == "show"]
+    assert [a.reference for a in back] == ["2 Peter 1:5"] and f.current.verse == 5
+
+
+def test_the_next_verse_is_guessed_from_speaking_time_when_the_transcript_is_still_behind():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    voice(f, 2.0)                                                           # starts reading verse 5
+    say(f, (6.0, "partial", "for this reason make every effort to supplement your faith"))   # transcript is only part-way (about 55%)
+    voice(f, 7.6, "speech end")
+    acts = voice(f, 8.0)                                                    # but 5.6 s of speech at ~2.7 words/s is the whole verse
+    assert [(a.reference, a.tentative) for a in acts if a.kind == "show"] == [("2 Peter 1:6", True)]
+
+
+def test_a_short_stretch_of_speech_is_not_enough_to_guess_even_if_the_transcript_is_part_way():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    voice(f, 2.0)
+    say(f, (3.0, "partial", "for this reason make every effort to supplement your faith"))
+    voice(f, 3.4, "speech end")                                             # only 1.4 s of speech so far
+    assert [a for a in voice(f, 3.8) if a.kind == "show"] == []
+
+
+def test_a_transcript_that_never_matched_the_verse_cannot_trigger_a_guess_from_timing_alone():
+    f = Follower(index=chapter_index(), hold=30)
+    say(f, (1.0, "final", "second Peter 1 verse 5"))
+    voice(f, 2.0)
+    say(f, (7.0, "partial", "so what does this mean for us today as a community of faith"))
+    voice(f, 8.0, "speech end")
+    assert [a for a in voice(f, 8.5) if a.kind == "show"] == []
