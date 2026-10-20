@@ -129,6 +129,9 @@ func copyToSelected(_ m: (String) -> Void) -> Bool {
     }
     return false
 }
+func goBackToShow(_ m: (String) -> Void) {
+    if let b = find(win, 0, { s($0, kAXRoleAttribute) == "AXRadioButton" && s($0, kAXDescriptionAttribute) == "Show" }) { AXUIElementPerformAction(b, kAXPressAction as CFString); m("back to Show") }
+}
 func liveLayer() -> Bool { (api("/v1/status/layers")?["slide"] as? Bool) ?? false }
 func activeName() -> String {
     guard let a = api("/v1/presentation/active"), let p = a["presentation"] as? [String: Any], let g = (p["groups"] as? [[String: Any]])?.first else { return "" }
@@ -181,6 +184,7 @@ for ref in refs {
     }
     let done = copyToSelected(m)
     if !done { failed.append(ref); print("  FAILED to add \(ref)"); continue }
+    if backToShow { goBackToShow(m) }
     if waitMenu { let d3 = now() + 1; while menuOpen() && now() < d3 { usleep(3_000) }; m("menu closed") }
     var good = true
     if verifyEach && !target.isEmpty {

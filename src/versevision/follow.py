@@ -95,8 +95,8 @@ class Follower:
     assume: bool = True                  # put the next verse up as soon as the speaker carries on after finishing the one on screen
     assume_progress: float = 0.8         # how much of the verse on screen must have been heard before an assumption is made
     assume_window: float = 8.0           # ... and speech must resume within this many seconds of its ending (or of the last read words)
-    verify_words: int = 6                # words after the assumed verse starts before the guess is checked
-    verify_timeout: float = 4.0          # seconds after which an unchecked guess is judged on whatever was heard
+    verify_words: int = 9                # words after the assumed verse starts before the guess is checked
+    verify_timeout: float = 5.0          # seconds after which an unchecked guess is judged on whatever was heard
     chapter_pause: float = 1.2           # a chapter-only mention must stay unchanged this long (a pause) before it is re-read as chapter + verse
     chapter_window: float = 12.0         # ... and the verse must start being read within this long
     pending: list = field(default_factory=list)
@@ -405,13 +405,19 @@ class Follower:
         _, end = self.index.progress(text, pb, pc, pv)
         after = words[end:] if end >= 0 else words[-self.verify_words:]
         opening = self.index.opening_matches(" ".join(after), book_id, chapter, verse, words=min(5, max(2, len(after)))) if after else 0.0
-        if len(after) >= 2 and opening >= 80 or (len(after) >= self.verify_words and opening >= 62):
+        # How well the latest speech fits the guessed verse as a whole. The first words of a sentence are often garbled while the rest
+        # comes out fine ("The Bible says, For the most glorious kinds" ... "For you know that the testing of your faith"), so a
+        # good fit anywhere in the latest words confirms the guess just as the opening does.
+        fit = self.index.reading_score(" ".join(words[-16:]), book_id, chapter, verse) if len(words) >= 5 else 0.0
+        if len(after) >= 2 and opening >= 80 or (len(after) >= self.verify_words and opening >= 62) or fit >= 72:
             cur.confirmed = True
             prev_obj = self.last if self.last is not cur else None
             cur.last_activity = t
             return []
         waited = t - cur.assumed_at
-        if speech_ended and not after and waited >= 0.3:
+        if fit >= 55 and not speech_ended:
+            return []                                     # it still looks like this verse: never withdraw on a partial fit
+        if speech_ended and not after and waited >= 0.3 and waited <= 0.9:
             # The "start of speech" was only a blip (a breath, a dip inside the last word): nothing new was said before it went quiet again.
             cur.assumed = False
             self.current = None
@@ -419,7 +425,7 @@ class Follower:
             if act:
                 self.current.reading_share = 1.0
             return [act] if act else []
-        if len(after) >= self.verify_words or (waited >= self.verify_timeout and len(after) >= 3):
+        if waited >= 3.0 and (len(after) >= self.verify_words or (waited >= self.verify_timeout and len(after) >= 3)):
             # not the next verse. Is it still the verse before (a pause in the middle of it), or something else?
             back = self.index.reading_score(" ".join(words[-14:]), pb, pc, pv)
             cur.assumed = False

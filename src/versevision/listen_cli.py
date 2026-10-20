@@ -42,6 +42,7 @@ def listen_command(
     hold: Annotated[float, typer.Option("--hold", help="Seconds a verse stays on screen after the speaker last touched it")] = 30.0,
     presentation: Annotated[str, typer.Option("--presentation", help="Add every verse to this named presentation. Default: whichever presentation is open (selected) in ProPresenter at that moment")] = "",
     no_add: Annotated[bool, typer.Option("--no-add", help="Do not add shown verses to a presentation")] = False,
+    preload: Annotated[int, typer.Option("--preload", help="Quietly load this many verses ahead into the presentation, so reading on is instant (0 = off)")] = 4,
     follow: Annotated[bool, typer.Option("--follow/--no-follow", help="Move on to the next verse when the speaker starts reading it")] = True,
     content: Annotated[bool, typer.Option("--content/--no-content", help="Recognise a verse from its words when no reference was said")] = True,
     cooldown: Annotated[float, typer.Option("--cooldown", help="Do not show the same verse again within this many seconds")] = 30.0,
@@ -112,13 +113,94 @@ def listen_command(
         except Exception as exc:
             log(f"            could not clear the screen: {exc}")
 
+    slide_cache: dict[str, list[str]] = {}           # presentation uuid -> slide texts as last read (refreshed after each add)
+
+    def refresh_cache(uuid: str) -> list[str]:
+        slide_cache[uuid.upper()] = slide_texts(uuid)
+        return slide_cache[uuid.upper()]
+
     loaded_version: dict[str, str] = {}              # reference -> the version it was added under, when we chose one
     loaded: dict[str, tuple[str, int]] = {}          # reference -> (presentation uuid, slide index) for verses already added
+
+    import threading
+    ui_lock = threading.Lock()                       # one piece of ProPresenter automation at a time (lookups use the keyboard and mouse)
+    preloading = {"busy": False}
+
+    def preload_after(act: Action) -> None:
+        """After a verse is on screen, quietly load the next few verses of its chapter into the presentation (the 'section'), so that
+        when the speaker reads on they are triggered instantly from the slides instead of being looked up."""
+        if preload <= 0 or dry_run or no_add or index is None or preloading["busy"]:
+            return
+        preloading["busy"] = True
+
+        def work() -> None:
+            try:
+                with ui_lock:
+                    uuid = target["uuid"] if presentation else focused_uuid()
+                    if not uuid:
+                        return
+                    want: list[tuple[int, int]] = []
+                    ahead = [act.verse + k for k in range(1, preload + 1) if index.has_verse(act.book_id, act.chapter, act.verse + k)]
+                    have = [v for v in ahead if f"{act.book} {act.chapter}:{v}" in loaded and loaded[f"{act.book} {act.chapter}:{v}"][0].upper() == uuid.upper()]
+                    if len(have) >= max(2, len(ahead) // 2) or not ahead:
+                        return                           # still plenty loaded ahead of the speaker: do not touch the screen's UI
+                    first_missing = next((v for v in ahead if v not in have), None)
+                    if first_missing is None:
+                        return
+                    for v in range(first_missing, ahead[-1] + 1):
+                        if v in ahead:
+                            want.append((act.chapter, v))
+                    if not want:
+                        return
+                    first, last = want[0], want[-1]
+                    contiguous = [x for x in range(first[1], last[1] + 1)]
+                    text = _lookup_text(_range_text(act.book, act.chapter, first[1], (act.chapter, last[1]) if last[1] > first[1] else None))
+                    before = slide_count(uuid)
+                    prev = focused_uuid()
+                    if prev.upper() != uuid.upper():
+                        _pp_get(f"/v1/presentation/{uuid}/focus"); time.sleep(0.15)
+                    t0 = time.time()
+                    # load-only mode (no --keep): the slides are added to the presentation and nothing is put on the output
+                    cmd = [str(VVADD), "--back"] + ([f"--version={pp_version(act.version)}"] if pp_version(act.version) else []) + [text]
+                    try:
+                        subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+                        end = time.time() + 1.5
+                        after = slide_count(uuid)
+                        while after <= before and time.time() < end:
+                            time.sleep(0.05); after = slide_count(uuid)
+                        texts = refresh_cache(uuid)
+                        got = 0
+                        for i, vnum in enumerate(contiguous):
+                            ref = f"{act.book} {act.chapter}:{vnum}"
+                            idx_ = before + i
+                            if idx_ < len(texts) and slide_holds(texts[idx_], ref):
+                                loaded[ref] = (uuid, idx_)
+                                if pp_version(act.version):
+                                    loaded_version[ref] = pp_version(act.version)
+                                got += 1
+                        log(f"            preloaded {got}/{len(contiguous)} verses after {act.reference} ({text}) in {time.time() - t0:.2f}s")
+                    finally:
+                        if prev and prev.upper() != uuid.upper():
+                            try: _pp_get(f"/v1/presentation/{prev}/focus")
+                            except Exception: pass
+            except Exception as exc:
+                log(f"            preload failed: {exc}")
+            finally:
+                preloading["busy"] = False
+
+        threading.Thread(target=work, daemon=True).start()
 
     def trigger_loaded(reference: str) -> bool:
         """A verse that is already in the presentation needs no Bible lookup: trigger its slide through the API (about 75 ms)."""
         import httpx
         uuid, idx = loaded[reference]
+        texts = slide_cache.get(uuid.upper()) or refresh_cache(uuid)
+        if idx >= len(texts) or not slide_holds(texts[idx], reference):
+            texts = refresh_cache(uuid)                          # the cache may be stale (the operator edited the presentation)
+            if idx >= len(texts) or not slide_holds(texts[idx], reference):
+                loaded.pop(reference, None)
+                log(f"            (the slide for {reference} is no longer at position {idx}; looking it up instead)")
+                return False
         try:
             httpx.get(f"{PP}/v1/presentation/{uuid}/{idx}/trigger", timeout=3).raise_for_status()
             end = time.time() + 1.2
@@ -152,6 +234,7 @@ def listen_command(
             ok = trigger_loaded(act.reference)
             log(f"            {'on screen' if ok else 'trigger FAILED'} in {time.time() - t0:.2f}s (already in the presentation, no lookup needed)")
             if ok:
+                preload_after(act)
                 return
         if not no_add and not presentation:
             target["uuid"] = focused_uuid()                  # whichever presentation the operator has open right now
@@ -173,8 +256,10 @@ def listen_command(
                 time.sleep(0.15)
             except Exception:
                 pass
+        ok = False
         try:
-            res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+            with ui_lock:
+                res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
             ok = "live after" in res.stdout
             tail = res.stdout.strip().splitlines()[0][:100] if res.stdout.strip() else res.stderr[-100:]
             log(f"            {'on screen' if ok else 'FAILED'} in {time.time() - t0:.2f}s: {tail}")
@@ -184,6 +269,7 @@ def listen_command(
                 while after <= before and time.time() < end:
                     time.sleep(0.05); after = slide_count(target["uuid"])
                 added_n = after - before
+                refresh_cache(target["uuid"])
                 if added_n == len(verses):
                     for i, (c, v) in enumerate(verses):
                         loaded[f"{act.book} {c}:{v}"] = (target["uuid"], before + i)
@@ -203,6 +289,8 @@ def listen_command(
                     _pp_get(f"/v1/presentation/{prev}/focus")      # give the operator back the presentation they had selected
                 except Exception:
                     pass
+        if ok:
+            preload_after(act)
 
     deadline = time.time() + seconds + 3 if seconds else None
     try:
@@ -252,6 +340,22 @@ def slide_count(uuid: str) -> int:
         return sum(len(g["slides"]) for g in d["groups"])
     except Exception:
         return -1
+
+
+def slide_texts(uuid: str) -> list[str]:
+    """The text of every slide of a presentation, in order (the first line of a Bible slide is "James 1:3 (ESV)")."""
+    try:
+        d = _pp_get(f"/v1/presentation/{uuid}")["presentation"]
+        return [(sl.get("text") or "") for g in d["groups"] for sl in g["slides"]]
+    except Exception:
+        return []
+
+
+def slide_holds(text: str, reference: str) -> bool:
+    """True when a slide's text begins with this reference ("James 1:3 (ESV) ..."), whatever Bible it is in."""
+    ref = _lookup_text(reference).lower()
+    head = (text or "").strip().lower()
+    return head.startswith(ref + " ") or head.startswith(ref + "\n") or head == ref
 
 
 def range_verses(index, book_id: str, chapter: int, verse: int, range_end: tuple[int, int] | None) -> list[tuple[int, int]]:

@@ -400,7 +400,7 @@ def test_a_wrong_assumption_is_withdrawn_when_the_speaker_moves_on_to_something_
     say(f, (1.0, "final", "second Peter 1 verse 5"))
     say(f, (4.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge"))
     voice(f, 6.0)
-    acts = say(f, (8.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge so what does this mean for us today as a church"))
+    acts = say(f, (9.5, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge so what does this mean for us today as a church"))
     assert [a.kind for a in acts] == ["clear"] and f.current is None
 
 
@@ -409,7 +409,7 @@ def test_a_wrong_assumption_returns_to_the_previous_verse_when_the_speaker_was_o
     say(f, (1.0, "final", "second Peter 1 verse 5"))
     say(f, (4.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge"))
     voice(f, 6.0)
-    acts = say(f, (8.0, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge for this reason make every effort"))
+    acts = say(f, (9.5, "partial", "for this reason make every effort to supplement your faith with virtue and virtue with knowledge for this reason make every effort to supplement your faith"))
     shows = [a for a in acts if a.kind == "show"]
     assert [a.reference for a in shows] == ["2 Peter 1:5"]
 
@@ -521,3 +521,31 @@ def test_the_chapter_re_read_is_dropped_if_the_verse_never_starts():
     say(f, (1.0, "partial", "Isaiah 42"))
     acts = say(f, (30.0, "partial", "speak tenderly to Jerusalem and cry to her that her warfare is ended"))
     assert [a.reference for a in acts if a.reason.startswith("heard only a chapter")] == []
+
+
+def james_index():
+    v = {2: "Count it all joy, my brothers, when you meet trials of various kinds,",
+         3: "for you know that the testing of your faith produces steadfastness.",
+         4: "And let steadfastness have its full effect, that you may be perfect and complete, lacking in nothing."}
+    return ScriptureIndex({"ESV": [Verse("JAS", "James", 1, n, x) for n, x in v.items()]})
+
+
+def test_a_guess_is_kept_when_its_first_words_are_garbled_but_the_verse_then_comes_out_right():
+    f = Follower(index=james_index(), hold=30)
+    say(f, (1.0, "final", "James 1 verse 2"))
+    say(f, (4.0, "partial", "count it all joy my brothers when you meet trials of various kinds"))
+    assert [a.reference for a in voice(f, 4.6) if a.kind == "show"] == ["James 1:3"]
+    acts = say(f, (5.5, "final", "when you meet trials of various kinds"),
+               (6.8, "partial", 'the bible says for the most glorious kinds'),
+               (7.6, "partial", "the"),
+               (9.6, "partial", "for you know that the testing of your faith produces steadfastness"))
+    assert [a for a in acts if a.kind in ("show", "clear")] == [] and f.current.verse == 3 and f.current.confirmed
+
+
+def test_a_guess_is_not_withdrawn_in_its_first_seconds_on_garbled_words_alone():
+    f = Follower(index=james_index(), hold=30)
+    say(f, (1.0, "final", "James 1 verse 2"))
+    say(f, (4.0, "partial", "count it all joy my brothers when you meet trials of various kinds"))
+    voice(f, 4.6)
+    acts = say(f, (5.8, "partial", "so and the bible says for the most glorious kinds of"))
+    assert [a for a in acts if a.kind in ("show", "clear")] == [] and f.current.verse == 3
