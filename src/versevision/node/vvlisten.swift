@@ -62,7 +62,7 @@ if engineName == "apple" {
 }
 var micOK = false
 AVCaptureDevice.requestAccess(for: .audio) { ok in micOK = ok; sem.signal() }
-emit("status", "waiting for Microphone permission (click Allow on the screen if asked)", t0)
+emit("status", "checking Microphone permission (an Allow box appears only the first time)", t0)
 sem.wait()
 if !micOK { emit("status", "microphone permission not granted", t0); exit(3) }
 
@@ -226,20 +226,45 @@ final class WhisperListener {
     }
 }
 
+var chanPeak = [Float](repeating: 0, count: 8)
 if engineName == "whisper" {
     guard let u = opt("--whisper"), let url = URL(string: u) else { emit("status", "--whisper http://host:port is required", t0); exit(8) }
     let wl = WhisperListener(url: url, prompt: opt("--prompt") ?? "", t0: t0, step: Double(opt("--step") ?? "") ?? 1.0,
                              silence: Double(opt("--silence") ?? "") ?? 0.6, maxUtter: Double(opt("--max-utterance") ?? "") ?? 14)
     guard let target = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 16000, channels: 1, interleaved: false),
-          let conv = AVAudioConverter(from: fmt, to: target) else { emit("status", "cannot convert audio", t0); exit(9) }
+          let monoFmt = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: fmt.sampleRate, channels: 1, interleaved: false),
+          let conv = AVAudioConverter(from: monoFmt, to: target) else { emit("status", "cannot convert audio", t0); exit(9) }
+    // Mixer and Dante feeds are often on one channel only and can be very quiet. So: mix down ALL channels together (or only the one
+    // named with --channel N), and level the volume with a slow automatic gain so the silence detector works.
+    let forcedChannel = Int(opt("--channel") ?? "") ?? 0
+    var slowPeak = [Float](repeating: 0, count: 16)
+    var agc: Float = 1
     engine.inputNode.installTap(onBus: 0, bufferSize: 2048, format: fmt) { buf, _ in
-        let cap = AVAudioFrameCount(Double(buf.frameLength) * 16000.0 / fmt.sampleRate) + 32
+        guard let cd = buf.floatChannelData, buf.frameLength > 0 else { return }
+        let n = Int(buf.frameLength), nch = min(Int(buf.format.channelCount), 16)
+        for c in 0..<nch {
+            var m: Float = 0; for i in 0..<n { m = max(m, abs(cd[c][i])) }
+            if c < 8 { chanPeak[c] = max(chanPeak[c], m) }
+            slowPeak[c] = max(m, slowPeak[c] * 0.9995)
+        }
+        let loudest = slowPeak.prefix(nch).max() ?? 0
+        let use: [Int] = forcedChannel > 0 ? [min(forcedChannel, nch) - 1] : Array(0..<nch)      // default: always listen to every channel (both Dante channels), mixed together
+        guard let mono = AVAudioPCMBuffer(pcmFormat: monoFmt, frameCapacity: buf.frameLength), let md = mono.floatChannelData?[0] else { return }
+        mono.frameLength = buf.frameLength
+        let chans = use.isEmpty ? [0] : use
+        for i in 0..<n { var x: Float = 0; for c in chans { x += cd[c][i] }; md[i] = x / Float(chans.count) }
+        var peak: Float = 0; for i in 0..<n { peak = max(peak, abs(md[i])) }
+        let used = chans.map { slowPeak[$0] }.max() ?? 0
+        let wantGain = min(40, max(1, 0.25 / max(used, 0.0005)))       // aim for peaks around 0.25; never more than 40x
+        agc = wantGain < agc ? wantGain : agc * 0.999 + wantGain * 0.001
+        if agc != 1 { for i in 0..<n { md[i] = max(-1, min(1, md[i] * agc)) } }
+        let cap = AVAudioFrameCount(Double(n) * 16000.0 / fmt.sampleRate) + 32
         guard let out = AVAudioPCMBuffer(pcmFormat: target, frameCapacity: cap) else { return }
         var fed = false
         var err: NSError?
         conv.convert(to: out, error: &err) { _, status in
             if fed { status.pointee = .noDataNow; return nil }
-            fed = true; status.pointee = .haveData; return buf
+            fed = true; status.pointee = .haveData; return mono
         }
         if let ch = out.floatChannelData?[0], out.frameLength > 0 { wl.append(Array(UnsafeBufferPointer(start: ch, count: Int(out.frameLength)))) }
     }
@@ -247,7 +272,11 @@ if engineName == "whisper" {
     do { try engine.start() } catch { emit("status", "audio engine failed: \(error.localizedDescription)", t0); exit(6) }
     emit("status", String(format: "VerseVision Listen 0.9 - Whisper (%.0f Hz input, server %@)", fmt.sampleRate, u), t0)
     Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in wl.tick() }
-    Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in emit("status", String(format: "level %.3f", level), t0) }
+    Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
+        let n = Int(fmt.channelCount)
+        let per = (0..<min(n, 8)).map { String(format: "ch%d %.3f", $0 + 1, chanPeak[$0]) }.joined(separator: ", ")
+        emit("status", String(format: "level %.3f gain x%.0f (%@)", level, agc, per), t0); chanPeak = [Float](repeating: 0, count: 8)
+    }
     if let s = opt("--seconds"), let n = Double(s) { DispatchQueue.main.asyncAfter(deadline: .now() + n) { engine.stop(); exit(0) } }
     RunLoop.main.run()
     exit(0)
