@@ -302,3 +302,68 @@ def find_spoken_references(text: str) -> list[SpokenReference]:
         for ref in getattr(parsed, "references", None) or []:
             out.append(SpokenReference(text=ref.normalized_text, heard=heard, reference=ref))
     return out
+
+
+@dataclass
+class ChapterMention:
+    """A book and ONE number with no verse ("Isaiah 42"): either a chapter, or a chapter and verse the recogniser ran together."""
+    book_id: str
+    book: str
+    number: int
+    heard: str                 # the words it came from
+    end: int                   # index of the word just after the mention
+
+
+def find_chapter_only(text: str) -> list[ChapterMention]:
+    """Book + a single number that is NOT followed by a verse, in the order heard. References with a verse, ranges, "chapter N"
+    said outright, and one-chapter books ("Jude 24") are not returned: they are already understood."""
+    words = _words(text)
+    out: list[ChapterMention] = []
+    i = 0
+    while i < len(words):
+        hit = _book_at(words, i)
+        if not hit:
+            i += 1
+            continue
+        book, j = hit
+        start = i
+        said_chapter = j < len(words) and words[j] in {"chapter", "chapters"}
+        if said_chapter:
+            j += 1
+        if j >= len(words) or ":" in words[j] or (words[j].isdigit() and len(words[j]) >= 3 and _split_run_together(book, words[j])):
+            i = max(j, i + 1)
+            continue
+        num = _read_number(words, j)
+        if not num:
+            i = max(j, i + 1)
+            continue
+        number, k = num
+        nxt = _read_number(words, k) if k < len(words) else None
+        followed_by_verse = (k < len(words) and words[k] in {"verse", "verses", "versus", "vs", "colon", "through", "to", "thru", "dash"}) or nxt is not None
+        if said_chapter or followed_by_verse or book in {"Obadiah", "Philemon", "2 John", "3 John", "Jude"}:
+            i = max(k, i + 1)
+            continue
+        info = next((b for b in BOOKS if b.name == book), None)
+        if info and 1 <= number <= info.chapters:
+            out.append(ChapterMention(info.id, book, number, " ".join(words[start:k]), k))
+        i = max(k, i + 1)
+    return out
+
+
+def verse_splits(number: int, chapters: int) -> list[tuple[int, int]]:
+    """Ways a spoken "chapter and verse" can be heard as ONE number, most likely first.
+
+    "Isaiah forty two" is a tens word plus a digit: chapter 40, verse 2. "Isaiah four two" is two digits: chapter 4, verse 2.
+    Longer numbers ("one nineteen", 119) split anywhere. The whole number as a chapter is not returned."""
+    out: list[tuple[int, int]] = []
+    def add(c: int, v: int) -> None:
+        if 1 <= c <= chapters and 1 <= v <= 176 and (c, v) not in out:
+            out.append((c, v))
+    if 21 <= number <= 99 and number % 10:
+        add(number // 10 * 10, number % 10)               # forty two -> 40:2
+    digits = str(number)
+    for cut in range(1, len(digits)):
+        chap, verse = digits[:cut], digits[cut:]
+        if not chap.startswith("0") and not verse.startswith("0"):
+            add(int(chap), int(verse))                     # 42 -> 4:2 ; 119 -> 1:19, 11:9
+    return out

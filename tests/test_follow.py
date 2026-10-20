@@ -467,3 +467,57 @@ def test_a_transcript_that_never_matched_the_verse_cannot_trigger_a_guess_from_t
     say(f, (7.0, "partial", "so what does this mean for us today as a community of faith"))
     voice(f, 8.0, "speech end")
     assert [a for a in voice(f, 8.5) if a.kind == "show"] == []
+
+
+# ---------------------------------------------------------------- "Isaiah 42" heard, but Isaiah 40:2 meant
+def isaiah_index():
+    v = {
+        (40, 1): "Comfort, comfort my people, says your God.",
+        (40, 2): "Speak tenderly to Jerusalem, and cry to her that her warfare is ended, that her iniquity is pardoned, that she has received from the Lord's hand double for all her sins.",
+        (42, 1): "Behold my servant, whom I uphold, my chosen, in whom my soul delights; I have put my Spirit upon him; he will bring forth justice to the nations.",
+        (4, 2): "In that day the branch of the Lord shall be beautiful and glorious, and the fruit of the land shall be the pride and honor of the survivors of Israel.",
+    }
+    return ScriptureIndex({"ESV": [Verse("ISA", "Isaiah", c, n, x) for (c, n), x in v.items()]})
+
+
+def test_a_chapter_with_no_verse_is_re_read_as_chapter_and_verse_when_that_verse_follows():
+    f = Follower(index=isaiah_index(), hold=30)
+    assert [a for a in say(f, (1.0, "partial", "turn with me to Isaiah 42")) if a.kind == "show"] == []
+    acts = say(f, (3.5, "partial", "turn with me to Isaiah 42 speak tenderly to Jerusalem and cry to her that her warfare is ended"))
+    shows = [a for a in acts if a.kind == "show"]
+    assert [a.reference for a in shows] == ["Isaiah 40:2"] and "only a chapter" in shows[0].reason
+
+
+def test_it_waits_for_the_pause_before_re_reading_a_chapter():
+    f = Follower(index=isaiah_index(), hold=30)
+    acts = say(f, (1.0, "partial", "Isaiah 42 speak tenderly to Jerusalem and cry to her that her warfare is ended"))
+    assert [a for a in acts if a.kind == "show"] == []                  # no pause yet: the words may be running on
+    acts = say(f, (2.6, "partial", "Isaiah 42 speak tenderly to Jerusalem and cry to her that her warfare is ended"))
+    assert [a.reference for a in acts if a.kind == "show"] == ["Isaiah 40:2"]
+
+
+def test_a_chapter_that_really_was_the_chapter_is_found_by_its_first_verse():
+    f = Follower(index=isaiah_index(), hold=30)
+    say(f, (1.0, "partial", "Isaiah 42"))
+    acts = say(f, (4.0, "partial", "Isaiah 42 behold my servant whom I uphold my chosen in whom my soul delights"))
+    assert [a.reference for a in acts if a.kind == "show"] == ["Isaiah 42:1"]
+
+
+def test_a_chapter_with_nothing_matching_after_it_shows_nothing():
+    f = Follower(index=isaiah_index(), hold=30)
+    say(f, (1.0, "partial", "Isaiah 42"))
+    acts = say(f, (4.0, "partial", "Isaiah 42 so what does this mean for us as a community of faith today"))
+    assert [a for a in acts if a.kind == "show"] == []
+
+
+def test_a_full_reference_is_never_second_guessed():
+    f = Follower(index=isaiah_index(), hold=30)
+    acts = say(f, (1.0, "final", "Isaiah 40 2"), (4.0, "partial", "Isaiah 40 2 speak tenderly to Jerusalem and cry to her that her warfare is ended"))
+    assert [a.reference for a in acts if a.kind == "show"] == ["Isaiah 40:2"]
+
+
+def test_the_chapter_re_read_is_dropped_if_the_verse_never_starts():
+    f = Follower(index=isaiah_index(), hold=30)
+    say(f, (1.0, "partial", "Isaiah 42"))
+    acts = say(f, (30.0, "partial", "speak tenderly to Jerusalem and cry to her that her warfare is ended"))
+    assert [a.reference for a in acts if a.reason.startswith("heard only a chapter")] == []

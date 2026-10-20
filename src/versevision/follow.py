@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 
 from .listen import Continuer, Detection, Detector, clock
 from .references.models import PassageReference
-from .references.spoken import _version_at
+from .references.spoken import _version_at, find_chapter_only, find_spoken_references, verse_splits
 from .scripture import ScriptureIndex, normalize
 
 
@@ -39,6 +39,20 @@ class Action:
     @property
     def reference(self) -> str:
         return f"{self.book} {self.chapter}:{self.verse}" if self.kind == "show" else ""
+
+
+@dataclass
+class Pending:
+    """"Isaiah 42" was heard with no verse. After a pause it may turn out to be Isaiah 40:2 (or 4:2) that was run together, so the
+    candidates wait for the words that follow to say which one (if any) is being read."""
+    book_id: str
+    book: str
+    number: int
+    first_seen: float
+    last_changed: float
+    candidates: list[tuple[int, int]]
+    heard: str = ""
+    resolved: bool = False
 
 
 @dataclass
@@ -83,6 +97,9 @@ class Follower:
     assume_window: float = 8.0           # ... and speech must resume within this many seconds of its ending (or of the last read words)
     verify_words: int = 6                # words after the assumed verse starts before the guess is checked
     verify_timeout: float = 4.0          # seconds after which an unchecked guess is judged on whatever was heard
+    chapter_pause: float = 1.2           # a chapter-only mention must stay unchanged this long (a pause) before it is re-read as chapter + verse
+    chapter_window: float = 12.0         # ... and the verse must start being read within this long
+    pending: list = field(default_factory=list)
     _last_text: str = ""
     wps: float = 2.7                     # the speaker's reading pace in words per second of speech; learned as verses are read
     est_progress: float = 0.85           # an assumption needs this much of the verse to be accounted for by speaking time
@@ -126,6 +143,7 @@ class Follower:
                 actions.append(act)
                 referenced = True
         actions += self._tick_detector(t)
+        self._note_chapter_only(t, text)
         # the speaker is reading what is on screen: keep it up, and note how far through it they are
         if self.current and self.index:
             if self.index.reading_score(text, self.current.book_id, self.current.chapter, self.current.verse) >= 78:
@@ -140,6 +158,11 @@ class Follower:
         # While a guess is waiting to be checked, only the check (or a spoken reference) may change the screen: the transcript
         # is still catching up with the voice, so reading it as "the speaker moved on" would just undo the guess.
         guessing = bool(self.current and self.current.assumed and not self.current.confirmed)
+        if not referenced and not guessing:
+            via = self._resolve_chapter_only(t, text)
+            if via:
+                actions.append(via)
+                referenced = True
         if not referenced and not guessing:
             assumed = self._assume_from_words(t, text)
             if assumed:
@@ -221,6 +244,67 @@ class Follower:
                              chapter=cur.chapter, verse=cur.verse, heard=" ".join(words[-8:]), version=hit[0], version_source="said", late_version=True,
                              range_end=None)
                 return act
+        return None
+
+    # ------------------------------------------------------------------ 1a. "Isaiah 42": a chapter, or "Isaiah 40:2" run together?
+    def _note_chapter_only(self, t: float, text: str) -> None:
+        """Keep track of book+number mentions that have no verse, and forget those that got one or went stale."""
+        if not self.index:
+            return
+        mentions = find_chapter_only(text)
+        full_books = {r.reference.book_id for r in find_spoken_references(text)}
+        for m in mentions:
+            if m.book_id in full_books:
+                continue                                    # a full reference to this book is in the same stretch of speech
+            key = (m.book_id, m.number)
+            existing = next((p for p in self.pending if (p.book_id, p.number) == key and not p.resolved), None)
+            if existing:
+                existing.heard = m.heard
+                continue
+            if t - self.shown_at.get(("chapter", m.book_id, m.number), -1e9) < self.cooldown:
+                continue
+            cands = [(c, v) for (c, v) in verse_splits(m.number, 150) if self.index.has_verse(m.book_id, c, v)]
+            if self.index.has_verse(m.book_id, m.number, 1) and (m.number, 1) not in cands:
+                cands.append((m.number, 1))                     # or it really was the chapter, and the reading starts at its first verse
+            if not cands:
+                continue
+            self.pending.append(Pending(m.book_id, m.book, m.number, t, t, cands, m.heard))
+            self.pending = self.pending[-4:]
+        # a full reference to the same book resolves it the normal way
+        for p in self.pending:
+            if p.book_id in full_books:
+                p.resolved = True
+        self.pending = [p for p in self.pending if not p.resolved and t - p.first_seen <= self.chapter_window + self.chapter_pause + 6]
+
+    def _resolve_chapter_only(self, t: float, text: str) -> Action | None:
+        """After the pause, see which candidate verse the speaker is now reading (its opening words), and put that one up."""
+        if not self.pending or not self.index:
+            return None
+        words = normalize(text).split()
+        for p in list(self.pending):
+            if t - p.first_seen < self.chapter_pause or t - p.first_seen > self.chapter_window + self.chapter_pause:
+                continue
+            marker = normalize(p.heard).split()
+            pos = -1
+            for k in range(len(words) - len(marker), -1, -1):
+                if words[k:k + len(marker)] == marker:
+                    pos = k + len(marker)
+                    break
+            after = words[pos:] if pos >= 0 else words[-14:]
+            if len(after) < 4:
+                continue
+            best = None
+            for rank, (c, v) in enumerate(p.candidates):
+                score = self.index.opening_matches(" ".join(after[:14]), p.book_id, c, v, words=5)
+                if score >= 84 and (best is None or score > best[0] + 4):
+                    best = (score, rank, c, v)
+            if not best:
+                continue
+            _, rank, c, v = best
+            p.resolved = True
+            self.shown_at[("chapter", p.book_id, p.number)] = t
+            heard = f'"{p.heard}" then "{" ".join(after[:7])}"'
+            return self._show(t, p.book_id, p.book, c, v, reason=f"heard only a chapter ({p.number}) but what followed was {p.book} {c}:{v}", heard=heard)
         return None
 
     # ------------------------------------------------------------------ 1b. confident but assumptive: the next verse straight away
