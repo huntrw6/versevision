@@ -49,3 +49,17 @@ def test_a_decision_can_be_switched_off_before_importing(state):
     kept = job.result["summary"]["slides"] - len(warn["slides"])
     trimmed = web._without_skipped(job.plan, job.result, {warn["id"]})
     assert len(trimmed.slide_plan.slides) == kept and len(job.plan.slide_plan.slides) == job.result["summary"]["slides"]
+
+
+def test_the_page_can_choose_a_look_from_the_loaded_themes(state):
+    from test_themes import THEMES
+    st, node = state
+    node.themes = THEMES
+    rows = web.list_looks(st)
+    assert {r["label"] for r in rows} == {"Scripture main screens · Slide 1", "Sermon Points · Theme Slide", "The biblke · Slide 1"}
+    two_box = next(r for r in rows if r["label"].startswith("The biblke"))
+    assert two_box["reference_box"] is True and two_box["key"] == "The biblke::1"
+    job = wait(st, web.start_plan(st, "n.txt", NOTES.encode(), "NIV", None, verse_look=two_box["key"], point_look="Sermon Points::1"))
+    assert job.result["looks"] == {"verse": "The biblke · Slide 1", "point": "Sermon Points · Theme Slide"}
+    redo = wait(st, web.start_replan(st, job.id, {}))
+    assert redo.result["looks"] == job.result["looks"]          # a recheck keeps the look

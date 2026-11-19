@@ -15,6 +15,7 @@ from filelock import FileLock
 
 from versevision.config import PresentationTemplateConfig
 from versevision.slides.models import SlidePlan
+from versevision import themes as _themes
 from .backup import create_backup
 from .base import PlanWriteResult, PresentationInfo, VerificationResult, WriteResult
 from .compatibility import CompatibilityPolicy
@@ -207,6 +208,7 @@ class ProtobufPresentationWriter:
             if len([e for e in point_action.slide.presentation.base_slide.elements
                     if e.element.name == definition.point_object and e.element.HasField("text")]) != 1:
                 raise ValueError("sermon-point template must contain exactly one configured point text object")
+        looks = getattr(slide_plan, "looks", None)
         existing_uuids = set(_all_uuids(original))
         created: list[str] = []
         grouped: dict[int, list[str]] = {}
@@ -215,6 +217,13 @@ class ProtobufPresentationWriter:
         for planned in slide_plan.slides:
             is_point = planned.kind == "point"
             cue = deepcopy(point_cue if is_point else verse_cue)
+            look = None if looks is None else (looks.point if is_point else looks.verse)
+            has_reference_box = True
+            if look is not None:
+                themed_action = next(a for a in cue.actions if a.WhichOneof("ActionTypeData") == "slide")
+                has_reference_box = _themes.apply_look(themed_action, look, "point" if is_point else "verse",
+                                                       reference=definition.reference_object, body=definition.body_object, point=definition.point_object)
+                cue.name = _themes.MARKER
             new_uuids = _refresh_uuids(cue)
             if existing_uuids & new_uuids:
                 raise ValueError("new cue UUID collides with the presentation")
@@ -231,10 +240,17 @@ class ProtobufPresentationWriter:
             else:
                 label = f"{planned.reference_text} ({planned.version_text})" if planned.version_text else planned.reference_text
                 action.label.text = label
-                reference = next(item for item in elements if item.element.name == definition.reference_object)
                 body = next(item for item in elements if item.element.name == definition.body_object)
-                reference.element.text.rtf_data = _replace_rtf_text(reference.element.text.rtf_data, label)
-                body.element.text.rtf_data = _replace_rtf_text(body.element.text.rtf_data, planned.body_text)
+                if has_reference_box:
+                    reference = next(item for item in elements if item.element.name == definition.reference_object)
+                    reference.element.text.rtf_data = _replace_rtf_text(reference.element.text.rtf_data, label)
+                    body.element.text.rtf_data = _replace_rtf_text(body.element.text.rtf_data, planned.body_text)
+                else:           # a one-box theme: the reference is the last line of the same box
+                    body.element.text.rtf_data = _replace_rtf_text(body.element.text.rtf_data, f"{planned.body_text}\n{label}")
+            if look is not None:
+                for item in elements:
+                    if item.element.name == _themes.EXTRA:
+                        item.element.text.rtf_data = _replace_rtf_text(item.element.text.rtf_data, "")
             original.cues.append(cue)
             created.append(cue_uuid)
             grouped.setdefault(planned.source_passage_index, []).append(cue_uuid)
@@ -571,6 +587,12 @@ class ProtobufPresentationWriter:
                 continue
             elements = actions[0].slide.presentation.base_slide.elements
             texts = tuple(sorted(e.element.name for e in elements if e.element.HasField("text")))
+            if cue.name == _themes.MARKER:
+                # built from a ProPresenter theme: may also carry the theme's shapes or background, and a one-box theme has no Reference object
+                names = tuple(sorted(n for n in texts if n != _themes.EXTRA))
+                if names in {tuple(sorted(item)) for item in wanted} | {(definition.body_object,)}:
+                    found.append(cue.uuid.string)
+                continue
             if len(texts) != len(elements):
                 continue                      # has a shape/image/other object: not a plain generated slide
             if texts in {tuple(sorted(item)) for item in wanted}:

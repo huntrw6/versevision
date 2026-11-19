@@ -53,6 +53,8 @@ class Job:
         self.version: str | None = None
         self.target_arg: str | None = None
         self.profile: str | None = None
+        self.verse_look: str | None = None
+        self.point_look: str | None = None
 
 
 class AppState:
@@ -94,13 +96,37 @@ def _spawn(state: AppState, job: Job, fn) -> None:
     threading.Thread(target=runner, daemon=True).start()
 
 
+def _config_with_looks(config: AppConfig, verse_look: str | None, point_look: str | None) -> AppConfig:
+    """A look is "Theme name::slide number" as listed by /api/themes; empty means the VerseVision template."""
+    sets: list[str] = []
+    for section, key in (("verses", verse_look), ("points", point_look)):
+        if key:
+            theme, _, number = key.rpartition("::")
+            sets += [f"{section}.theme={theme}", f"{section}.theme_slide={number}"]
+    return with_options(config, sets=sets) if sets else config
+
+
+def list_looks(state: AppState) -> list[dict]:
+    """The theme slides loaded on the Mac that have a text box, newest read cached for a minute."""
+    import time as _time
+    cached = getattr(state, "_themes", None)
+    if cached and _time.time() - cached[0] < 60:
+        return cached[1]
+    from versevision.themes import fetch_themes
+    slides = [s for s in fetch_themes(state.transport()) if s.usable]
+    rows = [{"key": f"{s.theme_label}::{s.number}", "label": s.label, "boxes": len(s.boxes), "reference_box": len(s.boxes) > 1} for s in slides]
+    state._themes = (_time.time(), rows)
+    return rows
+
+
 def start_plan(state: AppState, name: str, data: bytes, default_version: str | None, target: str | None,
                mode: str = "new", title: str | None = None, library: str | None = None, text_override: str | None = None,
-               profile: str | None = None) -> Job:
+               profile: str | None = None, verse_look: str | None = None, point_look: str | None = None) -> Job:
     job = Job("plan")
     job.name = name
     job.mode, job.title_override, job.library = mode, title, library
     job.version, job.target_arg, job.profile = default_version, target, profile
+    job.verse_look, job.point_look = verse_look, point_look
     job.run_id = ""
 
     def work(j: Job) -> None:
@@ -143,7 +169,7 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
             raise DocumentError("No template is set up yet. Run: versevision template setup")
         j.message = "Finding verses and fetching Scripture"
         transport = state.transport()
-        cfg = with_options(state.config, profile=profile) if profile else state.config
+        cfg = _config_with_looks(with_options(state.config, profile=profile) if profile else state.config, verse_look, point_look)
         j.message = "Checking ProPresenter"
         tgt = None
         if mode != "new":
@@ -191,7 +217,8 @@ def start_replan(state: AppState, plan_job_id: str, edits: dict[str, str]) -> Jo
             raise VerseVisionError(f"There is no line {number}")
         lines[number - 1] = str(value).replace("\n", " ")
     job = start_plan(state, source.name, b"", source.version, source.target_arg, mode=source.mode, title=source.title_override,
-                     library=source.library, text_override="\n".join(lines), profile=source.profile)
+                     library=source.library, text_override="\n".join(lines), profile=source.profile,
+                     verse_look=source.verse_look, point_look=source.point_look)
     return job
 
 
@@ -202,7 +229,7 @@ def _without_skipped(plan, report: dict, skip: set[int]):
     drop = {n - 1 for d in report["decisions"] if d["id"] in skip for n in d["slides"]}
     kept = [sl for i, sl in enumerate(plan.slide_plan.slides) if i not in drop]
     from versevision.slides.models import SlidePlan
-    return plan.model_copy(update={"slide_plan": SlidePlan(slides=kept)})
+    return plan.model_copy(update={"slide_plan": SlidePlan(slides=kept, looks=plan.slide_plan.looks)})
 
 
 def start_apply(state: AppState, plan_job_id: str, accept_flags: bool, skip: set[int] | None = None) -> Job:
@@ -353,6 +380,11 @@ def make_handler(state: AppState):
                     "default_version": cfg.bible.default_version, "version": __import__("versevision").__version__,
                     "template_ready": bool(cfg.presentation_template), "library": cfg.output.library, "profiles": sorted(cfg.profiles),
                 })
+            elif path == "/api/themes":
+                try:
+                    self._json(200, {"themes": list_looks(state), "verse": state.config.verses.theme, "point": state.config.points.theme})
+                except Exception as exc:
+                    self._json(200, {"themes": [], "error": str(exc)})
             elif path == "/api/check":
                 try:
                     transport = state.transport()
@@ -414,6 +446,7 @@ def make_handler(state: AppState):
                         state, name, self._body(), version, (query.get("target") or [None])[0] or None,
                         mode=(query.get("mode") or ["new"])[0], title=(query.get("title") or [None])[0] or None,
                         library=(query.get("library") or [None])[0] or None, profile=(query.get("profile") or [None])[0] or None,
+                        verse_look=(query.get("verse_look") or [None])[0] or None, point_look=(query.get("point_look") or [None])[0] or None,
                     )
                     self._json(202, {"job": job.id})
                 elif parsed.path == "/api/apply":

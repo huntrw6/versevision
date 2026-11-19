@@ -41,6 +41,8 @@ providers_app = typer.Typer(help="Inspect configured Bible providers.")
 cache_app = typer.Typer(help="Inspect or clear the Scripture cache.")
 template_app = typer.Typer(help="Select and validate a styled ProPresenter Scripture slide.")
 app.add_typer(config_app, name="config")
+from versevision.cli_themes import themes_app  # noqa: E402
+app.add_typer(themes_app, name="themes")
 app.add_typer(propresenter_app, name="propresenter")
 app.add_typer(versions_app, name="versions")
 app.add_typer(providers_app, name="providers")

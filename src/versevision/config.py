@@ -115,6 +115,7 @@ class NodeConfig(BaseModel):
     backup_dir: str = "$HOME/VerseVision-backups"
     library_root: str = "$HOME/Documents/ProPresenter/Libraries"
     helper_dir: str = "$HOME/VerseVision-tools"
+    theme_root: str = "$HOME/Documents/ProPresenter/Themes"     # where ProPresenter keeps the themes you have loaded
     confirm_quit: bool = True        # press OK on ProPresenter's "Are you sure you want to quit?" box (nothing else)
     retries: int = Field(default=2, ge=0, le=5)
     retry_delay_seconds: float = Field(default=20.0, ge=0, le=120)
@@ -156,11 +157,15 @@ class PointsConfig(BaseModel):
     number_style: str = "{n})"         # used by "renumber": "{n})", "{n}.", "#{n}:"
     bullet_char: str = "•"             # "" for no bullet mark on the slide
     case: Literal["as_written", "upper", "lower", "title"] = "as_written"
+    theme: str = ""                    # a loaded ProPresenter theme to take the look from ("Name" or "Group/Name"); empty = the VerseVision template slide
+    theme_slide: str = ""              # which slide of that theme: its name or number (empty = the first slide that has a text box)
 
 
 class VersesConfig(BaseModel):
     """Which version a verse gets, and how repeats are handled. Slide layout (verse numbers, reference format, splitting) is under [slides]."""
     version_source: Literal["above", "default", "required"] = "above"
+    theme: str = ""                    # a loaded ProPresenter theme to take the look from ("Name" or "Group/Name"); empty = the VerseVision template slide
+    theme_slide: str = ""              # which slide of that theme: its name or number (empty = the first slide that has a text box)
     """above: the nearest version named above it, else the default. default: always the default version unless it names its own.
     required: a verse with no version is an error."""
 
@@ -250,7 +255,7 @@ def with_options(config: AppConfig, *, profile: str | None = None, sets: list[st
             node = node[part]
         if parts[-1] not in node:
             raise ConfigurationError(f"Unknown setting '{key}'")
-        node[parts[-1]] = _coerce(value)
+        node[parts[-1]] = value if isinstance(node[parts[-1]], str) else _coerce(value)      # a text option stays text ("1" is a slide name or number)
     try:
         return AppConfig.model_validate(data)
     except ValidationError as exc:

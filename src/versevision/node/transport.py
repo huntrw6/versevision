@@ -48,6 +48,7 @@ class Transport(Protocol):
     def install_file(self, local_path: Path, remote_path: str, expected_remote_sha: str) -> str: ...
     def find_presentation(self, name: str, library: str | None) -> list[str]: ...
     def library_folder(self, library: str) -> str: ...
+    def fetch_themes(self, dest: Path) -> None: ...
     def create_file(self, local_path: Path, remote_path: str) -> str: ...
     def delete_created_file(self, remote_path: str, expected_cues: int) -> str: ...
     def rename_file(self, old_path: str, new_path: str) -> None: ...
@@ -161,6 +162,17 @@ class LocalTransport:
 
     def library_folder(self, library: str) -> str:
         return str(Path(os.path.expandvars(self.node.library_root)).expanduser() / library)
+
+    def fetch_themes(self, dest: Path) -> None:
+        """Copy every ProPresenter theme file (not the media) into ``dest``, keeping the folder layout."""
+        root = Path(os.path.expandvars(self.node.theme_root)).expanduser()
+        if not root.is_dir():
+            raise ProPresenterConnectionError(f"No Themes folder at {root}")
+        for file in root.rglob("Theme"):
+            if file.is_file():
+                target = dest / file.relative_to(root)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(file, target)
 
     def delete_created_file(self, remote_path: str, expected_cues: int) -> str:
         from versevision.presentation.generated import presentation_pb2
@@ -419,6 +431,25 @@ class HermesRemoteTransport:
 
     def library_folder(self, library: str) -> str:
         return f"{self.node.library_root}/{library}"
+
+    def fetch_themes(self, dest: Path) -> None:
+        """One round trip: pack every Theme file on the Mac into an archive, pull it, unpack it into ``dest``."""
+        from versevision.themes import unpack_themes
+        tmp = self._remote_tmp(".tgz")
+        root = self.node.theme_root
+        code, out = self._sh(f'cd "{root}" 2>/dev/null && find . -name Theme -type f | sed "s|^\\./||" | tar czf {self._q(tmp)} -T - && echo packed', gui=True, timeout=120)
+        if code != 0 or "packed" not in out:
+            raise ProPresenterConnectionError(f"Could not read the themes on {self.name} ({root}): {out[-200:] or 'no output'}")
+        archive = dest / "_themes.tgz"
+        try:
+            dest.mkdir(parents=True, exist_ok=True)
+            pulled = self._invoke(["pull", self.name, tmp, str(archive)], 120)
+            if pulled.returncode != 0 or not archive.exists():
+                raise ProPresenterConnectionError(f"Transfer of the themes from {self.name} failed: {(pulled.stdout + pulled.stderr).strip()[-200:]}")
+            unpack_themes(archive, dest)
+        finally:
+            archive.unlink(missing_ok=True)
+            self._sh(f"rm -f {self._q(tmp)}", gui=False)
 
     def rename_file(self, old_path: str, new_path: str) -> None:
         code, out = self._sh(

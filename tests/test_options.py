@@ -161,3 +161,8 @@ def test_profiles_and_set_overrides():
         with_options(base, sets=["notes.bogus=1"])
     with pytest.raises(ConfigurationError, match="Invalid option"):
         with_options(base, sets=["notes.line_breaks=sideways"])
+
+
+def test_a_text_option_stays_text_even_when_it_looks_like_a_number():
+    c = with_options(AppConfig(), sets=["verses.theme_slide=2", "points.bullet_char=-"])
+    assert c.verses.theme_slide == "2" and c.points.bullet_char == "-"

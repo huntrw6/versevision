@@ -135,6 +135,11 @@ async def plan_for_transport(
 ) -> tuple[NotesImportResult, tuple | None]:
     runlog.event("plan_start", default_version=default_version or config.bible.default_version, no_fetch=no_fetch, characters=len(text))
     result = await plan_notes(text, config, default_version=default_version, no_fetch=no_fetch)
+    if not no_fetch:
+        from versevision.themes import resolve_looks
+        result.slide_plan.looks = await asyncio.to_thread(resolve_looks, config, transport)
+        if result.slide_plan.looks:
+            runlog.event("looks", message="look from ProPresenter themes: " + "; ".join(f"{k}: {v}" for k, v in result.slide_plan.looks.describe().items() if v))
     runlog.event("plan_ready", message=f"{len(result.slide_plan.slides)} slides, {len(result.failed)} not added, {len(result.review)} to check, "
                                        f"{len(result.skipped)} left out, {len(result.notices)} adjustments")
     target = None

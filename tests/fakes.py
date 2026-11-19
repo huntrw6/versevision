@@ -218,3 +218,18 @@ def _api2(self, route):
 
 FakeNode.api_put = _api_put
 FakeNode.api_get = _api2
+
+
+def _fetch_themes(self, dest):
+    """The fake Mac's Themes folder: whatever a test put in ``self.themes`` (a folder laid out like ProPresenter's)."""
+    import shutil as _shutil
+    source = getattr(self, "themes", None)
+    if source is None:
+        raise RuntimeError("no themes folder on the fake node")
+    for file in Path(source).rglob("Theme"):
+        target = dest / file.relative_to(source)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        _shutil.copy2(file, target)
+
+
+FakeNode.fetch_themes = _fetch_themes

@@ -211,6 +211,16 @@
               </div>
               <div class="help" id="targetHelp"></div>
             </div>
+            <div class="field hidden" id="verseLookField">
+              <label for="verseLook">Verse look</label>
+              <select id="verseLook"><option value="">VerseVision template</option></select>
+              <div class="help">A theme loaded in ProPresenter.</div>
+            </div>
+            <div class="field hidden" id="pointLookField">
+              <label for="pointLook">Point look</label>
+              <select id="pointLook"><option value="">VerseVision template</option></select>
+              <div class="help">A theme loaded in ProPresenter.</div>
+            </div>
             <div class="field hidden" id="profField">
               <label for="prof">Style</label>
               <select id="prof"><option value="">Standard</option></select>
@@ -283,10 +293,22 @@ async function status(){
     $('led').className = 'led '+(c.ok?'ok':'bad');
     $('statusText').textContent = c.ok ? s.node+' \u00b7 '+(c.propresenter||'ProPresenter') : "Can't reach ProPresenter on "+s.node;
     $('meta').textContent = s.template_ready ? '' : 'Template missing. Run: versevision template setup';
-    state.defaultLib = s.library || 'Verses';
+    state.defaultLib = s.library || 'Verses'; loadLooks();
     if(s.default_version && !$('ver').value) $('ver').value = s.default_version;
     if((s.profiles||[]).length && $('prof').options.length===1){ for(const n of s.profiles){ const o=el('option','',n); o.value=n; $('prof').append(o); } show('profField', true); }
   }catch(e){ $('statusText').textContent = e.message; }
+}
+async function loadLooks(){
+  try{
+    const r = await api('/api/themes');
+    if(!(r.themes||[]).length) return;
+    for(const [sel, field, saved] of [['verseLook','verseLookField',r.verse],['pointLook','pointLookField',r.point]]){
+      const box = $(sel); if(box.options.length>1) continue;
+      for(const x of r.themes){ const o = el('option','',x.label+(sel==='verseLook'&&x.reference_box?' (reference box)':'')); o.value = x.key; box.append(o); }
+      if(saved){ const hit = r.themes.find(x=>x.key.startsWith(saved+'::')); if(hit) box.value = hit.key; }
+      show(field, true);
+    }
+  }catch(e){}
 }
 async function loadPresentations(){
   try{
@@ -383,6 +405,8 @@ async function handleFile(file){
     const q = new URLSearchParams({mode: state.mode});
     if($('ver').value.trim()) q.set('version', $('ver').value.trim());
     if($('prof').value) q.set('profile', $('prof').value);
+    if($('verseLook').value) q.set('verse_look', $('verseLook').value);
+    if($('pointLook').value) q.set('point_look', $('pointLook').value);
     if(state.mode==='new'){ if($('title').value.trim()) q.set('title', $('title').value.trim()); q.set('library', $('libSel').value || state.libSel || ''); }
     else q.set('target', state.target);
     const {job} = await api('/api/plan?'+q, {method:'POST', body:file, headers:{'X-File-Name': file.name}});
