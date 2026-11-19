@@ -517,7 +517,7 @@ class ProtobufPresentationWriter:
     # ------------------------------------------------------------------ copy of an existing presentation
     def derive_presentation(
         self, source_path: Path, output_path: Path, slide_plan: SlidePlan, definition: PresentationTemplateConfig,
-        *, name: str, clear_generated: bool, template_path: Path | None = None,
+        *, name: str, clear_generated: bool, template_path: Path | None = None, keep_uuid: bool = False,
     ) -> PlanWriteResult:
         """Write ``output_path`` as a COPY of ``source_path`` with the planned slides added.
 
@@ -547,7 +547,10 @@ class ProtobufPresentationWriter:
             if victims:
                 removed_cues, removed_groups = self._remove_cues(copy, set(victims))
         before_cues, before_groups = len(copy.cues), len(copy.cue_groups)
+        original_uuid = copy.uuid.string
         _remap_owned_ids(copy)
+        if keep_uuid and original_uuid:       # a swap: playlists point at this id, so the new version keeps it
+            copy.uuid.string = original_uuid
         copy.name = name
         now = datetime.now(timezone.utc)
         for field in ("last_date_used", "last_modified_date"):

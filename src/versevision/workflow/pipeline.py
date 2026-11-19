@@ -31,6 +31,7 @@ from versevision.workflow.notes_workflow import NotesImportResult, plan_notes
 MIN_GAP_SECONDS = 4.0           # ProPresenter needs about 2 s after a rename before a new file may appear at the old name;
                                 # writing sooner leaves it with a dead entry for that name (measured on the iMac, 0.5 s fails every time)
 QUIET_SECONDS = 6.0             # no questions to ProPresenter for this long after a new file is written
+LOAD_GRACE_SECONDS = 8.0         # a listed file with a blank id (not loaded yet) is checked on disk after this long
 STABLE_SECONDS = 4.0             # the new file's id must not change for this long before it is trusted
 SETTLE_SECONDS = 15.0            # how long each swap step waits for ProPresenter to notice a file change
 SWAP_WAIT_SECONDS = 30.0        # how long a swap waits for ProPresenter to list and show the new file
@@ -429,13 +430,29 @@ def _add_under_in_playlists(transport: Transport, slots: list[dict], new_uuid: s
     return added
 
 
-def _wait_listed(transport: Transport, name: str, lib_name: str, plan, expected: int, timeout: float) -> tuple[bool, str, str]:
+def _file_uuid(local: Path) -> str:
+    from versevision.presentation.generated import presentation_pb2 as _pb
+    message = _pb.Presentation()
+    message.ParseFromString(local.read_bytes())
+    return message.uuid.string.upper()
+
+
+def _wait_listed(transport: Transport, name: str, lib_name: str, plan, expected: int, timeout: float, *, file_check=None, file_uuid: str = "") -> tuple[bool, str, str]:
     deadline = time.monotonic() + timeout
     problem = "ProPresenter has not listed the new presentation yet"
+    blank_since = None
     while time.monotonic() < deadline:
         try:
             match = next((i for i in list_presentations(transport) if i["name"] == name and i["library"].casefold() == lib_name.casefold()), None)
-            if match:
+            if match and not match["uuid"] and file_check:
+                # listed but not loaded (blank id): ProPresenter loads it when it is first opened. Check the file itself.
+                blank_since = blank_since or time.monotonic()
+                if time.monotonic() - blank_since >= LOAD_GRACE_SECONDS:
+                    ok, message = file_check()
+                    if ok:
+                        return True, "ProPresenter lists it but loads it only when it is first opened; the file on disk is intact", file_uuid
+                    problem = message
+            elif match:
                 ok, message = verify_via_api(transport, match["uuid"], plan.slide_plan, expected, timeout=min(4.0, max(1.0, deadline - time.monotonic())))   # short: ProPresenter may re-issue the id, so re-read the listing
                 if ok:
                     return True, message, match["uuid"]
@@ -521,7 +538,9 @@ def publish_new(
     playlist_items: list[dict] = []
     if transport.is_running():
         progress("Waiting for ProPresenter to show it")
-        verified, message, new_uuid = _wait_listed(transport, name, lib_name, plan, len(plan.slide_plan.slides), verify_timeout)
+        verified, message, new_uuid = _wait_listed(
+            transport, name, lib_name, plan, len(plan.slide_plan.slides), verify_timeout,
+            file_check=lambda: _verify_file_on_disk(transport, remote_path, written.output_sha256), file_uuid=_file_uuid(out_local))
         runlog.event("verify", level="info" if verified else "error", message=message, verified=verified, presentation_uuid=new_uuid)
         if not verified:
             raise VerificationRollbackError(
@@ -656,6 +675,44 @@ def _wait_stable(transport: Transport, lib_name: str, name: str, old_uuid: str, 
     raise VerificationRollbackError(f"ProPresenter did not show the new version ({problem})")
 
 
+def _settle_new_version(transport: Transport, lib_name: str, name: str, path: str, old_uuid: str, written_sha: str, verify) -> str:
+    """Wait for ProPresenter to show the swapped-in file. Returns the id the playlists should use.
+
+    The new file keeps the original's id, so playlists need no change. ProPresenter sometimes lists a new file without loading it
+    (blank id) until someone opens it; then the file on disk is checked instead, and it loads the next time it is opened."""
+    deadline = time.monotonic() + SWAP_WAIT_SECONDS
+    blank_since = None
+    problem = "ProPresenter has not listed the new file yet"
+    while time.monotonic() < deadline:
+        try:
+            listed = [i for i in list_presentations(transport) if i["name"] == name and i["library"].casefold() == lib_name.casefold()]
+            if listed and listed[0]["uuid"]:
+                return _wait_stable(transport, lib_name, name, "", verify, max(5.0, deadline - time.monotonic()))
+            if listed:
+                blank_since = blank_since or time.monotonic()
+                if time.monotonic() - blank_since >= LOAD_GRACE_SECONDS:
+                    break
+        except Exception as exc:
+            problem = str(exc)
+        time.sleep(1.0)
+    ok, message = _verify_file_on_disk(transport, path, written_sha)
+    if not ok:
+        raise VerificationRollbackError(f"ProPresenter did not show the new version ({problem}; {message})")
+    runlog.event("verify", level="warn", message="ProPresenter lists the new version but has not loaded it yet; the file on disk is intact, so it keeps its place in the playlists and loads when opened", verified=True)
+    return old_uuid
+
+
+def _verify_file_on_disk(transport: Transport, path: str, written_sha: str) -> tuple[bool, str]:
+    """The file ProPresenter was given is still byte-for-byte what was written (so its slides are the planned ones)."""
+    import tempfile as _tf
+    with _tf.TemporaryDirectory(prefix="versevision-chk-") as tmp:
+        try:
+            sha = transport.fetch_file(path, Path(tmp) / "check.pro")
+        except Exception as exc:
+            return False, f"could not read the file back: {exc}"
+    return (True, "file intact") if sha == written_sha else (False, "the file on disk is not the one that was written")
+
+
 def _swap_core(
     transport: Transport, lib_name: str, name: str, new_local: Path, *, verify, progress: Progress,
 ) -> dict:
@@ -737,8 +794,7 @@ def _swap_core(
         # Quiet period: asking ProPresenter about a file in the first seconds after it lands can leave it with an id that
         # does not match the file (the entry then cannot be opened). Measured on the iMac: no queries here = it works.
         time.sleep(QUIET_SECONDS)
-        new_uuid = _wait_stable(transport, lib_name, name, old_uuid, verify, SWAP_WAIT_SECONDS)
-        runlog.event("verify", message="ProPresenter shows the new version and its id is stable", verified=True, presentation_uuid=new_uuid)
+        new_uuid = _settle_new_version(transport, lib_name, name, path, old_uuid, created_sha[0], verify)
 
         if slots:
             progress("Updating the playlist")
@@ -810,6 +866,7 @@ def publish_swap(
     progress("Building the new version")
     written = ProtobufPresentationWriter().derive_presentation(
         base_local, out_local, plan.slide_plan, definition, name=name, clear_generated=clear_generated, template_path=template_local,
+        keep_uuid=True,
     )
     expected = len(plan.slide_plan.slides)
 

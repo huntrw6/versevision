@@ -561,3 +561,56 @@ def test_replace_and_append_use_the_swap_by_default_and_copies_only_when_asked(e
     src = inspect.getsource(cli_run)
     assert "elif editing and as_copy:" in src and "publish_swap(source, source_name, plan, config, transport, target" in src
     assert 'swap: Annotated[bool, typer.Option("--swap", hidden=True' in src
+
+
+def _lazy(node, names):
+    """ProPresenter 19.0.1 on the iMac lists some files without loading them: blank id, and asking for them gives 404."""
+    real, real_create, state = node.api_get, node.create_file, {"on": False}
+
+    def create_file(*args, **kwargs):
+        state["on"] = True                      # only files written from now on are the lazy ones
+        return real_create(*args, **kwargs)
+    node.create_file = create_file
+
+    def api_get(route):
+        data = real(route)
+        if not state["on"]:
+            return data
+        if route == "/v1/library/L1":
+            data = {"items": [{**i, "uuid": "" if i["name"] in names else i["uuid"]} for i in data["items"]]}
+        elif route.startswith("/v1/presentation/") and data["presentation"]["id"]["name"] in names:
+            raise KeyError(route)
+        return data
+    node.api_get = api_get
+
+
+def test_new_presentation_is_accepted_when_propresenter_lists_it_but_has_not_loaded_it(env, monkeypatch):
+    tmp, pres, node, config, history = env
+    monkeypatch.setattr(pipeline, "LOAD_GRACE_SECONDS", 0.2)
+    _lazy(node, {"Lazy New"})
+    plan, _ = asyncio.run(plan_for_transport(NOTES, config, node, default_version="NIV", target_uuid=None, target_name=None, library=None))
+    result = publish_new(NOTES, "n.txt", "Lazy New", plan, config, node, history=history, verify_timeout=6)
+    assert result.verified and (pres.parent / "Lazy New.pro").is_file()
+
+
+def test_new_presentation_still_fails_if_the_lazy_file_on_disk_is_not_the_one_written(env, monkeypatch):
+    tmp, pres, node, config, history = env
+    monkeypatch.setattr(pipeline, "LOAD_GRACE_SECONDS", 0.2)
+    monkeypatch.setattr(pipeline, "_verify_file_on_disk", lambda *a, **k: (False, "the file on disk is not the one that was written"))
+    _lazy(node, {"Lazy Bad"})
+    plan, _ = asyncio.run(plan_for_transport(NOTES, config, node, default_version="NIV", target_uuid=None, target_name=None, library=None))
+    with pytest.raises(VerificationRollbackError):
+        publish_new(NOTES, "n.txt", "Lazy Bad", plan, config, node, history=history, verify_timeout=3)
+
+
+def test_replace_keeps_the_originals_id_and_works_when_propresenter_has_not_loaded_the_new_file(env, monkeypatch):
+    tmp, pres, node, config, history = env
+    for name, value in (("LOAD_GRACE_SECONDS", 0.2), ("SWAP_WAIT_SECONDS", 4.0), ("SETTLE_SECONDS", 0.5), ("MIN_GAP_SECONDS", 0.0), ("QUIET_SECONDS", 0.0)):
+        monkeypatch.setattr(pipeline, name, value)
+    original_uuid = _cues(pres).uuid.string
+    plan, target = _plan(node, config)
+    _lazy(node, {"Sample"})
+    result = publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    assert result.verified and _folder_files(pres) == ["Sample.pro"]
+    assert _cues(pres).uuid.string == original_uuid                                          # same presentation id, so playlists need no change
+    assert _playlist_names(node) == ["Sermon", "Sample", "Closing"]
