@@ -320,6 +320,7 @@ function setLook(id, key){ $(id).value = key; $(id+'Btn').textContent = lookText
 function openLookMenu(btn){
   closeLookMenu();
   const id = btn.dataset.for, isVerse = id==='verseLook';
+  let place = ()=>{};
   const menu = el('div'); menu.id='lookMenu';
   const left = el('div','col'), right = el('div','col hidden');
   const mkThumb = (x, none) => { if(x && !x.group){ const i = el('img','thumb'); i.src = thumbUrl(x); i.onerror=()=>{ const d=el('div','thumb none','Aa'); i.replaceWith(d); }; return i; } return el('div','thumb none','Aa'); };
@@ -335,7 +336,7 @@ function openLookMenu(btn){
       if(th.slides.some(s=>s.key===$(id).value)) row.classList.add('pick');
       const openSlides = ()=>{
         left.querySelectorAll('.row.on').forEach(r=>r.classList.remove('on')); row.classList.add('on');
-        right.replaceChildren(); right.classList.remove('hidden');
+        right.replaceChildren(); right.classList.remove('hidden'); setTimeout(place, 0);
         for(const s of th.slides){
           const r2 = el('div','row'); const c = el('div'); c.append(el('div','',s.slide), el('div','sub', s.boxes+' text box'+(s.boxes>1?'es':'')+(isVerse&&s.reference_box?' \u00b7 has a reference box':'')));
           r2.append(mkThumb(s), c); if(s.key===$(id).value) r2.classList.add('pick'); r2.onclick = ()=>setLook(id, s.key); right.append(r2);
@@ -346,8 +347,8 @@ function openLookMenu(btn){
   }
   menu.append(left, right); document.body.append(menu);
   const r = btn.getBoundingClientRect();
-  menu.style.left = Math.max(8, Math.min(r.left, innerWidth - menu.offsetWidth - 8))+'px';
-  menu.style.top = Math.max(8, Math.min(r.bottom + 4, innerHeight - menu.offsetHeight - 8))+'px';
+  place = ()=>{ menu.style.left = Math.max(8, Math.min(r.left, innerWidth - menu.offsetWidth - 8))+'px'; menu.style.top = Math.max(8, Math.min(r.bottom + 4, innerHeight - menu.offsetHeight - 8))+'px'; };
+  place();
 }
 document.addEventListener('click', e=>{ const b = e.target.closest('.lookbtn'); if(b){ e.stopPropagation(); openLookMenu(b); } else if(!e.target.closest('#lookMenu')) closeLookMenu(); });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLookMenu(); });
