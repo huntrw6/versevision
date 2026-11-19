@@ -69,12 +69,26 @@ def _print_report(report: dict) -> None:
         table.add_row(str(slide["n"]), slide["kind"], f"{slide['title']}" + ("" if slide["kind"] == "point" else f": {slide['text'][:50]}"))
     console.print(table)
     console.print(f"{s['slides']} slides ({s['verse_slides']} verse, {s['point_slides']} point)")
-    for title, key, style in (("FLAGGED", "flagged", "red"), ("Adjustments", "adjustments", "cyan"), ("Left out", "left_out", "dim")):
-        rows = report[key]
+    review = report.get("review") or {}
+    console.print(f"[bold]Review, least certain first:[/bold] [red]{s.get('errors', 0)} errors[/red], [yellow]{s.get('warnings', 0)} warnings[/yellow], "
+                  f"[green]{s.get('good', 0)} good[/green]")
+    for title, rows, style in (("ERRORS (could not be decided; nothing is added for these)", review.get("error", []), "red"),
+                               ("WARNINGS (probably right, but a rule was a guess)", review.get("warning", []) + review.get("left_out_warning", []), "yellow")):
         if rows:
             console.print(f"[{style}]{title}: {len(rows)}[/{style}]")
-            for row in rows:
-                console.print(f"  [{style}]line {row['line']}: {row['text'][:60]!r} - {row['detail']}[/{style}]")
+            for d in sorted(rows, key=lambda d: d["line"]):
+                what = "left out" if d["kind"] == "left_out" else d["kind"]
+                console.print(f"  [{style}]line {d['line']} [{what}] {d['title'][:62]!r}[/{style}]")
+                for reason in d["reasons"]:
+                    console.print(f"      [{style}]- {reason}[/{style}]")
+    good = review.get("good", [])
+    if good:
+        console.print(f"[green]GOOD ({len(good)}): parsed with no guesses[/green]")
+        for d in good:
+            console.print(f"  [green]line {d['line']} [{d['kind']}] {d['title'][:70]!r}[/green]")
+    quiet = review.get("left_out_good", [])
+    if quiet:
+        console.print(f"[dim]Left out, clearly not slides ({len(quiet)}): " + "; ".join(f"line {d['line']} {d['title'][:28]!r}" for d in quiet) + "[/dim]")
 
 
 def register(app: typer.Typer, template_app: typer.Typer) -> None:

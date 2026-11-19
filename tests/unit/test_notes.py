@@ -82,9 +82,19 @@ def test_hard_wrapped_quote_then_reference_is_one_verse_and_no_review():
     assert not doc.review
 
 
-def test_unlabeled_prose_is_flagged_for_review_not_guessed():
-    doc = classify_document("1) A point\nThis is a long sentence of ordinary prose that is not a point, a reference, or a cue at all.")
+def test_unlabeled_prose_is_flagged_for_review_in_the_cautious_mode():
+    doc = classify_document("1) A point\nThis is a long sentence of ordinary prose that is not a point, a reference, or a cue at all.", line_mode=False, unlabeled_bullets=False)
     assert doc.review or "joined" in " ".join(doc.points[0].warnings)
+
+
+def test_unlabeled_sentence_becomes_its_own_bullet_slide_with_no_warning():
+    doc = classify_document("1) A point\nThis is a long sentence of ordinary prose that is not a point, a reference, or a cue at all.")
+    assert [p.label for p in doc.points] == ["1)", "•"] and not doc.points[1].warnings and not doc.review
+
+
+def test_a_short_unpunctuated_line_becomes_a_bullet_but_with_a_warning_because_it_may_be_a_heading():
+    doc = classify_document("1) A point\nOpen with prayer")
+    assert doc.points[1].text == "Open with prayer" and doc.points[1].warnings
 
 
 def test_reference_inside_a_point_is_not_a_verse_slide():
@@ -122,11 +132,16 @@ def test_bare_chapter_and_midsentence_reference_go_to_review():
     assert len(doc.review) == 2 and not doc.verses
 
 
-def test_short_line_under_a_point_is_flagged_not_merged_but_sentences_are_merged():
-    doc = classify_document("1) A point\nOpen with prayer")
+def test_short_line_under_a_point_is_flagged_not_merged_but_sentences_are_merged_in_the_cautious_mode():
+    doc = classify_document("1) A point\nOpen with prayer", line_mode=False, unlabeled_bullets=False)
     assert doc.points[0].text == "A point" and len(doc.review) == 1
-    doc = classify_document("1) A point\nTo obey God rather than human beings.")
+    doc = classify_document("1) A point\nTo obey God rather than human beings.", line_mode=False, unlabeled_bullets=False)
     assert "obey God" in doc.points[0].text and not doc.review
+
+
+def test_every_line_is_its_own_slide_by_default():
+    doc = classify_document("1) A point\nOpen with prayer\nTo obey God rather than human beings.")
+    assert [p.text for p in doc.points] == ["A point", "Open with prayer", "To obey God rather than human beings."] and not doc.review
 
 
 # ----------------------------------------------------------------------------- 10/18/26 John Wesley (real document)

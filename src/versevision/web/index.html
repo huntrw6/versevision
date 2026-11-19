@@ -124,6 +124,15 @@
   .item .t{font-weight:600;overflow-wrap:anywhere}
   .item .x{color:var(--dim);font-size:12px;margin-top:2px;overflow-wrap:anywhere}
   .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:4px;margin-right:6px;vertical-align:1px}
+  .rv details{border-top:1px solid #111} .rv summary{cursor:pointer;padding:9px 14px;font-weight:700;font-size:12px;letter-spacing:.04em;list-style:none;display:flex;gap:8px;align-items:center}
+  .rv summary::-webkit-details-marker{display:none} .rv .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .rv .e .dot{background:var(--red)} .rv .w .dot{background:var(--amber)} .rv .g .dot{background:var(--green)}
+  .rv .it{display:grid;grid-template-columns:34px 1fr auto;gap:8px;padding:7px 14px;border-top:1px solid #1d1d1d;font-size:13px;align-items:start}
+  .rv .it .n{color:var(--dim);font-size:11px;padding-top:2px} .rv .it .ti{word-break:break-word} .rv .it .x{color:var(--dim);font-size:12px;margin-top:2px}
+  .rv .it.off .ti{text-decoration:line-through;opacity:.55}
+  .rv .it .ctl{display:flex;gap:6px;align-items:center}
+  .rv .ed{grid-column:2/4;margin-top:4px} .rv .ed input{width:100%;box-sizing:border-box;background:#1a1a1a;color:#eee;border:1px solid #555;border-radius:5px;padding:6px 8px;font:inherit}
+  .rv .mini{background:#333;color:#ddd;border:1px solid #555;border-radius:4px;font-size:11px;padding:2px 7px;cursor:pointer}
   .tag.not_added{background:var(--red);color:#fff} .tag.needs_review{background:var(--amber);color:#1b1200}
   .empty{padding:18px 14px;color:var(--dim)}
   details{margin-top:14px;background:var(--panel);border:1px solid #111;border-radius:8px}
@@ -226,7 +235,7 @@
           <div class="summary" id="stats"></div>
           <div class="grid2">
             <div class="panel"><h3>Slides <em id="addedCount"></em></h3><div class="cards" id="added"></div></div>
-            <div class="panel"><h3>To check <em id="flagCount"></em></h3><div class="list" id="flagged"></div></div>
+            <div class="panel"><h3>Review <em id="flagCount"></em><span><button class="btn sm hidden" id="recheck">Check again</button></span></h3><div id="review"></div></div>
           </div>
           <details id="adjD"><summary>Fixed for you <span id="adjN"></span></summary><div id="adj"></div></details>
           <details id="leftD"><summary>Skipped <span id="leftN"></span></summary><div id="left"></div></details>
@@ -390,11 +399,12 @@ function render(r){
   $('meta').textContent = r.mode==='new' ? 'New in '+r.library : (r.mode==='replace'?'Replace':'Append');
   const stats = $('stats'); stats.replaceChildren();
   const stat = (n,l,cls)=>{ const d=el('div','stat '+(cls||'')); d.append(el('b','',String(n)), el('span','',l)); return d; };
-  stats.append(stat(s.slides,'slides'), stat(s.verse_slides,'verses'), stat(s.point_slides,'points'), stat(s.flagged,'to check', s.flagged?'flag':'good'));
+  stats.append(stat(s.slides,'slides'), stat(s.errors,'errors', s.errors?'flag':'good'), stat(s.warnings,'warnings', s.warnings?'flag':'good'), stat(s.good,'good','good'));
   const b = $('banner'); b.replaceChildren();
   if(s.slides===0) b.append(banner('bad','No slides found in this file.'));
 
-  else if(s.flagged>0) b.append(banner('warn',s.flagged+' line'+(s.flagged===1?'':'s')+' to check. They are skipped unless you fix the notes.'));
+  else if(s.errors>0) b.append(banner('bad',s.errors+' line'+(s.errors===1?'':'s')+' could not be decided. They are skipped unless you fix them below.'));
+  else if(s.warnings>0) b.append(banner('warn',s.warnings+' decision'+(s.warnings===1?'':'s')+' used a guess. Look at them below, then import.'));
   if(r.mode==='new') b.append(banner('info','Makes \u201c'+r.title+'\u201d in '+r.library+'.'));
   else if(r.mode==='replace') b.append(banner('info','Replaces the verse and point slides in \u201c'+r.target.name+'\u201d. A backup is kept, and the playlist keeps working.'));
   else b.append(banner('info','Adds '+s.slides+' slides to the end of \u201c'+r.target.name+'\u201d. A backup is kept, and the playlist keeps working.'));
@@ -414,15 +424,7 @@ function render(r){
   if(!r.slides.length) added.append(el('div','empty','Nothing to import.'));
   $('addedCount').textContent = '';
 
-  const fl = $('flagged'); fl.replaceChildren();
-  for(const f of r.flagged){
-    const it = el('div','item'); it.append(el('div','n','L'+f.line));
-    const body = el('div'); const t = el('div','t');
-    t.append(el('span','tag '+f.status, f.status==='not_added'?'Skipped':'Check'), document.createTextNode(f.text.length>110?f.text.slice(0,110)+'\u2026':f.text));
-    body.append(t, el('div','x',f.detail)); it.append(body); fl.append(it);
-  }
-  if(!r.flagged.length) fl.append(el('div','empty','All clear.'));
-  $('flagCount').textContent = '';
+  drawReview(r);
   fill('adj','adjD','adjN', r.adjustments); fill('left','leftD','leftN', r.left_out);
 
   const go = $('go');
@@ -430,6 +432,59 @@ function render(r){
   go.disabled = s.slides===0;
   $('actionNote').textContent = (r.mode==='new' ? 'Nothing existing changes.' : 'The original is backed up first.') + ' ProPresenter stays open.' + (r.run_id ? '  Log: ' + r.run_id : '');
 }
+function drawReview(r){
+  const box = $('review'); box.replaceChildren(); box.className = 'rv';
+  state.skip = new Set(); state.edits = {}; show('recheck', false);
+  const groups = [
+    ['e','Errors: could not be decided', r.review.error, true],
+    ['w','Warnings: a rule was a guess', r.review.warning.concat(r.review.left_out_warning), true],
+    ['g','Good: no guesses were needed', r.review.good, false],
+  ];
+  for(const [cls,title,rows,open] of groups){
+    const d = el('details', cls); if(open && rows.length) d.open = true;
+    const sm = el('summary'); sm.append(el('span','dot'), document.createTextNode(title+' ('+rows.length+')')); d.append(sm);
+    for(const x of rows.slice().sort((a,b)=>a.line-b.line)){
+      const it = el('div','it'); it.append(el('div','n','L'+x.line));
+      const mid = el('div'); mid.append(el('div','ti',(x.kind==='left_out'?'Left out: ':'')+(x.title.length>110?x.title.slice(0,110)+'\u2026':x.title)));
+      for(const why of x.reasons) mid.append(el('div','x',why));
+      it.append(mid);
+      const ctl = el('div','ctl');
+      if(x.slides.length){
+        const cb = el('input'); cb.type='checkbox'; cb.checked = true; cb.title='Include this in the import';
+        cb.onchange = ()=>{ if(cb.checked) state.skip.delete(x.id); else state.skip.add(x.id); it.classList.toggle('off', !cb.checked); updateCount(); };
+        ctl.append(cb);
+      }
+      if(cls!=='g' && r.lines && r.lines[String(x.line)] !== undefined){
+        const eb = el('button','mini','Edit'); eb.onclick = ()=>{
+          let ed = it.querySelector('.ed'); if(ed){ ed.remove(); delete state.edits[x.line]; $('recheck').classList.toggle('hidden', !Object.keys(state.edits).length); return; }
+          ed = el('div','ed'); const inp = el('input'); inp.value = r.lines[String(x.line)];
+          inp.oninput = ()=>{ if(inp.value===r.lines[String(x.line)]) delete state.edits[x.line]; else state.edits[x.line]=inp.value; $('recheck').classList.toggle('hidden', !Object.keys(state.edits).length); };
+          ed.append(inp); it.append(ed); inp.focus();
+        };
+        ctl.append(eb);
+      }
+      it.append(ctl); d.append(it);
+    }
+    if(!rows.length) d.append(el('div','empty','None.'));
+    box.append(d);
+  }
+  const ql = r.review.left_out_good;
+  if(ql.length){ const d = el('details','g'); const sm = el('summary'); sm.append(el('span','dot'), document.createTextNode('Left out, clearly not slides ('+ql.length+')')); d.append(sm);
+    for(const x of ql){ const it = el('div','it'); it.append(el('div','n','L'+x.line), el('div','ti',x.title)); d.append(it); } box.append(d); }
+  $('flagCount').textContent = '';
+}
+function updateCount(){ const r = state.current.report; const n = r.summary.slides - [...state.skip].reduce((a,id)=>a+((r.decisions.find(d=>d.id===id)||{slides:[]}).slides.length),0); $('go').disabled = n<=0; }
+$('recheck').onclick = async ()=>{
+  if(!state.current) return;
+  $('recheck').disabled = true; show('result', false); show('progress', true); $('progMsg').textContent='Checking again\u2026';
+  try{
+    const {job} = await api('/api/replan', {method:'POST', body:JSON.stringify({job: state.current.job, edits: state.edits})});
+    const done = await poll(job, j=>{ $('progMsg').textContent=j.message; });
+    if(done.state==='error') throw new Error(done.error);
+    state.current = {job, report: done.result}; render(done.result);
+  }catch(e){ show('progress', false); show('result', true); $('banner').replaceChildren(banner('bad','Could not check again: '+e.message)); }
+  $('recheck').disabled = false;
+};
 function fill(listId, detId, nId, rows){
   const box = $(listId); box.replaceChildren();
   for(const x of rows){
@@ -443,10 +498,10 @@ function fill(listId, detId, nId, rows){
 $('go').onclick = async ()=>{
   if(!state.current) return;
   const r = state.current.report;
-  if(r.flagged.length && !confirm(r.flagged.length+' line(s) will be skipped. Continue with the other '+r.summary.slides+' slides?')) return;
+  if(r.summary.errors && !confirm(r.summary.errors+' line(s) could not be decided and will be skipped. Continue with the other slides?')) return;
   $('go').disabled = true; show('result', false); show('progress', true); $('progMsg').textContent='Starting\u2026';
   try{
-    const {job} = await api('/api/apply', {method:'POST', body:JSON.stringify({job: state.current.job, accept_flags: true})});
+    const {job} = await api('/api/apply', {method:'POST', body:JSON.stringify({job: state.current.job, accept_flags: true, skip: [...state.skip]})});
     const done = await poll(job, j=>{ $('progMsg').textContent=j.message; });
     show('progress', false); show('result', true);
     if(done.state==='error') throw new Error(done.error);

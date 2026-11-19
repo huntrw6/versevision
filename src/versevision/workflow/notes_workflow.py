@@ -21,6 +21,32 @@ class ProblemEntry(BaseModel):
     problem: str
 
 
+class Decision(BaseModel):
+    """One thing the importer decided about one part of the notes, with how sure it was.
+
+    tier "good"    parsed and formatted with no judgment calls (very likely right)
+    tier "warning" identified, but a rule that is partly a guess was used (look at it)
+    tier "error"   could not be decided (nothing is added for it until you fix it)
+    """
+    id: int
+    line: int
+    kind: str                      # verse | point | left_out | error
+    title: str
+    text: str = ""
+    tier: str = "good"
+    reasons: list[str] = Field(default_factory=list)
+    first_slide: int = 0           # index of the first slide it produced in the plan (0-based)
+    slide_count: int = 0
+
+
+_FIRM_LEFT_OUT = ("stage/production cue", "title / date line", "recap heading", "document title (first line)", "email header line",
+                  "verse text quoted above its reference", "title / heading line", "[slide] tag that points")
+
+
+def _left_out_tier(reason: str) -> str:
+    return "good" if reason.startswith(_FIRM_LEFT_OUT) or any(f in reason for f in _FIRM_LEFT_OUT) else "warning"
+
+
 class NotesImportResult(BaseModel):
     slide_plan: SlidePlan = Field(default_factory=SlidePlan)
     verse_count: int = 0
@@ -29,6 +55,7 @@ class NotesImportResult(BaseModel):
     review: list[ProblemEntry] = Field(default_factory=list)      # unclear lines, need a decision
     failed: list[ProblemEntry] = Field(default_factory=list)      # wanted but could not be added
     notices: list[ProblemEntry] = Field(default_factory=list)     # corrections the tool made
+    decisions: list[Decision] = Field(default_factory=list)       # every decision, in document order, with its confidence
     target: TargetResult | None = None
     fetched: bool = False
     files_changed: bool = False
@@ -92,7 +119,7 @@ async def plan_notes(
     library: str | None = None,
     provider_registry: ProviderRegistry | None = None,
 ) -> NotesImportResult:
-    document = classify_document(source, config.bible.version_aliases)
+    document = classify_document(source, config.bible.version_aliases, line_mode=config.notes.line_mode, unlabeled_bullets=config.notes.unlabeled_bullets)
     result = NotesImportResult(fetched=not no_fetch)
     for item in document.skipped:
         result.skipped.append(ProblemEntry(line=item.line, text=item.text, problem=f"{item.category}: {item.reason}"))
@@ -106,6 +133,9 @@ async def plan_notes(
         raise VerseVisionError(f"Unknown Bible version: {default}")
     versions, notices = resolve_note_versions(document, default=default)
     result.notices = notices
+    reasons_by_line: dict[int, list[str]] = {}
+    for n in notices:
+        reasons_by_line.setdefault(n.line, []).append(n.problem)
     resolved_refs = {id(item): entry for item, entry in zip(document.verses, versions)}
 
     registry = provider_registry
@@ -116,9 +146,18 @@ async def plan_notes(
     slides: list[PlannedSlide] = []
     group_index = 0
     try:
+        def add(item, kind: str, title: str, text: str, tier: str, reasons: list[str], first: int = 0, count: int = 0) -> None:
+            seen: list[str] = []
+            for r in reasons:
+                if r and r not in seen:
+                    seen.append(r)
+            result.decisions.append(Decision(id=len(result.decisions), line=item.line, kind=kind, title=title, text=text, tier=tier,
+                                             reasons=seen, first_slide=first, slide_count=count))
+
         for item in document.items:
             if item.kind == "point":
                 assert isinstance(item, PointItem)
+                first = len(slides)
                 slides.append(PlannedSlide(
                     kind="point", body_text=item.display, reference_text="", version_text="",
                     source_passage_index=group_index,
@@ -127,10 +166,14 @@ async def plan_notes(
                 result.point_count += 1
                 for warning in item.warnings:
                     result.notices.append(ProblemEntry(line=item.line, text=item.display[:60], problem=warning))
+                add(item, "point", item.display.split("\n")[0][:80], item.display, "warning" if item.warnings else "good", list(item.warnings), first, 1)
             elif item.kind == "verse":
                 line, reference, why = resolved_refs[id(item)]
+                shown = item.reference.normalized_text
+                extra = list(reasons_by_line.get(item.line, [])) + [w for w in item.warnings if w not in reasons_by_line.get(item.line, [])]
                 if reference is None:
-                    result.failed.append(ProblemEntry(line=line, text=item.reference.normalized_text, problem=why))
+                    result.failed.append(ProblemEntry(line=line, text=shown, problem=why))
+                    add(item, "error", shown, item.reference.source_text.strip(), "error", [why] + extra)
                     continue
                 try:
                     passage = (await registry.fetch(reference)) if registry else placeholder_passages([reference])[0]
@@ -143,13 +186,26 @@ async def plan_notes(
                         line=line, text=reference.normalized_text,
                         problem=f"not added: {exc}{hint}",
                     ))
+                    add(item, "error", reference.normalized_text, item.reference.source_text.strip(), "error", [f"not added: {exc}{hint}"])
                     continue
+                first = len(slides)
                 planned = plan_slides([passage], config.slides).slides
                 for slide in planned:
                     slide.source_passage_index = group_index
                 slides.extend(planned)
                 group_index += 1
                 result.verse_count += 1
+                norm = reference.normalized_text
+                label = norm if (not reference.version or reference.version.casefold() in norm.casefold()) else f"{norm} ({reference.version})"
+                add(item, "verse", label, item.reference.source_text.strip(), "warning" if extra else "good", extra, first, len(planned))
+            elif item.kind == "review":
+                add(item, "error", item.text[:80], item.text, "error", [item.reason])
+            elif item.kind == "skipped":
+                tier = _left_out_tier(item.reason)
+                add(item, "left_out", item.text[:80], item.text, tier, [f"{item.category.replace('_', ' ')}: {item.reason}"] if tier == "warning" else [item.reason])
+        for issue in document.issues:
+            result.decisions.append(Decision(id=len(result.decisions), line=0, kind="error", title=issue.source_text[:80], text=issue.source_text,
+                                             tier="error", reasons=[f"invalid reference: {issue.message}"]))
     finally:
         if owns and registry:
             await registry.aclose()

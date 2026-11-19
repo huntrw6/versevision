@@ -122,10 +122,16 @@ class NodeConfig(BaseModel):
     launch_wait_seconds: float = Field(default=90.0, ge=5, le=600)
 
 
+class NotesConfig(BaseModel):
+    line_mode: bool = True              # every line break in the notes is a different slide (page-wrapped lines are still joined)
+    unlabeled_bullets: bool = True      # a plain line after the first point becomes a bullet-point slide (reported as a warning)
+
+
 class AppConfig(BaseModel):
     propresenter: ProPresenterConfig = Field(default_factory=ProPresenterConfig)
     node: NodeConfig = Field(default_factory=NodeConfig)
     slides: SlideConfig = Field(default_factory=SlideConfig)
+    notes: NotesConfig = Field(default_factory=NotesConfig)
     presentation: PresentationConfig = Field(default_factory=PresentationConfig)
     presentation_template: PresentationTemplateConfig | None = None
     output: OutputConfig = Field(default_factory=OutputConfig)

@@ -18,6 +18,15 @@ def build_report(plan: NotesImportResult, *, source_name: str = "") -> dict[str,
     def rows(entries, status):
         return [{"line": e.line, "text": e.text, "detail": e.problem, "status": status} for e in entries]
 
+    order = {"error": 0, "warning": 1, "good": 2}
+    decisions = []
+    for d in plan.decisions:
+        first = d.first_slide + 1 if d.slide_count else 0
+        decisions.append({"id": d.id, "line": d.line, "kind": d.kind, "title": d.title, "text": d.text, "tier": d.tier, "reasons": d.reasons,
+                          "slides": list(range(first, first + d.slide_count)) if d.slide_count else []})
+    review = {tier: [d for d in decisions if d["tier"] == tier and d["kind"] != "left_out"] for tier in ("error", "warning", "good")}
+    review["left_out_warning"] = [d for d in decisions if d["kind"] == "left_out" and d["tier"] == "warning"]
+    review["left_out_good"] = [d for d in decisions if d["kind"] == "left_out" and d["tier"] == "good"]
     flagged = rows(plan.failed, "not_added") + rows(plan.review, "needs_review")
     flagged.sort(key=lambda row: row["line"])
     return {
@@ -27,7 +36,10 @@ def build_report(plan: NotesImportResult, *, source_name: str = "") -> dict[str,
             "point_slides": sum(1 for s in slides if s["kind"] == "point"),
             "flagged": len(flagged), "not_added": len(plan.failed), "needs_review": len(plan.review),
             "left_out": len(plan.skipped), "adjustments": len(plan.notices),
+            "errors": len(review["error"]), "warnings": len(review["warning"]) + len(review["left_out_warning"]), "good": len(review["good"]),
         },
+        "decisions": decisions,
+        "review": review,
         "slides": slides,
         "flagged": flagged,
         "adjustments": rows(plan.notices, "adjusted"),

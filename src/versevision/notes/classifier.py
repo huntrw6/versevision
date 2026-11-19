@@ -172,8 +172,12 @@ def _wrap_geometry(lines: list[str]) -> tuple[bool, int]:
     return (60 <= p95 <= 140 and near / len(lengths) >= 0.15), int(0.86 * p95)
 
 
-def classify_document(text: str, aliases: dict[str, str] | None = None) -> NoteDocument:
-    """Classify a document into verse / point / skipped / review items, in document order."""
+def classify_document(text: str, aliases: dict[str, str] | None = None, *, line_mode: bool = True, unlabeled_bullets: bool = True) -> NoteDocument:
+    """Classify a document into verse / point / skipped / review items, in document order.
+
+    line_mode: every line break means a different slide (lines the page layout wrapped mid-sentence are still joined).
+    unlabeled_bullets: a plain line under a point becomes a bullet point (listed as a warning, since it is a judgment call)
+    instead of being left for review."""
     lines = text.replace("\r\n", "\n").replace("\r", "\n").replace("\xa0", " ").split("\n")
     hard_wrap, threshold = _wrap_geometry(lines)
 
@@ -220,7 +224,7 @@ def classify_document(text: str, aliases: dict[str, str] | None = None) -> NoteD
         paras[0].first = True
     for para in paras:
         _label(para, aliases)
-    return _build(paras, aliases)
+    return _build(paras, aliases, line_mode=line_mode, unlabeled_bullets=unlabeled_bullets)
 
 
 def _label(para: _Para, aliases) -> None:
@@ -275,6 +279,10 @@ def _label(para: _Para, aliases) -> None:
     if found.references:
         para.kind, para.refs = "midref", found.references
         return
+    leading = next((i for i in found.issues if i.source_start <= 2), None)
+    if leading is not None:                    # it reads like a verse at the start of the line, but it is not a real one
+        para.kind, para.extra["why"] = "badref", f"{leading.source_text.strip()}: {leading.message}"
+        return
     para.kind = "quote" if text.startswith(_QUOTE_OPEN) else "other"
 
 
@@ -296,7 +304,7 @@ def _is_reference_start(text: str, aliases) -> bool:
     return bool(leads)
 
 
-def _build(paras: list[_Para], aliases) -> NoteDocument:
+def _build(paras: list[_Para], aliases, *, line_mode: bool = True, unlabeled_bullets: bool = True) -> NoteDocument:
     doc = NoteDocument()
     last_point = 0
     seen_content = False
@@ -336,6 +344,8 @@ def _build(paras: list[_Para], aliases) -> NoteDocument:
             _emit_verses(doc, para, para.refs)
             if para.extra.get("numbered_verse"):
                 doc.items[-1].warnings.append("numbered line holds a reference; treated as a verse, not a sermon point")
+        elif kind == "badref":
+            doc.items.append(ReviewItem(line=line, text=text, reason=f"looks like a verse but is not one ({para.extra['why']})"))
         elif kind == "midref":
             names = ", ".join(ref.normalized_text for ref in para.refs[:3])
             doc.items.append(ReviewItem(
@@ -351,13 +361,12 @@ def _build(paras: list[_Para], aliases) -> NoteDocument:
                 doc.items.append(ReviewItem(line=line, text=text, reason="quoted text with no reference"))
         elif _LABELLED.match(text) and not para.first:
             # "Conclusion: Will You Let God Use Your Life?" is a different sentence from the point above it: its own slide
-            doc.items.append(PointItem(line=line, role="slide_note", label="", text=text, detail_end=line,
-                                       warnings=["labelled line made its own slide (not joined to the point above)"]))
+            doc.items.append(PointItem(line=line, role="slide_note", label="", text=text, detail_end=line))
         else:
-            item = _other(para, text)
+            item = _other(para, text, unlabeled_bullets)
             prior = doc.items[-1] if doc.items else None
             if (
-                isinstance(item, ReviewItem) and isinstance(prior, PointItem) and prior.role in {"point", "list_item"}
+                not line_mode and isinstance(item, ReviewItem) and isinstance(prior, PointItem) and prior.role in {"point", "list_item"}
                 and line - prior.detail_end <= 2 and text.rstrip().endswith((".", "?", "!", "”", '"'))
             ):
                 prior.text += "\n" + text
@@ -381,19 +390,24 @@ def _emit_verses(doc: NoteDocument, para: _Para, refs: list[PassageReference]) -
         doc.items.append(VerseItem(line=para.line, reference=ref, warnings=list(ref.warnings)))
 
 
-def _other(para: _Para, text: str):
+def _other(para: _Para, text: str, bullets: bool = False):
     line = para.line
     if re.match(r"^(part|week|session|series)\s*\d+\s*[:.-]", text, re.IGNORECASE) or text.endswith(":"):
         return SkippedItem(line=line, category="header", text=text, reason="title / heading line")
     words = text.split()
     if _EMAIL_HEADER.search(text):
         return SkippedItem(line=line, category="header", text=text, reason="email header line")
-    if para.first and not text.endswith((".", "?", "!")):
+    if para.first and not text.endswith((".", "?", "!", "”", '"')):
         return SkippedItem(line=line, category="header", text=text, reason="document title (first line)")
-    if len(words) <= 2 and _header_like(words) and not text.endswith((".", "?", "!")):
+    if len(words) <= 2 and _header_like(words) and not text.endswith((".", "?", "!", "”", '"')):
         return SkippedItem(line=line, category="header", text=text, reason="one or two capitalized words: looks like a heading")
-    if len(text) <= 80 and not text.endswith((".", "?", "!")):
+    if len(text) <= 80 and not text.endswith((".", "?", "!", "”", '"')):
         if not para.extra.get("seen_content"):
             return SkippedItem(line=line, category="header", text=text, reason="title/preamble before the first verse or point")
+        if bullets:
+            return PointItem(line=line, role="list_item", label="•", text=text, detail_end=para.end,
+                             warnings=["short line with no ending punctuation made a bullet point; it may be a heading instead"])
         return ReviewItem(line=line, text=text, reason="short unlabeled line: a heading, or a point missing its number? add a number or bullet to make it a slide")
+    if bullets and para.extra.get("seen_content"):
+        return PointItem(line=line, role="list_item", label="•", text=text, detail_end=para.end)      # a full sentence: the line-per-slide rule, no guess
     return ReviewItem(line=line, text=text, reason="unlabeled line; not a reference, point, or known cue")

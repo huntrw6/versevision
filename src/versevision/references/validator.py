@@ -1,5 +1,6 @@
 from .books import Book
 from .models import VerseSpan
+from .versification import VERSE_COUNTS
 
 # Complete versification is deliberately a data concern. These bounds cover the
 # acceptance corpus and prevent the dangerous silent acceptance examples.
@@ -19,7 +20,8 @@ def validate_spans(book: Book, spans: list[VerseSpan]) -> list[str]:
         for point, label in points:
             if point.chapter > book.chapters:
                 errors.append(f"{book.name} has no chapter {point.chapter}")
-            maximum = KNOWN_VERSE_COUNTS.get((book.id, point.chapter))
+            counts = VERSE_COUNTS.get(book.id)
+            maximum = (counts[point.chapter - 1] + 1) if counts and 1 <= point.chapter <= len(counts) else KNOWN_VERSE_COUNTS.get((book.id, point.chapter))
             if maximum and point.verse > maximum:
                 errors.append(f"{book.name} {point.chapter} has no verse {point.verse}")
         if (end.chapter, end.verse) < (span.start.chapter, span.start.verse):

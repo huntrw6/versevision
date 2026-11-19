@@ -49,6 +49,8 @@ class Job:
         self.title = ""
         self.title_override: str | None = None
         self.library: str | None = None
+        self.version: str | None = None
+        self.target_arg: str | None = None
 
 
 class AppState:
@@ -91,10 +93,11 @@ def _spawn(state: AppState, job: Job, fn) -> None:
 
 
 def start_plan(state: AppState, name: str, data: bytes, default_version: str | None, target: str | None,
-               mode: str = "new", title: str | None = None, library: str | None = None) -> Job:
+               mode: str = "new", title: str | None = None, library: str | None = None, text_override: str | None = None) -> Job:
     job = Job("plan")
     job.name = name
     job.mode, job.title_override, job.library = mode, title, library
+    job.version, job.target_arg = default_version, target
     job.run_id = ""
 
     def work(j: Job) -> None:
@@ -118,14 +121,18 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
     def _plan_work(j: Job) -> None:
         run = runlog.current()
         suffix = Path(name).suffix.casefold()
-        if suffix not in ALLOWED:
-            raise DocumentError(f"Unsupported file type {suffix or '(none)'}. Use PDF, Word (.docx), text, Markdown or HTML.")
-        with tempfile.TemporaryDirectory(prefix="versevision-up-") as folder:
-            path = Path(folder) / ("upload" + suffix)
-            path.write_bytes(data)
-            j.message = "Reading the document"
-            j.text = extract_text(path)
-            run.event("document_read", message=f"{name} ({len(data)} bytes)", file=name, bytes=len(data), type=suffix)
+        if text_override is not None:
+            j.text = text_override
+            run.event("document_read", message=f"{name} (edited in the review, {len(text_override)} characters)", file=name, type="edited")
+        else:
+            if suffix not in ALLOWED:
+                raise DocumentError(f"Unsupported file type {suffix or '(none)'}. Use PDF, Word (.docx), text, Markdown or HTML.")
+            with tempfile.TemporaryDirectory(prefix="versevision-up-") as folder:
+                path = Path(folder) / ("upload" + suffix)
+                path.write_bytes(data)
+                j.message = "Reading the document"
+                j.text = extract_text(path)
+                run.event("document_read", message=f"{name} ({len(data)} bytes)", file=name, bytes=len(data), type=suffix)
         run.save_source(j.text, name)
         if mode not in {"new", "replace", "append"}:
             raise DocumentError("Unknown mode")
@@ -151,6 +158,8 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
         from versevision.notes.title import document_title, safe_presentation_name
         j.title = safe_presentation_name(title) if title else document_title(j.text, name)
         report = build_report(plan, source_name=name)
+        src_lines = j.text.replace("\r\n", "\n").replace("\r", "\n").replace("\xa0", " ").split("\n")
+        report["lines"] = {str(d["line"]): src_lines[d["line"] - 1] for d in report["decisions"] if 1 <= d["line"] <= len(src_lines)}
         report["mode"] = mode
         report["title"] = j.title
         report["library"] = library or state.config.output.library
@@ -166,12 +175,41 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
     return job
 
 
-def start_apply(state: AppState, plan_job_id: str, accept_flags: bool) -> Job:
+def start_replan(state: AppState, plan_job_id: str, edits: dict[str, str]) -> Job:
+    """Fix lines in the review (type a corrected line) and check the whole document again. The file itself is never changed."""
+    source = state.jobs.get(plan_job_id)
+    if not source or source.kind != "plan" or not source.text:
+        raise VerseVisionError("That review is no longer available; drop the file again")
+    lines = source.text.replace("\r\n", "\n").replace("\r", "\n").replace("\xa0", " ").split("\n")
+    for key, value in edits.items():
+        number = int(key)
+        if not 1 <= number <= len(lines):
+            raise VerseVisionError(f"There is no line {number}")
+        lines[number - 1] = str(value).replace("\n", " ")
+    job = start_plan(state, source.name, b"", source.version, source.target_arg, mode=source.mode, title=source.title_override,
+                     library=source.library, text_override="\n".join(lines))
+    return job
+
+
+def _without_skipped(plan, report: dict, skip: set[int]):
+    """The plan with the slides of the skipped decisions taken out (a checkbox in the review)."""
+    if not skip:
+        return plan
+    drop = {n - 1 for d in report["decisions"] if d["id"] in skip for n in d["slides"]}
+    kept = [sl for i, sl in enumerate(plan.slide_plan.slides) if i not in drop]
+    from versevision.slides.models import SlidePlan
+    return plan.model_copy(update={"slide_plan": SlidePlan(slides=kept)})
+
+
+def start_apply(state: AppState, plan_job_id: str, accept_flags: bool, skip: set[int] | None = None) -> Job:
     source = state.jobs.get(plan_job_id)
     if not source or source.kind != "plan" or not source.plan or (source.mode != "new" and not source.target):
         raise VerseVisionError("That review is no longer available; drop the file again")
     if source.result and source.result["flagged"] and not accept_flags:
         raise VerseVisionError("Some lines are flagged; confirm you want to import the rest")
+    final_plan = _without_skipped(source.plan, source.result or {"decisions": []}, skip or set())
+    if not final_plan.slide_plan.slides:
+        raise VerseVisionError("Every slide was switched off; nothing to import")
     with state.lock:
         if state.busy:
             raise VerseVisionError("Another import is already running")
@@ -199,15 +237,17 @@ def start_apply(state: AppState, plan_job_id: str, accept_flags: bool) -> Job:
             run.event("progress", message=message)
             j.message = message
         assert source.plan is not None
+        if skip:
+            run.event("progress", message=f"{len(skip)} decision(s) switched off in the review")
         if source.mode == "new":
             applied = publish_new(
-                source.text, source.name, source.title, source.plan, state.config, state.transport(),
+                source.text, source.name, source.title, final_plan, state.config, state.transport(),
                 library=source.library, history=state.history, progress=progress,
             )
         else:
             assert source.target is not None
             applied = publish_swap(
-                source.text, source.name, source.plan, state.config, state.transport(), source.target,
+                source.text, source.name, final_plan, state.config, state.transport(), source.target,
                 clear_generated=(source.mode == "replace"), history=state.history, progress=progress,
             )
         j.result = applied.model_dump()
@@ -374,7 +414,11 @@ def make_handler(state: AppState):
                     self._json(202, {"job": job.id})
                 elif parsed.path == "/api/apply":
                     body = json.loads(self._body() or b"{}")
-                    job = start_apply(state, body.get("job", ""), bool(body.get("accept_flags")))
+                    job = start_apply(state, body.get("job", ""), bool(body.get("accept_flags")), {int(x) for x in body.get("skip", [])})
+                    self._json(202, {"job": job.id})
+                elif parsed.path == "/api/replan":
+                    body = json.loads(self._body() or b"{}")
+                    job = start_replan(state, body.get("job", ""), dict(body.get("edits") or {}))
                     self._json(202, {"job": job.id})
                 elif parsed.path == "/api/autostart":
                     from versevision import autostart

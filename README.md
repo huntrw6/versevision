@@ -223,3 +223,19 @@ versevision template new-file --source-file /path/to/a/backup.pro   # or: --sour
 ```
 
 This writes the small template presentation into the Verses library and points the saved settings at it. A template slide is never treated as a generated slide, so Replace skips it even if it is still in the same file as a sermon.
+
+## Review: errors, warnings, good
+
+Every decision the importer makes about your notes is graded, and the page (and `versevision run --dry-run`) lists the least certain first:
+
+| Tier | Meaning | What happens |
+| --- | --- | --- |
+| **Error** | could not be decided (a quote with no reference, a verse that does not exist, a verse the Bible provider could not return) | nothing is added for it until you fix the line |
+| **Warning** | identified, but a rule that is partly a guess was used (a version taken from the verse above or the default, a short unpunctuated line made a bullet that may be a heading) | added; look at it |
+| **Good** | parsed and formatted with no judgment calls | added |
+
+In the web page each row has a checkbox (leave it out of the import) and an **Edit** button (type a corrected line, then **Check again**; your file is never changed).
+
+Defaults (`[notes]` in `config.toml`): `line_mode = true` (every line break is a different slide; lines the page layout wrapped mid-sentence are still joined) and
+`unlabeled_bullets = true` (a plain line after the first point becomes a bullet-point slide). No AI is involved: it is all rules, and verses are checked against
+the real chapter and verse counts of the Bible.
