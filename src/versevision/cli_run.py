@@ -15,7 +15,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from versevision.config import AppConfig, NodeConfig, load_config, save_config
+from versevision.config import AppConfig, NodeConfig, load_config, save_config, with_options
 from versevision.documents import extract_text
 from versevision.errors import ConfigurationError, DocumentError, ExitCode, VerseVisionError
 from versevision.history import HistoryStore
@@ -140,6 +140,8 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         no_close: Annotated[bool, typer.Option("--no-close", help="With --in-place: never close ProPresenter automatically")] = False,
         no_reopen: Annotated[bool, typer.Option("--no-reopen")] = False,
         output: Annotated[str, typer.Option("--output")] = "terminal",
+        profile: Annotated[Optional[str], typer.Option("--profile", help="Use a named set of options from the config ([profiles.NAME.notes] ...)")] = None,
+        set_options: Annotated[Optional[list[str]], typer.Option("--set", help="Change one option for this run: section.option=value (see `versevision config options`)")] = None,
         target_presentation: Annotated[Optional[str], typer.Option("--target-presentation", "-t", hidden=True)] = None,
         target_uuid: Annotated[Optional[str], typer.Option("--target-uuid", hidden=True)] = None,
     ) -> None:
@@ -155,7 +157,7 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         from versevision import runlog
         run, token, st = None, None, {"outcome": "failed", "error": None, "report": None, "applied": None}
         try:
-            config = _config_with_node(load_config(), node, None, None)
+            config = with_options(_config_with_node(load_config(), node, None, None), profile=profile, sets=set_options)
             source, source_name = _read(file, text)
             mode_name = "replace" if replace else "append" if append else "new"
             run = runlog.RunLog.start(

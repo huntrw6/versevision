@@ -25,6 +25,7 @@ from versevision.history import HistoryStore
 from versevision.node.transport import make_transport
 from versevision import runlog
 from versevision.workflow.pipeline import apply_import, list_presentations, plan_for_transport, publish_new, publish_swap, undo_import
+from versevision.config import with_options
 from versevision.workflow.report import build_report
 
 MAX_UPLOAD = 25 * 1024 * 1024
@@ -51,6 +52,7 @@ class Job:
         self.library: str | None = None
         self.version: str | None = None
         self.target_arg: str | None = None
+        self.profile: str | None = None
 
 
 class AppState:
@@ -93,11 +95,12 @@ def _spawn(state: AppState, job: Job, fn) -> None:
 
 
 def start_plan(state: AppState, name: str, data: bytes, default_version: str | None, target: str | None,
-               mode: str = "new", title: str | None = None, library: str | None = None, text_override: str | None = None) -> Job:
+               mode: str = "new", title: str | None = None, library: str | None = None, text_override: str | None = None,
+               profile: str | None = None) -> Job:
     job = Job("plan")
     job.name = name
     job.mode, job.title_override, job.library = mode, title, library
-    job.version, job.target_arg = default_version, target
+    job.version, job.target_arg, job.profile = default_version, target, profile
     job.run_id = ""
 
     def work(j: Job) -> None:
@@ -140,18 +143,19 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
             raise DocumentError("No template is set up yet. Run: versevision template setup")
         j.message = "Finding verses and fetching Scripture"
         transport = state.transport()
+        cfg = with_options(state.config, profile=profile) if profile else state.config
         j.message = "Checking ProPresenter"
         tgt = None
         if mode != "new":
             if not target:
                 raise DocumentError("Choose which presentation to change")
             plan, tgt = asyncio.run(plan_for_transport(
-                j.text, state.config, transport, default_version=default_version,
+                j.text, cfg, transport, default_version=default_version,
                 target_uuid=target, target_name=None, library=None,
             ))
         else:
             plan, _ = asyncio.run(plan_for_transport(
-                j.text, state.config, transport, default_version=default_version,
+                j.text, cfg, transport, default_version=default_version,
                 target_uuid=None, target_name=None, library=None,
             ))
         j.plan, j.target = plan, tgt
@@ -187,7 +191,7 @@ def start_replan(state: AppState, plan_job_id: str, edits: dict[str, str]) -> Jo
             raise VerseVisionError(f"There is no line {number}")
         lines[number - 1] = str(value).replace("\n", " ")
     job = start_plan(state, source.name, b"", source.version, source.target_arg, mode=source.mode, title=source.title_override,
-                     library=source.library, text_override="\n".join(lines))
+                     library=source.library, text_override="\n".join(lines), profile=source.profile)
     return job
 
 
@@ -347,7 +351,7 @@ def make_handler(state: AppState):
                 self._json(200, {
                     "target": state.target_name(), "node": cfg.node.name or "this computer",
                     "default_version": cfg.bible.default_version, "version": __import__("versevision").__version__,
-                    "template_ready": bool(cfg.presentation_template), "library": cfg.output.library,
+                    "template_ready": bool(cfg.presentation_template), "library": cfg.output.library, "profiles": sorted(cfg.profiles),
                 })
             elif path == "/api/check":
                 try:
@@ -409,7 +413,7 @@ def make_handler(state: AppState):
                     job = start_plan(
                         state, name, self._body(), version, (query.get("target") or [None])[0] or None,
                         mode=(query.get("mode") or ["new"])[0], title=(query.get("title") or [None])[0] or None,
-                        library=(query.get("library") or [None])[0] or None,
+                        library=(query.get("library") or [None])[0] or None, profile=(query.get("profile") or [None])[0] or None,
                     )
                     self._json(202, {"job": job.id})
                 elif parsed.path == "/api/apply":

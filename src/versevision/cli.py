@@ -12,7 +12,7 @@ from rich.table import Table
 from platformdirs import user_log_path
 
 from versevision import __version__
-from versevision.config import AppConfig, config_path, load_config, save_config
+from versevision.config import AppConfig, config_path, load_config, save_config, with_options
 from versevision.bibles import ProviderRegistry, ScriptureCache
 from versevision.documents import extract_text
 from versevision.errors import (
@@ -104,6 +104,40 @@ def config_show(output: Annotated[str, typer.Option("--output")] = "terminal") -
         else:
             console.print(f"Configuration: {config_path()}")
             console.print(config.model_dump())
+    except Exception as exc:
+        _fail(exc)
+
+
+@config_app.command("options")
+def config_options(section: Annotated[str, typer.Argument(help="notes, points, verses or slides (default: all)")] = "") -> None:
+    """List every option for reading the notes and formatting slides: its name, choices and current value."""
+    try:
+        config = load_config()
+        table = Table("Option", "Value", "Choices / meaning")
+        for name in ("notes", "points", "verses", "slides"):
+            if section and section != name:
+                continue
+            model = getattr(config, name)
+            for field, info in type(model).model_fields.items():
+                ann = str(info.annotation).replace("typing.", "")
+                choices = ann[ann.index("[") + 1:-1].replace("'", "") if ann.startswith("Literal") else ann.replace("<class '", "").replace("'>", "")
+                table.add_row(f"{name}.{field}", str(getattr(model, field)), choices)
+        console.print(table)
+        console.print("Change one for a single run: versevision run FILE --set notes.line_breaks=paragraph\n"
+                      "Change it for good:           versevision config set notes.line_breaks paragraph\n"
+                      "Named sets for a kind of document: \\[profiles.NAME.notes] in the config, then --profile NAME")
+    except Exception as exc:
+        _fail(exc)
+
+
+@config_app.command("set")
+def config_set(key: Annotated[str, typer.Argument(help="section.option, for example points.bullet_char")],
+               value: Annotated[str, typer.Argument(help="the new value (a list is written as JSON: '[\"pause\"]')")]) -> None:
+    """Change one option in the saved configuration."""
+    try:
+        updated = with_options(load_config(), sets=[f"{key}={value}"])
+        save_config(updated, overwrite=True)
+        console.print(f"{key} = {value}   (saved to {config_path()})")
     except Exception as exc:
         _fail(exc)
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 from pydantic import BaseModel, Field
 
 from versevision.bibles import ProviderRegistry
-from versevision.config import AppConfig
+from versevision.config import AppConfig, PointsConfig, VersesConfig
 from versevision.errors import VerseVisionError
 from versevision.notes import NoteDocument, PointItem, classify_document
 from versevision.propresenter.api_client import ProPresenterApiClient
@@ -13,6 +13,35 @@ from versevision.slides.models import PlannedSlide, SlidePlan
 from versevision.slides.planner import placeholder_passages, plan_slides
 from versevision.versions.registry import canonical_version
 from .result import TargetResult
+
+
+_NUMBERED = __import__("re").compile(r"^(#?\d+[).:]|[A-Za-z][).])$")
+
+
+def _title_case(text: str) -> str:
+    small = {"a", "an", "and", "as", "at", "but", "by", "for", "in", "of", "on", "or", "the", "to", "with"}
+    words = text.split(" ")
+    return " ".join(w if (0 < i < len(words) - 1 and w.lower() in small) else (w[:1].upper() + w[1:].lower() if w.islower() or w.isupper() else w) for i, w in enumerate(words))
+
+
+def format_point(item: PointItem, cfg: PointsConfig, counter: int) -> str:
+    """The text of a point slide: its label (kept, dropped, renumbered, or the bullet mark) and the case of the words."""
+    label = item.label
+    if _NUMBERED.match(label or ""):
+        if cfg.numbering == "strip":
+            label = ""
+        elif cfg.numbering == "renumber" and item.role == "point":
+            label = cfg.number_style.format(n=counter)
+    elif label == "•":
+        label = cfg.bullet_char
+    text = item.text
+    if cfg.case == "upper":
+        text = text.upper()
+    elif cfg.case == "lower":
+        text = text.lower()
+    elif cfg.case == "title":
+        text = "\n".join(_title_case(line) for line in text.split("\n"))
+    return f"{label} {text}".strip()
 
 
 class ProblemEntry(BaseModel):
@@ -66,7 +95,7 @@ class NotesImportResult(BaseModel):
 
 
 def resolve_note_versions(
-    document: NoteDocument, *, default: str | None
+    document: NoteDocument, *, default: str | None, source: str = "above"
 ) -> tuple[list[tuple[int, PassageReference | None, str]], list[ProblemEntry]]:
     """Give every verse a version: its own, else the nearest explicit one above, else the default."""
     notices: list[ProblemEntry] = []
@@ -98,12 +127,15 @@ def resolve_note_versions(
                 last_explicit = reference.version
             resolved.append((item.line, reference, ""))
             continue
-        chosen = last_explicit or default_name
-        if not chosen:
-            resolved.append((item.line, None, "no version on this verse, none above it, and no default version is set"))
+        if source == "required":
+            resolved.append((item.line, None, "no version on this verse, and your setting requires one (verses.version_source = required)"))
             continue
-        source = "nearest version above" if last_explicit else "default version"
-        notices.append(ProblemEntry(line=item.line, text=reference.normalized_text, problem=f"no version listed; used {chosen} ({source})"))
+        chosen = (last_explicit or default_name) if source == "above" else default_name
+        if not chosen:
+            resolved.append((item.line, None, "no version on this verse, none above it, and no default version is set" if source == "above" else "no version on this verse and no default version is set"))
+            continue
+        how = "nearest version above" if (last_explicit and source == "above") else "default version"
+        notices.append(ProblemEntry(line=item.line, text=reference.normalized_text, problem=f"no version listed; used {chosen} ({how})"))
         resolved.append((item.line, reference.model_copy(update={"version": chosen}), ""))
     return resolved, notices
 
@@ -119,7 +151,7 @@ async def plan_notes(
     library: str | None = None,
     provider_registry: ProviderRegistry | None = None,
 ) -> NotesImportResult:
-    document = classify_document(source, config.bible.version_aliases, line_mode=config.notes.line_mode, unlabeled_bullets=config.notes.unlabeled_bullets)
+    document = classify_document(source, config.bible.version_aliases, config.notes, config.points)
     result = NotesImportResult(fetched=not no_fetch)
     for item in document.skipped:
         result.skipped.append(ProblemEntry(line=item.line, text=item.text, problem=f"{item.category}: {item.reason}"))
@@ -131,7 +163,7 @@ async def plan_notes(
     default = default_version or config.bible.default_version
     if default and not canonical_version(default):
         raise VerseVisionError(f"Unknown Bible version: {default}")
-    versions, notices = resolve_note_versions(document, default=default)
+    versions, notices = resolve_note_versions(document, default=default, source=config.verses.version_source)
     result.notices = notices
     reasons_by_line: dict[int, list[str]] = {}
     for n in notices:
@@ -145,6 +177,7 @@ async def plan_notes(
         owns = True
     slides: list[PlannedSlide] = []
     group_index = 0
+    numbered_points = 0
     try:
         def add(item, kind: str, title: str, text: str, tier: str, reasons: list[str], first: int = 0, count: int = 0) -> None:
             seen: list[str] = []
@@ -158,15 +191,18 @@ async def plan_notes(
             if item.kind == "point":
                 assert isinstance(item, PointItem)
                 first = len(slides)
+                if item.role == "point" and item.label and _NUMBERED.match(item.label):
+                    numbered_points += 1
+                shown_text = format_point(item, config.points, numbered_points)
                 slides.append(PlannedSlide(
-                    kind="point", body_text=item.display, reference_text="", version_text="",
+                    kind="point", body_text=shown_text, reference_text="", version_text="",
                     source_passage_index=group_index,
                 ))
                 group_index += 1
                 result.point_count += 1
                 for warning in item.warnings:
                     result.notices.append(ProblemEntry(line=item.line, text=item.display[:60], problem=warning))
-                add(item, "point", item.display.split("\n")[0][:80], item.display, "warning" if item.warnings else "good", list(item.warnings), first, 1)
+                add(item, "point", shown_text.split("\n")[0][:80], shown_text, "warning" if item.warnings else "good", list(item.warnings), first, 1)
             elif item.kind == "verse":
                 line, reference, why = resolved_refs[id(item)]
                 shown = item.reference.normalized_text

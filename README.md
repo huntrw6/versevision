@@ -236,6 +236,60 @@ Every decision the importer makes about your notes is graded, and the page (and 
 
 In the web page each row has a checkbox (leave it out of the import) and an **Edit** button (type a corrected line, then **Check again**; your file is never changed).
 
-Defaults (`[notes]` in `config.toml`): `line_mode = true` (every line break is a different slide; lines the page layout wrapped mid-sentence are still joined) and
-`unlabeled_bullets = true` (a plain line after the first point becomes a bullet-point slide). No AI is involved: it is all rules, and verses are checked against
-the real chapter and verse counts of the Bible.
+## Options: reading the notes and formatting the slides
+
+Everything below is in `config.toml`. The defaults are the house style; change any of them when a document is laid out differently or a service wants a
+different look. `versevision config options` lists every option with its choices and current value.
+
+```sh
+versevision run notes.pdf --set notes.line_breaks=paragraph --set points.numbering=strip   # for this run only
+versevision config set points.bullet_char "-"                                               # for good
+versevision run notes.pdf --profile outline                                                 # a saved set (see below)
+```
+
+```toml
+[profiles.outline.notes]          # a named set, used with --profile outline (or the "Style" box on the web page)
+line_breaks = "paragraph"
+[profiles.outline.points]
+numbering = "strip"
+```
+
+### `[notes]` - how the notes are read
+
+| Option | Default | Choices |
+| --- | --- | --- |
+| `line_breaks` | `slide` | `slide`: every line break is a different slide (lines the page layout wrapped mid-sentence are still joined). `paragraph`: a plain sentence under a point joins that point |
+| `unlabeled_sentence` | `bullet` | what a plain sentence after the first point becomes: `bullet` (its own slide), `review`, `skip` |
+| `unlabeled_short` | `bullet` | the same for a short line with no ending punctuation (it may be a heading, so it is a warning) |
+| `before_first_item` | `skip` | lines before the first verse or point (title, date, speaker): `skip`, `review`, `bullet` |
+| `stage_cues` | `skip` | "Show slide of...", notes in brackets, links: `skip`, `review`, `bullet` |
+| `extra_cue_words` | `[]` | more words that start a cue, e.g. `["pause", "sing"]` |
+| `skip_patterns` | `[]` | regular expressions; a matching line is always left out |
+| `quote_above_reference` | `skip` | verse text typed above its reference (the text comes from the Bible provider): `skip` or `review` |
+| `quote_alone` | `review` | a quotation with no reference near it: `review`, `skip`, `bullet` |
+| `reference_in_text` | `review` | "as Psalm 23:1 says...": `review`, `skip`, or `verse` (also add that verse) |
+| `whole_chapter` | `review` | "Psalm 23" with no verses: `review`, `skip` |
+| `duplicates` | `keep` | the same verse again later: `keep` or `drop` |
+| `label_words` | conclusion, application, invitation, ... | words that start a labelled line ("Conclusion: ...") |
+| `label_own_slide` | `true` | a labelled line is its own slide instead of part of the point above |
+| `header_max_words` | `2` | capitalized lines this short are headings |
+
+### `[points]` - what is a point, and how it is written
+
+| Option | Default | Choices |
+| --- | --- | --- |
+| `numbered` / `lettered` / `bullets` | `true` | which markers start a point (`1)`, `a)`, `•`). Turned off, that line is treated as plain text |
+| `require_sequence` | `true` | numbers out of order (1, 2, 5) become plain list items instead of points |
+| `numbering` | `keep` | `keep` "1)", `strip` the numbers, or `renumber` 1, 2, 3 again |
+| `number_style` | `{n})` | used by `renumber`: `{n}.`, `#{n}:`, ... |
+| `bullet_char` | `•` | the mark in front of a bullet slide (`""` for none, `-`, ...) |
+| `case` | `as_written` | `upper`, `lower`, `title` |
+
+### `[verses]` and `[slides]`
+
+| Option | Default | Choices |
+| --- | --- | --- |
+| `verses.version_source` | `above` | `above`: the nearest version named above, else the default. `default`: always the default unless the verse names one. `required`: a verse with no version is an error |
+| `slides.include_verse_numbers`, `slides.reference_format`, `slides.max_characters`, `slides.max_verses_per_slide`, `slides.break_on_new_verse`, ... | | how a verse slide looks and splits (see `versevision config options slides`) |
+
+No AI is involved: it is all rules, and verses are checked against the real chapter and verse counts of the Bible.
