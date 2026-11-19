@@ -221,7 +221,7 @@
               <label id="slotLabel" for="title">Name</label>
               <div class="slot">
                 <input type="text" id="title" placeholder="Same as the document">
-                <select id="target"></select>
+                <select id="target" style="display:none"></select><button type="button" class="lookbtn" id="targetBtn" data-menu="target">Pick one\u2026</button>
               </div>
               <div class="help" id="targetHelp"></div>
             </div>
@@ -353,7 +353,38 @@ function openLookMenu(btn){
   menu.style.left = Math.max(8, Math.min(r.left, innerWidth - menu.offsetWidth - 8))+'px';          // the first list stays put; only the slide list moves
   menu.style.top = Math.max(8, Math.min(r.bottom + 4, innerHeight - menu.offsetHeight - 8))+'px';
 }
-document.addEventListener('click', e=>{ const b = e.target.closest('.lookbtn'); if(b){ e.stopPropagation(); openLookMenu(b); } else if(!e.target.closest('#lookMenu,#lookFly')) closeLookMenu(); });
+function openTargetMenu(btn){
+  closeLookMenu();
+  const menu = el('div'); menu.id='lookMenu'; const left = el('div','col'); let fly = null;
+  const libs = [...new Set(state.pres.map(p=>p.library))];
+  libs.sort((a,b)=>(a===state.libSel?-1:b===state.libSel?1:a.localeCompare(b)));
+  left.append(el('div','sec','Libraries'));
+  for(const lib of libs){
+    const items = state.pres.filter(p=>p.library===lib);
+    const row = el('div','row'); row.append(el('div','thumb none','\u25a4'), el('span','',lib), el('span','sub',String(items.length)), el('span','chev','\u203A'));
+    if(items.some(p=>p.uuid===state.target)) row.classList.add('pick');
+    const open = ()=>{
+      left.querySelectorAll('.row.on').forEach(r=>r.classList.remove('on')); row.classList.add('on');
+      if(fly) fly.remove(); fly = el('div'); fly.id='lookFly'; const right = el('div','col'); fly.append(right); document.body.append(fly);
+      for(const p of items){
+        const r2 = el('div','row'); r2.append(el('span','',p.name)); if(p.uuid===state.target) r2.classList.add('pick');
+        r2.onclick = ()=>{ state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; showTarget(); closeLookMenu(); drawSidebar(); updateHelp(); };
+        right.append(r2);
+      }
+      const m = menu.getBoundingClientRect(), w = fly.offsetWidth, hh = fly.offsetHeight, rr = row.getBoundingClientRect();
+      const fitsRight = m.right + 4 + w <= innerWidth - 8;
+      fly.style.left = Math.max(8, fitsRight ? m.right + 4 : m.left - 4 - w)+'px';
+      fly.style.top = Math.max(8, Math.min(rr.top - 6, innerHeight - hh - 8))+'px';
+    };
+    row.onmouseenter = open; row.onclick = open; left.append(row);
+  }
+  menu.append(left); document.body.append(menu);
+  const r = btn.getBoundingClientRect();
+  menu.style.left = Math.max(8, Math.min(r.left, innerWidth - menu.offsetWidth - 8))+'px';
+  menu.style.top = Math.max(8, Math.min(r.bottom + 4, innerHeight - menu.offsetHeight - 8))+'px';
+  const cur = left.querySelector('.row.pick'); if(cur) cur.dispatchEvent(new Event('mouseenter'));
+}
+document.addEventListener('click', e=>{ const b = e.target.closest('.lookbtn'); if(b){ e.stopPropagation(); (b.dataset.menu==='target' ? openTargetMenu : openLookMenu)(b); } else if(!e.target.closest('#lookMenu,#lookFly')) closeLookMenu(); });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLookMenu(); });
 async function loadLooks(){
   try{
@@ -388,7 +419,7 @@ function drawSidebar(){
     const picking = state.mode!=='new';
     const r = el('div','row'+((picking&&p.uuid===state.target)?' sel':'')+(picking?' click':' dim'));
     r.title = p.name; r.append(el('span','badge b','\u25a4'), el('span','t',p.name));
-    if(picking) r.onclick = ()=>{ state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; drawSidebar(); updateHelp(); };
+    if(picking) r.onclick = ()=>{ state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; showTarget(); drawSidebar(); updateHelp(); };
     box.append(r);
   }
   if(!items.length) box.append(el('div','empty','No presentations in this library.'));
@@ -410,9 +441,11 @@ function fillSelects(){
     t.append(og);
   }
   t.value = state.target || '';
+  showTarget();
 }
+function showTarget(){ const p = state.pres.find(x=>x.uuid===state.target); $('targetBtn').textContent = p ? p.name : 'Pick one\u2026'; }
 $('libSel').onchange = e=>{ state.libSel = e.target.value; drawSidebar(); };
-$('target').onchange = e=>{ state.target = e.target.value; drawSidebar(); updateHelp(); };
+$('target').onchange = e=>{ state.target = e.target.value; showTarget(); drawSidebar(); updateHelp(); };
 $('target').addEventListener('change', ()=>{});
 
 const HELP = {
@@ -423,7 +456,7 @@ const HELP = {
 function setMode(m){
   state.mode = m;
   document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on', b.dataset.mode===m));
-  $('title').classList.toggle('off', m!=='new'); $('target').classList.toggle('off', m==='new');
+  $('title').classList.toggle('off', m!=='new'); $('targetBtn').classList.toggle('off', m==='new');
   $('slotLabel').textContent = m==='new' ? 'Name' : 'Presentation';
   $('slotLabel').htmlFor = m==='new' ? 'title' : 'target';
   $('libHelp').textContent = m==='new' ? 'Where it goes.' : 'Shows its presentations.';
@@ -434,7 +467,7 @@ function m_is_new(){ return state.mode==='new'; }
 function updateHelp(){
   const need = state.mode!=='new' && !state.target;
   $('targetHelp').textContent = m_is_new() ? 'Blank uses the document title.' : (need ? 'Pick one to continue.' : '');
-  $('target').classList.toggle('need', need);
+  $('targetBtn').classList.toggle('need', need);
   $('drop').classList.toggle('locked', need);
   $('drop').setAttribute('aria-disabled', need ? 'true' : 'false');
   $('dropHint').textContent = need ? 'Pick a presentation first' : 'or click to pick a file';
@@ -455,7 +488,7 @@ function banner(kind, text){ return el('div','banner '+kind, text); }
 
 async function handleFile(file){
   if(!file) return;
-  if(state.mode!=='new' && !state.target){ $('target').focus(); flash('Pick a presentation first.'); $('file').value=''; return; }
+  if(state.mode!=='new' && !state.target){ $('targetBtn').focus(); flash('Pick a presentation first.'); $('file').value=''; return; }
   show('setup', false); show('result', false); show('progress', true); show('actions', false);
   $('progMsg').textContent = 'Reading '+file.name+'\u2026';
   try{
@@ -667,7 +700,7 @@ function setView(v){
 document.querySelectorAll('.tool').forEach(b=>b.onclick = ()=>setView(b.dataset.view));
 
 const drop = $('drop'), fileInput = $('file');
-drop.addEventListener('click', ()=>{ if(state.mode!=='new' && !state.target){ $('target').focus(); flash('Pick a presentation first.'); return; } fileInput.click(); });
+drop.addEventListener('click', ()=>{ if(state.mode!=='new' && !state.target){ $('targetBtn').focus(); flash('Pick a presentation first.'); return; } fileInput.click(); });
 drop.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); drop.click(); }});
 fileInput.addEventListener('change', ()=>handleFile(fileInput.files[0]));
 for(const ev of ['dragenter','dragover']) drop.addEventListener(ev, e=>{ e.preventDefault(); drop.classList.add('over'); });
