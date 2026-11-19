@@ -395,6 +395,7 @@ def make_handler(state: AppState):
                     "template_ready": bool(cfg.presentation_template), "library": cfg.output.library, "profiles": sorted(cfg.profiles),
                 })
             elif path == "/api/themethumb":
+                query = parse_qs(urlparse(self.path).query)
                 data = theme_thumbnail(state, (query.get("theme") or [""])[0], int((query.get("slide") or ["1"])[0] or 1))
                 if data:
                     self._send(200, data, "image/jpeg")

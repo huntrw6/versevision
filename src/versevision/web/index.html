@@ -313,7 +313,7 @@ async function status(){
   }catch(e){ $('statusText').textContent = e.message; }
 }
 const looks = {rows:[], saved:{verse:'',point:''}};
-const thumbUrl = x => '/api/themethumb?theme='+encodeURIComponent(x.theme)+'&slide='+x.number;
+const thumbUrl = x => '/api/themethumb?theme='+encodeURIComponent(x.theme)+'&slide='+x.number+(TOKEN?'&token='+encodeURIComponent(TOKEN):'');
 function closeLookMenu(){ const m=$('lookMenu'); if(m) m.remove(); }
 function lookText(key){ const x = looks.rows.find(r=>r.key===key); return x ? x.label : 'VerseVision template'; }
 function setLook(id, key){ $(id).value = key; $(id+'Btn').textContent = lookText(key); closeLookMenu(); }

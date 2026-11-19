@@ -73,3 +73,20 @@ def test_picker_rows_carry_group_theme_and_slide_and_thumbnail_is_none_without_p
     assert (row["group"], row["slide"], row["number"]) == ("", "Slide 1", 1)
     st.config.propresenter.port = 9                        # nothing listens there
     assert web.theme_thumbnail(st, "The biblke", 1) is None
+
+
+def test_the_thumbnail_route_answers_over_http(state):
+    import threading, urllib.error, urllib.request
+    st, node = state
+    st.config.propresenter.port = 9
+    server, _ = web.serve(st.config, "127.0.0.1", 0)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        url = f"http://127.0.0.1:{server.server_address[1]}/api/themethumb?theme=Nope&slide=1"
+        try:
+            urllib.request.urlopen(url, timeout=5)
+            raise AssertionError("expected 404")
+        except urllib.error.HTTPError as exc:
+            assert exc.code == 404                      # a clean 404, not a dropped connection
+    finally:
+        server.shutdown()
