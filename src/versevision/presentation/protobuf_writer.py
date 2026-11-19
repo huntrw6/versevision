@@ -91,6 +91,34 @@ def _replace_rtf_text(rtf: bytes, text: str) -> bytes:
     return prefix + _escape_rtf(text) + b"}"
 
 
+def _visible_length(rtf: bytes) -> int:
+    """How many characters (UTF-16 units, the way ProPresenter counts them) the visible text of an RTF block has."""
+    trimmed = rtf.rstrip()
+    body = trimmed[_text_start(trimmed):-1] if trimmed.endswith(b"}") else trimmed[_text_start(trimmed):]
+    text = body.decode("latin1")
+    text = re.sub(r"\\line ?", "\n", text)
+    text = re.sub(r"\\u-?\d+\??", "\u0001", text)
+    text = re.sub(r"\\([\\{}])", r"\1", text)
+    return len(text.encode("utf-16-le")) // 2
+
+
+def _set_text(text_message, new_text: str) -> None:
+    """Put new text into a text object and keep its character-range formatting true to the new text.
+
+    A ProPresenter text object can carry formatting for a RANGE of characters (all caps for characters 0-180, a font scale, ...). The range is
+    as long as the template's sample text, so text longer than the sample ran past it and the last words came out in lowercase. Any range that
+    reached the end of the old text now reaches the end of the new text; a range that stopped earlier is only clipped to the new length."""
+    old_length = _visible_length(text_message.rtf_data)
+    text_message.rtf_data = _replace_rtf_text(text_message.rtf_data, new_text)
+    new_length = len(new_text.encode("utf-16-le")) // 2
+    for custom in text_message.attributes.custom_attributes:
+        span = custom.range
+        if span.end >= old_length - 1:
+            span.end = new_length
+        elif span.end > new_length:
+            span.end = max(span.start, new_length)
+
+
 def _refresh_uuids(message: Message) -> set[str]:
     generated: set[str] = set()
     for field, value in message.ListFields():
@@ -236,21 +264,21 @@ class ProtobufPresentationWriter:
                 label = planned.body_text.replace("\n", " ")[:60]
                 action.label.text = label
                 body = next(item for item in elements if item.element.name == definition.point_object)
-                body.element.text.rtf_data = _replace_rtf_text(body.element.text.rtf_data, planned.body_text)
+                _set_text(body.element.text, planned.body_text)
             else:
                 label = f"{planned.reference_text} ({planned.version_text})" if planned.version_text else planned.reference_text
                 action.label.text = label
                 body = next(item for item in elements if item.element.name == definition.body_object)
                 if has_reference_box:
                     reference = next(item for item in elements if item.element.name == definition.reference_object)
-                    reference.element.text.rtf_data = _replace_rtf_text(reference.element.text.rtf_data, label)
-                    body.element.text.rtf_data = _replace_rtf_text(body.element.text.rtf_data, planned.body_text)
+                    _set_text(reference.element.text, label)
+                    _set_text(body.element.text, planned.body_text)
                 else:           # a one-box theme: the reference is the last line of the same box
-                    body.element.text.rtf_data = _replace_rtf_text(body.element.text.rtf_data, f"{planned.body_text}\n{label}")
+                    _set_text(body.element.text, f"{planned.body_text}\n{label}")
             if look is not None:
                 for item in elements:
                     if item.element.name == _themes.EXTRA:
-                        item.element.text.rtf_data = _replace_rtf_text(item.element.text.rtf_data, "")
+                        _set_text(item.element.text, "")
             original.cues.append(cue)
             created.append(cue_uuid)
             grouped.setdefault(planned.source_passage_index, []).append(cue_uuid)
@@ -622,7 +650,7 @@ class ProtobufPresentationWriter:
         text_elements = [element.element.text for element in elements if element.element.HasField("text")]
         if len(text_elements) != 1:
             raise ValueError("feasibility template must contain exactly one text element")
-        text_elements[0].rtf_data = _replace_rtf_text(text_elements[0].rtf_data, body_text)
+        _set_text(text_elements[0], body_text)
 
         group = deepcopy(original.cue_groups[0])
         group.group.uuid.string = str(uuid.uuid4())
