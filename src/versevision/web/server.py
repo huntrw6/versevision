@@ -114,9 +114,23 @@ def list_looks(state: AppState) -> list[dict]:
         return cached[1]
     from versevision.themes import fetch_themes
     slides = [s for s in fetch_themes(state.transport()) if s.usable]
-    rows = [{"key": f"{s.theme_label}::{s.number}", "label": s.label, "boxes": len(s.boxes), "reference_box": len(s.boxes) > 1} for s in slides]
+    rows = [{"key": f"{s.theme_label}::{s.number}", "label": s.label, "group": s.group, "theme": s.theme, "slide": s.name or f"Slide {s.number}", "number": s.number,
+             "boxes": len(s.boxes), "reference_box": len(s.boxes) > 1} for s in slides]
     state._themes = (_time.time(), rows)
     return rows
+
+
+def theme_thumbnail(state: AppState, theme: str, number: int) -> bytes | None:
+    """ProPresenter's own picture of a theme slide. Only themes outside a group have one through its API."""
+    import urllib.parse
+    import urllib.request
+    pp = state.config.propresenter
+    url = f"http://{pp.host}:{pp.port}/v1/theme/{urllib.parse.quote(theme, safe='')}/slides/{max(number - 1, 0)}/thumbnail?quality=200"
+    try:
+        with urllib.request.urlopen(url, timeout=3) as response:
+            return response.read() if response.status == 200 else None
+    except Exception:
+        return None
 
 
 def start_plan(state: AppState, name: str, data: bytes, default_version: str | None, target: str | None,
@@ -380,6 +394,12 @@ def make_handler(state: AppState):
                     "default_version": cfg.bible.default_version, "version": __import__("versevision").__version__,
                     "template_ready": bool(cfg.presentation_template), "library": cfg.output.library, "profiles": sorted(cfg.profiles),
                 })
+            elif path == "/api/themethumb":
+                data = theme_thumbnail(state, (query.get("theme") or [""])[0], int((query.get("slide") or ["1"])[0] or 1))
+                if data:
+                    self._send(200, data, "image/jpeg")
+                else:
+                    self._send(404, b"", "text/plain")
             elif path == "/api/themes":
                 try:
                     self._json(200, {"themes": list_looks(state), "verse": state.config.verses.theme, "point": state.config.points.theme})

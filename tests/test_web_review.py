@@ -63,3 +63,13 @@ def test_the_page_can_choose_a_look_from_the_loaded_themes(state):
     assert job.result["looks"] == {"verse": "The biblke · Slide 1", "point": "Sermon Points · Theme Slide"}
     redo = wait(st, web.start_replan(st, job.id, {}))
     assert redo.result["looks"] == job.result["looks"]          # a recheck keeps the look
+
+
+def test_picker_rows_carry_group_theme_and_slide_and_thumbnail_is_none_without_propresenter(state):
+    from test_themes import THEMES
+    st, node = state
+    node.themes = THEMES
+    row = next(r for r in web.list_looks(st) if r["theme"] == "The biblke")
+    assert (row["group"], row["slide"], row["number"]) == ("", "Slide 1", 1)
+    st.config.propresenter.port = 9                        # nothing listens there
+    assert web.theme_thumbnail(st, "The biblke", 1) is None
