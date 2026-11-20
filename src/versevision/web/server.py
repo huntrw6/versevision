@@ -344,6 +344,7 @@ def make_handler(state: AppState):
         "/sw.js": ("sw.js", "text/javascript"),
         "/ico-library.svg": ("ico-library.svg", "image/svg+xml"), "/ico-playlist.svg": ("ico-playlist.svg", "image/svg+xml"),
         "/ico-presentation.svg": ("ico-presentation.svg", "image/svg+xml"),
+        **{f"/ico-{n}.svg": (f"ico-{n}.svg", "image/svg+xml") for n in ("new", "replace", "append", "history")},
     }
     static_files = {route: (resources.files("versevision.web").joinpath(name).read_bytes(), ctype) for route, (name, ctype) in static.items()}
 

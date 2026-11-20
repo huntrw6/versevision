@@ -149,3 +149,18 @@ def test_the_sidebar_uses_propresenters_icons_for_libraries_playlists_and_presen
     finally:
         server.shutdown()
 
+
+
+def test_each_title_in_the_main_panel_has_its_own_pixel_icon():
+    import threading, urllib.request
+    server, _ = web.serve(None, "127.0.0.1", 0)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        base = f"http://127.0.0.1:{server.server_address[1]}"
+        for name in ("new", "replace", "append", "history"):
+            body = urllib.request.urlopen(f"{base}/ico-{name}.svg", timeout=5).read()
+            assert body.startswith(b"<svg") and b'viewBox="0 0 8 8"' in body
+        page = urllib.request.urlopen(base + "/", timeout=5).read().decode()
+        assert 'id="ttlIcon"' in page and "titleIcon(m)" in page and "titleIcon('history')" in page
+    finally:
+        server.shutdown()

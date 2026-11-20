@@ -62,7 +62,9 @@
 
   main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--canvas)}
   #titlebar{height:42px;flex:none;background:#1a1a1a;border-bottom:1px solid #000;display:flex;align-items:center;gap:10px;padding:0 16px}
-  #titlebar .ic{width:18px;height:18px;border-radius:4px;background:#e9812a;display:grid;place-items:center;font-size:10px;font-weight:700;color:#fff}
+  #titlebar .ic{width:24px;height:24px;flex:none;background:center/contain no-repeat url(/ico-new.svg);image-rendering:pixelated}
+  #titlebar .ic.new{background-image:url(/ico-new.svg)} #titlebar .ic.replace{background-image:url(/ico-replace.svg)}
+  #titlebar .ic.append{background-image:url(/ico-append.svg)} #titlebar .ic.history{background-image:url(/ico-history.svg)}
   #titlebar h1{margin:0;font-size:15px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   #titlebar .meta{margin-left:auto;color:var(--dim);font-size:12px;white-space:nowrap}
   #stage{flex:1;overflow:auto;padding:18px 22px 24px;min-height:0;display:flex;flex-direction:column}
@@ -217,7 +219,7 @@
   </aside>
 
   <main>
-    <div id="titlebar"><span class="ic">&#9636;</span><h1 id="ttl">Import sermon notes</h1><span class="meta" id="meta"></span></div>
+    <div id="titlebar"><span class="ic" id="ttlIcon"></span><h1 id="ttl">Import sermon notes</h1><span class="meta" id="meta"></span></div>
     <div id="stage">
       <div id="viewImport">
         <div id="setup">
@@ -515,6 +517,7 @@ function setMode(m){
   $('slotLabel').htmlFor = m==='new' ? 'title' : 'target';
   $('modeHelp').textContent = HELP[m]; updateHelp(); drawSidebar();
   $('ttl').textContent = m==='new' ? 'New presentation' : (m==='replace' ? 'Replace slides' : 'Append slides');
+  titleIcon(m);
 }
 function m_is_new(){ return state.mode==='new'; }
 function updateHelp(){
@@ -569,6 +572,7 @@ function render(r){
   show('progress', false); show('result', true); show('actions', true); show('go', true);
   const s = r.summary;
   $('ttl').textContent = r.mode==='new' ? (r.title||'New presentation') : (r.target?r.target.name:'Presentation');
+  titleIcon(r.mode);
   $('meta').textContent = r.mode==='new' ? 'New in '+r.library : (r.mode==='replace'?'Replace':'Append');
   const stats = $('stats'); stats.replaceChildren();
   const stat = (n,l,cls)=>{ const d=el('div','stat '+(cls||'')); d.append(el('b','',String(n)), el('span','',l)); return d; };
@@ -743,10 +747,12 @@ async function undo(r, btn){
   show('progress', false); show('setup', true); loadHistory(); loadPresentations();
 }
 
+function titleIcon(kind){ $('ttlIcon').className = 'ic ' + (['new','replace','append','history'].includes(kind) ? kind : 'new'); }
+
 function setView(v){
   state.view = v; show('viewImport', v==='import'); show('viewHistory', v==='history');
   $('tab-import').classList.toggle('on', v==='import'); $('tab-history').classList.toggle('on', v==='history');
-  if(v==='history'){ $('ttl').textContent='History'; $('meta').textContent=''; loadHistory(); loadRuns(); show('actions', false); }
+  if(v==='history'){ $('ttl').textContent='History'; titleIcon('history'); $('meta').textContent=''; loadHistory(); loadRuns(); show('actions', false); }
   else if(state.current){ show('actions', true); } else { setMode(state.mode); }
 }
 document.querySelectorAll('.tool').forEach(b=>b.onclick = ()=>setView(b.dataset.view));

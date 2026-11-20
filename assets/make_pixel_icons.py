@@ -59,4 +59,50 @@ def svg(art, palette):
 (WEB / "ico-library.svg").write_text(svg(LIBRARY, {"o": "#ee7a22", "d": "#b8520f", "h": "#f9a04a", "w": "#ffffff"}))
 (WEB / "ico-playlist.svg").write_text(svg(PLAYLIST, {"b": "#3a85e6", "c": "#2560b8", "h": "#6aa6f2", "w": "#ffffff"}))
 (WEB / "ico-presentation.svg").write_text(svg(PRESENTATION, {"#": "#000000"}))      # used as a mask: the page colours it
+
+# --- title icons for the main panel: New presentation, Replace slides, Append slides, History ---
+TITLE_ICONS = {
+    "new": ("""
+.hhhhhh.
+gggwwggg
+gggwwggg
+gwwwwwwg
+gggwwggg
+gggwwggg
+dddddddd
+.dddddd.
+""", {"g": "#3fae5a", "h": "#62cf7a", "d": "#26803f", "w": "#ffffff"}),
+    "replace": ("""
+.hhhhhh.
+aaaaawaa
+awwwwwwa
+aaaaaaaa
+awwwwwwa
+aawaaaaa
+dddddddd
+.dddddd.
+""", {"a": "#c4801a", "h": "#e8b040", "d": "#94600c", "w": "#ffffff"}),
+    "append": ("""
+.hhhhhh.
+tttwwttt
+ttwwwwtt
+tttwwttt
+tttttttt
+twwwwwwt
+dddddddd
+.dddddd.
+""", {"t": "#26a69a", "h": "#4fd1c5", "d": "#17776e", "w": "#ffffff"}),
+    "history": ("""
+.hhhhhh.
+ppwwwwpp
+pwpwppwp
+pwpwwpwp
+pwppppwp
+ppwwwwpp
+dddddddd
+.dddddd.
+""", {"p": "#8b6bd9", "h": "#ad92f0", "d": "#5f45a8", "w": "#ffffff"}),
+}
+for name, (art, palette) in TITLE_ICONS.items():
+    (WEB / f"ico-{name}.svg").write_text(svg(art, palette))
 print("pixel icons written")
