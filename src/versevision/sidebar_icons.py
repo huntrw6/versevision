@@ -1,6 +1,6 @@
 """ProPresenter's own sidebar icons (library, playlist, presentation), read from the installed ProPresenter app.
 
-They are ProPresenter's artwork, so VerseVision does not ship them: ``versevision icons`` renders them out of the app on this Mac into the
+They are shown as 8-bit sprites (12 x 12 pixels, 3-3-2 bit colour). They are ProPresenter's artwork, so VerseVision does not ship them: ``versevision icons`` renders them out of the app on this Mac into the
 user data folder, and the web page uses them when they are there (and a plain look when they are not)."""
 from __future__ import annotations
 
@@ -15,7 +15,8 @@ from platformdirs import user_data_path
 from .errors import VerseVisionError
 
 NAMES = {"library": "OutlineSourceLibraryItem", "playlist": "OutlineSourcePresentationItem", "presentation": "OutlineDetailPresentationItem"}
-PIXELS = 192
+GRID = 12        # the sprite is 12 x 12 pixels...
+BLOCK = 4        # ...each stored as a 4 x 4 block, so the file is 48 px and stays hard-edged at any scale
 
 
 def icon_dir() -> Path:
@@ -36,17 +37,36 @@ let args = CommandLine.arguments
 let bundle = Bundle(path: args[1])!
 let out = args[2]
 let names = ["library": "%(library)s", "playlist": "%(playlist)s", "presentation": "%(presentation)s"]
-for (kind, name) in names {
-  guard let img = bundle.image(forResource: name) else { print("missing", name); exit(2) }
-  let px = %(px)d
+let big = 192, grid = %(grid)d, block = %(block)d       // draw big, shrink to a grid x grid sprite, then blow each pixel up into a block x block square
+func render(_ img: NSImage, _ px: Int) -> NSBitmapImageRep {
   let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: px, pixelsHigh: px, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
   NSGraphicsContext.saveGraphicsState()
   NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
   img.draw(in: NSRect(x: 0, y: 0, width: px, height: px), from: .zero, operation: .sourceOver, fraction: 1)
   NSGraphicsContext.restoreGraphicsState()
-  try! rep.representation(using: .png, properties: [:])!.write(to: URL(fileURLWithPath: out + "/" + kind + ".png"))
+  return rep
 }
-""" % {**NAMES, "px": PIXELS}
+func level(_ v: Double, _ steps: Double) -> UInt8 { UInt8((v / 255.0 * steps).rounded() / steps * 255.0) }     // 8-bit colour: 3 bits red, 3 green, 2 blue
+for (kind, name) in names {
+  guard let img = bundle.image(forResource: name) else { print("missing", name); exit(2) }
+  let src = render(img, big)
+  let cell = big / grid
+  let sprite = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: grid * block, pixelsHigh: grid * block, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
+  for gy in 0..<grid { for gx in 0..<grid {
+    var r = 0.0, g = 0.0, b = 0.0, a = 0.0
+    for y in 0..<cell { for x in 0..<cell {
+      let c = src.colorAt(x: gx * cell + x, y: gy * cell + y)!.usingColorSpace(.deviceRGB)!
+      let al = Double(c.alphaComponent); a += al; r += Double(c.redComponent) * al; g += Double(c.greenComponent) * al; b += Double(c.blueComponent) * al
+    } }
+    let n = Double(cell * cell)
+    let color: NSColor
+    if a / n < 0.45 { color = NSColor(deviceRed: 0, green: 0, blue: 0, alpha: 0) }
+    else { color = NSColor(deviceRed: CGFloat(level(r / a * 255, 7)) / 255, green: CGFloat(level(g / a * 255, 7)) / 255, blue: CGFloat(level(b / a * 255, 3)) / 255, alpha: 1) }
+    for y in 0..<block { for x in 0..<block { sprite.setColor(color, atX: gx * block + x, y: gy * block + y) } }
+  } }
+  try! sprite.representation(using: .png, properties: [:])!.write(to: URL(fileURLWithPath: out + "/" + kind + ".png"))
+}
+""" % {**NAMES, "grid": GRID, "block": BLOCK}
 
 
 def extract(app: str | None = None) -> Path:
