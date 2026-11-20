@@ -114,13 +114,3 @@ def playlists_cmd(
         console.print(f"[red]{exc}[/red]")
         raise typer.Exit(int(exc.exit_code) if isinstance(exc, VerseVisionError) else 1)
 
-
-def icons_cmd() -> None:
-    """Copy ProPresenter's sidebar icons (library, playlist, presentation) out of the installed app, for the web page to use."""
-    from versevision.sidebar_icons import extract
-    try:
-        folder = extract()
-        console.print(f"Icons saved in {folder}")
-    except Exception as exc:
-        console.print(f"[red]{exc}[/red]")
-        raise typer.Exit(int(exc.exit_code) if isinstance(exc, VerseVisionError) else 1)

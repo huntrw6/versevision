@@ -149,27 +149,3 @@ def test_the_sidebar_uses_propresenters_icons_for_libraries_playlists_and_presen
     finally:
         server.shutdown()
 
-
-def test_propresenter_icons_are_served_only_when_they_were_extracted(tmp_path, monkeypatch):
-    import threading, urllib.error, urllib.request
-    from versevision import sidebar_icons
-    monkeypatch.setattr(sidebar_icons, "icon_dir", lambda: tmp_path)
-    server, _ = web.serve(None, "127.0.0.1", 0)
-    threading.Thread(target=server.serve_forever, daemon=True).start()
-    try:
-        base = f"http://127.0.0.1:{server.server_address[1]}"
-        try:
-            urllib.request.urlopen(base + "/pp-icon/library.png", timeout=5)
-            raise AssertionError("expected 404")
-        except urllib.error.HTTPError as exc:
-            assert exc.code == 404
-        (tmp_path / "library.png").write_bytes(b"\x89PNG fake")
-        assert urllib.request.urlopen(base + "/pp-icon/library.png", timeout=5).read() == b"\x89PNG fake"
-        for bad in ("../secret", "other", "x/y"):
-            try:
-                urllib.request.urlopen(f"{base}/pp-icon/{bad}.png", timeout=5)
-                raise AssertionError("expected 404")
-            except urllib.error.HTTPError as exc:
-                assert exc.code == 404
-    finally:
-        server.shutdown()

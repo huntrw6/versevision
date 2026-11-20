@@ -54,8 +54,6 @@
   .pi.lib{background-image:url(/ico-library.svg)} .pi.pl{background-image:url(/ico-playlist.svg)}
   .pi.pres{background:#9a9a9a;-webkit-mask:url(/ico-presentation.svg) center/contain no-repeat;mask:url(/ico-presentation.svg) center/contain no-repeat}
   .row.sel .pi.pres{background:#fff}
-  .real-icons .pi.lib{background-image:url(/pp-icon/library.png)} .real-icons .pi.pl{background-image:url(/pp-icon/playlist.png)}
-  .real-icons .pi.pres{-webkit-mask-image:url(/pp-icon/presentation.png);mask-image:url(/pp-icon/presentation.png)}
   .row.sel{background:var(--row-sel);border-color:#7a7a7a}
   .row.click{cursor:pointer} .row.click:hover:not(.sel){background:#ffffff12}
   .row .t{overflow:hidden;text-overflow:ellipsis}
@@ -801,7 +799,6 @@ $('auto').onchange = async (ev)=>{
 
 setMode('new'); updateHelp(); status(); loadPresentations(); loadHistory(); autostart();
 </script>
-<script>fetch("/pp-icon/library.png").then(r=>{ if(r.ok) document.documentElement.classList.add("real-icons"); }).catch(()=>{});</script>
 <script>if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js", {scope:"/"}).catch(()=>{});</script>
 </body>
 </html>

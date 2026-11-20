@@ -394,14 +394,6 @@ def make_handler(state: AppState):
             if path == "/":
                 self._send(200, page, "text/html; charset=utf-8")
                 return
-            if path.startswith("/pp-icon/") and path.endswith(".png"):       # ProPresenter's own icons, if they were extracted on this Mac
-                from versevision.sidebar_icons import icon_bytes
-                body = icon_bytes(path[len("/pp-icon/"):-4])
-                if body is None:
-                    self._send(404, b"", "text/plain")
-                else:
-                    self._send(200, body, "image/png")
-                return
             if path in static_files:                      # the app shell: icons, manifest, service worker (no data, so no token)
                 body, ctype = static_files[path]
                 self._send(200, body, ctype)

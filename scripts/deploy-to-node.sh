@@ -9,4 +9,3 @@ wheel=$(ls dist/*.whl)
 hermes-remote push "$node" "$wheel" "/tmp/$(basename "$wheel")" >/dev/null
 hermes-remote push "$node" scripts/install-macos.sh /tmp/install-macos.sh >/dev/null
 hermes-remote run "$node" -- /bin/sh -c "sh /tmp/install-macos.sh install /tmp/$(basename "$wheel"); rm -f /tmp/install-macos.sh /tmp/$(basename "$wheel")"
-hermes-remote gui --timeout 400 --sh "$node" 'export PATH="$HOME/.local/bin:$PATH"; versevision icons' || echo "note: could not copy ProPresenter's icons (the page uses a plain look)"
