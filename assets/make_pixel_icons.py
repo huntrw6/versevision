@@ -84,7 +84,7 @@ dddddddd
 """, {"a": "#c4801a", "h": "#e8b040", "d": "#94600c", "w": "#ffffff"}),
     "append": ("""
 .hhhhhh.
-tttwwttt
+twwwwwwt
 ttwwwwtt
 tttwwttt
 tttttttt

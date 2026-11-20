@@ -9,3 +9,5 @@ wheel=$(ls dist/*.whl)
 hermes-remote push "$node" "$wheel" "/tmp/$(basename "$wheel")" >/dev/null
 hermes-remote push "$node" scripts/install-macos.sh /tmp/install-macos.sh >/dev/null
 hermes-remote run "$node" -- /bin/sh -c "sh /tmp/install-macos.sh install /tmp/$(basename "$wheel"); rm -f /tmp/install-macos.sh /tmp/$(basename "$wheel")"
+# the web page keeps running the old code until it is restarted (only if the start-at-login job is loaded; otherwise it is left stopped)
+hermes-remote gui --timeout 60 --sh "$node" 'launchctl kickstart -k "gui/$(id -u)/org.versevision.serve" >/dev/null 2>&1 || true' >/dev/null 2>&1 || true
