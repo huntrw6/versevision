@@ -54,3 +54,21 @@ master.save(HERE / "versevision-icon-1024.png")
 master.save(HERE / "versevision.icns", sizes=[(16, 16), (32, 32), (64, 64), (128, 128), (256, 256), (512, 512), (1024, 1024)])
 master.resize((64, 64), Image.LANCZOS).save(HERE / "versevision-icon-64.png")
 print("done")
+
+
+# --- web-app (PWA) icons, shipped inside the package so the page can serve them ---
+WEB = HERE.parent / "src" / "versevision" / "web"
+for size in (180, 192, 512):
+    master.resize((size, size), Image.LANCZOS).save(WEB / f"icon-{size}.png")
+# maskable: the system crops it to its own shape, so the artwork sits inside the middle 80% on a full-bleed background
+full = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+full.paste(vgrad(S, S, (0x2b, 0x2b, 0x30), (0x12, 0x12, 0x14)).convert("RGBA"), (0, 0))
+art_layer = Image.new("RGBA", (S, S), (0, 0, 0, 0))                                     # the page + V alone, no tile behind them
+art_layer.paste(grad_page, (0, 0), pm)
+art_layer.paste(orange, (0, 0), vm)
+art = art_layer.crop(art_layer.getbbox())
+scale = 0.62 * S / art.width
+art = art.resize((int(art.width * scale), int(art.height * scale)), Image.LANCZOS)
+full.alpha_composite(art, ((S - art.width) // 2, (S - art.height) // 2))
+full.resize((512, 512), Image.LANCZOS).save(WEB / "icon-maskable-512.png")
+print("web icons done")

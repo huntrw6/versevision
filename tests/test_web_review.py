@@ -113,3 +113,23 @@ def test_the_icon_is_served_without_a_token_and_only_the_action_has_a_descriptio
         assert 'rel="icon"' in page and page.count('class="help"') == 1 and 'id="modeHelp"' in page
     finally:
         server.shutdown()
+
+
+def test_the_page_is_an_installable_app(tmp_path):
+    import json, threading, urllib.request
+    server, _ = web.serve(None, "127.0.0.1", 0)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        base = f"http://127.0.0.1:{server.server_address[1]}"
+        get = lambda p: urllib.request.urlopen(base + p, timeout=5)
+        manifest = json.loads(get("/manifest.webmanifest").read())
+        assert manifest["display"] == "standalone" and manifest["start_url"] == "/" and manifest["name"] == "VerseVision"
+        for icon in manifest["icons"]:                         # every icon the manifest names is served, with the right type
+            response = get(icon["src"])
+            assert response.headers["Content-Type"] == icon["type"] and len(response.read()) > 200
+        assert {i["sizes"] for i in manifest["icons"]} >= {"192x192", "512x512"} and any(i["purpose"] == "maskable" for i in manifest["icons"])
+        assert b"serviceWorker" not in get("/sw.js").read() and get("/sw.js").headers["Content-Type"] == "text/javascript"
+        page = get("/").read().decode()
+        assert 'rel="manifest"' in page and 'rel="apple-touch-icon"' in page and 'serviceWorker.register("/sw.js"' in page
+    finally:
+        server.shutdown()
