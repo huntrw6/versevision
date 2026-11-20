@@ -79,6 +79,7 @@
   .field>label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--head)}
   select,input[type=text]{background:#3a3a3a;border:1px solid #1a1a1a;border-radius:6px;padding:0 9px;color:var(--text);outline:none;height:34px;box-shadow:inset 0 1px 0 #ffffff10}
 
+  #pres .sec2{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8d8d96;padding:10px 12px 4px}
   .lookbtn{width:100%;text-align:left;background:var(--panel2,#2a2a2e);border:1px solid #3a3a40;border-radius:8px;padding:10px 28px 10px 12px;cursor:pointer;position:relative}
   .lookbtn::after{content:"\203A";position:absolute;right:12px;top:8px;color:#bbb}
   #lookMenu{position:fixed;z-index:50;display:flex;background:#232327;border:1px solid #44444a;border-radius:10px;box-shadow:0 12px 40px #000a;max-height:70vh}
@@ -193,6 +194,8 @@
   <aside>
     <div class="sec">Library</div>
     <div id="libs"></div>
+    <div class="sec" id="plSec">Playlists</div>
+    <div id="plists"></div>
     <div class="sec">Presentations</div>
     <div id="pres"></div>
     <div id="side-note"></div>
@@ -213,7 +216,7 @@
               </div>
               <div class="help" id="modeHelp"></div>
             </div>
-            <div class="field">
+            <div class="field" style="display:none">
               <label for="libSel">Library</label>
               <select id="libSel"></select>
               <div class="help" id="libHelp"></div>
@@ -291,7 +294,7 @@
 const TOKEN = new URLSearchParams(location.search).get('token') || '';
 const H = TOKEN ? {'X-VerseVision-Token': TOKEN} : {};
 const $ = id => document.getElementById(id);
-const state = {playlists:[], mode:'new', current:null, pres:[], libs:[], defaultLib:'Verses', target:'', libSel:'', view:'import'};
+const state = {plSel:'', playlists:[], mode:'new', current:null, pres:[], libs:[], defaultLib:'Verses', target:'', libSel:'', view:'import'};
 
 function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=text; return e; }
 async function api(path, opts={}){
@@ -359,7 +362,7 @@ function openTargetMenu(btn){
   const menu = el('div'); menu.id='lookMenu'; const left = el('div','col'); let fly = null;
   const libs = [...new Set(state.pres.map(p=>p.library))];
   libs.sort((a,b)=>(a===state.libSel?-1:b===state.libSel?1:a.localeCompare(b)));
-  const pick = p => { state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; showTarget(); closeLookMenu(); drawSidebar(); updateHelp(); };
+  const pick = p => { state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; state.plSel = ''; showTarget(); closeLookMenu(); drawSidebar(); updateHelp(); };
   const openFly = (row, build) => {
     left.querySelectorAll('.row.on').forEach(r=>r.classList.remove('on')); row.classList.add('on');
     if(fly) fly.remove(); fly = el('div'); fly.id='lookFly'; const right = el('div','col'); fly.append(right); document.body.append(fly);
@@ -397,7 +400,7 @@ function openTargetMenu(btn){
       for(const p of items){
         const r2 = el('div','row'); r2.append(el('span','',p.name)); if(state.target && p.uuid===state.target) r2.classList.add('pick');
         if(!p.uuid){ r2.style.opacity = '.45'; r2.title = 'Not loaded in ProPresenter yet. Open it there once to use it.'; right.append(r2); continue; }
-        r2.onclick = ()=>{ state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; showTarget(); closeLookMenu(); drawSidebar(); updateHelp(); };
+        r2.onclick = ()=>{ state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; state.plSel = ''; showTarget(); closeLookMenu(); drawSidebar(); updateHelp(); };
         right.append(r2);
       }
       const m = menu.getBoundingClientRect(), w = fly.offsetWidth, hh = fly.offsetHeight, rr = row.getBoundingClientRect();
@@ -438,23 +441,35 @@ async function loadPresentations(){
 function drawSidebar(){
   const libs = $('libs'); libs.replaceChildren();
   for(const name of state.libs){
-    const r = el('div','row click'+(name===state.libSel?' sel':'')); r.append(el('span','badge o','\u25a4'), el('span','t',name));
-    r.onclick = ()=>{ state.libSel = name; $('libSel').value = name; drawSidebar(); };
+    const r = el('div','row click'+(!state.plSel&&name===state.libSel?' sel':'')); r.append(el('span','badge o','\u25a4'), el('span','t',name));
+    r.onclick = ()=>{ state.libSel = name; state.plSel = ''; $('libSel').value = name; drawSidebar(); };
     libs.append(r);
   }
+  const pls = $('plists'); pls.replaceChildren();
+  show('plSec', state.playlists.length>0);
+  for(const pl of state.playlists){
+    const r = el('div','row click'+(pl.uuid===state.plSel?' sel':'')); r.append(el('span','badge o','\u2630'), el('span','t',pl.name));
+    r.title = pl.name;
+    r.onclick = ()=>{ state.plSel = pl.uuid; drawSidebar(); };
+    pls.append(r);
+  }
   const box = $('pres'); box.replaceChildren();
-  const items = state.pres.filter(p=>p.library===state.libSel);
-  for(const p of items){
-    const picking = state.mode!=='new';
-    const r = el('div','row'+((picking&&state.target&&p.uuid===state.target)?' sel':'')+((picking&&p.uuid)?' click':' dim'));
-    if(picking && !p.uuid) r.title = p.name+' \u2014 not loaded in ProPresenter yet; open it there once to use it';
-    r.title = p.name; r.append(el('span','badge b','\u25a4'), el('span','t',p.name));
-    if(picking && p.uuid) r.onclick = ()=>{ state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; showTarget(); drawSidebar(); updateHelp(); };
+  const playlist = state.playlists.find(p=>p.uuid===state.plSel);
+  const picking = state.mode!=='new';
+  const rows = playlist ? playlist.entries.filter(e=>e.library) : state.pres.filter(p=>p.library===state.libSel);
+  let section = null;
+  for(const p of rows){
+    if(playlist && p.section && p.section!==section){ section = p.section; box.append(el('div','sec2', section)); }
+    const loaded = p.uuid && (!playlist || state.pres.some(q=>q.uuid===p.uuid));
+    const r = el('div','row'+((picking&&state.target&&p.uuid===state.target)?' sel':'')+((picking&&loaded)?' click':' dim'));
+    if(picking && !loaded) r.title = p.name+' \u2014 not loaded in ProPresenter yet; open it there once to use it'; else r.title = p.name;
+    r.append(el('span','badge b','\u25a4'), el('span','t',p.name));
+    if(picking && loaded) r.onclick = ()=>{ state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; showTarget(); drawSidebar(); updateHelp(); };
     box.append(r);
   }
-  if(!items.length) box.append(el('div','empty','No presentations in this library.'));
+  if(!rows.length) box.append(el('div','empty', playlist ? 'No presentations in this playlist.' : 'No presentations in this library.'));
   $('side-note').textContent = state.mode==='new'
-    ? 'New presentations go in \u201c'+state.libSel+'\u201d.'
+    ? 'New presentations go in \u201c'+state.libSel+'\u201d. Pick a library above.'
     : 'Click a presentation to pick it.';
 }
 function fillSelects(){
@@ -474,7 +489,7 @@ function fillSelects(){
   showTarget();
 }
 function showTarget(){ const p = state.target ? state.pres.find(x=>x.uuid===state.target) : null; $('targetBtn').textContent = p ? p.name : 'Pick one\u2026'; }
-async function loadPlaylists(){ try{ const r = await api('/api/playlists'); state.playlists = (r.playlists||[]).filter(pl=>pl.entries.some(e=>e.library)); }catch(e){ state.playlists = []; } }
+async function loadPlaylists(){ try{ const r = await api('/api/playlists'); state.playlists = (r.playlists||[]).filter(pl=>pl.entries.some(e=>e.library)); }catch(e){ state.playlists = []; } if(state.view==='import') drawSidebar(); }
 $('libSel').onchange = e=>{ state.libSel = e.target.value; drawSidebar(); };
 $('target').onchange = e=>{ state.target = e.target.value; showTarget(); drawSidebar(); updateHelp(); };
 $('target').addEventListener('change', ()=>{});
