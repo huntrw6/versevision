@@ -115,7 +115,7 @@ def list_looks(state: AppState) -> list[dict]:
     from versevision.themes import fetch_themes
     slides = [s for s in fetch_themes(state.transport()) if s.usable]
     rows = [{"key": f"{s.theme_label}::{s.number}", "label": s.label, "group": s.group, "theme": s.theme, "slide": s.name or f"Slide {s.number}", "number": s.number,
-             "boxes": len(s.boxes), "reference_box": len(s.boxes) > 1} for s in slides]
+             "boxes": len(s.boxes), "reference_box": s.has_reference_box} for s in slides]
     state._themes = (_time.time(), rows)
     return rows
 

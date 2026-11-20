@@ -64,9 +64,25 @@ def test_unset_themes_change_nothing(env):
     assert plan.slide_plan.looks is None
 
 
+def _themes_with_split(tmp: Path) -> Path:
+    """The real themes plus "Split": The biblke with its small box moved clear of the big one (a true two-box layout)."""
+    import shutil
+    root = tmp / "themes"
+    if not root.exists():
+        shutil.copytree(THEMES, root)
+        from versevision.presentation.generated import template_pb2
+        doc = template_pb2.Template.Document()
+        doc.ParseFromString((THEMES / "The biblke" / "Theme").read_bytes())
+        box = min((w for w in doc.slides[0].base_slide.elements if w.element.HasField("text")), key=lambda w: w.element.bounds.size.height)
+        box.element.bounds.origin.y = 800
+        (root / "Split").mkdir()
+        (root / "Split" / "Theme").write_bytes(doc.SerializeToString())
+    return root
+
+
 def build(env, **sets):
     tmp, pres, node, config, history = env
-    node.themes = THEMES
+    node.themes = _themes_with_split(tmp)
     config = with_options(config, sets=[f"{k.replace('__', '.')}={v}" for k, v in sets.items()])
     plan, _ = asyncio.run(plan_for_transport(NOTES, config, node, default_version="NIV", target_uuid=None, target_name=None, library=None))
     return config, plan, node, history
@@ -80,8 +96,8 @@ def written(env, name, **sets):
 
 
 def test_a_two_box_theme_gives_verse_and_reference_separate_boxes_and_the_point_theme_gives_points(env):
-    config, plan, node, history, result, cues = written(env, "Themed", verses__theme="The biblke", points__theme="Sermon Points")
-    assert plan.slide_plan.looks.describe() == {"verse": "The biblke · Slide 1", "point": "Sermon Points · Theme Slide"}
+    config, plan, node, history, result, cues = written(env, "Themed", verses__theme="Split", points__theme="Sermon Points")
+    assert plan.slide_plan.looks.describe() == {"verse": "Split · Slide 1", "point": "Sermon Points · Theme Slide"}
     themed = [c for c in cues.cues if c.name == themes.MARKER]
     assert len(themed) == 4
     verse = next(texts(c) for c in themed if "Verse" in texts(c))
@@ -128,9 +144,19 @@ def test_the_node_must_have_the_theme_the_config_asks_for(env):
         asyncio.run(plan_for_transport(NOTES, bad, node, default_version="NIV", target_uuid=None, target_name=None, library=None))
 
 
+def test_boxes_stacked_on_each_other_are_one_box_so_the_reference_is_the_last_line(env):
+    """The biblke's two boxes sit on the same black band: a separate reference box would print over the verse."""
+    slides = themes.read_theme_tree(THEMES)
+    biblke = next(x for x in slides if x.theme == "The biblke")
+    assert len(biblke.boxes) == 2 and biblke.has_reference_box is False
+    config, plan, node, history, result, cues = written(env, "Stacked", verses__theme="The biblke")
+    verse = next(texts(c) for c in cues.cues if c.name == themes.MARKER and "Verse" in texts(c))
+    assert set(verse) - {themes.EXTRA} == {"Verse"} and verse["Verse"].rstrip().splitlines()[-1].endswith("John 3:16 (NIV)")
+
+
 def test_a_theme_box_with_an_empty_rtf_gets_its_font_size_and_colour_written_into_the_text(env):
     """The biblke's boxes have no run formatting in their rtf; without it the verse rendered invisible on the iMac."""
-    config, plan, node, history, result, cues = written(env, "EmptyRtf", verses__theme="The biblke")
+    config, plan, node, history, result, cues = written(env, "EmptyRtf", verses__theme="Split")
     verse = next(c for c in cues.cues if c.name == themes.MARKER and "Verse" in texts(c))
     rtf = {e.element.name: e.element.text.rtf_data for a in verse.actions if a.WhichOneof("ActionTypeData") == "slide"
            for e in a.slide.presentation.base_slide.elements if e.element.HasField("text")}

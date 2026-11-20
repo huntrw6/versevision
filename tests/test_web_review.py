@@ -58,7 +58,7 @@ def test_the_page_can_choose_a_look_from_the_loaded_themes(state):
     rows = web.list_looks(st)
     assert {r["label"] for r in rows} == {"Scripture main screens · Slide 1", "Sermon Points · Theme Slide", "The biblke · Slide 1"}
     two_box = next(r for r in rows if r["label"].startswith("The biblke"))
-    assert two_box["reference_box"] is True and two_box["key"] == "The biblke::1"
+    assert two_box["reference_box"] is False and two_box["key"] == "The biblke::1"       # its two boxes are stacked on one band
     job = wait(st, web.start_plan(st, "n.txt", NOTES.encode(), "NIV", None, verse_look=two_box["key"], point_look="Sermon Points::1"))
     assert job.result["looks"] == {"verse": "The biblke · Slide 1", "point": "Sermon Points · Theme Slide"}
     redo = wait(st, web.start_replan(st, job.id, {}))

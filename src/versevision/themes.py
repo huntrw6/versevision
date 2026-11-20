@@ -35,6 +35,19 @@ class ThemeError(VerseVisionError):
     pass
 
 
+def _overlap(a_x, a_y, a_w, a_h, b_x, b_y, b_w, b_h) -> float:
+    """How much of the SMALLER box lies inside the other (0 to 1)."""
+    width = min(a_x + a_w, b_x + b_w) - max(a_x, b_x)
+    height = min(a_y + a_h, b_y + b_h) - max(a_y, b_y)
+    if width <= 0 or height <= 0:
+        return 0.0
+    return width * height / max(1.0, min(a_w * a_h, b_w * b_h))
+
+
+# a second text box counts as a separate reference line only if it does not sit on top of the main one
+REFERENCE_OVERLAP_LIMIT = 0.25
+
+
 @dataclass
 class TextBox:
     name: str
@@ -48,6 +61,9 @@ class TextBox:
     @property
     def area(self) -> float:
         return self.w * self.h
+
+    def overlap(self, other: "TextBox") -> float:
+        return _overlap(self.x, self.y, self.w, self.h, other.x, other.y, other.w, other.h)
 
 
 @dataclass
@@ -69,6 +85,13 @@ class ThemeSlide:
     @property
     def label(self) -> str:
         return f"{self.theme_label} · {self.name or 'Slide ' + str(self.number)}"
+
+    @property
+    def has_reference_box(self) -> bool:
+        if len(self.boxes) < 2:
+            return False
+        main = max(self.boxes, key=lambda b: b.area)
+        return any(b is not main and main.overlap(b) <= REFERENCE_OVERLAP_LIMIT for b in self.boxes)
 
     @property
     def usable(self) -> bool:
@@ -220,6 +243,11 @@ def _ensure_run_formatting(text) -> None:
     )
 
 
+def _rect(item) -> tuple[float, float, float, float]:
+    b = item.element.bounds
+    return b.origin.x, b.origin.y, b.size.width, b.size.height
+
+
 def apply_look(slide_action, look: ThemeSlide, kind: str, *, reference: str, body: str, point: str) -> bool:
     """Replace the look of one generated slide with the theme slide's. Returns True when the slide has a separate reference box."""
     base = slide_action.slide.presentation.base_slide
@@ -237,7 +265,8 @@ def apply_look(slide_action, look: ThemeSlide, kind: str, *, reference: str, bod
         reference_box = None
     else:
         main.element.name = body
-        reference_box = min(others, key=area) if others else None
+        clear = [o for o in others if _overlap(*_rect(main), *_rect(o)) <= REFERENCE_OVERLAP_LIMIT]
+        reference_box = min(clear, key=area) if clear else None       # boxes stacked on the main one are not a separate line
         if reference_box is not None:
             reference_box.element.name = reference
     for extra in others:
