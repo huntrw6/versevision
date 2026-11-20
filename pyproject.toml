@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "versevision"
-version = "0.24.1"
+version = "0.25.0"
 description = "Cross-platform Bible reference importer foundations for ProPresenter"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -37,6 +37,7 @@ packages = ["src/versevision"]
 
 [tool.hatch.build.targets.wheel.force-include]
 "src/versevision/web/index.html" = "versevision/web/index.html"
+"src/versevision/web/icon.svg" = "versevision/web/icon.svg"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

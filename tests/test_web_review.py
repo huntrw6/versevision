@@ -99,3 +99,17 @@ def test_playlists_list_their_presentations_under_their_section_headers(state):
     entry = lists[0]["entries"][0]
     assert entry["section"] == "Sermon" and entry["name"] == "Sample" and entry["library"] == "Verses"
     assert entry["uuid"] == "P1"
+
+
+def test_the_icon_is_served_without_a_token_and_only_the_action_has_a_description():
+    import threading, urllib.request
+    server, _ = web.serve(None, "127.0.0.1", 0)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        base = f"http://127.0.0.1:{server.server_address[1]}"
+        icon = urllib.request.urlopen(base + "/icon.svg", timeout=5)
+        assert icon.headers["Content-Type"] == "image/svg+xml" and b"<svg" in icon.read()
+        page = urllib.request.urlopen(base + "/", timeout=5).read().decode()
+        assert 'rel="icon"' in page and page.count('class="help"') == 1 and 'id="modeHelp"' in page
+    finally:
+        server.shutdown()

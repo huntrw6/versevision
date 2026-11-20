@@ -336,6 +336,7 @@ def start_undo(state: AppState, import_id: str) -> Job:
 
 def make_handler(state: AppState):
     page = resources.files("versevision.web").joinpath("index.html").read_bytes()
+    icon = resources.files("versevision.web").joinpath("icon.svg").read_bytes()
 
     class Handler(BaseHTTPRequestHandler):
         server_version = "VerseVision"
@@ -383,6 +384,9 @@ def make_handler(state: AppState):
             path = urlparse(self.path).path
             if path == "/":
                 self._send(200, page, "text/html; charset=utf-8")
+                return
+            if path in ("/icon.svg", "/favicon.ico"):
+                self._send(200, icon, "image/svg+xml")
                 return
             if not self._authorized():
                 self._json(401, {"error": "Access token required"})

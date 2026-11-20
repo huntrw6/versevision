@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VerseVision</title>
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
 <style>
   /* Styled after ProPresenter 19 (dark): flat charcoal chrome, icon-over-label toolbar, uppercase
      sidebar headings, grey-outlined selection, 16:9 slide cards with a grey label strip. */
@@ -22,6 +23,7 @@
 
   #toolbar{height:72px;flex:none;background:linear-gradient(var(--toolbar),var(--toolbar-lo));border-bottom:1px solid #000;display:flex;align-items:stretch;padding:0 10px;gap:2px}
   .brand{display:flex;align-items:center;gap:9px;padding:0 18px 0 8px;font-weight:600;font-size:15px;letter-spacing:.01em}
+  .brand .logo{width:28px;height:28px;display:block}
   .brand b{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:7px;background:linear-gradient(#ff9a3d,#e8590c);color:#fff;font-size:15px}
   .tool{background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:66px;padding:0 6px;color:#cfcfcf;cursor:pointer}
   .tool .ico{display:grid;place-items:center;width:46px;height:24px;border-radius:7px}
@@ -185,7 +187,7 @@
 <div id="dropveil"><div id="veilText">Drop to import</div></div>
 
 <div id="toolbar">
-  <div class="brand"><b>V</b>VerseVision</div>
+  <div class="brand"><img class="logo" src="/icon.svg" alt="">VerseVision</div>
   <button class="tool on" id="tab-import" data-view="import"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14"/></svg></span><span class="lbl">Import</span></button>
   <button class="tool" id="tab-history" data-view="history"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg></span><span class="lbl">History</span></button>
   <div class="spacer"></div>
@@ -221,7 +223,6 @@
             <div class="field" style="display:none">
               <label for="libSel">Library</label>
               <select id="libSel"></select>
-              <div class="help" id="libHelp"></div>
             </div>
             <div class="field">
               <label id="slotLabel" for="title">Name</label>
@@ -229,27 +230,22 @@
                 <input type="text" id="title" placeholder="Same as the document">
                 <select id="target" style="display:none"></select><button type="button" class="lookbtn" id="targetBtn" data-menu="target">Pick one\u2026</button>
               </div>
-              <div class="help" id="targetHelp"></div>
             </div>
             <div class="field hidden" id="verseLookField">
               <label for="verseLook">Verse look</label>
               <input type="hidden" id="verseLook" value=""><button type="button" class="lookbtn" id="verseLookBtn" data-for="verseLook">VerseVision template</button>
-              <div class="help">A theme loaded in ProPresenter.</div>
             </div>
             <div class="field hidden" id="pointLookField">
               <label for="pointLook">Point look</label>
               <input type="hidden" id="pointLook" value=""><button type="button" class="lookbtn" id="pointLookBtn" data-for="pointLook">VerseVision template</button>
-              <div class="help">A theme loaded in ProPresenter.</div>
             </div>
             <div class="field hidden" id="profField">
               <label for="prof">Style</label>
               <select id="prof"><option value="">Standard</option></select>
-              <div class="help">A saved set of options for this kind of notes.</div>
             </div>
             <div class="field">
               <label for="ver">Version</label>
               <input type="text" id="ver" placeholder="NKJV" maxlength="12">
-              <div class="help">Used when a verse has none.</div>
             </div>
           </div>
           <div class="dropwrap">
@@ -507,14 +503,12 @@ function setMode(m){
   $('title').classList.toggle('off', m!=='new'); $('targetBtn').classList.toggle('off', m==='new');
   $('slotLabel').textContent = m==='new' ? 'Name' : 'Presentation';
   $('slotLabel').htmlFor = m==='new' ? 'title' : 'target';
-  $('libHelp').textContent = m==='new' ? 'Where it goes.' : 'Shows its presentations.';
   $('modeHelp').textContent = HELP[m]; updateHelp(); drawSidebar();
   $('ttl').textContent = m==='new' ? 'New presentation' : (m==='replace' ? 'Replace slides' : 'Append slides');
 }
 function m_is_new(){ return state.mode==='new'; }
 function updateHelp(){
   const need = state.mode!=='new' && !state.target;
-  $('targetHelp').textContent = m_is_new() ? 'Blank uses the document title.' : (need ? 'Pick one to continue.' : '');
   $('targetBtn').classList.toggle('need', need);
   $('drop').classList.toggle('locked', need);
   $('drop').setAttribute('aria-disabled', need ? 'true' : 'false');
