@@ -126,7 +126,8 @@ def _with_args(state: AutostartStatus, args) -> AutostartStatus:
     return state
 
 
-def enable(host: str = "127.0.0.1", port: int = 8777) -> AutostartStatus:
+def enable(host: str = "127.0.0.1", port: int = 8777, *, start_now: bool = True) -> AutostartStatus:
+    """Start at login. ``start_now=False`` only sets up the login item (used by the web page, which is already running)."""
     if not (1 <= port <= 65535):
         raise ConfigurationError("port must be between 1 and 65535")
     if host not in {"127.0.0.1", "localhost", "::1"}:
@@ -138,8 +139,9 @@ def enable(host: str = "127.0.0.1", port: int = 8777) -> AutostartStatus:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(launch_agent_plist(args, str(_log_path())))
         domain = f"gui/{os.getuid()}"
-        _run(["launchctl", "bootout", domain, str(path)], check=False)
-        _run(["launchctl", "bootstrap", domain, str(path)])
+        if start_now:
+            _run(["launchctl", "bootout", domain, str(path)], check=False)
+            _run(["launchctl", "bootstrap", domain, str(path)])
     elif plat == "linux":
         if not shutil.which("systemctl"):
             raise ConfigurationError("systemd was not found; autostart is not supported on this system")
@@ -147,23 +149,25 @@ def enable(host: str = "127.0.0.1", port: int = 8777) -> AutostartStatus:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(systemd_unit(args), encoding="utf-8")
         _run(["systemctl", "--user", "daemon-reload"])
-        _run(["systemctl", "--user", "enable", "--now", SYSTEMD_UNIT])
+        _run(["systemctl", "--user", "enable", *(["--now"] if start_now else []), SYSTEMD_UNIT])
     else:
-        _run(["schtasks", "/create", "/f", "/sc", "onlogon", "/tn", WINDOWS_TASK, "/tr", windows_task_command(args)])
+        _run(["schtasks", "/create", "/f", "/sc", "onlogon", "/tn", WINDOWS_TASK, "/tr", windows_task_command(args)])      # a logon task does not start anything now
     return status()
 
 
-def disable() -> AutostartStatus:
+def disable(*, keep_running: bool = False) -> AutostartStatus:
+    """Stop starting at login. ``keep_running=True`` leaves the page that is running right now alone (it just will not come back next login)."""
     plat = platform_name()
     if plat == "macos":
         path = _launch_agent_path()
         if path.exists():
-            _run(["launchctl", "bootout", f"gui/{os.getuid()}", str(path)], check=False)
-            path.unlink()
+            if not keep_running:
+                _run(["launchctl", "bootout", f"gui/{os.getuid()}", str(path)], check=False)
+            path.unlink()          # launchd keeps a job it already loaded running until logout; without the file it is not loaded again
     elif plat == "linux":
         path = _systemd_path()
         if path.exists():
-            _run(["systemctl", "--user", "disable", "--now", SYSTEMD_UNIT], check=False)
+            _run(["systemctl", "--user", "disable", *([] if keep_running else ["--now"]), SYSTEMD_UNIT], check=False)
             path.unlink()
             _run(["systemctl", "--user", "daemon-reload"], check=False)
     else:

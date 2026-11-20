@@ -502,16 +502,12 @@ def make_handler(state: AppState):
                     if self.server.server_address[0] not in {"127.0.0.1", "::1"}:
                         raise VerseVisionError("Start-at-login can only be changed from the page running on this computer (127.0.0.1)")
                     body = json.loads(self._body() or b"{}")
+                    # The page that is answering is already running, so this only changes what happens at the next login.
                     if body.get("enabled"):
                         port = int(self.server.server_address[1])
-                        self._json(200, autostart.enable("127.0.0.1", port).model_dump())
+                        self._json(200, autostart.enable("127.0.0.1", port, start_now=False).model_dump())
                     else:
-                        # Turning it off may stop the very service that is answering this request, so
-                        # reply first (with the new state) and remove the login item a moment later.
-                        current = autostart.status().model_dump()
-                        current.update(enabled=False, port=None, host=None)
-                        self._json(200, current)
-                        threading.Timer(0.5, autostart.disable).start()
+                        self._json(200, autostart.disable(keep_running=True).model_dump())
                 elif parsed.path == "/api/undo":
                     body = json.loads(self._body() or b"{}")
                     job = start_undo(state, body.get("id", ""))
