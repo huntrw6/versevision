@@ -70,6 +70,40 @@ def list_presentations(transport: Transport) -> list[dict]:
     return out
 
 
+def list_playlist_presentations(transport: Transport) -> list[dict]:
+    """Every ProPresenter playlist with the presentations in it, in order, for pickers.
+
+    Each playlist: {"uuid", "name", "entries": [{"uuid", "name", "section", "library"}]}. ``section`` is the header the entry sits under
+    (PreService, Worship, Sermon...). ``library`` comes from the library listing ("" if the presentation is not in one)."""
+    known = {i["uuid"].casefold(): i for i in list_presentations(transport) if i["uuid"]}
+    out: list[dict] = []
+
+    def walk(nodes: list[dict], trail: list[str]) -> None:
+        for node in nodes:
+            children = node.get("children") or []
+            if node.get("field_type") == "playlist" or not children:
+                pid = node["id"]["uuid"]
+                try:
+                    items = transport.api_get(f"/v1/playlist/{pid}").get("items", [])
+                except Exception:
+                    items = []
+                section, entries = "", []
+                for item in items:
+                    if item.get("type") == "header":
+                        section = item["id"].get("name", "")
+                    elif item.get("type") == "presentation":
+                        uid = (item.get("presentation_info") or {}).get("presentation_uuid", "")
+                        found = known.get(uid.casefold())
+                        entries.append({"uuid": uid, "name": found["name"] if found else item["id"].get("name", ""), "section": section,
+                                        "library": found["library"] if found else ""})
+                out.append({"uuid": pid, "name": " / ".join(trail + [node["id"]["name"]]), "entries": entries})
+            else:
+                walk(children, trail + [node["id"]["name"]])
+
+    walk(transport.api_get("/v1/playlists"), [])
+    return out
+
+
 def source_fingerprint(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 

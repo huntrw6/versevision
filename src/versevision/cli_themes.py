@@ -88,3 +88,28 @@ def use(
     except Exception as exc:
         console.print(f"[red]{exc}[/red]")
         raise typer.Exit(int(exc.exit_code) if isinstance(exc, VerseVisionError) else 1)
+
+
+def playlists_cmd(
+    node: Annotated[Optional[str], typer.Option("--node", help="Remote computer running ProPresenter")] = None,
+    output: Annotated[str, typer.Option("--output")] = "terminal",
+) -> None:
+    """List the ProPresenter playlists and the presentations in each (the same list the web page offers)."""
+    from versevision.workflow.pipeline import list_playlist_presentations
+    try:
+        config = _config_with_node(load_config(), node, None, None)
+        playlists = list_playlist_presentations(make_transport(config.propresenter, config.node))
+        if output.casefold() == "json":
+            typer.echo(json.dumps(playlists, indent=2))
+            return
+        for pl in playlists:
+            console.print(f"[bold]{pl['name']}[/bold]  ({len(pl['entries'])})")
+            section = None
+            for entry in pl["entries"]:
+                if entry["section"] != section:
+                    section = entry["section"]
+                    console.print(f"  [dim]{section or '-'}[/dim]")
+                console.print(f"    {entry['name']}  [dim]{entry['library'] or 'not in a library'}[/dim]")
+    except Exception as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(int(exc.exit_code) if isinstance(exc, VerseVisionError) else 1)

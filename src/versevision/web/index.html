@@ -290,7 +290,7 @@
 const TOKEN = new URLSearchParams(location.search).get('token') || '';
 const H = TOKEN ? {'X-VerseVision-Token': TOKEN} : {};
 const $ = id => document.getElementById(id);
-const state = {mode:'new', current:null, pres:[], libs:[], defaultLib:'Verses', target:'', libSel:'', view:'import'};
+const state = {playlists:[], mode:'new', current:null, pres:[], libs:[], defaultLib:'Verses', target:'', libSel:'', view:'import'};
 
 function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=text; return e; }
 async function api(path, opts={}){
@@ -307,7 +307,7 @@ async function status(){
     $('led').className = 'led '+(c.ok?'ok':'bad');
     $('statusText').textContent = c.ok ? s.node+' \u00b7 '+(c.propresenter||'ProPresenter') : "Can't reach ProPresenter on "+s.node;
     $('meta').textContent = s.template_ready ? '' : 'Template missing. Run: versevision template setup';
-    state.defaultLib = s.library || 'Verses'; loadLooks();
+    state.defaultLib = s.library || 'Verses'; loadLooks(); loadPlaylists();
     if(s.default_version && !$('ver').value) $('ver').value = s.default_version;
     if((s.profiles||[]).length && $('prof').options.length===1){ for(const n of s.profiles){ const o=el('option','',n); o.value=n; $('prof').append(o); } show('profField', true); }
   }catch(e){ $('statusText').textContent = e.message; }
@@ -358,6 +358,33 @@ function openTargetMenu(btn){
   const menu = el('div'); menu.id='lookMenu'; const left = el('div','col'); let fly = null;
   const libs = [...new Set(state.pres.map(p=>p.library))];
   libs.sort((a,b)=>(a===state.libSel?-1:b===state.libSel?1:a.localeCompare(b)));
+  const pick = p => { state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; showTarget(); closeLookMenu(); drawSidebar(); updateHelp(); };
+  const openFly = (row, build) => {
+    left.querySelectorAll('.row.on').forEach(r=>r.classList.remove('on')); row.classList.add('on');
+    if(fly) fly.remove(); fly = el('div'); fly.id='lookFly'; const right = el('div','col'); fly.append(right); document.body.append(fly);
+    build(right);
+    const m = menu.getBoundingClientRect(), w = fly.offsetWidth, hh = fly.offsetHeight, rr = row.getBoundingClientRect();
+    const fitsRight = m.right + 4 + w <= innerWidth - 8;
+    fly.style.left = Math.max(8, fitsRight ? m.right + 4 : m.left - 4 - w)+'px';
+    fly.style.top = Math.max(8, Math.min(rr.top - 6, innerHeight - hh - 8))+'px';
+  };
+  if(state.playlists.length){
+    left.append(el('div','sec','Playlists'));
+    for(const pl of state.playlists){
+      const entries = pl.entries.filter(e=>e.library);
+      const row = el('div','row'); row.append(el('div','thumb none','\u2630'), el('span','',pl.name), el('span','sub',String(entries.length)), el('span','chev','\u203A'));
+      if(entries.some(e=>e.uuid===state.target)) row.classList.add('pick');
+      const open = ()=>openFly(row, right=>{
+        let section = null;
+        for(const e of entries){
+          if(e.section && e.section!==section){ section = e.section; right.append(el('div','sec',section)); }
+          const r2 = el('div','row'); r2.append(el('span','',e.name)); if(e.uuid===state.target) r2.classList.add('pick');
+          r2.onclick = ()=>pick({uuid:e.uuid, library:e.library}); right.append(r2);
+        }
+      });
+      row.onmouseenter = open; row.onclick = open; left.append(row);
+    }
+  }
   left.append(el('div','sec','Libraries'));
   for(const lib of libs){
     const items = state.pres.filter(p=>p.library===lib);
@@ -444,6 +471,7 @@ function fillSelects(){
   showTarget();
 }
 function showTarget(){ const p = state.pres.find(x=>x.uuid===state.target); $('targetBtn').textContent = p ? p.name : 'Pick one\u2026'; }
+async function loadPlaylists(){ try{ const r = await api('/api/playlists'); state.playlists = (r.playlists||[]).filter(pl=>pl.entries.some(e=>e.library)); }catch(e){ state.playlists = []; } }
 $('libSel').onchange = e=>{ state.libSel = e.target.value; drawSidebar(); };
 $('target').onchange = e=>{ state.target = e.target.value; showTarget(); drawSidebar(); updateHelp(); };
 $('target').addEventListener('change', ()=>{});

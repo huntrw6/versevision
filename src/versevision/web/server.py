@@ -24,7 +24,7 @@ from versevision.errors import DocumentError, VerseVisionError
 from versevision.history import HistoryStore
 from versevision.node.transport import make_transport
 from versevision import runlog
-from versevision.workflow.pipeline import apply_import, list_presentations, plan_for_transport, publish_new, publish_swap, undo_import
+from versevision.workflow.pipeline import apply_import, list_playlist_presentations, list_presentations, plan_for_transport, publish_new, publish_swap, undo_import
 from versevision.config import with_options
 from versevision.workflow.report import build_report
 
@@ -394,6 +394,11 @@ def make_handler(state: AppState):
                     "default_version": cfg.bible.default_version, "version": __import__("versevision").__version__,
                     "template_ready": bool(cfg.presentation_template), "library": cfg.output.library, "profiles": sorted(cfg.profiles),
                 })
+            elif path == "/api/playlists":
+                try:
+                    self._json(200, {"playlists": list_playlist_presentations(state.transport())})
+                except Exception as exc:
+                    self._json(200, {"playlists": [], "error": str(exc)})
             elif path == "/api/themethumb":
                 query = parse_qs(urlparse(self.path).query)
                 data = theme_thumbnail(state, (query.get("theme") or [""])[0], int((query.get("slide") or ["1"])[0] or 1))

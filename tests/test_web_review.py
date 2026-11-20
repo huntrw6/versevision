@@ -90,3 +90,12 @@ def test_the_thumbnail_route_answers_over_http(state):
             assert exc.code == 404                      # a clean 404, not a dropped connection
     finally:
         server.shutdown()
+
+
+def test_playlists_list_their_presentations_under_their_section_headers(state):
+    st, node = state
+    lists = web.list_playlist_presentations(st.transport())
+    assert [p["name"] for p in lists] == ["Sunday"]
+    entry = lists[0]["entries"][0]
+    assert entry["section"] == "Sermon" and entry["name"] == "Sample" and entry["library"] == "Verses"
+    assert entry["uuid"] == "P1"

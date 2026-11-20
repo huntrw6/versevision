@@ -43,6 +43,8 @@ template_app = typer.Typer(help="Select and validate a styled ProPresenter Scrip
 app.add_typer(config_app, name="config")
 from versevision.cli_themes import themes_app  # noqa: E402
 app.add_typer(themes_app, name="themes")
+from versevision.cli_themes import playlists_cmd  # noqa: E402
+app.command("playlists")(playlists_cmd)
 app.add_typer(propresenter_app, name="propresenter")
 app.add_typer(versions_app, name="versions")
 app.add_typer(providers_app, name="providers")
