@@ -196,6 +196,30 @@ def resolve_looks(config, transport) -> Looks | None:
     )
 
 
+_ALIGN = {0: b"\\ql", 1: b"\\qr", 2: b"\\qc", 3: b"\\qj"}
+
+
+def _ensure_run_formatting(text) -> None:
+    """Some theme text boxes hold an EMPTY rtf (no font, colour or size run: the look lives only in the box's attributes). Text typed
+    into such a box renders invisible (default black on the output), so write the look into the rtf as well."""
+    rtf = text.rtf_data
+    if b"\\f0" in rtf and b"\\cf" in rtf:
+        return
+    a = text.attributes
+    fill = a.text_solid_fill
+    red, green, blue = (round(max(0.0, min(1.0, v)) * 255) for v in (fill.red, fill.green, fill.blue)) if a.HasField("text_solid_fill") else (255, 255, 255)
+    font = (a.font.name or "Helvetica").encode("latin1", "replace")
+    size = int(round((a.font.size or 42) * 2))
+    align = _ALIGN.get(int(a.paragraph_style.alignment), b"\\qc")
+    bold = b"\\b" if b"bold" in font.lower() else b""
+    text.rtf_data = (
+        b"{\\rtf1\\ansi\\ansicpg1252\\cocoartf2577\n\\cocoatextscaling0\\cocoaplatform0{\\fonttbl\\f0\\fnil\\fcharset0 " + font + b";}\n"
+        b"{\\colortbl;\\red255\\green255\\blue255;\\red%d\\green%d\\blue%d;}\n{\\*\\expandedcolortbl;;\\csgenericrgb\\c%d\\c%d\\c%d;}\n"
+        % (red, green, blue, round(red / 255 * 100000), round(green / 255 * 100000), round(blue / 255 * 100000))
+        + b"\\pard\\pardirnatural\\partightenfactor0" + align + b"\n\n\\f0" + bold + b"\\fs" + str(size).encode() + b" \\cf2 }"
+    )
+
+
 def apply_look(slide_action, look: ThemeSlide, kind: str, *, reference: str, body: str, point: str) -> bool:
     """Replace the look of one generated slide with the theme slide's. Returns True when the slide has a separate reference box."""
     base = slide_action.slide.presentation.base_slide
@@ -203,6 +227,8 @@ def apply_look(slide_action, look: ThemeSlide, kind: str, *, reference: str, bod
     texts = [e for e in base.elements if e.element.HasField("text")]
     if not texts:
         raise ThemeError(f"Theme slide '{look.label}' has no text box")
+    for item in texts:
+        _ensure_run_formatting(item.element.text)
     area = lambda e: e.element.bounds.size.width * e.element.bounds.size.height      # noqa: E731
     ranked = sorted(texts, key=area, reverse=True)
     main, others = ranked[0], ranked[1:]

@@ -126,3 +126,15 @@ def test_the_node_must_have_the_theme_the_config_asks_for(env):
     bad = with_options(config, sets=["verses.theme=Does Not Exist"])
     with pytest.raises(themes.ThemeError, match="Loaded themes: .*Sermon Points"):
         asyncio.run(plan_for_transport(NOTES, bad, node, default_version="NIV", target_uuid=None, target_name=None, library=None))
+
+
+def test_a_theme_box_with_an_empty_rtf_gets_its_font_size_and_colour_written_into_the_text(env):
+    """The biblke's boxes have no run formatting in their rtf; without it the verse rendered invisible on the iMac."""
+    config, plan, node, history, result, cues = written(env, "EmptyRtf", verses__theme="The biblke")
+    verse = next(c for c in cues.cues if c.name == themes.MARKER and "Verse" in texts(c))
+    rtf = {e.element.name: e.element.text.rtf_data for a in verse.actions if a.WhichOneof("ActionTypeData") == "slide"
+           for e in a.slide.presentation.base_slide.elements if e.element.HasField("text")}
+    for name in ("Verse", "Reference"):
+        assert b"\\f0" in rtf[name] and b"\\cf2" in rtf[name] and b"\\red255\\green255\\blue255" in rtf[name], rtf[name][:200]
+    assert b"HelveticaNeue" in rtf["Verse"] and b"\\fs84" in rtf["Verse"] and b"BanglaMN-Bold" in rtf["Reference"] and b"\\fs92" in rtf["Reference"]
+    assert b"\\qc" in rtf["Verse"]
