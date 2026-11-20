@@ -133,3 +133,43 @@ def test_the_page_is_an_installable_app(tmp_path):
         assert 'rel="manifest"' in page and 'rel="apple-touch-icon"' in page and 'serviceWorker.register("/sw.js"' in page
     finally:
         server.shutdown()
+
+
+def test_the_sidebar_uses_propresenters_icons_for_libraries_playlists_and_presentations():
+    import threading, urllib.request
+    server, _ = web.serve(None, "127.0.0.1", 0)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        base = f"http://127.0.0.1:{server.server_address[1]}"
+        for name in ("ico-library", "ico-playlist", "ico-presentation"):
+            body = urllib.request.urlopen(f"{base}/{name}.svg", timeout=5).read()
+            assert body.startswith(b"<svg") and b"<rect" in body
+        page = urllib.request.urlopen(base + "/", timeout=5).read().decode()
+        assert "pi lib" in page and "pi pl" in page and "pi pres" in page
+    finally:
+        server.shutdown()
+
+
+def test_propresenter_icons_are_served_only_when_they_were_extracted(tmp_path, monkeypatch):
+    import threading, urllib.error, urllib.request
+    from versevision import sidebar_icons
+    monkeypatch.setattr(sidebar_icons, "icon_dir", lambda: tmp_path)
+    server, _ = web.serve(None, "127.0.0.1", 0)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        base = f"http://127.0.0.1:{server.server_address[1]}"
+        try:
+            urllib.request.urlopen(base + "/pp-icon/library.png", timeout=5)
+            raise AssertionError("expected 404")
+        except urllib.error.HTTPError as exc:
+            assert exc.code == 404
+        (tmp_path / "library.png").write_bytes(b"\x89PNG fake")
+        assert urllib.request.urlopen(base + "/pp-icon/library.png", timeout=5).read() == b"\x89PNG fake"
+        for bad in ("../secret", "other", "x/y"):
+            try:
+                urllib.request.urlopen(f"{base}/pp-icon/{bad}.png", timeout=5)
+                raise AssertionError("expected 404")
+            except urllib.error.HTTPError as exc:
+                assert exc.code == 404
+    finally:
+        server.shutdown()

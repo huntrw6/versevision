@@ -49,6 +49,13 @@
   .row{display:flex;align-items:center;gap:9px;margin:1px 6px;padding:6px 8px;border-radius:5px;border:1px solid transparent;cursor:default;white-space:nowrap;overflow:hidden;font-size:13.5px}
   .row .badge{width:20px;height:20px;border-radius:5px;display:grid;place-items:center;flex:none;font-size:11px;font-weight:700;color:#fff}
   .badge.o{background:#e9812a} .badge.b{background:#3b7fe0}
+  /* ProPresenter's own sidebar icons, traced from its window */
+  .pi{display:inline-block;width:20px;height:20px;flex:none;background:center/contain no-repeat}
+  .pi.lib{background-image:url(/ico-library.svg)} .pi.pl{background-image:url(/ico-playlist.svg)}
+  .pi.pres{width:20px;height:18px;background:#9a9a9a;-webkit-mask:url(/ico-presentation.svg) center/contain no-repeat;mask:url(/ico-presentation.svg) center/contain no-repeat}
+  .row.sel .pi.pres{background:#fff}
+  .real-icons .pi.lib{background-image:url(/pp-icon/library.png)} .real-icons .pi.pl{background-image:url(/pp-icon/playlist.png)}
+  .real-icons .pi.pres{-webkit-mask-image:url(/pp-icon/presentation.png);mask-image:url(/pp-icon/presentation.png)}
   .row.sel{background:var(--row-sel);border-color:#7a7a7a}
   .row.click{cursor:pointer} .row.click:hover:not(.sel){background:#ffffff12}
   .row .t{overflow:hidden;text-overflow:ellipsis}
@@ -313,7 +320,8 @@ async function status(){
   try{
     const [s, c] = await Promise.all([api('/api/status'), api('/api/check')]);
     $('led').className = 'led '+(c.ok?'ok':'bad');
-    $('statusText').textContent = c.ok ? s.node+' \u00b7 '+(c.propresenter||'ProPresenter') : "Can't reach ProPresenter on "+s.node;
+    const where = s.node==='this computer' ? '' : s.node;      // the name only matters when ProPresenter is on another computer
+    $('statusText').textContent = c.ok ? (where ? where+' \u00b7 ' : '')+(c.propresenter||'ProPresenter') : "Can't reach ProPresenter"+(where ? ' on '+where : '');
     $('meta').textContent = s.template_ready ? '' : 'Template missing. Run: versevision template setup';
     state.defaultLib = s.library || 'Verses'; loadLooks(); loadPlaylists();
     if(s.default_version && !$('ver').value) $('ver').value = s.default_version;
@@ -380,7 +388,7 @@ function openTargetMenu(btn){
     left.append(el('div','sec','Playlists'));
     for(const pl of state.playlists){
       const entries = pl.entries.filter(e=>e.library);
-      const row = el('div','row'); row.append(el('div','thumb none','\u2630'), el('span','',pl.name), el('span','sub',String(entries.length)), el('span','chev','\u203A'));
+      const row = el('div','row'); row.append(el('span','pi pl'), el('span','',pl.name), el('span','sub',String(entries.length)), el('span','chev','\u203A'));
       if(state.target && entries.some(e=>e.uuid===state.target)) row.classList.add('pick');
       const open = ()=>openFly(row, right=>{
         let section = null;
@@ -396,7 +404,7 @@ function openTargetMenu(btn){
   left.append(el('div','sec','Libraries'));
   for(const lib of libs){
     const items = state.pres.filter(p=>p.library===lib);
-    const row = el('div','row'); row.append(el('div','thumb none','\u25a4'), el('span','',lib), el('span','sub',String(items.length)), el('span','chev','\u203A'));
+    const row = el('div','row'); row.append(el('span','pi lib'), el('span','',lib), el('span','sub',String(items.length)), el('span','chev','\u203A'));
     if(state.target && items.some(p=>p.uuid===state.target)) row.classList.add('pick');
     const open = ()=>{
       left.querySelectorAll('.row.on').forEach(r=>r.classList.remove('on')); row.classList.add('on');
@@ -445,14 +453,14 @@ async function loadPresentations(){
 function drawSidebar(){
   const libs = $('libs'); libs.replaceChildren();
   for(const name of state.libs){
-    const r = el('div','row click'+(!state.plSel&&name===state.libSel?' sel':'')); r.append(el('span','badge o','\u25a4'), el('span','t',name));
+    const r = el('div','row click'+(!state.plSel&&name===state.libSel?' sel':'')); r.append(el('span','pi lib'), el('span','t',name));
     r.onclick = ()=>{ state.libSel = name; state.plSel = ''; $('libSel').value = name; drawSidebar(); };
     libs.append(r);
   }
   const pls = $('plists'); pls.replaceChildren();
   show('plSec', state.playlists.length>0);
   for(const pl of state.playlists){
-    const r = el('div','row click'+(pl.uuid===state.plSel?' sel':'')); r.append(el('span','badge o','\u2630'), el('span','t',pl.name));
+    const r = el('div','row click'+(pl.uuid===state.plSel?' sel':'')); r.append(el('span','pi pl'), el('span','t',pl.name));
     r.title = pl.name;
     r.onclick = ()=>{ state.plSel = pl.uuid; drawSidebar(); };
     pls.append(r);
@@ -467,7 +475,7 @@ function drawSidebar(){
     const loaded = p.uuid && (!playlist || state.pres.some(q=>q.uuid===p.uuid));
     const r = el('div','row'+((picking&&state.target&&p.uuid===state.target)?' sel':'')+((picking&&loaded)?' click':' dim'));
     if(picking && !loaded) r.title = p.name+' \u2014 not loaded in ProPresenter yet; open it there once to use it'; else r.title = p.name;
-    r.append(el('span','badge b','\u25a4'), el('span','t',p.name));
+    r.append(el('span','pi pres'), el('span','t',p.name));
     if(picking && loaded) r.onclick = ()=>{ state.target = p.uuid; $('target').value = p.uuid; state.libSel = p.library; showTarget(); drawSidebar(); updateHelp(); };
     box.append(r);
   }
@@ -793,6 +801,7 @@ $('auto').onchange = async (ev)=>{
 
 setMode('new'); updateHelp(); status(); loadPresentations(); loadHistory(); autostart();
 </script>
+<script>fetch("/pp-icon/library.png").then(r=>{ if(r.ok) document.documentElement.classList.add("real-icons"); }).catch(()=>{});</script>
 <script>if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js", {scope:"/"}).catch(()=>{});</script>
 </body>
 </html>

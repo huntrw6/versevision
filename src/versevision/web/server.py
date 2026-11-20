@@ -342,6 +342,8 @@ def make_handler(state: AppState):
         "/icon-512.png": ("icon-512.png", "image/png"), "/icon-maskable-512.png": ("icon-maskable-512.png", "image/png"),
         "/manifest.webmanifest": ("manifest.webmanifest", "application/manifest+json"),
         "/sw.js": ("sw.js", "text/javascript"),
+        "/ico-library.svg": ("ico-library.svg", "image/svg+xml"), "/ico-playlist.svg": ("ico-playlist.svg", "image/svg+xml"),
+        "/ico-presentation.svg": ("ico-presentation.svg", "image/svg+xml"),
     }
     static_files = {route: (resources.files("versevision.web").joinpath(name).read_bytes(), ctype) for route, (name, ctype) in static.items()}
 
@@ -391,6 +393,14 @@ def make_handler(state: AppState):
             path = urlparse(self.path).path
             if path == "/":
                 self._send(200, page, "text/html; charset=utf-8")
+                return
+            if path.startswith("/pp-icon/") and path.endswith(".png"):       # ProPresenter's own icons, if they were extracted on this Mac
+                from versevision.sidebar_icons import icon_bytes
+                body = icon_bytes(path[len("/pp-icon/"):-4])
+                if body is None:
+                    self._send(404, b"", "text/plain")
+                else:
+                    self._send(200, body, "image/png")
                 return
             if path in static_files:                      # the app shell: icons, manifest, service worker (no data, so no token)
                 body, ctype = static_files[path]
