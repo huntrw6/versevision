@@ -478,9 +478,7 @@ function drawSidebar(){
     box.append(r);
   }
   if(!rows.length) box.append(el('div','empty', playlist ? 'No presentations in this playlist.' : 'No presentations in this library.'));
-  $('side-note').textContent = state.mode==='new'
-    ? 'New presentations go in \u201c'+state.libSel+'\u201d. Pick a library above.'
-    : 'Click a presentation to pick it.';
+  $('side-note').textContent = 'Select a Library or Presentation';
 }
 function fillSelects(){
   const ls = $('libSel'); ls.replaceChildren();
