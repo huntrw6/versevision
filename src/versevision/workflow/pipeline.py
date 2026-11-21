@@ -173,6 +173,9 @@ async def plan_for_transport(
     if not no_fetch:
         from versevision.themes import resolve_looks
         result.slide_plan.looks = await asyncio.to_thread(resolve_looks, config, transport)
+        runlog.trace("look", verse=(result.slide_plan.looks.describe().get("verse") if result.slide_plan.looks else None),
+                     point=(result.slide_plan.looks.describe().get("point") if result.slide_plan.looks else None),
+                     note="the ProPresenter theme slides used for the look (empty = the VerseVision template)")
         if result.slide_plan.looks:
             runlog.event("looks", message="look from ProPresenter themes: " + "; ".join(f"{k}: {v}" for k, v in result.slide_plan.looks.describe().items() if v))
     runlog.event("plan_ready", message=f"{len(result.slide_plan.slides)} slides, {len(result.failed)} not added, {len(result.review)} to check, "

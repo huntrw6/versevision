@@ -3,6 +3,10 @@
     <log dir>/runs/20261018-091502-3fa9c1/
         summary.txt   plain-language account of what happened (read this first)
         events.jsonl  every step with a timestamp: document read, each Bible lookup, each ProPresenter action, errors
+        trace.jsonl   HOW the document became slides: for every paragraph the rule that fired, what it became, how its
+                      version was chosen, what the Bible provider returned, how verses were split, what you edited in the
+                      review, and the final slides (read it with `versevision explain`)
+        options.json  the parsing / formatting options in force for the run (so `versevision replay` can re-run the parse)
         source.txt    the exact text that was read from the document
         report.json   the full plan: every slide, every flagged / adjusted / skipped line
 
@@ -91,6 +95,24 @@ class RunLog:
         except OSError:
             pass                     # logging must never break an import
 
+    def trace(self, stage: str, **data: Any) -> None:
+        """One decision record in trace.jsonl. Longer strings are kept (up to 2000 characters) because this file exists to be read later."""
+        with self._lock:
+            self._seq = getattr(self, "_seq", 0) + 1
+            seq = self._seq
+        line = {"seq": seq, "stage": stage, **_clean(data, 2000)}
+        try:
+            with self._lock, (self.folder / "trace.jsonl").open("a", encoding="utf-8") as stream:
+                stream.write(json.dumps(line, ensure_ascii=False, default=str) + "\n")
+        except OSError:
+            pass                     # logging must never break an import
+
+    def save_options(self, options: dict) -> None:
+        try:
+            (self.folder / "options.json").write_text(json.dumps(_clean(options, 2000), indent=2, ensure_ascii=False, default=str), encoding="utf-8")
+        except OSError:
+            pass
+
     def save_source(self, text: str, name: str) -> None:
         try:
             (self.folder / "source.txt").write_text(text, encoding="utf-8")
@@ -111,6 +133,10 @@ class RunLog:
 
     def finish(self, outcome: str, report: dict | None = None, applied: dict | None = None, error: str | None = None) -> None:
         bad = outcome == "failed" or bool(error)
+        if applied:
+            self.trace("output", outcome=outcome, **{k: v for k, v in applied.items() if k in (
+                "mode", "presentation_name", "target_name", "target_uuid", "slide_count", "cue_count_before", "cue_count_after",
+                "removed_slides", "verified", "verification", "steps")})
         self.event("run_end", level="error" if bad else "warn" if outcome.startswith("stopped") else "info", outcome=outcome, error=error)
         try:
             (self.folder / "summary.txt").write_text(render_summary(self, outcome, report, applied, error), encoding="utf-8")
@@ -135,6 +161,27 @@ def event(step: str, level: str = "info", **data: Any) -> None:
     run = _current.get()
     if run:
         run.event(step, level, **data)
+
+
+def trace(stage: str, **data: Any) -> None:
+    """Record one decision for the run in progress (nothing happens when no run is active, e.g. in unit tests)."""
+    run = _current.get()
+    if run:
+        run.trace(stage, **data)
+
+
+def read_trace(run_id: str) -> list[dict]:
+    path = runs_dir() / run_id / "trace.jsonl"
+    rows: list[dict] = []
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            try:
+                rows.append(json.loads(line))
+            except ValueError:
+                continue
+    except OSError:
+        pass
+    return rows
 
 
 def wrap_progress(progress: Callable[[str], None]) -> Callable[[str], None]:
@@ -275,5 +322,6 @@ def render_summary(run: RunLog, outcome: str, report: dict | None, applied: dict
             detail = e.get("message") or e.get("action") or e.get("error") or ""
             add(f"  [{e['elapsed']:>6}s] {e['step']:<12} {detail}")
     add("")
-    add(f"Files in this folder: summary.txt, events.jsonl (every step), source.txt, report.json")
+    add(f"Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json")
+    add(f"To follow any line of the document to its slide:  versevision explain {run.id}")
     return "\n".join(lines) + "\n"

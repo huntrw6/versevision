@@ -53,9 +53,11 @@ class ProviderRegistry:
             passage, provider_name, source = await self._fetch(reference)
         except Exception as exc:
             runlog.event("bible_fetch", level="warn", error=str(exc), ms=round((_time.monotonic() - started) * 1000), **info)
+            runlog.trace("provider", error=str(exc), ms=round((_time.monotonic() - started) * 1000), **info)
             raise
         runlog.event("bible_fetch", provider=provider_name, source=source, verses=len(passage.verses),
                      ms=round((_time.monotonic() - started) * 1000), **info)
+        runlog.trace("provider", provider=provider_name, source=source, ms=round((_time.monotonic() - started) * 1000), **info)
         return passage
 
     async def _fetch(self, reference: PassageReference) -> tuple[ResolvedPassage, str, str]:

@@ -135,7 +135,8 @@ def theme_thumbnail(state: AppState, theme: str, number: int) -> bytes | None:
 
 def start_plan(state: AppState, name: str, data: bytes, default_version: str | None, target: str | None,
                mode: str = "new", title: str | None = None, library: str | None = None, text_override: str | None = None,
-               profile: str | None = None, verse_look: str | None = None, point_look: str | None = None) -> Job:
+               profile: str | None = None, verse_look: str | None = None, point_look: str | None = None,
+               replan_of: dict | None = None) -> Job:
     job = Job("plan")
     job.name = name
     job.mode, job.title_override, job.library = mode, title, library
@@ -150,6 +151,9 @@ def start_plan(state: AppState, name: str, data: bytes, default_version: str | N
         j.run_id = run.id
         token = runlog.activate(run)
         outcome, error = "failed", None
+        if replan_of:
+            run.trace("review_edit", parent_run=replan_of["run_id"], changes=replan_of["changes"],
+                      note="lines you corrected in the review panel; the whole document was checked again with these replacing the originals")
         try:
             _plan_work(j)
             outcome = "reviewed, not imported yet"
@@ -225,14 +229,17 @@ def start_replan(state: AppState, plan_job_id: str, edits: dict[str, str]) -> Jo
     if not source or source.kind != "plan" or not source.text:
         raise VerseVisionError("That review is no longer available; drop the file again")
     lines = source.text.replace("\r\n", "\n").replace("\r", "\n").replace("\xa0", " ").split("\n")
+    changes = []
     for key, value in edits.items():
         number = int(key)
         if not 1 <= number <= len(lines):
             raise VerseVisionError(f"There is no line {number}")
+        changes.append({"line": number, "before": lines[number - 1], "after": str(value).replace("\n", " ")})
         lines[number - 1] = str(value).replace("\n", " ")
     job = start_plan(state, source.name, b"", source.version, source.target_arg, mode=source.mode, title=source.title_override,
                      library=source.library, text_override="\n".join(lines), profile=source.profile,
-                     verse_look=source.verse_look, point_look=source.point_look)
+                     verse_look=source.verse_look, point_look=source.point_look,
+                     replan_of={"run_id": getattr(source, "run_id", ""), "changes": changes})
     return job
 
 
@@ -284,6 +291,11 @@ def start_apply(state: AppState, plan_job_id: str, accept_flags: bool, skip: set
         assert source.plan is not None
         if skip:
             run.event("progress", message=f"{len(skip)} decision(s) switched off in the review")
+            rows = {d["id"]: d for d in (source.result or {}).get("decisions", [])}
+            run.trace("review_excluded", decisions=[{"id": i, "line": rows.get(i, {}).get("line"), "kind": rows.get(i, {}).get("kind"),
+                                                      "title": rows.get(i, {}).get("title"), "slides": rows.get(i, {}).get("slides")} for i in sorted(skip)],
+                      note="decisions you switched off in the review: their slides were not imported")
+        run.trace("review_accepted", flagged_lines_accepted=accept_flags, slides_imported=len(final_plan.slide_plan.slides))
         if source.mode == "new":
             applied = publish_new(
                 source.text, source.name, source.title, final_plan, state.config, state.transport(),

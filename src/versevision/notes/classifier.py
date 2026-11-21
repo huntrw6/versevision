@@ -12,6 +12,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+from versevision import runlog
 from versevision.config import NotesConfig, PointsConfig
 from versevision.references import parse_references
 from versevision.references.models import ParseIssue, PassageReference
@@ -202,6 +203,9 @@ def classify_document(
     rules = _Rules(notes, points)
     lines = text.replace("\r\n", "\n").replace("\r", "\n").replace("\xa0", " ").split("\n")
     hard_wrap, threshold = _wrap_geometry(lines)
+    runlog.trace("parse_start", lines=len(lines), non_blank=sum(1 for x in lines if x.strip()), hard_wrapped=hard_wrap,
+                 full_line_width=threshold, note="hard_wrapped means the text looks like a PDF/email with lines broken mid-sentence; "
+                 "a line at least full_line_width long is joined to the next unless the next one starts something new")
 
     def starts_new(stripped: str, current: _Para) -> bool:
         if _SLIDE_TAG.match(stripped) or rules.stage.match(stripped) or _URL.search(stripped) or _RECAP.match(stripped) or any(x.search(stripped) for x in rules.skip):
@@ -237,6 +241,8 @@ def classify_document(
             current is not None and hard_wrap and current.last_len >= threshold and not starts_new(stripped, current)
             and not (_marker(current.text, points) and current.text.endswith(_SENTENCE_END[:5]) and stripped[:1].isupper())
         ):
+            runlog.trace("line_join", line=number, into_paragraph=current.line, text=stripped,
+                         why=f"previous line was {current.last_len} characters (full width is {threshold}) and this line does not start a new item")
             current.append(stripped, len(line), number)
             continue
         current = _Para(number, stripped, len(line))
@@ -246,6 +252,12 @@ def classify_document(
         paras[0].first = True
     for para in paras:
         _label(para, aliases, rules)
+        runlog.trace("paragraph", line=para.line, end_line=para.end,
+                     raw_lines=[lines[i].rstrip() for i in range(para.line - 1, min(para.end, len(lines))) if lines[i].strip()],
+                     text=para.text, first_in_document=para.first, label=para.kind, rule=para.extra.get("rule", ""),
+                     why=para.extra.get("why", ""), marker=para.extra.get("label"),
+                     references=[{"as_written": r.source_text.strip(), "normalized": r.normalized_text, "version_written": r.version,
+                                  "warnings": r.warnings} for r in para.refs])
     return _build(paras, aliases, rules, duplicates=notes.duplicates)
 
 
@@ -255,28 +267,36 @@ def _label(para: _Para, aliases, rules: _Rules) -> None:
     tag = _SLIDE_TAG.match(text)
     if tag:
         para.kind, para.text = "slide_tag", tag.group("rest").strip()
+        para.extra["rule"] = "[slide] tag"
         return
     paren = _paren_reference(text, aliases)
     if paren:
         para.kind, para.refs = "verse", paren
+        para.extra["rule"] = "whole line is a reference in brackets"
         return
-    if any(x.search(text) for x in rules.skip):
+    skip_hit = next((x.pattern for x in rules.skip if x.search(text)), None)
+    if skip_hit:
         para.kind, para.extra["why"] = "stage", "matches a skip pattern"
+        para.extra["rule"] = f"matches your skip pattern {skip_hit!r}"
         return
     if rules.stage.match(text) or _URL.search(text) or _NOTE.match(text):
         para.kind = "stage"
+        para.extra["rule"] = ("starts with a stage/cue word" if rules.stage.match(text) else "contains a web address" if _URL.search(text)
+                              else "reads like a note to self (brackets, 'note:', 'remember'...)")
         return
     bullet = _BULLET.match(text) if points.bullets else None
     if bullet and not _is_reference_start(bullet.group("rest"), aliases):
         para.kind, para.text = "marker", bullet.group("rest").strip()
-        para.extra.update(label="•", number=None, bullet=True)
+        para.extra.update(label="•", number=None, bullet=True, rule="bullet character at the start of the line")
         para.refs = parse_references(para.text, aliases).references
         return
     if _RECAP.match(text):
         para.kind, para.extra["why"] = "header", "recap heading"
+        para.extra["rule"] = "line starts with 'Recap'"
         return
     if _DATE.search(text) and not re.search(r"\d:\d", text):
         para.kind, para.extra["why"] = "header", "title / date line"
+        para.extra["rule"] = "contains a date (d/m/y) and no verse-like d:d"
         return
     marker = _marker(text, points)
     if marker:
@@ -284,32 +304,38 @@ def _label(para: _Para, aliases, rules: _Rules) -> None:
         if inner and not _is_reference_start(text, aliases):
             para.kind, para.refs = "verse", inner
             para.extra["numbered_verse"] = True
+            para.extra["rule"] = "numbered line whose text starts with a Bible reference"
             return
     if marker and not _is_reference_start(text, aliases):
         label = marker.group("label")
         display = f"#{label}{marker.group('punct')}" if marker.group("hash") else f"{label}{marker.group('punct')}"
         para.kind = "marker"
         para.text = marker.group("rest").strip()
-        para.extra.update(label=display, number=int(label) if label.isdigit() else None)
+        para.extra.update(label=display, number=int(label) if label.isdigit() else None, rule="numbered/lettered marker at the start of the line")
         para.refs = parse_references(para.text, aliases).references
         return
     leads, _ = _lead_references(text, aliases)
     if leads:
         para.kind, para.refs = "verse", leads
+        para.extra["rule"] = "Bible reference at the start of the line"
         return
     trailing = _trailing_references(text, aliases)
     if trailing:
         para.kind, para.refs = "verse", trailing
+        para.extra["rule"] = "Bible reference at the end of a quoted block"
         return
     found = parse_references(text, aliases)
     if found.references:
         para.kind, para.refs = "midref", found.references
+        para.extra["rule"] = "Bible reference found inside a sentence"
         return
     leading = next((i for i in found.issues if i.source_start <= 2), None)
     if leading is not None:                    # it reads like a verse at the start of the line, but it is not a real one
         para.kind, para.extra["why"] = "badref", f"{leading.source_text.strip()}: {leading.message}"
+        para.extra["rule"] = "looks like a reference at the start of the line, but is not a real verse"
         return
     para.kind = "quote" if text.startswith(_QUOTE_OPEN) else "other"
+    para.extra["rule"] = "starts with a quotation mark" if para.kind == "quote" else "no reference, marker or cue word: a plain line"
 
 
 def _paren_reference(text: str, aliases) -> list[PassageReference]:
@@ -337,6 +363,8 @@ def _build(paras: list[_Para], aliases, rules: _Rules, duplicates: str = "keep")
     last_point = 0
     seen_content = False
     for index, para in enumerate(paras):
+        _items_before = len(doc.items)
+        _prior_text = doc.items[-1].text if doc.items and isinstance(doc.items[-1], PointItem) else None
         para.extra["seen_content"] = seen_content
         if para.kind in {"verse", "marker", "slide_tag", "midref"}:
             seen_content = True
@@ -433,7 +461,40 @@ def _build(paras: list[_Para], aliases, rules: _Rules, duplicates: str = "keep")
                 joined = True
             if not joined:
                 doc.items.append(_other(para, text, rules))
+        _trace_outcome(doc, para, _items_before, _prior_text, rules)
     return doc
+
+
+_SETTINGS_BY_LABEL = {
+    "stage": ("stage_cues",), "midref": ("reference_in_text",), "quote": ("quote_above_reference", "quote_alone"),
+    "other": ("line_breaks", "unlabeled_sentence", "unlabeled_short", "before_first_item", "header_max_words"),
+    "verse": ("duplicates",), "marker": (), "header": (),
+}
+
+
+def _trace_outcome(doc: NoteDocument, para: _Para, before: int, prior_text, rules: _Rules) -> None:
+    """What this paragraph turned into, and which of your options decided it."""
+    made = doc.items[before:]
+    settings = {k: getattr(rules.notes, k) for k in _SETTINGS_BY_LABEL.get(para.kind, ())}
+    if para.kind == "marker":
+        settings = {"points.numbering": rules.points.numbering, "points.require_sequence": rules.points.require_sequence}
+    outcomes = []
+    for item in made:
+        row: dict = {"kind": item.kind, "line": item.line}
+        if isinstance(item, PointItem):
+            row.update(role=item.role, label=item.label, text=item.text, warnings=item.warnings)
+        elif isinstance(item, VerseItem):
+            row.update(reference=item.reference.normalized_text, version_written=item.reference.version, warnings=item.warnings)
+        elif isinstance(item, SkippedItem):
+            row.update(category=item.category, reason=item.reason, text=item.text)
+        elif isinstance(item, ReviewItem):
+            row.update(reason=item.reason, text=item.text)
+        outcomes.append(row)
+    merged = not made and prior_text is not None
+    if merged:
+        last = doc.items[-1]
+        outcomes.append({"kind": "joined", "into_line": last.line, "note": "added to the sermon point above as a detail line (line_breaks=paragraph)"})
+    runlog.trace("item", line=para.line, label=para.kind, settings=settings, outcome=outcomes)
 
 
 def _emit_verses(doc: NoteDocument, para: _Para, refs: list[PassageReference]) -> None:

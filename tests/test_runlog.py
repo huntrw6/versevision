@@ -20,7 +20,7 @@ def test_a_run_leaves_a_readable_record_and_never_logs_secrets(tmp_path, monkeyp
     runlog.deactivate(token)
 
     folder = tmp_path / "runs" / run.id
-    assert {p.name for p in folder.iterdir()} == {"events.jsonl", "source.txt", "report.json", "summary.txt"}
+    assert {p.name for p in folder.iterdir()} >= {"events.jsonl", "source.txt", "report.json", "summary.txt"}
     everything = "".join(p.read_text() for p in folder.iterdir())
     assert "SECRET-KEY-VALUE" not in everything and "TOKEN-VALUE" not in everything
     summary = (folder / "summary.txt").read_text()

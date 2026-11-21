@@ -168,6 +168,9 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
             )
             token = runlog.activate(run)
             run.save_source(source, source_name)
+            from versevision.documents.base import last_extract
+            if last_extract():
+                run.trace("extract", **last_extract())
             chosen = presentation or target_presentation
             chosen_uuid = presentation_uuid or target_uuid
             editing = bool(chosen or chosen_uuid)

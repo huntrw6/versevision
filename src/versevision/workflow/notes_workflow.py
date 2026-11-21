@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel, Field
 
+from versevision import runlog
 from versevision.bibles import ProviderRegistry
 from versevision.config import AppConfig, PointsConfig, VersesConfig
 from versevision.errors import VerseVisionError
@@ -94,6 +95,28 @@ class NotesImportResult(BaseModel):
         return bool(self.review or self.failed)
 
 
+def _trace_verse(item, reference, passage, planned, config) -> None:
+    """What the Bible provider returned for one verse entry and how it became slides."""
+    from versevision.slides.fitting import wrap_body_lines
+    verses = passage.verses
+    runlog.trace("fetch_result", line=item.line, reference=reference.normalized_text, version_asked=reference.version, version_returned=passage.resolved_version,
+                 verses=len(verses), characters=sum(len(v.text) for v in verses), first_verse=(verses[0].text[:100] if verses else ""),
+                 last_verse=(verses[-1].text[-100:] if verses else ""), copyright=next((v.copyright or v.attribution for v in verses if (v.copyright or v.attribution)), None),
+                 note="which provider answered is in events.jsonl (step bible_fetch)")
+    per_verse = []
+    for v in verses:
+        mine = [x for x in planned if x.verse_keys == [v.key]]
+        body = f"{v.verse} {v.text}".rstrip() if config.slides.include_verse_numbers else v.text
+        per_verse.append({"verse": v.key, "characters": len(body), "wrapped_lines": len(wrap_body_lines(" ".join(body.split()), config.slides.line_width_units)),
+                          "slides": len(mine), "pieces": [x.body_text for x in mine]})
+    runlog.trace("split", line=item.line, reference=reference.normalized_text, slides=len(planned),
+                 settings={"max_body_lines": config.slides.max_body_lines, "line_width_units": config.slides.line_width_units,
+                           "prefer_punctuation_breaks": config.slides.prefer_punctuation_breaks, "include_verse_numbers": config.slides.include_verse_numbers,
+                           "break_on_new_verse": config.slides.break_on_new_verse, "reference_label_mode": config.slides.reference_label_mode},
+                 verses=per_verse,
+                 note="a verse is cut into several slides only when it needs more wrapped lines than max_body_lines; each cut prefers a punctuation break near the middle")
+
+
 def resolve_note_versions(
     document: NoteDocument, *, default: str | None, source: str = "above"
 ) -> tuple[list[tuple[int, PassageReference | None, str]], list[ProblemEntry]]:
@@ -116,6 +139,7 @@ def resolve_note_versions(
             for other in (index - 1, index + 1)
         )
 
+    last_explicit_line = 0
     for index, item in enumerate(verses):
         reference = item.reference
         for warning in item.warnings:
@@ -123,14 +147,23 @@ def resolve_note_versions(
                 notices.append(ProblemEntry(line=item.line, text=reference.source_text.strip(), problem=warning + (
                     "; ignored, so the verse uses the nearest version above or the default" if "unrecognized" in warning else "")))
         if reference.version:
-            if not comparison(index):          # a comparison pair never sets the version for later verses
-                last_explicit = reference.version
+            pair = comparison(index)
+            if not pair:          # a comparison pair never sets the version for later verses
+                last_explicit, last_explicit_line = reference.version, item.line
+            runlog.trace("version", line=item.line, reference=reference.normalized_text, version=reference.version, how="written on the verse",
+                         sets_version_for_later_verses=not pair,
+                         note="same passage appears next to it in another version: a comparison pair, so it does not set the version for later verses" if pair else "")
             resolved.append((item.line, reference, ""))
             continue
         if source == "required":
+            runlog.trace("version", line=item.line, reference=reference.normalized_text, version=None, how="none written and verses.version_source=required: not added")
             resolved.append((item.line, None, "no version on this verse, and your setting requires one (verses.version_source = required)"))
             continue
         chosen = (last_explicit or default_name) if source == "above" else default_name
+        runlog.trace("version", line=item.line, reference=reference.normalized_text, version=chosen,
+                     how=(f"none written; used the nearest version above (line {last_explicit_line})" if (last_explicit and source == "above")
+                          else "none written; used the default version"), version_source=source,
+                     default_version=default_name, last_explicit_version=last_explicit)
         if not chosen:
             resolved.append((item.line, None, "no version on this verse, none above it, and no default version is set" if source == "above" else "no version on this verse and no default version is set"))
             continue
@@ -151,6 +184,13 @@ async def plan_notes(
     library: str | None = None,
     provider_registry: ProviderRegistry | None = None,
 ) -> NotesImportResult:
+    run = runlog.current()
+    if run:
+        run.save_options({"notes": config.notes.model_dump(mode="json"), "points": config.points.model_dump(mode="json"),
+                          "slides": config.slides.model_dump(mode="json"), "verses": config.verses.model_dump(mode="json"),
+                          "bible": {"default_version": config.bible.default_version, "version_aliases": config.bible.version_aliases,
+                                    "version_routes": config.bible.version_routes},
+                          "default_version_used": default_version or config.bible.default_version, "no_fetch": no_fetch})
     document = classify_document(source, config.bible.version_aliases, config.notes, config.points)
     result = NotesImportResult(fetched=not no_fetch)
     for item in document.skipped:
@@ -202,6 +242,9 @@ async def plan_notes(
                 result.point_count += 1
                 for warning in item.warnings:
                     result.notices.append(ProblemEntry(line=item.line, text=item.display[:60], problem=warning))
+                runlog.trace("point_format", line=item.line, role=item.role, label_in_notes=item.label, text_in_notes=item.text, slide_text=shown_text,
+                             settings={"numbering": config.points.numbering, "case": config.points.case, "bullet_char": config.points.bullet_char,
+                                       "number_style": config.points.number_style})
                 add(item, "point", shown_text.split("\n")[0][:80], shown_text, "warning" if item.warnings else "good", list(item.warnings), first, 1)
             elif item.kind == "verse":
                 line, reference, why = resolved_refs[id(item)]
@@ -226,6 +269,7 @@ async def plan_notes(
                     continue
                 first = len(slides)
                 planned = plan_slides([passage], config.slides).slides
+                _trace_verse(item, reference, passage, planned, config)
                 for slide in planned:
                     slide.source_passage_index = group_index
                 slides.extend(planned)
@@ -246,6 +290,12 @@ async def plan_notes(
         if owns and registry:
             await registry.aclose()
     result.slide_plan = SlidePlan(slides=slides)
+    for d in result.decisions:
+        runlog.trace("decision", id=d.id, line=d.line, kind=d.kind, tier=d.tier, title=d.title, reasons=d.reasons,
+                     slides=[n + 1 for n in range(d.first_slide, d.first_slide + d.slide_count)])
+    runlog.trace("plan", slide_count=len(slides), verse_slides=sum(1 for x in slides if x.kind == "verse"), point_slides=sum(1 for x in slides if x.kind == "point"),
+                 slides=[{"n": i + 1, "kind": x.kind, "reference": x.reference_text, "version": x.version_text, "text": x.body_text,
+                          "verses": x.verse_keys} for i, x in enumerate(slides)])
 
     if target_uuid or target_name:
         pp = config.propresenter
