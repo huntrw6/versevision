@@ -131,13 +131,14 @@ def _words(text: str) -> list[str]:
 
 
 def quote_score(quoted: str, passage) -> float:
-    """How closely the quoted words match a version's wording of the passage (0 to 1). Verse numbers, punctuation and case do not count."""
+    """How much of the quoted words appear, in order, in a version's wording of the passage (0 to 1). Verse numbers, punctuation and case do not count."""
     import difflib
     wanted = _words(quoted)
     have = _words(" ".join(v.text for v in passage.verses))
     if not wanted or not have:
         return 0.0
-    return difflib.SequenceMatcher(None, wanted, have, autojunk=False).ratio()
+    matched = sum(block.size for block in difflib.SequenceMatcher(None, wanted, have, autojunk=False).get_matching_blocks())
+    return matched / len(wanted)          # how much of the QUOTE is in the verse (a quote may be only part of it)
 
 
 async def check_version_against_quote(item, reference, passage, registry, config, reasons: list[str]):

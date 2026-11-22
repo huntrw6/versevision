@@ -96,6 +96,15 @@ def test_a_verse_quoted_in_another_versions_wording_uses_that_version():
     assert not any("KJV" in r and "matches" in r for r in john.reasons) and "NKJV" in [s.version_text for s in verse_slides]
 
 
+def test_a_quote_of_only_the_second_half_of_a_verse_still_identifies_the_version():
+    from versevision.workflow.notes_workflow import quote_score
+    from types import SimpleNamespace as NS
+    kjv = NS(verses=[BibleVerse(book_id="JHN", chapter=3, verse=3, text=KJV["John 3:3"], version="KJV")])
+    nkjv = NS(verses=[BibleVerse(book_id="JHN", chapter=3, verse=3, text=NKJV["John 3:3"], version="NKJV")])
+    quote = "Except a man be born again, he cannot see the kingdom of God"
+    assert quote_score(quote, kjv) > 0.95 and quote_score(quote, nkjv) < 0.7
+
+
 def test_the_quote_check_can_be_turned_off_and_never_overrides_a_written_version():
     from versevision.config import VersesConfig
     registry = FakeRegistry()
