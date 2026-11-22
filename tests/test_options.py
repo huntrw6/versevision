@@ -172,3 +172,7 @@ def test_profiles_and_set_overrides():
 def test_a_text_option_stays_text_even_when_it_looks_like_a_number():
     c = with_options(AppConfig(), sets=["verses.theme_slide=2", "points.bullet_char=-"])
     assert c.verses.theme_slide == "2" and c.points.bullet_char == "-"
+
+
+def test_verse_numbers_are_off_by_default_and_can_be_turned_on():
+    assert AppConfig().slides.include_verse_numbers is False

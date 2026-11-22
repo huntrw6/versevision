@@ -32,5 +32,5 @@ def test_fetched_dry_run_places_text_and_attribution_on_slides(tmp_path) -> None
     result = asyncio.run(run())
     assert result.fetched is True
     assert result.files_changed is False
-    assert result.slide_plan.slides[0].body_text == "16 Synthetic body text."
+    assert result.slide_plan.slides[0].body_text == "Synthetic body text."      # no verse number by default
     assert result.slide_plan.slides[0].copyright_text == "Synthetic fixture copyright"

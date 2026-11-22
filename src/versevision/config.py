@@ -23,7 +23,7 @@ class SlideConfig(BaseModel):
     max_characters: int = Field(default=350, ge=1)
     max_verses_per_slide: int = Field(default=1, ge=1)
     preserve_poetry_lines: bool = True
-    include_verse_numbers: bool = True
+    include_verse_numbers: bool = False      # verse text only; the reference is on the slide already
     reference_format: str = "{book} {chapter}:{verses} {version}"
     reference_label_mode: Literal["source", "segment", "verse"] = "verse"
     max_body_lines: int = Field(default=5, ge=1, le=20)
