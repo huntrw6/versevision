@@ -601,7 +601,7 @@ def publish_new(
         progress("Waiting for ProPresenter to show it")
         verified, message, new_uuid = _wait_listed(
             transport, name, lib_name, plan, len(plan.slide_plan.slides), verify_timeout,
-            file_check=lambda: _verify_file_on_disk(transport, remote_path, written.output_sha256, out_local), file_uuid=_file_uuid(out_local))
+            file_check=lambda: _verify_file_on_disk(transport, remote_path, written.output_sha256, out_local, [x.body_text for x in plan.slide_plan.slides]), file_uuid=_file_uuid(out_local))
         runlog.event("verify", level="info" if verified else "error", message=message, verified=verified, presentation_uuid=new_uuid)
         if not verified:
             raise VerificationRollbackError(
@@ -752,7 +752,7 @@ def _wait_stable(transport: Transport, lib_name: str, name: str, old_uuid: str, 
     raise VerificationRollbackError(f"ProPresenter did not show the new version ({problem})")
 
 
-def _settle_new_version(transport: Transport, lib_name: str, name: str, path: str, old_uuid: str, written_sha: str, verify, written_local: Path | None = None) -> str:
+def _settle_new_version(transport: Transport, lib_name: str, name: str, path: str, old_uuid: str, written_sha: str, verify, written_local: Path | None = None, expect_texts: list[str] | None = None) -> str:
     """Wait for ProPresenter to show the swapped-in file. Returns the id the playlists should use.
 
     The new file keeps the original's id, so playlists need no change. ProPresenter sometimes lists a new file without loading it
@@ -776,37 +776,44 @@ def _settle_new_version(transport: Transport, lib_name: str, name: str, path: st
         except Exception as exc:
             problem = str(exc)
         time.sleep(1.0)
-    ok, message = _verify_file_on_disk(transport, path, written_sha, written_local)
+    ok, message = _verify_file_on_disk(transport, path, written_sha, written_local, expect_texts)
     if not ok:
         raise VerificationRollbackError(f"ProPresenter did not show the new version ({problem}; {message})")
     runlog.event("verify", level="warn", message="ProPresenter lists the new version but has not loaded it yet; the file on disk is intact, so it keeps its place in the playlists and loads when opened", verified=True)
     return old_uuid
 
 
-def _cue_ids(path: Path) -> list[tuple[str, str]]:
-    """(slide name, slide text) for every slide, in order. Ids are left out: ProPresenter re-issues them when it re-saves a file."""
+def _visible_text(path: Path) -> tuple[int, str]:
+    """(number of slides, all the words on them as lower-case letters and digits only). Punctuation, rtf codes, slide names, ids and order
+    are ignored: ProPresenter changes all of those when it re-saves a file, but not the words."""
     import re as _re
     from versevision.presentation.generated import presentation_pb2
     message = presentation_pb2.Presentation()
     message.ParseFromString(path.read_bytes())
-    rows = []
+    chunks = []
     for cue in message.cues:
-        texts = []
         for action in cue.actions:
             if action.HasField("slide"):
                 for element in action.slide.presentation.base_slide.elements:
                     if element.element.HasField("text"):
                         raw = element.element.text.rtf_data.decode("latin1")
-                        texts.append(_re.sub(r"\\[a-z]+-?\d* ?|[{}]", "", raw).replace("\\", "").strip()[-200:])
-        rows.append((cue.name, "|".join(texts)))
-    return rows
+                        raw = _re.sub(r"\\u(-?\d+)\??", lambda m: chr(int(m.group(1)) % 65536), raw)
+                        raw = _re.sub(r"\\'[0-9a-fA-F]{2}", "", raw)
+                        raw = _re.sub(r"\\[a-zA-Z]+-?\d* ?|[{}]", " ", raw)
+                        chunks.append(raw)
+    return len(message.cues), _re.sub(r"[^a-z0-9]", "", " ".join(chunks).lower())
 
 
-def _verify_file_on_disk(transport: Transport, path: str, written_sha: str, written_local: Path | None = None) -> tuple[bool, str]:
+def _norm_words(text: str) -> str:
+    import re as _re
+    return _re.sub(r"[^a-z0-9]", "", text.lower())
+
+
+def _verify_file_on_disk(transport: Transport, path: str, written_sha: str, written_local: Path | None = None, expect_texts: list[str] | None = None) -> tuple[bool, str]:
     """The file ProPresenter was given still holds what was written.
 
-    Byte-for-byte equal is the strongest proof. ProPresenter may re-save a file it has open (same slides, different bytes), so when the
-    bytes differ the slides themselves are compared: the same cues in the same order means the same slides."""
+    Byte-for-byte equal is the strongest proof. ProPresenter re-saves a file it has open (same words, different bytes, ids and names), so when
+    the bytes differ the slides are checked: the same number of slides, and the words of every new slide present."""
     import tempfile as _tf
     with _tf.TemporaryDirectory(prefix="versevision-chk-") as tmp:
         local = Path(tmp) / "check.pro"
@@ -817,23 +824,21 @@ def _verify_file_on_disk(transport: Transport, path: str, written_sha: str, writ
         if sha == written_sha:
             return True, "file intact"
         try:
-            found = _cue_ids(local)
-            wanted = _cue_ids(written_local) if written_local else None
+            count, haystack = _visible_text(local)
+            wanted_count = _visible_text(written_local)[0] if written_local else None
         except Exception as exc:
             return False, f"the file on disk is not the one that was written and could not be read ({exc})"
-        runlog.event("verify", level="warn", message=f"the file on disk differs from what was written (sha {sha[:12]} vs {written_sha[:12]}); it holds {len(found)} slides"
-                     + (f", {len(wanted)} were written" if wanted is not None else ""), found_sha=sha[:16], written_sha=written_sha[:16])
-        if wanted is not None and found == wanted:
-            return True, "ProPresenter re-saved the file; its slides are the ones that were written"
-        if wanted is not None and len(found) == len(wanted):
-            differ = [i + 1 for i, (a, b) in enumerate(zip(found, wanted)) if a != b]
-            runlog.event("verify", level="warn", message=f"{len(differ)} of {len(wanted)} slides differ after ProPresenter's re-save: first {differ[:5]}; "
-                         f"found {found[differ[0] - 1] if differ else ''!r} wanted {wanted[differ[0] - 1] if differ else ''!r}")
-        return False, f"the file on disk is not the one that was written (it holds {len(found)} slides" + (f", {len(wanted)} were written)" if wanted is not None else ")")
+    missing = [t for t in (expect_texts or []) if _norm_words(t) and _norm_words(t) not in haystack]
+    runlog.event("verify", level="warn", message=f"the file on disk differs from what was written (sha {sha[:12]} vs {written_sha[:12]}): it holds {count} slides"
+                 + (f" ({wanted_count} written)" if wanted_count is not None else "") + f"; {len(missing)} of {len(expect_texts or [])} new slides not found in it",
+                 found_sha=sha[:16], written_sha=written_sha[:16])
+    if expect_texts and (wanted_count is None or count == wanted_count) and not missing:
+        return True, "ProPresenter re-saved the file; it holds the same number of slides and every new slide's words"
+    return False, f"the file on disk is not the one that was written (it holds {count} slides" + (f", {wanted_count} were written" if wanted_count is not None else "") + f"; {len(missing)} new slides missing)"
 
 
 def _swap_core(
-    transport: Transport, lib_name: str, name: str, new_local: Path, *, verify, progress: Progress,
+    transport: Transport, lib_name: str, name: str, new_local: Path, *, verify, progress: Progress, expect_texts: list[str] | None = None,
 ) -> dict:
     """Put ``new_local`` in place of the presentation called ``name`` without restarting ProPresenter.
 
@@ -913,7 +918,7 @@ def _swap_core(
         # Quiet period: asking ProPresenter about a file in the first seconds after it lands can leave it with an id that
         # does not match the file (the entry then cannot be opened). Measured on the iMac: no queries here = it works.
         time.sleep(QUIET_SECONDS)
-        new_uuid = _settle_new_version(transport, lib_name, name, path, old_uuid, created_sha[0], verify, new_local)
+        new_uuid = _settle_new_version(transport, lib_name, name, path, old_uuid, created_sha[0], verify, new_local, expect_texts)
 
         playlist_left = False
         if slots:
@@ -1001,7 +1006,8 @@ def publish_swap(
     def verify(uuid_: str) -> tuple[bool, str]:
         return verify_via_api(transport, uuid_, plan.slide_plan, expected, timeout=4.0)
 
-    core = _swap_core(transport, lib_name, name, out_local, verify=verify, progress=progress)
+    core = _swap_core(transport, lib_name, name, out_local, verify=verify, progress=progress,
+                      expect_texts=[x.body_text for x in plan.slide_plan.slides])
     import_id = uuid.uuid4().hex[:10]
     runlog.event("history_recorded", message=f"import {import_id}", import_id=import_id)
     history.add(ImportRecord(

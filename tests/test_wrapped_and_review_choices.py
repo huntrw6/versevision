@@ -146,3 +146,26 @@ def test_a_swap_is_kept_when_propresenter_lists_the_file_but_answers_404_for_it(
     assert target[3] == str(pres)                          # found through the file, not the API
     result = pipeline.publish_swap("1) Faith\nJohn 3:16 NIV\n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
     assert result.verified and result.slide_count == 2
+
+
+def test_a_resaved_file_with_new_ids_and_names_still_counts_as_the_written_one(env, monkeypatch, tmp_path):
+    """ProPresenter re-saves an open file: slide ids, names and order change, the words do not."""
+    tmp, pres, node, config, history = env
+    plan, target = asyncio.run(pipeline.plan_for_transport(
+        "1) Faith\nJohn 3:16 NIV\n", config, node, default_version="NIV", target_uuid=None, target_name=node.name, library=None))
+    from versevision.presentation.protobuf_writer import ProtobufPresentationWriter
+    from versevision.presentation.generated import presentation_pb2
+    out = tmp_path / "written.pro"
+    template = pipeline._template_target(node, config.presentation_template)
+    tpl = tmp_path / "t.pro"; node.fetch_file(template[3], tpl)
+    ProtobufPresentationWriter().derive_presentation(pres, out, plan.slide_plan, config.presentation_template, name="Sample", clear_generated=True, template_path=tpl, keep_uuid=True)
+    msg = presentation_pb2.Presentation(); msg.ParseFromString(out.read_bytes())
+    for cue in msg.cues:                                   # what ProPresenter does on a re-save
+        cue.name = ""
+        cue.uuid.string = "AAAAAAAA-0000-0000-0000-" + cue.uuid.string[-12:]
+    resaved = tmp_path / "resaved.pro"; resaved.write_bytes(msg.SerializeToString())
+    node.fetch_file = lambda remote, local: (local.write_bytes(resaved.read_bytes()), "different-sha")[1]
+    texts = [x.body_text for x in plan.slide_plan.slides]
+    assert pipeline._verify_file_on_disk(node, "x", "written-sha", out, texts)[0] is True
+    assert pipeline._verify_file_on_disk(node, "x", "written-sha", out, texts + ["A slide that is not in the file"])[0] is False
+    assert pipeline._verify_file_on_disk(node, "x", "written-sha", out, None)[0] is False
