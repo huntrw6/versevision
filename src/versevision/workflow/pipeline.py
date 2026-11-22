@@ -783,11 +783,23 @@ def _settle_new_version(transport: Transport, lib_name: str, name: str, path: st
     return old_uuid
 
 
-def _cue_ids(path: Path) -> list[str]:
+def _cue_ids(path: Path) -> list[tuple[str, str]]:
+    """(slide name, slide text) for every slide, in order. Ids are left out: ProPresenter re-issues them when it re-saves a file."""
+    import re as _re
     from versevision.presentation.generated import presentation_pb2
     message = presentation_pb2.Presentation()
     message.ParseFromString(path.read_bytes())
-    return [cue.uuid.string.casefold() for cue in message.cues]
+    rows = []
+    for cue in message.cues:
+        texts = []
+        for action in cue.actions:
+            if action.HasField("slide"):
+                for element in action.slide.presentation.base_slide.elements:
+                    if element.element.HasField("text"):
+                        raw = element.element.text.rtf_data.decode("latin1")
+                        texts.append(_re.sub(r"\\[a-z]+-?\d* ?|[{}]", "", raw).replace("\\", "").strip()[-200:])
+        rows.append((cue.name, "|".join(texts)))
+    return rows
 
 
 def _verify_file_on_disk(transport: Transport, path: str, written_sha: str, written_local: Path | None = None) -> tuple[bool, str]:
@@ -813,6 +825,10 @@ def _verify_file_on_disk(transport: Transport, path: str, written_sha: str, writ
                      + (f", {len(wanted)} were written" if wanted is not None else ""), found_sha=sha[:16], written_sha=written_sha[:16])
         if wanted is not None and found == wanted:
             return True, "ProPresenter re-saved the file; its slides are the ones that were written"
+        if wanted is not None and len(found) == len(wanted):
+            differ = [i + 1 for i, (a, b) in enumerate(zip(found, wanted)) if a != b]
+            runlog.event("verify", level="warn", message=f"{len(differ)} of {len(wanted)} slides differ after ProPresenter's re-save: first {differ[:5]}; "
+                         f"found {found[differ[0] - 1] if differ else ''!r} wanted {wanted[differ[0] - 1] if differ else ''!r}")
         return False, f"the file on disk is not the one that was written (it holds {len(found)} slides" + (f", {len(wanted)} were written)" if wanted is not None else ")")
 
 
