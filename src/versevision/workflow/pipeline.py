@@ -601,7 +601,7 @@ def publish_new(
         progress("Waiting for ProPresenter to show it")
         verified, message, new_uuid = _wait_listed(
             transport, name, lib_name, plan, len(plan.slide_plan.slides), verify_timeout,
-            file_check=lambda: _verify_file_on_disk(transport, remote_path, written.output_sha256), file_uuid=_file_uuid(out_local))
+            file_check=lambda: _verify_file_on_disk(transport, remote_path, written.output_sha256, out_local), file_uuid=_file_uuid(out_local))
         runlog.event("verify", level="info" if verified else "error", message=message, verified=verified, presentation_uuid=new_uuid)
         if not verified:
             raise VerificationRollbackError(
@@ -752,7 +752,7 @@ def _wait_stable(transport: Transport, lib_name: str, name: str, old_uuid: str, 
     raise VerificationRollbackError(f"ProPresenter did not show the new version ({problem})")
 
 
-def _settle_new_version(transport: Transport, lib_name: str, name: str, path: str, old_uuid: str, written_sha: str, verify) -> str:
+def _settle_new_version(transport: Transport, lib_name: str, name: str, path: str, old_uuid: str, written_sha: str, verify, written_local: Path | None = None) -> str:
     """Wait for ProPresenter to show the swapped-in file. Returns the id the playlists should use.
 
     The new file keeps the original's id, so playlists need no change. ProPresenter sometimes lists a new file without loading it
@@ -776,22 +776,44 @@ def _settle_new_version(transport: Transport, lib_name: str, name: str, path: st
         except Exception as exc:
             problem = str(exc)
         time.sleep(1.0)
-    ok, message = _verify_file_on_disk(transport, path, written_sha)
+    ok, message = _verify_file_on_disk(transport, path, written_sha, written_local)
     if not ok:
         raise VerificationRollbackError(f"ProPresenter did not show the new version ({problem}; {message})")
     runlog.event("verify", level="warn", message="ProPresenter lists the new version but has not loaded it yet; the file on disk is intact, so it keeps its place in the playlists and loads when opened", verified=True)
     return old_uuid
 
 
-def _verify_file_on_disk(transport: Transport, path: str, written_sha: str) -> tuple[bool, str]:
-    """The file ProPresenter was given is still byte-for-byte what was written (so its slides are the planned ones)."""
+def _cue_ids(path: Path) -> list[str]:
+    from versevision.presentation.generated import presentation_pb2
+    message = presentation_pb2.Presentation()
+    message.ParseFromString(path.read_bytes())
+    return [cue.uuid.string.casefold() for cue in message.cues]
+
+
+def _verify_file_on_disk(transport: Transport, path: str, written_sha: str, written_local: Path | None = None) -> tuple[bool, str]:
+    """The file ProPresenter was given still holds what was written.
+
+    Byte-for-byte equal is the strongest proof. ProPresenter may re-save a file it has open (same slides, different bytes), so when the
+    bytes differ the slides themselves are compared: the same cues in the same order means the same slides."""
     import tempfile as _tf
     with _tf.TemporaryDirectory(prefix="versevision-chk-") as tmp:
+        local = Path(tmp) / "check.pro"
         try:
-            sha = transport.fetch_file(path, Path(tmp) / "check.pro")
+            sha = transport.fetch_file(path, local)
         except Exception as exc:
             return False, f"could not read the file back: {exc}"
-    return (True, "file intact") if sha == written_sha else (False, "the file on disk is not the one that was written")
+        if sha == written_sha:
+            return True, "file intact"
+        try:
+            found = _cue_ids(local)
+            wanted = _cue_ids(written_local) if written_local else None
+        except Exception as exc:
+            return False, f"the file on disk is not the one that was written and could not be read ({exc})"
+        runlog.event("verify", level="warn", message=f"the file on disk differs from what was written (sha {sha[:12]} vs {written_sha[:12]}); it holds {len(found)} slides"
+                     + (f", {len(wanted)} were written" if wanted is not None else ""), found_sha=sha[:16], written_sha=written_sha[:16])
+        if wanted is not None and found == wanted:
+            return True, "ProPresenter re-saved the file; its slides are the ones that were written"
+        return False, f"the file on disk is not the one that was written (it holds {len(found)} slides" + (f", {len(wanted)} were written)" if wanted is not None else ")")
 
 
 def _swap_core(
@@ -875,7 +897,7 @@ def _swap_core(
         # Quiet period: asking ProPresenter about a file in the first seconds after it lands can leave it with an id that
         # does not match the file (the entry then cannot be opened). Measured on the iMac: no queries here = it works.
         time.sleep(QUIET_SECONDS)
-        new_uuid = _settle_new_version(transport, lib_name, name, path, old_uuid, created_sha[0], verify)
+        new_uuid = _settle_new_version(transport, lib_name, name, path, old_uuid, created_sha[0], verify, new_local)
 
         playlist_left = False
         if slots:
