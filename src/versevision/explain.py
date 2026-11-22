@@ -109,7 +109,7 @@ def render_explain(run_id: str, *, line: int | None = None, tier: str | None = N
     for row in d.get("extract", []):
         add(f"Read as:  {row['method']}  ->  {row['characters']} characters, {row['lines']} lines ({row['blank_lines']} blank)")
     for row in d.get("parse_start", []):
-        add(f"Layout:   {row['non_blank']} text lines; " + (f"HARD-WRAPPED text (PDF/email style): a line {row['full_line_width']}+ characters long is joined to the next one"
+        add(f"Layout:   {row['non_blank']} text lines; " + (f"HARD-WRAPPED text (PDF/email style): a line that looks {row['full_line_width']}+ wide (capitals count extra) and has not ended its sentence is joined to the next one"
                                                               if row["hard_wrapped"] else "lines are treated as written (no hard-wrap detected)"))
     for row in d.get("look", []):
         add(f"Look:     verses = {row['verse'] or 'VerseVision template'};  points = {row['point'] or 'VerseVision template'}")
