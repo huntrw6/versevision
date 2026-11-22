@@ -19,7 +19,7 @@ from pydantic import BaseModel, Field
 from versevision import __version__, runlog
 from versevision.config import AppConfig
 from versevision.errors import (
-    ConfigurationError, PresentationWriteError, VerificationRollbackError, VerseVisionError,
+    ConfigurationError, PresentationWriteError, ProPresenterConnectionError, ProPresenterNotFound, VerificationRollbackError, VerseVisionError,
 )
 from versevision.history import HistoryStore, ImportRecord
 from versevision.logging import AuditEntry, append_audit_entry
@@ -137,7 +137,7 @@ def _target_from_api(transport: Transport, *, uuid_: str | None, name: str | Non
     except ConfigurationError:
         raise
     except Exception as api_error:
-        if transport.is_running():
+        if transport.is_running() and not isinstance(api_error, ProPresenterNotFound):
             raise
         try:
             return _target_from_disk(transport, uuid_=uuid_, name=name, library=library)
@@ -160,7 +160,24 @@ def _target_from_api_only(transport: Transport, *, uuid_: str | None, name: str 
     if len(found) > 1:
         raise ConfigurationError("Presentation target is ambiguous: " + ", ".join(f"{lib}/{it['name']}" for lib, it in found))
     library_name, item = found[0]
-    detail = transport.api_get(f"/v1/presentation/{item['uuid']}")["presentation"]
+    detail = None
+    try:
+        detail = transport.api_get(f"/v1/presentation/{item['uuid']}")["presentation"]
+    except ProPresenterConnectionError as first:
+        # ProPresenter lists the presentation but will not hand it over by id (it has not loaded that file). Try the open one, then the file.
+        runlog.event("target_lookup", level="warn", message=f"ProPresenter would not return {item['name']} by id ({first}); trying the open presentation, then the file on disk")
+        try:
+            active = transport.api_get("/v1/presentation/active")["presentation"]
+            if active["id"]["uuid"].casefold() == item["uuid"].casefold() and active.get("presentation_path"):
+                detail = active
+        except Exception:
+            detail = None
+        if detail is None:
+            found_on_disk = _target_from_disk(transport, uuid_=item["uuid"], name=item["name"], library=library_name)
+            runlog.event("target_lookup", message=f"read {item['name']} from its file instead: {found_on_disk[3]}")
+            runlog.trace("target", how="from the file on disk: ProPresenter would not return the presentation by its id", name=item["name"], library=library_name, path=found_on_disk[3])
+            return library_name, item["uuid"], item["name"], found_on_disk[3], found_on_disk[4]
+    runlog.trace("target", how="from the ProPresenter API", name=item["name"], library=library_name, path=str(detail["presentation_path"]))
     return library_name, item["uuid"], item["name"], detail["presentation_path"], detail
 
 
@@ -494,6 +511,13 @@ def _wait_listed(transport: Transport, name: str, lib_name: str, plan, expected:
                 if ok:
                     return True, message, match["uuid"]
                 problem = message
+                if file_check and _NOT_LOADED in message:        # listed with an id, but ProPresenter answers 404 for it: not loaded yet
+                    blank_since = blank_since or time.monotonic()
+                    if time.monotonic() - blank_since >= LOAD_GRACE_SECONDS:
+                        ok, check = file_check()
+                        if ok:
+                            return True, "ProPresenter lists it but has not loaded it yet (it loads when first opened); the file on disk is intact", file_uuid or match["uuid"]
+                        problem = check
         except Exception as exc:
             problem = str(exc)
         time.sleep(1.5)
@@ -689,11 +713,19 @@ def _playlist_ok(transport: Transport, slot: dict, name: str, uuid_: str) -> boo
     return bool(entries) and all((i.get("presentation_info") or {}).get("presentation_uuid", "").casefold() == uuid_.casefold() for i in entries)
 
 
+_NOT_LOADED = "has nothing at"          # the words of ProPresenterNotFound: ProPresenter answered 404 for the presentation
+
+
+class _NotLoaded(VerificationRollbackError):
+    """ProPresenter lists a presentation but answers 404 for it: it has not loaded the file."""
+
+
 def _wait_stable(transport: Transport, lib_name: str, name: str, old_uuid: str, verify, timeout: float) -> str:
     """Wait until ProPresenter lists the name with the same id for STABLE_SECONDS in a row AND shows the right slides.
     It re-issues ids for a moment after a file lands, so an id seen once cannot be trusted."""
     deadline = time.monotonic() + timeout
     seen, since, problem = "", 0.0, "ProPresenter has not listed the new file yet"
+    missing_since = None
     while time.monotonic() < deadline:
         try:
             current = _library_uuid(transport, lib_name, name)
@@ -705,6 +737,14 @@ def _wait_stable(transport: Transport, lib_name: str, name: str, old_uuid: str, 
                     return current
                 if not ok:
                     since = time.monotonic()
+                if not ok and _NOT_LOADED in problem:
+                    missing_since = missing_since or time.monotonic()
+                    if time.monotonic() - missing_since >= LOAD_GRACE_SECONDS:
+                        raise _NotLoaded(f"ProPresenter lists {name} but answers 404 when asked for it ({problem})")
+                else:
+                    missing_since = None
+        except _NotLoaded:
+            raise
         except Exception as exc:
             problem = str(exc)
             seen = ""
@@ -724,7 +764,11 @@ def _settle_new_version(transport: Transport, lib_name: str, name: str, path: st
         try:
             listed = [i for i in list_presentations(transport) if i["name"] == name and i["library"].casefold() == lib_name.casefold()]
             if listed and listed[0]["uuid"]:
-                return _wait_stable(transport, lib_name, name, "", verify, max(5.0, deadline - time.monotonic()))
+                try:
+                    return _wait_stable(transport, lib_name, name, "", verify, max(5.0, deadline - time.monotonic()))
+                except _NotLoaded as exc:           # listed with an id, but ProPresenter will not return it: same as a blank id
+                    problem = str(exc)
+                    break
             if listed:
                 blank_since = blank_since or time.monotonic()
                 if time.monotonic() - blank_since >= LOAD_GRACE_SECONDS:
@@ -833,6 +877,7 @@ def _swap_core(
         time.sleep(QUIET_SECONDS)
         new_uuid = _settle_new_version(transport, lib_name, name, path, old_uuid, created_sha[0], verify)
 
+        playlist_left = False
         if slots:
             progress("Updating the playlist")
             for attempt in range(4):
@@ -843,13 +888,21 @@ def _swap_core(
                 current = _library_uuid(transport, lib_name, name)
                 if current and current.casefold() != new_uuid.casefold():
                     runlog.event("swap_pacing", level="warn", message=f"ProPresenter re-issued the id ({new_uuid[:8]} -> {current[:8]}); following it")
-                    new_uuid = _wait_stable(transport, lib_name, name, old_uuid, verify, SWAP_WAIT_SECONDS)
+                    try:
+                        new_uuid = _wait_stable(transport, lib_name, name, old_uuid, verify, SWAP_WAIT_SECONDS)
+                    except _NotLoaded:
+                        # ProPresenter lists the file but will not return it (not loaded yet). The playlist API refuses ids of files that are
+                        # not loaded, so the playlist is left as it was; the file on disk is intact and the entry loads when first opened.
+                        runlog.event("swap_pacing", level="warn", message="ProPresenter has not loaded the new file yet, so the playlist entry was left unchanged")
+                        playlist_left = True
+                        break
                     continue
                 if all(_playlist_ok(transport, slot, name, new_uuid) for slot in slots):
                     break
             else:
                 raise PresentationWriteError("the playlist would not settle on the new version")
-            steps.append("playlist now opens the new file: " + ", ".join(sorted({sl["playlist_name"] for sl in slots})))
+            steps.append(("playlist left as it was (ProPresenter has not loaded the new file yet; it loads when first opened): " if playlist_left
+                          else "playlist now opens the new file: ") + ", ".join(sorted({sl["playlist_name"] for sl in slots})))
 
         progress("Removing the renamed original")
         # ProPresenter gives a renamed file a new id and name, so compare what matters: the same slides

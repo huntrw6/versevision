@@ -23,7 +23,8 @@ def build_report(plan: NotesImportResult, *, source_name: str = "") -> dict[str,
     for d in plan.decisions:
         first = d.first_slide + 1 if d.slide_count else 0
         decisions.append({"id": d.id, "line": d.line, "kind": d.kind, "title": d.title, "text": d.text, "tier": d.tier, "reasons": d.reasons,
-                          "slides": list(range(first, first + d.slide_count)) if d.slide_count else []})
+                          "slides": list(range(first, first + d.slide_count)) if d.slide_count else [],
+                          "addable": bool(d.add_text) and not d.slide_count, "add_text": d.add_text})
     review = {tier: [d for d in decisions if d["tier"] == tier and d["kind"] != "left_out"] for tier in ("error", "warning", "good")}
     review["left_out_warning"] = [d for d in decisions if d["kind"] == "left_out" and d["tier"] == "warning"]
     review["left_out_good"] = [d for d in decisions if d["kind"] == "left_out" and d["tier"] == "good"]

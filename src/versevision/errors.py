@@ -41,6 +41,10 @@ class ProPresenterConnectionError(VerseVisionError):
     exit_code = ExitCode.PROPRESENTER_CONNECTION
 
 
+class ProPresenterNotFound(ProPresenterConnectionError):
+    """ProPresenter is reachable but does not know the thing asked for (a 404): not a connection problem."""
+
+
 class UnsupportedProPresenterError(VerseVisionError):
     exit_code = ExitCode.UNSUPPORTED_PROPRESENTER
 

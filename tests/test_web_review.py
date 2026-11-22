@@ -47,7 +47,8 @@ def test_a_decision_can_be_switched_off_before_importing(state):
     job = wait(st, web.start_plan(st, "n.txt", NOTES.encode(), "NIV", None))
     warn = next(d for d in job.result["review"]["warning"] if d["slides"])
     kept = job.result["summary"]["slides"] - len(warn["slides"])
-    trimmed = web._without_skipped(job.plan, job.result, {warn["id"]})
+    from versevision.workflow.notes_workflow import apply_review_choices
+    trimmed = type("P", (), {"slide_plan": apply_review_choices(job.plan, {warn["id"]})})
     assert len(trimmed.slide_plan.slides) == kept and len(job.plan.slide_plan.slides) == job.result["summary"]["slides"]
 
 
@@ -164,3 +165,15 @@ def test_each_title_in_the_main_panel_has_its_own_pixel_icon():
         assert 'id="ttlIcon"' in page and "titleIcon(m)" in page and "titleIcon('history')" in page
     finally:
         server.shutdown()
+
+
+def test_a_left_out_line_ticked_in_the_review_becomes_a_slide_when_importing(state):
+    st, node = state
+    job = wait(st, web.start_plan(st, "n.txt", NOTES.encode(), "NIV", None))
+    title = next(d for d in job.result["decisions"] if d["kind"] == "left_out" and d["title"] == "Title")
+    assert title["addable"] and title["add_text"] == "• Title" and title["slides"] == []
+    before = job.result["summary"]["slides"]
+    done = wait(st, web.start_apply(st, job.id, True, set(), {title["id"]}), limit=60)
+    assert done.result["slide_count"] == before + 1
+    from versevision import runlog
+    assert any(r["stage"] == "review_included" and r["added"][0]["text"] == "• Title" for r in runlog.read_trace(job.run_id))

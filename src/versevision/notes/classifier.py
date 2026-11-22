@@ -175,14 +175,61 @@ def _marker(stripped: str, points: PointsConfig | None = None):
     return match
 
 
+_KEYED = re.compile(r"^\s*(key|point|step|principle|reason|way|tip|lesson|truth)\s*#?\s*\d+\s*[).:\-]", re.IGNORECASE)    # "KEY #3) ..." starts a new point
+
+
+def _is_caps(text: str) -> bool:
+    letters = [c for c in text if c.isalpha()]
+    return len(letters) >= 3 and all(c.isupper() for c in letters)
+
+
+_NARROW = set("iltfjI.,;:'’!|() ")
+
+
+def _width(text: str) -> int:
+    """How wide a line looks on the page, in plain-letter units: capitals are wider and i, l, t, punctuation and spaces are narrower.
+    A line of capitals fills the page with far fewer characters, so measuring characters misses wrapped headings."""
+    return round(sum(1.3 if c.isupper() else 0.6 if c in _NARROW else 1.0 for c in text.rstrip()))
+
+
 def _wrap_geometry(lines: list[str]) -> tuple[bool, int]:
     """Detect hard-wrapped text (PDF/email) and the width at which a line counts as full."""
-    lengths = sorted(len(line.rstrip()) for line in lines if line.strip())
+    lengths = sorted(_width(line) for line in lines if line.strip())
     if len(lengths) < 8:
         return False, 0
     p95 = lengths[max(0, int(len(lengths) * 0.95) - 1)]
     near = sum(1 for n in lengths if 0.86 * p95 <= n <= 1.05 * p95)
-    return (60 <= p95 <= 140 and near / len(lengths) >= 0.15), int(0.86 * p95)
+    return (50 <= p95 <= 140 and near / len(lengths) >= 0.15), int(0.86 * p95)
+
+
+def _wrap_reason(current: "_Para", stripped: str, threshold: int, notes: NotesConfig, points: PointsConfig, is_reference: bool = False) -> str | None:
+    """Why this line is the rest of the line above (the page wrapped it mid-sentence), or None when it is a new line of its own.
+
+    1. A sentence that has already ended (. ! ?) is never continued, however long the line was: the next line is something new
+       (unless the sentence sits inside a quotation that is still open, or the next line starts in lower case).
+    2. Otherwise it is the rest of the line above when that line is full width, or when it is a tail of a few words and the line above
+       is at least over half full."""
+    above = current.text.rstrip()
+    ended = above.rstrip("”\"’'").endswith((".", "?", "!"))
+    in_open_quote = above.startswith(_QUOTE_OPEN) and not above.endswith(_CLOSERS)
+    lower = stripped[:1].islower()
+    if _marker(above, points) and above.endswith(_SENTENCE_END[:5]) and stripped[:1].isupper():
+        return None                      # a numbered point that reads as complete: the next line is something new
+    if ended and not in_open_quote and not lower and not is_reference:
+        return None          # (a reference on the next line belongs to the verse text above it, so that case still joins)
+    words = len(stripped.split())
+    wide = current.last_len
+    if _is_caps(above) != _is_caps(stripped) and words > notes.orphan_max_words:
+        return None                      # a heading in capitals is not continued by a sentence in lower case, or the other way round
+    if is_reference and wide < threshold:
+        return None                      # a reference line is never a "tail": it only joins the verse text above it when that line was full width
+    if wide >= threshold:
+        return f"the line above looks full width ({wide} of {threshold}) and its sentence has not ended, so this line is the rest of it"
+    if wide >= 0.55 * threshold and words <= notes.orphan_max_words:
+        return f"this is a {words}-word tail and the line above (width {wide} of {threshold}) does not end its sentence, so it finishes that sentence"
+    if wide >= 0.55 * threshold and lower:
+        return "this line starts in lower case, so it carries on the sentence above"
+    return None
 
 
 def classify_document(
@@ -204,12 +251,18 @@ def classify_document(
     lines = text.replace("\r\n", "\n").replace("\r", "\n").replace("\xa0", " ").split("\n")
     hard_wrap, threshold = _wrap_geometry(lines)
     runlog.trace("parse_start", lines=len(lines), non_blank=sum(1 for x in lines if x.strip()), hard_wrapped=hard_wrap,
-                 full_line_width=threshold, note="hard_wrapped means the text looks like a PDF/email with lines broken mid-sentence; "
-                 "a line at least full_line_width long is joined to the next unless the next one starts something new")
+                 full_line_width=threshold, wrapped_lines=notes.wrapped_lines, orphan_max_words=notes.orphan_max_words,
+                 note="hard_wrapped means the text looks like a PDF/email with lines broken mid-sentence. Widths are measured as they look on the page "
+                 "(capitals are wider). A line is joined to the one above when that line has not ended its sentence and is full width, "
+                 "or when it is a short tail (orphan_max_words or fewer) after a line that is over half full")
 
     def starts_new(stripped: str, current: _Para) -> bool:
         if _SLIDE_TAG.match(stripped) or rules.stage.match(stripped) or _URL.search(stripped) or _RECAP.match(stripped) or any(x.search(stripped) for x in rules.skip):
             return True
+        if _KEYED.match(stripped):
+            return True
+        if stripped.startswith(_QUOTE_OPEN) and not (current.text.startswith(_QUOTE_OPEN) and not current.text.rstrip().endswith(_CLOSERS)):
+            return True          # a line that opens a quotation is a new item, unless the quotation above is still open
         if _NOTE.match(stripped):
             inside_quote = current.text.startswith(_QUOTE_OPEN) and not current.text.rstrip().endswith(_CLOSERS)
             if inside_quote and not re.match(r"^\s*\w+\s*[:\-]", stripped) and not stripped.startswith(("(", "[")):
@@ -237,15 +290,14 @@ def classify_document(
         if not stripped:
             current = None
             continue
-        if (
-            current is not None and hard_wrap and current.last_len >= threshold and not starts_new(stripped, current)
-            and not (_marker(current.text, points) and current.text.endswith(_SENTENCE_END[:5]) and stripped[:1].isupper())
-        ):
-            runlog.trace("line_join", line=number, into_paragraph=current.line, text=stripped,
-                         why=f"previous line was {current.last_len} characters (full width is {threshold}) and this line does not start a new item")
-            current.append(stripped, len(line), number)
+        why = None
+        if current is not None and hard_wrap and notes.wrapped_lines == "join" and not starts_new(stripped, current):
+            why = _wrap_reason(current, stripped, threshold, notes, points, _is_reference_start(stripped, aliases))
+        if why:
+            runlog.trace("line_join", line=number, into_paragraph=current.line, text=stripped, why=why)
+            current.append(stripped, _width(line), number)
             continue
-        current = _Para(number, stripped, len(line))
+        current = _Para(number, stripped, _width(line))
         paras.append(current)
 
     if paras:
@@ -467,7 +519,7 @@ def _build(paras: list[_Para], aliases, rules: _Rules, duplicates: str = "keep")
 
 _SETTINGS_BY_LABEL = {
     "stage": ("stage_cues",), "midref": ("reference_in_text",), "quote": ("quote_above_reference", "quote_alone"),
-    "other": ("line_breaks", "unlabeled_sentence", "unlabeled_short", "before_first_item", "header_max_words"),
+    "other": ("line_breaks", "unlabeled_sentence", "unlabeled_short", "before_first_item", "header_max_words", "wrapped_lines", "orphan_max_words"),
     "verse": ("duplicates",), "marker": (), "header": (),
 }
 

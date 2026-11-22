@@ -145,6 +145,8 @@ class NotesConfig(BaseModel):
     label_words: list[str] = Field(default_factory=lambda: ["conclusion", "application", "invitation", "challenge", "summary", "closing", "takeaway", "big idea", "main point"])
     label_own_slide: bool = True                                       # "Conclusion: ..." is its own slide instead of part of the point above
     header_max_words: int = Field(default=2, ge=0, le=6)               # capitalized lines this short are headings, not slides
+    wrapped_lines: Literal["join", "separate"] = "join"                # join: a line the page cut mid-sentence goes back with the line above it (PDF, email)
+    orphan_max_words: int = Field(default=3, ge=0, le=8)               # a tail of this many words or fewer after a nearly full line is the end of that sentence
 
 
 class PointsConfig(BaseModel):

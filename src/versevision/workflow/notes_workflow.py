@@ -45,6 +45,34 @@ def format_point(item: PointItem, cfg: PointsConfig, counter: int) -> str:
     return f"{label} {text}".strip()
 
 
+def added_point_text(text: str, cfg: PointsConfig) -> str:
+    """A line you chose to add as a slide in the review: formatted like any other plain point."""
+    return format_point(PointItem(line=0, role="list_item", label="•", text=" ".join(text.split())), cfg, 0)
+
+
+def apply_review_choices(result: "NotesImportResult", skip: set[int] = frozenset(), include: set[int] = frozenset()) -> SlidePlan:
+    """The slides after your choices in the review. ``skip``: decisions whose slides you switched off. ``include``: left-out lines
+    you chose to add as a slide; each goes where the line stood in the document. Ids are the decision ids in ``result.decisions``."""
+    from versevision import runlog
+    slides = list(result.slide_plan.slides)
+    drop = {n for d in result.decisions if d.id in skip for n in range(d.first_slide, d.first_slide + d.slide_count)}
+    inserts: dict[int, list[PlannedSlide]] = {}
+    added = []
+    for d in result.decisions:
+        if d.id in include and d.slide_count == 0 and d.add_text:
+            inserts.setdefault(min(d.first_slide, len(slides)), []).append(PlannedSlide(
+                kind="point", body_text=d.add_text, reference_text="", version_text="", source_passage_index=100_000 + d.id))
+            added.append({"id": d.id, "line": d.line, "text": d.add_text, "at_slide": min(d.first_slide, len(slides)) + 1})
+    out: list[PlannedSlide] = []
+    for index in range(len(slides) + 1):
+        out.extend(inserts.get(index, []))
+        if index < len(slides) and index not in drop:
+            out.append(slides[index])
+    if added:
+        runlog.trace("review_included", added=added, note="left-out lines you chose to add as slides in the review (at the place they stood in the document)")
+    return SlidePlan(slides=out, looks=result.slide_plan.looks)
+
+
 class ProblemEntry(BaseModel):
     line: int
     text: str
@@ -65,8 +93,9 @@ class Decision(BaseModel):
     text: str = ""
     tier: str = "good"
     reasons: list[str] = Field(default_factory=list)
-    first_slide: int = 0           # index of the first slide it produced in the plan (0-based)
+    first_slide: int = 0           # index of the first slide it produced in the plan (0-based); for a decision with no slide, where one would go
     slide_count: int = 0
+    add_text: str = ""             # for a left-out line: the slide text it would make if you choose "add this as a slide" in the review
 
 
 _FIRM_LEFT_OUT = ("stage/production cue", "title / date line", "recap heading", "document title (first line)", "email header line",
@@ -224,8 +253,11 @@ async def plan_notes(
             for r in reasons:
                 if r and r not in seen:
                     seen.append(r)
+            extra = {}
+            if count == 0 and kind in ("left_out", "error") and getattr(item, "kind", "") in ("skipped", "review") and text.strip():
+                extra = {"first_slide": len(slides), "add_text": added_point_text(text, config.points)}
             result.decisions.append(Decision(id=len(result.decisions), line=item.line, kind=kind, title=title, text=text, tier=tier,
-                                             reasons=seen, first_slide=first, slide_count=count))
+                                             reasons=seen, **({"first_slide": first, "slide_count": count} | extra)))
 
         for item in document.items:
             if item.kind == "point":

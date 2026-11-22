@@ -141,6 +141,7 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
         no_reopen: Annotated[bool, typer.Option("--no-reopen")] = False,
         output: Annotated[str, typer.Option("--output")] = "terminal",
         profile: Annotated[Optional[str], typer.Option("--profile", help="Use a named set of options from the config ([profiles.NAME.notes] ...)")] = None,
+        add_line: Annotated[Optional[list[int]], typer.Option("--add-line", help="Add a line the importer left out as a slide (repeat for several): the line number shown in the review")] = None,
         set_options: Annotated[Optional[list[str]], typer.Option("--set", help="Change one option for this run: section.option=value (see `versevision config options`)")] = None,
         target_presentation: Annotated[Optional[str], typer.Option("--target-presentation", "-t", hidden=True)] = None,
         target_uuid: Annotated[Optional[str], typer.Option("--target-uuid", hidden=True)] = None,
@@ -187,6 +188,13 @@ def register(app: typer.Typer, template_app: typer.Typer) -> None:
             ))
             from versevision.notes.title import document_title
             new_title = title or document_title(source, source_name)
+            if add_line:
+                from versevision.workflow.notes_workflow import apply_review_choices
+                wanted = set(add_line)
+                chosen_ids = {d.id for d in plan.decisions if d.line in wanted and d.add_text and not d.slide_count}
+                for number in sorted(wanted - {d.line for d in plan.decisions if d.id in chosen_ids}):
+                    console.print(f"[yellow]--add-line {number}: that line is not one the importer left out, so there is nothing to add[/yellow]")
+                plan = plan.model_copy(update={"slide_plan": apply_review_choices(plan, set(), chosen_ids)})
             report = build_report(plan, source_name=source_name)
             report["mode"] = "replace" if replace else "append" if append else "new"
             report["title"] = new_title

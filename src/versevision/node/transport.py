@@ -25,7 +25,7 @@ import httpx
 
 from versevision import runlog
 from versevision.config import NodeConfig, ProPresenterConfig
-from versevision.errors import ConfigurationError, ProPresenterConnectionError, PresentationWriteError
+from versevision.errors import ConfigurationError, ProPresenterConnectionError, ProPresenterNotFound, PresentationWriteError
 
 
 def sha256_file(path: Path) -> str:
@@ -75,6 +75,13 @@ class LocalTransport:
             response = httpx.get(f"http://{self.pp.host}:{self.pp.port}{route}", timeout=self.pp.timeout_seconds)
             response.raise_for_status()
             return response.json()
+        except httpx.HTTPStatusError as exc:         # ProPresenter answered, so it IS reachable: say what it said
+            code = exc.response.status_code
+            if code == 404:
+                raise ProPresenterNotFound(
+                    f"ProPresenter is running and answered, but has nothing at {route} (404). For a presentation this usually means it has not "
+                    "loaded that file yet: open it once in ProPresenter, then try again") from exc
+            raise ProPresenterConnectionError(f"ProPresenter answered {code} for {route}") from exc
         except httpx.HTTPError as exc:
             raise ProPresenterConnectionError(f"Could not reach ProPresenter at {self.pp.host}:{self.pp.port}: {exc}") from exc
 

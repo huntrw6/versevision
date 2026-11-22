@@ -164,6 +164,9 @@
   .rv .it .n{color:var(--dim);font-size:11px;padding-top:2px} .rv .it .ti{word-break:break-word} .rv .it .x{color:var(--dim);font-size:12px;margin-top:2px}
   .rv .it.off .ti{text-decoration:line-through;opacity:.55}
   .rv .it .ctl{display:flex;gap:6px;align-items:center}
+  .rv .it .add{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--mut,#9a9a9a);cursor:pointer;white-space:nowrap}
+  .rv .it.adding{outline:1px solid #3fae5a66;background:#3fae5a14}
+  .rv .it .wouldadd{font-size:12px;color:#62cf7a}
   .rv .ed{grid-column:2/4;margin-top:4px} .rv .ed input{width:100%;box-sizing:border-box;background:#1a1a1a;color:#eee;border:1px solid #555;border-radius:5px;padding:6px 8px;font:inherit}
   .rv .mini{background:#333;color:#ddd;border:1px solid #555;border-radius:4px;font-size:11px;padding:2px 7px;cursor:pointer}
   .tag.not_added{background:var(--red);color:#fff} .tag.needs_review{background:var(--amber);color:#1b1200}
@@ -609,9 +612,19 @@ function render(r){
   go.disabled = s.slides===0;
   $('actionNote').textContent = (r.mode==='new' ? 'Nothing existing changes.' : 'The original is backed up first.') + ' ProPresenter stays open.' + (r.run_id ? '  Log: ' + r.run_id : '');
 }
+function addControl(x, it, ctl, mid){
+  if(!x.addable) return;
+  const lab = el('label','add'); const cb = el('input'); cb.type='checkbox'; cb.title='Make a slide from this line';
+  cb.onchange = ()=>{
+    if(cb.checked){ state.include.add(x.id); const w = el('div','wouldadd','Will be added as a slide: '+x.add_text); w.dataset.w='1'; mid.append(w); }
+    else { state.include.delete(x.id); mid.querySelectorAll('[data-w]').forEach(n=>n.remove()); }
+    it.classList.toggle('adding', cb.checked); updateCount();
+  };
+  lab.append(cb, document.createTextNode('Add as slide')); ctl.append(lab);
+}
 function drawReview(r){
   const box = $('review'); box.replaceChildren(); box.className = 'rv';
-  state.skip = new Set(); state.edits = {}; show('recheck', false);
+  state.skip = new Set(); state.include = new Set(); state.edits = {}; show('recheck', false);
   const groups = [
     ['e','Errors: could not be decided', r.review.error, true],
     ['w','Warnings: a rule was a guess', r.review.warning.concat(r.review.left_out_warning), true],
@@ -640,17 +653,19 @@ function drawReview(r){
         };
         ctl.append(eb);
       }
+      addControl(x, it, ctl, mid);
       it.append(ctl); d.append(it);
     }
     if(!rows.length) d.append(el('div','empty','None.'));
     box.append(d);
   }
   const ql = r.review.left_out_good;
-  if(ql.length){ const d = el('details','g'); const sm = el('summary'); sm.append(el('span','dot'), document.createTextNode('Left out, clearly not slides ('+ql.length+')')); d.append(sm);
-    for(const x of ql){ const it = el('div','it'); it.append(el('div','n','L'+x.line), el('div','ti',x.title)); d.append(it); } box.append(d); }
+  if(ql.length){ const d = el('details','g'); const sm = el('summary'); sm.append(el('span','dot'), document.createTextNode('Left out as clearly not slides ('+ql.length+'): tick any you want added')); d.append(sm);
+    for(const x of ql){ const it = el('div','it'); const mid = el('div'); mid.append(el('div','ti',x.title), el('div','x',(x.reasons||[]).join('; '))); it.append(el('div','n','L'+x.line), mid);
+      const ctl = el('div','ctl'); addControl(x, it, ctl, mid); it.append(ctl); d.append(it); } box.append(d); }
   $('flagCount').textContent = '';
 }
-function updateCount(){ const r = state.current.report; const n = r.summary.slides - [...state.skip].reduce((a,id)=>a+((r.decisions.find(d=>d.id===id)||{slides:[]}).slides.length),0); $('go').disabled = n<=0; }
+function updateCount(){ const r = state.current.report; const n = r.summary.slides + state.include.size - [...state.skip].reduce((a,id)=>a+((r.decisions.find(d=>d.id===id)||{slides:[]}).slides.length),0); $('go').disabled = n<=0; }
 $('recheck').onclick = async ()=>{
   if(!state.current) return;
   $('recheck').disabled = true; show('result', false); show('progress', true); $('progMsg').textContent='Checking again\u2026';
@@ -678,7 +693,7 @@ $('go').onclick = async ()=>{
   if(r.summary.errors && !confirm(r.summary.errors+' line(s) could not be decided and will be skipped. Continue with the other slides?')) return;
   $('go').disabled = true; show('result', false); show('progress', true); $('progMsg').textContent='Starting\u2026';
   try{
-    const {job} = await api('/api/apply', {method:'POST', body:JSON.stringify({job: state.current.job, accept_flags: true, skip: [...state.skip]})});
+    const {job} = await api('/api/apply', {method:'POST', body:JSON.stringify({job: state.current.job, accept_flags: true, skip: [...state.skip], include: [...state.include]})});
     const done = await poll(job, j=>{ $('progMsg').textContent=j.message; });
     show('progress', false); show('result', true);
     if(done.state==='error') throw new Error(done.error);

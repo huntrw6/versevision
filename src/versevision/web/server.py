@@ -243,23 +243,14 @@ def start_replan(state: AppState, plan_job_id: str, edits: dict[str, str]) -> Jo
     return job
 
 
-def _without_skipped(plan, report: dict, skip: set[int]):
-    """The plan with the slides of the skipped decisions taken out (a checkbox in the review)."""
-    if not skip:
-        return plan
-    drop = {n - 1 for d in report["decisions"] if d["id"] in skip for n in d["slides"]}
-    kept = [sl for i, sl in enumerate(plan.slide_plan.slides) if i not in drop]
-    from versevision.slides.models import SlidePlan
-    return plan.model_copy(update={"slide_plan": SlidePlan(slides=kept, looks=plan.slide_plan.looks)})
-
-
-def start_apply(state: AppState, plan_job_id: str, accept_flags: bool, skip: set[int] | None = None) -> Job:
+def start_apply(state: AppState, plan_job_id: str, accept_flags: bool, skip: set[int] | None = None, include: set[int] | None = None) -> Job:
     source = state.jobs.get(plan_job_id)
     if not source or source.kind != "plan" or not source.plan or (source.mode != "new" and not source.target):
         raise VerseVisionError("That review is no longer available; drop the file again")
     if source.result and source.result["flagged"] and not accept_flags:
         raise VerseVisionError("Some lines are flagged; confirm you want to import the rest")
-    final_plan = _without_skipped(source.plan, source.result or {"decisions": []}, skip or set())
+    from versevision.workflow.notes_workflow import apply_review_choices
+    final_plan = source.plan.model_copy(update={"slide_plan": apply_review_choices(source.plan, skip or set(), include or set())})
     if not final_plan.slide_plan.slides:
         raise VerseVisionError("Every slide was switched off; nothing to import")
     with state.lock:
@@ -295,6 +286,7 @@ def start_apply(state: AppState, plan_job_id: str, accept_flags: bool, skip: set
             run.trace("review_excluded", decisions=[{"id": i, "line": rows.get(i, {}).get("line"), "kind": rows.get(i, {}).get("kind"),
                                                       "title": rows.get(i, {}).get("title"), "slides": rows.get(i, {}).get("slides")} for i in sorted(skip)],
                       note="decisions you switched off in the review: their slides were not imported")
+        apply_review_choices(source.plan, skip or set(), include or set())          # same result; this call records the added lines in the run's trace
         run.trace("review_accepted", flagged_lines_accepted=accept_flags, slides_imported=len(final_plan.slide_plan.slides))
         if source.mode == "new":
             applied = publish_new(
@@ -504,7 +496,7 @@ def make_handler(state: AppState):
                     self._json(202, {"job": job.id})
                 elif parsed.path == "/api/apply":
                     body = json.loads(self._body() or b"{}")
-                    job = start_apply(state, body.get("job", ""), bool(body.get("accept_flags")), {int(x) for x in body.get("skip", [])})
+                    job = start_apply(state, body.get("job", ""), bool(body.get("accept_flags")), {int(x) for x in body.get("skip", [])}, {int(x) for x in body.get("include", [])})
                     self._json(202, {"job": job.id})
                 elif parsed.path == "/api/replan":
                     body = json.loads(self._body() or b"{}")

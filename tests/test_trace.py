@@ -153,5 +153,5 @@ def test_pdf_style_wrapped_lines_are_joined_and_the_log_says_why():
     assert data["parse_start"][0]["hard_wrapped"] is True
     wrapped_point = next(e for e in data["lines"] if e["line"] == 6)
     assert wrapped_point["end_line"] == 7 and wrapped_point["joins"][0]["line"] == 7
-    assert "does not start a new item" in wrapped_point["joins"][0]["why"] and wrapped_point["paragraph"]["raw_lines"][1].startswith("and trusts")
+    assert "sentence has not ended" in wrapped_point["joins"][0]["why"] and wrapped_point["paragraph"]["raw_lines"][1].startswith("and trusts")
     assert data["uncovered_source_lines"] == []

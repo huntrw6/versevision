@@ -4,9 +4,12 @@ from versevision import runlog
 from versevision.errors import DocumentError
 
 
+_LIGATURES = {0xFB00: "ff", 0xFB01: "fi", 0xFB02: "fl", 0xFB03: "ffi", 0xFB04: "ffl", 0xFB05: "st", 0xFB06: "st"}   # PDFs store "fi" as one character
+
+
 def extract_text(path: Path) -> str:
     """Read a document as text. How it was read is recorded in the run's trace: this is the first place a document can go wrong."""
-    text = _extract(path)
+    text = _extract(path).translate(_LIGATURES)
     suffix = path.suffix.casefold()
     lines = text.splitlines()
     info = dict(type=suffix, method={".txt": "plain text", ".md": "plain text", ".html": "BeautifulSoup get_text (one line per block)", ".htm": "BeautifulSoup get_text",
