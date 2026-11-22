@@ -35,8 +35,8 @@ def test_out_of_sequence_numbers_are_list_items_and_keep_numbers():
 
 def test_stage_notes_and_headers_are_skipped_not_slides():
     doc = classify_document("Part 2: Title\nShow Photo of Luther\nWhen I say Here I Stand put the photo up\n1) Point")
-    assert [i.category for i in doc.skipped] == ["header", "stage_note", "stage_note"]
-    assert len(doc.points) == 1
+    assert [i.category for i in doc.skipped] == ["stage_note", "stage_note"]
+    assert [p.display for p in doc.points] == ["Part 2: Title", "1) Point"]      # the title is a slide (no bullet); cues stay out
 
 
 def test_slide_tag_is_bulleted_and_duplicates_kept():
@@ -161,6 +161,7 @@ def test_wesley_every_verse_and_point_is_found_in_document_order():
         elif item.kind == "point":
             got.append(item.display)
     assert got == [
+        "You Are a Brand Plucked From the Fire",
         "1) A Person Must Realize They are Lost Before they are Saved.",
         "Luke 23:39-43 NKJV",
         "Romans 8:16",

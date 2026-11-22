@@ -16,7 +16,7 @@ from versevision.versions.registry import canonical_version
 from .result import TargetResult
 
 
-_NUMBERED = __import__("re").compile(r"^(#?\d+[).:]|[A-Za-z][).])$")
+_NUMBERED = __import__("re").compile(r"^(#?\d+[).:]|[A-Za-z][).]|[A-Za-z]{2,}\s*#?\s*\d+[).:\-])$")      # "1)", "#2:", "a)", "KEY #3)"
 
 
 def _title_case(text: str) -> str:
@@ -32,7 +32,8 @@ def format_point(item: PointItem, cfg: PointsConfig, counter: int) -> str:
         if cfg.numbering == "strip":
             label = ""
         elif cfg.numbering == "renumber" and item.role == "point":
-            label = cfg.number_style.format(n=counter)
+            word = __import__("re").match(r"^([A-Za-z]{2,})", label)
+            label = (f"{word.group(1)} #{counter}{label[-1]}" if word else cfg.number_style.format(n=counter))
     elif label == "•":
         label = cfg.bullet_char
     text = item.text
@@ -122,6 +123,62 @@ class NotesImportResult(BaseModel):
     @property
     def needs_attention(self) -> bool:
         return bool(self.review or self.failed)
+
+
+def _words(text: str) -> list[str]:
+    import re as _re
+    return _re.sub(r"[^a-z0-9' ]", " ", text.lower().replace("’", "'").replace("‘", "'")).split()
+
+
+def quote_score(quoted: str, passage) -> float:
+    """How closely the quoted words match a version's wording of the passage (0 to 1). Verse numbers, punctuation and case do not count."""
+    import difflib
+    wanted = _words(quoted)
+    have = _words(" ".join(v.text for v in passage.verses))
+    if not wanted or not have:
+        return 0.0
+    return difflib.SequenceMatcher(None, wanted, have, autojunk=False).ratio()
+
+
+async def check_version_against_quote(item, reference, passage, registry, config, reasons: list[str]):
+    """The notes quote this verse and did not name a version. If the quote does not match the version it was given (the version above or the
+    default) but does match another version's wording, use that version. Returns (reference, passage)."""
+    cfg = config.verses
+    if cfg.version_from_quote != "use" or not item.quoted or item.reference.version or registry is None:
+        return reference, passage
+    current = reference.version or ""
+    base = quote_score(item.quoted, passage)
+    tried = {current.casefold(): round(base, 2)}
+    if base >= cfg.quote_match:
+        runlog.trace("quote_check", line=item.line, reference=item.reference.normalized_text, quoted=item.quoted, version=current, score=round(base, 2), result="the quote matches this version")
+        return reference, passage
+    best = (0.0, None, None)
+    for name in cfg.quote_versions:
+        canon = canonical_version(name)
+        if not canon or canon.casefold() == current.casefold():
+            continue
+        try:
+            trial_ref = reference.model_copy(update={"version": canon})
+            trial = await registry.fetch(trial_ref)
+        except Exception:
+            continue
+        score = quote_score(item.quoted, trial)
+        tried[canon.casefold()] = round(score, 2)
+        if score > best[0]:
+            best = (score, trial_ref, trial)
+        if score >= 0.95:
+            break
+    if best[1] is not None and best[0] >= cfg.quote_match and best[0] >= base + 0.1:
+        runlog.trace("quote_check", line=item.line, reference=item.reference.normalized_text, quoted=item.quoted, version=current, tried=tried,
+                     result=f"the notes quote {best[1].version} wording (score {best[0]:.2f} vs {base:.2f} for {current}): used {best[1].version}")
+        reasons[:] = [r for r in reasons if not r.startswith("no version listed")]       # superseded: the version came from the quote
+        reasons.append(f"no version listed; the quoted text matches {best[1].version}, not {current} (used {best[1].version}; turn off with verses.version_from_quote=off)")
+        return best[1], best[2]
+    runlog.trace("quote_check", line=item.line, reference=item.reference.normalized_text, quoted=item.quoted, version=current, tried=tried,
+                 result="the quote matches none of the versions tried; kept " + current)
+    if base < 0.6:
+        reasons.append(f"the quoted text in the notes does not match {current} wording (match {base:.0%}); check the version")
+    return reference, passage
 
 
 def _trace_verse(item, reference, passage, planned, config) -> None:
@@ -290,6 +347,8 @@ async def plan_notes(
                     passage = (await registry.fetch(reference)) if registry else placeholder_passages([reference])[0]
                     if not passage.verses:
                         raise VerseVisionError("provider returned no verses")
+                    if registry and not no_fetch:
+                        reference, passage = await check_version_against_quote(item, reference, passage, registry, config, extra)
                 except Exception as exc:  # one unavailable verse never stops the rest
                     inherited = reference.version != item.reference.version
                     hint = f" (version {reference.version} was taken from the verse above; add a version to this verse to change it)" if inherited else ""

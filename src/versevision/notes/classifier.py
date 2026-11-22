@@ -31,6 +31,7 @@ class _Rules:
     """The options a run uses, compiled once."""
     def __init__(self, notes: NotesConfig, points: PointsConfig) -> None:
         self.notes, self.points = notes, points
+        self.aliases: dict | None = None
         extra = "|".join(re.escape(w.strip()) for w in notes.extra_cue_words if w.strip())
         self.stage = re.compile(r"^\s*(" + _STAGE_WORDS + (("|" + extra) if extra else "") + r")\b", re.IGNORECASE)
         self.skip = [re.compile(x, re.IGNORECASE) for x in notes.skip_patterns]
@@ -51,6 +52,7 @@ class VerseItem(BaseModel):
     line: int
     reference: PassageReference
     warnings: list[str] = Field(default_factory=list)
+    quoted: str = ""          # the verse text the notes quote next to this reference (used to tell which Bible version it is)
 
 
 class PointItem(BaseModel):
@@ -176,6 +178,7 @@ def _marker(stripped: str, points: PointsConfig | None = None):
 
 
 _KEYED = re.compile(r"^\s*(key|point|step|principle|reason|way|tip|lesson|truth)\s*#?\s*\d+\s*[).:\-]", re.IGNORECASE)    # "KEY #3) ..." starts a new point
+_KEYED_POINT = re.compile(r"^(?P<label>\s*(?P<word>key|point|step|principle|reason|way|tip|lesson|truth)\s*#?\s*(?P<n>\d{1,3})\s*[).:\-])\s*(?P<rest>\S.*)$", re.IGNORECASE)
 
 
 def _is_caps(text: str) -> bool:
@@ -350,6 +353,12 @@ def _label(para: _Para, aliases, rules: _Rules) -> None:
         para.kind, para.extra["why"] = "header", "title / date line"
         para.extra["rule"] = "contains a date (d/m/y) and no verse-like d:d"
         return
+    keyed = _KEYED_POINT.match(text) if points.numbered else None
+    if keyed:
+        para.kind, para.text = "marker", keyed.group("rest").strip()
+        para.extra.update(label=" ".join(keyed.group("label").split()), number=int(keyed.group("n")), rule=f"'{keyed.group('word').upper()} #n)' is the point's own header")
+        para.refs = parse_references(para.text, aliases).references
+        return
     marker = _marker(text, points)
     if marker:
         inner, _ = _lead_references(marker.group("rest").strip(), aliases)
@@ -410,6 +419,7 @@ def _is_reference_start(text: str, aliases) -> bool:
 
 def _build(paras: list[_Para], aliases, rules: _Rules, duplicates: str = "keep") -> NoteDocument:
     notes, points = rules.notes, rules.points
+    rules.aliases = aliases
     doc = NoteDocument()
     seen_refs: set[str] = set()
     last_point = 0
@@ -438,7 +448,10 @@ def _build(paras: list[_Para], aliases, rules: _Rules, duplicates: str = "keep")
             else:
                 doc.items.append(SkippedItem(line=line, category="stage_note", text=text, reason=why))
         elif kind == "header":
-            doc.items.append(SkippedItem(line=line, category="header", text=text, reason=para.extra.get("why", "heading")))
+            if para.extra.get("why") == "recap heading" and notes.headings == "slide":
+                doc.items.append(_heading(para, text))
+            else:
+                doc.items.append(SkippedItem(line=line, category="header", text=text, reason=para.extra.get("why", "heading")))
         elif kind == "marker":
             number, label = para.extra["number"], para.extra["label"]
             if number is None:
@@ -456,7 +469,7 @@ def _build(paras: list[_Para], aliases, rules: _Rules, duplicates: str = "keep")
         elif kind == "verse":
             doc.issues.extend(_lead_references(text, aliases)[1])
             before = len(doc.items)
-            _emit_verses(doc, para, para.refs)
+            _emit_verses(doc, para, para.refs, paras[index - 1] if index else None)
             if duplicates == "drop":
                 for item in list(doc.items[before:]):
                     key = item.reference.normalized_text.casefold() if isinstance(item, VerseItem) else ""
@@ -519,7 +532,7 @@ def _build(paras: list[_Para], aliases, rules: _Rules, duplicates: str = "keep")
 
 _SETTINGS_BY_LABEL = {
     "stage": ("stage_cues",), "midref": ("reference_in_text",), "quote": ("quote_above_reference", "quote_alone"),
-    "other": ("line_breaks", "unlabeled_sentence", "unlabeled_short", "before_first_item", "header_max_words", "wrapped_lines", "orphan_max_words"),
+    "other": ("line_breaks", "unlabeled_sentence", "unlabeled_short", "before_first_item", "header_max_words", "headings", "caps_lines", "wrapped_lines", "orphan_max_words"),
     "verse": ("duplicates",), "marker": (), "header": (),
 }
 
@@ -549,7 +562,21 @@ def _trace_outcome(doc: NoteDocument, para: _Para, before: int, prior_text, rule
     runlog.trace("item", line=para.line, label=para.kind, settings=settings, outcome=outcomes)
 
 
-def _emit_verses(doc: NoteDocument, para: _Para, refs: list[PassageReference]) -> None:
+def _quote_of(para: _Para, prev: "_Para | None", ref: PassageReference) -> str:
+    """The verse text the notes quote with this reference: the quotation before it on the same line ("…" (John 3:3)), or the quotation
+    paragraph just above it."""
+    text = para.text
+    at = text.rfind(ref.source_text.strip()) if ref.source_text.strip() else -1
+    if at > 0:
+        before = text[:at].strip().rstrip("(—–-,; ").strip()
+        if len(before.split()) >= 5:
+            return before
+    if prev is not None and prev.kind == "quote" and para.line - prev.end <= 3 and len(prev.text.split()) >= 5:
+        return prev.text
+    return ""
+
+
+def _emit_verses(doc: NoteDocument, para: _Para, refs: list[PassageReference], prev: "_Para | None" = None) -> None:
     for ref in refs:
         if any("whole chapter" in warning for warning in ref.warnings):
             doc.items.append(ReviewItem(
@@ -557,7 +584,17 @@ def _emit_verses(doc: NoteDocument, para: _Para, refs: list[PassageReference]) -
                 reason="whole-chapter reference; add verse numbers to include it",
             ))
             continue
-        doc.items.append(VerseItem(line=para.line, reference=ref, warnings=list(ref.warnings)))
+        doc.items.append(VerseItem(line=para.line, reference=ref, warnings=list(ref.warnings), quoted=_quote_of(para, prev, ref)))
+
+
+def _is_book_name(text: str, aliases) -> bool:
+    found = parse_references(f"{text} 1:1", aliases or {}).references
+    return bool(found) and found[0].source_start <= 1
+
+
+def _heading(para: _Para, text: str) -> "PointItem":
+    """A title or heading line as its own slide, with no bullet (it is not a point, just words to have ready)."""
+    return PointItem(line=para.line, role="slide_note", label="", text=text, detail_end=para.end)
 
 
 def _other(para: _Para, text: str, rules: _Rules):
@@ -565,14 +602,18 @@ def _other(para: _Para, text: str, rules: _Rules):
     notes = rules.notes
     line = para.line
     ends = text.endswith((".", "?", "!", "”", '"'))
+    # a part of a reference ("2 Corinthians", "12:9 NKJV") is never a title
+    as_heading = notes.headings == "slide" and not re.search(r"\d+\s*:\s*\d+", text) and not _is_book_name(text, rules.aliases)
     if re.match(r"^(part|week|session|series)\s*\d+\s*[:.-]", text, re.IGNORECASE) or text.endswith(":"):
-        return SkippedItem(line=line, category="header", text=text, reason="title / heading line")
+        return _heading(para, text) if as_heading else SkippedItem(line=line, category="header", text=text, reason="title / heading line")
     words = text.split()
     if _EMAIL_HEADER.search(text):
         return SkippedItem(line=line, category="header", text=text, reason="email header line")
     if para.first and not ends and notes.before_first_item == "skip":
-        return SkippedItem(line=line, category="header", text=text, reason="document title (first line)")
+        return _heading(para, text) if as_heading else SkippedItem(line=line, category="header", text=text, reason="document title (first line)")
     if len(words) <= notes.header_max_words and _header_like(words) and not ends:
+        if as_heading:
+            return _heading(para, text)
         return SkippedItem(line=line, category="header", text=text, reason=f"{notes.header_max_words} or fewer capitalized words: looks like a heading")
 
     def handle(mode: str, review_reason: str, bullet_warning: list[str]):
@@ -585,11 +626,13 @@ def _other(para: _Para, text: str, rules: _Rules):
     if not para.extra.get("seen_content"):
         if len(text) <= 80 and not ends:
             if notes.before_first_item == "skip":
-                return SkippedItem(line=line, category="header", text=text, reason="title/preamble before the first verse or point")
+                return _heading(para, text) if as_heading else SkippedItem(line=line, category="header", text=text, reason="title/preamble before the first verse or point")
             return handle("bullet" if notes.before_first_item == "bullet" else "review", "line before the first verse or point (your setting asks to check these)", ["line before the first verse or point made a slide because of your setting"])
         if notes.before_first_item == "skip" and len(text) <= 80:
             return SkippedItem(line=line, category="header", text=text, reason="title/preamble before the first verse or point")
         return handle("review", "unlabeled line; not a reference, point, or known cue", []) if notes.before_first_item != "bullet" else handle("bullet", "", ["line before the first verse or point made a slide because of your setting"])
+    if as_heading and notes.caps_lines == "heading" and not ends and _is_caps(text) and len(words) >= 2:
+        return _heading(para, text)          # ALL CAPITALS, no full stop: a heading, so no bullet
     if len(text) <= 80 and not ends:
         return handle(notes.unlabeled_short, "short unlabeled line: a heading, or a point missing its number? add a number or bullet to make it a slide",
                       ["short line with no ending punctuation made a bullet point; it may be a heading instead"])

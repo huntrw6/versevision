@@ -40,9 +40,9 @@ def test_a_sentence_that_has_ended_never_swallows_the_next_line():
 
 def test_a_heading_a_quotation_and_numbered_keys_stay_apart():
     got = points(classify_document(NOTES, {}, NotesConfig(), PointsConfig()))
-    assert got[24] == "KEY #2) PREACHING MUST CONFRONT SIN AND POINT PEOPLE TO THE SAVIOR"      # the quotation under it is a verse, not part of it
-    assert [got[n] for n in (100, 101, 102)] == ["KEY#1) SPEAK THE BORN AGAIN MESSAGE", "KEY #2) PREACHING MUST CONFRONT SIN AND POINT PEOPLE TO THE SAVIOR",
-                                                 "KEY #3) DON’T BE ‘THE ALMOST CHRISTIAN’"]
+    assert got[24] == "PREACHING MUST CONFRONT SIN AND POINT PEOPLE TO THE SAVIOR"      # the quotation under it is a verse, not part of it ("KEY #2)" is its label)
+    assert [got[n] for n in (100, 101, 102)] == ["SPEAK THE BORN AGAIN MESSAGE", "PREACHING MUST CONFRONT SIN AND POINT PEOPLE TO THE SAVIOR",
+                                                 "DON’T BE ‘THE ALMOST CHRISTIAN’"]
 
 
 def _page(tail: str) -> str:
@@ -66,22 +66,21 @@ def test_the_wrap_rules_have_options():
 def test_a_title_or_conclusion_that_was_left_out_can_be_added_in_the_review():
     plan = asyncio.run(plan_notes(NOTES, AppConfig(), default_version="NKJV", no_fetch=True))
     left = {d.line: d for d in plan.decisions if d.kind == "left_out"}
-    title = left[2]
-    assert title.title == "6 KEYS TO A NEW AWAKENING" and title.add_text == "• 6 KEYS TO A NEW AWAKENING" and title.tier == "warning"
-    assert left[99].add_text.startswith("• RECAP: KEYS")                # a firm "recap heading" is just as addable
+    title = left[1]
+    assert title.title.startswith("JPL 11/22/26") and title.add_text.startswith("• JPL 11/22/26") and title.tier == "good"
+    assert left[3].add_text == "• Show Photo of George Whitefield"      # a production cue is just as addable
     before = [s.body_text for s in plan.slide_plan.slides]
-    chosen = apply_review_choices(plan, include={title.id, left[99].id}).slides
+    chosen = apply_review_choices(plan, include={title.id, left[3].id}).slides
     texts = [s.body_text for s in chosen]
     assert len(texts) == len(before) + 2
-    # each goes where it stood in the notes: the title before the first slide that follows it, the recap before the recap list
-    assert texts.index("• 6 KEYS TO A NEW AWAKENING") == title.first_slide
-    assert "KEY#1)" in texts[texts.index("• RECAP: KEYS TO A NEW AWAKENING") + 1]
-    # nothing else moved or changed
-    assert [t for t in texts if t not in ("• 6 KEYS TO A NEW AWAKENING", "• RECAP: KEYS TO A NEW AWAKENING")] == before
+    # each goes where it stood in the notes: before the first slide that follows it
+    added = [t for t in texts if t.startswith("• JPL 11/22/26") or t == "• Show Photo of George Whitefield"]
+    assert len(added) == 2 and texts.index(added[0]) == title.first_slide
+    assert [t for t in texts if t not in added] == before      # nothing else moved or changed
     # switching a decision off and adding another work together
     first_point = next(d for d in plan.decisions if d.kind == "point")
     both = apply_review_choices(plan, skip={first_point.id}, include={title.id}).slides
-    assert len(both) == len(before) - 1 + 1 and "• 6 KEYS TO A NEW AWAKENING" in [s.body_text for s in both]
+    assert len(both) == len(before) - 1 + 1 and any(s.body_text.startswith("• JPL 11/22/26") for s in both)
     # a decision that already makes a slide, or a line that is not left out, cannot be "added"
     assert apply_review_choices(plan, include={first_point.id}).slides == plan.slide_plan.slides
 
@@ -90,7 +89,7 @@ def test_the_review_page_shows_the_choice_for_every_left_out_line():
     plan = asyncio.run(plan_notes(NOTES, AppConfig(), default_version="NKJV", no_fetch=True))
     from versevision.workflow.report import build_report
     rows = {d["line"]: d for d in build_report(plan, source_name="x")["decisions"] if d["kind"] == "left_out"}
-    assert rows[2]["addable"] and rows[99]["addable"] and rows[3]["addable"]        # a title, a recap heading, a "Show photo" cue
+    assert rows[1]["addable"] and rows[3]["addable"]        # the date/speaker line and a "Show photo" cue
     assert all(d["addable"] for d in rows.values() if d["line"] > 0)
 
 

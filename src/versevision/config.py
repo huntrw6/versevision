@@ -145,6 +145,8 @@ class NotesConfig(BaseModel):
     label_words: list[str] = Field(default_factory=lambda: ["conclusion", "application", "invitation", "challenge", "summary", "closing", "takeaway", "big idea", "main point"])
     label_own_slide: bool = True                                       # "Conclusion: ..." is its own slide instead of part of the point above
     header_max_words: int = Field(default=2, ge=0, le=6)               # capitalized lines this short are headings, not slides
+    headings: Literal["slide", "skip"] = "slide"                       # titles and headings ("6 KEYS TO...", "RECAP: ...", "Introduction"): a slide with no bullet, or left out
+    caps_lines: Literal["heading", "line"] = "heading"                 # a line in ALL CAPITALS with no ending punctuation is a heading (no bullet); "line" treats it like any short line
     wrapped_lines: Literal["join", "separate"] = "join"                # join: a line the page cut mid-sentence goes back with the line above it (PDF, email)
     orphan_max_words: int = Field(default=3, ge=0, le=8)               # a tail of this many words or fewer after a nearly full line is the end of that sentence
 
@@ -166,6 +168,9 @@ class PointsConfig(BaseModel):
 class VersesConfig(BaseModel):
     """Which version a verse gets, and how repeats are handled. Slide layout (verse numbers, reference format, splitting) is under [slides]."""
     version_source: Literal["above", "default", "required"] = "above"
+    version_from_quote: Literal["use", "off"] = "use"   # a verse with no version whose text is quoted in the notes: if the quote matches another version's wording better, use that version
+    quote_versions: list[str] = Field(default_factory=lambda: ["KJV", "NKJV", "NIV", "NASB1995", "NLT", "ESV"])   # versions tried, in order, when the quote does not match
+    quote_match: float = Field(default=0.85, ge=0.5, le=1.0)            # how closely (0-1) a quote must match a version's wording to count as that version
     theme: str = ""                    # a loaded ProPresenter theme to take the look from ("Name" or "Group/Name"); empty = the VerseVision template slide
     theme_slide: str = ""              # which slide of that theme: its name or number (empty = the first slide that has a text box)
     """above: the nearest version named above it, else the default. default: always the default version unless it names its own.

@@ -10,7 +10,7 @@ import pytest
 from test_pipeline import _config, env  # noqa: F401  (the same offline fixtures the pipeline tests use)
 from versevision.web import server as web
 
-NOTES = ("Title\n1) Faith\nJohn 3:16 NIV\nRomans 8:28\nOpen with prayer\nJohn 3:99 NIV\n")
+NOTES = ("Title 11/8/26\n1) Faith\nJohn 3:16 NIV\nRomans 8:28\nOpen with prayer\nJohn 3:99 NIV\n")
 
 
 @pytest.fixture
@@ -170,10 +170,10 @@ def test_each_title_in_the_main_panel_has_its_own_pixel_icon():
 def test_a_left_out_line_ticked_in_the_review_becomes_a_slide_when_importing(state):
     st, node = state
     job = wait(st, web.start_plan(st, "n.txt", NOTES.encode(), "NIV", None))
-    title = next(d for d in job.result["decisions"] if d["kind"] == "left_out" and d["title"] == "Title")
-    assert title["addable"] and title["add_text"] == "• Title" and title["slides"] == []
+    title = next(d for d in job.result["decisions"] if d["kind"] == "left_out" and d["title"].startswith("Title 11"))
+    assert title["addable"] and title["add_text"] == "• Title 11/8/26" and title["slides"] == []
     before = job.result["summary"]["slides"]
     done = wait(st, web.start_apply(st, job.id, True, set(), {title["id"]}), limit=60)
     assert done.result["slide_count"] == before + 1
     from versevision import runlog
-    assert any(r["stage"] == "review_included" and r["added"][0]["text"] == "• Title" for r in runlog.read_trace(job.run_id))
+    assert any(r["stage"] == "review_included" and r["added"][0]["text"] == "• Title 11/8/26" for r in runlog.read_trace(job.run_id))

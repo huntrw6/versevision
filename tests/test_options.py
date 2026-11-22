@@ -28,13 +28,13 @@ NOTES = "Title line here\n1) First point\nA full sentence under it.\nShort headi
 # ------------------------------------------------------------------ notes: reading
 def test_defaults_are_the_house_style():
     n = AppConfig().notes
-    assert (n.line_breaks, n.unlabeled_sentence, n.unlabeled_short, n.before_first_item, n.stage_cues) == ("slide", "bullet", "bullet", "skip", "skip")
+    assert (n.line_breaks, n.unlabeled_sentence, n.unlabeled_short, n.before_first_item, n.stage_cues, n.headings, n.caps_lines) == ("slide", "bullet", "bullet", "skip", "skip", "slide", "heading")
     assert (AppConfig().points.numbering, AppConfig().points.bullet_char, AppConfig().verses.version_source) == ("keep", "•", "above")
-    assert bodies(run(NOTES)) == ["1) First point", "• A full sentence under it.", "• Short heading", "2) Second point"]
+    assert bodies(run(NOTES)) == ["Title line here", "1) First point", "• A full sentence under it.", "• Short heading", "2) Second point"]      # the title is a slide with no bullet
 
 
 def test_paragraph_mode_joins_a_sentence_to_its_point():
-    assert bodies(run(NOTES, cfg(notes__line_breaks="paragraph")))[0] == "1) First point\nA full sentence under it."
+    assert bodies(run(NOTES, cfg(notes__line_breaks="paragraph")))[1] == "1) First point\nA full sentence under it."
 
 
 @pytest.mark.parametrize("mode,expected", [("review", 1), ("skip", 0)])
@@ -48,10 +48,15 @@ def test_unlabeled_short_line_can_go_to_review():
     assert bodies(r) == ["1) P"] and [d.tier for d in r.decisions] == ["good", "error"]
 
 
-@pytest.mark.parametrize("mode,slides", [("skip", 0), ("review", 0), ("bullet", 1)])
+@pytest.mark.parametrize("mode,slides", [("skip", 1), ("review", 0), ("bullet", 1)])      # skip: a heading slide with no bullet (notes.headings)
 def test_lines_before_the_first_item(mode, slides):
     r = run("Pastor Hunter speaks today\n1) P\n", cfg(notes__before_first_item=mode))
     assert len(bodies(r)) - 1 == slides
+
+
+def test_lines_before_the_first_item_can_be_left_out_with_headings_skip():
+    r = run("Pastor Hunter speaks today\n1) P\n", cfg(notes__headings="skip"))
+    assert bodies(r) == ["1) P"]
 
 
 def test_stage_cues_skip_review_or_become_slides():
@@ -101,7 +106,8 @@ def test_label_words_and_own_slide():
 def test_header_word_limit():
     text = "1) P\nGrace Alone Matters\n"
     assert bodies(run(text))[-1] == "• Grace Alone Matters"
-    assert bodies(run(text, cfg(notes__header_max_words=3))) == ["1) P"]
+    assert bodies(run(text, cfg(notes__header_max_words=3))) == ["1) P", "Grace Alone Matters"]      # a heading: its own slide, no bullet
+    assert bodies(run(text, cfg(notes__header_max_words=3, notes__headings="skip"))) == ["1) P"]
 
 
 # ------------------------------------------------------------------ points: parsing

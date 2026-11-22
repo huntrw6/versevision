@@ -17,7 +17,7 @@ from versevision.workflow import pipeline
 from versevision.workflow.pipeline import apply_import, plan_for_transport, publish_new, publish_swap, undo_import
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sample" / "Sample.pro"
-NOTES = "Title\n“For God so loved the world.”\nJohn 3:16 NIV\n1) First point\nPsalm 23:1 NIV\n2) Second point\n"
+NOTES = "Title 11/8/26\n“For God so loved the world.”\nJohn 3:16 NIV\n1) First point\nPsalm 23:1 NIV\n2) Second point\n"
 
 
 def _config(path: Path) -> AppConfig:
