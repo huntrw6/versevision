@@ -43,7 +43,12 @@ def format_point(item: PointItem, cfg: PointsConfig, counter: int) -> str:
         text = text.lower()
     elif cfg.case == "title":
         text = "\n".join(_title_case(line) for line in text.split("\n"))
-    return f"{label} {text}".strip()
+    shown = f"{label} {text}".strip()
+    if cfg.balance_lines:
+        from versevision.slides.fitting import balance_lines
+        glued = 2 if label else 0          # "•" or "KEY #2)" stays with the word after it
+        shown = balance_lines(shown, cfg.line_width_units, upper=cfg.shown_in_capitals or cfg.case == "upper", glue_first=glued, max_lines=cfg.max_lines)
+    return shown
 
 
 def added_point_text(text: str, cfg: PointsConfig) -> str:

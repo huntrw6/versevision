@@ -46,6 +46,10 @@ def test_real_document_reference_set_fetches_synthetic_slides_with_continuation(
     continuation = [slide for slide in result.slide_plan.slides if slide.verse_keys == ["1CO.10.13"]]
     assert len(continuation) > 1
     assert all(slide.reference_text == "1 Corinthians 10:13" for slide in continuation)
-    assert all("synthetic" in slide.body_text.casefold() for slide in result.slide_plan.slides)
+    by_verse: dict[str, list[str]] = {}
+    for slide in result.slide_plan.slides:
+        if slide.kind == "verse":
+            by_verse.setdefault(slide.verse_keys[0], []).append(slide.body_text)
+    assert all("synthetic" in " ".join(parts).casefold() for parts in by_verse.values())      # every verse's text is synthetic (a verse cut into pieces holds the word in one of them)
     assert result.fetched is True
     assert result.files_changed is False

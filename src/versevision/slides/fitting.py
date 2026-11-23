@@ -64,34 +64,148 @@ def split_verse_text(
     max_lines: int = 5,
     line_width_units: float = 48.0,
     prefer_punctuation: bool = True,
+    tolerance: float = 0.15,
 ) -> list[str]:
-    """Split verse text into balanced, naturally broken, line-limited chunks."""
-    remaining = " ".join(text.split())
-    if not remaining:
+    """Split verse text into pieces of nearly equal length, each within ``max_lines`` lines, breaking at punctuation where that costs little.
+
+    The number of slides is the fewest that fit. The cut points are then chosen together (not one after another) so every slide
+    carries about the same amount of text; a break after a full stop, semicolon or comma is preferred when it moves the cut only
+    a little."""
+    flat = " ".join(text.split())
+    if not flat:
         return [""]
-    pieces: list[str] = []
-    while len(wrap_body_lines(remaining, line_width_units)) > max_lines:
-        line_count = len(wrap_body_lines(remaining, line_width_units))
-        slides_left = max(2, math.ceil(line_count / max_lines))
-        target = len(remaining) / slides_left
-        fitting = [
-            position for position in _candidate_breaks(remaining)
-            if len(wrap_body_lines(remaining[:position].strip(), line_width_units)) <= max_lines
-        ]
-        if not fitting:
-            # Only an unusually long unbroken token can reach this path.
-            position = max(1, int(target))
-        else:
-            nearby = [position for position in fitting if abs(position - target) <= max(12, target * 0.4)]
-            pool = nearby or fitting
-            if prefer_punctuation:
-                position = max(
-                    pool,
-                    key=lambda value: (_break_priority(remaining, value), -abs(value - target)),
-                )
+    if len(wrap_body_lines(flat, line_width_units)) <= max_lines:
+        return [flat]
+    words = flat.split(" ")
+    count = len(words)
+    prefix = [0.0]
+    for word in words:
+        prefix.append(prefix[-1] + text_width_units(word) + text_width_units(" "))
+
+    def width(a: int, b: int) -> float:
+        return prefix[b] - prefix[a] - text_width_units(" ")
+
+    from functools import lru_cache
+
+    @lru_cache(maxsize=None)
+    def fits(a: int, b: int) -> bool:
+        return len(wrap_body_lines(" ".join(words[a:b]), line_width_units)) <= max_lines
+
+    pieces_needed = max(2, math.ceil(len(wrap_body_lines(flat, line_width_units)) / max_lines))
+    for tolerance in (tolerance, max(tolerance, 0.35), 10.0):          # no piece further than this from the average length; relaxed only if no such cut exists
+        found = _even_cuts(words, prefix, pieces_needed, fits, prefer_punctuation, tolerance)
+        if found:
+            return found
+    return [flat]
+
+
+def _even_cuts(words, prefix, pieces_needed, fits, prefer_punctuation, tolerance) -> list[str] | None:
+    count = len(words)
+    space = text_width_units(" ")
+
+    def width(a: int, b: int) -> float:
+        return prefix[b] - prefix[a] - space
+
+    for k in range(pieces_needed, min(count, pieces_needed + 1) + 1):
+        mean = prefix[count] / k
+        inf = float("inf")
+        best = [[inf] * (count + 1) for _ in range(k + 1)]
+        back = [[0] * (count + 1) for _ in range(k + 1)]
+        best[0][0] = 0.0
+        for j in range(1, k + 1):
+            for b in range(j, count + 1):
+                for a in range(j - 1, b):
+                    if best[j - 1][a] == inf or not fits(a, b) or abs(width(a, b) - mean) > tolerance * mean:
+                        continue
+                    bonus = 0.0
+                    if prefer_punctuation and b < count:
+                        bonus = 0.3 * mean * mean * (_break_priority(" ".join(words[:b]) + " ", len(" ".join(words[:b])) + 1) - 1) / 3
+                    cost = best[j - 1][a] + (width(a, b) - mean) ** 2 - bonus
+                    if cost < best[j][b]:
+                        best[j][b], back[j][b] = cost, a
+        if best[k][count] < inf:
+            cuts, b = [], count
+            for j in range(k, 0, -1):
+                a = back[j][b]
+                cuts.append((a, b)); b = a
+            cuts.reverse()
+            return [" ".join(words[a:b]) for a, b in cuts]
+    return None
+
+
+def balance_lines(text: str, line_width_units: float, *, upper: bool = True, glue_first: int = 0, max_lines: int = 4) -> str:
+    """Break text into the fewest lines that fit, then spread the words so the lines are as even in width as possible.
+
+    Greedy wrapping leaves a short last line ("RIGHTEOUSNESS." alone). Here the number of lines is the greedy count, but the break
+    points are chosen to minimise how far each line is from the average width. ``upper`` measures the text as capitals (the look
+    shows points in capitals, which are wider). ``glue_first`` keeps that many leading words together (a bullet or "KEY #2)" with
+    the word after it). ``max_lines`` is how many lines the text box holds at full size: ProPresenter shrinks longer text to fit, so
+    a point that needs more lines than that gets wider lines (the shrunk letters are narrower). Lines already in the text (a newline)
+    are kept and each is balanced on its own."""
+    return "\n".join(_balance_one(line, line_width_units, upper, glue_first if i == 0 else 0, max_lines) for i, line in enumerate(text.split("\n")))
+
+
+def _balance_one(line: str, limit: float, upper: bool, glue_first: int, max_lines: int = 4) -> str:
+    words = line.split()
+    if len(words) < 2:
+        return line.strip()
+    shown = [w.upper() if upper else w for w in words]
+    space = text_width_units(" ")
+    widths = [text_width_units(w) for w in shown]
+    total = sum(widths) + space * (len(words) - 1)
+    if total <= limit:
+        return " ".join(words)
+    units: list[tuple[int, int]] = []          # words that must stay together count as one unit
+    start = 0
+    if glue_first > 1 and len(words) > glue_first:
+        units.append((0, glue_first)); start = glue_first
+    units += [(i, i + 1) for i in range(start, len(words))]
+    uw = [sum(widths[a:b]) + space * (b - a - 1) for a, b in units]
+
+    def greedy(cap: float) -> int:
+        count, current = 1, uw[0]
+        for width in uw[1:]:
+            if current + space + width <= cap:
+                current += space + width
             else:
-                position = min(pool, key=lambda value: abs(value - target))
-        pieces.append(remaining[:position].strip())
-        remaining = remaining[position:].strip()
-    pieces.append(remaining)
-    return pieces
+                count, current = count + 1, width
+        return count
+
+    lines_needed = greedy(limit)
+    if lines_needed == 1:
+        return " ".join(words)
+    if lines_needed > max_lines:
+        for n_lines in range(max_lines + 1, lines_needed + 1):
+            cap = limit * n_lines / max_lines * 0.95          # shrunk to fit n_lines in the box height
+            if greedy(cap) <= n_lines:
+                lines_needed, limit = n_lines, cap
+                break
+    n = len(units)
+    target = total / lines_needed
+    prefix = [0.0]
+    for width in uw:
+        prefix.append(prefix[-1] + width + space)
+
+    def span(a: int, b: int) -> float:
+        return prefix[b] - prefix[a] - space
+
+    inf = float("inf")
+    best = [[inf] * (n + 1) for _ in range(lines_needed + 1)]
+    back = [[0] * (n + 1) for _ in range(lines_needed + 1)]
+    best[0][0] = 0.0
+    for k in range(1, lines_needed + 1):
+        for b in range(k, n + 1):
+            for a in range(k - 1, b):
+                if best[k - 1][a] == inf:
+                    continue
+                width = span(a, b)
+                over = max(0.0, width - limit)
+                cost = best[k - 1][a] + (width - target) ** 2 + 1000 * over * over
+                if cost < best[k][b]:
+                    best[k][b], back[k][b] = cost, a
+    cuts, b = [], n
+    for k in range(lines_needed, 0, -1):
+        a = back[k][b]
+        cuts.append((a, b)); b = a
+    cuts.reverse()
+    return "\n".join(" ".join(words[units[a][0]:units[b - 1][1]]) for a, b in cuts)

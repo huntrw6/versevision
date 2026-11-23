@@ -23,6 +23,7 @@ class SlideConfig(BaseModel):
     max_characters: int = Field(default=350, ge=1)
     max_verses_per_slide: int = Field(default=1, ge=1)
     preserve_poetry_lines: bool = True
+    even_split_tolerance: float = Field(default=0.15, ge=0.0, le=1.0)      # a long verse's slides each hold within this share (0.15 = 15%) of the average amount of text
     include_verse_numbers: bool = False      # verse text only; the reference is on the slide already
     reference_format: str = "{book} {chapter}:{verses} {version}"
     reference_label_mode: Literal["source", "segment", "verse"] = "verse"
@@ -161,6 +162,10 @@ class PointsConfig(BaseModel):
     number_style: str = "{n})"         # used by "renumber": "{n})", "{n}.", "#{n}:"
     bullet_char: str = "•"             # "" for no bullet mark on the slide
     case: Literal["as_written", "upper", "lower", "title"] = "as_written"
+    balance_lines: bool = True         # break a long point into evenly wide lines (no short last line)
+    line_width_units: float = Field(default=33.0, gt=5, le=200)      # how wide a line may be before it must break (one text-box line of the point slides is about 34)
+    max_lines: int = Field(default=4, ge=1, le=12)      # lines the point text box holds at full size (ProPresenter shrinks longer text to fit)
+    shown_in_capitals: bool = True     # the point slides show capitals (wider letters): measure the text that way
     theme: str = ""                    # a loaded ProPresenter theme to take the look from ("Name" or "Group/Name"); empty = the VerseVision template slide
     theme_slide: str = ""              # which slide of that theme: its name or number (empty = the first slide that has a text box)
 

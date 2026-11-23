@@ -15,7 +15,7 @@ NOTES = (Path(__file__).parent / "fixtures" / "whitefield_notes.txt").read_text(
 def slides(**notes):
     cfg = AppConfig(notes=NotesConfig(**notes))
     plan = asyncio.run(plan_notes(NOTES, cfg, default_version="NKJV", no_fetch=True))
-    return plan, [s.body_text for s in plan.slide_plan.slides if s.kind == "point"]
+    return plan, [s.body_text.replace("\n", " ") for s in plan.slide_plan.slides if s.kind == "point"]    # line breaks are for looks (balanced lines): compare the words
 
 
 def test_key_headers_are_the_points_header_so_they_get_no_bullet():
@@ -32,10 +32,10 @@ def test_key_headers_are_the_points_header_so_they_get_no_bullet():
 def test_keyed_numbering_can_be_stripped_or_renumbered():
     cfg = AppConfig(points=PointsConfig(numbering="strip"))
     plan = asyncio.run(plan_notes(NOTES, cfg, default_version="NKJV", no_fetch=True))
-    assert "SPEAK THE BORN AGAIN MESSAGE" in [s.body_text for s in plan.slide_plan.slides]
+    assert "SPEAK THE BORN AGAIN MESSAGE" in [s.body_text.replace("\n", " ") for s in plan.slide_plan.slides]
     cfg = AppConfig(points=PointsConfig(numbering="renumber"))
     plan = asyncio.run(plan_notes(NOTES, cfg, default_version="NKJV", no_fetch=True))
-    assert "KEY #2) PREACHING MUST CONFRONT SIN AND POINT PEOPLE TO THE SAVIOR" in [s.body_text for s in plan.slide_plan.slides]
+    assert "KEY #2) PREACHING MUST CONFRONT SIN AND POINT PEOPLE TO THE SAVIOR" in [s.body_text.replace("\n", " ") for s in plan.slide_plan.slides]
 
 
 def test_titles_and_headings_are_slides_with_no_bullet_by_default():
