@@ -65,12 +65,14 @@ def split_verse_text(
     line_width_units: float = 48.0,
     prefer_punctuation: bool = True,
     tolerance: float = 0.15,
+    punctuation_tolerance: float = 0.25,
 ) -> list[str]:
     """Split verse text into pieces of nearly equal length, each within ``max_lines`` lines, breaking at punctuation where that costs little.
 
     The number of slides is the fewest that fit. The cut points are then chosen together (not one after another) so every slide
     carries about the same amount of text; a break after a full stop, semicolon or comma is preferred when it moves the cut only
-    a little."""
+    a little: a piece that starts and ends at punctuation (or at the verse's own start and end) may be up to ``punctuation_tolerance``
+    off the average, any other piece up to ``tolerance``."""
     flat = " ".join(text.split())
     if not flat:
         return [""]
@@ -93,14 +95,16 @@ def split_verse_text(
 
     pieces_needed = max(2, math.ceil(len(wrap_body_lines(flat, line_width_units)) / max_lines))
     for tolerance in (tolerance, max(tolerance, 0.35), 10.0):          # no piece further than this from the average length; relaxed only if no such cut exists
-        found = _even_cuts(words, prefix, pieces_needed, fits, prefer_punctuation, tolerance)
+        found = _even_cuts(words, prefix, pieces_needed, fits, prefer_punctuation, tolerance, max(punctuation_tolerance, tolerance) if prefer_punctuation else tolerance)
         if found:
             return found
     return [flat]
 
 
-def _even_cuts(words, prefix, pieces_needed, fits, prefer_punctuation, tolerance) -> list[str] | None:
+def _even_cuts(words, prefix, pieces_needed, fits, prefer_punctuation, tolerance, punctuation_tolerance) -> list[str] | None:
     count = len(words)
+    # cut_ok[i]: a cut before word i falls after punctuation (the two ends of the verse count as clean cuts)
+    cut_ok = [True] + [words[i - 1].rstrip("\"'”’)")[-1:] in ".,;:?!—–-" for i in range(1, count)] + [True]
     space = text_width_units(" ")
 
     def width(a: int, b: int) -> float:
@@ -115,7 +119,7 @@ def _even_cuts(words, prefix, pieces_needed, fits, prefer_punctuation, tolerance
         for j in range(1, k + 1):
             for b in range(j, count + 1):
                 for a in range(j - 1, b):
-                    if best[j - 1][a] == inf or not fits(a, b) or abs(width(a, b) - mean) > tolerance * mean:
+                    if best[j - 1][a] == inf or not fits(a, b) or abs(width(a, b) - mean) > (punctuation_tolerance if (cut_ok[a] and cut_ok[b]) else tolerance) * mean:
                         continue
                     bonus = 0.0
                     if prefer_punctuation and b < count:

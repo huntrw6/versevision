@@ -42,6 +42,7 @@ def plan_slides(passages: list[ResolvedPassage], config: SlideConfig | None = No
                 line_width_units=settings.line_width_units,
                 prefer_punctuation=settings.prefer_punctuation_breaks,
                 tolerance=settings.even_split_tolerance,
+                punctuation_tolerance=settings.even_split_punctuation_tolerance,
             )
             reference_text = _verse_reference(passage.reference, verse, settings.reference_label_mode)
             for chunk_index, chunk in enumerate(chunks):

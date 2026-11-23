@@ -23,6 +23,7 @@ class SlideConfig(BaseModel):
     max_characters: int = Field(default=350, ge=1)
     max_verses_per_slide: int = Field(default=1, ge=1)
     preserve_poetry_lines: bool = True
+    even_split_punctuation_tolerance: float = Field(default=0.25, ge=0.0, le=1.0)    # the same, for a piece that starts and ends at punctuation (a natural break is worth being a little uneven)
     even_split_tolerance: float = Field(default=0.15, ge=0.0, le=1.0)      # a long verse's slides each hold within this share (0.15 = 15%) of the average amount of text
     include_verse_numbers: bool = False      # verse text only; the reference is on the slide already
     reference_format: str = "{book} {chapter}:{verses} {version}"
