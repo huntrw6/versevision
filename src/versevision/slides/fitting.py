@@ -133,6 +133,9 @@ def _even_cuts(words, prefix, pieces_needed, fits, prefer_punctuation, tolerance
     return None
 
 
+_WEAK_END = {"a", "an", "the", "of", "to", "in", "on", "at", "it", "is", "as", "by", "or", "and", "for", "but", "—", "–", "-", "&"}
+
+
 def balance_lines(text: str, line_width_units: float, *, upper: bool = True, glue_first: int = 0, max_lines: int = 4) -> str:
     """Break text into the fewest lines that fit, then spread the words so the lines are as even in width as possible.
 
@@ -200,7 +203,9 @@ def _balance_one(line: str, limit: float, upper: bool, glue_first: int, max_line
                     continue
                 width = span(a, b)
                 over = max(0.0, width - limit)
-                cost = best[k - 1][a] + (width - target) ** 2 + 1000 * over * over
+                tail = words[units[b - 1][1] - 1].strip(".,;:!?\"'”’)").lower()
+                dangling = 25.0 if (b < n and tail in _WEAK_END) else 0.0          # a line should not end on "it", "a", "to", a dash...
+                cost = best[k - 1][a] + (width - target) ** 2 + 1000 * over * over + dangling
                 if cost < best[k][b]:
                     best[k][b], back[k][b] = cost, a
     cuts, b = [], n
