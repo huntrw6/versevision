@@ -98,3 +98,16 @@ def test_a_line_added_in_the_review_also_respects_the_point_line_limit():
     text = "Pray without ceasing, give thanks in everything, and rejoice always in the Lord, because this is the will of God for you."
     parts = added_point_text(text, PointsConfig(max_lines_per_slide=2)).split("\f")
     assert len(parts) == 2 and all(len(p.split("\n")) <= 2 for p in parts)
+
+
+def test_a_reference_too_long_for_one_line_is_flagged_in_the_review():
+    import asyncio
+    from versevision.config import AppConfig
+    from versevision.workflow.notes_workflow import plan_notes
+    notes = "Title 11/8/26\n\nEphesians 4:5 NKJV\n\nMatthew 7:16-20, 21-23, 24-27 NKJV\n"
+    result = asyncio.run(plan_notes(notes, AppConfig(), default_version="NKJV", no_fetch=True))
+    verses = [d for d in result.decisions if d.kind == "verse"]
+    assert not any("reference box" in r for r in verses[0].reasons)
+    cfg = AppConfig(); cfg.slides.reference_width_units = 12.0
+    narrow = asyncio.run(plan_notes(notes, cfg, default_version="NKJV", no_fetch=True))
+    assert any("reference box" in r for d in narrow.decisions if d.kind == "verse" for r in d.reasons)

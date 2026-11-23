@@ -384,6 +384,14 @@ async def plan_notes(
                 first = len(slides)
                 planned = plan_slides([passage], config.slides).slides
                 _trace_verse(item, reference, passage, planned, config)
+                from versevision.slides.fitting import text_width_units
+                limit = config.slides.max_reference_lines * config.slides.reference_width_units
+                for slide in planned:
+                    shown_ref = f"{slide.reference_text} ({slide.version_text})" if slide.version_text else slide.reference_text
+                    if text_width_units(shown_ref) > limit:
+                        extra = extra + [f"the reference \"{shown_ref}\" is longer than {config.slides.max_reference_lines} line"
+                                         f"{'s' if config.slides.max_reference_lines > 1 else ''} in the slide's reference box and may be cut off or shrink"]
+                        break
                 for slide in planned:
                     slide.source_passage_index = group_index
                 slides.extend(planned)

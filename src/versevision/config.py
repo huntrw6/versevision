@@ -30,6 +30,8 @@ class SlideConfig(BaseModel):
     reference_label_mode: Literal["source", "segment", "verse"] = "verse"
     max_body_lines: int = Field(default=5, ge=1, le=20)      # VERSES: most lines one verse slide may have; a longer verse is cut into near-equal slides (points have their own limit: points.max_lines_per_slide)
     line_width_units: float = Field(default=48.0, gt=5, le=200)
+    max_reference_lines: int = Field(default=1, ge=1, le=3)            # the reference ("Luke 13:5 (NKJV)") must fit on this many lines; a longer one is flagged in the review
+    reference_width_units: float = Field(default=46.0, gt=5, le=200)   # how wide one line of the reference box is (about 46 average letters in the template's bold 50 pt)
     prefer_punctuation_breaks: bool = True
     repeat_reference_on_continuation: bool = True
 
