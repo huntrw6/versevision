@@ -165,6 +165,8 @@ class PointsConfig(BaseModel):
     case: Literal["as_written", "upper", "lower", "title"] = "as_written"
     balance_lines: bool = True         # break a long point into evenly wide lines (no short last line)
     line_width_units: float = Field(default=33.0, gt=5, le=200)      # how wide a line may be before it must break (one text-box line of the point slides is about 34)
+    line_tolerance: float = Field(default=0.15, ge=0.0, le=1.0)                 # each line of a point is within this share of the average line width...
+    line_tolerance_at_punctuation: float = Field(default=0.25, ge=0.0, le=1.0)  # ...or this share when it starts and ends at punctuation (a natural break)
     max_lines: int = Field(default=4, ge=1, le=12)      # lines the point text box holds at full size (ProPresenter shrinks longer text to fit)
     shown_in_capitals: bool = True     # the point slides show capitals (wider letters): measure the text that way
     theme: str = ""                    # a loaded ProPresenter theme to take the look from ("Name" or "Group/Name"); empty = the VerseVision template slide

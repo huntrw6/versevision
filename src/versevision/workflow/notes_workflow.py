@@ -47,7 +47,8 @@ def format_point(item: PointItem, cfg: PointsConfig, counter: int) -> str:
     if cfg.balance_lines:
         from versevision.slides.fitting import balance_lines
         glued = 2 if label else 0          # "•" or "KEY #2)" stays with the word after it
-        shown = balance_lines(shown, cfg.line_width_units, upper=cfg.shown_in_capitals or cfg.case == "upper", glue_first=glued, max_lines=cfg.max_lines)
+        shown = balance_lines(shown, cfg.line_width_units, upper=cfg.shown_in_capitals or cfg.case == "upper", glue_first=glued, max_lines=cfg.max_lines,
+                              tolerance=cfg.line_tolerance, punctuation_tolerance=cfg.line_tolerance_at_punctuation)
     return shown
 
 

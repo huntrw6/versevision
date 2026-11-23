@@ -140,7 +140,8 @@ def _even_cuts(words, prefix, pieces_needed, fits, prefer_punctuation, tolerance
 _WEAK_END = {"a", "an", "the", "of", "to", "in", "on", "at", "it", "is", "as", "by", "or", "and", "for", "but", "—", "–", "-", "&"}
 
 
-def balance_lines(text: str, line_width_units: float, *, upper: bool = True, glue_first: int = 0, max_lines: int = 4) -> str:
+def balance_lines(text: str, line_width_units: float, *, upper: bool = True, glue_first: int = 0, max_lines: int = 4,
+                  tolerance: float = 0.15, punctuation_tolerance: float = 0.25) -> str:
     """Break text into the fewest lines that fit, then spread the words so the lines are as even in width as possible.
 
     Greedy wrapping leaves a short last line ("RIGHTEOUSNESS." alone). Here the number of lines is the greedy count, but the break
@@ -148,11 +149,12 @@ def balance_lines(text: str, line_width_units: float, *, upper: bool = True, glu
     shows points in capitals, which are wider). ``glue_first`` keeps that many leading words together (a bullet or "KEY #2)" with
     the word after it). ``max_lines`` is how many lines the text box holds at full size: ProPresenter shrinks longer text to fit, so
     a point that needs more lines than that gets wider lines (the shrunk letters are narrower). Lines already in the text (a newline)
-    are kept and each is balanced on its own."""
-    return "\n".join(_balance_one(line, line_width_units, upper, glue_first if i == 0 else 0, max_lines) for i, line in enumerate(text.split("\n")))
+    are kept and each is balanced on its own. A line may be ``tolerance`` (15%) off the average width, or ``punctuation_tolerance``
+    (25%) when it starts and ends at punctuation, because a break after a comma or dash reads better than an even one."""
+    return "\n".join(_balance_one(line, line_width_units, upper, glue_first if i == 0 else 0, max_lines, tolerance, max(tolerance, punctuation_tolerance)) for i, line in enumerate(text.split("\n")))
 
 
-def _balance_one(line: str, limit: float, upper: bool, glue_first: int, max_lines: int = 4) -> str:
+def _balance_one(line: str, limit: float, upper: bool, glue_first: int, max_lines: int = 4, tolerance: float = 0.15, punct_tolerance: float = 0.25) -> str:
     words = line.split()
     if len(words) < 2:
         return line.strip()
@@ -196,22 +198,31 @@ def _balance_one(line: str, limit: float, upper: bool, glue_first: int, max_line
     def span(a: int, b: int) -> float:
         return prefix[b] - prefix[a] - space
 
+    # clean[i]: a break before unit i comes right after punctuation (the two ends of the text count as clean)
+    clean = [True] + [words[units[i - 1][1] - 1].rstrip("\"'”’)")[-1:] in ".,;:?!—–-" for i in range(1, n)] + [True]
     inf = float("inf")
-    best = [[inf] * (n + 1) for _ in range(lines_needed + 1)]
-    back = [[0] * (n + 1) for _ in range(lines_needed + 1)]
-    best[0][0] = 0.0
-    for k in range(1, lines_needed + 1):
-        for b in range(k, n + 1):
-            for a in range(k - 1, b):
-                if best[k - 1][a] == inf:
-                    continue
-                width = span(a, b)
-                over = max(0.0, width - limit)
-                tail = words[units[b - 1][1] - 1].strip(".,;:!?\"'”’)").lower()
-                dangling = 25.0 if (b < n and tail in _WEAK_END) else 0.0          # a line should not end on "it", "a", "to", a dash...
-                cost = best[k - 1][a] + (width - target) ** 2 + 1000 * over * over + dangling
-                if cost < best[k][b]:
-                    best[k][b], back[k][b] = cost, a
+    best = back = None
+    for tol, ptol in ((tolerance, punct_tolerance), (0.35, 0.35), (10.0, 10.0)):       # relax only if no such lines exist
+        best = [[inf] * (n + 1) for _ in range(lines_needed + 1)]
+        back = [[0] * (n + 1) for _ in range(lines_needed + 1)]
+        best[0][0] = 0.0
+        for k in range(1, lines_needed + 1):
+            for b in range(k, n + 1):
+                for a in range(k - 1, b):
+                    if best[k - 1][a] == inf:
+                        continue
+                    width = span(a, b)
+                    if abs(width - target) > (ptol if (clean[a] and clean[b]) else tol) * target:
+                        continue
+                    over = max(0.0, width - limit)
+                    tail = words[units[b - 1][1] - 1].strip(".,;:!?\"'”’)").lower()
+                    dangling = 25.0 if (b < n and tail in _WEAK_END) else 0.0          # a line should not end on "it", "a", "to", a dash...
+                    natural = -0.06 * target * target if (b < n and clean[b]) else 0.0     # a break after a comma or dash reads better
+                    cost = best[k - 1][a] + (width - target) ** 2 + 1000 * over * over + dangling + natural
+                    if cost < best[k][b]:
+                        best[k][b], back[k][b] = cost, a
+        if best[lines_needed][n] < inf:
+            break
     cuts, b = [], n
     for k in range(lines_needed, 0, -1):
         a = back[k][b]

@@ -49,3 +49,12 @@ def test_a_long_point_is_broken_into_even_lines_and_never_leaves_a_one_word_last
 
 def test_short_verse_remains_one_slide() -> None:
     assert split_verse_text("A short synthetic verse.") == ["A short synthetic verse."]
+
+
+def test_point_lines_may_be_25_percent_uneven_to_break_at_punctuation():
+    from versevision.slides.fitting import balance_lines
+    point = "• Pray without ceasing, give thanks in everything, and rejoice always in the Lord."
+    natural = balance_lines(point, 33.0, glue_first=2)
+    assert natural.split("\n") == ["• Pray without ceasing,", "give thanks in everything,", "and rejoice always in the Lord."]
+    even = balance_lines(point, 33.0, glue_first=2, punctuation_tolerance=0.15)
+    assert even.split("\n")[1].endswith("and")        # without the allowance the lines are evener but cut mid-phrase
