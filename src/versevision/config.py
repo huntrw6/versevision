@@ -54,6 +54,7 @@ class PresentationTemplateConfig(BaseModel):
 class OutputConfig(BaseModel):
     """Where new presentations go. The default is a NEW presentation in this library (no restart needed)."""
     library: str = "Verses"
+    swap_keeps_id: bool = False     # Replace/Append: the new file keeps the old presentation id (playlists need no change). False: a fresh id, so ProPresenter treats it as a new document and shows it even if the old one is open
 
 
 class ApiBibleProviderConfig(BaseModel):

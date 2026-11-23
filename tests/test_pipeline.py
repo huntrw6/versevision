@@ -603,10 +603,11 @@ def test_new_presentation_still_fails_if_the_lazy_file_on_disk_is_not_the_one_wr
         publish_new(NOTES, "n.txt", "Lazy Bad", plan, config, node, history=history, verify_timeout=3)
 
 
-def test_replace_keeps_the_originals_id_and_works_when_propresenter_has_not_loaded_the_new_file(env, monkeypatch):
+def test_replace_can_keep_the_originals_id_and_works_when_propresenter_has_not_loaded_the_new_file(env, monkeypatch):
     tmp, pres, node, config, history = env
     for name, value in (("LOAD_GRACE_SECONDS", 0.2), ("SWAP_WAIT_SECONDS", 4.0), ("SETTLE_SECONDS", 0.5), ("MIN_GAP_SECONDS", 0.0), ("QUIET_SECONDS", 0.0)):
         monkeypatch.setattr(pipeline, name, value)
+    config.output.swap_keeps_id = True
     original_uuid = _cues(pres).uuid.string
     plan, target = _plan(node, config)
     _lazy(node, {"Sample"})
@@ -614,3 +615,15 @@ def test_replace_keeps_the_originals_id_and_works_when_propresenter_has_not_load
     assert result.verified and _folder_files(pres) == ["Sample.pro"]
     assert _cues(pres).uuid.string == original_uuid                                          # same presentation id, so playlists need no change
     assert _playlist_names(node) == ["Sermon", "Sample", "Closing"]
+
+
+def test_replace_gives_the_file_a_fresh_id_by_default_so_an_open_presentation_is_shown_without_a_restart(env, monkeypatch):
+    tmp, pres, node, config, history = env
+    for name, value in (("LOAD_GRACE_SECONDS", 0.2), ("SWAP_WAIT_SECONDS", 4.0), ("SETTLE_SECONDS", 0.5), ("MIN_GAP_SECONDS", 0.0), ("QUIET_SECONDS", 0.0)):
+        monkeypatch.setattr(pipeline, name, value)
+    assert config.output.swap_keeps_id is False
+    original_uuid = _cues(pres).uuid.string
+    plan, target = _plan(node, config)
+    result = publish_swap("n", "n.txt", plan, config, node, target, clear_generated=True, history=history)
+    assert result.verified and _folder_files(pres) == ["Sample.pro"]
+    assert _cues(pres).uuid.string != original_uuid

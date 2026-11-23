@@ -31,6 +31,7 @@ from versevision.workflow.notes_workflow import NotesImportResult, plan_notes
 MIN_GAP_SECONDS = 4.0           # ProPresenter needs about 2 s after a rename before a new file may appear at the old name;
                                 # writing sooner leaves it with a dead entry for that name (measured on the iMac, 0.5 s fails every time)
 QUIET_SECONDS = 6.0             # no questions to ProPresenter for this long after a new file is written
+PLAYLIST_CONVERGE_SECONDS = 90.0     # how long to keep pointing the playlist at the id ProPresenter currently lists for the new file
 LOAD_GRACE_SECONDS = 8.0         # a listed file with a blank id (not loaded yet) is checked on disk after this long
 STABLE_SECONDS = 4.0             # the new file's id must not change for this long before it is trusted
 SETTLE_SECONDS = 15.0            # how long each swap step waits for ProPresenter to notice a file change
@@ -688,6 +689,30 @@ def _repoint_playlists(transport: Transport, slots: list[dict], old_uuid: str, n
     return undo
 
 
+def _converge_playlists(transport: Transport, slots: list[dict], lib_name: str, name: str, old_uuid: str, timeout: float) -> bool:
+    """Point the playlist entries at whatever id ProPresenter currently lists for the file, until they agree for 6 s in a row."""
+    deadline = time.monotonic() + timeout
+    agreed_since = 0.0
+    while time.monotonic() < deadline:
+        current = _library_uuid(transport, lib_name, name)
+        try:
+            if current and all(_playlist_ok(transport, slot, name, current) for slot in slots):
+                agreed_since = agreed_since or time.monotonic()
+                if time.monotonic() - agreed_since >= 6.0:
+                    runlog.event("swap_pacing", message=f"playlist and library agree on {current[:8]}")
+                    return True
+            else:
+                agreed_since = 0.0
+                if current:
+                    _repoint_playlists(transport, slots, old_uuid, current, name)
+        except ProPresenterConnectionError as exc:
+            agreed_since = 0.0
+            runlog.event("swap_pacing", level="warn", message=f"playlist not ready yet: {str(exc)[:120]}")
+        time.sleep(2.0)
+    runlog.event("swap_pacing", level="warn", message="the playlist entry never settled on the new id; it was left as it was")
+    return False
+
+
 def _wait_library(transport: Transport, lib_name: str, ready, timeout: float) -> bool:
     """Wait until ProPresenter's library listing satisfies ready(names)."""
     deadline = time.monotonic() + timeout
@@ -924,7 +949,13 @@ def _swap_core(
         if slots:
             progress("Updating the playlist")
             for attempt in range(4):
-                done = _repoint_playlists(transport, slots, old_uuid, new_uuid, name)
+                try:
+                    done = _repoint_playlists(transport, slots, old_uuid, new_uuid, name)
+                except ProPresenterConnectionError as exc:
+                    # ProPresenter refuses the id of a file it has not loaded yet; the entry then finds the file by name when it is opened
+                    runlog.event("swap_pacing", level="warn", message=f"the playlist would not take the new id ({exc}); left as it was")
+                    playlist_left = True
+                    break
                 if not playlist_undo:
                     playlist_undo = done
                 time.sleep(2.5)
@@ -944,6 +975,11 @@ def _swap_core(
                     break
             else:
                 raise PresentationWriteError("the playlist would not settle on the new version")
+            if playlist_left:
+                # ProPresenter hands out a new id while it takes the file in, and refuses a playlist entry for an id it cannot open yet.
+                # Keep following the id it lists until the playlist entry and the listing agree for a few seconds.
+                progress("Waiting for ProPresenter to take the new file in")
+                playlist_left = not _converge_playlists(transport, slots, lib_name, name, old_uuid, PLAYLIST_CONVERGE_SECONDS)
             steps.append(("playlist left as it was (ProPresenter has not loaded the new file yet; it loads when first opened): " if playlist_left
                           else "playlist now opens the new file: ") + ", ".join(sorted({sl["playlist_name"] for sl in slots})))
 
@@ -999,7 +1035,7 @@ def publish_swap(
     progress("Building the new version")
     written = ProtobufPresentationWriter().derive_presentation(
         base_local, out_local, plan.slide_plan, definition, name=name, clear_generated=clear_generated, template_path=template_local,
-        keep_uuid=True,
+        keep_uuid=config.output.swap_keeps_id,
     )
     expected = len(plan.slide_plan.slides)
 
