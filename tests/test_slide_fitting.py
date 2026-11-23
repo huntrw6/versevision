@@ -58,3 +58,43 @@ def test_point_lines_may_be_25_percent_uneven_to_break_at_punctuation():
     assert natural.split("\n") == ["• Pray without ceasing,", "give thanks in everything,", "and rejoice always in the Lord."]
     even = balance_lines(point, 33.0, glue_first=2, punctuation_tolerance=0.15)
     assert even.split("\n")[1].endswith("and")        # without the allowance the lines are evener but cut mid-phrase
+
+
+POINT_NOTES = """Title 11/8/26
+
+1) Trust the Lord with all your heart, lean not on your own understanding, and in all your ways acknowledge Him, and He will direct your paths.
+2) Be still.
+• Pray without ceasing, give thanks in everything, and rejoice always in the Lord, because this is the will of God for you.
+"""
+
+
+def _point_slides(limit, notes=POINT_NOTES):
+    import asyncio
+    from versevision.config import AppConfig, PointsConfig
+    from versevision.workflow.notes_workflow import plan_notes
+    result = asyncio.run(plan_notes(notes, AppConfig(points=PointsConfig(max_lines_per_slide=limit)), default_version="NKJV", no_fetch=True))
+    return result, [s.body_text for s in result.slide_plan.slides if s.kind == "point"]
+
+
+def test_a_point_longer_than_the_line_limit_continues_on_more_slides():
+    _, unlimited = _point_slides(0)
+    result, limited = _point_slides(2)
+    assert len(limited) > len(unlimited)
+    assert all(len(text.split("\n")) <= 2 for text in limited)
+    flat = lambda texts: " ".join(" ".join(texts).split()).upper()
+    assert flat(limited).replace("•", "").split() == flat(unlimited).replace("•", "").split()      # no words lost or moved
+    assert limited[0].startswith("1)") and not limited[1].startswith(("1)", "•"))                   # only the first slide carries the label
+    assert [d.slide_count for d in result.decisions if d.kind == "point"] == [3, 1, 2]
+
+
+def test_the_default_has_no_point_line_limit():
+    _, slides = _point_slides(0)
+    assert len(slides) == 3 and max(len(t.split("\n")) for t in slides) >= 4
+
+
+def test_a_line_added_in_the_review_also_respects_the_point_line_limit():
+    from versevision.config import PointsConfig
+    from versevision.workflow.notes_workflow import added_point_text
+    text = "Pray without ceasing, give thanks in everything, and rejoice always in the Lord, because this is the will of God for you."
+    parts = added_point_text(text, PointsConfig(max_lines_per_slide=2)).split("\f")
+    assert len(parts) == 2 and all(len(p.split("\n")) <= 2 for p in parts)

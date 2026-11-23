@@ -26,7 +26,13 @@ def _title_case(text: str) -> str:
 
 
 def format_point(item: PointItem, cfg: PointsConfig, counter: int) -> str:
-    """The text of a point slide: its label (kept, dropped, renumbered, or the bullet mark) and the case of the words."""
+    """The text of a point slide (all of it, when ``points.max_lines_per_slide`` makes the point continue on more slides)."""
+    return "\n\n".join(format_point_slides(item, cfg, counter))
+
+
+def format_point_slides(item: PointItem, cfg: PointsConfig, counter: int) -> list[str]:
+    """The text of each slide of a point: its label (kept, dropped, renumbered, or the bullet mark) and the case of the words.
+    Normally one slide; with ``points.max_lines_per_slide`` a longer point continues on the next slide(s)."""
     label = item.label
     if _NUMBERED.match(label or ""):
         if cfg.numbering == "strip":
@@ -44,17 +50,23 @@ def format_point(item: PointItem, cfg: PointsConfig, counter: int) -> str:
     elif cfg.case == "title":
         text = "\n".join(_title_case(line) for line in text.split("\n"))
     shown = f"{label} {text}".strip()
-    if cfg.balance_lines:
-        from versevision.slides.fitting import balance_lines
-        glued = 2 if label else 0          # "•" or "KEY #2)" stays with the word after it
-        shown = balance_lines(shown, cfg.line_width_units, upper=cfg.shown_in_capitals or cfg.case == "upper", glue_first=glued, max_lines=cfg.max_lines,
-                              tolerance=cfg.line_tolerance, punctuation_tolerance=cfg.line_tolerance_at_punctuation)
-    return shown
+    if not cfg.balance_lines:
+        return [shown]
+    from versevision.slides.fitting import balance_lines, split_point_text
+    glued = 2 if label else 0          # "•" or "KEY #2)" stays with the word after it
+    caps = cfg.shown_in_capitals or cfg.case == "upper"
+    pieces = [shown]
+    if cfg.max_lines_per_slide:
+        pieces = split_point_text(shown, cfg.line_width_units, cfg.max_lines_per_slide, upper=caps, glue_first=glued,
+                                  tolerance=cfg.line_tolerance, punctuation_tolerance=cfg.line_tolerance_at_punctuation)
+    return [balance_lines(piece, cfg.line_width_units, upper=caps, glue_first=glued if i == 0 else 0, max_lines=cfg.max_lines,
+                          tolerance=cfg.line_tolerance, punctuation_tolerance=cfg.line_tolerance_at_punctuation)
+            for i, piece in enumerate(pieces)]
 
 
 def added_point_text(text: str, cfg: PointsConfig) -> str:
     """A line you chose to add as a slide in the review: formatted like any other plain point."""
-    return format_point(PointItem(line=0, role="list_item", label="•", text=" ".join(text.split())), cfg, 0)
+    return "\f".join(format_point_slides(PointItem(line=0, role="list_item", label="•", text=" ".join(text.split())), cfg, 0))     # \f separates slides
 
 
 def apply_review_choices(result: "NotesImportResult", skip: set[int] = frozenset(), include: set[int] = frozenset()) -> SlidePlan:
@@ -67,8 +79,9 @@ def apply_review_choices(result: "NotesImportResult", skip: set[int] = frozenset
     added = []
     for d in result.decisions:
         if d.id in include and d.slide_count == 0 and d.add_text:
-            inserts.setdefault(min(d.first_slide, len(slides)), []).append(PlannedSlide(
-                kind="point", body_text=d.add_text, reference_text="", version_text="", source_passage_index=100_000 + d.id))
+            for part in d.add_text.split("\f"):
+                inserts.setdefault(min(d.first_slide, len(slides)), []).append(PlannedSlide(
+                    kind="point", body_text=part, reference_text="", version_text="", source_passage_index=100_000 + d.id))
             added.append({"id": d.id, "line": d.line, "text": d.add_text, "at_slide": min(d.first_slide, len(slides)) + 1})
     out: list[PlannedSlide] = []
     for index in range(len(slides) + 1):
@@ -329,19 +342,22 @@ async def plan_notes(
                 first = len(slides)
                 if item.role == "point" and item.label and _NUMBERED.match(item.label):
                     numbered_points += 1
-                shown_text = format_point(item, config.points, numbered_points)
-                slides.append(PlannedSlide(
-                    kind="point", body_text=shown_text, reference_text="", version_text="",
-                    source_passage_index=group_index,
-                ))
+                parts = format_point_slides(item, config.points, numbered_points)
+                shown_text = "\n\n".join(parts)
+                for part in parts:
+                    slides.append(PlannedSlide(
+                        kind="point", body_text=part, reference_text="", version_text="",
+                        source_passage_index=group_index,
+                    ))
                 group_index += 1
                 result.point_count += 1
                 for warning in item.warnings:
                     result.notices.append(ProblemEntry(line=item.line, text=item.display[:60], problem=warning))
-                runlog.trace("point_format", line=item.line, role=item.role, label_in_notes=item.label, text_in_notes=item.text, slide_text=shown_text,
+                runlog.trace("point_format", line=item.line, role=item.role, label_in_notes=item.label, text_in_notes=item.text, slide_text=shown_text, slides=len(parts),
                              settings={"numbering": config.points.numbering, "case": config.points.case, "bullet_char": config.points.bullet_char,
-                                       "number_style": config.points.number_style})
-                add(item, "point", shown_text.split("\n")[0][:80], shown_text, "warning" if item.warnings else "good", list(item.warnings), first, 1)
+                                       "number_style": config.points.number_style,
+                                       "max_lines_per_slide": config.points.max_lines_per_slide})
+                add(item, "point", shown_text.split("\n")[0][:80], shown_text, "warning" if item.warnings else "good", list(item.warnings), first, len(parts))
             elif item.kind == "verse":
                 line, reference, why = resolved_refs[id(item)]
                 shown = item.reference.normalized_text

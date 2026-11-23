@@ -938,7 +938,7 @@ wheels = [
 
 [[package]]
 name = "versevision"
-version = "0.34.3"
+version = "0.35.0"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },

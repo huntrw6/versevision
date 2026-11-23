@@ -137,6 +137,51 @@ def _even_cuts(words, prefix, pieces_needed, fits, prefer_punctuation, tolerance
     return None
 
 
+def split_point_text(text: str, line_width_units: float, max_lines: int, *, upper: bool = True, glue_first: int = 0,
+                     tolerance: float = 0.15, punctuation_tolerance: float = 0.25) -> list[str]:
+    """Cut one sermon point into the fewest slides that each hold at most ``max_lines`` lines (a line is ``line_width_units`` wide,
+    measured in capitals when ``upper``). The pieces carry about the same amount of text and break at punctuation where that
+    costs little. The first ``glue_first`` words (a bullet or \"KEY #2)\") stay with the first piece's next word. ``max_lines`` of 0 = no limit."""
+    flat = " ".join(text.split())
+    words = flat.split(" ") if flat else []
+    if max_lines <= 0 or len(words) < 2:
+        return [flat]
+    if glue_first > 1 and len(words) > glue_first:
+        words = [" ".join(words[:glue_first])] + words[glue_first:]
+    shown = [w.upper() if upper else w for w in words]
+    space = text_width_units(" ")
+
+    def lines_in(a: int, b: int) -> int:
+        count, current = 1, None
+        for word in shown[a:b]:
+            width = text_width_units(word)
+            if current is None:
+                current = width
+            elif current + space + width <= line_width_units:
+                current += space + width
+            else:
+                count, current = count + 1, width
+        return count
+
+    if lines_in(0, len(words)) <= max_lines:
+        return [" ".join(words)]
+    prefix = [0.0]
+    for word in shown:
+        prefix.append(prefix[-1] + text_width_units(word) + space)
+    needed = max(2, math.ceil(lines_in(0, len(words)) / max_lines))
+    from functools import lru_cache
+
+    @lru_cache(maxsize=None)
+    def fits(a: int, b: int) -> bool:
+        return lines_in(a, b) <= max_lines
+
+    for tol in (tolerance, max(tolerance, 0.35), 10.0):
+        found = _even_cuts(words, prefix, needed, fits, True, tol, max(punctuation_tolerance, tol))
+        if found:
+            return found
+    return [" ".join(words)]
+
+
 _WEAK_END = {"a", "an", "the", "of", "to", "in", "on", "at", "it", "is", "as", "by", "or", "and", "for", "but", "—", "–", "-", "&"}
 
 
