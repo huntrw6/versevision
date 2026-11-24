@@ -1,0 +1,232 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• Title 11/22/26",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "Title 11/22/26",
+      "tier": "good",
+      "title": "Title 11/22/26"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        1,
+        2,
+        3
+      ],
+      "text": "Esther 8:9 NKJV",
+      "tier": "good",
+      "title": "Esther 8:9 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "text": "Psalms 119:1-3 NIV",
+      "tier": "good",
+      "title": "Psalms 119:1-3 NIV"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "Title 11/22/26"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          1,
+          2,
+          3
+        ],
+        "text": "Esther 8:9 NKJV",
+        "tier": "good",
+        "title": "Esther 8:9 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "text": "Psalms 119:1-3 NIV",
+        "tier": "good",
+        "title": "Psalms 119:1-3 NIV"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Title 11/22/26",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "Title 11/22/26",
+        "tier": "good",
+        "title": "Title 11/22/26"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "Lamp servant river gentle heaven servant righteous. truth.",
+      "title": "Esther 8:9 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "humble grace: peace heaven kingdom glory river; seed grace.",
+      "title": "Esther 8:9 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "servant covenant covenant tender judge spirit servant ready. heaven.",
+      "title": "Esther 8:9 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Hidden river faith grace covenant ancient brother kingdom servant —",
+      "title": "Psalms 119:1 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "faith steadfast. ready: mighty shepherd; faith promise.",
+      "title": "Psalms 119:1 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "Shepherd — righteous: hidden bread ready heaven grace gentle covenant",
+      "title": "Psalms 119:2 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 7,
+      "text": "tender righteous — spirit ancient — harvest vine heaven. open.",
+      "title": "Psalms 119:2 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "Humble mercy, ready. mighty stranger wisdom peace: bread —",
+      "title": "Psalms 119:3 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 9,
+      "text": "ancient vine prayer: covenant: father — bread; glory lamp covenant wisdom —",
+      "title": "Psalms 119:3 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 10,
+      "text": "promise harvest truth seed prayer righteous mercy faith; faithful.",
+      "title": "Psalms 119:3 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 11,
+      "text": "light humble heaven lamp seed vine — kingdom song. ready hidden lamp;",
+      "title": "Psalms 119:3 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 12,
+      "text": "living peace shepherd spirit. open. steadfast bread, covenant: living; living,",
+      "title": "Psalms 119:3 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 13,
+      "text": "bread seed father righteous; mighty steadfast kingdom song. shepherd.",
+      "title": "Psalms 119:3 (NIV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 2,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 13,
+    "verse_slides": 13,
+    "warnings": 0
+  }
+}

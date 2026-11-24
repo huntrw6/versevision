@@ -1,0 +1,304 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• JPL 1/1/26 Title of the message",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "JPL 1/1/26 Title of the message",
+      "tier": "good",
+      "title": "JPL 1/1/26 Title of the message"
+    },
+    {
+      "add_text": "• “For God so loved the world\nthat he gave his one and only Son,\nthat whoever believes in him shall\nnot perish but have eternal life”",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.”",
+      "tier": "good",
+      "title": "“For God so loved the world that he gave his one and only Son, that whoever beli"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "John 3:16 NIV",
+      "tier": "good",
+      "title": "John 3:16 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "1) First point title here",
+      "tier": "good",
+      "title": "1) First point title here"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "verse",
+      "line": 6,
+      "reasons": [],
+      "slides": [
+        3,
+        4,
+        5
+      ],
+      "text": "Psalm 46:10 ESV",
+      "tier": "good",
+      "title": "Psalms 46:10 ESV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "verse",
+      "line": 8,
+      "reasons": [],
+      "slides": [
+        6
+      ],
+      "text": "Romans 8:28 ESV",
+      "tier": "good",
+      "title": "Romans 8:28 ESV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "point",
+      "line": 10,
+      "reasons": [],
+      "slides": [
+        7
+      ],
+      "text": "2. Second point",
+      "tier": "good",
+      "title": "2. Second point"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "JPL 1/1/26 Title of the message"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 2,
+      "status": "left_out",
+      "text": "“For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.”"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "John 3:16 NIV",
+        "tier": "good",
+        "title": "John 3:16 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "1) First point title here",
+        "tier": "good",
+        "title": "1) First point title here"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "verse",
+        "line": 6,
+        "reasons": [],
+        "slides": [
+          3,
+          4,
+          5
+        ],
+        "text": "Psalm 46:10 ESV",
+        "tier": "good",
+        "title": "Psalms 46:10 ESV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "verse",
+        "line": 8,
+        "reasons": [],
+        "slides": [
+          6
+        ],
+        "text": "Romans 8:28 ESV",
+        "tier": "good",
+        "title": "Romans 8:28 ESV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "point",
+        "line": 10,
+        "reasons": [],
+        "slides": [
+          7
+        ],
+        "text": "2. Second point",
+        "tier": "good",
+        "title": "2. Second point"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• JPL 1/1/26 Title of the message",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "JPL 1/1/26 Title of the message",
+        "tier": "good",
+        "title": "JPL 1/1/26 Title of the message"
+      },
+      {
+        "add_text": "• “For God so loved the world\nthat he gave his one and only Son,\nthat whoever believes in him shall\nnot perish but have eternal life”",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.”",
+        "tier": "good",
+        "title": "“For God so loved the world that he gave his one and only Son, that whoever beli"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "Bread: ancient living; faith humble.",
+      "title": "John 3:16 (NIV)"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "1) First point title here",
+      "title": "1) First point title here"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "Covenant: open — peace, father — shepherd. brother, harvest light, steadfast open: tender — stranger ready song. judge; tender, mighty — river; light; stranger — heaven faith, seed:",
+      "title": "Psalms 46:10 (ESV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "peace ancient, hidden father steadfast song. song. steadfast; faith — faith, father spirit — spirit; covenant humble — brother wisdom. song humble: tender gentle: brother.",
+      "title": "Psalms 46:10 (ESV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "servant bread father righteous prayer open; hidden covenant: mercy grace harvest — righteous; prayer. tender; shepherd shepherd shepherd truth bread open.",
+      "title": "Psalms 46:10 (ESV)"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "Heaven promise; servant bread steadfast faith: ready faith. vine hidden covenant ready peace covenant gentle song, river peace tender: harvest; river — mountain: grace faithful kingdom: peace; harvest truth mercy spirit: wisdom.",
+      "title": "Romans 8:28 (ESV)"
+    },
+    {
+      "kind": "point",
+      "n": 7,
+      "text": "2. Second point",
+      "title": "2. Second point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 5,
+    "left_out": 2,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 2,
+    "slides": 7,
+    "verse_slides": 5,
+    "warnings": 0
+  }
+}

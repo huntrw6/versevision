@@ -1,0 +1,60 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) P",
+      "tier": "good",
+      "title": "1) P"
+    },
+    {
+      "add_text": "• As Psalm 23:1 NIV tells us,\nwe lack nothing in the Lord today",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "mentions Psalms 23:1 NIV inside text; put the reference on its own line to add it as a slide"
+      ],
+      "slide_count": 0,
+      "text": "As Psalm 23:1 NIV tells us, we lack nothing in the Lord today.",
+      "tier": "error",
+      "title": "As Psalm 23:1 NIV tells us, we lack nothing in the Lord today."
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [],
+  "point_count": 1,
+  "review": [
+    {
+      "line": 2,
+      "problem": "mentions Psalms 23:1 NIV inside text; put the reference on its own line to add it as a slide",
+      "text": "As Psalm 23:1 NIV tells us, we lack nothing in the Lord today."
+    }
+  ],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) P",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

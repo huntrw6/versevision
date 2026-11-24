@@ -1,0 +1,190 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 3,
+      "status": "adjusted",
+      "text": "• Secret code 42"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) P",
+      "tier": "good",
+      "title": "1) P"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "• Pause here for effect",
+      "tier": "good",
+      "title": "• Pause here for effect"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        3
+      ],
+      "text": "• Secret code 42",
+      "tier": "warning",
+      "title": "• Secret code 42"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "text": "• Keep this sentence",
+      "tier": "good",
+      "title": "• Keep this sentence"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) P",
+        "tier": "good",
+        "title": "1) P"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "• Pause here for effect",
+        "tier": "good",
+        "title": "• Pause here for effect"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "text": "• Keep this sentence",
+        "tier": "good",
+        "title": "• Keep this sentence"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 3,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          3
+        ],
+        "text": "• Secret code 42",
+        "tier": "warning",
+        "title": "• Secret code 42"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) P",
+      "title": "1) P"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "• Pause here for effect",
+      "title": "• Pause here for effect"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "• Secret code 42",
+      "title": "• Secret code 42"
+    },
+    {
+      "kind": "point",
+      "n": 4,
+      "text": "• Keep this sentence",
+      "title": "• Keep this sentence"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 3,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 4,
+    "slides": 4,
+    "verse_slides": 0,
+    "warnings": 1
+  }
+}

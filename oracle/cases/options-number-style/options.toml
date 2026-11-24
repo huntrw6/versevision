@@ -1,0 +1,3 @@
+[points]
+number_style = "#{n}:"
+numbering = "renumber"

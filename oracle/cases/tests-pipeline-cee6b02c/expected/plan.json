@@ -1,0 +1,70 @@
+{
+  "decisions": [
+    {
+      "add_text": "• “A quote”",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slide_count": 0,
+      "text": "“A quote.”",
+      "tier": "good",
+      "title": "“A quote.”"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slide_count": 1,
+      "text": "John 3:16",
+      "tier": "warning",
+      "title": "John 3:16 (NKJV)"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 2,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "John 3:16"
+    }
+  ],
+  "point_count": 0,
+  "review": [],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "text": "“A quote.”"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "Seed; lamp, steadfast judge steadfast kingdom living servant — living. servant: shepherd faithful.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NKJV"
+      }
+    ]
+  },
+  "verse_count": 1
+}

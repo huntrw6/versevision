@@ -1,0 +1,4 @@
+[slides]
+even_split_punctuation_tolerance = 0.0
+even_split_tolerance = 0.0
+max_body_lines = 3

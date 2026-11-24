@@ -1,0 +1,142 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• (ask Amy to cue the video)",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "(ask Amy to cue the video)",
+      "tier": "good",
+      "title": "(ask Amy to cue the video)"
+    },
+    {
+      "add_text": "• NOTE: remember offering",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "NOTE: remember offering",
+      "tier": "good",
+      "title": "NOTE: remember offering"
+    },
+    {
+      "add_text": "• TODO fix this",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "TODO fix this",
+      "tier": "good",
+      "title": "TODO fix this"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 1,
+      "status": "left_out",
+      "text": "(ask Amy to cue the video)"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 2,
+      "status": "left_out",
+      "text": "NOTE: remember offering"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 3,
+      "status": "left_out",
+      "text": "TODO fix this"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [],
+    "left_out_good": [
+      {
+        "add_text": "• (ask Amy to cue the video)",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "(ask Amy to cue the video)",
+        "tier": "good",
+        "title": "(ask Amy to cue the video)"
+      },
+      {
+        "add_text": "• NOTE: remember offering",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "NOTE: remember offering",
+        "tier": "good",
+        "title": "NOTE: remember offering"
+      },
+      {
+        "add_text": "• TODO fix this",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "left_out",
+        "line": 3,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "TODO fix this",
+        "tier": "good",
+        "title": "TODO fix this"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 0,
+    "left_out": 3,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 0,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

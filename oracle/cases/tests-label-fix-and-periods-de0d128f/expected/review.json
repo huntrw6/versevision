@@ -1,0 +1,216 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• Title 11/8/26",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "Title 11/8/26",
+      "tier": "good",
+      "title": "Title 11/8/26"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "KEY#1) ONE",
+      "tier": "good",
+      "title": "KEY#1) ONE"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "KEY #2) TWO",
+      "tier": "good",
+      "title": "KEY #2) TWO"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "text": "KEY#3) THREE",
+      "tier": "good",
+      "title": "KEY#3) THREE"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "point",
+      "line": 6,
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "text": "KEY #4) FOUR",
+      "tier": "good",
+      "title": "KEY #4) FOUR"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "Title 11/8/26"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "KEY#1) ONE",
+        "tier": "good",
+        "title": "KEY#1) ONE"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "KEY #2) TWO",
+        "tier": "good",
+        "title": "KEY #2) TWO"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "text": "KEY#3) THREE",
+        "tier": "good",
+        "title": "KEY#3) THREE"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "point",
+        "line": 6,
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "text": "KEY #4) FOUR",
+        "tier": "good",
+        "title": "KEY #4) FOUR"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Title 11/8/26",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "Title 11/8/26",
+        "tier": "good",
+        "title": "Title 11/8/26"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "KEY#1) ONE",
+      "title": "KEY#1) ONE"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "KEY #2) TWO",
+      "title": "KEY #2) TWO"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "KEY#3) THREE",
+      "title": "KEY#3) THREE"
+    },
+    {
+      "kind": "point",
+      "n": 4,
+      "text": "KEY #4) FOUR",
+      "title": "KEY #4) FOUR"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 4,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 4,
+    "slides": 4,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

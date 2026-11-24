@@ -6,4 +6,4 @@ __pycache__/
 build/
 dist/
 *.spec
-src/versevision/_bundled_credentials.py
+python/src/versevision/_bundled_credentials.py

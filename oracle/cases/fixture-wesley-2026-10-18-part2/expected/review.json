@@ -1,0 +1,1862 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (nearest version above)",
+      "line": 13,
+      "status": "adjusted",
+      "text": "Romans 8:16"
+    },
+    {
+      "detail": "no version listed; used KJV (nearest version above)",
+      "line": 21,
+      "status": "adjusted",
+      "text": "Luke 14:23"
+    },
+    {
+      "detail": "no version listed; used KJV (nearest version above)",
+      "line": 25,
+      "status": "adjusted",
+      "text": "Matthew 25:35"
+    },
+    {
+      "detail": "no version listed; used KJV (nearest version above)",
+      "line": 27,
+      "status": "adjusted",
+      "text": "James 2:17"
+    },
+    {
+      "detail": "no version listed; used KJV (nearest version above)",
+      "line": 34,
+      "status": "adjusted",
+      "text": "Hebrews 10:24-25"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• JPL 10/18/26 John Wesley Part 2 -\nWill You Let God Work Through You?",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "JPL 10/18/26 John Wesley Part 2 - Will You Let God Work Through You?",
+      "tier": "good",
+      "title": "JPL 10/18/26 John Wesley Part 2 - Will You Let God Work Through You?"
+    },
+    {
+      "add_text": "• Show Opening Slide for Series",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "Show Opening Slide for Series",
+      "tier": "good",
+      "title": "Show Opening Slide for Series"
+    },
+    {
+      "add_text": "• Show slide of John Wesley",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "Show slide of John Wesley.",
+      "tier": "good",
+      "title": "Show slide of John Wesley."
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) A Person Must Realize They\nare Lost Before they are Saved",
+      "tier": "good",
+      "title": "1) A Person Must Realize They"
+    },
+    {
+      "add_text": "• “Then one of the criminals who were hanged blasphemed Him,\nsaying, “If You are the Christ, save Yourself and us.” But the other,\nanswering, rebuked him, saying, “Do you not even fear God,\nseeing you are under the same condemnation? And we indeed justly,\nfor we receive the due reward of our deeds; but this Man has\ndone nothing wrong.” Then he said to Jesus, “Lord, remember\nme when You come into Your kingdom.” And Jesus said to him,\n“Assuredly, I say to you, today you will be with Me in Paradise””",
+      "addable": true,
+      "correction": null,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are the Christ, save Yourself and us.” But the other, answering, rebuked him, saying, “Do you not even fear God, seeing you are under the same condemnation? And we indeed justly, for we receive the due reward of our deeds; but this Man has done nothing wrong.” Then he said to Jesus, “Lord, remember me when You come into Your kingdom.” And Jesus said to him, “Assuredly, I say to you, today you will be with Me in Paradise.””",
+      "tier": "good",
+      "title": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are t"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "verse",
+      "line": 11,
+      "reasons": [],
+      "slides": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "text": "Luke 23:39-43 NKJV",
+      "tier": "good",
+      "title": "Luke 23:39-43 NKJV"
+    },
+    {
+      "add_text": "• \"The Spirit itself beareth\nwitness with our spirit, that\nwe are the children of God\"",
+      "addable": true,
+      "correction": null,
+      "id": 6,
+      "kind": "left_out",
+      "line": 12,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "\"The Spirit itself beareth witness with our spirit, that we are the children of God.\"",
+      "tier": "good",
+      "title": "\"The Spirit itself beareth witness with our spirit, that we are the children of "
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 7,
+      "kind": "verse",
+      "line": 13,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)",
+        "the quoted text in the notes does not match NKJV wording (match 0%); check the version"
+      ],
+      "slides": [
+        8
+      ],
+      "text": "Romans 8:16",
+      "tier": "warning",
+      "title": "Romans 8:16 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "point",
+      "line": 14,
+      "reasons": [],
+      "slides": [
+        9
+      ],
+      "text": "2) You Must Be Born\nAgain and Set On Fire",
+      "tier": "good",
+      "title": "2) You Must Be Born"
+    },
+    {
+      "add_text": "• “And He said to them,\n“Why did you seek Me? Did\nyou not know that I must be\nabout My Father’s business?””",
+      "addable": true,
+      "correction": null,
+      "id": 9,
+      "kind": "left_out",
+      "line": 15,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“And He said to them, “Why did you seek Me? Did you not know that I must be about My Father’s business?””",
+      "tier": "good",
+      "title": "“And He said to them, “Why did you seek Me? Did you not know that I must be abou"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 10,
+      "kind": "verse",
+      "line": 17,
+      "reasons": [],
+      "slides": [
+        10,
+        11
+      ],
+      "text": "Luke 2:49 NKJV",
+      "tier": "good",
+      "title": "Luke 2:49 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 11,
+      "kind": "verse",
+      "line": 18,
+      "reasons": [],
+      "slides": [
+        12
+      ],
+      "text": "James 2:17, KJV",
+      "tier": "good",
+      "title": "James 2:17 KJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 12,
+      "kind": "point",
+      "line": 19,
+      "reasons": [],
+      "slides": [
+        13
+      ],
+      "text": "3) A Disciplined Faith Must\nBecome a Living Faith",
+      "tier": "good",
+      "title": "3) A Disciplined Faith Must"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 13,
+      "kind": "point",
+      "line": 20,
+      "reasons": [],
+      "slides": [
+        14
+      ],
+      "text": "• John Wesley said, \"I look upon\nall the world as my parish\"",
+      "tier": "good",
+      "title": "• John Wesley said, \"I look upon"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 14,
+      "kind": "verse",
+      "line": 21,
+      "reasons": [
+        "no version listed; used KJV (nearest version above)",
+        "the quoted text in the notes does not match KJV wording (match 0%); check the version"
+      ],
+      "slides": [
+        15
+      ],
+      "text": "Luke 14:23",
+      "tier": "warning",
+      "title": "Luke 14:23 (KJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 15,
+      "kind": "point",
+      "line": 23,
+      "reasons": [],
+      "slides": [
+        16
+      ],
+      "text": "4) Identify Your Go",
+      "tier": "good",
+      "title": "4) Identify Your Go"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 16,
+      "kind": "point",
+      "line": 24,
+      "reasons": [],
+      "slides": [
+        17
+      ],
+      "text": "5) Faith Must Have Hands and Feet",
+      "tier": "good",
+      "title": "5) Faith Must Have Hands and Feet"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 17,
+      "kind": "verse",
+      "line": 25,
+      "reasons": [
+        "no version listed; used KJV (nearest version above)",
+        "the quoted text in the notes does not match KJV wording (match 4%); check the version"
+      ],
+      "slides": [
+        18,
+        19
+      ],
+      "text": "Matthew 25:35",
+      "tier": "warning",
+      "title": "Matthew 25:35 (KJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 18,
+      "kind": "verse",
+      "line": 27,
+      "reasons": [
+        "no version listed; used KJV (nearest version above)",
+        "the quoted text in the notes does not match KJV wording (match 10%); check the version"
+      ],
+      "slides": [
+        20
+      ],
+      "text": "James 2:17",
+      "tier": "warning",
+      "title": "James 2:17 (KJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 19,
+      "kind": "point",
+      "line": 28,
+      "reasons": [],
+      "slides": [
+        21
+      ],
+      "text": "• Societal transformation would\nbe achieved from the inside out,\none individual at a time, each person\nundergoing a personal reformation",
+      "tier": "good",
+      "title": "• Societal transformation would"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 20,
+      "kind": "point",
+      "line": 30,
+      "reasons": [],
+      "slides": [
+        22
+      ],
+      "text": "• How is it with your soul?",
+      "tier": "good",
+      "title": "• How is it with your soul?"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 21,
+      "kind": "point",
+      "line": 31,
+      "reasons": [],
+      "slides": [
+        23
+      ],
+      "text": "6) We Grow Better Together",
+      "tier": "good",
+      "title": "6) We Grow Better Together"
+    },
+    {
+      "add_text": "• \"Let us consider one another to\nprovoke unto love and to good works:\nNot forsaking the assembling of\nourselves together, as the manner\nof some is; but exhorting one another\"",
+      "addable": true,
+      "correction": null,
+      "id": 22,
+      "kind": "left_out",
+      "line": 32,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "\"Let us consider one another to provoke unto love and to good works: Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another.\"",
+      "tier": "good",
+      "title": "\"Let us consider one another to provoke unto love and to good works: Not forsaki"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 23,
+      "kind": "verse",
+      "line": 34,
+      "reasons": [
+        "no version listed; used KJV (nearest version above)",
+        "the quoted text in the notes does not match KJV wording (match 0%); check the version"
+      ],
+      "slides": [
+        24,
+        25,
+        26
+      ],
+      "text": "Hebrews 10:24-25",
+      "tier": "warning",
+      "title": "Hebrews 10:24-25 (KJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 24,
+      "kind": "point",
+      "line": 35,
+      "reasons": [],
+      "slides": [
+        27
+      ],
+      "text": "7) One Surrendered Life\nCan Influence Generations",
+      "tier": "good",
+      "title": "7) One Surrendered Life"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 25,
+      "kind": "point",
+      "line": 36,
+      "reasons": [],
+      "slides": [
+        28
+      ],
+      "text": "• God's kingdom has always\nadvanced through ordinary\nacts of faithfulness",
+      "tier": "good",
+      "title": "• God's kingdom has always"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 26,
+      "kind": "point",
+      "line": 37,
+      "reasons": [],
+      "slides": [
+        29
+      ],
+      "text": "• Do not confuse\nvisibility with significance",
+      "tier": "good",
+      "title": "• Do not confuse"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 27,
+      "kind": "point",
+      "line": 38,
+      "reasons": [],
+      "slides": [
+        30
+      ],
+      "text": "• But you can be faithful\nwhere God has placed you",
+      "tier": "good",
+      "title": "• But you can be faithful"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 28,
+      "kind": "point",
+      "line": 39,
+      "reasons": [],
+      "slides": [
+        31
+      ],
+      "text": "• Your assignment is not to\nbecome another John Wesley.\nYour assignment is to be\nfaithful to Jesus Christ with\nthe life He has given you",
+      "tier": "good",
+      "title": "• Your assignment is not to"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 29,
+      "kind": "point",
+      "line": 41,
+      "reasons": [],
+      "slides": [
+        32
+      ],
+      "text": "• What are you doing\nwith your influence?",
+      "tier": "good",
+      "title": "• What are you doing"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 30,
+      "kind": "point",
+      "line": 42,
+      "reasons": [],
+      "slides": [
+        33
+      ],
+      "text": "• Who are you encouraging?",
+      "tier": "good",
+      "title": "• Who are you encouraging?"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 31,
+      "kind": "point",
+      "line": 43,
+      "reasons": [],
+      "slides": [
+        34
+      ],
+      "text": "• Who are you teaching?",
+      "tier": "good",
+      "title": "• Who are you teaching?"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 32,
+      "kind": "point",
+      "line": 44,
+      "reasons": [],
+      "slides": [
+        35
+      ],
+      "text": "• Who are you serving?",
+      "tier": "good",
+      "title": "• Who are you serving?"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 33,
+      "kind": "point",
+      "line": 45,
+      "reasons": [],
+      "slides": [
+        36
+      ],
+      "text": "• Who is learning what\nit means to follow Jesus\nby watching your life?",
+      "tier": "good",
+      "title": "• Who is learning what"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 34,
+      "kind": "point",
+      "line": 46,
+      "reasons": [],
+      "slides": [
+        37
+      ],
+      "text": "Conclusion: There is a Great\nWork to be Done - Will You Let",
+      "tier": "good",
+      "title": "Conclusion: There is a Great"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 35,
+      "kind": "point",
+      "line": 47,
+      "reasons": [],
+      "slides": [
+        38
+      ],
+      "text": "• God Work Through You?",
+      "tier": "good",
+      "title": "• God Work Through You?"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 36,
+      "kind": "point",
+      "line": 48,
+      "reasons": [],
+      "slides": [
+        39
+      ],
+      "text": "• The most important\nquestion is what God wants\nto accomplish through us",
+      "tier": "good",
+      "title": "• The most important"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 37,
+      "kind": "verse",
+      "line": 49,
+      "reasons": [],
+      "slides": [
+        40
+      ],
+      "text": "Romans 12:1, KJV",
+      "tier": "good",
+      "title": "Romans 12:1 KJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 38,
+      "kind": "point",
+      "line": 51,
+      "reasons": [],
+      "slides": [
+        41
+      ],
+      "text": "• God is not asking every person\nto become a famous preacher. He is\ncalling every believer to surrender",
+      "tier": "good",
+      "title": "• God is not asking every person"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 39,
+      "kind": "point",
+      "line": 53,
+      "reasons": [],
+      "slides": [
+        42
+      ],
+      "text": "• Whatever your circumstances,\nyou can offer your life to God",
+      "tier": "good",
+      "title": "• Whatever your circumstances,"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 40,
+      "kind": "point",
+      "line": 54,
+      "reasons": [],
+      "slides": [
+        43
+      ],
+      "text": "• The question is whether\nyou will make that offering",
+      "tier": "good",
+      "title": "• The question is whether"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 41,
+      "kind": "point",
+      "line": 55,
+      "reasons": [],
+      "slides": [
+        44
+      ],
+      "text": "• Will you allow Him\nto transform your heart?",
+      "tier": "good",
+      "title": "• Will you allow Him"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 42,
+      "kind": "point",
+      "line": 56,
+      "reasons": [],
+      "slides": [
+        45
+      ],
+      "text": "• Will you follow Him when\nobedience costs you something?",
+      "tier": "good",
+      "title": "• Will you follow Him when"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 43,
+      "kind": "point",
+      "line": 57,
+      "reasons": [],
+      "slides": [
+        46
+      ],
+      "text": "• Will you serve people\nwho cannot repay you?",
+      "tier": "good",
+      "title": "• Will you serve people"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 44,
+      "kind": "point",
+      "line": 58,
+      "reasons": [],
+      "slides": [
+        47
+      ],
+      "text": "• Will you invest in\nthe next generation?",
+      "tier": "good",
+      "title": "• Will you invest in"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 45,
+      "kind": "point",
+      "line": 59,
+      "reasons": [],
+      "slides": [
+        48
+      ],
+      "text": "• Will you continue\ngrowing in His love?",
+      "tier": "good",
+      "title": "• Will you continue"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 46,
+      "kind": "point",
+      "line": 60,
+      "reasons": [],
+      "slides": [
+        49
+      ],
+      "text": "• May our lives, like Wesley's, point\npeople towards the Savior who\nalone is worthy of our devotion",
+      "tier": "good",
+      "title": "• May our lives, like Wesley's, point"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "JPL 10/18/26 John Wesley Part 2 - Will You Let God Work Through You?"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 2,
+      "status": "left_out",
+      "text": "Show Opening Slide for Series"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 3,
+      "status": "left_out",
+      "text": "Show slide of John Wesley."
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 5,
+      "status": "left_out",
+      "text": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are the Christ, save Yourself and us.” But the other, answering, rebuked him, saying, “Do you not even fear God, seeing you are under the same condemnation? And we indeed justly, for we receive the due reward of our deeds; but this Man has done nothing wrong.” Then he said to Jesus, “Lord, remember me when You come into Your kingdom.” And Jesus said to him, “Assuredly, I say to you, today you will be with Me in Paradise.””"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 12,
+      "status": "left_out",
+      "text": "\"The Spirit itself beareth witness with our spirit, that we are the children of God.\""
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 15,
+      "status": "left_out",
+      "text": "“And He said to them, “Why did you seek Me? Did you not know that I must be about My Father’s business?””"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 32,
+      "status": "left_out",
+      "text": "\"Let us consider one another to provoke unto love and to good works: Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another.\""
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) A Person Must Realize They\nare Lost Before they are Saved",
+        "tier": "good",
+        "title": "1) A Person Must Realize They"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "verse",
+        "line": 11,
+        "reasons": [],
+        "slides": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "text": "Luke 23:39-43 NKJV",
+        "tier": "good",
+        "title": "Luke 23:39-43 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "point",
+        "line": 14,
+        "reasons": [],
+        "slides": [
+          9
+        ],
+        "text": "2) You Must Be Born\nAgain and Set On Fire",
+        "tier": "good",
+        "title": "2) You Must Be Born"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 10,
+        "kind": "verse",
+        "line": 17,
+        "reasons": [],
+        "slides": [
+          10,
+          11
+        ],
+        "text": "Luke 2:49 NKJV",
+        "tier": "good",
+        "title": "Luke 2:49 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 11,
+        "kind": "verse",
+        "line": 18,
+        "reasons": [],
+        "slides": [
+          12
+        ],
+        "text": "James 2:17, KJV",
+        "tier": "good",
+        "title": "James 2:17 KJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 12,
+        "kind": "point",
+        "line": 19,
+        "reasons": [],
+        "slides": [
+          13
+        ],
+        "text": "3) A Disciplined Faith Must\nBecome a Living Faith",
+        "tier": "good",
+        "title": "3) A Disciplined Faith Must"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 13,
+        "kind": "point",
+        "line": 20,
+        "reasons": [],
+        "slides": [
+          14
+        ],
+        "text": "• John Wesley said, \"I look upon\nall the world as my parish\"",
+        "tier": "good",
+        "title": "• John Wesley said, \"I look upon"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 15,
+        "kind": "point",
+        "line": 23,
+        "reasons": [],
+        "slides": [
+          16
+        ],
+        "text": "4) Identify Your Go",
+        "tier": "good",
+        "title": "4) Identify Your Go"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 16,
+        "kind": "point",
+        "line": 24,
+        "reasons": [],
+        "slides": [
+          17
+        ],
+        "text": "5) Faith Must Have Hands and Feet",
+        "tier": "good",
+        "title": "5) Faith Must Have Hands and Feet"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 19,
+        "kind": "point",
+        "line": 28,
+        "reasons": [],
+        "slides": [
+          21
+        ],
+        "text": "• Societal transformation would\nbe achieved from the inside out,\none individual at a time, each person\nundergoing a personal reformation",
+        "tier": "good",
+        "title": "• Societal transformation would"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 20,
+        "kind": "point",
+        "line": 30,
+        "reasons": [],
+        "slides": [
+          22
+        ],
+        "text": "• How is it with your soul?",
+        "tier": "good",
+        "title": "• How is it with your soul?"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 21,
+        "kind": "point",
+        "line": 31,
+        "reasons": [],
+        "slides": [
+          23
+        ],
+        "text": "6) We Grow Better Together",
+        "tier": "good",
+        "title": "6) We Grow Better Together"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 24,
+        "kind": "point",
+        "line": 35,
+        "reasons": [],
+        "slides": [
+          27
+        ],
+        "text": "7) One Surrendered Life\nCan Influence Generations",
+        "tier": "good",
+        "title": "7) One Surrendered Life"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 25,
+        "kind": "point",
+        "line": 36,
+        "reasons": [],
+        "slides": [
+          28
+        ],
+        "text": "• God's kingdom has always\nadvanced through ordinary\nacts of faithfulness",
+        "tier": "good",
+        "title": "• God's kingdom has always"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 26,
+        "kind": "point",
+        "line": 37,
+        "reasons": [],
+        "slides": [
+          29
+        ],
+        "text": "• Do not confuse\nvisibility with significance",
+        "tier": "good",
+        "title": "• Do not confuse"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 27,
+        "kind": "point",
+        "line": 38,
+        "reasons": [],
+        "slides": [
+          30
+        ],
+        "text": "• But you can be faithful\nwhere God has placed you",
+        "tier": "good",
+        "title": "• But you can be faithful"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 28,
+        "kind": "point",
+        "line": 39,
+        "reasons": [],
+        "slides": [
+          31
+        ],
+        "text": "• Your assignment is not to\nbecome another John Wesley.\nYour assignment is to be\nfaithful to Jesus Christ with\nthe life He has given you",
+        "tier": "good",
+        "title": "• Your assignment is not to"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 29,
+        "kind": "point",
+        "line": 41,
+        "reasons": [],
+        "slides": [
+          32
+        ],
+        "text": "• What are you doing\nwith your influence?",
+        "tier": "good",
+        "title": "• What are you doing"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 30,
+        "kind": "point",
+        "line": 42,
+        "reasons": [],
+        "slides": [
+          33
+        ],
+        "text": "• Who are you encouraging?",
+        "tier": "good",
+        "title": "• Who are you encouraging?"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 31,
+        "kind": "point",
+        "line": 43,
+        "reasons": [],
+        "slides": [
+          34
+        ],
+        "text": "• Who are you teaching?",
+        "tier": "good",
+        "title": "• Who are you teaching?"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 32,
+        "kind": "point",
+        "line": 44,
+        "reasons": [],
+        "slides": [
+          35
+        ],
+        "text": "• Who are you serving?",
+        "tier": "good",
+        "title": "• Who are you serving?"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 33,
+        "kind": "point",
+        "line": 45,
+        "reasons": [],
+        "slides": [
+          36
+        ],
+        "text": "• Who is learning what\nit means to follow Jesus\nby watching your life?",
+        "tier": "good",
+        "title": "• Who is learning what"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 34,
+        "kind": "point",
+        "line": 46,
+        "reasons": [],
+        "slides": [
+          37
+        ],
+        "text": "Conclusion: There is a Great\nWork to be Done - Will You Let",
+        "tier": "good",
+        "title": "Conclusion: There is a Great"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 35,
+        "kind": "point",
+        "line": 47,
+        "reasons": [],
+        "slides": [
+          38
+        ],
+        "text": "• God Work Through You?",
+        "tier": "good",
+        "title": "• God Work Through You?"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 36,
+        "kind": "point",
+        "line": 48,
+        "reasons": [],
+        "slides": [
+          39
+        ],
+        "text": "• The most important\nquestion is what God wants\nto accomplish through us",
+        "tier": "good",
+        "title": "• The most important"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 37,
+        "kind": "verse",
+        "line": 49,
+        "reasons": [],
+        "slides": [
+          40
+        ],
+        "text": "Romans 12:1, KJV",
+        "tier": "good",
+        "title": "Romans 12:1 KJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 38,
+        "kind": "point",
+        "line": 51,
+        "reasons": [],
+        "slides": [
+          41
+        ],
+        "text": "• God is not asking every person\nto become a famous preacher. He is\ncalling every believer to surrender",
+        "tier": "good",
+        "title": "• God is not asking every person"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 39,
+        "kind": "point",
+        "line": 53,
+        "reasons": [],
+        "slides": [
+          42
+        ],
+        "text": "• Whatever your circumstances,\nyou can offer your life to God",
+        "tier": "good",
+        "title": "• Whatever your circumstances,"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 40,
+        "kind": "point",
+        "line": 54,
+        "reasons": [],
+        "slides": [
+          43
+        ],
+        "text": "• The question is whether\nyou will make that offering",
+        "tier": "good",
+        "title": "• The question is whether"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 41,
+        "kind": "point",
+        "line": 55,
+        "reasons": [],
+        "slides": [
+          44
+        ],
+        "text": "• Will you allow Him\nto transform your heart?",
+        "tier": "good",
+        "title": "• Will you allow Him"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 42,
+        "kind": "point",
+        "line": 56,
+        "reasons": [],
+        "slides": [
+          45
+        ],
+        "text": "• Will you follow Him when\nobedience costs you something?",
+        "tier": "good",
+        "title": "• Will you follow Him when"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 43,
+        "kind": "point",
+        "line": 57,
+        "reasons": [],
+        "slides": [
+          46
+        ],
+        "text": "• Will you serve people\nwho cannot repay you?",
+        "tier": "good",
+        "title": "• Will you serve people"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 44,
+        "kind": "point",
+        "line": 58,
+        "reasons": [],
+        "slides": [
+          47
+        ],
+        "text": "• Will you invest in\nthe next generation?",
+        "tier": "good",
+        "title": "• Will you invest in"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 45,
+        "kind": "point",
+        "line": 59,
+        "reasons": [],
+        "slides": [
+          48
+        ],
+        "text": "• Will you continue\ngrowing in His love?",
+        "tier": "good",
+        "title": "• Will you continue"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 46,
+        "kind": "point",
+        "line": 60,
+        "reasons": [],
+        "slides": [
+          49
+        ],
+        "text": "• May our lives, like Wesley's, point\npeople towards the Savior who\nalone is worthy of our devotion",
+        "tier": "good",
+        "title": "• May our lives, like Wesley's, point"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• JPL 10/18/26 John Wesley Part 2 -\nWill You Let God Work Through You?",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "JPL 10/18/26 John Wesley Part 2 - Will You Let God Work Through You?",
+        "tier": "good",
+        "title": "JPL 10/18/26 John Wesley Part 2 - Will You Let God Work Through You?"
+      },
+      {
+        "add_text": "• Show Opening Slide for Series",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "Show Opening Slide for Series",
+        "tier": "good",
+        "title": "Show Opening Slide for Series"
+      },
+      {
+        "add_text": "• Show slide of John Wesley",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "left_out",
+        "line": 3,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "Show slide of John Wesley.",
+        "tier": "good",
+        "title": "Show slide of John Wesley."
+      },
+      {
+        "add_text": "• “Then one of the criminals who were hanged blasphemed Him,\nsaying, “If You are the Christ, save Yourself and us.” But the other,\nanswering, rebuked him, saying, “Do you not even fear God,\nseeing you are under the same condemnation? And we indeed justly,\nfor we receive the due reward of our deeds; but this Man has\ndone nothing wrong.” Then he said to Jesus, “Lord, remember\nme when You come into Your kingdom.” And Jesus said to him,\n“Assuredly, I say to you, today you will be with Me in Paradise””",
+        "addable": true,
+        "correction": null,
+        "id": 4,
+        "kind": "left_out",
+        "line": 5,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are the Christ, save Yourself and us.” But the other, answering, rebuked him, saying, “Do you not even fear God, seeing you are under the same condemnation? And we indeed justly, for we receive the due reward of our deeds; but this Man has done nothing wrong.” Then he said to Jesus, “Lord, remember me when You come into Your kingdom.” And Jesus said to him, “Assuredly, I say to you, today you will be with Me in Paradise.””",
+        "tier": "good",
+        "title": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are t"
+      },
+      {
+        "add_text": "• \"The Spirit itself beareth\nwitness with our spirit, that\nwe are the children of God\"",
+        "addable": true,
+        "correction": null,
+        "id": 6,
+        "kind": "left_out",
+        "line": 12,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "\"The Spirit itself beareth witness with our spirit, that we are the children of God.\"",
+        "tier": "good",
+        "title": "\"The Spirit itself beareth witness with our spirit, that we are the children of "
+      },
+      {
+        "add_text": "• “And He said to them,\n“Why did you seek Me? Did\nyou not know that I must be\nabout My Father’s business?””",
+        "addable": true,
+        "correction": null,
+        "id": 9,
+        "kind": "left_out",
+        "line": 15,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“And He said to them, “Why did you seek Me? Did you not know that I must be about My Father’s business?””",
+        "tier": "good",
+        "title": "“And He said to them, “Why did you seek Me? Did you not know that I must be abou"
+      },
+      {
+        "add_text": "• \"Let us consider one another to\nprovoke unto love and to good works:\nNot forsaking the assembling of\nourselves together, as the manner\nof some is; but exhorting one another\"",
+        "addable": true,
+        "correction": null,
+        "id": 22,
+        "kind": "left_out",
+        "line": 32,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "\"Let us consider one another to provoke unto love and to good works: Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another.\"",
+        "tier": "good",
+        "title": "\"Let us consider one another to provoke unto love and to good works: Not forsaki"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 7,
+        "kind": "verse",
+        "line": 13,
+        "reasons": [
+          "no version listed; used NKJV (nearest version above)",
+          "the quoted text in the notes does not match NKJV wording (match 0%); check the version"
+        ],
+        "slides": [
+          8
+        ],
+        "text": "Romans 8:16",
+        "tier": "warning",
+        "title": "Romans 8:16 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 14,
+        "kind": "verse",
+        "line": 21,
+        "reasons": [
+          "no version listed; used KJV (nearest version above)",
+          "the quoted text in the notes does not match KJV wording (match 0%); check the version"
+        ],
+        "slides": [
+          15
+        ],
+        "text": "Luke 14:23",
+        "tier": "warning",
+        "title": "Luke 14:23 (KJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 17,
+        "kind": "verse",
+        "line": 25,
+        "reasons": [
+          "no version listed; used KJV (nearest version above)",
+          "the quoted text in the notes does not match KJV wording (match 4%); check the version"
+        ],
+        "slides": [
+          18,
+          19
+        ],
+        "text": "Matthew 25:35",
+        "tier": "warning",
+        "title": "Matthew 25:35 (KJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 18,
+        "kind": "verse",
+        "line": 27,
+        "reasons": [
+          "no version listed; used KJV (nearest version above)",
+          "the quoted text in the notes does not match KJV wording (match 10%); check the version"
+        ],
+        "slides": [
+          20
+        ],
+        "text": "James 2:17",
+        "tier": "warning",
+        "title": "James 2:17 (KJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 23,
+        "kind": "verse",
+        "line": 34,
+        "reasons": [
+          "no version listed; used KJV (nearest version above)",
+          "the quoted text in the notes does not match KJV wording (match 0%); check the version"
+        ],
+        "slides": [
+          24,
+          25,
+          26
+        ],
+        "text": "Hebrews 10:24-25",
+        "tier": "warning",
+        "title": "Hebrews 10:24-25 (KJV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) A Person Must Realize They\nare Lost Before they are Saved",
+      "title": "1) A Person Must Realize They"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "Song, faithful. lamp: kingdom. peace. hidden, ready temple; mighty — heaven temple brother kingdom — faithful grace: light mountain steadfast, covenant; stranger river tender.",
+      "title": "Luke 23:39 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "Ready faith father judge, bread ready promise, hidden hidden, gentle heaven: stranger mercy: faithful seed; prayer seed kingdom. truth faithful wisdom, father spirit. ancient lamp grace mercy seed, shepherd brother.",
+      "title": "Luke 23:40 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Shepherd, temple brother shepherd — open. mercy living; faith gentle. spirit, seed glory grace.",
+      "title": "Luke 23:41 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "Judge, promise bread glory heaven shepherd spirit. servant servant promise glory father promise prayer light promise, father judge, brother grace open;",
+      "title": "Luke 23:42 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "mountain judge brother glory living — truth righteous ancient mountain kingdom — brother servant wisdom brother — mountain mercy mountain kingdom brother vine faith light mercy — ready grace steadfast.",
+      "title": "Luke 23:42 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 7,
+      "text": "Harvest peace. covenant kingdom lamp living ancient wisdom shepherd; covenant; gentle harvest open: shepherd, mercy — peace glory; shepherd faith humble ready.",
+      "title": "Luke 23:43 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "Faithful — faith mountain bread lamp kingdom light.",
+      "title": "Romans 8:16 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 9,
+      "text": "2) You Must Be Born\nAgain and Set On Fire",
+      "title": "2) You Must Be Born"
+    },
+    {
+      "kind": "verse",
+      "n": 10,
+      "text": "Stranger harvest hidden. peace hidden covenant ancient; grace mercy — lamp stranger kingdom: heaven tender lamp hidden light. harvest mighty; shepherd ancient: promise mercy.",
+      "title": "Luke 2:49 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 11,
+      "text": "spirit gentle hidden, spirit; humble light father, living, prayer wisdom steadfast. vine — glory, faith faithful. spirit, humble truth grace; light; kingdom — seed.",
+      "title": "Luke 2:49 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 12,
+      "text": "River — brother. spirit spirit faith stranger — servant. stranger: mercy, heaven. light. temple — shepherd, steadfast: hidden. promise song servant mighty; glory.",
+      "title": "James 2:17 (KJV)"
+    },
+    {
+      "kind": "point",
+      "n": 13,
+      "text": "3) A Disciplined Faith Must\nBecome a Living Faith",
+      "title": "3) A Disciplined Faith Must"
+    },
+    {
+      "kind": "point",
+      "n": 14,
+      "text": "• John Wesley said, \"I look upon\nall the world as my parish\"",
+      "title": "• John Wesley said, \"I look upon"
+    },
+    {
+      "kind": "verse",
+      "n": 15,
+      "text": "Open — heaven, prayer hidden: open: father, tender. faithful.",
+      "title": "Luke 14:23 (KJV)"
+    },
+    {
+      "kind": "point",
+      "n": 16,
+      "text": "4) Identify Your Go",
+      "title": "4) Identify Your Go"
+    },
+    {
+      "kind": "point",
+      "n": 17,
+      "text": "5) Faith Must Have Hands and Feet",
+      "title": "5) Faith Must Have Hands and Feet"
+    },
+    {
+      "kind": "verse",
+      "n": 18,
+      "text": "Glory; covenant temple seed servant river: judge — stranger shepherd; open kingdom lamp wisdom hidden. stranger stranger hidden open ready river humble: promise grace. song: song kingdom.",
+      "title": "Matthew 25:35 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 19,
+      "text": "wisdom grace stranger promise; open: ready spirit; shepherd; peace father temple seed bread song, peace prayer peace: living: living; righteous vine righteous bread. living, ancient, open. mountain light.",
+      "title": "Matthew 25:35 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 20,
+      "text": "River — brother. spirit spirit faith stranger — servant. stranger: mercy, heaven. light. temple — shepherd, steadfast: hidden. promise song servant mighty; glory.",
+      "title": "James 2:17 (KJV)"
+    },
+    {
+      "kind": "point",
+      "n": 21,
+      "text": "• Societal transformation would\nbe achieved from the inside out,\none individual at a time, each person\nundergoing a personal reformation",
+      "title": "• Societal transformation would"
+    },
+    {
+      "kind": "point",
+      "n": 22,
+      "text": "• How is it with your soul?",
+      "title": "• How is it with your soul?"
+    },
+    {
+      "kind": "point",
+      "n": 23,
+      "text": "6) We Grow Better Together",
+      "title": "6) We Grow Better Together"
+    },
+    {
+      "kind": "verse",
+      "n": 24,
+      "text": "Glory; living faithful mighty: grace; glory light. tender, shepherd heaven song heaven kingdom righteous. shepherd peace mighty: steadfast ready harvest — servant vine light, humble, river spirit, shepherd.",
+      "title": "Hebrews 10:24 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 25,
+      "text": "ready — faith. shepherd peace, shepherd faithful faithful glory humble seed brother: open, spirit covenant — mercy truth — mercy vine brother river open — gentle: righteous vine — heaven.",
+      "title": "Hebrews 10:24 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 26,
+      "text": "Grace brother: bread lamp — father servant — shepherd glory: living faithful: grace, peace: kingdom father. covenant: servant ready; seed lamp living. open: mighty. judge hidden song. open — bread.",
+      "title": "Hebrews 10:25 (KJV)"
+    },
+    {
+      "kind": "point",
+      "n": 27,
+      "text": "7) One Surrendered Life\nCan Influence Generations",
+      "title": "7) One Surrendered Life"
+    },
+    {
+      "kind": "point",
+      "n": 28,
+      "text": "• God's kingdom has always\nadvanced through ordinary\nacts of faithfulness",
+      "title": "• God's kingdom has always"
+    },
+    {
+      "kind": "point",
+      "n": 29,
+      "text": "• Do not confuse\nvisibility with significance",
+      "title": "• Do not confuse"
+    },
+    {
+      "kind": "point",
+      "n": 30,
+      "text": "• But you can be faithful\nwhere God has placed you",
+      "title": "• But you can be faithful"
+    },
+    {
+      "kind": "point",
+      "n": 31,
+      "text": "• Your assignment is not to\nbecome another John Wesley.\nYour assignment is to be\nfaithful to Jesus Christ with\nthe life He has given you",
+      "title": "• Your assignment is not to"
+    },
+    {
+      "kind": "point",
+      "n": 32,
+      "text": "• What are you doing\nwith your influence?",
+      "title": "• What are you doing"
+    },
+    {
+      "kind": "point",
+      "n": 33,
+      "text": "• Who are you encouraging?",
+      "title": "• Who are you encouraging?"
+    },
+    {
+      "kind": "point",
+      "n": 34,
+      "text": "• Who are you teaching?",
+      "title": "• Who are you teaching?"
+    },
+    {
+      "kind": "point",
+      "n": 35,
+      "text": "• Who are you serving?",
+      "title": "• Who are you serving?"
+    },
+    {
+      "kind": "point",
+      "n": 36,
+      "text": "• Who is learning what\nit means to follow Jesus\nby watching your life?",
+      "title": "• Who is learning what"
+    },
+    {
+      "kind": "point",
+      "n": 37,
+      "text": "Conclusion: There is a Great\nWork to be Done - Will You Let",
+      "title": "Conclusion: There is a Great"
+    },
+    {
+      "kind": "point",
+      "n": 38,
+      "text": "• God Work Through You?",
+      "title": "• God Work Through You?"
+    },
+    {
+      "kind": "point",
+      "n": 39,
+      "text": "• The most important\nquestion is what God wants\nto accomplish through us",
+      "title": "• The most important"
+    },
+    {
+      "kind": "verse",
+      "n": 40,
+      "text": "“Shepherd shepherd, humble tender. kingdom mighty river mountain righteous — ancient promise — glory wisdom gentle, tender — faithful, seed — mercy — faith mountain — mercy judge, tender, humble lamp light”",
+      "title": "Romans 12:1 (KJV)"
+    },
+    {
+      "kind": "point",
+      "n": 41,
+      "text": "• God is not asking every person\nto become a famous preacher. He is\ncalling every believer to surrender",
+      "title": "• God is not asking every person"
+    },
+    {
+      "kind": "point",
+      "n": 42,
+      "text": "• Whatever your circumstances,\nyou can offer your life to God",
+      "title": "• Whatever your circumstances,"
+    },
+    {
+      "kind": "point",
+      "n": 43,
+      "text": "• The question is whether\nyou will make that offering",
+      "title": "• The question is whether"
+    },
+    {
+      "kind": "point",
+      "n": 44,
+      "text": "• Will you allow Him\nto transform your heart?",
+      "title": "• Will you allow Him"
+    },
+    {
+      "kind": "point",
+      "n": 45,
+      "text": "• Will you follow Him when\nobedience costs you something?",
+      "title": "• Will you follow Him when"
+    },
+    {
+      "kind": "point",
+      "n": 46,
+      "text": "• Will you serve people\nwho cannot repay you?",
+      "title": "• Will you serve people"
+    },
+    {
+      "kind": "point",
+      "n": 47,
+      "text": "• Will you invest in\nthe next generation?",
+      "title": "• Will you invest in"
+    },
+    {
+      "kind": "point",
+      "n": 48,
+      "text": "• Will you continue\ngrowing in His love?",
+      "title": "• Will you continue"
+    },
+    {
+      "kind": "point",
+      "n": 49,
+      "text": "• May our lives, like Wesley's, point\npeople towards the Savior who\nalone is worthy of our devotion",
+      "title": "• May our lives, like Wesley's, point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 5,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 35,
+    "left_out": 7,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 31,
+    "slides": 49,
+    "verse_slides": 18,
+    "warnings": 5
+  }
+}

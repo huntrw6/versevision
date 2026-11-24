@@ -1,0 +1,107 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• 2 Corinthians",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "document title (first line)"
+      ],
+      "slides": [],
+      "text": "2 Corinthians",
+      "tier": "good",
+      "title": "2 Corinthians"
+    },
+    {
+      "add_text": "• 12:9 NKJV",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "header: 2 or fewer capitalized words: looks like a heading"
+      ],
+      "slides": [],
+      "text": "12:9 NKJV",
+      "tier": "warning",
+      "title": "12:9 NKJV"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: document title (first line)",
+      "line": 1,
+      "status": "left_out",
+      "text": "2 Corinthians"
+    },
+    {
+      "detail": "header: 2 or fewer capitalized words: looks like a heading",
+      "line": 2,
+      "status": "left_out",
+      "text": "12:9 NKJV"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [],
+    "left_out_good": [
+      {
+        "add_text": "• 2 Corinthians",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "document title (first line)"
+        ],
+        "slides": [],
+        "text": "2 Corinthians",
+        "tier": "good",
+        "title": "2 Corinthians"
+      }
+    ],
+    "left_out_warning": [
+      {
+        "add_text": "• 12:9 NKJV",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "header: 2 or fewer capitalized words: looks like a heading"
+        ],
+        "slides": [],
+        "text": "12:9 NKJV",
+        "tier": "warning",
+        "title": "12:9 NKJV"
+      }
+    ],
+    "warning": []
+  },
+  "slides": [],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 0,
+    "left_out": 2,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 0,
+    "verse_slides": 0,
+    "warnings": 1
+  }
+}

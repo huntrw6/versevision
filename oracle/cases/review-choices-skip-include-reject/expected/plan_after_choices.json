@@ -1,0 +1,61 @@
+{
+  "attribution_slides": [],
+  "slides": [
+    {
+      "body_text": "KEY#1) ONE",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 0,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "KEY #2) TWO",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 1,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "KEY #3) THREE",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 2,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "• (pause)",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 100005,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "• Some stray line\nof prose to maybe add",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 4,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Bread: ancient living; faith humble.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "John 3:16",
+      "source_passage_index": 5,
+      "verse_keys": [
+        "JHN.3.16"
+      ],
+      "version_text": "NIV"
+    }
+  ]
+}

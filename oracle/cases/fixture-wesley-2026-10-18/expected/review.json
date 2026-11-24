@@ -1,0 +1,794 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (nearest version above)",
+      "line": 14,
+      "status": "adjusted",
+      "text": "Romans 8:16"
+    },
+    {
+      "detail": "no version listed; used KJV (nearest version above)",
+      "line": 21,
+      "status": "adjusted",
+      "text": "Luke 14:23"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• JPL 10/18/26 John Wesley\nA Man on Fire for God",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "JPL 10/18/26 John Wesley A Man on Fire for God",
+      "tier": "good",
+      "title": "JPL 10/18/26 John Wesley A Man on Fire for God"
+    },
+    {
+      "add_text": "• Show slide of Heroes\nSeries and keep up for a while",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "Show slide of Heroes Series and keep up for a while.",
+      "tier": "good",
+      "title": "Show slide of Heroes Series and keep up for a while."
+    },
+    {
+      "add_text": "• When I mentioned his name\nShow slide of John Wesley\nand keep up for a while",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "When I mentioned his name Show slide of John Wesley and keep up for a while.",
+      "tier": "good",
+      "title": "When I mentioned his name Show slide of John Wesley and keep up for a while."
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "You Are a Brand\nPlucked From the Fire",
+      "tier": "good",
+      "title": "You Are a Brand"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "1) A Person Must Realize They\nare Lost Before they are Saved",
+      "tier": "good",
+      "title": "1) A Person Must Realize They"
+    },
+    {
+      "add_text": "• “Then one of the criminals who were hanged blasphemed Him,\nsaying, “If You are the Christ, save Yourself and us.” But the other,\nanswering, rebuked him, saying, “Do you not even fear God,\nseeing you are under the same condemnation? And we indeed justly,\nfor we receive the due reward of our deeds; but this Man has\ndone nothing wrong.” Then he said to Jesus, “Lord, remember\nme when You come into Your kingdom.” And Jesus said to him,\n“Assuredly, I say to you, today you will be with Me in Paradise””",
+      "addable": true,
+      "correction": null,
+      "id": 5,
+      "kind": "left_out",
+      "line": 6,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are the Christ, save Yourself and us.” But the other, answering, rebuked him, saying, “Do you not even fear God, seeing you are under the same condemnation? And we indeed justly, for we receive the due reward of our deeds; but this Man has done nothing wrong.” Then he said to Jesus, “Lord, remember me when You come into Your kingdom.” And Jesus said to him, “Assuredly, I say to you, today you will be with Me in Paradise.””",
+      "tier": "good",
+      "title": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are t"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "verse",
+      "line": 12,
+      "reasons": [],
+      "slides": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "text": "Luke 23:39-43 NKJV",
+      "tier": "good",
+      "title": "Luke 23:39-43 NKJV"
+    },
+    {
+      "add_text": "• \"The Spirit itself beareth\nwitness with our spirit, that\nwe are the children of God\"",
+      "addable": true,
+      "correction": null,
+      "id": 7,
+      "kind": "left_out",
+      "line": 13,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "\"The Spirit itself beareth witness with our spirit, that we are the children of God.\"",
+      "tier": "good",
+      "title": "\"The Spirit itself beareth witness with our spirit, that we are the children of "
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "verse",
+      "line": 14,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)",
+        "the quoted text in the notes does not match NKJV wording (match 0%); check the version"
+      ],
+      "slides": [
+        9
+      ],
+      "text": "Romans 8:16",
+      "tier": "warning",
+      "title": "Romans 8:16 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 9,
+      "kind": "point",
+      "line": 15,
+      "reasons": [],
+      "slides": [
+        10
+      ],
+      "text": "2) You Must Be Born\nAgain and Set On Fire",
+      "tier": "good",
+      "title": "2) You Must Be Born"
+    },
+    {
+      "add_text": "• “And He said to them,\n“Why did you seek Me? Did\nyou not know that I must be\nabout My Father’s business?””",
+      "addable": true,
+      "correction": null,
+      "id": 10,
+      "kind": "left_out",
+      "line": 16,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“And He said to them, “Why did you seek Me? Did you not know that I must be about My Father’s business?””",
+      "tier": "good",
+      "title": "“And He said to them, “Why did you seek Me? Did you not know that I must be abou"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 11,
+      "kind": "verse",
+      "line": 18,
+      "reasons": [],
+      "slides": [
+        11,
+        12
+      ],
+      "text": "Luke 2:49 NKJV",
+      "tier": "good",
+      "title": "Luke 2:49 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 12,
+      "kind": "verse",
+      "line": 19,
+      "reasons": [],
+      "slides": [
+        13
+      ],
+      "text": "James 2:17, KJV",
+      "tier": "good",
+      "title": "James 2:17 KJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 13,
+      "kind": "point",
+      "line": 20,
+      "reasons": [],
+      "slides": [
+        14
+      ],
+      "text": "3) A Disciplined Faith Must\nBecome a Living Faith",
+      "tier": "good",
+      "title": "3) A Disciplined Faith Must"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 14,
+      "kind": "verse",
+      "line": 21,
+      "reasons": [
+        "no version listed; used KJV (nearest version above)",
+        "the quoted text in the notes does not match KJV wording (match 0%); check the version"
+      ],
+      "slides": [
+        15
+      ],
+      "text": "Luke 14:23",
+      "tier": "warning",
+      "title": "Luke 14:23 (KJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 15,
+      "kind": "point",
+      "line": 23,
+      "reasons": [],
+      "slides": [
+        16
+      ],
+      "text": "4) Identify Your Go",
+      "tier": "good",
+      "title": "4) Identify Your Go"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 16,
+      "kind": "point",
+      "line": 24,
+      "reasons": [],
+      "slides": [
+        17
+      ],
+      "text": "5) One Surrendered Life\nCan Influence Generations",
+      "tier": "good",
+      "title": "5) One Surrendered Life"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 17,
+      "kind": "point",
+      "line": 25,
+      "reasons": [],
+      "slides": [
+        18
+      ],
+      "text": "Conclusion: Will You\nLet God Use Your Life?",
+      "tier": "good",
+      "title": "Conclusion: Will You"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 18,
+      "kind": "verse",
+      "line": 26,
+      "reasons": [],
+      "slides": [
+        19
+      ],
+      "text": "Romans 12:1, KJV",
+      "tier": "good",
+      "title": "Romans 12:1 KJV"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "JPL 10/18/26 John Wesley A Man on Fire for God"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 2,
+      "status": "left_out",
+      "text": "Show slide of Heroes Series and keep up for a while."
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 3,
+      "status": "left_out",
+      "text": "When I mentioned his name Show slide of John Wesley and keep up for a while."
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 6,
+      "status": "left_out",
+      "text": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are the Christ, save Yourself and us.” But the other, answering, rebuked him, saying, “Do you not even fear God, seeing you are under the same condemnation? And we indeed justly, for we receive the due reward of our deeds; but this Man has done nothing wrong.” Then he said to Jesus, “Lord, remember me when You come into Your kingdom.” And Jesus said to him, “Assuredly, I say to you, today you will be with Me in Paradise.””"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 13,
+      "status": "left_out",
+      "text": "\"The Spirit itself beareth witness with our spirit, that we are the children of God.\""
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 16,
+      "status": "left_out",
+      "text": "“And He said to them, “Why did you seek Me? Did you not know that I must be about My Father’s business?””"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "You Are a Brand\nPlucked From the Fire",
+        "tier": "good",
+        "title": "You Are a Brand"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "point",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "1) A Person Must Realize They\nare Lost Before they are Saved",
+        "tier": "good",
+        "title": "1) A Person Must Realize They"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "verse",
+        "line": 12,
+        "reasons": [],
+        "slides": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "text": "Luke 23:39-43 NKJV",
+        "tier": "good",
+        "title": "Luke 23:39-43 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 9,
+        "kind": "point",
+        "line": 15,
+        "reasons": [],
+        "slides": [
+          10
+        ],
+        "text": "2) You Must Be Born\nAgain and Set On Fire",
+        "tier": "good",
+        "title": "2) You Must Be Born"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 11,
+        "kind": "verse",
+        "line": 18,
+        "reasons": [],
+        "slides": [
+          11,
+          12
+        ],
+        "text": "Luke 2:49 NKJV",
+        "tier": "good",
+        "title": "Luke 2:49 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 12,
+        "kind": "verse",
+        "line": 19,
+        "reasons": [],
+        "slides": [
+          13
+        ],
+        "text": "James 2:17, KJV",
+        "tier": "good",
+        "title": "James 2:17 KJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 13,
+        "kind": "point",
+        "line": 20,
+        "reasons": [],
+        "slides": [
+          14
+        ],
+        "text": "3) A Disciplined Faith Must\nBecome a Living Faith",
+        "tier": "good",
+        "title": "3) A Disciplined Faith Must"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 15,
+        "kind": "point",
+        "line": 23,
+        "reasons": [],
+        "slides": [
+          16
+        ],
+        "text": "4) Identify Your Go",
+        "tier": "good",
+        "title": "4) Identify Your Go"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 16,
+        "kind": "point",
+        "line": 24,
+        "reasons": [],
+        "slides": [
+          17
+        ],
+        "text": "5) One Surrendered Life\nCan Influence Generations",
+        "tier": "good",
+        "title": "5) One Surrendered Life"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 17,
+        "kind": "point",
+        "line": 25,
+        "reasons": [],
+        "slides": [
+          18
+        ],
+        "text": "Conclusion: Will You\nLet God Use Your Life?",
+        "tier": "good",
+        "title": "Conclusion: Will You"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 18,
+        "kind": "verse",
+        "line": 26,
+        "reasons": [],
+        "slides": [
+          19
+        ],
+        "text": "Romans 12:1, KJV",
+        "tier": "good",
+        "title": "Romans 12:1 KJV"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• JPL 10/18/26 John Wesley\nA Man on Fire for God",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "JPL 10/18/26 John Wesley A Man on Fire for God",
+        "tier": "good",
+        "title": "JPL 10/18/26 John Wesley A Man on Fire for God"
+      },
+      {
+        "add_text": "• Show slide of Heroes\nSeries and keep up for a while",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "Show slide of Heroes Series and keep up for a while.",
+        "tier": "good",
+        "title": "Show slide of Heroes Series and keep up for a while."
+      },
+      {
+        "add_text": "• When I mentioned his name\nShow slide of John Wesley\nand keep up for a while",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "left_out",
+        "line": 3,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "When I mentioned his name Show slide of John Wesley and keep up for a while.",
+        "tier": "good",
+        "title": "When I mentioned his name Show slide of John Wesley and keep up for a while."
+      },
+      {
+        "add_text": "• “Then one of the criminals who were hanged blasphemed Him,\nsaying, “If You are the Christ, save Yourself and us.” But the other,\nanswering, rebuked him, saying, “Do you not even fear God,\nseeing you are under the same condemnation? And we indeed justly,\nfor we receive the due reward of our deeds; but this Man has\ndone nothing wrong.” Then he said to Jesus, “Lord, remember\nme when You come into Your kingdom.” And Jesus said to him,\n“Assuredly, I say to you, today you will be with Me in Paradise””",
+        "addable": true,
+        "correction": null,
+        "id": 5,
+        "kind": "left_out",
+        "line": 6,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are the Christ, save Yourself and us.” But the other, answering, rebuked him, saying, “Do you not even fear God, seeing you are under the same condemnation? And we indeed justly, for we receive the due reward of our deeds; but this Man has done nothing wrong.” Then he said to Jesus, “Lord, remember me when You come into Your kingdom.” And Jesus said to him, “Assuredly, I say to you, today you will be with Me in Paradise.””",
+        "tier": "good",
+        "title": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are t"
+      },
+      {
+        "add_text": "• \"The Spirit itself beareth\nwitness with our spirit, that\nwe are the children of God\"",
+        "addable": true,
+        "correction": null,
+        "id": 7,
+        "kind": "left_out",
+        "line": 13,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "\"The Spirit itself beareth witness with our spirit, that we are the children of God.\"",
+        "tier": "good",
+        "title": "\"The Spirit itself beareth witness with our spirit, that we are the children of "
+      },
+      {
+        "add_text": "• “And He said to them,\n“Why did you seek Me? Did\nyou not know that I must be\nabout My Father’s business?””",
+        "addable": true,
+        "correction": null,
+        "id": 10,
+        "kind": "left_out",
+        "line": 16,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“And He said to them, “Why did you seek Me? Did you not know that I must be about My Father’s business?””",
+        "tier": "good",
+        "title": "“And He said to them, “Why did you seek Me? Did you not know that I must be abou"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "verse",
+        "line": 14,
+        "reasons": [
+          "no version listed; used NKJV (nearest version above)",
+          "the quoted text in the notes does not match NKJV wording (match 0%); check the version"
+        ],
+        "slides": [
+          9
+        ],
+        "text": "Romans 8:16",
+        "tier": "warning",
+        "title": "Romans 8:16 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 14,
+        "kind": "verse",
+        "line": 21,
+        "reasons": [
+          "no version listed; used KJV (nearest version above)",
+          "the quoted text in the notes does not match KJV wording (match 0%); check the version"
+        ],
+        "slides": [
+          15
+        ],
+        "text": "Luke 14:23",
+        "tier": "warning",
+        "title": "Luke 14:23 (KJV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "You Are a Brand\nPlucked From the Fire",
+      "title": "You Are a Brand"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "1) A Person Must Realize They\nare Lost Before they are Saved",
+      "title": "1) A Person Must Realize They"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "Song, faithful. lamp: kingdom. peace. hidden, ready temple; mighty — heaven temple brother kingdom — faithful grace: light mountain steadfast, covenant; stranger river tender.",
+      "title": "Luke 23:39 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Ready faith father judge, bread ready promise, hidden hidden, gentle heaven: stranger mercy: faithful seed; prayer seed kingdom. truth faithful wisdom, father spirit. ancient lamp grace mercy seed, shepherd brother.",
+      "title": "Luke 23:40 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "Shepherd, temple brother shepherd — open. mercy living; faith gentle. spirit, seed glory grace.",
+      "title": "Luke 23:41 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "Judge, promise bread glory heaven shepherd spirit. servant servant promise glory father promise prayer light promise, father judge, brother grace open;",
+      "title": "Luke 23:42 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 7,
+      "text": "mountain judge brother glory living — truth righteous ancient mountain kingdom — brother servant wisdom brother — mountain mercy mountain kingdom brother vine faith light mercy — ready grace steadfast.",
+      "title": "Luke 23:42 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "Harvest peace. covenant kingdom lamp living ancient wisdom shepherd; covenant; gentle harvest open: shepherd, mercy — peace glory; shepherd faith humble ready.",
+      "title": "Luke 23:43 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 9,
+      "text": "Faithful — faith mountain bread lamp kingdom light.",
+      "title": "Romans 8:16 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 10,
+      "text": "2) You Must Be Born\nAgain and Set On Fire",
+      "title": "2) You Must Be Born"
+    },
+    {
+      "kind": "verse",
+      "n": 11,
+      "text": "Stranger harvest hidden. peace hidden covenant ancient; grace mercy — lamp stranger kingdom: heaven tender lamp hidden light. harvest mighty; shepherd ancient: promise mercy.",
+      "title": "Luke 2:49 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 12,
+      "text": "spirit gentle hidden, spirit; humble light father, living, prayer wisdom steadfast. vine — glory, faith faithful. spirit, humble truth grace; light; kingdom — seed.",
+      "title": "Luke 2:49 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 13,
+      "text": "River — brother. spirit spirit faith stranger — servant. stranger: mercy, heaven. light. temple — shepherd, steadfast: hidden. promise song servant mighty; glory.",
+      "title": "James 2:17 (KJV)"
+    },
+    {
+      "kind": "point",
+      "n": 14,
+      "text": "3) A Disciplined Faith Must\nBecome a Living Faith",
+      "title": "3) A Disciplined Faith Must"
+    },
+    {
+      "kind": "verse",
+      "n": 15,
+      "text": "Open — heaven, prayer hidden: open: father, tender. faithful.",
+      "title": "Luke 14:23 (KJV)"
+    },
+    {
+      "kind": "point",
+      "n": 16,
+      "text": "4) Identify Your Go",
+      "title": "4) Identify Your Go"
+    },
+    {
+      "kind": "point",
+      "n": 17,
+      "text": "5) One Surrendered Life\nCan Influence Generations",
+      "title": "5) One Surrendered Life"
+    },
+    {
+      "kind": "point",
+      "n": 18,
+      "text": "Conclusion: Will You\nLet God Use Your Life?",
+      "title": "Conclusion: Will You"
+    },
+    {
+      "kind": "verse",
+      "n": 19,
+      "text": "“Shepherd shepherd, humble tender. kingdom mighty river mountain righteous — ancient promise — glory wisdom gentle, tender — faithful, seed — mercy — faith mountain — mercy judge, tender, humble lamp light”",
+      "title": "Romans 12:1 (KJV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 2,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 11,
+    "left_out": 6,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 7,
+    "slides": 19,
+    "verse_slides": 12,
+    "warnings": 2
+  }
+}

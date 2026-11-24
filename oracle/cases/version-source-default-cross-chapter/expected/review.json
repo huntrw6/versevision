@@ -1,0 +1,244 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 3,
+      "status": "adjusted",
+      "text": "Psalms 23:1-6"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• Title 11/22/26",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "Title 11/22/26",
+      "tier": "good",
+      "title": "Title 11/22/26"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "text": "Genesis 1:30 – 2:3 NKJV",
+      "tier": "good",
+      "title": "Genesis 1:30-2:3 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slides": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "text": "Psalm 23:1-6",
+      "tier": "warning",
+      "title": "Psalms 23:1-6 (NKJV)"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "Title 11/22/26"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "text": "Genesis 1:30 – 2:3 NKJV",
+        "tier": "good",
+        "title": "Genesis 1:30-2:3 NKJV"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Title 11/22/26",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "Title 11/22/26",
+        "tier": "good",
+        "title": "Title 11/22/26"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [
+          "no version listed; used NKJV (default version)"
+        ],
+        "slides": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "text": "Psalm 23:1-6",
+        "tier": "warning",
+        "title": "Psalms 23:1-6 (NKJV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "Tender; shepherd. ready, living stranger faithful tender prayer — prayer grace: temple truth open lamp kingdom, righteous temple: temple mighty song ready, lamp; truth.",
+      "title": "Genesis 1:30 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "“Kingdom — covenant wisdom song wisdom: shepherd vine grace: steadfast harvest faithful: ready, gentle mighty”",
+      "title": "Genesis 1:31 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "Living servant wisdom; light — open. song. kingdom: faithful river; song; living harvest peace righteous promise: brother song: temple wisdom.",
+      "title": "Genesis 2:1 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Peace vine steadfast. glory; river — wisdom mountain, shepherd truth peace. kingdom stranger; servant wisdom living kingdom; harvest lamp mercy.",
+      "title": "Genesis 2:2 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "River wisdom. bread; stranger; bread righteous bread light truth, river stranger, shepherd, promise harvest glory; father gentle. judge. living stranger covenant covenant. heaven, kingdom shepherd; hidden, light:",
+      "title": "Genesis 2:3 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "stranger faithful ready, bread tender open brother kingdom humble servant, kingdom — vine open river: glory wisdom covenant truth — seed covenant, mountain, promise open — tender. living: father. river faith, promise.",
+      "title": "Genesis 2:3 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 7,
+      "text": "Promise ready father mercy: bread heaven humble; stranger faith glory, kingdom. promise servant — father; lamp father: bread mercy kingdom; mighty, peace; vine; bread — kingdom ancient — judge faithful; mighty.",
+      "title": "Psalms 23:1 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "Truth prayer living; righteous, kingdom, grace mercy; father truth lamp, righteous seed ancient open righteous truth — harvest glory — faithful grace kingdom; mountain living river mercy: gentle: seed; steadfast, bread brother steadfast stranger mighty;",
+      "title": "Psalms 23:2 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 9,
+      "text": "promise: living living servant. seed hidden. ancient, shepherd covenant father: lamp seed humble living heaven: river prayer — prayer kingdom mercy father. righteous hidden open shepherd spirit: tender mighty covenant river.",
+      "title": "Psalms 23:2 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 10,
+      "text": "Peace: temple light promise faithful; living. harvest truth — judge truth faith; harvest.",
+      "title": "Psalms 23:3 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 11,
+      "text": "Mountain: faith steadfast bread covenant song faith mercy — humble servant covenant; faithful ready bread tender judge; truth — promise lamp. steadfast bread heaven.",
+      "title": "Psalms 23:4 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 12,
+      "text": "Mercy brother light wisdom light faithful; vine, ancient song.",
+      "title": "Psalms 23:5 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 13,
+      "text": "“Harvest, grace servant harvest truth. harvest promise shepherd: river: seed, tender — kingdom truth, grace open: ancient promise stranger grace lamp; kingdom prayer humble steadfast”",
+      "title": "Psalms 23:6 (NKJV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 13,
+    "verse_slides": 13,
+    "warnings": 1
+  }
+}

@@ -1,0 +1,1182 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (nearest version above)",
+      "line": 11,
+      "status": "adjusted",
+      "text": "Romans 8:28"
+    },
+    {
+      "detail": "no version listed; used NIV (nearest version above)",
+      "line": 15,
+      "status": "adjusted",
+      "text": "Philippians 4:19"
+    },
+    {
+      "detail": "no version listed; used KJV (nearest version above)",
+      "line": 25,
+      "status": "adjusted",
+      "text": "Acts 2:1-4 & 6-8"
+    },
+    {
+      "detail": "no version listed; used KJV (nearest version above)",
+      "line": 26,
+      "status": "adjusted",
+      "text": "Genesis 1:1-2:3"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 8,
+      "status": "adjusted",
+      "text": "• Short heading"
+    }
+  ],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "• JPL 11/22/26 A Study in the Psalms",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "JPL 11/22/26 A Study in the Psalms",
+      "tier": "good",
+      "title": "JPL 11/22/26 A Study in the Psalms"
+    },
+    {
+      "add_text": "• Show Photo of the shepherd",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "Show Photo of the shepherd",
+      "tier": "good",
+      "title": "Show Photo of the shepherd"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "THREE THINGS TO KNOW",
+      "tier": "good",
+      "title": "THREE THINGS TO KNOW"
+    },
+    {
+      "add_text": "• “The Lord is my shepherd;\nI shall not want”",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“The Lord is my shepherd; I shall not want.”",
+      "tier": "good",
+      "title": "“The Lord is my shepherd; I shall not want.”"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "verse",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "Psalm 23:1 NKJV",
+      "tier": "good",
+      "title": "Psalms 23:1 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "text": "1) The Lord leads us\nbeside still waters",
+      "tier": "good",
+      "title": "1) The Lord leads us"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "point",
+      "line": 7,
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "text": "• A full sentence that sits under\nthe first point and keeps going\nfor a good while so that it wraps",
+      "tier": "good",
+      "title": "• A full sentence that sits under"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 7,
+      "kind": "point",
+      "line": 8,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        5
+      ],
+      "text": "• Short heading",
+      "tier": "warning",
+      "title": "• Short heading"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "point",
+      "line": 9,
+      "reasons": [],
+      "slides": [
+        6
+      ],
+      "text": "2) He restores my soul\nand guides me in the paths of\nrighteousness for His name's sake",
+      "tier": "good",
+      "title": "2) He restores my soul"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 9,
+      "kind": "point",
+      "line": 10,
+      "reasons": [],
+      "slides": [
+        7
+      ],
+      "text": "Conclusion: trust Him",
+      "tier": "good",
+      "title": "Conclusion: trust Him"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 10,
+      "kind": "verse",
+      "line": 11,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)"
+      ],
+      "slides": [
+        8
+      ],
+      "text": "Romans 8:28",
+      "tier": "warning",
+      "title": "Romans 8:28 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 11,
+      "kind": "verse",
+      "line": 12,
+      "reasons": [],
+      "slides": [
+        9,
+        10,
+        11
+      ],
+      "text": "John 3:16-18 NIV",
+      "tier": "good",
+      "title": "John 3:16-18 NIV"
+    },
+    {
+      "add_text": "• Psalm 23",
+      "addable": true,
+      "correction": null,
+      "id": 12,
+      "kind": "error",
+      "line": 13,
+      "reasons": [
+        "whole-chapter reference; add verse numbers to include it"
+      ],
+      "slides": [],
+      "text": "Psalm 23",
+      "tier": "error",
+      "title": "Psalm 23"
+    },
+    {
+      "add_text": "• As Philippians 4:13 says,\nwe can do all things",
+      "addable": true,
+      "correction": null,
+      "id": 13,
+      "kind": "error",
+      "line": 14,
+      "reasons": [
+        "mentions Philippians 4:13 inside text; put the reference on its own line to add it as a slide"
+      ],
+      "slides": [],
+      "text": "As Philippians 4:13 says, we can do all things.",
+      "tier": "error",
+      "title": "As Philippians 4:13 says, we can do all things."
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 14,
+      "kind": "verse",
+      "line": 15,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slides": [
+        12
+      ],
+      "text": "Philippians 4:19",
+      "tier": "warning",
+      "title": "Philippians 4:19 (NIV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 15,
+      "kind": "verse",
+      "line": 16,
+      "reasons": [],
+      "slides": [
+        13,
+        14,
+        15
+      ],
+      "text": "John 3:16-18 NIV",
+      "tier": "good",
+      "title": "John 3:16-18 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 16,
+      "kind": "point",
+      "line": 17,
+      "reasons": [],
+      "slides": [
+        16
+      ],
+      "text": "a) Pray",
+      "tier": "good",
+      "title": "a) Pray"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 17,
+      "kind": "point",
+      "line": 18,
+      "reasons": [],
+      "slides": [
+        17
+      ],
+      "text": "b) Read",
+      "tier": "good",
+      "title": "b) Read"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 18,
+      "kind": "point",
+      "line": 19,
+      "reasons": [],
+      "slides": [
+        18
+      ],
+      "text": "• A bullet line",
+      "tier": "good",
+      "title": "• A bullet line"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 19,
+      "kind": "point",
+      "line": 20,
+      "reasons": [],
+      "slides": [
+        19
+      ],
+      "text": "• another bullet",
+      "tier": "good",
+      "title": "• another bullet"
+    },
+    {
+      "add_text": "• (pause here)",
+      "addable": true,
+      "correction": null,
+      "id": 20,
+      "kind": "left_out",
+      "line": 21,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "(pause here)",
+      "tier": "good",
+      "title": "(pause here)"
+    },
+    {
+      "add_text": "• https://example.com/slides",
+      "addable": true,
+      "correction": null,
+      "id": 21,
+      "kind": "left_out",
+      "line": 22,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "https://example.com/slides",
+      "tier": "good",
+      "title": "https://example.com/slides"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 22,
+      "kind": "point",
+      "line": 23,
+      "reasons": [],
+      "slides": [
+        20
+      ],
+      "text": "3) KEY#3) mismatched label",
+      "tier": "good",
+      "title": "3) KEY#3) mismatched label"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 23,
+      "kind": "verse",
+      "line": 24,
+      "reasons": [],
+      "slides": [
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "text": "Matthew 6:9-13 KJV",
+      "tier": "good",
+      "title": "Matthew 6:9-13 KJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 24,
+      "kind": "verse",
+      "line": 25,
+      "reasons": [
+        "no version listed; used KJV (nearest version above)"
+      ],
+      "slides": [
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "text": "Acts 2:1-4 & 6-8",
+      "tier": "warning",
+      "title": "Acts 2:1-4 & 6-8 (KJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 25,
+      "kind": "verse",
+      "line": 26,
+      "reasons": [
+        "no version listed; used KJV (nearest version above)"
+      ],
+      "slides": [
+        33,
+        34
+      ],
+      "text": "Genesis 1:1 – 2:3",
+      "tier": "warning",
+      "title": "Genesis 1:1-2:3 (KJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 26,
+      "kind": "point",
+      "line": 27,
+      "reasons": [],
+      "slides": [
+        35
+      ],
+      "text": "• Closing thought for the evening",
+      "tier": "good",
+      "title": "• Closing thought for the evening"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "whole-chapter reference; add verse numbers to include it",
+      "line": 13,
+      "status": "needs_review",
+      "text": "Psalm 23"
+    },
+    {
+      "detail": "mentions Philippians 4:13 inside text; put the reference on its own line to add it as a slide",
+      "line": 14,
+      "status": "needs_review",
+      "text": "As Philippians 4:13 says, we can do all things."
+    }
+  ],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "JPL 11/22/26 A Study in the Psalms"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 2,
+      "status": "left_out",
+      "text": "Show Photo of the shepherd"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 4,
+      "status": "left_out",
+      "text": "“The Lord is my shepherd; I shall not want.”"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 21,
+      "status": "left_out",
+      "text": "(pause here)"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 22,
+      "status": "left_out",
+      "text": "https://example.com/slides"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• Psalm 23",
+        "addable": true,
+        "correction": null,
+        "id": 12,
+        "kind": "error",
+        "line": 13,
+        "reasons": [
+          "whole-chapter reference; add verse numbers to include it"
+        ],
+        "slides": [],
+        "text": "Psalm 23",
+        "tier": "error",
+        "title": "Psalm 23"
+      },
+      {
+        "add_text": "• As Philippians 4:13 says,\nwe can do all things",
+        "addable": true,
+        "correction": null,
+        "id": 13,
+        "kind": "error",
+        "line": 14,
+        "reasons": [
+          "mentions Philippians 4:13 inside text; put the reference on its own line to add it as a slide"
+        ],
+        "slides": [],
+        "text": "As Philippians 4:13 says, we can do all things.",
+        "tier": "error",
+        "title": "As Philippians 4:13 says, we can do all things."
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "THREE THINGS TO KNOW",
+        "tier": "good",
+        "title": "THREE THINGS TO KNOW"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "verse",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "Psalm 23:1 NKJV",
+        "tier": "good",
+        "title": "Psalms 23:1 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "point",
+        "line": 6,
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "text": "1) The Lord leads us\nbeside still waters",
+        "tier": "good",
+        "title": "1) The Lord leads us"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "point",
+        "line": 7,
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "text": "• A full sentence that sits under\nthe first point and keeps going\nfor a good while so that it wraps",
+        "tier": "good",
+        "title": "• A full sentence that sits under"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "point",
+        "line": 9,
+        "reasons": [],
+        "slides": [
+          6
+        ],
+        "text": "2) He restores my soul\nand guides me in the paths of\nrighteousness for His name's sake",
+        "tier": "good",
+        "title": "2) He restores my soul"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 9,
+        "kind": "point",
+        "line": 10,
+        "reasons": [],
+        "slides": [
+          7
+        ],
+        "text": "Conclusion: trust Him",
+        "tier": "good",
+        "title": "Conclusion: trust Him"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 11,
+        "kind": "verse",
+        "line": 12,
+        "reasons": [],
+        "slides": [
+          9,
+          10,
+          11
+        ],
+        "text": "John 3:16-18 NIV",
+        "tier": "good",
+        "title": "John 3:16-18 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 15,
+        "kind": "verse",
+        "line": 16,
+        "reasons": [],
+        "slides": [
+          13,
+          14,
+          15
+        ],
+        "text": "John 3:16-18 NIV",
+        "tier": "good",
+        "title": "John 3:16-18 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 16,
+        "kind": "point",
+        "line": 17,
+        "reasons": [],
+        "slides": [
+          16
+        ],
+        "text": "a) Pray",
+        "tier": "good",
+        "title": "a) Pray"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 17,
+        "kind": "point",
+        "line": 18,
+        "reasons": [],
+        "slides": [
+          17
+        ],
+        "text": "b) Read",
+        "tier": "good",
+        "title": "b) Read"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 18,
+        "kind": "point",
+        "line": 19,
+        "reasons": [],
+        "slides": [
+          18
+        ],
+        "text": "• A bullet line",
+        "tier": "good",
+        "title": "• A bullet line"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 19,
+        "kind": "point",
+        "line": 20,
+        "reasons": [],
+        "slides": [
+          19
+        ],
+        "text": "• another bullet",
+        "tier": "good",
+        "title": "• another bullet"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 22,
+        "kind": "point",
+        "line": 23,
+        "reasons": [],
+        "slides": [
+          20
+        ],
+        "text": "3) KEY#3) mismatched label",
+        "tier": "good",
+        "title": "3) KEY#3) mismatched label"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 23,
+        "kind": "verse",
+        "line": 24,
+        "reasons": [],
+        "slides": [
+          21,
+          22,
+          23,
+          24,
+          25
+        ],
+        "text": "Matthew 6:9-13 KJV",
+        "tier": "good",
+        "title": "Matthew 6:9-13 KJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 26,
+        "kind": "point",
+        "line": 27,
+        "reasons": [],
+        "slides": [
+          35
+        ],
+        "text": "• Closing thought for the evening",
+        "tier": "good",
+        "title": "• Closing thought for the evening"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• JPL 11/22/26 A Study in the Psalms",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "JPL 11/22/26 A Study in the Psalms",
+        "tier": "good",
+        "title": "JPL 11/22/26 A Study in the Psalms"
+      },
+      {
+        "add_text": "• Show Photo of the shepherd",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "Show Photo of the shepherd",
+        "tier": "good",
+        "title": "Show Photo of the shepherd"
+      },
+      {
+        "add_text": "• “The Lord is my shepherd;\nI shall not want”",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "left_out",
+        "line": 4,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“The Lord is my shepherd; I shall not want.”",
+        "tier": "good",
+        "title": "“The Lord is my shepherd; I shall not want.”"
+      },
+      {
+        "add_text": "• (pause here)",
+        "addable": true,
+        "correction": null,
+        "id": 20,
+        "kind": "left_out",
+        "line": 21,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "(pause here)",
+        "tier": "good",
+        "title": "(pause here)"
+      },
+      {
+        "add_text": "• https://example.com/slides",
+        "addable": true,
+        "correction": null,
+        "id": 21,
+        "kind": "left_out",
+        "line": 22,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "https://example.com/slides",
+        "tier": "good",
+        "title": "https://example.com/slides"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 7,
+        "kind": "point",
+        "line": 8,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          5
+        ],
+        "text": "• Short heading",
+        "tier": "warning",
+        "title": "• Short heading"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 10,
+        "kind": "verse",
+        "line": 11,
+        "reasons": [
+          "no version listed; used NKJV (nearest version above)"
+        ],
+        "slides": [
+          8
+        ],
+        "text": "Romans 8:28",
+        "tier": "warning",
+        "title": "Romans 8:28 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 14,
+        "kind": "verse",
+        "line": 15,
+        "reasons": [
+          "no version listed; used NIV (nearest version above)"
+        ],
+        "slides": [
+          12
+        ],
+        "text": "Philippians 4:19",
+        "tier": "warning",
+        "title": "Philippians 4:19 (NIV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 24,
+        "kind": "verse",
+        "line": 25,
+        "reasons": [
+          "no version listed; used KJV (nearest version above)"
+        ],
+        "slides": [
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32
+        ],
+        "text": "Acts 2:1-4 & 6-8",
+        "tier": "warning",
+        "title": "Acts 2:1-4 & 6-8 (KJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 25,
+        "kind": "verse",
+        "line": 26,
+        "reasons": [
+          "no version listed; used KJV (nearest version above)"
+        ],
+        "slides": [
+          33,
+          34
+        ],
+        "text": "Genesis 1:1 – 2:3",
+        "tier": "warning",
+        "title": "Genesis 1:1-2:3 (KJV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "THREE THINGS TO KNOW",
+      "title": "THREE THINGS TO KNOW"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "",
+      "title": "Psalms 23:1 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "1) The Lord leads us\nbeside still waters",
+      "title": "1) The Lord leads us"
+    },
+    {
+      "kind": "point",
+      "n": 4,
+      "text": "• A full sentence that sits under\nthe first point and keeps going\nfor a good while so that it wraps",
+      "title": "• A full sentence that sits under"
+    },
+    {
+      "kind": "point",
+      "n": 5,
+      "text": "• Short heading",
+      "title": "• Short heading"
+    },
+    {
+      "kind": "point",
+      "n": 6,
+      "text": "2) He restores my soul\nand guides me in the paths of\nrighteousness for His name's sake",
+      "title": "2) He restores my soul"
+    },
+    {
+      "kind": "point",
+      "n": 7,
+      "text": "Conclusion: trust Him",
+      "title": "Conclusion: trust Him"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "",
+      "title": "Romans 8:28 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 9,
+      "text": "",
+      "title": "John 3:16 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 10,
+      "text": "",
+      "title": "John 3:17 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 11,
+      "text": "",
+      "title": "John 3:18 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 12,
+      "text": "",
+      "title": "Philippians 4:19 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 13,
+      "text": "",
+      "title": "John 3:16 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 14,
+      "text": "",
+      "title": "John 3:17 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 15,
+      "text": "",
+      "title": "John 3:18 (NIV)"
+    },
+    {
+      "kind": "point",
+      "n": 16,
+      "text": "a) Pray",
+      "title": "a) Pray"
+    },
+    {
+      "kind": "point",
+      "n": 17,
+      "text": "b) Read",
+      "title": "b) Read"
+    },
+    {
+      "kind": "point",
+      "n": 18,
+      "text": "• A bullet line",
+      "title": "• A bullet line"
+    },
+    {
+      "kind": "point",
+      "n": 19,
+      "text": "• another bullet",
+      "title": "• another bullet"
+    },
+    {
+      "kind": "point",
+      "n": 20,
+      "text": "3) KEY#3) mismatched label",
+      "title": "3) KEY#3) mismatched label"
+    },
+    {
+      "kind": "verse",
+      "n": 21,
+      "text": "",
+      "title": "Matthew 6:9 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 22,
+      "text": "",
+      "title": "Matthew 6:10 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 23,
+      "text": "",
+      "title": "Matthew 6:11 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 24,
+      "text": "",
+      "title": "Matthew 6:12 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 25,
+      "text": "",
+      "title": "Matthew 6:13 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 26,
+      "text": "",
+      "title": "Acts 2:1 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 27,
+      "text": "",
+      "title": "Acts 2:2 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 28,
+      "text": "",
+      "title": "Acts 2:3 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 29,
+      "text": "",
+      "title": "Acts 2:4 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 30,
+      "text": "",
+      "title": "Acts 2:6 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 31,
+      "text": "",
+      "title": "Acts 2:7 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 32,
+      "text": "",
+      "title": "Acts 2:8 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 33,
+      "text": "",
+      "title": "Genesis 1:1 (KJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 34,
+      "text": "",
+      "title": "Genesis 2:3 (KJV)"
+    },
+    {
+      "kind": "point",
+      "n": 35,
+      "text": "• Closing thought for the evening",
+      "title": "• Closing thought for the evening"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 5,
+    "errors": 2,
+    "fixes": 0,
+    "flagged": 2,
+    "good": 15,
+    "left_out": 5,
+    "needs_review": 2,
+    "not_added": 0,
+    "point_slides": 12,
+    "slides": 35,
+    "verse_slides": 23,
+    "warnings": 5
+  }
+}

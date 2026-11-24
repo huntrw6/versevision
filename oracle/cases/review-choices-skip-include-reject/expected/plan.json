@@ -1,0 +1,200 @@
+{
+  "decisions": [
+    {
+      "add_text": "• Title 11/8/26",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slide_count": 0,
+      "text": "Title 11/8/26",
+      "tier": "good",
+      "title": "Title 11/8/26"
+    },
+    {
+      "add_text": "",
+      "correction": {
+        "from": "KEY#1)",
+        "original_slides": [
+          "KEY#1) ONE"
+        ],
+        "to": "KEY #1)"
+      },
+      "first_slide": 0,
+      "id": 1,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "Corrected \"KEY#1)\" to \"KEY #1)\" to match the other points (3 of 4 are written that way)."
+      ],
+      "slide_count": 1,
+      "text": "KEY #1) ONE",
+      "tier": "error",
+      "title": "KEY #1) ONE"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "KEY #2) TWO",
+      "tier": "good",
+      "title": "KEY #2) TWO"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 3,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "KEY #3) THREE",
+      "tier": "good",
+      "title": "KEY #3) THREE"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 4,
+      "kind": "point",
+      "line": 6,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "KEY #4) FOUR",
+      "tier": "good",
+      "title": "KEY #4) FOUR"
+    },
+    {
+      "add_text": "• (pause)",
+      "correction": {},
+      "first_slide": 4,
+      "id": 5,
+      "kind": "left_out",
+      "line": 7,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "(pause)",
+      "tier": "good",
+      "title": "(pause)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 4,
+      "id": 6,
+      "kind": "point",
+      "line": 8,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• Some stray line\nof prose to maybe add",
+      "tier": "good",
+      "title": "• Some stray line"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 5,
+      "id": 7,
+      "kind": "verse",
+      "line": 9,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "John 3:16 NIV",
+      "tier": "good",
+      "title": "John 3:16 NIV"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [],
+  "point_count": 5,
+  "review": [],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: title / date line",
+      "text": "Title 11/8/26"
+    },
+    {
+      "line": 7,
+      "problem": "stage_note: stage/production cue",
+      "text": "(pause)"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "KEY #1) ONE",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "KEY #2) TWO",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "KEY #3) THREE",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "KEY #4) FOUR",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 3,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• Some stray line\nof prose to maybe add",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 4,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Bread: ancient living; faith humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 5,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NIV"
+      }
+    ]
+  },
+  "verse_count": 1
+}

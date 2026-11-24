@@ -1,0 +1,77 @@
+{
+  "decisions": [
+    {
+      "add_text": "• (ask Amy to cue the video)",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "(ask Amy to cue the video)",
+      "tier": "good",
+      "title": "(ask Amy to cue the video)"
+    },
+    {
+      "add_text": "• NOTE: remember offering",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "NOTE: remember offering",
+      "tier": "good",
+      "title": "NOTE: remember offering"
+    },
+    {
+      "add_text": "• TODO fix this",
+      "correction": {},
+      "first_slide": 0,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "TODO fix this",
+      "tier": "good",
+      "title": "TODO fix this"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [],
+  "point_count": 0,
+  "review": [],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "stage_note: stage/production cue",
+      "text": "(ask Amy to cue the video)"
+    },
+    {
+      "line": 2,
+      "problem": "stage_note: stage/production cue",
+      "text": "NOTE: remember offering"
+    },
+    {
+      "line": 3,
+      "problem": "stage_note: stage/production cue",
+      "text": "TODO fix this"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": []
+  },
+  "verse_count": 0
+}

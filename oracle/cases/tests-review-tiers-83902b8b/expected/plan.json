@@ -1,0 +1,60 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) Point",
+      "tier": "good",
+      "title": "1) Point"
+    },
+    {
+      "add_text": "• \"A quote with no reference at all\nthat the notes never explain\"",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "quoted text with no reference"
+      ],
+      "slide_count": 0,
+      "text": "\"A quote with no reference at all that the notes never explain.\"",
+      "tier": "error",
+      "title": "\"A quote with no reference at all that the notes never explain.\""
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [],
+  "point_count": 1,
+  "review": [
+    {
+      "line": 2,
+      "problem": "quoted text with no reference",
+      "text": "\"A quote with no reference at all that the notes never explain.\""
+    }
+  ],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) Point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

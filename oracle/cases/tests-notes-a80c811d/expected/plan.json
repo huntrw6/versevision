@@ -1,0 +1,163 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "verse",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Psalm 46:1 NKJV",
+      "tier": "good",
+      "title": "Psalms 46:1 NKJV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 2,
+      "text": "Psalm 81:10 ESV",
+      "tier": "good",
+      "title": "Psalms 81:10 ESV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Psalm 81:10 TPT",
+      "tier": "good",
+      "title": "Psalms 81:10 TPT"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 4,
+      "id": 3,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)"
+      ],
+      "slide_count": 1,
+      "text": "Psalm 46:2",
+      "tier": "warning",
+      "title": "Psalms 46:2 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 5,
+      "id": 4,
+      "kind": "verse",
+      "line": 5,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)"
+      ],
+      "slide_count": 1,
+      "text": "Galatians 3:3",
+      "tier": "warning",
+      "title": "Galatians 3:3 (NKJV)"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 4,
+      "problem": "no version listed; used NKJV (nearest version above)",
+      "text": "Psalms 46:2"
+    },
+    {
+      "line": 5,
+      "problem": "no version listed; used NKJV (nearest version above)",
+      "text": "Galatians 3:3"
+    }
+  ],
+  "point_count": 0,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "Open — servant — spirit river. seed; mighty harvest — spirit tender righteous — covenant grace, heaven — living — covenant, temple, faith faith servant shepherd, wisdom spirit: servant kingdom tender: mercy hidden; humble glory harvest.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 46:1",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "PSA.46.1"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "“Mountain father: song, river ancient open servant. promise: faith: covenant: prayer, righteous tender, ready hidden mighty, glory — promise humble: stranger harvest.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 81:10",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.81.10"
+        ],
+        "version_text": "ESV"
+      },
+      {
+        "body_text": "vine — stranger promise bread — shepherd. light truth glory: living truth: righteous, prayer servant harvest ancient song. seed”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 81:10",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.81.10"
+        ],
+        "version_text": "ESV"
+      },
+      {
+        "body_text": "Wisdom: open peace, vine: peace bread lamp faithful; truth. promise: tender heaven faithful; seed wisdom; steadfast: living. brother open kingdom lamp, shepherd seed prayer kingdom — temple.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 81:10",
+        "source_passage_index": 2,
+        "verse_keys": [
+          "PSA.81.10"
+        ],
+        "version_text": "TPT"
+      },
+      {
+        "body_text": "Righteous river, light mercy promise, tender; wisdom: faith, wisdom — hidden spirit: open glory: shepherd wisdom: grace vine truth heaven; open tender grace mercy, gentle ready. river ready.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 46:2",
+        "source_passage_index": 3,
+        "verse_keys": [
+          "PSA.46.2"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Bread — shepherd — seed; grace. humble faith stranger: servant — brother covenant heaven; gentle father bread faith. bread song judge. shepherd servant; vine humble, righteous ancient covenant; judge glory gentle.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Galatians 3:3",
+        "source_passage_index": 4,
+        "verse_keys": [
+          "GAL.3.3"
+        ],
+        "version_text": "NKJV"
+      }
+    ]
+  },
+  "verse_count": 5
+}

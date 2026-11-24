@@ -1,0 +1,106 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "verse",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 4,
+      "text": "John 3:16-18 NIV",
+      "tier": "good",
+      "title": "John 3:16-18 NIV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 4,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slide_count": 1,
+      "text": "Psalm 23:1",
+      "tier": "warning",
+      "title": "Psalms 23:1 (NIV)"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 2,
+      "problem": "no version listed; used NIV (nearest version above)",
+      "text": "Psalms 23:1"
+    }
+  ],
+  "point_count": 0,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "Bread: ancient living; faith humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Heaven humble — promise kingdom: stranger brother — mighty open temple steadfast hidden grace humble river, promise promise — faith.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:17",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "JHN.3.17"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "wisdom kingdom; bread — light song living righteous peace glory mercy spirit righteous. mountain judge hidden hidden; river: ready — kingdom brother; kingdom righteous.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:17",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "JHN.3.17"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Righteous. wisdom covenant shepherd. mercy light, grace kingdom, promise glory kingdom father tender.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:18",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "JHN.3.18"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Mountain truth faith light servant temple heaven; lamp brother mercy, bread tender, living; gentle; hidden — promise kingdom; peace; bread truth, mighty.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:1",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.1"
+        ],
+        "version_text": "NIV"
+      }
+    ]
+  },
+  "verse_count": 2
+}

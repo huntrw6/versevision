@@ -1,0 +1,324 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (nearest version above)",
+      "line": 5,
+      "status": "adjusted",
+      "text": "Ephesians 2:10"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• Title 11/22/26 Grace",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "Title 11/22/26 Grace",
+      "tier": "good",
+      "title": "Title 11/22/26 Grace"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) God saves by grace through faith",
+      "tier": "good",
+      "title": "1) God saves by grace through faith"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        2,
+        3,
+        4
+      ],
+      "text": "Ephesians 2:8-9 NKJV",
+      "tier": "good",
+      "title": "Ephesians 2:8-9 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        5
+      ],
+      "text": "2) We were made for good\nworks that He prepared for us\nbeforehand so that we would walk\nin them every day of our lives",
+      "tier": "good",
+      "title": "2) We were made for good"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "verse",
+      "line": 5,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)"
+      ],
+      "slides": [
+        6,
+        7
+      ],
+      "text": "Ephesians 2:10",
+      "tier": "warning",
+      "title": "Ephesians 2:10 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [],
+      "slides": [
+        8
+      ],
+      "text": "3) Peace",
+      "tier": "good",
+      "title": "3) Peace"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "verse",
+      "line": 7,
+      "reasons": [],
+      "slides": [
+        9
+      ],
+      "text": "Romans 5:1 ESV",
+      "tier": "good",
+      "title": "Romans 5:1 ESV"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "Title 11/22/26 Grace"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) God saves by grace through faith",
+        "tier": "good",
+        "title": "1) God saves by grace through faith"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          2,
+          3,
+          4
+        ],
+        "text": "Ephesians 2:8-9 NKJV",
+        "tier": "good",
+        "title": "Ephesians 2:8-9 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          5
+        ],
+        "text": "2) We were made for good\nworks that He prepared for us\nbeforehand so that we would walk\nin them every day of our lives",
+        "tier": "good",
+        "title": "2) We were made for good"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "point",
+        "line": 6,
+        "reasons": [],
+        "slides": [
+          8
+        ],
+        "text": "3) Peace",
+        "tier": "good",
+        "title": "3) Peace"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "verse",
+        "line": 7,
+        "reasons": [],
+        "slides": [
+          9
+        ],
+        "text": "Romans 5:1 ESV",
+        "tier": "good",
+        "title": "Romans 5:1 ESV"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Title 11/22/26 Grace",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "Title 11/22/26 Grace",
+        "tier": "good",
+        "title": "Title 11/22/26 Grace"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "verse",
+        "line": 5,
+        "reasons": [
+          "no version listed; used NKJV (nearest version above)"
+        ],
+        "slides": [
+          6,
+          7
+        ],
+        "text": "Ephesians 2:10",
+        "tier": "warning",
+        "title": "Ephesians 2:10 (NKJV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) God saves by grace through faith",
+      "title": "1) God saves by grace through faith"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "Father bread: light faith covenant lamp: truth seed spirit, righteous tender harvest seed: kingdom steadfast father, harvest prayer light prayer: gentle; mountain — kingdom mighty humble — mercy open truth stranger living heaven. humble,",
+      "title": "Ephesians 2:8 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "hidden tender river, light light; bread — temple: song living. servant. mountain tender kingdom: lamp steadfast ready father shepherd heaven — peace lamp faithful stranger father kingdom promise; covenant — hidden humble; grace vine mercy open glory.",
+      "title": "Ephesians 2:8 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Tender glory lamp harvest ancient stranger: faithful judge; light seed. steadfast.",
+      "title": "Ephesians 2:9 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 5,
+      "text": "2) We were made for good\nworks that He prepared for us\nbeforehand so that we would walk\nin them every day of our lives",
+      "title": "2) We were made for good"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "Father shepherd; kingdom mighty — brother father promise truth promise: hidden seed tender song servant covenant, open vine, faith, spirit seed light;",
+      "title": "Ephesians 2:10 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 7,
+      "text": "promise humble shepherd. living servant heaven — mighty; ready brother spirit covenant mercy living stranger.",
+      "title": "Ephesians 2:10 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 8,
+      "text": "3) Peace",
+      "title": "3) Peace"
+    },
+    {
+      "kind": "verse",
+      "n": 9,
+      "text": "Faithful; righteous grace ancient, harvest: lamp, righteous. father; ready.",
+      "title": "Romans 5:1 (ESV)"
+    }
+  ],
+  "source": "input.md",
+  "summary": {
+    "adjustments": 1,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 5,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 3,
+    "slides": 9,
+    "verse_slides": 6,
+    "warnings": 1
+  }
+}

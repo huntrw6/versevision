@@ -1,0 +1,57 @@
+{
+  "decisions": [
+    {
+      "add_text": "• 2 Corinthians",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "document title (first line)"
+      ],
+      "slide_count": 0,
+      "text": "2 Corinthians",
+      "tier": "good",
+      "title": "2 Corinthians"
+    },
+    {
+      "add_text": "• 12:9 NKJV",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "header: 2 or fewer capitalized words: looks like a heading"
+      ],
+      "slide_count": 0,
+      "text": "12:9 NKJV",
+      "tier": "warning",
+      "title": "12:9 NKJV"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [],
+  "point_count": 0,
+  "review": [],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: document title (first line)",
+      "text": "2 Corinthians"
+    },
+    {
+      "line": 2,
+      "problem": "header: 2 or fewer capitalized words: looks like a heading",
+      "text": "12:9 NKJV"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": []
+  },
+  "verse_count": 0
+}

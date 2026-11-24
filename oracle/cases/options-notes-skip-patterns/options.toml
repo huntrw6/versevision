@@ -1,0 +1,4 @@
+[notes]
+skip_patterns = [
+    "^Closing",
+]

@@ -1,0 +1,106 @@
+{
+  "adjustments": [],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "• Psalm 23",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "error",
+      "line": 1,
+      "reasons": [
+        "whole-chapter reference; add verse numbers to include it"
+      ],
+      "slides": [],
+      "text": "Psalm 23",
+      "tier": "error",
+      "title": "Psalm 23"
+    },
+    {
+      "add_text": "• See Romans 8:28 for context",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "mentions Romans 8:28 inside text; put the reference on its own line to add it as a slide"
+      ],
+      "slides": [],
+      "text": "See Romans 8:28 for context",
+      "tier": "error",
+      "title": "See Romans 8:28 for context"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "whole-chapter reference; add verse numbers to include it",
+      "line": 1,
+      "status": "needs_review",
+      "text": "Psalm 23"
+    },
+    {
+      "detail": "mentions Romans 8:28 inside text; put the reference on its own line to add it as a slide",
+      "line": 2,
+      "status": "needs_review",
+      "text": "See Romans 8:28 for context"
+    }
+  ],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• Psalm 23",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "error",
+        "line": 1,
+        "reasons": [
+          "whole-chapter reference; add verse numbers to include it"
+        ],
+        "slides": [],
+        "text": "Psalm 23",
+        "tier": "error",
+        "title": "Psalm 23"
+      },
+      {
+        "add_text": "• See Romans 8:28 for context",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "error",
+        "line": 2,
+        "reasons": [
+          "mentions Romans 8:28 inside text; put the reference on its own line to add it as a slide"
+        ],
+        "slides": [],
+        "text": "See Romans 8:28 for context",
+        "tier": "error",
+        "title": "See Romans 8:28 for context"
+      }
+    ],
+    "good": [],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 2,
+    "fixes": 0,
+    "flagged": 2,
+    "good": 0,
+    "left_out": 0,
+    "needs_review": 2,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 0,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

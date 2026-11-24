@@ -1,0 +1,200 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 4,
+      "status": "adjusted",
+      "text": "Romans 8:28"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• Title 11/22/26",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "Title 11/22/26",
+      "tier": "good",
+      "title": "Title 11/22/26"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "John 3:16 NKJV",
+      "tier": "good",
+      "title": "John 3:16 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "John 3:16 NIV",
+      "tier": "good",
+      "title": "John 3:16 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slides": [
+        3,
+        4
+      ],
+      "text": "Romans 8:28",
+      "tier": "warning",
+      "title": "Romans 8:28 (NKJV)"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "Title 11/22/26"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "John 3:16 NKJV",
+        "tier": "good",
+        "title": "John 3:16 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "John 3:16 NIV",
+        "tier": "good",
+        "title": "John 3:16 NIV"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Title 11/22/26",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "Title 11/22/26",
+        "tier": "good",
+        "title": "Title 11/22/26"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "verse",
+        "line": 4,
+        "reasons": [
+          "no version listed; used NKJV (default version)"
+        ],
+        "slides": [
+          3,
+          4
+        ],
+        "text": "Romans 8:28",
+        "tier": "warning",
+        "title": "Romans 8:28 (NKJV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "Seed; lamp, steadfast judge steadfast kingdom living servant — living. servant: shepherd faithful.",
+      "title": "John 3:16 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "Bread: ancient living; faith humble.",
+      "title": "John 3:16 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "Harvest — vine living faith; living heaven ancient river: father ready — seed: father — wisdom — shepherd seed faithful song: judge brother — stranger, mercy faith;",
+      "title": "Romans 8:28 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "brother, truth, stranger — servant; father, open hidden judge shepherd kingdom hidden, spirit. tender servant. mountain: mighty kingdom, ancient lamp wisdom. river harvest river mountain.",
+      "title": "Romans 8:28 (NKJV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 2,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 4,
+    "verse_slides": 4,
+    "warnings": 1
+  }
+}
