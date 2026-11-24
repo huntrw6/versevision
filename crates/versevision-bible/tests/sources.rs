@@ -420,9 +420,10 @@ async fn service_text_is_stored_like_the_providers_text_but_esv_never() {
             "ESV text found in {path}"
         );
     }
+    let root = host.path().display().to_string();
     assert!(!entries(host.path())
         .iter()
-        .any(|p| p.to_lowercase().contains("esv")));
+        .any(|p| p[root.len()..].to_lowercase().contains("esv")));
 
     // the response's `cached` flag changes nothing: a service copy that says cached:true is stored like any other text
     let (origin, service) = serve_service(|seen, _| {
