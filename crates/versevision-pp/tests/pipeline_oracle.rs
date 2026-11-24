@@ -1020,7 +1020,7 @@ fn run_scenario(dir: &Path) -> Vec<String> {
         diff(
             "history.json",
             &json!(jsonl_one(&want)),
-            &json!(jsonl_one(&got_history)),
+            &norm.value(&jsonl_one(&history)),
             &mut problems,
         );
     } else {
