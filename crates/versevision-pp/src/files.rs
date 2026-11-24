@@ -51,7 +51,15 @@ pub struct LockGuard {
 
 impl LockGuard {
     pub fn acquire(path: &Path) -> Result<LockGuard> {
-        let lock_path = PathBuf::from(format!("{}.versevision.lock", path.display()));
+        Self::acquire_at(&PathBuf::from(format!(
+            "{}.versevision.lock",
+            path.display()
+        )))
+    }
+
+    /// Hold the lock file `lock_path` (created when missing) for up to 10 seconds.
+    pub fn acquire_at(lock_path: &Path) -> Result<LockGuard> {
+        let lock_path = lock_path.to_path_buf();
         let file = fs::OpenOptions::new()
             .create(true)
             .truncate(false)

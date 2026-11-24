@@ -133,19 +133,24 @@ no group, two slide actions, not RTF, empty plan).
 corpus has no Scripture text in it and no copyright to carry; it only has to have realistic length and punctuation. The few cases whose texts
 come from the tests (`quote-*`) use short KJV/NKJV quotations already in the test files.
 
+## The ProPresenter side: `oracle/pipeline/` (S6b)
+
+`oracle/pipeline/scenarios/<name>/` holds a scenario (`scenario.json`) and what the Python app did with it (`expected/`): every request to a scripted
+ProPresenter, every file operation, `imports.json`, the audit log and every run folder, in virtual time with seeded ids. `oracle/pipeline/README.md`
+has the rules of the fake ProPresenter and the list of what is compared. The Rust side is `crates/versevision-pp/tests/pipeline_oracle.rs`.
+
 ## What the oracle does NOT cover (test it another way)
 
 * **Live Bible providers** (API.Bible, YouVersion, ESV, local USFM files; their caching, keys, errors, copyright text). The case files use a fake provider
   that serves `bible.json`. The real providers have their own oracle, `oracle/providers/` (below), recorded against canned HTTP responses; what no oracle can
   show is the real services (their live answers, rate limits, key checks).
-* **The swap/transport/history pipeline** (S6b): quit/launch/verify of ProPresenter, the playlist, the swap with its rollback, history and undo, the
-  run log folders. `python/tests/integration`, `test_write_workflow.py` and `test_pipeline.py` are the specification. (The files the pipeline writes
-  are covered, see `oracle/pro/` below.)
+* **The swap/transport/history pipeline against a REAL ProPresenter** (S9, on the rig). `oracle/pipeline/` (S6b, above) runs it against a scripted
+  ProPresenter: the requests, the file operations, history, undo, run folders, `explain` and `replay`. What that cannot show is how the real
+  ProPresenter behaves (when it re-issues ids, what it answers while it loads a file).
 * **A real ProPresenter opening the written files** (S9, on the rig). The oracle proves the Rust files are the same bytes as the Python app's; it cannot
   prove ProPresenter accepts them.
 * **The web page and its server**: routes, jobs, PWA, review panel behaviour, authentication. The page itself is served unchanged from Rust (S7).
-* **History and undo**, the run log folders (`summary.txt`, `events.jsonl`, `options.json`, `source.txt`, `report.json`), `explain` and `replay`
-  (only `trace.jsonl` is covered, and the `review_*` trace records written by `apply_review_choices` are not).
+* **The remote-node transport** (`--node`, the SSH transport of `node/transport.py`): not ported yet, so not in the oracle.
 * **The command line**, the Config page and keys.env. (The config model itself, TOML load/save, profiles and the `--set` parser are covered by the `config_*` files.)
 * **Documents the extractors read differently**: only the formats in `cases/format-*` are covered (a small docx and two small pdfs). Real-world pdf
   and docx layouts (tables, text boxes, columns, scanned pages) are not.

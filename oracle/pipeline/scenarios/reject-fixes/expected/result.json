@@ -1,0 +1,294 @@
+{
+  "file_ops": [
+    {
+      "args": [
+        "Title 11-8-26",
+        "Verses"
+      ],
+      "op": "find_presentation",
+      "result": [],
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Title 11-8-26.pro"
+      ],
+      "op": "create_file",
+      "result": "3715420b3000835020265cdcc03b19a26935166fcec1fa6ef2d4889c65aa6fc5",
+      "t": 0.0
+    },
+    {
+      "args": [],
+      "op": "is_running",
+      "result": true,
+      "t": 0.0
+    }
+  ],
+  "files": {
+    "<ROOT>/Libraries/Verses/Sample.pro": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+    "<ROOT>/Libraries/Verses/Title 11-8-26.pro": "3715420b3000835020265cdcc03b19a26935166fcec1fa6ef2d4889c65aa6fc5"
+  },
+  "playlist": [
+    {
+      "header_color": {
+        "alpha": 1.0,
+        "blue": 0.5,
+        "green": 0.5,
+        "red": 0.5
+      },
+      "id": {
+        "index": 0,
+        "name": "Sermon",
+        "uuid": "H1"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "type": "header"
+    },
+    {
+      "id": {
+        "index": 1,
+        "name": "Sample",
+        "uuid": "I1"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "presentation_info": {
+        "arrangement_name": "",
+        "presentation_uuid": "P1"
+      },
+      "type": "presentation"
+    },
+    {
+      "header_color": {
+        "alpha": 1.0,
+        "blue": 0.5,
+        "green": 0.5,
+        "red": 0.5
+      },
+      "id": {
+        "index": 2,
+        "name": "Closing",
+        "uuid": "H2"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "type": "header"
+    }
+  ],
+  "requests": [
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/P1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 1.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 1.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0001",
+      "status": 200,
+      "t": 1.5
+    }
+  ],
+  "running": true,
+  "steps": [
+    {
+      "decisions": [
+        [
+          0,
+          1,
+          "left_out",
+          "good"
+        ],
+        [
+          1,
+          3,
+          "point",
+          "error"
+        ],
+        [
+          2,
+          4,
+          "point",
+          "good"
+        ],
+        [
+          3,
+          5,
+          "point",
+          "good"
+        ],
+        [
+          4,
+          6,
+          "point",
+          "good"
+        ],
+        [
+          5,
+          7,
+          "left_out",
+          "good"
+        ],
+        [
+          6,
+          8,
+          "point",
+          "good"
+        ],
+        [
+          7,
+          9,
+          "verse",
+          "good"
+        ]
+      ],
+      "op": "web_plan",
+      "report_summary": {
+        "adjustments": 0,
+        "errors": 1,
+        "fixes": 1,
+        "flagged": 1,
+        "good": 5,
+        "left_out": 2,
+        "needs_review": 0,
+        "not_added": 0,
+        "point_slides": 5,
+        "slides": 6,
+        "verse_slides": 1,
+        "warnings": 0
+      },
+      "run_id": "20260719-000611-47f48d",
+      "t": 0.0
+    },
+    {
+      "applied": {
+        "backup_path": null,
+        "cue_count_after": 6,
+        "cue_count_before": 0,
+        "import_id": "11542e451f",
+        "mode": "new",
+        "node": "local",
+        "presentation_name": "Title 11-8-26",
+        "removed_slides": 0,
+        "reopened": false,
+        "restart_needed": false,
+        "slide_count": 6,
+        "steps": [
+          "new file: Title 11-8-26",
+          "placed <ROOT>/Libraries/Verses/Title 11-8-26.pro"
+        ],
+        "target_name": "Title 11-8-26",
+        "verification": "ProPresenter reports all 6 generated slides",
+        "verified": true
+      },
+      "error": null,
+      "op": "web_apply",
+      "outcome": "ok",
+      "t": 1.5
+    },
+    {
+      "exit_code": 0,
+      "op": "history",
+      "stdout": [
+        {
+          "backup_path": null,
+          "copied_from": null,
+          "created": "2026-07-19T00:06:12.500000Z",
+          "cue_uuids": [
+            "5342be66-61b1-405b-9af5-78463906f7b5",
+            "572dcff9-ad24-4e4a-aefe-cd4cde3cb4c5",
+            "80c19836-2130-4176-aca7-ecf8c363e627",
+            "08d32203-8ecf-43bf-a1e5-c9fc399f5c3b",
+            "89d01cf9-cacd-456a-942a-ddeb159e713c",
+            "1770cfeb-a8d2-4b2e-bf5e-c03699101e6c"
+          ],
+          "file_cue_count": 6,
+          "file_path": "<ROOT>/Libraries/Verses/Title 11-8-26.pro",
+          "file_sha256": "",
+          "import_id": "11542e451f",
+          "library": "Verses",
+          "mode": "new",
+          "node": "local",
+          "playlist_items": [],
+          "point_count": 5,
+          "replaces": null,
+          "slide_count": 6,
+          "source_name": "notes.txt",
+          "source_sha256": "4d5b0e836730b84dab35ac8eb7a69b959d800ff2f608036faeec1d25b3ab5ac9",
+          "status": "active",
+          "target_name": "Title 11-8-26",
+          "target_uuid": "N0001",
+          "verse_count": 1
+        }
+      ],
+      "t": 1.5
+    }
+  ]
+}

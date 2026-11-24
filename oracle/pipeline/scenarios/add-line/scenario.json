@@ -1,0 +1,101 @@
+{
+  "description": "--add-line adds a line the importer left out; a line that was not left out is reported.",
+  "libraries": [
+    "Verses"
+  ],
+  "files": [
+    {
+      "library": "Verses",
+      "name": "Sample",
+      "source": "fixture:sample/Sample.pro",
+      "id": "P1"
+    }
+  ],
+  "template": {
+    "library": "Verses",
+    "name": "Sample",
+    "id": "P1"
+  },
+  "playlist": {
+    "id": "PL1",
+    "name": "Sunday",
+    "items": [
+      {
+        "id": {
+          "uuid": "H1",
+          "name": "Sermon",
+          "index": 0
+        },
+        "type": "header",
+        "is_hidden": false,
+        "is_pco": false,
+        "header_color": {
+          "red": 0.5,
+          "green": 0.5,
+          "blue": 0.5,
+          "alpha": 1.0
+        }
+      },
+      {
+        "id": {
+          "uuid": "I1",
+          "name": "Sample",
+          "index": 1
+        },
+        "type": "presentation",
+        "is_hidden": false,
+        "is_pco": false,
+        "presentation_info": {
+          "presentation_uuid": "P1",
+          "arrangement_name": ""
+        }
+      },
+      {
+        "id": {
+          "uuid": "H2",
+          "name": "Closing",
+          "index": 2
+        },
+        "type": "header",
+        "is_hidden": false,
+        "is_pco": false,
+        "header_color": {
+          "red": 0.5,
+          "green": 0.5,
+          "blue": 0.5,
+          "alpha": 1.0
+        }
+      }
+    ]
+  },
+  "server": {
+    "landing": {
+      "listed_after": 0.5,
+      "reissue_at": [],
+      "loaded_after": 0.5
+    }
+  },
+  "running": true,
+  "steps": [
+    {
+      "op": "run",
+      "text": "Title 11/8/26\n\nKEY#1) ONE\nKEY #2) TWO\nKEY #3) THREE\nKEY #4) FOUR\n(pause)\nSome stray line of prose to maybe add.\nJohn 3:16 NIV\n",
+      "dry_run": true,
+      "add_line": [
+        1,
+        7,
+        99
+      ],
+      "yes": true
+    },
+    {
+      "op": "run",
+      "text": "Title 11/8/26\n\nKEY#1) ONE\nKEY #2) TWO\nKEY #3) THREE\nKEY #4) FOUR\n(pause)\nSome stray line of prose to maybe add.\nJohn 3:16 NIV\n",
+      "add_line": [
+        7
+      ],
+      "yes": true,
+      "title": "With added line"
+    }
+  ]
+}

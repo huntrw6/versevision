@@ -1,0 +1,359 @@
+{
+  "source": "notes.txt",
+  "summary": {
+    "slides": 8,
+    "verse_slides": 1,
+    "point_slides": 7,
+    "flagged": 1,
+    "not_added": 0,
+    "needs_review": 0,
+    "left_out": 2,
+    "adjustments": 0,
+    "errors": 1,
+    "fixes": 1,
+    "warnings": 0,
+    "good": 5
+  },
+  "looks": null,
+  "decisions": [
+    {
+      "id": 0,
+      "line": 1,
+      "kind": "left_out",
+      "title": "Title 11/8/26",
+      "text": "Title 11/8/26",
+      "tier": "good",
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "addable": true,
+      "add_text": "• Title 11/8/26",
+      "correction": null
+    },
+    {
+      "id": 1,
+      "line": 3,
+      "kind": "point",
+      "title": "KEY #1) ONE",
+      "text": "KEY #1) ONE",
+      "tier": "error",
+      "reasons": [
+        "Corrected \"KEY#1)\" to \"KEY #1)\" to match the other points (3 of 4 are written that way)."
+      ],
+      "slides": [
+        1
+      ],
+      "addable": false,
+      "add_text": "",
+      "correction": {
+        "from": "KEY#1)",
+        "to": "KEY #1)"
+      }
+    },
+    {
+      "id": 2,
+      "line": 4,
+      "kind": "point",
+      "title": "KEY #2) TWO",
+      "text": "KEY #2) TWO",
+      "tier": "good",
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "addable": false,
+      "add_text": "",
+      "correction": null
+    },
+    {
+      "id": 3,
+      "line": 5,
+      "kind": "point",
+      "title": "KEY #3) THREE",
+      "text": "KEY #3) THREE",
+      "tier": "good",
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "addable": false,
+      "add_text": "",
+      "correction": null
+    },
+    {
+      "id": 4,
+      "line": 6,
+      "kind": "point",
+      "title": "KEY #4) FOUR",
+      "text": "KEY #4) FOUR",
+      "tier": "good",
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "addable": false,
+      "add_text": "",
+      "correction": null
+    },
+    {
+      "id": 5,
+      "line": 7,
+      "kind": "left_out",
+      "title": "(pause)",
+      "text": "(pause)",
+      "tier": "good",
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "addable": true,
+      "add_text": "• (pause)",
+      "correction": null
+    },
+    {
+      "id": 6,
+      "line": 8,
+      "kind": "point",
+      "title": "• Some stray line",
+      "text": "• Some stray line\nof prose to maybe add",
+      "tier": "good",
+      "reasons": [],
+      "slides": [
+        5
+      ],
+      "addable": false,
+      "add_text": "",
+      "correction": null
+    },
+    {
+      "id": 7,
+      "line": 9,
+      "kind": "verse",
+      "title": "John 3:16 NIV",
+      "text": "John 3:16 NIV",
+      "tier": "good",
+      "reasons": [],
+      "slides": [
+        6
+      ],
+      "addable": false,
+      "add_text": "",
+      "correction": null
+    }
+  ],
+  "review": {
+    "error": [
+      {
+        "id": 1,
+        "line": 3,
+        "kind": "point",
+        "title": "KEY #1) ONE",
+        "text": "KEY #1) ONE",
+        "tier": "error",
+        "reasons": [
+          "Corrected \"KEY#1)\" to \"KEY #1)\" to match the other points (3 of 4 are written that way)."
+        ],
+        "slides": [
+          1
+        ],
+        "addable": false,
+        "add_text": "",
+        "correction": {
+          "from": "KEY#1)",
+          "to": "KEY #1)"
+        }
+      }
+    ],
+    "warning": [],
+    "good": [
+      {
+        "id": 2,
+        "line": 4,
+        "kind": "point",
+        "title": "KEY #2) TWO",
+        "text": "KEY #2) TWO",
+        "tier": "good",
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "addable": false,
+        "add_text": "",
+        "correction": null
+      },
+      {
+        "id": 3,
+        "line": 5,
+        "kind": "point",
+        "title": "KEY #3) THREE",
+        "text": "KEY #3) THREE",
+        "tier": "good",
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "addable": false,
+        "add_text": "",
+        "correction": null
+      },
+      {
+        "id": 4,
+        "line": 6,
+        "kind": "point",
+        "title": "KEY #4) FOUR",
+        "text": "KEY #4) FOUR",
+        "tier": "good",
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "addable": false,
+        "add_text": "",
+        "correction": null
+      },
+      {
+        "id": 6,
+        "line": 8,
+        "kind": "point",
+        "title": "• Some stray line",
+        "text": "• Some stray line\nof prose to maybe add",
+        "tier": "good",
+        "reasons": [],
+        "slides": [
+          5
+        ],
+        "addable": false,
+        "add_text": "",
+        "correction": null
+      },
+      {
+        "id": 7,
+        "line": 9,
+        "kind": "verse",
+        "title": "John 3:16 NIV",
+        "text": "John 3:16 NIV",
+        "tier": "good",
+        "reasons": [],
+        "slides": [
+          6
+        ],
+        "addable": false,
+        "add_text": "",
+        "correction": null
+      }
+    ],
+    "left_out_warning": [],
+    "left_out_good": [
+      {
+        "id": 0,
+        "line": 1,
+        "kind": "left_out",
+        "title": "Title 11/8/26",
+        "text": "Title 11/8/26",
+        "tier": "good",
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "addable": true,
+        "add_text": "• Title 11/8/26",
+        "correction": null
+      },
+      {
+        "id": 5,
+        "line": 7,
+        "kind": "left_out",
+        "title": "(pause)",
+        "text": "(pause)",
+        "tier": "good",
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "addable": true,
+        "add_text": "• (pause)",
+        "correction": null
+      }
+    ]
+  },
+  "slides": [
+    {
+      "n": 1,
+      "kind": "point",
+      "title": "• Title 11/8/26",
+      "text": "• Title 11/8/26"
+    },
+    {
+      "n": 2,
+      "kind": "point",
+      "title": "KEY #1) ONE",
+      "text": "KEY #1) ONE"
+    },
+    {
+      "n": 3,
+      "kind": "point",
+      "title": "KEY #2) TWO",
+      "text": "KEY #2) TWO"
+    },
+    {
+      "n": 4,
+      "kind": "point",
+      "title": "KEY #3) THREE",
+      "text": "KEY #3) THREE"
+    },
+    {
+      "n": 5,
+      "kind": "point",
+      "title": "KEY #4) FOUR",
+      "text": "KEY #4) FOUR"
+    },
+    {
+      "n": 6,
+      "kind": "point",
+      "title": "• (pause)",
+      "text": "• (pause)"
+    },
+    {
+      "n": 7,
+      "kind": "point",
+      "title": "• Some stray line",
+      "text": "• Some stray line\nof prose to maybe add"
+    },
+    {
+      "n": 8,
+      "kind": "verse",
+      "title": "John 3:16 (NIV)",
+      "text": "Text of NIV John 3:16. More words follow so that a long verse is cut into slides. More words follow so that a long verse is cut into slides. More words follow so that a long verse is cut into slides."
+    }
+  ],
+  "flagged": [
+    {
+      "line": 3,
+      "text": "KEY#1)",
+      "detail": "automatic fix to approve: KEY#1) -> KEY #1)",
+      "status": "needs_approval"
+    }
+  ],
+  "adjustments": [],
+  "left_out": [
+    {
+      "line": 1,
+      "text": "Title 11/8/26",
+      "detail": "header: title / date line",
+      "status": "left_out"
+    },
+    {
+      "line": 7,
+      "text": "(pause)",
+      "detail": "stage_note: stage/production cue",
+      "status": "left_out"
+    }
+  ],
+  "clean": false,
+  "mode": "new",
+  "title": "Title 11-8-26",
+  "target": null,
+  "library": "Verses",
+  "node": "this computer (127.0.0.1:<PORT>)"
+}

@@ -95,6 +95,9 @@ jobs:
       - name: The ProPresenter file oracle in numbers
         run: cargo test -p versevision-pp --test oracle_pro --test roundtrip -- --nocapture --test-threads=1
 
+      - name: The ProPresenter pipeline oracle in numbers
+        run: cargo test -p versevision-pp --test pipeline_oracle --test selection_oracle -- --nocapture --test-threads=1
+
   python:
     name: Python suite (the oracle)
     runs-on: ubuntu-latest

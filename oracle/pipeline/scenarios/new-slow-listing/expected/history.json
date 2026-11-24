@@ -1,0 +1,30 @@
+[
+  {
+    "import_id": "7edb29ee21",
+    "created": "2026-07-19T00:06:23Z",
+    "source_name": "notes.txt",
+    "source_sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1",
+    "target_uuid": "N0001",
+    "target_name": "Title 11-8-26",
+    "node": "local",
+    "cue_uuids": [
+      "a1d699c6-6d9d-4b5c-8004-f72b6c08835a",
+      "948b8f1a-a9f9-4fc8-ad27-9f78d7b0f411",
+      "d87e9168-c5a5-40d8-867e-c41ace56b698",
+      "83bf2bf1-bd40-4931-a52a-185453a83446"
+    ],
+    "slide_count": 4,
+    "verse_count": 2,
+    "point_count": 2,
+    "backup_path": null,
+    "status": "active",
+    "replaces": null,
+    "mode": "new",
+    "library": "Verses",
+    "file_path": "<ROOT>/Libraries/Verses/Title 11-8-26.pro",
+    "file_sha256": "",
+    "file_cue_count": 4,
+    "copied_from": null,
+    "playlist_items": []
+  }
+]

@@ -1,0 +1,103 @@
+{
+  "description": "Replace: ProPresenter lists the new file, re-issues its id three times and loads it 25 s after it landed; the playlist refuses ids it has not loaded, so the swap follows the id until playlist and library agree for 6 s.",
+  "libraries": [
+    "Verses"
+  ],
+  "files": [
+    {
+      "library": "Verses",
+      "name": "Sample",
+      "source": "fixture:sample/Sample.pro",
+      "id": "P1"
+    }
+  ],
+  "template": {
+    "library": "Verses",
+    "name": "Sample",
+    "id": "P1"
+  },
+  "playlist": {
+    "id": "PL1",
+    "name": "Sunday",
+    "items": [
+      {
+        "id": {
+          "uuid": "H1",
+          "name": "Sermon",
+          "index": 0
+        },
+        "type": "header",
+        "is_hidden": false,
+        "is_pco": false,
+        "header_color": {
+          "red": 0.5,
+          "green": 0.5,
+          "blue": 0.5,
+          "alpha": 1.0
+        }
+      },
+      {
+        "id": {
+          "uuid": "I1",
+          "name": "Sample",
+          "index": 1
+        },
+        "type": "presentation",
+        "is_hidden": false,
+        "is_pco": false,
+        "presentation_info": {
+          "presentation_uuid": "P1",
+          "arrangement_name": ""
+        }
+      },
+      {
+        "id": {
+          "uuid": "H2",
+          "name": "Closing",
+          "index": 2
+        },
+        "type": "header",
+        "is_hidden": false,
+        "is_pco": false,
+        "header_color": {
+          "red": 0.5,
+          "green": 0.5,
+          "blue": 0.5,
+          "alpha": 1.0
+        }
+      }
+    ]
+  },
+  "server": {
+    "landing": {
+      "listed_after": 0.5,
+      "reissue_at": [],
+      "loaded_after": 0.5
+    },
+    "by_name": {
+      "Sample": {
+        "listed_after": 3.0,
+        "reissue_at": [
+          9.0,
+          20.0,
+          40.0
+        ],
+        "loaded_after": 25.0
+      }
+    },
+    "put_needs_loaded": true,
+    "put_new_item_ids": true
+  },
+  "running": true,
+  "steps": [
+    {
+      "op": "run",
+      "text": "Title 11/8/26\n“For God so loved the world.”\nJohn 3:16 NIV\n1) First point\nPsalm 23:1 NIV\n2) Second point\n",
+      "replace": true,
+      "presentation": "Sample"
+    },
+    {
+      "op": "history"
+    }
+  ]
+}

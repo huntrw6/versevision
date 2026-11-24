@@ -1,0 +1,20 @@
+VerseVision run 20260719-000630-c570bc
+============================================================
+Result:        FAILED
+Error:         Sample was edited after VerseVision wrote it, so it was not changed. The previous version is saved at <ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000614 if you want it back
+Started:       2026-07-19T00:06:30+00:00
+Version:       VerseVision 0.38.1
+Document:      undo of import 5b6edfbaad
+Action:        undo
+
+Warnings and errors
+------------------------------------------------------------
+  [   0.0s] run_failed: Sample was edited after VerseVision wrote it, so it was not changed. The previous version is saved at <ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000614 if you want it back
+
+Timeline
+------------------------------------------------------------
+  [   0.0s] progress     Checking nothing changed since the import
+  [   0.0s] run_failed   Sample was edited after VerseVision wrote it, so it was not changed. The previous version is saved at <ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000614 if you want it back
+
+Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json
+To follow any line of the document to its slide:  versevision explain 20260719-000630-c570bc

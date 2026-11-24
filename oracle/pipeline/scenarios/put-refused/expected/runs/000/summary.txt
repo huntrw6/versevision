@@ -1,0 +1,102 @@
+VerseVision run 20260719-000611-044c8c
+============================================================
+Result:        SUCCESS
+Started:       2026-07-19T00:06:11+00:00
+Version:       VerseVision 0.38.1
+Document:      notes.txt
+Action:        replace
+Chosen presentation: Sample
+ProPresenter on: this computer
+Source text:   104 characters, 7 lines (sha256 93720f1156e7), kept in source.txt
+
+What was written
+------------------------------------------------------------
+New file:      Sample
+Slides:        4 added; the file has 6 slides (copied from one with 2, 0 removed)
+Verified:      yes - ProPresenter reports all 4 generated slides
+  - backup: <ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000611
+  - renamed original to Sample (old 963b44); wrote new Sample.pro
+  - playlist left as it was (ProPresenter has not loaded the new file yet; it loads when first opened): Sunday
+  - removed Sample (old 963b44).pro (removed)
+
+What was understood
+------------------------------------------------------------
+4 slides: 2 verse, 2 sermon point. 0 flagged (0 not added, 0 need review). 0 adjustments. 2 lines left out on purpose.
+
+    1. verse John 3:16 (NIV)                                Text of NIV John 3:16. More words follow so that a long vers
+    2. point 1) First point                                 1) First point
+    3. verse Psalms 23:1 (NIV)                              Text of NIV Psalms 23:1. More words follow so that a long ve
+    4. point 2) Second point                                2) Second point
+
+LEFT OUT on purpose: 2
+  line    1  'Title 11/8/26'  -> header: title / date line
+  line    2  '“For God so loved the world.”'  -> quoted_text: verse text quoted above its reference; text is fetched from the Bible provider
+
+Warnings and errors
+------------------------------------------------------------
+  [  14.0s] swap_pacing: the playlist would not take the new id (ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127.0.0.1:<PORT>/v1/playlist/PL1'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500); left as it was
+  [  14.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  16.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  18.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  20.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  22.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  24.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  26.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  28.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  30.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  32.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  34.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  36.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  38.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  40.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  42.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  44.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  46.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  48.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  50.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  52.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  54.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  56.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  58.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  60.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  62.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  64.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  66.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  68.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  70.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  72.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  74.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  76.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  78.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  80.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  82.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  84.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  86.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  88.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  90.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  92.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  94.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  96.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [  98.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [ 100.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [ 102.0s] swap_pacing: playlist not ready yet: ProPresenter did not accept the change to /v1/playlist/PL1: Server error '500 Internal Server Error' for url 'http://127
+  [ 104.0s] swap_pacing: the playlist entry never settled on the new id; it was left as it was
+
+Timeline
+------------------------------------------------------------
+  [   0.0s] plan_ready   4 slides, 0 not added, 0 to check, 2 left out, 0 adjustments
+  [   0.0s] progress     Reading the template
+  [   0.0s] progress     Reading Sample
+  [   0.0s] progress     Building the new version
+  [   0.0s] progress     Backing up the original
+  [   0.0s] progress     Renaming the original
+  [   4.0s] progress     Writing the new file
+  [   4.0s] file_placed  <ROOT>/Libraries/Verses/Sample.pro
+  [   4.0s] progress     Waiting for ProPresenter to show it
+  [  14.0s] progress     Updating the playlist
+  [  14.0s] progress     Waiting for ProPresenter to take the new file in
+  [ 104.0s] progress     Removing the renamed original
+
+Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json
+To follow any line of the document to its slide:  versevision explain 20260719-000611-044c8c

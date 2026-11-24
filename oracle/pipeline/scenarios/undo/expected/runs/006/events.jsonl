@@ -1,0 +1,20 @@
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "run_start", "level": "info", "run_id": "20260719-000614-fb9a25", "kind": "run", "application_version": "0.38.1", "started": "2026-07-19T00:06:14+00:00", "source": "notes.txt", "mode": "replace", "title": null, "library": null, "target": "Sample", "node": "this computer", "default_version": null, "flags": null}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "source_saved", "level": "info", "file": "notes.txt", "characters": 104, "lines": 7, "sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1"}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "plan_start", "level": "info", "default_version": null, "no_fetch": false, "characters": 104}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "plan_ready", "level": "info", "message": "4 slides, 0 not added, 0 to check, 2 left out, 0 adjustments"}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "target", "level": "info", "name": "Sample", "library": "Verses", "uuid": "P1", "path": "<ROOT>/Libraries/Verses/Sample.pro"}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Reading the template"}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Reading Sample"}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Building the new version"}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Backing up the original"}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "swap_start", "level": "info", "message": "Sample: original P1, 1 playlist entries", "backup": "<ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000614", "old_sha256": "9271906f54d1ecb7", "temp": "Sample (old 35e855)"}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Renaming the original"}
+{"t": "2026-07-19T00:06:18.000+00:00", "elapsed": 4.0, "step": "progress", "level": "info", "message": "Writing the new file"}
+{"t": "2026-07-19T00:06:18.000+00:00", "elapsed": 4.0, "step": "file_placed", "level": "info", "message": "<ROOT>/Libraries/Verses/Sample.pro", "path": "<ROOT>/Libraries/Verses/Sample.pro", "sha256": "f2efc66bf667588c"}
+{"t": "2026-07-19T00:06:18.000+00:00", "elapsed": 4.0, "step": "progress", "level": "info", "message": "Waiting for ProPresenter to show it"}
+{"t": "2026-07-19T00:06:28.000+00:00", "elapsed": 14.0, "step": "progress", "level": "info", "message": "Updating the playlist"}
+{"t": "2026-07-19T00:06:28.000+00:00", "elapsed": 14.0, "step": "playlist", "level": "info", "message": "entry in Sunday now opens the new file", "playlist": "Sunday", "entries": 1}
+{"t": "2026-07-19T00:06:30.500+00:00", "elapsed": 16.5, "step": "progress", "level": "info", "message": "Removing the renamed original"}
+{"t": "2026-07-19T00:06:30.500+00:00", "elapsed": 16.5, "step": "swap_done", "level": "info", "message": "Sample replaced; original removed (removed)"}
+{"t": "2026-07-19T00:06:30.500+00:00", "elapsed": 16.5, "step": "history_recorded", "level": "info", "message": "import 5b6edfbaad", "import_id": "5b6edfbaad"}
+{"t": "2026-07-19T00:06:30.500+00:00", "elapsed": 16.5, "step": "run_end", "level": "info", "outcome": "ok", "error": null}

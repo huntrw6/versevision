@@ -1,0 +1,19 @@
+VerseVision run 20260719-000614-28e1d2
+============================================================
+Result:        FAILED
+Error:         No active import with id nosuchid
+Started:       2026-07-19T00:06:14+00:00
+Version:       VerseVision 0.38.1
+Document:      undo of import nosuchid
+Action:        undo
+
+Warnings and errors
+------------------------------------------------------------
+  [   0.0s] run_failed: No active import with id nosuchid
+
+Timeline
+------------------------------------------------------------
+  [   0.0s] run_failed   No active import with id nosuchid
+
+Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json
+To follow any line of the document to its slide:  versevision explain 20260719-000614-28e1d2

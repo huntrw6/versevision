@@ -1,0 +1,721 @@
+{
+  "file_ops": [
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [],
+      "op": "is_running",
+      "result": true,
+      "t": 0.0
+    },
+    {
+      "args": [
+        "Sample",
+        "Verses"
+      ],
+      "op": "find_presentation",
+      "result": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "backup_file",
+      "result": "<ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000611",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro",
+        "<ROOT>/Libraries/Verses/Sample (old 539a61).pro"
+      ],
+      "op": "rename_file",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "create_file",
+      "result": "dcd8c1dd2c550f373a0aedd15674873e9e51da58d4d6f7358942c9f8be7b1db0",
+      "t": 4.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "dcd8c1dd2c550f373a0aedd15674873e9e51da58d4d6f7358942c9f8be7b1db0",
+      "t": 44.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro",
+        6
+      ],
+      "op": "delete_created_file",
+      "result": "Presentation removed",
+      "t": 79.5
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample (old 539a61).pro",
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "rename_file",
+      "t": 83.5
+    }
+  ],
+  "files": {
+    "<ROOT>/Libraries/Verses/Sample.pro": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+    "<ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000611": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df"
+  },
+  "playlist": [
+    {
+      "header_color": {
+        "alpha": 1.0,
+        "blue": 0.5,
+        "green": 0.5,
+        "red": 0.5
+      },
+      "id": {
+        "index": 0,
+        "name": "Sermon",
+        "uuid": "H1"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "type": "header"
+    },
+    {
+      "id": {
+        "index": 1,
+        "name": "Sample",
+        "uuid": "I1"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "presentation_info": {
+        "arrangement_name": "",
+        "presentation_uuid": "P1"
+      },
+      "type": "presentation"
+    },
+    {
+      "header_color": {
+        "alpha": 1.0,
+        "blue": 0.5,
+        "green": 0.5,
+        "red": 0.5
+      },
+      "id": {
+        "index": 2,
+        "name": "Closing",
+        "uuid": "H2"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "type": "header"
+    }
+  ],
+  "requests": [
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/P1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/P1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/playlists",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/playlist/PL1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 10.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 10.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 10.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 10.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 10.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 11.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 13.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 15.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 15.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 15.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 17.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 18.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 21.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 21.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 21.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 22.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 24.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 26.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 26.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 26.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 28.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 29.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 32.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 32.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 32.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 33.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 35.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 37.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 37.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 37.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 39.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 40.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/playlist/PL1",
+      "status": 200,
+      "t": 44.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 46.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 46.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 46.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 46.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 46.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 48.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 49.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 52.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 52.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 52.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 53.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 55.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 57.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 57.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 57.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 59.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 60.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 63.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 63.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 63.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 64.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 66.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 68.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 68.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 68.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 70.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 71.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 74.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 74.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 74.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 75.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 77.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 79.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 79.5
+    }
+  ],
+  "running": true,
+  "steps": [
+    {
+      "exit_code": 8,
+      "op": "run",
+      "stdout": {
+        "error": "ProPresenter did not show the new version (API reports 2 slides; expected at least 4)",
+        "exit_code": 8,
+        "ok": false
+      },
+      "t": 83.5
+    },
+    {
+      "exit_code": 0,
+      "op": "history",
+      "stdout": [],
+      "t": 83.5
+    },
+    {
+      "exit_code": 0,
+      "op": "log_list",
+      "stdout": [
+        {
+          "id": "20260719-000611-bb22a8",
+          "mode": "replace",
+          "outcome": "failed",
+          "path": "<ROOT>/logs/runs/20260719-000611-bb22a8",
+          "source": "notes.txt",
+          "started": "2026-07-19T00:06:11+00:00"
+        }
+      ],
+      "t": 83.5
+    }
+  ]
+}

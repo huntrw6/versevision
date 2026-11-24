@@ -1,0 +1,93 @@
+[
+  {
+    "import_id": "d3c53966de",
+    "created": "2026-07-19T00:06:12.500000Z",
+    "source_name": "notes.txt",
+    "source_sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1",
+    "target_uuid": "N0001",
+    "target_name": "First",
+    "node": "local",
+    "cue_uuids": [
+      "58630f8c-b3c8-4e56-8def-92f7136d540a",
+      "8f47776f-7f8a-4fc3-b3dc-044742c85c63",
+      "fc815d6a-daab-41ab-a519-6f2624b13990",
+      "6f619886-362c-43d4-928f-3aed2685362f"
+    ],
+    "slide_count": 4,
+    "verse_count": 2,
+    "point_count": 2,
+    "backup_path": null,
+    "status": "undone",
+    "replaces": null,
+    "mode": "new",
+    "library": "Verses",
+    "file_path": "<ROOT>/Libraries/Verses/First.pro",
+    "file_sha256": "",
+    "file_cue_count": 4,
+    "copied_from": null,
+    "playlist_items": []
+  },
+  {
+    "import_id": "92a70879ac",
+    "created": "2026-07-19T00:06:14Z",
+    "source_name": "notes.txt",
+    "source_sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1",
+    "target_uuid": "N0002",
+    "target_name": "Sample 2",
+    "node": "local",
+    "cue_uuids": [
+      "b55e40e3-f28b-4547-a970-fda34436c9b6",
+      "78690eaa-ed85-4590-b802-b35e02aded8b",
+      "82fb859a-c66a-4a45-9b03-bda25a498e6a",
+      "4cea0de5-54dc-417b-965d-9116dcfc1199"
+    ],
+    "slide_count": 4,
+    "verse_count": 2,
+    "point_count": 2,
+    "backup_path": null,
+    "status": "undone",
+    "replaces": null,
+    "mode": "new",
+    "library": "Verses",
+    "file_path": "<ROOT>/Libraries/Verses/Sample 2.pro",
+    "file_sha256": "",
+    "file_cue_count": 6,
+    "copied_from": "Sample",
+    "playlist_items": [
+      {
+        "playlist": "PL1",
+        "item": "3A3A1F39-7167-430A-8C6F-73EAEA39CC57",
+        "name": "Sample 2",
+        "presentation": "N0002"
+      }
+    ]
+  },
+  {
+    "import_id": "5b6edfbaad",
+    "created": "2026-07-19T00:06:30.500000Z",
+    "source_name": "notes.txt",
+    "source_sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1",
+    "target_uuid": "N0004",
+    "target_name": "Sample",
+    "node": "local",
+    "cue_uuids": [
+      "b665bc04-3eca-42cd-9da0-10cd5b9e35f3",
+      "e2d0cb5c-d0c8-4c29-9e27-8274900e8bc3",
+      "510dc99f-ce30-4353-bc02-4025695083a0",
+      "0cfea2d4-1198-4b63-afb4-7151bac202b9"
+    ],
+    "slide_count": 4,
+    "verse_count": 2,
+    "point_count": 2,
+    "backup_path": "<ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000614",
+    "status": "active",
+    "replaces": null,
+    "mode": "swap",
+    "library": "Verses",
+    "file_path": "<ROOT>/Libraries/Verses/Sample.pro",
+    "file_sha256": "f2efc66bf667588c29ac7eff3d514f898c158850b06103557557800a5186f128",
+    "file_cue_count": 6,
+    "copied_from": "Sample",
+    "playlist_items": []
+  }
+]

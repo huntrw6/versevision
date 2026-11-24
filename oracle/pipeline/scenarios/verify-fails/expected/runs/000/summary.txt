@@ -1,0 +1,49 @@
+VerseVision run 20260719-000611-bb22a8
+============================================================
+Result:        FAILED
+Error:         ProPresenter did not show the new version (API reports 2 slides; expected at least 4)
+Started:       2026-07-19T00:06:11+00:00
+Version:       VerseVision 0.38.1
+Document:      notes.txt
+Action:        replace
+Chosen presentation: Sample
+ProPresenter on: this computer
+Source text:   104 characters, 7 lines (sha256 93720f1156e7), kept in source.txt
+
+What was understood
+------------------------------------------------------------
+4 slides: 2 verse, 2 sermon point. 0 flagged (0 not added, 0 need review). 0 adjustments. 2 lines left out on purpose.
+
+    1. verse John 3:16 (NIV)                                Text of NIV John 3:16. More words follow so that a long vers
+    2. point 1) First point                                 1) First point
+    3. verse Psalms 23:1 (NIV)                              Text of NIV Psalms 23:1. More words follow so that a long ve
+    4. point 2) Second point                                2) Second point
+
+LEFT OUT on purpose: 2
+  line    1  'Title 11/8/26'  -> header: title / date line
+  line    2  '“For God so loved the world.”'  -> quoted_text: verse text quoted above its reference; text is fetched from the Bible provider
+
+Warnings and errors
+------------------------------------------------------------
+  [  44.0s] verify: ProPresenter lists the new version but has not loaded it yet; the file on disk is intact, so it keeps its place in the playlists and loads when opened
+  [  46.5s] swap_pacing: ProPresenter re-issued the id (P1 -> N0002); following it
+  [  79.5s] swap_rollback: ProPresenter did not show the new version (API reports 2 slides; expected at least 4)
+  [  83.5s] run_failed: ProPresenter did not show the new version (API reports 2 slides; expected at least 4)
+
+Timeline
+------------------------------------------------------------
+  [   0.0s] plan_ready   4 slides, 0 not added, 0 to check, 2 left out, 0 adjustments
+  [   0.0s] progress     Reading the template
+  [   0.0s] progress     Reading Sample
+  [   0.0s] progress     Building the new version
+  [   0.0s] progress     Backing up the original
+  [   0.0s] progress     Renaming the original
+  [   4.0s] progress     Writing the new file
+  [   4.0s] file_placed  <ROOT>/Libraries/Verses/Sample.pro
+  [   4.0s] progress     Waiting for ProPresenter to show it
+  [  44.0s] verify       ProPresenter lists the new version but has not loaded it yet; the file on disk is intact, so it keeps its place in the playlists and loads when opened
+  [  44.0s] progress     Updating the playlist
+  [  83.5s] run_failed   ProPresenter did not show the new version (API reports 2 slides; expected at least 4)
+
+Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json
+To follow any line of the document to its slide:  versevision explain 20260719-000611-bb22a8

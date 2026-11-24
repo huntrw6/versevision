@@ -1,0 +1,30 @@
+[
+  {
+    "import_id": "65006ce398",
+    "created": "2026-07-19T00:06:12.500000Z",
+    "source_name": "notes.txt",
+    "source_sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1",
+    "target_uuid": "N0001",
+    "target_name": "Pruned",
+    "node": "local",
+    "cue_uuids": [
+      "d16a83cd-4641-4ad7-8e16-1bc36210274e",
+      "d0b16eec-6263-4c80-95f4-1375b782cf67",
+      "a2b61da1-5e04-4e17-82ba-1def11d8079c",
+      "82f85389-8f76-4ca5-909e-283b9e3bab43"
+    ],
+    "slide_count": 4,
+    "verse_count": 2,
+    "point_count": 2,
+    "backup_path": null,
+    "status": "active",
+    "replaces": null,
+    "mode": "new",
+    "library": "Verses",
+    "file_path": "<ROOT>/Libraries/Verses/Pruned.pro",
+    "file_sha256": "",
+    "file_cue_count": 4,
+    "copied_from": null,
+    "playlist_items": []
+  }
+]

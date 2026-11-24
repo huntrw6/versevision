@@ -1386,6 +1386,8 @@ def main() -> None:
             print(f"providers/{filename}: {len(rows)} lines")
         from oracle_pro import pro_oracle                       # the ProPresenter file writer and the theme reader (S6a): oracle/pro/
         print(f"pro: {pro_oracle(out, REPO_ROOT)} cases")
+        from oracle_pipeline import pipeline_oracle            # the ProPresenter side, run against a scripted ProPresenter (S6b): oracle/pipeline/
+        print(f"pipeline: {pipeline_oracle(out, REPO_ROOT)} scenarios")
     if not args.only:
         from oracle_documents import documents_oracle          # the document readers (S4): oracle/documents/
         for kind, count in documents_oracle(out, REPO_ROOT).items():

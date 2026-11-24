@@ -1,0 +1,770 @@
+{
+  "file_ops": [
+    {
+      "args": [
+        "Sample",
+        "Verses"
+      ],
+      "op": "find_presentation",
+      "result": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "Sample",
+        "Verses"
+      ],
+      "op": "find_presentation",
+      "result": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [],
+      "op": "is_running",
+      "result": true,
+      "t": 0.0
+    },
+    {
+      "args": [
+        "Sample",
+        "Verses"
+      ],
+      "op": "find_presentation",
+      "result": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "backup_file",
+      "result": "<ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000611",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro",
+        "<ROOT>/Libraries/Verses/Sample (old 4b791a).pro"
+      ],
+      "op": "rename_file",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "create_file",
+      "result": "616eaf1f5ceeab51995f955034a6dd5823315314e1226431f1b09f1ea0fca507",
+      "t": 4.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample (old 4b791a).pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 16.5
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample (old 4b791a).pro"
+      ],
+      "op": "delete_file",
+      "result": "removed",
+      "t": 16.5
+    }
+  ],
+  "files": {
+    "<ROOT>/Libraries/Verses/Sample.pro": "616eaf1f5ceeab51995f955034a6dd5823315314e1226431f1b09f1ea0fca507",
+    "<ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000611": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df"
+  },
+  "playlist": [
+    {
+      "header_color": {
+        "alpha": 1.0,
+        "blue": 0.5,
+        "green": 0.5,
+        "red": 0.5
+      },
+      "id": {
+        "index": 0,
+        "name": "Sermon",
+        "uuid": "H1"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "type": "header"
+    },
+    {
+      "id": {
+        "index": 1,
+        "name": "Sample",
+        "uuid": "I1"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "presentation_info": {
+        "arrangement_name": "",
+        "presentation_uuid": "N0002"
+      },
+      "type": "presentation"
+    },
+    {
+      "header_color": {
+        "alpha": 1.0,
+        "blue": 0.5,
+        "green": 0.5,
+        "red": 0.5
+      },
+      "id": {
+        "index": 2,
+        "name": "Closing",
+        "uuid": "H2"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "type": "header"
+    }
+  ],
+  "requests": [
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/P1",
+      "status": 404,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/active",
+      "status": 404,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/P1",
+      "status": 404,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/active",
+      "status": 404,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/playlists",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/playlist/PL1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 10.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 10.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 10.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 10.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 10.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 11.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 11.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 11.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 12.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 12.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 12.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 13.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 13.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 13.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 14.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 14.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/N0002",
+      "status": 200,
+      "t": 14.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/playlist/PL1",
+      "status": 200,
+      "t": 14.0
+    },
+    {
+      "body": [
+        {
+          "header_color": {
+            "alpha": 1.0,
+            "blue": 0.5,
+            "green": 0.5,
+            "red": 0.5
+          },
+          "id": {
+            "index": 0,
+            "name": "Sermon",
+            "uuid": "H1"
+          },
+          "is_hidden": false,
+          "is_pco": false,
+          "type": "header"
+        },
+        {
+          "id": {
+            "index": 1,
+            "name": "Sample",
+            "uuid": "I1"
+          },
+          "is_hidden": false,
+          "is_pco": false,
+          "presentation_info": {
+            "arrangement_name": "",
+            "presentation_uuid": "N0002"
+          },
+          "type": "presentation"
+        },
+        {
+          "header_color": {
+            "alpha": 1.0,
+            "blue": 0.5,
+            "green": 0.5,
+            "red": 0.5
+          },
+          "id": {
+            "index": 2,
+            "name": "Closing",
+            "uuid": "H2"
+          },
+          "is_hidden": false,
+          "is_pco": false,
+          "type": "header"
+        }
+      ],
+      "method": "PUT",
+      "path": "/v1/playlist/PL1",
+      "status": 204,
+      "t": 14.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 16.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 16.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/playlist/PL1",
+      "status": 200,
+      "t": 16.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 16.5
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 16.5
+    }
+  ],
+  "running": true,
+  "steps": [
+    {
+      "exit_code": 0,
+      "op": "run",
+      "stdout": {
+        "adjustments": [],
+        "applied": {
+          "backup_path": "<ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000611",
+          "cue_count_after": 6,
+          "cue_count_before": 2,
+          "import_id": "b74aa6d95e",
+          "mode": "append",
+          "node": "local",
+          "presentation_name": "Sample",
+          "removed_slides": 0,
+          "reopened": false,
+          "restart_needed": false,
+          "slide_count": 4,
+          "steps": [
+            "backup: <ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000611",
+            "renamed original to Sample (old 4b791a); wrote new Sample.pro",
+            "playlist now opens the new file: Sunday",
+            "removed Sample (old 4b791a).pro (removed)"
+          ],
+          "target_name": "Sample",
+          "verification": "ProPresenter reports all 4 generated slides",
+          "verified": true
+        },
+        "clean": true,
+        "decisions": [
+          {
+            "add_text": "• Title 11/8/26",
+            "addable": true,
+            "correction": null,
+            "id": 0,
+            "kind": "left_out",
+            "line": 1,
+            "reasons": [
+              "title / date line"
+            ],
+            "slides": [],
+            "text": "Title 11/8/26",
+            "tier": "good",
+            "title": "Title 11/8/26"
+          },
+          {
+            "add_text": "• “For God so loved the world”",
+            "addable": true,
+            "correction": null,
+            "id": 1,
+            "kind": "left_out",
+            "line": 2,
+            "reasons": [
+              "verse text quoted above its reference; text is fetched from the Bible provider"
+            ],
+            "slides": [],
+            "text": "“For God so loved the world.”",
+            "tier": "good",
+            "title": "“For God so loved the world.”"
+          },
+          {
+            "add_text": "",
+            "addable": false,
+            "correction": null,
+            "id": 2,
+            "kind": "verse",
+            "line": 3,
+            "reasons": [],
+            "slides": [
+              1
+            ],
+            "text": "John 3:16 NIV",
+            "tier": "good",
+            "title": "John 3:16 NIV"
+          },
+          {
+            "add_text": "",
+            "addable": false,
+            "correction": null,
+            "id": 3,
+            "kind": "point",
+            "line": 4,
+            "reasons": [],
+            "slides": [
+              2
+            ],
+            "text": "1) First point",
+            "tier": "good",
+            "title": "1) First point"
+          },
+          {
+            "add_text": "",
+            "addable": false,
+            "correction": null,
+            "id": 4,
+            "kind": "verse",
+            "line": 5,
+            "reasons": [],
+            "slides": [
+              3
+            ],
+            "text": "Psalm 23:1 NIV",
+            "tier": "good",
+            "title": "Psalms 23:1 NIV"
+          },
+          {
+            "add_text": "",
+            "addable": false,
+            "correction": null,
+            "id": 5,
+            "kind": "point",
+            "line": 6,
+            "reasons": [],
+            "slides": [
+              4
+            ],
+            "text": "2) Second point",
+            "tier": "good",
+            "title": "2) Second point"
+          }
+        ],
+        "exit_code": 0,
+        "flagged": [],
+        "left_out": [
+          {
+            "detail": "header: title / date line",
+            "line": 1,
+            "status": "left_out",
+            "text": "Title 11/8/26"
+          },
+          {
+            "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+            "line": 2,
+            "status": "left_out",
+            "text": "“For God so loved the world.”"
+          }
+        ],
+        "library": "Verses",
+        "looks": null,
+        "mode": "append",
+        "node": "this computer (127.0.0.1:<PORT>)",
+        "ok": true,
+        "review": {
+          "error": [],
+          "good": [
+            {
+              "add_text": "",
+              "addable": false,
+              "correction": null,
+              "id": 2,
+              "kind": "verse",
+              "line": 3,
+              "reasons": [],
+              "slides": [
+                1
+              ],
+              "text": "John 3:16 NIV",
+              "tier": "good",
+              "title": "John 3:16 NIV"
+            },
+            {
+              "add_text": "",
+              "addable": false,
+              "correction": null,
+              "id": 3,
+              "kind": "point",
+              "line": 4,
+              "reasons": [],
+              "slides": [
+                2
+              ],
+              "text": "1) First point",
+              "tier": "good",
+              "title": "1) First point"
+            },
+            {
+              "add_text": "",
+              "addable": false,
+              "correction": null,
+              "id": 4,
+              "kind": "verse",
+              "line": 5,
+              "reasons": [],
+              "slides": [
+                3
+              ],
+              "text": "Psalm 23:1 NIV",
+              "tier": "good",
+              "title": "Psalms 23:1 NIV"
+            },
+            {
+              "add_text": "",
+              "addable": false,
+              "correction": null,
+              "id": 5,
+              "kind": "point",
+              "line": 6,
+              "reasons": [],
+              "slides": [
+                4
+              ],
+              "text": "2) Second point",
+              "tier": "good",
+              "title": "2) Second point"
+            }
+          ],
+          "left_out_good": [
+            {
+              "add_text": "• Title 11/8/26",
+              "addable": true,
+              "correction": null,
+              "id": 0,
+              "kind": "left_out",
+              "line": 1,
+              "reasons": [
+                "title / date line"
+              ],
+              "slides": [],
+              "text": "Title 11/8/26",
+              "tier": "good",
+              "title": "Title 11/8/26"
+            },
+            {
+              "add_text": "• “For God so loved the world”",
+              "addable": true,
+              "correction": null,
+              "id": 1,
+              "kind": "left_out",
+              "line": 2,
+              "reasons": [
+                "verse text quoted above its reference; text is fetched from the Bible provider"
+              ],
+              "slides": [],
+              "text": "“For God so loved the world.”",
+              "tier": "good",
+              "title": "“For God so loved the world.”"
+            }
+          ],
+          "left_out_warning": [],
+          "warning": []
+        },
+        "run_id": "20260719-000611-c89f68",
+        "slides": [
+          {
+            "kind": "verse",
+            "n": 1,
+            "text": "Text of NIV John 3:16. More words follow so that a long verse is cut into slides. More words follow so that a long verse is cut into slides. More words follow so that a long verse is cut into slides.",
+            "title": "John 3:16 (NIV)"
+          },
+          {
+            "kind": "point",
+            "n": 2,
+            "text": "1) First point",
+            "title": "1) First point"
+          },
+          {
+            "kind": "verse",
+            "n": 3,
+            "text": "Text of NIV Psalms 23:1. More words follow so that a long verse is cut into slides.",
+            "title": "Psalms 23:1 (NIV)"
+          },
+          {
+            "kind": "point",
+            "n": 4,
+            "text": "2) Second point",
+            "title": "2) Second point"
+          }
+        ],
+        "source": "notes.txt",
+        "summary": {
+          "adjustments": 0,
+          "errors": 0,
+          "fixes": 0,
+          "flagged": 0,
+          "good": 4,
+          "left_out": 2,
+          "needs_review": 0,
+          "not_added": 0,
+          "point_slides": 2,
+          "slides": 4,
+          "verse_slides": 2,
+          "warnings": 0
+        },
+        "target": {
+          "library": "Verses",
+          "name": "Sample",
+          "uuid": "P1"
+        },
+        "title": "Title 11-8-26"
+      },
+      "t": 16.5
+    }
+  ]
+}
