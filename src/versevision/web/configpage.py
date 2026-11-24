@@ -41,13 +41,13 @@ LABELS = {
     "slides.prefer_punctuation_breaks": "Prefer to cut a long verse at punctuation",
     "slides.even_split_tolerance": "Uneven split allowed (mid-phrase)",
     "slides.even_split_punctuation_tolerance": "Uneven split allowed (at punctuation)",
-    "points.max_lines_per_slide": "Most lines on a sermon point slide (0 = no limit)",
+    "points.max_lines_per_slide": "Most lines on a sermon point slide",
     "points.max_lines": "Lines a point box holds at full size",
     "points.line_width_units": "Point line width",
     "points.line_tolerance": "Uneven lines allowed",
     "points.line_tolerance_at_punctuation": "Uneven lines allowed (at punctuation)",
     "points.strip_trailing_period": "Remove the period at the end of a point",
-    "points.fix_label_typos": "Correct a header written unlike the others (KEY#1 vs KEY #1)",
+    "points.fix_label_typos": "Fix a header that differs from the others",
     "points.balance_lines": "Break long points into evenly wide lines",
     "points.bullet_char": "Bullet mark",
     "points.shown_in_capitals": "Points are shown in capitals",
@@ -56,6 +56,72 @@ LABELS = {
     "output.library": "Library for new presentations",
     "presentation.backup_count": "Backups to keep",
 }
+
+
+# One short line under each option (keep these under 70 characters: a row is one line of label, one of help, one of key).
+SHORT = {
+    "slides.even_split_punctuation_tolerance": "Max size difference between pieces cut at punctuation (0.25 = 25%)",
+    "slides.even_split_tolerance": "Max size difference between pieces cut mid-phrase (0.15 = 15%)",
+    "slides.include_verse_numbers": "Put the verse number before the verse text",
+    "slides.reference_label_mode": "verse: Luke 13:5 \u00b7 segment: range on the slide \u00b7 source: as typed",
+    "slides.max_body_lines": "A longer verse is cut into near-equal slides",
+    "slides.line_width_units": "How wide a line of verse text is (about 48 letters)",
+    "slides.max_reference_lines": "A longer reference is flagged in the review",
+    "slides.reference_width_units": "How wide the reference line is (about 46 letters)",
+    "slides.prefer_punctuation_breaks": "Cut after a comma, semicolon or full stop when close enough",
+    "slides.repeat_reference_on_continuation": "Off: only the first slide of a long verse shows it",
+    "points.numbered": "Treat \"1)\", \"1.\" and \"#1:\" as points",
+    "points.lettered": "Treat \"a)\" and \"b.\" as points",
+    "points.bullets": "Treat \"\u2022\", \"-\" and \"*\" as points",
+    "points.require_sequence": "Numbers out of order (1, 2, 5) become plain list items",
+    "points.numbering": "Keep the numbers, strip them, or renumber 1, 2, 3",
+    "points.number_style": "Used when renumbering: \"{n})\", \"{n}.\", \"#{n}:\"",
+    "points.bullet_char": "Mark before a plain point (empty = none)",
+    "points.case": "Letter case of the point text",
+    "points.fix_label_typos": "\"KEY#1)\" is fixed to match the other headers and flagged",
+    "points.strip_trailing_period": "Remove the final \".\"; \"!\", \"?\" and \"etc.\" stay",
+    "points.balance_lines": "Break long points into evenly wide lines",
+    "points.line_width_units": "How wide a line of a point is (about 33 capitals)",
+    "points.line_tolerance": "Max difference from the average line width (0.15 = 15%)",
+    "points.line_tolerance_at_punctuation": "Same, for a line that starts and ends at punctuation",
+    "points.max_lines_per_slide": "A longer point continues on the next slide (0 = no limit)",
+    "points.max_lines": "Lines the point box holds before ProPresenter shrinks the text",
+    "points.shown_in_capitals": "Measure line widths as capitals (wider letters)",
+    "verses.version_source": "A verse with no version: use the one above, the default, or error",
+    "verses.version_from_quote": "Use the version whose wording matches the quoted verse text",
+    "verses.quote_versions": "Versions tried, in order, when matching a quote",
+    "verses.quote_match": "How closely a quote must match a version (0.85 = 85%)",
+    "notes.line_breaks": "slide: each line is a slide \u00b7 paragraph: a sentence joins its point",
+    "notes.unlabeled_sentence": "Plain sentence after a point: bullet slide, review, or skip",
+    "notes.unlabeled_short": "Short line with no ending punctuation: bullet, review, or skip",
+    "notes.before_first_item": "Lines before the first verse or point (title, date, speaker)",
+    "notes.stage_cues": "\"Show slide of\u2026\", \"(note)\", web links",
+    "notes.extra_cue_words": "More words that start a stage cue, e.g. \"pause\"",
+    "notes.skip_patterns": "Regular expressions: a matching line is always left out",
+    "notes.quote_above_reference": "Verse text typed above its reference",
+    "notes.quote_alone": "A quotation with no reference nearby",
+    "notes.reference_in_text": "A reference inside a sentence (\"as Psalm 23:1 says\u2026\")",
+    "notes.whole_chapter": "A chapter with no verses (\"Psalm 23\")",
+    "notes.duplicates": "The same verse and version appearing again later",
+    "notes.label_words": "Words that start a labelled line (\"Conclusion: \u2026\")",
+    "notes.label_own_slide": "A labelled line gets its own slide",
+    "notes.header_max_words": "Capitalized lines this short are headings, not slides",
+    "notes.headings": "Titles and headings: a slide with no bullet, or left out",
+    "notes.caps_lines": "ALL-CAPS line with no ending punctuation: heading or plain line",
+    "notes.wrapped_lines": "join: a line the page cut mid-sentence rejoins the line above",
+    "notes.orphan_max_words": "A tail this short after a full line ends the sentence above",
+    "bible.default_version": "For a verse with no version written or above it",
+    "output.library": "ProPresenter library a new presentation goes in",
+    "presentation.backup_count": "Backups kept of a changed presentation",
+}
+
+
+def _short(key: str, comment: str) -> str:
+    """The one-line help for an option: the written one, or the start of its comment (cut to fit) for a new option."""
+    if key in SHORT:
+        return SHORT[key]
+    first = comment.split(". ")[0].split(" (")[0].strip()
+    return first if len(first) <= 68 else first[:67].rstrip() + "\u2026"
 
 
 @functools.lru_cache(maxsize=1)
@@ -145,7 +211,7 @@ def describe(config: AppConfig) -> dict[str, Any]:
             fields.append({
                 "key": key, "label": LABELS.get(key) or _humanize(name), "kind": kind, "choices": choices,
                 "value": getattr(model, name), "default": getattr(default_model, name),
-                "help": helps.get((type(model).__name__, name), ""), **_bounds(info),
+                "help": _short(key, helps.get((type(model).__name__, name), "")), **_bounds(info),
             })
         sections.append({"id": sid, "title": title, "help": text, "fields": fields})
     return {"sections": sections, "path": str(config_path())}

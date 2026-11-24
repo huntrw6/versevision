@@ -88,3 +88,10 @@ def test_the_toolbar_has_a_config_button_with_its_own_icon():
         assert urllib.request.urlopen(base + "/ico-config.svg", timeout=5).read().startswith(b"<svg")
     finally:
         server.shutdown()
+
+
+def test_every_option_has_a_one_line_label_and_help_so_rows_stay_the_same_height():
+    for key, field in _fields().items():
+        assert 0 < len(field["help"]) <= 70, (key, len(field["help"]))
+        assert 0 < len(field["label"]) <= 52, (key, len(field["label"]))
+        assert "\n" not in field["help"]
