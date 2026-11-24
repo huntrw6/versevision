@@ -1,0 +1,10 @@
+{
+  "blank_lines": 0,
+  "characters": 10,
+  "lines": 2,
+  "method": "pypdf extract_text (the text layer; lines are cut where the PDF cut them)",
+  "odd_characters": [
+    "�"
+  ],
+  "type": ".pdf"
+}

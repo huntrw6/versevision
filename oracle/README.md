@@ -36,6 +36,19 @@ Whole documents, `cases/<name>/`: 213 cases (each has `input.<ext>`, `options.to
 | `label-fix-*`, `long-verse-split`, `review-choices-*` | 3 | point header typos corrected to match the others, a verse cut into several slides, review choices applied after planning (`choices.json`) |
 | `classifier-*` | 84 | small documents, one per rule branch of `notes/classifier.py` that the cases above never reach (found with `python/scripts/classifier_coverage.py`) and per setting: `[slide]` tags, references in the middle of a sentence, quotes (above a reference, alone), lead and trailing reference chains, references in brackets, bad references, empty and one-line documents, the lines before the first item, headings and ALL CAPS lines, `Recap` and dates, stage cues, extra cue words, skip patterns, markers and `KEY #n)` headers, labelled lines (`Conclusion:`), one slide per line break or one paragraph per point, duplicates, wrapped (PDF/email) lines, odd whitespace and case-insensitive Unicode. They run with `no_fetch` (`bible.json` is `{}`): what they test is the classifier |
 
+Document readers (S4), `documents/<case>/`: 194 folders, each with `input.<ext>` and either `expected/extracted.txt` + `expected/extract.json` (what
+`documents.extract_text` returned and its `extract` trace record) or `expected/error.json` (`{"kind": "document" | "unexpected", "message"}`: what it
+raised; `unexpected` is any exception that is not a `VerseVisionError`, shown by the web page as `Unexpected problem: <message>`). The reader is run on a
+file called `upload.<ext>`, like the web layer's upload.
+
+| group | cases | what |
+|---|---|---|
+| `html-*` | 34 | sermon notes as HTML, about half malformed on purpose (unclosed and stray tags, `<` in text, odd attributes, comments, CDATA, processing instructions, entities with and without `;`, numeric references, scripts and styles, raw-text elements) |
+| `docx-*` | 16 | Word files: runs, tabs, breaks, hyperlinks, tables and headers (not read), tracked changes, content controls, fields, text boxes, odd text elements |
+| `text-*` | 6 | `.txt`/`.md` bytes: CRLF and lone CR, BOM, tabs, NBSP and other odd Unicode |
+| `pdf-*` | 119 | 43 PDFs made with ReportLab (`python/tests/fixtures/pdf`, written by `python/scripts/make_pdf_fixtures.py`: wrapped and justified paragraphs, two columns, bullets, ligature characters, standard and TrueType fonts, CJK fonts, rotated pages and text, tables, forms, encrypted with an empty password, object streams, linearized, a scanned page), 40 generated ones (`pdf-generated-*`, seeded: several font kinds, every text operator, kerning around the space threshold) and 36 hand-made ones (`pdf-<feature>`: one feature each: kerning, quote operators, rotations, fonts with `/Differences`, `/Widths`, `/ToUnicode`, Type0, Type3, East Asian CMaps, forms, filters, page trees; `pdf-error-*` do not read) |
+| `error-*` | 19 | inputs that raise: UTF-8 that is not UTF-8, Word files that are not zip files or lack a part or have broken XML |
+
 Line level, one JSON object per line:
 
 | file | lines | what |
@@ -61,14 +74,16 @@ provides changes the caller's profile too (calling it twice on one config shows 
 
 ## How the Rust side is checked
 
-`cargo test -p versevision-core --test oracle -- --nocapture` runs everything above and prints the pass count per group. `expected_failures.txt` is a ratchet:
+`cargo test -p versevision-core --test oracle -- --nocapture` runs everything above and prints the pass count per group. The document readers have their own runner,
+`cargo test -p versevision-docs --test oracle_documents -- --nocapture`: `documents/` (the reader's text, `extract` record or exact error) and the first record of
+every case's `trace.jsonl` (the `extract` record) with `expected/extracted.txt`, for all 213 whole-document cases whatever their input type. Nothing is listed as an
+expected failure there: every case passes. `expected_failures.txt` is a ratchet:
 it lists the case groups (`group:tests`), single cases (`case:...`) and files (`file:references.jsonl`) that do not pass yet. The test fails when a listed
 one passes (delete the line) or an unlisted one fails, so the list only shrinks.
 
 Since S3 every case runs the whole planner (`workflow::plan_notes`, `build_report`, and `apply_review_choices` where the case has `choices.json`) and compares
-`plan.json`, `review.json`, the whole `trace.jsonl` and `plan_after_choices.json`; the list is empty (213/213). The document readers are S4: the runner hands the
-planner `expected/extracted.txt` (what the reader returned) and takes the reader's own `extract` record (seq 1) from `expected/trace.jsonl`, so a case does
-not depend on a reader. `group:`/`case:` entries are that full comparison. The notes classifier (S2b) is also checked on its own, from `expected/extracted.txt`:
+`plan.json`, `review.json`, the whole `trace.jsonl` and `plan_after_choices.json`; the list is empty (213/213). The planner runner hands the planner `expected/extracted.txt` (what the reader returned) and takes the reader's own `extract` record (seq 1) from
+`expected/trace.jsonl`, so a planner case does not depend on a reader; the readers (S4) are checked by `versevision-docs`. `group:`/`case:` entries are that full comparison. The notes classifier (S2b) is also checked on its own, from `expected/extracted.txt`:
 `document:<case-or-group>` is `expected/document.json` of that case, and `trace-stage:<name>` is one of the classifier's trace stages (`parse_start`,
 `line_join`, `paragraph`, `item`) over every case. `ORACLE_VERBOSE=1` prints every failing line of the line-level files, not only the first.
 

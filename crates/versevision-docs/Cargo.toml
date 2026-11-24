@@ -1,0 +1,22 @@
+[package]
+name = "versevision-docs"
+description = "VerseVision document readers (txt, md, html, docx, pdf): the text Python's versevision.documents.extract_text returns. Pure Rust, no network, no system libraries."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+versevision-core = { path = "../versevision-core" }
+thiserror.workspace = true
+fancy-regex.workspace = true
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+zip = { version = "4", default-features = false, features = ["deflate-flate2"] }
+quick-xml = "0.41"
+lopdf = { version = "0.47", default-features = false }
+encoding_rs = "0.8"
+serde_json.workspace = true

@@ -17,7 +17,7 @@ mod formatter;
 pub mod models;
 mod normalizer;
 mod parser;
-pub(crate) mod pytext;
+pub mod pytext;
 mod tokenizer;
 mod unitables;
 mod validator;

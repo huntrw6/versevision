@@ -1,0 +1,31 @@
+{
+  "blank_lines": 1,
+  "characters": 1115,
+  "lines": 43,
+  "method": "pypdf extract_text (the text layer; lines are cut where the PDF cut them)",
+  "odd_characters": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    " ",
+    "¤",
+    "¥",
+    "©",
+    "®",
+    "´",
+    "¶",
+    "·",
+    "¸",
+    "»",
+    "×"
+  ],
+  "type": ".pdf"
+}

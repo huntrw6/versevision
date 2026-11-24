@@ -1,0 +1,4 @@
+{
+  "kind": "unexpected",
+  "message": "file 'upload.docx' is not a Word file, content type is 'application/vnd.openxmlformats-officedocument.wordprocessingml.template.main+xml'"
+}

@@ -1,0 +1,8 @@
+{
+  "blank_lines": 2,
+  "characters": 22,
+  "lines": 5,
+  "method": "python-docx: one line per Word paragraph (tables, headers and text boxes are not read)",
+  "odd_characters": [],
+  "type": ".docx"
+}

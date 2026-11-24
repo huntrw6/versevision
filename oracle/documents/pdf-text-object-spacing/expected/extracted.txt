@@ -1,0 +1,5 @@
+Spaced characters and words
+second line of the object
+third
+fourth
+fifth

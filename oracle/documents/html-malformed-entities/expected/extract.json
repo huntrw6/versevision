@@ -1,0 +1,10 @@
+{
+  "blank_lines": 0,
+  "characters": 62,
+  "lines": 1,
+  "method": "BeautifulSoup get_text (one line per block)",
+  "odd_characters": [
+    "∉"
+  ],
+  "type": ".html"
+}

@@ -1,0 +1,4 @@
+  leading spaces
+trailing spaces   
+double  spaces  inside
+after blank

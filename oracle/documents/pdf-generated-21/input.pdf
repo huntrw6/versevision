@@ -1,0 +1,327 @@
+%PDF-1.5
+%âãÏÓ
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Roman >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Symbol >>
+endobj
+4 0 obj
+<< /Length 667  >>
+stream
+/CIDInit /ProcSet findresource begin 12 dict begin begincmap /CMapName /Adobe-Identity-UCS def
+1 begincodespacerange <00> <FF> endcodespacerange
+30 beginbfchar
+<4C> <FB01>
+<FA> <FB01>
+<D6> <2013>
+<5B> <2019>
+<60> <00E9>
+<D2> <2013>
+<BA> <00E9>
+<70> <2019>
+<DE> <00E9>
+<2A> <0020>
+<5E> <2019>
+<83> <2019>
+<47> <2019>
+<6F> <0048>
+<D9> <00D9>
+<6B> <0044>
+<A0> <0045>
+<ED> <0020>
+<AC> <0020>
+<9D> <2019>
+<B2> <2013>
+<39> <0039>
+<AB> <00AB>
+<B9> <0020>
+<2F> <002F>
+<A2> <2013>
+<B8> <FB01>
+<DC> <0020>
+<72> <0020>
+<A4> <0049>
+endbfchar
+2 beginbfrange
+<5C> <61> <0067>
+<66> <68> [<0041> <0042> <FB02>]
+endbfrange
+endcmap CMapName currentdict /CMap defineresource pop end end
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /TrueType /BaseFont /ABCDEF+Foo /FirstChar 32 /LastChar 126 /Widths [628 690 892.8 724 740 203 799 348 437 685.7 616 234 578.1 864 457.9 290 220 765 610 391 681 364.4 413 873 794 249.6 772 340.8 821.3 573 551.0 696 227 311.3 707 271 734 823 837 885 556 432.7 513 372 378 583 237 873 484.9 873.0 554 584 451 270 617 694 494 464 235 374 546 349 722.1 458 865 690 417 456.0 577 636 688 747 342 210 328 216.5 859 798 899 341 297 391 657 273 658.7 751 477.4 634.8 586 763 818 258 208 265 780] /Encoding /WinAnsiEncoding /ToUnicode 4 0 R /FontDescriptor << /Type /FontDescriptor /FontName /ABCDEF+Foo /Flags 32 >> >>
+endobj
+6 0 obj
+<< /Length 895  >>
+stream
+/CIDInit /ProcSet findresource begin 12 dict begin begincmap /CMapName /Adobe-Identity-UCS def
+1 begincodespacerange <0000> <FFFF> endcodespacerange
+39 beginbfchar
+<0001> <0628>
+<0002> <05D2>
+<0003> <0020>
+<0004> <FB01>
+<0005> <0020>
+<0006> <0047>
+<0007> <4E07>
+<0008> <0069>
+<0009> <4E09>
+<000A> <05DA>
+<000B> <FB01>
+<000C> <4E0C>
+<000D> <2019>
+<000E> <FB01>
+<000F> <4E0F>
+<0010> <4E10>
+<0011> <0638>
+<0012> <2019>
+<0013> <063A>
+<0014> <0055>
+<0015> <0076>
+<0016> <05D2>
+<0017> <FB01>
+<0018> <2019>
+<0019> <062C>
+<001A> <0061>
+<001B> <0020>
+<001C> <0063>
+<001D> <0020>
+<001E> <2019>
+<001F> <0632>
+<0020> <4E20>
+<0021> <0020>
+<0022> <0069>
+<0023> <0636>
+<0024> <FB01>
+<0025> <05E1>
+<0026> <05E2>
+<0027> <FB01>
+endbfchar
+1 beginbfrange
+<0030> <0040> <0061>
+endbfrange
+1 beginbfrange
+<0050> <0052> [<0041> <00420043> <0044>]
+endbfrange
+endcmap CMapName currentdict /CMap defineresource pop end end
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type0 /BaseFont /ABCDEF+Cid /Encoding /Identity-H /DescendantFonts [<< /Type /Font /Subtype /CIDFontType2 /BaseFont /ABCDEF+Cid /CIDSystemInfo << /Registry (Adobe) /Ordering (Identity) /Supplement 0 >> /DW 0 /W [1 [500 600 700] 5 20 450 21 [300 310.5]] /FontDescriptor << /Type /FontDescriptor /FontName /ABCDEF+Cid /Flags 4 >> >>] /ToUnicode 6 0 R >>
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Palatino-Roman /Encoding << /Type /Encoding /BaseEncoding /MacRomanEncoding /Differences [32 /space /fi /fl 65 /Euro /g17 /uni0041 /Aacute 200 /quoteright /bullet /unknownglyph] >> >>
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding /FontDescriptor << /Type /FontDescriptor /FontName /Courier-Bold /Flags 33 /MissingWidth 600 >> >>
+endobj
+10 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Arial,Bold /Encoding /WinAnsiEncoding >>
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Unknown-Font /Encoding /MacRomanEncoding /FirstChar 32 /Widths [250 333 408] /FontDescriptor << /Type /FontDescriptor /FontName /Unknown-Font /Flags 34 /MissingWidth 400 >> >>
+endobj
+12 0 obj
+<< /Length 31  >>
+stream
+0 0 500 700 d1 0 0 500 700 re f
+endstream
+endobj
+13 0 obj
+<< /Type /Font /Subtype /Type3 /FontBBox [0 0 500 700] /FontMatrix [0.001 0 0 0.001 0 0] /CharProcs << /a 12 0 R /b 12 0 R >> /Encoding << /Type /Encoding /Differences [97 /a /b] >> /FirstChar 97 /LastChar 98 /Widths [500 600] >>
+endobj
+14 0 obj
+<< /Length 667  >>
+stream
+/CIDInit /ProcSet findresource begin 12 dict begin begincmap /CMapName /Adobe-Identity-UCS def
+1 begincodespacerange <00> <FF> endcodespacerange
+30 beginbfchar
+<A3> <2013>
+<61> <0061>
+<F8> <00E9>
+<47> <00E9>
+<CE> <00CE>
+<A1> <2019>
+<53> <0053>
+<5D> <0020>
+<B9> <0044>
+<D0> <0041>
+<67> <2013>
+<D7> <00D7>
+<81> <201C>
+<48> <2019>
+<84> <FB01>
+<97> <2013>
+<86> <0045>
+<8F> <00E9>
+<95> <0095>
+<BD> <00E9>
+<CA> <201C>
+<F5> <201C>
+<CB> <0020>
+<4C> <004C>
+<EB> <FB01>
+<82> <2013>
+<BF> <0020>
+<65> <0020>
+<39> <2013>
+<50> <2013>
+endbfchar
+2 beginbfrange
+<B3> <B8> <006A>
+<BD> <BF> [<0041> <0042> <FB02>]
+endbfrange
+endcmap CMapName currentdict /CMap defineresource pop end end
+endstream
+endobj
+15 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /ToUnicode 14 0 R >>
+endobj
+16 0 obj
+<< /Type /Font /Subtype /TrueType /BaseFont /Georgia /Encoding /Identity-H /FirstChar 0 /Widths [773 539 752 705 309 637 598 337 341 523 760 726 682 688 636 396 377 330 554 717 569 610 574 617 551 541 647 709 646 473] >>
+endobj
+17 0 obj
+<< /Length 1468 /Type /XObject /Subtype /Form /BBox [0 0 600 800] /Resources << /Font << /F5 7 0 R /F3 3 0 R /F6 8 0 R /F12 16 0 R >> >> >>
+stream
+0.355 4 (\000\007\0001) "
+-21 -17.98 TD
+q
+T*
+BT
+34 -16 Td
+[(\000\007\000\177\000\002\0001) -1000 (\000\006\000Q\000\001\000\024\000\002\000\007'\017\000\004) 200 (\000\001\0001\000\006\000\024\000\001\0005)] TJ
+[<0007000A007F270F001500510031> 30] TJ
+17 TL
+[<0001000700040007270F007F0031> -600.5 (\000Q\000R\000\007\000\007\000\024\000\006\000P)] TJ
+q
+-23.924 -23.535 Td
+q
+0 -1 1 0 368.272 695.42 Tm
+T*
+T*
+BT
+[<00070052000A270F0052000200010031> -1000 (\000Q\000\003\000\024\000\004\0001\000\024\000Q) 30 (\000\025\000\012)] TJ
+[-600.5 (\000\177\000\007\000\005\000R)] TJ
+[(\000\177\0001\000\001\000\007\000\005\000\025) (\000\002\000\004\000\177\000\001\000\012\000Q\000R) <005000010031000500310035> -300] TJ
+[<0051> -120 (\000\024) (\000\002\000Q\000\006\000\007) (\000\012'\017\000\004)] TJ
+64.279 -25 Td
+50.805 -9 Td
+6.712 26 Td
+[<005000020052000200350052>] TJ
+0 -19.447 Td
+(\000\177\000\006\000\025\0000\0001) Tj
+[<00020004001500030052> <001500150035> (\000\012\000\002\0001\000P\000\177\000\004\000R\000\007) (\000\002\000R\000\025\0000) <0050> (\000\007\000\006\0000\000\001)] TJ
+[-300 (\000\007\000\024\000\006\0001\000R\000\005\0000)] TJ
+T*
+0.5 g
+/F5 12 Tf
+-.25 25.689 Td
+q
+[-600.5] TJ
+10 10 m
+q
+3.95 4.468 (\000\007\000R\000\177\000\007\000\006\000P\0005) "
+[200 <00060051> (\0000\000\004)] TJ
+67.913 -16.693 Td
+[(\000P) -600.5 <00310005007F00310031> (\000\024\000\006) (\0001\000\007\000\177) <0030270F000A>] TJ
+Q
+Q
+1 5 (\000P\000\024\0000\000\007\0005) "
+T*
+
+endstream
+endobj
+18 0 obj
+<< /Type /Pages /Kids [20 0 R 23 0 R 25 0 R] /Count 3 /Resources << /Font << /F5 7 0 R /F3 3 0 R /F6 8 0 R /F12 16 0 R >> /XObject << /Fm0 17 0 R  >> >> >>
+endobj
+19 0 obj
+<< /Length 289  /Filter /FlateDecode >>
+stream
+xœePËNÃ0¼ç+ö˜jüNáˆR{âàå`ˆKZ55Š-*ş¯÷ŠÍÎîÎ¬çÑÀİ³F‰³­Ğô1PZM‰ ÌP½Ö[»‹}vO¡
+êÁ%N0:¡Dôgâs´XHlşV<00GÌ7MŞY5o`Ö7Ö²%ídl²"§¨h¿3·Ö¡w_½;d–W~s{…B@/<¹/d©Ö¾?"n—8d#îRl¼{pı¬úï>¡ğºi‚‡£€zˆ7œ«Ìşfs¢¦,Kzf‚®Òˆéªzt!úôË)ˆjK‡aL‰d‚èÂ½»°ëÜ$ÂÈÌ^û¥|s|'İJF—(N~<tó³AFÁÿ‰*?œb¨D£Å“©~Ä±ı
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 18 0 R /MediaBox [0 0 612 792] /Contents 19 0 R  >>
+endobj
+21 0 obj
+<< /Length 544  >>
+stream
+(\000\012\000\177\000\024\000\003\000\004) '
+Q
+(\000\007'\017) '
+111 23.845 Td
+[(\000\024\000\006\000P\000\007\000\001\000\025\0005) <003500520015000A0002> -600.5 (\000\177\000\002\000\024\000\006\000\012\000\006\000\004) <000600060030007F> -120] TJ
+BT
+BT
+[-1000 200 -300 -1000 <0051000600350035003000040007>] TJ
+[<0004> -50] TJ
+(\000\024\000\003\0005\000\002\000\177\000\024\000\005\0001) '
+(\0000\000\004) Tj
+(\000Q\000R\000\025\000\002\000P\000\012\000\002) Tj
+[-600.5 (\000\012\000P\0005\0000\000\007\0000\0001) -600.5 -600.5 -250 -120] TJ
+
+endstream
+endobj
+22 0 obj
+<< /Length 225  /Filter /FlateDecode >>
+stream
+xœMPÁNÃ0½û+Ş±5µtM¥‰ÃÆ€rb"‡Á6„´ÿ u"ÇÏOö{N¶º(º‡ùÚ>íÑíÑİcºÅûÇéŒıDûDİ(é“œO«höè}DºP;:^ğÁùè‘ÎF"®7¯Ì’#äğË?N
+Ï9È
+é›ÄÌ~¾(]Q»9-Î½ÎÎ)³ÕÈ8]¨™´Ê•*Y=¦§C~Šh–\Û²µ³v{”[Mª »6tøûïAíS‹VvÚp`ÏáÍêé‘+ÿ~PÛ
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 18 0 R /MediaBox [0 0 612 792] /Contents [21 0 R 22 0 R]  >>
+endobj
+24 0 obj
+<< /Length 208  /Filter /FlateDecode >>
+stream
+xœ]P=OC1Üó+nl…šú#yyÙ‚L€²¦"¤Lıûµ_ŞCEöIïÎöñT+XĞ¾ƒì1îI'´K ´kàû~»ND¯,&ÇOìém”Yöhßágô®ERÇ¼—§¶ºsÕ<j)ã|ÜfQşĞ%oFr)‹ÜC‡_=­s”:ƒSÌeö5ŞÿKò&½ÿ@{jæm{·Ïp<)˜ü»®<u)¹‹&Cêš	èJÓıº'GG[0	«Ù>’ ñÚML_
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 18 0 R /MediaBox [0 0 612 792] /Contents 24 0 R  >>
+endobj
+26 0 obj
+<< /Type /Catalog /Pages 18 0 R >>
+endobj
+xref
+0 27
+0000000000 65535 f 
+0000000015 00000 n 
+0000000112 00000 n 
+0000000184 00000 n 
+0000000251 00000 n 
+0000000970 00000 n 
+0000001620 00000 n 
+0000002567 00000 n 
+0000002959 00000 n 
+0000003200 00000 n 
+0000003396 00000 n 
+0000003495 00000 n 
+0000003729 00000 n 
+0000003812 00000 n 
+0000004058 00000 n 
+0000004778 00000 n 
+0000004867 00000 n 
+0000005104 00000 n 
+0000006746 00000 n 
+0000006918 00000 n 
+0000007281 00000 n 
+0000007372 00000 n 
+0000007969 00000 n 
+0000008268 00000 n 
+0000008368 00000 n 
+0000008650 00000 n 
+0000008741 00000 n 
+trailer
+<< /Size 27 /Root 26 0 R >>
+startxref
+8792
+%%EOF

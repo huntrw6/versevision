@@ -1,0 +1,2 @@
+Flate and ASCII85 and hexFlate and ASCII85 and hex
+uncompressed second stream
