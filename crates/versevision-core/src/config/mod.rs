@@ -471,7 +471,10 @@ impl BibleConfig {
         };
         let mut providers = Map::new();
         providers.insert("api_bible".into(), provider("api_bible", Some(api)));
-        providers.insert("youversion".into(), provider("youversion", Some(youversion)));
+        providers.insert(
+            "youversion".into(),
+            provider("youversion", Some(youversion)),
+        );
         providers.insert("esv".into(), provider("esv", None));
         let mut bible = Map::new();
         bible.insert("providers".into(), Value::Object(providers));
@@ -495,13 +498,16 @@ impl BibleConfig {
             .version_routes
             .iter()
             .filter(|(version, _)| {
-                !self
-                    .version_routes
-                    .keys()
-                    .any(|own| crate::references::casefold(own) == crate::references::casefold(version))
+                !self.version_routes.keys().any(|own| {
+                    crate::references::casefold(own) == crate::references::casefold(version)
+                })
             })
             .map(|(version, provider)| (version.clone(), provider.clone()))
-            .chain(self.version_routes.iter().map(|(v, p)| (v.clone(), p.clone())))
+            .chain(
+                self.version_routes
+                    .iter()
+                    .map(|(v, p)| (v.clone(), p.clone())),
+            )
             .collect();
         out
     }

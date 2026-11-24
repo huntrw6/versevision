@@ -53,7 +53,10 @@ impl Endpoint {
                     .connect_timeout(self.timeout)
                     .read_timeout(self.timeout)
                     .redirect(reqwest::redirect::Policy::none())
-                    .user_agent(concat!("versevision-bible/", env!("CARGO_PKG_VERSION")))
+                    .user_agent(format!(
+                        "versevision-bible/{}",
+                        versevision_core::VERSEVISION_VERSION
+                    ))
                     .build()
                     .map_err(|e| describe(&e))
             })

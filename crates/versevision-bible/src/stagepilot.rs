@@ -179,7 +179,10 @@ impl StagePilotProvider {
                     .read_timeout(self.timeout)
                     .redirect(reqwest::redirect::Policy::none())
                     // Cloudflare answers the generic client agent with 403.
-                    .user_agent(concat!("VerseVision/", env!("CARGO_PKG_VERSION")))
+                    .user_agent(format!(
+                        "VerseVision/{}",
+                        versevision_core::VERSEVISION_VERSION
+                    ))
                     .build()
                     .map_err(|e| describe(&e))
             })

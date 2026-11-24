@@ -181,7 +181,7 @@ impl WebState {
             dirs,
             config,
             token: None,
-            app_version: env!("CARGO_PKG_VERSION").to_string(),
+            app_version: versevision_core::VERSEVISION_VERSION.to_string(),
             clock: None,
             uuids: None,
             timing: Timing::default(),

@@ -51,7 +51,10 @@ fn nonce() -> String {
 async fn enroll_fetch_john_3_16_and_revoke() {
     let _ = rustls::crypto::ring::default_provider().install_default();
     let client = Client::builder()
-        .user_agent(concat!("VerseVision/", env!("CARGO_PKG_VERSION")))
+        .user_agent(format!(
+            "VerseVision/{}",
+            versevision_core::VERSEVISION_VERSION
+        ))
         .timeout(std::time::Duration::from_secs(45))
         .build()
         .unwrap();

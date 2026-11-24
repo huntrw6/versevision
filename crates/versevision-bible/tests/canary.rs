@@ -438,10 +438,15 @@ async fn the_built_in_providers_never_print_the_key() {
     assert!(sources.uses_builtin_providers());
     let mut errors = 0;
     for version in ["NKJV", "NIV", "ESV", "NASB2020", "KJV", "TPT"] {
-        let parsed = versevision_core::references::parse_references(&format!("John 3:16 {version}"), None).unwrap();
+        let parsed =
+            versevision_core::references::parse_references(&format!("John 3:16 {version}"), None)
+                .unwrap();
         let reference = serde_json::from_value(parsed["references"][0].clone()).unwrap();
         let mut trace = TraceLog::default();
-        let error = sources.fetch(&reference, &mut trace).await.expect_err("401 from every server");
+        let error = sources
+            .fetch(&reference, &mut trace)
+            .await
+            .expect_err("401 from every server");
         formats(version, &error);
         clean("the trace", &format!("{:?}", trace.to_json(1)));
         errors += 1;

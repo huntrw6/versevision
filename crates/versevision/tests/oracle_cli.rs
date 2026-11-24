@@ -203,7 +203,7 @@ fn expected_text(name: &str, text: &str) -> String {
     }
     text.replace(
         "VerseVision 0.38.1",
-        &format!("VerseVision {}", env!("CARGO_PKG_VERSION")),
+        &format!("VerseVision {}", versevision_core::VERSEVISION_VERSION),
     )
 }
 

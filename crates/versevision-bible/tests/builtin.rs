@@ -41,10 +41,13 @@ async fn setup(config: Value, keys: &[&str], auth: bool, builtin_for_tests: bool
     if auth {
         builder = builder.installation_auth(TestAuth::enrolled(&origin));
     }
-    let text = config.to_string().replace(ORIGIN, &format!("http://{addr}"));
-    let bible = AppConfig::from_value(&json!({"bible": serde_json::from_str::<Value>(&text).unwrap()}))
-        .unwrap()
-        .bible;
+    let text = config
+        .to_string()
+        .replace(ORIGIN, &format!("http://{addr}"));
+    let bible =
+        AppConfig::from_value(&json!({"bible": serde_json::from_str::<Value>(&text).unwrap()}))
+            .unwrap()
+            .bible;
     Setup {
         sources: builder.build_sources(&bible),
         own,
@@ -61,10 +64,16 @@ async fn ask(s: &Setup, text: &str) -> (Result<String, String>, String) {
     let provider = trace
         .records
         .last()
-        .and_then(|r| r.1.get("provider").and_then(Value::as_str).map(str::to_string))
+        .and_then(|r| {
+            r.1.get("provider")
+                .and_then(Value::as_str)
+                .map(str::to_string)
+        })
         .unwrap_or_default();
     (
-        result.map(|p| p.verses[0].text.clone()).map_err(|e| e.message().to_string()),
+        result
+            .map(|p| p.verses[0].text.clone())
+            .map_err(|e| e.message().to_string()),
         provider,
     )
 }
@@ -77,12 +86,21 @@ fn the_built_in_table_is_the_services_table() {
         ["api_bible", "youversion", "esv"]
     );
     assert_eq!(bible.version_routes.len(), 14);
-    let labels: Vec<&str> = versevision_bible::SERVICE_VERSIONS.iter().map(|(l, _)| *l).collect();
+    let labels: Vec<&str> = versevision_bible::SERVICE_VERSIONS
+        .iter()
+        .map(|(l, _)| *l)
+        .collect();
     let routed: Vec<&str> = BUILTIN_VERSION_ROUTES.iter().map(|(v, _, _)| *v).collect();
     assert_eq!(routed, labels, "the same versions as the service offers");
     for (version, provider, id) in BUILTIN_VERSION_ROUTES {
         assert_eq!(bible.version_routes[version], provider);
-        assert_eq!(provider_of(version), match provider { "esv" => "esv", p => p });
+        assert_eq!(
+            provider_of(version),
+            match provider {
+                "esv" => "esv",
+                p => p,
+            }
+        );
         let ids = match &bible.providers[provider] {
             versevision_core::config::ProviderConfig::ApiBible(c)
             | versevision_core::config::ProviderConfig::YouVersion(c) => Some(c.bible_ids.clone()),
@@ -103,7 +121,11 @@ fn the_built_in_table_is_the_services_table() {
 
 #[test]
 fn a_users_route_wins_over_a_built_in_one_without_regard_to_case() {
-    let user = AppConfig::from_value(&json!({"bible": {"version_routes": {"nkjv": "mine", "ASV": "mine"}}})).unwrap().bible;
+    let user = AppConfig::from_value(
+        &json!({"bible": {"version_routes": {"nkjv": "mine", "ASV": "mine"}}}),
+    )
+    .unwrap()
+    .bible;
     let merged = user.with_builtin_providers(&BibleConfig::builtin_providers());
     assert_eq!(merged.version_routes["nkjv"], "mine");
     assert!(!merged.version_routes.contains_key("NKJV"));
@@ -111,8 +133,13 @@ fn a_users_route_wins_over_a_built_in_one_without_regard_to_case() {
     assert_eq!(merged.version_routes["ASV"], "mine");
     assert_eq!(merged.providers.len(), 3);
     // a config with a provider table is returned as it is
-    let own = AppConfig::from_value(&json!({"bible": {"providers": {"x": {"type": "esv"}}}})).unwrap().bible;
-    assert_eq!(own.with_builtin_providers(&BibleConfig::builtin_providers()), own);
+    let own = AppConfig::from_value(&json!({"bible": {"providers": {"x": {"type": "esv"}}}}))
+        .unwrap()
+        .bible;
+    assert_eq!(
+        own.with_builtin_providers(&BibleConfig::builtin_providers()),
+        own
+    );
 }
 
 #[tokio::test]
@@ -120,10 +147,22 @@ async fn with_only_an_esv_key_esv_uses_it_and_niv_uses_the_service_or_says_the_k
     // installation: ESV is answered with the own key; NIV and NKJV (no key) by the service
     let s = setup(json!({}), &["ESV_API_KEY"], true, true).await;
     assert!(s.sources.uses_builtin_providers());
-    assert_eq!(ask(&s, "John 3:16 ESV").await, (Ok("OWN esv text".into()), "esv".into()));
+    assert_eq!(
+        ask(&s, "John 3:16 ESV").await,
+        (Ok("OWN esv text".into()), "esv".into())
+    );
     assert_eq!(s.service.count(), 0);
-    assert_eq!(ask(&s, "John 3:16 NIV").await, (Ok("Synthetic NIV text JHN 3:16.".into()), "stagepilot".into()));
-    assert_eq!(ask(&s, "John 3:16 NKJV").await.0.unwrap(), "Synthetic NKJV text JHN 3:16.");
+    assert_eq!(
+        ask(&s, "John 3:16 NIV").await,
+        (
+            Ok("Synthetic NIV text JHN 3:16.".into()),
+            "stagepilot".into()
+        )
+    );
+    assert_eq!(
+        ask(&s, "John 3:16 NKJV").await.0.unwrap(),
+        "Synthetic NKJV text JHN 3:16."
+    );
     assert_eq!(s.service.count(), 2);
 
     // no installation: NIV says what a missing key says (no request at all), ESV still works
@@ -140,33 +179,56 @@ async fn with_only_an_esv_key_esv_uses_it_and_niv_uses_the_service_or_says_the_k
 async fn each_key_serves_its_own_versions_by_the_built_in_bible_id() {
     // API.Bible key: NKJV uses the configured id (the second NKJV in the list is not ambiguous); the others go to the service
     let s = setup(json!({}), &["API_BIBLE_API_KEY"], true, true).await;
-    assert_eq!(ask(&s, "John 3:16 NKJV").await, (Ok("OWN api text 16".into()), "api_bible".into()));
+    assert_eq!(
+        ask(&s, "John 3:16 NKJV").await,
+        (Ok("OWN api text 16".into()), "api_bible".into())
+    );
     assert_eq!(ask(&s, "John 3:16 NIV").await.1, "stagepilot");
     // YouVersion key: NIV is the id 111 whatever the provider calls it
     let s = setup(json!({}), &["YOUVERSION_API_KEY"], true, true).await;
-    assert_eq!(ask(&s, "John 3:16 NIV").await, (Ok("OWN yv text 16".into()), "youversion".into()));
+    assert_eq!(
+        ask(&s, "John 3:16 NIV").await,
+        (Ok("OWN yv text 16".into()), "youversion".into())
+    );
     assert_eq!(s.service.count(), 0);
 }
 
 #[tokio::test]
 async fn with_no_keys_auto_uses_the_service() {
     let s = setup(json!({}), &[], true, true).await;
-    for (version, expected) in [("ESV", "stagepilot-esv"), ("NIV", "stagepilot"), ("KJV", "stagepilot")] {
+    for (version, expected) in [
+        ("ESV", "stagepilot-esv"),
+        ("NIV", "stagepilot"),
+        ("KJV", "stagepilot"),
+    ] {
         let (text, provider) = ask(&s, &format!("John 3:16 {version}")).await;
         assert_eq!(text.unwrap(), format!("Synthetic {version} text JHN 3:16."));
         assert_eq!(provider, expected);
     }
-    assert_eq!(s.own.log.lock().unwrap().len(), 0, "no own server was asked");
+    assert_eq!(
+        s.own.log.lock().unwrap().len(),
+        0,
+        "no own server was asked"
+    );
 }
 
 #[tokio::test]
 async fn own_keys_and_stagepilot_follow_their_meaning_on_a_default_install() {
     // own_keys: never the service; no key = the missing-key text instead of "no route"
     let s = setup(json!({"source": "own_keys"}), &[], true, true).await;
-    assert_eq!(ask(&s, "John 3:16 ESV").await.0.unwrap_err(), "ESV key is missing. Set the ESV_API_KEY environment variable.");
+    assert_eq!(
+        ask(&s, "John 3:16 ESV").await.0.unwrap_err(),
+        "ESV key is missing. Set the ESV_API_KEY environment variable."
+    );
     assert_eq!(s.service.count(), 0);
     // stagepilot: the service even with a key
-    let s = setup(json!({"source": "stagepilot"}), &["ESV_API_KEY"], true, true).await;
+    let s = setup(
+        json!({"source": "stagepilot"}),
+        &["ESV_API_KEY"],
+        true,
+        true,
+    )
+    .await;
     assert_eq!(ask(&s, "John 3:16 ESV").await.1, "stagepilot-esv");
     assert_eq!(s.own.log.lock().unwrap().len(), 0);
     // a version nobody offers keeps the old "no route" text
@@ -183,7 +245,13 @@ async fn a_config_with_provider_tables_behaves_as_before() {
         "providers": {"api": {"type": "api_bible", "base_url": format!("{ORIGIN}/v1")}},
     });
     // the ESV key is saved, but this config has no ESV provider and no ESV route: nothing built in is added
-    let s = setup(config.clone(), &["ESV_API_KEY", "API_BIBLE_API_KEY"], false, true).await;
+    let s = setup(
+        config.clone(),
+        &["ESV_API_KEY", "API_BIBLE_API_KEY"],
+        false,
+        true,
+    )
+    .await;
     assert!(!s.sources.uses_builtin_providers());
     assert_eq!(
         ask(&s, "John 3:16 ESV").await.0.unwrap_err(),
@@ -203,7 +271,8 @@ async fn a_config_with_provider_tables_behaves_as_before() {
 
 #[test]
 fn the_description_names_the_built_in_providers() {
-    let sources = RegistryBuilder::new(Arc::new(MemoryKeyStore::new())).build_sources(&BibleConfig::default());
+    let sources = RegistryBuilder::new(Arc::new(MemoryKeyStore::new()))
+        .build_sources(&BibleConfig::default());
     assert_eq!(
         sources.description(),
         "providers: api_bible, youversion, esv; StagePilot service when there is no key"

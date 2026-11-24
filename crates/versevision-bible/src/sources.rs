@@ -11,6 +11,11 @@
 //! | `auto` | own providers when the key store has the key of the provider that serves the version (or the provider needs no key: local USFM); else the service when the host gave an [`InstallationAuth`]; else own providers (their normal missing-key text) | own providers |
 //!
 //! The choice is made at every lookup and the key is read then, so a key added in the Config page counts at once.
+//!
+//! **Default install** (deliberate, additive difference from Python): a config with no `[bible.providers.*]` gets the built-in API.Bible,
+//! YouVersion and ESV providers and a route for each version the service offers ([`versevision_core::config::BibleConfig::builtin_providers`]),
+//! so "own" above means those, and a key saved in the key store is used by the versions its provider serves (ESV key: ESV; API.Bible key:
+//! NKJV NLT KJV MSG WEB; YouVersion key: NIV AMP BSB LSV NIRV NASB1995 NASB2020 TPT). A config that defines any provider table is not touched.
 
 use std::sync::Arc;
 
