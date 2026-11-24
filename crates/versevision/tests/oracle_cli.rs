@@ -226,7 +226,7 @@ fn without_keys_row(text: &str) -> String {
 #[test]
 fn every_case_matches_python() {
     let only = std::env::var("ORACLE_ONLY").unwrap_or_default();
-    let show = std::env::var("ORACLE_SHOW").is_ok();
+    let show = std::env::var("ORACLE_SHOW").is_ok() || std::env::var("CI").is_ok();
     let known = known_differences();
     let text =
         fs::read_to_string(oracle_dir().join("cases.jsonl")).expect("oracle/cli/cases.jsonl");
@@ -303,7 +303,10 @@ fn every_case_matches_python() {
                 .ok()
                 .map(|t| normalise(&t, &root));
             if got.as_deref() != want.as_str() {
-                problems.push(format!("file {rel} differs"));
+                problems.push(format!(
+                    "file {rel} differs\n--- Python\n{want}\n--- Rust\n{}",
+                    got.unwrap_or_default()
+                ));
             }
         }
         if problems.is_empty() {
@@ -315,7 +318,8 @@ fn every_case_matches_python() {
             }
         } else if !known.contains_key(&name) {
             if show {
-                eprintln!("=== {name}\n{}", problems.join("\n"));
+                let detail: String = problems.join("\n").chars().take(900).collect();
+                eprintln!("=== {name}\n{detail}");
             }
             failed.push(format!(
                 "{name}: {}",
