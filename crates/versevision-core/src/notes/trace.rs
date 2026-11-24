@@ -50,7 +50,7 @@ pub fn clean_value(value: Value, limit: usize) -> Value {
 }
 
 /// Receives the decision records in the order they are written (the classifier, then the planner). The caller numbers them (`seq`).
-pub trait TraceSink {
+pub trait TraceSink: Send {
     /// One record: the stage name and its fields (already cleaned the way the Python run log does).
     fn trace(&mut self, stage: &str, fields: Map<String, Value>);
 }

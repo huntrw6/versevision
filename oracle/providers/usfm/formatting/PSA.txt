@@ -1,0 +1,11 @@
+﻿\id PSA
+\c 23
+\q1 \v 1 The \nd Lord\nd* is my \add shepherd\add*;
+\q2 I shall not want.
+\q1 \v 2 He makes me lie down
+\q2 beside the waters.
+\p
+\v 3 He restores\fig x\fig* my soul.
+\c 24
+\p
+\v 1 The earth is the LORD's, and \w all|strong="H3605"\w* it contains.

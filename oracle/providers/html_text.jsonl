@@ -1,0 +1,255 @@
+{"html":"","soup":"","text":""}
+{"html":" ","soup":"","text":""}
+{"html":"\n","soup":"","text":""}
+{"html":"Synthetic verse.","soup":"Synthetic verse.","text":"Synthetic verse."}
+{"html":"  Synthetic   verse  with   spaces.  ","soup":"Synthetic   verse  with   spaces.","text":"Synthetic   verse  with   spaces."}
+{"html":"Line one.\nLine two.\n\nLine three.","soup":"Line one.\nLine two.\n\nLine three.","text":"Line one.\nLine two.\n\nLine three."}
+{"html":"\tTabbed\ttext\t","soup":"Tabbed\ttext","text":"Tabbed\ttext"}
+{"html":"[16] Synthetic verse sixteen.","soup":"[16] Synthetic verse sixteen.","text":"Synthetic verse sixteen."}
+{"html":"[16-17] Synthetic bridged verse.","soup":"[16-17] Synthetic bridged verse.","text":"Synthetic bridged verse."}
+{"html":"[16]Synthetic no space.","soup":"[16]Synthetic no space.","text":"Synthetic no space."}
+{"html":"[16]   Synthetic many spaces.","soup":"[16]   Synthetic many spaces.","text":"Synthetic many spaces."}
+{"html":"[ 16] not a marker","soup":"[ 16] not a marker","text":"[ 16] not a marker"}
+{"html":"[x16] not a marker","soup":"[x16] not a marker","text":"[x16] not a marker"}
+{"html":"[16] [17] two markers","soup":"[16] [17] two markers","text":"[17] two markers"}
+{"html":"[1] ","soup":"[1]","text":""}
+{"html":"[16]","soup":"[16]","text":""}
+{"html":"[16] ","soup":"[16]","text":""}
+{"html":"text [16] inside","soup":"text [16] inside","text":"text [16] inside"}
+{"html":"[٣] Arabic digit marker","soup":"[٣] Arabic digit marker","text":"Arabic digit marker"}
+{"html":"<p>Synthetic paragraph.</p>","soup":"Synthetic paragraph.","text":"Synthetic paragraph."}
+{"html":"<p class=\"p\"><span data-number=\"16\" class=\"v\">16</span>Synthetic verse.</p>","soup":"16 Synthetic verse.","text":"16 Synthetic verse."}
+{"html":"<p>[16] First</p><p>[17] Second</p>","soup":"[16] First [17] Second","text":"First [17] Second"}
+{"html":"<p>One</p>\n<p>Two</p>","soup":"One Two","text":"One Two"}
+{"html":"<p>One<br>Two</p>","soup":"One Two","text":"One Two"}
+{"html":"<p>One<br/>Two</p>","soup":"One Two","text":"One Two"}
+{"html":"<p>One<br />Two</p>","soup":"One Two","text":"One Two"}
+{"html":"one<b>two</b>three","soup":"one two three","text":"one two three"}
+{"html":"one <b>two</b> three","soup":"one two three","text":"one two three"}
+{"html":"<i>one</i><i>two</i>","soup":"one two","text":"one two"}
+{"html":"<div><p>Nested <em>emphasis <strong>strong</strong></em> end.</p></div>","soup":"Nested emphasis strong end.","text":"Nested emphasis strong end."}
+{"html":"<ul><li>a</li><li>b</li></ul>","soup":"a b","text":"a b"}
+{"html":"<sup>1</sup>Synthetic<sup>2</sup>verse","soup":"1 Synthetic 2 verse","text":"1 Synthetic 2 verse"}
+{"html":"<span class=\"nd\">Lord</span>'s","soup":"Lord 's","text":"Lord 's"}
+{"html":"<p>unclosed paragraph","soup":"unclosed paragraph","text":"unclosed paragraph"}
+{"html":"<p>one<p>two","soup":"one two","text":"one two"}
+{"html":"</p>stray close","soup":"stray close","text":"stray close"}
+{"html":"<b>bold never closed","soup":"bold never closed","text":"bold never closed"}
+{"html":"text</b>after stray","soup":"text after stray","text":"text after stray"}
+{"html":"<p>Quote &amp; ampersand</p>","soup":"Quote & ampersand","text":"Quote & ampersand"}
+{"html":"&amp;","soup":"&","text":"&"}
+{"html":"&amp","soup":"&","text":"&"}
+{"html":"&lt;tag&gt;","soup":"<tag>","text":"<tag>"}
+{"html":"&quot;quoted&quot;","soup":"\"quoted\"","text":"\"quoted\""}
+{"html":"&#39;apostrophe&#39;","soup":"'apostrophe'","text":"'apostrophe'"}
+{"html":"&apos;x&apos;","soup":"'x'","text":"'x'"}
+{"html":"&nbsp;","soup":"","text":""}
+{"html":"a&nbsp;b","soup":"a b","text":"a b"}
+{"html":"&nbsp;lead","soup":"lead","text":"lead"}
+{"html":"trail&nbsp;","soup":"trail","text":"trail"}
+{"html":"&mdash;","soup":"—","text":"—"}
+{"html":"&ndash;","soup":"–","text":"–"}
+{"html":"&hellip;","soup":"…","text":"…"}
+{"html":"&ldquo;Q&rdquo; &lsquo;q&rsquo;","soup":"“Q” ‘q’","text":"“Q” ‘q’"}
+{"html":"&copy; 2024","soup":"© 2024","text":"© 2024"}
+{"html":"&copy 2024","soup":"© 2024","text":"© 2024"}
+{"html":"&copy2024","soup":"&copy2024","text":"&copy2024"}
+{"html":"&reg;","soup":"®","text":"®"}
+{"html":"&eacute;&egrave;","soup":"éè","text":"éè"}
+{"html":"&Eacute;","soup":"É","text":"É"}
+{"html":"&unknown;","soup":"&unknown","text":"&unknown"}
+{"html":"&unknown","soup":"&unknown","text":"&unknown"}
+{"html":"&unknown text","soup":"&unknown text","text":"&unknown text"}
+{"html":"&;","soup":"&;","text":"&;"}
+{"html":"& alone","soup":"& alone","text":"& alone"}
+{"html":"AT&T","soup":"AT&T","text":"AT&T"}
+{"html":"Tom & Jerry","soup":"Tom & Jerry","text":"Tom & Jerry"}
+{"html":"a &b; c","soup":"a &b c","text":"a &b c"}
+{"html":"&amp;amp;","soup":"&amp;","text":"&amp;"}
+{"html":"&AMP;","soup":"&","text":"&"}
+{"html":"&Amp;","soup":"&Amp","text":"&Amp"}
+{"html":"&notanentity;","soup":"&notanentity","text":"&notanentity"}
+{"html":"&notin;","soup":"∉","text":"∉"}
+{"html":"&not","soup":"¬","text":"¬"}
+{"html":"&notit;","soup":"&notit","text":"&notit"}
+{"html":"&a-b","soup":"&a-b","text":"&a-b"}
+{"html":"&a.b","soup":"&a.b","text":"&a.b"}
+{"html":"&a-","soup":"&a-","text":"&a-"}
+{"html":"&a-b;","soup":"&a-b","text":"&a-b"}
+{"html":"&x","soup":"&x","text":"&x"}
+{"html":"&1","soup":"&1","text":"&1"}
+{"html":"& 1","soup":"& 1","text":"& 1"}
+{"html":"&&","soup":"&&","text":"&&"}
+{"html":"&&amp;","soup":"&&","text":"&&"}
+{"html":"&#65;","soup":"A","text":"A"}
+{"html":"&#65","soup":"A","text":"A"}
+{"html":"&#65 x","soup":"A x","text":"A x"}
+{"html":"&#x41;","soup":"A","text":"A"}
+{"html":"&#X41;","soup":"A","text":"A"}
+{"html":"&#x41","soup":"A","text":"A"}
+{"html":"&#0;","soup":"�","text":"�"}
+{"html":"&#1;","soup":"\u0001","text":"\u0001"}
+{"html":"&#9;","soup":"","text":""}
+{"html":"&#10;","soup":"","text":""}
+{"html":"&#13;","soup":"","text":""}
+{"html":"&#127;","soup":"","text":""}
+{"html":"&#128;","soup":"€","text":"€"}
+{"html":"&#133;","soup":"…","text":"…"}
+{"html":"&#141;","soup":"","text":""}
+{"html":"&#150;","soup":"–","text":"–"}
+{"html":"&#151;","soup":"—","text":"—"}
+{"html":"&#159;","soup":"Ÿ","text":"Ÿ"}
+{"html":"&#160;","soup":"","text":""}
+{"html":"&#8212;","soup":"—","text":"—"}
+{"html":"&#xD800;","soup":"�","text":"�"}
+{"html":"&#xDFFF;","soup":"�","text":"�"}
+{"html":"&#1114111;","soup":"􏿿","text":"􏿿"}
+{"html":"&#1114112;","soup":"�","text":"�"}
+{"html":"&#xFFFE;","soup":"￾","text":"￾"}
+{"html":"&#xFFFF;","soup":"￿","text":"￿"}
+{"html":"&#xFDD0;","soup":"﷐","text":"﷐"}
+{"html":"&#99999999999999999999;","soup":"�","text":"�"}
+{"html":"&#12a;","soup":"a;","text":"a;"}
+{"html":"&#12a","soup":"a","text":"a"}
+{"html":"&#xzz;","soup":"&#xzz;","text":"&#xzz;"}
+{"html":"&#x;","soup":"&#x;","text":"&#x;"}
+{"html":"&#;","soup":"&#;","text":"&#;"}
+{"html":"&#","soup":"&#","text":"&#"}
+{"html":"&#a","soup":"&#a","text":"&#a"}
+{"html":"&#x","soup":"&#x","text":"&#x"}
+{"html":"&#xg","soup":"&#xg","text":"&#xg"}
+{"html":"&#65abc def","soup":"Aabc def","text":"Aabc def"}
+{"html":"&#65abc\nmore text","soup":"Aabc","text":"Aabc"}
+{"html":"&#65;&#66;&#67;","soup":"ABC","text":"ABC"}
+{"html":"&#x1F600;","soup":"😀","text":"😀"}
+{"html":"&#128512;","soup":"😀","text":"😀"}
+{"html":"x&#65","soup":"xA","text":"xA"}
+{"html":"&#65\n","soup":"A","text":"A"}
+{"html":"&#00065;","soup":"A","text":"A"}
+{"html":"&#x0041;","soup":"A","text":"A"}
+{"html":"&#x00000041;","soup":"A","text":"A"}
+{"html":"<!-- a comment -->text","soup":"text","text":"text"}
+{"html":"text<!-- c -->more","soup":"text more","text":"text more"}
+{"html":"<!-- unterminated comment","soup":"","text":""}
+{"html":"<!---->x","soup":"x","text":"x"}
+{"html":"<!--->x","soup":"x","text":"x"}
+{"html":"<!-- a --!>x","soup":"x","text":"x"}
+{"html":"<!--a-->b<!--c-->d","soup":"b d","text":"b d"}
+{"html":"<!-- a -- b -->x","soup":"x","text":"x"}
+{"html":"<!DOCTYPE html>text","soup":"text","text":"text"}
+{"html":"<!doctype html><p>x</p>","soup":"x","text":"x"}
+{"html":"<!DOCTYPE","soup":"","text":""}
+{"html":"<!DOCTYPE html","soup":"","text":""}
+{"html":"<!ELEMENT x>text","soup":"text","text":"text"}
+{"html":"<!x>text","soup":"text","text":"text"}
+{"html":"<!>text","soup":"text","text":"text"}
+{"html":"<![CDATA[cdata text]]>after","soup":"cdata text after","text":"cdata text after"}
+{"html":"<![CDATA[unterminated","soup":"unterminated","text":"unterminated"}
+{"html":"before<![CDATA[in]]>after","soup":"before in after","text":"before in after"}
+{"html":"<?xml version=\"1.0\"?>text","soup":"text","text":"text"}
+{"html":"<?php echo 1 ?>text","soup":"text","text":"text"}
+{"html":"<?unterminated","soup":"","text":""}
+{"html":"<script>var x = 1 < 2;</script>text","soup":"text","text":"text"}
+{"html":"<script>alert('x')</script>","soup":"","text":""}
+{"html":"a<script>b</script>c","soup":"a c","text":"a c"}
+{"html":"<style>p { color: red }</style>text","soup":"text","text":"text"}
+{"html":"<script>unterminated script","soup":"","text":""}
+{"html":"<script>a</scr</script>b","soup":"b","text":"b"}
+{"html":"<SCRIPT>A</SCRIPT>b","soup":"b","text":"b"}
+{"html":"<script type=\"text/javascript\">x</script >y","soup":"y","text":"y"}
+{"html":"<script/>text</script>","soup":"text","text":"text"}
+{"html":"<template>hidden</template>shown","soup":"shown","text":"shown"}
+{"html":"<rt>ruby</rt>base","soup":"base","text":"base"}
+{"html":"<rp>(</rp>base","soup":"base","text":"base"}
+{"html":"<ruby>base<rt>reading</rt></ruby>","soup":"base","text":"base"}
+{"html":"<textarea>area &amp; text</textarea>after","soup":"area & text after","text":"area & text after"}
+{"html":"<title>t &lt; u</title>after","soup":"t < u after","text":"t < u after"}
+{"html":"<xmp><b>raw</b></xmp>after","soup":"<b>raw</b> after","text":"<b>raw</b> after"}
+{"html":"<iframe>frame</iframe>after","soup":"frame after","text":"frame after"}
+{"html":"<noembed>x</noembed>after","soup":"x after","text":"x after"}
+{"html":"<plaintext>a<b>c</b>","soup":"a<b>c</b>","text":"a<b>c</b>"}
+{"html":"<noscript>no <b>script</b></noscript>after","soup":"no script after","text":"no script after"}
+{"html":"a < b","soup":"a < b","text":"a < b"}
+{"html":"a <b","soup":"a","text":"a"}
+{"html":"a <","soup":"a <","text":"a <"}
+{"html":"<","soup":"<","text":"<"}
+{"html":"<<","soup":"<<","text":"<<"}
+{"html":"a<3","soup":"a<3","text":"a<3"}
+{"html":"<3","soup":"<3","text":"<3"}
+{"html":"1 < 2 > 0","soup":"1 < 2 > 0","text":"1 < 2 > 0"}
+{"html":"a > b","soup":"a > b","text":"a > b"}
+{"html":"<a","soup":"","text":""}
+{"html":"<a ","soup":"","text":""}
+{"html":"<a href","soup":"","text":""}
+{"html":"<a href=","soup":"","text":""}
+{"html":"<a href=\"x","soup":"","text":""}
+{"html":"<a href=\"x\"","soup":"","text":""}
+{"html":"<a href=\"x\">link</a>","soup":"link","text":"link"}
+{"html":"<a href=x>y</a>","soup":"y","text":"y"}
+{"html":"<a href='x>y'>z</a>","soup":"z","text":"z"}
+{"html":"<a href=\"x>y\">z</a>","soup":"z","text":"z"}
+{"html":"<a title=\"a > b\">link</a>","soup":"link","text":"link"}
+{"html":"<a b=c d>e</a>","soup":"e","text":"e"}
+{"html":"<a b = c>e</a>","soup":"e","text":"e"}
+{"html":"<a b=\"1\"c=\"2\">e</a>","soup":"e","text":"e"}
+{"html":"<a/b>e</a>","soup":"e","text":"e"}
+{"html":"<a / >e</a>","soup":"e","text":"e"}
+{"html":"<a/>e","soup":"e","text":"e"}
+{"html":"<a b/>e","soup":"e","text":"e"}
+{"html":"<br/>","soup":"","text":""}
+{"html":"<br>text","soup":"text","text":"text"}
+{"html":"<p\nclass=\"a\">text</p>","soup":"text","text":"text"}
+{"html":"<p class=\"a\"\n>text</p>","soup":"text","text":"text"}
+{"html":"<P CLASS=\"A\">Text</P>","soup":"Text","text":"Text"}
+{"html":"<p>Text</P>","soup":"Text","text":"Text"}
+{"html":"<p>Text</p >","soup":"Text","text":"Text"}
+{"html":"<p>Text</ p>","soup":"Text","text":"Text"}
+{"html":"</>text","soup":"text","text":"text"}
+{"html":"</ >text","soup":"text","text":"text"}
+{"html":"</3>text","soup":"text","text":"text"}
+{"html":"</p","soup":"","text":""}
+{"html":"</","soup":"</","text":"</"}
+{"html":"</p x>text","soup":"text","text":"text"}
+{"html":"<p/ >text","soup":"text","text":"text"}
+{"html":"<1>text","soup":"<1>text","text":"<1>text"}
+{"html":"<1 >text","soup":"<1 >text","text":"<1 >text"}
+{"html":"<-x>text","soup":"<-x>text","text":"<-x>text"}
+{"html":"<x-y>text</x-y>","soup":"text","text":"text"}
+{"html":"<x:y>text</x:y>","soup":"text","text":"text"}
+{"html":"<ns:p>text</ns:p>","soup":"text","text":"text"}
+{"html":"<aé>t</aé>","soup":"t","text":"t"}
+{"html":"café “quoted” — dash","soup":"café “quoted” — dash","text":"café “quoted” — dash"}
+{"html":" nbsp ","soup":"nbsp","text":"nbsp"}
+{"html":" em space ","soup":"em space","text":"em space"}
+{"html":"a​b","soup":"a​b","text":"a​b"}
+{"html":"a  b","soup":"a  b","text":"a  b"}
+{"html":"x y","soup":"x y","text":"x y"}
+{"html":"xy","soup":"xy","text":"xy"}
+{"html":"\u001fx\u001f","soup":"x","text":"x"}
+{"html":"\u000bx\f","soup":"x","text":"x"}
+{"html":"﻿BOM text","soup":"﻿BOM text","text":"﻿BOM text"}
+{"html":"<p> </p>","soup":"","text":""}
+{"html":"<p> </p><p>x</p>","soup":"x","text":"x"}
+{"html":"<p>a</p> <p>b</p>","soup":"a b","text":"a b"}
+{"html":"<p>a</p> <p>b</p>","soup":"a b","text":"a b"}
+{"html":"a <!-- c --> b","soup":"a b","text":"a b"}
+{"html":"a<!-- c -->b","soup":"a b","text":"a b"}
+{"html":"<p>[16] Synthetic <span class=\"wj\">words of</span> verse &mdash; sixteen&hellip;</p>","soup":"[16] Synthetic words of verse — sixteen…","text":"Synthetic words of verse — sixteen…"}
+{"html":"<p class=\"b\">\n  <span class=\"v\">16</span>  Synthetic   verse.\n</p>","soup":"16 Synthetic   verse.","text":"16 Synthetic   verse."}
+{"html":"<p><sup class=\"v\">16</sup> Synthetic <i>italic</i> verse.</p>","soup":"16 Synthetic italic verse.","text":"16 Synthetic italic verse."}
+{"html":"<note>footnote</note>text","soup":"footnote text","text":"footnote text"}
+{"html":"<p>x</p><p>y</p><p>z</p><p>x</p><p>y</p><p>z</p><p>x</p><p>y</p><p>z</p>","soup":"x y z x y z x y z","text":"x y z x y z x y z"}
+{"html":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","soup":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","text":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}
+{"html":"<a href=\"a&amp;b\">t</a>","soup":"t","text":"t"}
+{"html":"<a href=\"a&b\">t</a>","soup":"t","text":"t"}
+{"html":"<a title=\"&#65;\">t</a>","soup":"t","text":"t"}
+{"html":"<img src=x alt=\"hello\">after","soup":"after","text":"after"}
+{"html":"<input value=\"1\">after","soup":"after","text":"after"}
+{"html":"<table><tr><td>a</td><td>b</td></tr></table>","soup":"a b","text":"a b"}
+{"html":"<h1>Head</h1>Body","soup":"Head Body","text":"Head Body"}
+{"html":"<hr>x","soup":"x","text":"x"}
+{"html":"<p>a<hr>b</p>","soup":"a b","text":"a b"}
+{"html":"<![endif]-->x","soup":"x","text":"x"}
+{"html":"<!--[if IE]>x<![endif]-->y","soup":"y","text":"y"}
+{"html":"<a href=\"x\" href=\"y\">dup</a>","soup":"dup","text":"dup"}
+{"html":"<p>a</p></div></p>b","soup":"a b","text":"a b"}

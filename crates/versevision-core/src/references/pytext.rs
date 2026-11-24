@@ -35,7 +35,7 @@ pub(crate) fn is_alpha(c: char) -> bool {
 }
 
 /// `unicodedata.decimal(c, None)`: the value of a decimal digit (category Nd), which is what `\d` matches and `int()` reads.
-pub(crate) fn decimal_value(c: char) -> Option<u32> {
+pub fn decimal_value(c: char) -> Option<u32> {
     if c.is_ascii_digit() {
         return Some(c as u32 - '0' as u32);
     }
@@ -68,7 +68,7 @@ pub(super) fn is_letter_ic(c: char) -> bool {
 
 /// `str.casefold()`. Exact for ASCII and for the characters that fold to something else in the scripts Bible notes
 /// use; other non-ASCII characters use the full lower-case mapping (they cannot equal any ASCII name either way).
-pub(crate) fn casefold(text: &str) -> String {
+pub fn casefold(text: &str) -> String {
     let mut out = String::with_capacity(text.len());
     for c in text.chars() {
         match c {

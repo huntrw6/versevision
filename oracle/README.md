@@ -72,6 +72,24 @@ not depend on a reader. `group:`/`case:` entries are that full comparison. The n
 `document:<case-or-group>` is `expected/document.json` of that case, and `trace-stage:<name>` is one of the classifier's trace stages (`parse_start`,
 `line_join`, `paragraph`, `item`) over every case. `ORACLE_VERBOSE=1` prints every failing line of the line-level files, not only the first.
 
+## The Bible providers: `oracle/providers/` (S5)
+
+What the Python providers do with recorded-shape responses (every text is made up, every key is a fake, there is no real call: the HTTP side is
+`httpx.MockTransport`). `python/scripts/oracle_providers.py` writes it from `export_oracle.py`; `crates/versevision-bible/tests/oracle_providers.rs` and `keys.rs`
+compare the Rust providers (against a local HTTP server that plays the same responses) and print the counts.
+
+| file | rows | what |
+|---|---|---|
+| `html_text.jsonl` | 255 | API.Bible verse `content` -> text: `BeautifulSoup(..., "html.parser").get_text(" ", strip=True)` and the leading `[16]` marker removed (tags, entities, numeric references, comments, declarations, CDATA, `script`/`style`/`template`/`rt`/`rp`, broken markup) |
+| `json_errors.jsonl` | 112 | `httpx.Response.json()` on a body: valid, or the exact `JSONDecodeError` / `UnicodeDecodeError` text the planner shows after `response failed:` |
+| `keys.jsonl` | 36 | `credentials._from_keys_file` on the text of a `keys.env` for three names (quotes, comments, blank and odd lines, line ends) |
+| `usfm.jsonl` | 8 scenarios | `LocalUsfmProvider` over `oracle/providers/usfm/*` (written by the exporter) and `python/tests/fixtures/usfm/synthetic`: versions, health, passages, errors. `{path}` and `{resolved}` stand for the folder as configured and as resolved |
+| `api_bible.jsonl`, `youversion.jsonl`, `esv.jsonl` | 35 / 18 / 11 scenarios | one provider against canned responses: list of Bibles, passages, configured ids, listing shapes, every status (401, 403, 429, 5xx, 3xx not followed, 204), timeouts, no retry, bad JSON, no key. Each row has the requests the provider made (method, path, sorted query, key header) as well as the results |
+| `registry.jsonl` | 4 scenarios | `ProviderRegistry._fetch` over several providers and a real SQLite cache: provider, source (`live`, `cache`, `live (not stored)`), verses, the routing errors, what was cached (the ESV text never) |
+
+A Python quirk the files record: a provider response of an unexpected shape (a list where an object is expected) raises `AttributeError` in Python, not
+`BibleProviderError`; no row has such a response, the Rust providers answer `... response failed: unexpected response shape; ...` (own tests).
+
 ## The bible text is synthetic
 
 `bible.json` of a case holds the verses it needs. The text is generated from the verse key (a fixed algorithm in `export_oracle.py`), so the
@@ -80,8 +98,9 @@ come from the tests (`quote-*`) use short KJV/NKJV quotations already in the tes
 
 ## What the oracle does NOT cover (test it another way)
 
-* **Live Bible providers** (API.Bible, YouVersion, ESV, local USFM files; their caching, keys, errors, copyright text). The oracle uses a fake provider that
-  serves `bible.json`. S5 tests the providers against recorded HTTP responses or its own fakes.
+* **Live Bible providers** (API.Bible, YouVersion, ESV, local USFM files; their caching, keys, errors, copyright text). The case files use a fake provider
+  that serves `bible.json`. The real providers have their own oracle, `oracle/providers/` (below), recorded against canned HTTP responses; what no oracle can
+  show is the real services (their live answers, rate limits, key checks).
 * **ProPresenter file writing**: the protobuf presentation writer, template cue/object detection, backups, atomic replacement, the
   swap/append/replace pipeline, the playlist, quit/launch/verify. `python/tests/integration` and `test_write_workflow.py`/`test_pipeline.py` are the
   specification for S6; the golden `.pro` files are in `python/tests/fixtures/propresenter19/`.

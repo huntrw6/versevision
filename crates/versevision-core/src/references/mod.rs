@@ -34,6 +34,7 @@ pub use models::{
 };
 pub use normalizer::normalize_fragment;
 pub use parser::{default_user_aliases, parse_references_with};
+pub use pytext::{casefold, decimal_value};
 pub use validator::validate_spans;
 pub use versification::{expand_span, verse_counts};
 

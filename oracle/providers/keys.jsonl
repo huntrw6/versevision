@@ -1,0 +1,36 @@
+{"content":"","values":{"VV_A":null,"VV_B":null,"vv_a":null}}
+{"content":"VV_A=1\n","values":{"VV_A":"1","VV_B":null,"vv_a":null}}
+{"content":"VV_A=1\nVV_A=2\n","values":{"VV_A":"1","VV_B":null,"vv_a":null}}
+{"content":" VV_A = 1 \n","values":{"VV_A":"1","VV_B":null,"vv_a":null}}
+{"content":"VV_A=\"quoted\"\n","values":{"VV_A":"quoted","VV_B":null,"vv_a":null}}
+{"content":"VV_A='single'\n","values":{"VV_A":"single","VV_B":null,"vv_a":null}}
+{"content":"VV_A=\"'mixed'\"\n","values":{"VV_A":"mixed","VV_B":null,"vv_a":null}}
+{"content":"VV_A='\"x\"'\n","values":{"VV_A":"x","VV_B":null,"vv_a":null}}
+{"content":"# VV_A=1\n","values":{"VV_A":null,"VV_B":null,"vv_a":null}}
+{"content":"VV_A=1 # trailing\n","values":{"VV_A":"1 # trailing","VV_B":null,"vv_a":null}}
+{"content":"VV_A\n","values":{"VV_A":null,"VV_B":null,"vv_a":null}}
+{"content":"VV_A=\n","values":{"VV_A":null,"VV_B":null,"vv_a":null}}
+{"content":"VV_A=\"\"\n","values":{"VV_A":null,"VV_B":null,"vv_a":null}}
+{"content":"=1\n","values":{"VV_A":null,"VV_B":null,"vv_a":null}}
+{"content":"VV_A==1\n","values":{"VV_A":"=1","VV_B":null,"vv_a":null}}
+{"content":"VV_A=b=c\n","values":{"VV_A":"b=c","VV_B":null,"vv_a":null}}
+{"content":"﻿VV_A=1\n","values":{"VV_A":null,"VV_B":null,"vv_a":null}}
+{"content":"VV_A=1\r\nVV_B=2\r\n","values":{"VV_A":"1","VV_B":"2","vv_a":null}}
+{"content":"VV_A=1\rVV_B=2\r","values":{"VV_A":"1","VV_B":"2","vv_a":null}}
+{"content":"\n\n  \nVV_A=1","values":{"VV_A":"1","VV_B":null,"vv_a":null}}
+{"content":"VV_A=1\fVV_B=2","values":{"VV_A":"1","VV_B":"2","vv_a":null}}
+{"content":"VV_A=1 VV_B=2","values":{"VV_A":"1","VV_B":"2","vv_a":null}}
+{"content":"export VV_A=1\n","values":{"VV_A":null,"VV_B":null,"vv_a":null}}
+{"content":"VV_A = \"1 2\"\n","values":{"VV_A":"1 2","VV_B":null,"vv_a":null}}
+{"content":"vv_a=1\n","values":{"VV_A":null,"VV_B":null,"vv_a":"1"}}
+{"content":"VV_A=é\n","values":{"VV_A":"é","VV_B":null,"vv_a":null}}
+{"content":"VV_A=1\n\tVV_B=2\n","values":{"VV_A":"1","VV_B":"2","vv_a":null}}
+{"content":"VV_A = ' ' \n","values":{"VV_A":" ","VV_B":null,"vv_a":null}}
+{"content":"#c\nVV_B=2\n\nVV_A=\"k\"\n# end","values":{"VV_A":"k","VV_B":"2","vv_a":null}}
+{"content":"VV_A=\"unclosed\n","values":{"VV_A":"unclosed","VV_B":null,"vv_a":null}}
+{"content":"VV_A=\"\"\"x\"\"\"\n","values":{"VV_A":"x","VV_B":null,"vv_a":null}}
+{"content":"VV_A=''\nVV_A=2\n","values":{"VV_A":null,"VV_B":null,"vv_a":null}}
+{"content":"VV_A=\nVV_A=2\n","values":{"VV_A":null,"VV_B":null,"vv_a":null}}
+{"content":"VV_A = \"a\" # c\n","values":{"VV_A":"a\" # c","VV_B":null,"vv_a":null}}
+{"content":"VV_A= 1 \n","values":{"VV_A":"1","VV_B":null,"vv_a":null}}
+{"content":"VV_A=　1　\n","values":{"VV_A":"1","VV_B":null,"vv_a":null}}
