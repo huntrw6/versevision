@@ -1,8 +1,10 @@
 //! The oracle runner: what the Python app produced (`oracle/`) against what this crate produces.
 //!
 //! * `oracle/cases/*`: each case is read (input, options, bible.json), planned and compared field by field with
-//!   `expected/plan.json`, `review.json` and `trace.jsonl`. The planner is not written yet (S3), so every case fails
-//!   with `NotImplemented`; the comparison itself is tested on its own below.
+//!   `expected/plan.json`, `review.json`, `trace.jsonl` (every stage) and, where the case has `choices.json`,
+//!   `expected/plan_after_choices.json`. The document readers are S4: the text a reader returned is
+//!   `expected/extracted.txt` and the reader's own `extract` trace record (seq 1) is taken from `expected/trace.jsonl`; both
+//!   are what the planner is given, so a case does not depend on a reader.
 //! * the same cases, in two more ways that do not need the planner (S2b): `expected/document.json` (the notes classifier on
 //!   `expected/extracted.txt`, so no document reader is needed) and the classifier's own trace records (`parse_start`, `line_join`,
 //!   `paragraph`, `item`) in `expected/trace.jsonl`, compared stage by stage.
@@ -17,15 +19,18 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use serde_json::{json, Map, Value};
+use versevision_core::bibles::InMemoryBible;
 use versevision_core::config::{changed_fields, AppConfig};
 use versevision_core::fitting;
 use versevision_core::notes::classifier::classify_with_trace;
 use versevision_core::notes::pyre::PyRegex;
+use versevision_core::notes::TraceLog;
 use versevision_core::plan::{
-    plan_notes, NotesImportResult, PlanOptions, PlanRun, ReviewReport, TraceRecord, VerseSource,
+    NotesImportResult, PlanOptions, ReviewChoices, ReviewReport, TraceRecord,
 };
 use versevision_core::references::parse_references;
 use versevision_core::versions::version_line;
+use versevision_core::workflow::{apply_review_choices, build_report, plan_notes};
 
 fn oracle_dir() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../../oracle")
@@ -148,7 +153,7 @@ struct Listed {
     trace_stages: BTreeSet<String>,
 }
 
-/// The trace stages the classifier writes (the rest are the planner's, S3).
+/// The trace stages the classifier writes (the planner's are compared as part of each whole case).
 const CLASSIFIER_STAGES: [&str; 4] = ["parse_start", "line_join", "paragraph", "item"];
 
 fn parse_listed(text: &str) -> Result<Listed, String> {
@@ -281,23 +286,14 @@ fn ratchet(units: &[Unit], listed: &Listed) -> Vec<String> {
 
 // ------------------------------------------------------------------------------------------------ cases
 
-/// The offline provider: verses come from the case's `bible.json` (`"NKJV Psalms 23:1"` -> text).
-struct OfflineBible(Map<String, Value>);
-
-impl VerseSource for OfflineBible {
-    fn verse_text(&self, version: &str, book: &str, chapter: u32, verse: u32) -> Option<String> {
-        self.0
-            .get(&format!("{version} {book} {chapter}:{verse}"))
-            .and_then(Value::as_str)
-            .map(str::to_string)
-    }
-}
-
 struct LoadedCase {
-    text: Option<String>,
+    /// What the document reader returned (`expected/extracted.txt`).
+    text: String,
     config: AppConfig,
     options: PlanOptions,
-    bible: OfflineBible,
+    bible: InMemoryBible,
+    /// `input.<ext>`, the source name of the report.
+    input_name: String,
 }
 
 fn input_file(dir: &Path) -> PathBuf {
@@ -309,15 +305,25 @@ fn input_file(dir: &Path) -> PathBuf {
         .unwrap_or_else(|| panic!("{} has no input file", dir.display()))
 }
 
-/// Read a case: the document text (txt and md only: the other readers are S4), the options, the offline Bible.
+/// Read a case: the text the document reader returned, the options, the offline Bible.
 fn load_case(dir: &Path) -> Result<LoadedCase, String> {
     let input = input_file(dir);
+    let input_name = input
+        .file_name()
+        .and_then(|n| n.to_str())
+        .unwrap_or("input")
+        .to_string();
     let extension = input.extension().and_then(|e| e.to_str()).unwrap_or("");
-    let text = match extension {
-        // read in text mode: `\r\n` and `\r` become `\n`
-        "txt" | "md" => Some(read(&input).replace("\r\n", "\n").replace('\r', "\n")),
-        _ => None,
-    };
+    let extracted = read(&dir.join("expected/extracted.txt"));
+    if matches!(extension, "txt" | "md") {
+        // the reader of a text file: UTF-8 in text mode, so `\r\n` and `\r` become `\n` (the one reader that is trivial)
+        let own = read(&input).replace("\r\n", "\n").replace('\r', "\n");
+        if own != extracted {
+            return Err(format!(
+                "{input_name} read as text is not expected/extracted.txt"
+            ));
+        }
+    }
     let options_text = read(&dir.join("options.toml"));
     let config =
         AppConfig::from_toml_str(&options_text).map_err(|e| format!("options.toml: {e}"))?;
@@ -333,49 +339,98 @@ fn load_case(dir: &Path) -> Result<LoadedCase, String> {
         .and_then(|r| r.get("no_fetch"))
         .and_then(toml::Value::as_bool)
         .unwrap_or(false);
-    let bible = match json_file(&dir.join("bible.json")) {
-        Value::Object(map) => OfflineBible(map),
-        other => return Err(format!("bible.json is not an object: {other}")),
-    };
+    let bible = InMemoryBible::from_json(&read(&dir.join("bible.json")))
+        .map_err(|e| format!("bible.json: {e}"))?;
     Ok(LoadedCase {
-        text,
+        text: extracted,
         config,
         options: PlanOptions {
             default_version,
             no_fetch,
         },
         bible,
+        input_name,
     })
 }
 
-/// Compare a run with the three expected files; `None` when they match.
-fn compare_run(dir: &Path, run: &PlanRun) -> Option<String> {
+/// The trace of a run as the lines of `trace.jsonl`: the reader's `extract` record (S4 writes it; here it is the expected one),
+/// then everything the planner wrote.
+fn trace_of(dir: &Path, log: &TraceLog) -> Vec<Value> {
+    let expected = jsonl_file(&dir.join("expected/trace.jsonl"));
+    let mut trace: Vec<Value> = expected
+        .into_iter()
+        .take(1)
+        .filter(|r| r["stage"] == "extract")
+        .collect();
+    trace.extend(log.to_json(trace.len() as u64 + 1));
+    trace
+}
+
+/// Run a case; the result, the report, the trace and the slides after the review choices (when the case has choices).
+fn run_planner(
+    dir: &Path,
+    loaded: &LoadedCase,
+) -> Result<(NotesImportResult, ReviewReport, Vec<Value>, Option<Value>), String> {
+    let mut log = TraceLog::default();
+    let bible = (!loaded.options.no_fetch).then_some(&loaded.bible);
+    let result = pollster::block_on(plan_notes(
+        &loaded.text,
+        &loaded.config,
+        &loaded.options,
+        bible,
+        &mut log,
+    ))
+    .map_err(|e| format!("plan_notes raised: {e}"))?;
+    let report = build_report(&result, &loaded.input_name);
+    let trace = trace_of(dir, &log);
+    let after = if dir.join("choices.json").exists() {
+        let choices: ReviewChoices = serde_json::from_value(json_file(&dir.join("choices.json")))
+            .map_err(|e| format!("choices.json: {e}"))?;
+        let mut ignored = TraceLog::default();
+        let plan = apply_review_choices(&result, &choices, &mut ignored);
+        Some(serde_json::to_value(plan).expect("plan serialises"))
+    } else {
+        None
+    };
+    Ok((result, report, trace, after))
+}
+
+/// Compare a run with the expected files; `None` when they match.
+fn compare_run(
+    dir: &Path,
+    result: &NotesImportResult,
+    report: &ReviewReport,
+    trace: &[Value],
+    after: &Option<Value>,
+) -> Option<String> {
     let expected = dir.join("expected");
-    let plan = serde_json::to_value(&run.result).expect("plan serialises");
+    let plan = serde_json::to_value(result).expect("plan serialises");
     if let Some(d) = first_difference("plan", &json_file(&expected.join("plan.json")), &plan) {
         return Some(d);
     }
-    let review = serde_json::to_value(&run.report).expect("report serialises");
+    let review = serde_json::to_value(report).expect("report serialises");
     if let Some(d) = first_difference("review", &json_file(&expected.join("review.json")), &review)
     {
         return Some(d);
     }
-    let trace: Vec<Value> = run
-        .trace
-        .iter()
-        .map(|r| serde_json::to_value(r).expect("record serialises"))
-        .collect();
-    first_trace_difference(&jsonl_file(&expected.join("trace.jsonl")), &trace)
+    if let Some(d) = first_trace_difference(&jsonl_file(&expected.join("trace.jsonl")), trace) {
+        return Some(d);
+    }
+    let after_file = expected.join("plan_after_choices.json");
+    match (after, after_file.exists()) {
+        (Some(actual), true) => {
+            first_difference("plan_after_choices", &json_file(&after_file), actual)
+        }
+        (None, false) => None,
+        (Some(_), false) => Some("plan_after_choices.json is missing".to_string()),
+        (None, true) => Some("choices.json is missing".to_string()),
+    }
 }
 
 fn run_case(dir: &Path) -> Result<(), String> {
     let loaded = load_case(dir)?;
-    let Some(text) = loaded.text.as_deref() else {
-        return Err("not implemented yet: reading this kind of document arrives in S4".to_string());
-    };
-    let run = plan_notes(text, &loaded.config, &loaded.options, &loaded.bible)
-        .map_err(|e| e.to_string())?;
-    match compare_run(dir, &run) {
+    let (result, report, trace, after) = run_planner(dir, &loaded)?;
+    match compare_run(dir, &result, &report, &trace, &after) {
         None => Ok(()),
         Some(difference) => Err(difference),
     }
@@ -1018,18 +1073,36 @@ fn expected_files_round_trip_through_the_plan_types() {
     println!("{files} expected files read into the plan types and written back unchanged");
 }
 
+/// A planner that fails must say why instead of passing: the runner reports a difference for a changed slide text.
 #[test]
-fn plan_notes_is_not_written_yet() {
-    let error = plan_notes(
-        "x",
-        &AppConfig::default(),
-        &PlanOptions::default(),
-        &OfflineBible(Map::new()),
-    )
-    .unwrap_err();
+fn a_wrong_plan_is_reported_with_its_path() {
+    let dir = oracle_dir().join("cases/review-choices-skip-include-reject");
+    let loaded = load_case(&dir).unwrap();
+    let (mut result, report, trace, after) = run_planner(&dir, &loaded).unwrap();
+    assert_eq!(compare_run(&dir, &result, &report, &trace, &after), None);
+    result.slide_plan.slides[1].body_text.push('!');
+    let why = compare_run(&dir, &result, &report, &trace, &after).unwrap();
     assert!(
-        error.to_string().starts_with("not implemented yet"),
-        "{error}"
+        why.starts_with("plan.slide_plan.slides[1].body_text"),
+        "{why}"
+    );
+    result.slide_plan.slides[1].body_text.pop();
+    // a missing trace record and a wrong one are reported too
+    let mut short = trace.clone();
+    short.remove(20);
+    let why = compare_run(&dir, &result, &report, &short, &after).unwrap();
+    assert!(why.contains("trace"), "{why}");
+    let mut wrong = trace.clone();
+    wrong[24]["slide_text"] = json!("changed");
+    let why = compare_run(&dir, &result, &report, &wrong, &after).unwrap();
+    assert!(why.contains("slide_text"), "{why}");
+    // and so is a wrong plan after the review choices
+    let mut other = after.clone().unwrap();
+    other["slides"][0]["body_text"] = json!("changed");
+    let why = compare_run(&dir, &result, &report, &trace, &Some(other)).unwrap();
+    assert!(
+        why.starts_with("plan_after_choices.slides[0].body_text"),
+        "{why}"
     );
 }
 

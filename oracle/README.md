@@ -65,8 +65,10 @@ provides changes the caller's profile too (calling it twice on one config shows 
 it lists the case groups (`group:tests`), single cases (`case:...`) and files (`file:references.jsonl`) that do not pass yet. The test fails when a listed
 one passes (delete the line) or an unlisted one fails, so the list only shrinks.
 
-Progress is tracked per aspect. `group:`/`case:` entries are the whole plan comparison (`plan.json`, `review.json` and the full trace: they need the planner,
-S3). The notes classifier (S2b) is checked on its own, from `expected/extracted.txt`, so it does not wait for the document readers (S4):
+Since S3 every case runs the whole planner (`workflow::plan_notes`, `build_report`, and `apply_review_choices` where the case has `choices.json`) and compares
+`plan.json`, `review.json`, the whole `trace.jsonl` and `plan_after_choices.json`; the list is empty (213/213). The document readers are S4: the runner hands the
+planner `expected/extracted.txt` (what the reader returned) and takes the reader's own `extract` record (seq 1) from `expected/trace.jsonl`, so a case does
+not depend on a reader. `group:`/`case:` entries are that full comparison. The notes classifier (S2b) is also checked on its own, from `expected/extracted.txt`:
 `document:<case-or-group>` is `expected/document.json` of that case, and `trace-stage:<name>` is one of the classifier's trace stages (`parse_start`,
 `line_join`, `paragraph`, `item`) over every case. `ORACLE_VERBOSE=1` prints every failing line of the line-level files, not only the first.
 

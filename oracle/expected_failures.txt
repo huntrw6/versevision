@@ -7,22 +7,8 @@
 #                      file:<name>   a line-level or config file of oracle/ (all of its lines must pass to leave this list)
 #                      document:<case-or-group>  the classifier's expected/document.json of that case (or of every case of that group)
 #                      trace-stage:<name>        one classifier trace stage (parse_start, line_join, paragraph, item) over every case
-# `group:`/`case:` entries are the full plan comparison (plan.json, review.json, the whole trace): it needs the planner (S3).
-# `#` starts a comment. After S2a fitting.jsonl, references.jsonl, versions.jsonl, the config files pass; after S2b every document.json
-# and the four classifier trace stages pass, document_errors.jsonl and user_patterns.jsonl too (nothing is listed for them).
-
-# the planner (S3), and what it needs: parsing and references (S2), document readers (S4)
-group:classifier
-group:fixture
-group:format
-group:kitchen
-group:label
-group:long
-group:options
-group:provider
-group:quote
-group:review
-group:synthetic
-group:tests
-group:version
-group:whitefield
+# `group:`/`case:` entries are the full plan comparison (plan.json, review.json, the whole trace, plan_after_choices.json): the planner (S3).
+# `#` starts a comment.
+#
+# S3: the planner passes every case (213/213), so nothing is listed. After S2a fitting.jsonl, references.jsonl, versions.jsonl, the config
+# files pass; after S2b every document.json and the four classifier trace stages pass, document_errors.jsonl and user_patterns.jsonl too.
