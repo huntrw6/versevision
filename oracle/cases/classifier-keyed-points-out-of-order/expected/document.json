@@ -1,0 +1,65 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "KEY #2)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "list_item",
+      "text": "Second first",
+      "warnings": [
+        "numbered out of sequence (after point 0); treated as a list item"
+      ]
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "KEY #1)",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "point",
+      "text": "First",
+      "warnings": []
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "KEY #4)",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "list_item",
+      "text": "Four",
+      "warnings": [
+        "numbered out of sequence (after point 1); treated as a list item"
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 2,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    }
+  ]
+}

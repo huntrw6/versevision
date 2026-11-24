@@ -1,0 +1,372 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 7,
+      "status": "adjusted",
+      "text": "• KELVIN: KEY #1) x"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "Conclusıon: dotless i",
+      "tier": "good",
+      "title": "Conclusıon: dotless i"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "text": "CONCLUSİON: dotted capital",
+      "tier": "good",
+      "title": "CONCLUSİON: dotted capital"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "text": "Conclusion: plain",
+      "tier": "good",
+      "title": "Conclusion: plain"
+    },
+    {
+      "add_text": "• SHOW the photo",
+      "addable": true,
+      "correction": null,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "SHOW the photo",
+      "tier": "good",
+      "title": "SHOW the photo"
+    },
+    {
+      "add_text": "• SHOẆ mark",
+      "addable": true,
+      "correction": null,
+      "id": 5,
+      "kind": "left_out",
+      "line": 6,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "SHOẆ mark",
+      "tier": "good",
+      "title": "SHOẆ mark"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "point",
+      "line": 7,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        5
+      ],
+      "text": "• KELVIN: KEY #1) x",
+      "tier": "warning",
+      "title": "• KELVIN: KEY #1) x"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 7,
+      "kind": "point",
+      "line": 8,
+      "reasons": [],
+      "slides": [
+        6
+      ],
+      "text": "KEY #2) kelvin sign",
+      "tier": "good",
+      "title": "KEY #2) kelvin sign"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "point",
+      "line": 9,
+      "reasons": [],
+      "slides": [
+        7
+      ],
+      "text": "ſtep 3) long s",
+      "tier": "good",
+      "title": "ſtep 3) long s"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 5,
+      "status": "left_out",
+      "text": "SHOW the photo"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 6,
+      "status": "left_out",
+      "text": "SHOẆ mark"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "Conclusıon: dotless i",
+        "tier": "good",
+        "title": "Conclusıon: dotless i"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "text": "CONCLUSİON: dotted capital",
+        "tier": "good",
+        "title": "CONCLUSİON: dotted capital"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "text": "Conclusion: plain",
+        "tier": "good",
+        "title": "Conclusion: plain"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 7,
+        "kind": "point",
+        "line": 8,
+        "reasons": [],
+        "slides": [
+          6
+        ],
+        "text": "KEY #2) kelvin sign",
+        "tier": "good",
+        "title": "KEY #2) kelvin sign"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "point",
+        "line": 9,
+        "reasons": [],
+        "slides": [
+          7
+        ],
+        "text": "ſtep 3) long s",
+        "tier": "good",
+        "title": "ſtep 3) long s"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• SHOW the photo",
+        "addable": true,
+        "correction": null,
+        "id": 4,
+        "kind": "left_out",
+        "line": 5,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "SHOW the photo",
+        "tier": "good",
+        "title": "SHOW the photo"
+      },
+      {
+        "add_text": "• SHOẆ mark",
+        "addable": true,
+        "correction": null,
+        "id": 5,
+        "kind": "left_out",
+        "line": 6,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "SHOẆ mark",
+        "tier": "good",
+        "title": "SHOẆ mark"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "point",
+        "line": 7,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          5
+        ],
+        "text": "• KELVIN: KEY #1) x",
+        "tier": "warning",
+        "title": "• KELVIN: KEY #1) x"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "Conclusıon: dotless i",
+      "title": "Conclusıon: dotless i"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "1) A point",
+      "title": "1) A point"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "CONCLUSİON: dotted capital",
+      "title": "CONCLUSİON: dotted capital"
+    },
+    {
+      "kind": "point",
+      "n": 4,
+      "text": "Conclusion: plain",
+      "title": "Conclusion: plain"
+    },
+    {
+      "kind": "point",
+      "n": 5,
+      "text": "• KELVIN: KEY #1) x",
+      "title": "• KELVIN: KEY #1) x"
+    },
+    {
+      "kind": "point",
+      "n": 6,
+      "text": "KEY #2) kelvin sign",
+      "title": "KEY #2) kelvin sign"
+    },
+    {
+      "kind": "point",
+      "n": 7,
+      "text": "ſtep 3) long s",
+      "title": "ſtep 3) long s"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 6,
+    "left_out": 2,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 7,
+    "slides": 7,
+    "verse_slides": 0,
+    "warnings": 1
+  }
+}

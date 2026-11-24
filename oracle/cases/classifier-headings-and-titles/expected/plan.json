@@ -1,0 +1,352 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Part 2: The Shepherd",
+      "tier": "good",
+      "title": "Part 2: The Shepherd"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Week 3 - Rest",
+      "tier": "good",
+      "title": "Week 3 - Rest"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Session 4.",
+      "tier": "good",
+      "title": "Session 4."
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 4,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Series 5:",
+      "tier": "good",
+      "title": "Series 5:"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 5,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "6 KEYS TO A NEW AWAKENING",
+      "tier": "good",
+      "title": "6 KEYS TO A NEW AWAKENING"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 6,
+      "id": 6,
+      "kind": "point",
+      "line": 7,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Two Words",
+      "tier": "good",
+      "title": "Two Words"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 7,
+      "id": 7,
+      "kind": "point",
+      "line": 8,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• A Longer Heading Line Here",
+      "tier": "warning",
+      "title": "• A Longer Heading Line Here"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 8,
+      "id": 8,
+      "kind": "point",
+      "line": 9,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Introduction",
+      "tier": "good",
+      "title": "Introduction"
+    },
+    {
+      "add_text": "• 2 Corinthians",
+      "correction": {},
+      "first_slide": 9,
+      "id": 9,
+      "kind": "left_out",
+      "line": 10,
+      "reasons": [
+        "header: 2 or fewer capitalized words: looks like a heading"
+      ],
+      "slide_count": 0,
+      "text": "2 Corinthians",
+      "tier": "warning",
+      "title": "2 Corinthians"
+    },
+    {
+      "add_text": "• 12:9 NKJV",
+      "correction": {},
+      "first_slide": 9,
+      "id": 10,
+      "kind": "left_out",
+      "line": 11,
+      "reasons": [
+        "header: 2 or fewer capitalized words: looks like a heading"
+      ],
+      "slide_count": 0,
+      "text": "12:9 NKJV",
+      "tier": "warning",
+      "title": "12:9 NKJV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 9,
+      "id": 11,
+      "kind": "point",
+      "line": 12,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• THE LORD IS GOOD",
+      "tier": "good",
+      "title": "• THE LORD IS GOOD"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 10,
+      "id": 12,
+      "kind": "point",
+      "line": 13,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "THE LORD IS GOOD",
+      "tier": "good",
+      "title": "THE LORD IS GOOD"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 11,
+      "id": 13,
+      "kind": "point",
+      "line": 14,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "GOD",
+      "tier": "good",
+      "title": "GOD"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 12,
+      "id": 14,
+      "kind": "point",
+      "line": 15,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "THE LORD IS GOOD, SAYS THE PSALMIST",
+      "tier": "good",
+      "title": "THE LORD IS GOOD, SAYS THE PSALMIST"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 8,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• A Longer Heading Line Here"
+    }
+  ],
+  "point_count": 13,
+  "review": [],
+  "skipped": [
+    {
+      "line": 10,
+      "problem": "header: 2 or fewer capitalized words: looks like a heading",
+      "text": "2 Corinthians"
+    },
+    {
+      "line": 11,
+      "problem": "header: 2 or fewer capitalized words: looks like a heading",
+      "text": "12:9 NKJV"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "Part 2: The Shepherd",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "1) A point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Week 3 - Rest",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Session 4.",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 3,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Series 5:",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 4,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "6 KEYS TO A NEW AWAKENING",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 5,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Two Words",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 6,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• A Longer Heading Line Here",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 7,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Introduction",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 8,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• THE LORD IS GOOD",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 9,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "THE LORD IS GOOD",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 10,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "GOD",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 11,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "THE LORD IS GOOD, SAYS THE PSALMIST",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 12,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

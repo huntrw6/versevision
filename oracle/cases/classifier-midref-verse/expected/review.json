@@ -1,0 +1,216 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 2,
+      "status": "adjusted",
+      "text": "John 3:16"
+    },
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 2,
+      "status": "adjusted",
+      "text": "Romans 8:28"
+    },
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 3,
+      "status": "adjusted",
+      "text": "Psalms 23:1"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Point",
+      "tier": "good",
+      "title": "1) Point"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)",
+        "taken from the sentence: \"He's told us in John 3:16 and Romans 8:28 that it \""
+      ],
+      "slides": [
+        2
+      ],
+      "text": "John 3:16",
+      "tier": "warning",
+      "title": "John 3:16 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)",
+        "taken from the sentence: \"He's told us in John 3:16 and Romans 8:28 that it \""
+      ],
+      "slides": [
+        3
+      ],
+      "text": "Romans 8:28",
+      "tier": "warning",
+      "title": "Romans 8:28 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [
+        "no version listed; used NKJV (default version)",
+        "taken from the sentence: 'As Psalm 23:1 says'"
+      ],
+      "slides": [
+        4
+      ],
+      "text": "Psalm 23:1",
+      "tier": "warning",
+      "title": "Psalms 23:1 (NKJV)"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Point",
+        "tier": "good",
+        "title": "1) Point"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "no version listed; used NKJV (default version)",
+          "taken from the sentence: \"He's told us in John 3:16 and Romans 8:28 that it \""
+        ],
+        "slides": [
+          2
+        ],
+        "text": "John 3:16",
+        "tier": "warning",
+        "title": "John 3:16 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "no version listed; used NKJV (default version)",
+          "taken from the sentence: \"He's told us in John 3:16 and Romans 8:28 that it \""
+        ],
+        "slides": [
+          3
+        ],
+        "text": "Romans 8:28",
+        "tier": "warning",
+        "title": "Romans 8:28 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [
+          "no version listed; used NKJV (default version)",
+          "taken from the sentence: 'As Psalm 23:1 says'"
+        ],
+        "slides": [
+          4
+        ],
+        "text": "Psalm 23:1",
+        "tier": "warning",
+        "title": "Psalms 23:1 (NKJV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Point",
+      "title": "1) Point"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "",
+      "title": "John 3:16 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "",
+      "title": "Romans 8:28 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "",
+      "title": "Psalms 23:1 (NKJV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 3,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 4,
+    "verse_slides": 3,
+    "warnings": 3
+  }
+}

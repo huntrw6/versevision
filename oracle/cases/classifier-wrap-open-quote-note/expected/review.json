@@ -1,0 +1,584 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Opening point",
+      "tier": "good",
+      "title": "1) Opening point"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 7,
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "point",
+      "line": 9,
+      "reasons": [],
+      "slides": [
+        5
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "point",
+      "line": 11,
+      "reasons": [],
+      "slides": [
+        6
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "point",
+      "line": 13,
+      "reasons": [],
+      "slides": [
+        7
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 7,
+      "kind": "point",
+      "line": 15,
+      "reasons": [],
+      "slides": [
+        8
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "point",
+      "line": 17,
+      "reasons": [],
+      "slides": [
+        9
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 9,
+      "kind": "point",
+      "line": 19,
+      "reasons": [],
+      "slides": [
+        10
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "• “Jesus said to him, Truly I say\nto you, today you will be with Me\nin paradise and he said remember me\nwhen You come into Your kingdom”",
+      "addable": true,
+      "correction": null,
+      "id": 10,
+      "kind": "left_out",
+      "line": 21,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“Jesus said to him, Truly I say to you, today you will be with Me in paradise and he said remember me when You come into Your kingdom.”",
+      "tier": "good",
+      "title": "“Jesus said to him, Truly I say to you, today you will be with Me in paradise an"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 11,
+      "kind": "verse",
+      "line": 23,
+      "reasons": [],
+      "slides": [
+        11,
+        12
+      ],
+      "text": "Luke 23:42-43 NKJV",
+      "tier": "good",
+      "title": "Luke 23:42-43 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 12,
+      "kind": "point",
+      "line": 25,
+      "reasons": [],
+      "slides": [
+        13
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 13,
+      "kind": "point",
+      "line": 27,
+      "reasons": [],
+      "slides": [
+        14
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 14,
+      "kind": "point",
+      "line": 29,
+      "reasons": [],
+      "slides": [
+        15
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 21,
+      "status": "left_out",
+      "text": "“Jesus said to him, Truly I say to you, today you will be with Me in paradise and he said remember me when You come into Your kingdom.”"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Opening point",
+        "tier": "good",
+        "title": "1) Opening point"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 7,
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "point",
+        "line": 9,
+        "reasons": [],
+        "slides": [
+          5
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "point",
+        "line": 11,
+        "reasons": [],
+        "slides": [
+          6
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "point",
+        "line": 13,
+        "reasons": [],
+        "slides": [
+          7
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 7,
+        "kind": "point",
+        "line": 15,
+        "reasons": [],
+        "slides": [
+          8
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "point",
+        "line": 17,
+        "reasons": [],
+        "slides": [
+          9
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 9,
+        "kind": "point",
+        "line": 19,
+        "reasons": [],
+        "slides": [
+          10
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 11,
+        "kind": "verse",
+        "line": 23,
+        "reasons": [],
+        "slides": [
+          11,
+          12
+        ],
+        "text": "Luke 23:42-43 NKJV",
+        "tier": "good",
+        "title": "Luke 23:42-43 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 12,
+        "kind": "point",
+        "line": 25,
+        "reasons": [],
+        "slides": [
+          13
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 13,
+        "kind": "point",
+        "line": 27,
+        "reasons": [],
+        "slides": [
+          14
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 14,
+        "kind": "point",
+        "line": 29,
+        "reasons": [],
+        "slides": [
+          15
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• “Jesus said to him, Truly I say\nto you, today you will be with Me\nin paradise and he said remember me\nwhen You come into Your kingdom”",
+        "addable": true,
+        "correction": null,
+        "id": 10,
+        "kind": "left_out",
+        "line": 21,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“Jesus said to him, Truly I say to you, today you will be with Me in paradise and he said remember me when You come into Your kingdom.”",
+        "tier": "good",
+        "title": "“Jesus said to him, Truly I say to you, today you will be with Me in paradise an"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Opening point",
+      "title": "1) Opening point"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 4,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 5,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 6,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 7,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 8,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 9,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 10,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "verse",
+      "n": 11,
+      "text": "",
+      "title": "Luke 23:42 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 12,
+      "text": "",
+      "title": "Luke 23:43 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 13,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 14,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 15,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 14,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 13,
+    "slides": 15,
+    "verse_slides": 2,
+    "warnings": 0
+  }
+}

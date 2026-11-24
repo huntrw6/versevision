@@ -1,0 +1,40 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "P",
+      "warnings": []
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "stage/production cue",
+      "text": "Show slide of the cross."
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 2,
+      "rule": "starts with a stage/cue word",
+      "why": ""
+    }
+  ]
+}

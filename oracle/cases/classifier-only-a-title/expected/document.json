@@ -1,0 +1,22 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "Sunday 11/22/26"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    }
+  ]
+}

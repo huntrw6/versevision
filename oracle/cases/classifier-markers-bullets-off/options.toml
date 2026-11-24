@@ -1,0 +1,5 @@
+[points]
+bullets = false
+
+[run]
+no_fetch = true

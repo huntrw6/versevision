@@ -3,7 +3,10 @@
 //! * `oracle/cases/*`: each case is read (input, options, bible.json), planned and compared field by field with
 //!   `expected/plan.json`, `review.json` and `trace.jsonl`. The planner is not written yet (S3), so every case fails
 //!   with `NotImplemented`; the comparison itself is tested on its own below.
-//! * `oracle/fitting.jsonl`, `references.jsonl`, `versions.jsonl`: one function call per line.
+//! * the same cases, in two more ways that do not need the planner (S2b): `expected/document.json` (the notes classifier on
+//!   `expected/extracted.txt`, so no document reader is needed) and the classifier's own trace records (`parse_start`, `line_join`,
+//!   `paragraph`, `item`) in `expected/trace.jsonl`, compared stage by stage.
+//! * `oracle/fitting.jsonl`, `references.jsonl`, `versions.jsonl`, `document_errors.jsonl`, `user_patterns.jsonl`: one call per line.
 //! * `oracle/config_defaults.json` / `.toml` and `config_options.jsonl`: the config model.
 //!
 //! `oracle/expected_failures.txt` is a ratchet: a listed unit that passes, or an unlisted one that fails, fails the test.
@@ -16,6 +19,8 @@ use std::path::{Path, PathBuf};
 use serde_json::{json, Map, Value};
 use versevision_core::config::{changed_fields, AppConfig};
 use versevision_core::fitting;
+use versevision_core::notes::classifier::classify_with_trace;
+use versevision_core::notes::pyre::PyRegex;
 use versevision_core::plan::{
     plan_notes, NotesImportResult, PlanOptions, PlanRun, ReviewReport, TraceRecord, VerseSource,
 };
@@ -137,7 +142,14 @@ struct Listed {
     groups: BTreeSet<String>,
     cases: BTreeSet<String>,
     files: BTreeSet<String>,
+    /// `document:<case or group>`: the classifier's `document.json` of that case (or of every case of that group).
+    documents: BTreeSet<String>,
+    /// `trace-stage:<name>`: one of the classifier's trace stages, over every case.
+    trace_stages: BTreeSet<String>,
 }
+
+/// The trace stages the classifier writes (the rest are the planner's, S3).
+const CLASSIFIER_STAGES: [&str; 4] = ["parse_start", "line_join", "paragraph", "item"];
 
 fn parse_listed(text: &str) -> Result<Listed, String> {
     let mut listed = Listed::default();
@@ -150,9 +162,11 @@ fn parse_listed(text: &str) -> Result<Listed, String> {
             Some(("group", name)) => listed.groups.insert(name.trim().to_string()),
             Some(("case", name)) => listed.cases.insert(name.trim().to_string()),
             Some(("file", name)) => listed.files.insert(name.trim().to_string()),
+            Some(("document", name)) => listed.documents.insert(name.trim().to_string()),
+            Some(("trace-stage", name)) => listed.trace_stages.insert(name.trim().to_string()),
             _ => {
                 return Err(format!(
-                    "expected_failures.txt line {}: `{raw}` is not group:/case:/file:",
+                    "expected_failures.txt line {}: `{raw}` is not group:/case:/file:/document:/trace-stage:",
                     i + 1
                 ))
             }
@@ -179,10 +193,15 @@ fn ratchet(units: &[Unit], listed: &Listed) -> Vec<String> {
     let mut complaints = Vec::new();
     let mut known: BTreeSet<&str> = BTreeSet::new();
     let mut group_results: BTreeMap<&str, Vec<&Unit>> = BTreeMap::new();
+    let mut document_groups: BTreeSet<&str> = BTreeSet::new();
     for unit in units {
         known.insert(&unit.id);
         if let Some(group) = &unit.group {
-            group_results.entry(group).or_default().push(unit);
+            if unit.id.starts_with("case:") {
+                group_results.entry(group).or_default().push(unit);
+            } else if unit.id.starts_with("document:") {
+                document_groups.insert(group);
+            }
         }
     }
     for unit in units {
@@ -190,11 +209,24 @@ fn ratchet(units: &[Unit], listed: &Listed) -> Vec<String> {
             .group
             .as_ref()
             .is_some_and(|g| listed.groups.contains(g));
+        let by_group = by_group && unit.id.starts_with("case:");
         let by_name = listed.cases.contains(unit.id.trim_start_matches("case:"))
             && unit.id.starts_with("case:")
             || listed.files.contains(unit.id.trim_start_matches("file:"))
                 && unit.id.starts_with("file:");
-        let expected_to_fail = by_group || by_name;
+        let by_document = unit.id.starts_with("document:")
+            && (listed
+                .documents
+                .contains(unit.id.trim_start_matches("document:"))
+                || unit
+                    .group
+                    .as_ref()
+                    .is_some_and(|g| listed.documents.contains(g)));
+        let by_stage = unit.id.starts_with("trace-stage:")
+            && listed
+                .trace_stages
+                .contains(unit.id.trim_start_matches("trace-stage:"));
+        let expected_to_fail = by_group || by_name || by_document || by_stage;
         match (expected_to_fail, unit.passed) {
             (true, true) => complaints.push(format!(
                 "{} now passes: remove it from expected_failures.txt (the list only shrinks)",
@@ -225,6 +257,22 @@ fn ratchet(units: &[Unit], listed: &Listed) -> Vec<String> {
         if !known.contains(format!("file:{name}").as_str()) {
             complaints.push(format!(
                 "expected_failures.txt lists file:{name}, which the runner does not check"
+            ));
+        }
+    }
+    for name in &listed.documents {
+        if !known.contains(format!("document:{name}").as_str())
+            && !document_groups.contains(name.as_str())
+        {
+            complaints.push(format!(
+                "expected_failures.txt lists document:{name}, which is neither a case nor a group of cases"
+            ));
+        }
+    }
+    for name in &listed.trace_stages {
+        if !known.contains(format!("trace-stage:{name}").as_str()) {
+            complaints.push(format!(
+                "expected_failures.txt lists trace-stage:{name}, which the runner does not check"
             ));
         }
     }
@@ -344,6 +392,191 @@ fn case_dirs() -> Vec<PathBuf> {
     dirs
 }
 
+// ------------------------------------------------------------------------------------------------ the classifier on the extracted text
+
+/// What the classifier made of one case: the `document.json` shape and the trace records it wrote (numbered from 2: the reader's
+/// `extract` record is seq 1).
+struct Classified {
+    document: Value,
+    trace: Vec<Value>,
+}
+
+fn classify_case(dir: &Path) -> Result<Classified, String> {
+    let config = AppConfig::from_toml_str(&read(&dir.join("options.toml")))
+        .map_err(|e| format!("options.toml: {e}"))?;
+    let text = read(&dir.join("expected/extracted.txt"));
+    let (document, log) = classify_with_trace(
+        &text,
+        Some(&config.bible.version_aliases),
+        Some(&config.notes),
+        Some(&config.points),
+    )
+    .map_err(|e| format!("classify_document raised {}: {e}", e.python_exception()))?;
+    let trace = log.to_json(2);
+    // `document.json` = the NoteDocument plus the rule that decided each paragraph (read from the paragraph records)
+    let mut document = serde_json::to_value(&document).expect("document serialises");
+    let paragraphs: Vec<Value> = trace
+        .iter()
+        .filter(|r| r["stage"] == "paragraph")
+        .map(|r| {
+            let mut paragraph = Map::new();
+            for key in [
+                "line",
+                "end_line",
+                "label",
+                "rule",
+                "why",
+                "first_in_document",
+            ] {
+                paragraph.insert(key.to_string(), r[key].clone());
+            }
+            Value::Object(paragraph)
+        })
+        .collect();
+    document["paragraphs"] = Value::Array(paragraphs);
+    Ok(Classified { document, trace })
+}
+
+fn compare_document(dir: &Path, classified: &Classified) -> Result<(), String> {
+    let expected = json_file(&dir.join("expected/document.json"));
+    first_difference("document", &expected, &classified.document).map_or(Ok(()), Err)
+}
+
+/// The records of one classifier stage, expected against actual (`seq` included, so a missing or extra record anywhere shows).
+fn compare_trace_stage(dir: &Path, classified: &Classified, stage: &str) -> Result<(), String> {
+    let rows = jsonl_file(&dir.join("expected/trace.jsonl"));
+    let of_stage = |rows: &[Value]| -> Vec<Value> {
+        rows.iter()
+            .filter(|r| r["stage"] == stage)
+            .cloned()
+            .collect()
+    };
+    // the classifier's records are one run in the trace, right after `extract` (seq 1)
+    let classifier_rows: Vec<Value> = rows
+        .iter()
+        .filter(|r| {
+            r["stage"]
+                .as_str()
+                .is_some_and(|s| CLASSIFIER_STAGES.contains(&s))
+        })
+        .cloned()
+        .collect();
+    for (i, row) in classifier_rows.iter().enumerate() {
+        if row["seq"].as_u64() != Some(2 + i as u64) {
+            return Err(format!(
+                "the classifier records are not one run from seq 2 (record {} has seq {})",
+                i, row["seq"]
+            ));
+        }
+    }
+    first_trace_difference(&of_stage(&rows), &of_stage(&classified.trace)).map_or(Ok(()), Err)
+}
+
+// ------------------------------------------------------------------------------------------------ document_errors.jsonl, user_patterns.jsonl
+
+fn aliases_of(value: &Value) -> Option<indexmap::IndexMap<String, String>> {
+    value.as_object().map(|map| {
+        map.iter()
+            .map(|(k, v)| (k.clone(), v.as_str().unwrap_or_default().to_string()))
+            .collect()
+    })
+}
+
+/// A document for which Python's `classify_document` raises: Rust has to raise the same exception (and, except for pydantic's
+/// own text, the same message).
+fn run_document_error_line(row: &Value) -> Result<(), String> {
+    let config = AppConfig::from_value(&json!({"notes": row["notes"], "points": row["points"]}))
+        .map_err(|e| format!("the options are invalid: {} at {}", e.msg, e.location()))?;
+    let aliases = aliases_of(&row["aliases"]);
+    let result = versevision_core::notes::classify_document(
+        row["input"].as_str().unwrap_or(""),
+        aliases.as_ref(),
+        Some(&config.notes),
+        Some(&config.points),
+    );
+    let exception = row["raises"].as_str().unwrap_or("?");
+    match result {
+        Ok(_) => Err(format!(
+            "Python raises {exception}; Rust classified the document"
+        )),
+        Err(e) if e.python_exception() != exception => Err(format!(
+            "Python raises {exception}; Rust raises {}: {e}",
+            e.python_exception()
+        )),
+        // pydantic's text carries its own version and links: only the exception is compared
+        Err(_) if exception == "ValidationError" => Ok(()),
+        Err(e) if e.to_string() == row["message"].as_str().unwrap_or("") => Ok(()),
+        Err(e) => Err(format!(
+            "{exception} message: expected {}, got {}",
+            show(&row["message"]),
+            show(&Value::String(e.to_string()))
+        )),
+    }
+}
+
+/// `re.compile(pattern, re.IGNORECASE or 0).search(text)` for a list of texts, or the exact compile error.
+fn run_user_pattern_line(row: &Value) -> Result<(), String> {
+    let pattern = row["pattern"].as_str().unwrap_or("");
+    let ignore_case = row["ignorecase"].as_bool().unwrap_or(false);
+    let compiled = PyRegex::new(pattern, ignore_case);
+    if let Some(error) = row.get("error") {
+        return match compiled {
+            Ok(_) => Err(format!(
+                "Python rejects the pattern ({}); Rust compiled it",
+                show(&error["message"])
+            )),
+            Err(e)
+                if e.exception == error["type"].as_str().unwrap_or("?")
+                    && e.message == error["message"].as_str().unwrap_or("") =>
+            {
+                Ok(())
+            }
+            Err(e) => Err(format!(
+                "error: expected {} {}, got {} {}",
+                error["type"],
+                show(&error["message"]),
+                e.exception,
+                show(&Value::String(e.message))
+            )),
+        };
+    }
+    let compiled = compiled.map_err(|e| format!("Python compiles the pattern; Rust says {e}"))?;
+    let want = row["matches"].as_array().cloned().unwrap_or_default();
+    // the subjects are the same list for every row: they are in `oracle/user_patterns.jsonl` order, read once
+    let subjects = pattern_subjects();
+    for (i, (subject, expected)) in subjects.iter().zip(&want).enumerate() {
+        let actual = compiled.search(subject).map_or(Value::Null, |m| {
+            json!({"groups": (0..m.len()).map(|g| m.group(g).map_or(Value::Null, |t| json!(t))).collect::<Vec<_>>(),
+                   "span": [m.span().0, m.span().1]})
+        });
+        if let Some(d) = first_difference(
+            &format!("search({})", show(&json!(subject))),
+            expected,
+            &actual,
+        ) {
+            return Err(format!("subject {i}: {d}"));
+        }
+    }
+    Ok(())
+}
+
+/// The texts every pattern of `user_patterns.jsonl` was tried on (the first row names them: see `subjects`).
+fn pattern_subjects() -> Vec<String> {
+    static SUBJECTS: std::sync::OnceLock<Vec<String>> = std::sync::OnceLock::new();
+    SUBJECTS
+        .get_or_init(|| {
+            json_file(&oracle_dir().join("user_patterns_subjects.json"))
+                .as_array()
+                .map(|a| {
+                    a.iter()
+                        .filter_map(|v| v.as_str().map(str::to_string))
+                        .collect()
+                })
+                .unwrap_or_default()
+        })
+        .clone()
+}
+
 // ------------------------------------------------------------------------------------------------ line-level files
 
 fn run_fitting_line(row: &Value) -> Result<(), String> {
@@ -442,10 +675,14 @@ fn jsonl_unit(file: &str, run_line: fn(&Value) -> Result<(), String>) -> (Unit, 
     for (i, row) in rows.iter().enumerate() {
         match run_line(row) {
             Ok(()) => passed += 1,
-            Err(why) if first_failure.is_empty() => {
-                first_failure = format!("line {}: {why}", i + 1)
+            Err(why) => {
+                if std::env::var_os("ORACLE_VERBOSE").is_some() {
+                    eprintln!("{file} line {}: {why}", i + 1);
+                }
+                if first_failure.is_empty() {
+                    first_failure = format!("line {}: {why}", i + 1)
+                }
             }
-            Err(_) => {}
         }
     }
     let unit = Unit {
@@ -614,6 +851,64 @@ fn oracle_against_expected_failures() {
         );
     }
 
+    // the classifier on `expected/extracted.txt`: the document, and each of its trace stages over every case
+    let mut documents = (0usize, 0usize);
+    let mut stages: BTreeMap<&str, (usize, usize, String)> = CLASSIFIER_STAGES
+        .iter()
+        .map(|stage| (*stage, (0, 0, String::new())))
+        .collect();
+    for dir in &dirs {
+        let name = dir
+            .file_name()
+            .and_then(|n| n.to_str())
+            .unwrap_or("?")
+            .to_string();
+        let group = case_group(&name);
+        let classified = classify_case(dir);
+        let document = match &classified {
+            Ok(c) => compare_document(dir, c),
+            Err(e) => Err(e.clone()),
+        };
+        documents.1 += 1;
+        documents.0 += usize::from(document.is_ok());
+        units.push(unit_from(format!("document:{name}"), Some(group), document));
+        for stage in CLASSIFIER_STAGES {
+            let result = match &classified {
+                Ok(c) => compare_trace_stage(dir, c, stage),
+                Err(e) => Err(e.clone()),
+            };
+            let entry = stages.entry(stage).or_default();
+            entry.1 += 1;
+            match result {
+                Ok(()) => entry.0 += 1,
+                Err(why) if entry.2.is_empty() => entry.2 = format!("{name}: {why}"),
+                Err(_) => {}
+            }
+        }
+    }
+    let _ = writeln!(
+        report,
+        "oracle documents (classifier on extracted.txt): {}/{} pass",
+        documents.0, documents.1
+    );
+    for (stage, (ok, total, first_failure)) in stages {
+        let _ = writeln!(
+            report,
+            "    trace stage {stage:<12} {ok}/{total}{}",
+            if listed.trace_stages.contains(stage) {
+                "   (in expected_failures)"
+            } else {
+                ""
+            }
+        );
+        units.push(Unit {
+            id: format!("trace-stage:{stage}"),
+            group: None,
+            passed: ok == total,
+            detail: first_failure,
+        });
+    }
+
     for (file, runner) in [
         (
             "fitting.jsonl",
@@ -621,6 +916,8 @@ fn oracle_against_expected_failures() {
         ),
         ("references.jsonl", run_reference_line),
         ("versions.jsonl", run_version_line),
+        ("document_errors.jsonl", run_document_error_line),
+        ("user_patterns.jsonl", run_user_pattern_line),
         ("config_options.jsonl", run_config_option_line),
     ] {
         let (unit, passed, total) = jsonl_unit(file, runner);
@@ -829,4 +1126,60 @@ fn ratchet_fails_both_ways() {
         "three stale entries and the three failures that are not listed"
     );
     assert!(parse_listed("whatever").is_err());
+}
+
+#[test]
+fn ratchet_tracks_documents_and_trace_stages() {
+    let unit = |id: &str, group: Option<&str>, passed: bool| Unit {
+        id: id.to_string(),
+        group: group.map(str::to_string),
+        passed,
+        detail: "why".to_string(),
+    };
+    let listed = parse_listed(
+        "document:tests  # a group\ndocument:whitefield-a  # one case\ntrace-stage:item\ngroup:classifier\n",
+    )
+    .unwrap();
+    assert_eq!(listed.documents.len(), 2);
+    assert_eq!(listed.trace_stages.len(), 1);
+    let units = vec![
+        unit("case:classifier-x", Some("classifier"), false),
+        unit("document:classifier-x", Some("classifier"), true),
+        unit("document:tests-1", Some("tests"), false),
+        unit("document:tests-2", Some("tests"), false),
+        unit("document:whitefield-a", Some("whitefield"), false),
+        unit("document:whitefield-b", Some("whitefield"), true),
+        unit("trace-stage:item", None, false),
+        unit("trace-stage:paragraph", None, true),
+    ];
+    // a group listed for the documents does not list the plan comparison of the same group, and the other way round
+    assert!(ratchet(&units, &listed).is_empty());
+    let mut now_passing = units.clone();
+    now_passing[2].passed = true;
+    now_passing[6].passed = true;
+    assert_eq!(
+        ratchet(&now_passing, &listed),
+        vec![
+            "document:tests-1 now passes: remove it from expected_failures.txt (the list only shrinks)",
+            "trace-stage:item now passes: remove it from expected_failures.txt (the list only shrinks)"
+        ]
+    );
+    let mut regressed = units.clone();
+    regressed[5].passed = false;
+    regressed[7].passed = false;
+    assert_eq!(
+        ratchet(&regressed, &listed),
+        vec![
+            "document:whitefield-b fails and is not in expected_failures.txt: why",
+            "trace-stage:paragraph fails and is not in expected_failures.txt: why"
+        ]
+    );
+    let stale = parse_listed("document:nothing\ntrace-stage:nothing\n").unwrap();
+    let complaints = ratchet(&units, &stale);
+    assert!(complaints
+        .iter()
+        .any(|c| c.contains("document:nothing, which is neither a case nor a group")));
+    assert!(complaints
+        .iter()
+        .any(|c| c.contains("trace-stage:nothing, which the runner does not check")));
 }

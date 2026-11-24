@@ -1,0 +1,22 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title/preamble before the first verse or point",
+      "text": "This is only one plain sentence that is not anything at all."
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "other",
+      "line": 1,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

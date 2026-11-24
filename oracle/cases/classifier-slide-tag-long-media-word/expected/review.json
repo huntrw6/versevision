@@ -1,0 +1,106 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) One",
+      "tier": "good",
+      "title": "1) One"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "• a very long description of\nthe screen that goes on and on\nand on for a while a very long\ndescription of the screen that\ngoes on and on and on for a while",
+      "tier": "good",
+      "title": "• a very long description of"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) One",
+        "tier": "good",
+        "title": "1) One"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "• a very long description of\nthe screen that goes on and on\nand on for a while a very long\ndescription of the screen that\ngoes on and on and on for a while",
+        "tier": "good",
+        "title": "• a very long description of"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) One",
+      "title": "1) One"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "• a very long description of\nthe screen that goes on and on\nand on for a while a very long\ndescription of the screen that\ngoes on and on and on for a while",
+      "title": "• a very long description of"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 2,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 2,
+    "slides": 2,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,5 @@
+[notes]
+orphan_max_words = 1
+
+[run]
+no_fetch = true

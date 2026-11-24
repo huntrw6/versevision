@@ -1,0 +1,594 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 11,
+      "status": "adjusted",
+      "text": "• KEY #1000) Too many"
+    },
+    {
+      "detail": "numbered out of sequence (after point 10); treated as a list item",
+      "line": 13,
+      "status": "adjusted",
+      "text": "Point #12) John 3:16 and Romans 8:28 here"
+    },
+    {
+      "detail": "text mentions John 3:16; not added as a verse slide",
+      "line": 13,
+      "status": "adjusted",
+      "text": "Point #12) John 3:16 and Romans 8:28 here"
+    },
+    {
+      "detail": "text mentions Romans 8:28; not added as a verse slide",
+      "line": 13,
+      "status": "adjusted",
+      "text": "Point #12) John 3:16 and Romans 8:28 here"
+    },
+    {
+      "detail": "numbered out of sequence (after point 10); treated as a list item",
+      "line": 14,
+      "status": "adjusted",
+      "text": "key #13) Psalm 23:1 NIV"
+    },
+    {
+      "detail": "text mentions Psalms 23:1 NIV; not added as a verse slide",
+      "line": 14,
+      "status": "adjusted",
+      "text": "key #13) Psalm 23:1 NIV"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "KEY #1) First",
+      "tier": "good",
+      "title": "KEY #1) First"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "KEY#2) Second",
+      "tier": "good",
+      "title": "KEY#2) Second"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "text": "Step 3: Third",
+      "tier": "good",
+      "title": "Step 3: Third"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "text": "Principle #4. Fourth",
+      "tier": "good",
+      "title": "Principle #4. Fourth"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        5
+      ],
+      "text": "reason 5- Fifth",
+      "tier": "good",
+      "title": "reason 5- Fifth"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [],
+      "slides": [
+        6
+      ],
+      "text": "WAY 6) Sixth",
+      "tier": "good",
+      "title": "WAY 6) Sixth"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "point",
+      "line": 7,
+      "reasons": [],
+      "slides": [
+        7
+      ],
+      "text": "Tip 7: Seventh",
+      "tier": "good",
+      "title": "Tip 7: Seventh"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 7,
+      "kind": "point",
+      "line": 8,
+      "reasons": [],
+      "slides": [
+        8
+      ],
+      "text": "Lesson #8) Eighth",
+      "tier": "good",
+      "title": "Lesson #8) Eighth"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "point",
+      "line": 9,
+      "reasons": [],
+      "slides": [
+        9
+      ],
+      "text": "Truth 9. Ninth",
+      "tier": "good",
+      "title": "Truth 9. Ninth"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 9,
+      "kind": "point",
+      "line": 10,
+      "reasons": [],
+      "slides": [
+        10
+      ],
+      "text": "KEY #10) Tenth",
+      "tier": "good",
+      "title": "KEY #10) Tenth"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 10,
+      "kind": "point",
+      "line": 11,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        11
+      ],
+      "text": "• KEY #1000) Too many",
+      "tier": "warning",
+      "title": "• KEY #1000) Too many"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 11,
+      "kind": "point",
+      "line": 12,
+      "reasons": [],
+      "slides": [
+        12
+      ],
+      "text": "KEY #11)",
+      "tier": "good",
+      "title": "KEY #11)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 12,
+      "kind": "point",
+      "line": 13,
+      "reasons": [
+        "numbered out of sequence (after point 10); treated as a list item",
+        "text mentions John 3:16; not added as a verse slide",
+        "text mentions Romans 8:28; not added as a verse slide"
+      ],
+      "slides": [
+        13
+      ],
+      "text": "Point #12) John 3:16\nand Romans 8:28 here",
+      "tier": "warning",
+      "title": "Point #12) John 3:16"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 13,
+      "kind": "point",
+      "line": 14,
+      "reasons": [
+        "numbered out of sequence (after point 10); treated as a list item",
+        "text mentions Psalms 23:1 NIV; not added as a verse slide"
+      ],
+      "slides": [
+        14
+      ],
+      "text": "key #13) Psalm 23:1 NIV",
+      "tier": "warning",
+      "title": "key #13) Psalm 23:1 NIV"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "KEY #1) First",
+        "tier": "good",
+        "title": "KEY #1) First"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "KEY#2) Second",
+        "tier": "good",
+        "title": "KEY#2) Second"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "text": "Step 3: Third",
+        "tier": "good",
+        "title": "Step 3: Third"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "text": "Principle #4. Fourth",
+        "tier": "good",
+        "title": "Principle #4. Fourth"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "point",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          5
+        ],
+        "text": "reason 5- Fifth",
+        "tier": "good",
+        "title": "reason 5- Fifth"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "point",
+        "line": 6,
+        "reasons": [],
+        "slides": [
+          6
+        ],
+        "text": "WAY 6) Sixth",
+        "tier": "good",
+        "title": "WAY 6) Sixth"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "point",
+        "line": 7,
+        "reasons": [],
+        "slides": [
+          7
+        ],
+        "text": "Tip 7: Seventh",
+        "tier": "good",
+        "title": "Tip 7: Seventh"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 7,
+        "kind": "point",
+        "line": 8,
+        "reasons": [],
+        "slides": [
+          8
+        ],
+        "text": "Lesson #8) Eighth",
+        "tier": "good",
+        "title": "Lesson #8) Eighth"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "point",
+        "line": 9,
+        "reasons": [],
+        "slides": [
+          9
+        ],
+        "text": "Truth 9. Ninth",
+        "tier": "good",
+        "title": "Truth 9. Ninth"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 9,
+        "kind": "point",
+        "line": 10,
+        "reasons": [],
+        "slides": [
+          10
+        ],
+        "text": "KEY #10) Tenth",
+        "tier": "good",
+        "title": "KEY #10) Tenth"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 11,
+        "kind": "point",
+        "line": 12,
+        "reasons": [],
+        "slides": [
+          12
+        ],
+        "text": "KEY #11)",
+        "tier": "good",
+        "title": "KEY #11)"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 10,
+        "kind": "point",
+        "line": 11,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          11
+        ],
+        "text": "• KEY #1000) Too many",
+        "tier": "warning",
+        "title": "• KEY #1000) Too many"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 12,
+        "kind": "point",
+        "line": 13,
+        "reasons": [
+          "numbered out of sequence (after point 10); treated as a list item",
+          "text mentions John 3:16; not added as a verse slide",
+          "text mentions Romans 8:28; not added as a verse slide"
+        ],
+        "slides": [
+          13
+        ],
+        "text": "Point #12) John 3:16\nand Romans 8:28 here",
+        "tier": "warning",
+        "title": "Point #12) John 3:16"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 13,
+        "kind": "point",
+        "line": 14,
+        "reasons": [
+          "numbered out of sequence (after point 10); treated as a list item",
+          "text mentions Psalms 23:1 NIV; not added as a verse slide"
+        ],
+        "slides": [
+          14
+        ],
+        "text": "key #13) Psalm 23:1 NIV",
+        "tier": "warning",
+        "title": "key #13) Psalm 23:1 NIV"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "KEY #1) First",
+      "title": "KEY #1) First"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "KEY#2) Second",
+      "title": "KEY#2) Second"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "Step 3: Third",
+      "title": "Step 3: Third"
+    },
+    {
+      "kind": "point",
+      "n": 4,
+      "text": "Principle #4. Fourth",
+      "title": "Principle #4. Fourth"
+    },
+    {
+      "kind": "point",
+      "n": 5,
+      "text": "reason 5- Fifth",
+      "title": "reason 5- Fifth"
+    },
+    {
+      "kind": "point",
+      "n": 6,
+      "text": "WAY 6) Sixth",
+      "title": "WAY 6) Sixth"
+    },
+    {
+      "kind": "point",
+      "n": 7,
+      "text": "Tip 7: Seventh",
+      "title": "Tip 7: Seventh"
+    },
+    {
+      "kind": "point",
+      "n": 8,
+      "text": "Lesson #8) Eighth",
+      "title": "Lesson #8) Eighth"
+    },
+    {
+      "kind": "point",
+      "n": 9,
+      "text": "Truth 9. Ninth",
+      "title": "Truth 9. Ninth"
+    },
+    {
+      "kind": "point",
+      "n": 10,
+      "text": "KEY #10) Tenth",
+      "title": "KEY #10) Tenth"
+    },
+    {
+      "kind": "point",
+      "n": 11,
+      "text": "• KEY #1000) Too many",
+      "title": "• KEY #1000) Too many"
+    },
+    {
+      "kind": "point",
+      "n": 12,
+      "text": "KEY #11)",
+      "title": "KEY #11)"
+    },
+    {
+      "kind": "point",
+      "n": 13,
+      "text": "Point #12) John 3:16\nand Romans 8:28 here",
+      "title": "Point #12) John 3:16"
+    },
+    {
+      "kind": "point",
+      "n": 14,
+      "text": "key #13) Psalm 23:1 NIV",
+      "title": "key #13) Psalm 23:1 NIV"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 6,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 11,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 14,
+    "slides": 14,
+    "verse_slides": 0,
+    "warnings": 3
+  }
+}

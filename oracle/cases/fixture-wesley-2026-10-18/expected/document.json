@@ -1,0 +1,424 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "JPL 10/18/26 John Wesley A Man on Fire for God"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "stage/production cue",
+      "text": "Show slide of Heroes Series and keep up for a while."
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 3,
+      "reason": "stage/production cue",
+      "text": "When I mentioned his name Show slide of John Wesley and keep up for a while."
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "slide_note",
+      "text": "You Are a Brand Plucked From the Fire",
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "point",
+      "text": "A Person Must Realize They are Lost Before they are Saved.",
+      "warnings": []
+    },
+    {
+      "category": "quoted_text",
+      "kind": "skipped",
+      "line": 6,
+      "reason": "verse text quoted above its reference; text is fetched from the Bible provider",
+      "text": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are the Christ, save Yourself and us.” But the other, answering, rebuked him, saying, “Do you not even fear God, seeing you are under the same condemnation? And we indeed justly, for we receive the due reward of our deeds; but this Man has done nothing wrong.” Then he said to Jesus, “Lord, remember me when You come into Your kingdom.” And Jesus said to him, “Assuredly, I say to you, today you will be with Me in Paradise.””"
+    },
+    {
+      "kind": "verse",
+      "line": 12,
+      "quoted": "“Then one of the criminals who were hanged blasphemed Him, saying, “If You are the Christ, save Yourself and us.” But the other, answering, rebuked him, saying, “Do you not even fear God, seeing you are under the same condemnation? And we indeed justly, for we receive the due reward of our deeds; but this Man has done nothing wrong.” Then he said to Jesus, “Lord, remember me when You come into Your kingdom.” And Jesus said to him, “Assuredly, I say to you, today you will be with Me in Paradise.””",
+      "reference": {
+        "book_display_name": "Luke",
+        "book_id": "LUK",
+        "normalized_text": "Luke 23:39-43 NKJV",
+        "source_end": 18,
+        "source_start": 0,
+        "source_text": "Luke 23:39-43 NKJV",
+        "spans": [
+          {
+            "end": {
+              "chapter": 23,
+              "verse": 43
+            },
+            "start": {
+              "chapter": 23,
+              "verse": 39
+            }
+          }
+        ],
+        "version": "NKJV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "category": "quoted_text",
+      "kind": "skipped",
+      "line": 13,
+      "reason": "verse text quoted above its reference; text is fetched from the Bible provider",
+      "text": "\"The Spirit itself beareth witness with our spirit, that we are the children of God.\""
+    },
+    {
+      "kind": "verse",
+      "line": 14,
+      "quoted": "\"The Spirit itself beareth witness with our spirit, that we are the children of God.\"",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 8:16",
+        "source_end": 11,
+        "source_start": 0,
+        "source_text": "Romans 8:16",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 8,
+              "verse": 16
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 15,
+      "kind": "point",
+      "label": "2)",
+      "label_fixed_from": "",
+      "line": 15,
+      "role": "point",
+      "text": "You Must Be Born Again and Set On Fire",
+      "warnings": []
+    },
+    {
+      "category": "quoted_text",
+      "kind": "skipped",
+      "line": 16,
+      "reason": "verse text quoted above its reference; text is fetched from the Bible provider",
+      "text": "“And He said to them, “Why did you seek Me? Did you not know that I must be about My Father’s business?””"
+    },
+    {
+      "kind": "verse",
+      "line": 18,
+      "quoted": "“And He said to them, “Why did you seek Me? Did you not know that I must be about My Father’s business?””",
+      "reference": {
+        "book_display_name": "Luke",
+        "book_id": "LUK",
+        "normalized_text": "Luke 2:49 NKJV",
+        "source_end": 14,
+        "source_start": 0,
+        "source_text": "Luke 2:49 NKJV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 2,
+              "verse": 49
+            }
+          }
+        ],
+        "version": "NKJV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 19,
+      "quoted": "\"Faith, if it hath not works, is dead, being alone.\"",
+      "reference": {
+        "book_display_name": "James",
+        "book_id": "JAS",
+        "normalized_text": "James 2:17 KJV",
+        "source_end": 70,
+        "source_start": 55,
+        "source_text": "James 2:17, KJV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 2,
+              "verse": 17
+            }
+          }
+        ],
+        "version": "KJV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 20,
+      "kind": "point",
+      "label": "3)",
+      "label_fixed_from": "",
+      "line": 20,
+      "role": "point",
+      "text": "A Disciplined Faith Must Become a Living Faith",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 21,
+      "quoted": "\"Go out into the highways and hedges, and compel them to come in, that my house may be filled.\"",
+      "reference": {
+        "book_display_name": "Luke",
+        "book_id": "LUK",
+        "normalized_text": "Luke 14:23",
+        "source_end": 107,
+        "source_start": 97,
+        "source_text": "Luke 14:23",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 14,
+              "verse": 23
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 23,
+      "kind": "point",
+      "label": "4)",
+      "label_fixed_from": "",
+      "line": 23,
+      "role": "point",
+      "text": "Identify Your Go",
+      "warnings": []
+    },
+    {
+      "detail_end": 24,
+      "kind": "point",
+      "label": "5)",
+      "label_fixed_from": "",
+      "line": 24,
+      "role": "point",
+      "text": "One Surrendered Life Can Influence Generations",
+      "warnings": []
+    },
+    {
+      "detail_end": 25,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 25,
+      "role": "slide_note",
+      "text": "Conclusion: Will You Let God Use Your Life?",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 26,
+      "quoted": "\"Present your bodies a living sacrifice, holy, acceptable unto God, which is your reasonable service.\"",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 12:1 KJV",
+        "source_end": 121,
+        "source_start": 105,
+        "source_text": "Romans 12:1, KJV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 12,
+              "verse": 1
+            }
+          }
+        ],
+        "version": "KJV",
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 2,
+      "rule": "starts with a stage/cue word",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 3,
+      "rule": "starts with a stage/cue word",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "other",
+      "line": 4,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 5,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 11,
+      "first_in_document": false,
+      "label": "quote",
+      "line": 6,
+      "rule": "starts with a quotation mark",
+      "why": ""
+    },
+    {
+      "end_line": 12,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 12,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 13,
+      "first_in_document": false,
+      "label": "quote",
+      "line": 13,
+      "rule": "starts with a quotation mark",
+      "why": ""
+    },
+    {
+      "end_line": 14,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 14,
+      "rule": "whole line is a reference in brackets",
+      "why": ""
+    },
+    {
+      "end_line": 15,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 15,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 17,
+      "first_in_document": false,
+      "label": "quote",
+      "line": 16,
+      "rule": "starts with a quotation mark",
+      "why": ""
+    },
+    {
+      "end_line": 18,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 18,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 19,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 19,
+      "rule": "Bible reference at the end of a quoted block",
+      "why": ""
+    },
+    {
+      "end_line": 20,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 20,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 22,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 21,
+      "rule": "Bible reference at the end of a quoted block",
+      "why": ""
+    },
+    {
+      "end_line": 23,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 23,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 24,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 24,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 25,
+      "first_in_document": false,
+      "label": "other",
+      "line": 25,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 27,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 26,
+      "rule": "Bible reference at the end of a quoted block",
+      "why": ""
+    }
+  ]
+}

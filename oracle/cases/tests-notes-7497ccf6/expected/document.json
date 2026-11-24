@@ -1,0 +1,35 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "kind": "review",
+      "line": 1,
+      "reason": "whole-chapter reference; add verse numbers to include it",
+      "text": "Psalm 23"
+    },
+    {
+      "kind": "review",
+      "line": 2,
+      "reason": "mentions Romans 8:28 inside text; put the reference on its own line to add it as a slide",
+      "text": "See Romans 8:28 for context"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "verse",
+      "line": 1,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "midref",
+      "line": 2,
+      "rule": "Bible reference found inside a sentence",
+      "why": ""
+    }
+  ]
+}

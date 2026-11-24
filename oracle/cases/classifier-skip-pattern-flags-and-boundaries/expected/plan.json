@@ -1,0 +1,130 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• Another Word",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slide_count": 0,
+      "text": "Another Word",
+      "tier": "warning",
+      "title": "Another Word"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• wordy",
+      "tier": "warning",
+      "title": "• wordy"
+    },
+    {
+      "add_text": "• word",
+      "correction": {},
+      "first_slide": 2,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slide_count": 0,
+      "text": "word",
+      "tier": "warning",
+      "title": "word"
+    },
+    {
+      "add_text": "• NoTE to self",
+      "correction": {},
+      "first_slide": 2,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "NoTE to self",
+      "tier": "good",
+      "title": "NoTE to self"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 3,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• wordy"
+    }
+  ],
+  "point_count": 2,
+  "review": [],
+  "skipped": [
+    {
+      "line": 2,
+      "problem": "stage_note: matches a skip pattern",
+      "text": "Another Word"
+    },
+    {
+      "line": 4,
+      "problem": "stage_note: matches a skip pattern",
+      "text": "word"
+    },
+    {
+      "line": 5,
+      "problem": "stage_note: stage/production cue",
+      "text": "NoTE to self"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) A point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• wordy",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

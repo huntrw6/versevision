@@ -1,0 +1,163 @@
+{
+  "decisions": [
+    {
+      "add_text": "• Title 11/22/26",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slide_count": 0,
+      "text": "Title 11/22/26",
+      "tier": "good",
+      "title": "Title 11/22/26"
+    },
+    {
+      "add_text": "• [slide]",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "[slide] tag with no text"
+      ],
+      "slide_count": 0,
+      "text": "[slide]",
+      "tier": "error",
+      "title": "[slide]"
+    },
+    {
+      "add_text": "• [slide]",
+      "correction": {},
+      "first_slide": 0,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "[slide] tag with no text"
+      ],
+      "slide_count": 0,
+      "text": "[slide]",
+      "tier": "error",
+      "title": "[slide]"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) One",
+      "tier": "good",
+      "title": "1) One"
+    },
+    {
+      "add_text": "• Photo of the cross",
+      "correction": {},
+      "first_slide": 1,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "[slide] tag that points at an existing slide or media item"
+      ],
+      "slide_count": 0,
+      "text": "Photo of the cross",
+      "tier": "good",
+      "title": "Photo of the cross"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• Faith = pistis",
+      "tier": "good",
+      "title": "• Faith = pistis"
+    },
+    {
+      "add_text": "• Video clip of the baptism",
+      "correction": {},
+      "first_slide": 2,
+      "id": 6,
+      "kind": "left_out",
+      "line": 7,
+      "reasons": [
+        "[slide] tag that points at an existing slide or media item"
+      ],
+      "slide_count": 0,
+      "text": "Video clip of the baptism",
+      "tier": "good",
+      "title": "Video clip of the baptism"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [],
+  "point_count": 2,
+  "review": [
+    {
+      "line": 2,
+      "problem": "[slide] tag with no text",
+      "text": "[slide]"
+    },
+    {
+      "line": 3,
+      "problem": "[slide] tag with no text",
+      "text": "[slide]"
+    }
+  ],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: title / date line",
+      "text": "Title 11/22/26"
+    },
+    {
+      "line": 5,
+      "problem": "media_marker: [slide] tag that points at an existing slide or media item",
+      "text": "Photo of the cross"
+    },
+    {
+      "line": 7,
+      "problem": "media_marker: [slide] tag that points at an existing slide or media item",
+      "text": "Video clip of the baptism"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) One",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• Faith = pistis",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

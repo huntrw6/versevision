@@ -1,0 +1,94 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "Title 11/8/26"
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "KEY#1)",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "point",
+      "text": "ONE",
+      "warnings": []
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "KEY #2)",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "point",
+      "text": "TWO",
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "KEY#3)",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "point",
+      "text": "THREE",
+      "warnings": []
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "KEY #4)",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "point",
+      "text": "FOUR",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 4,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 5,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 6,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    }
+  ]
+}

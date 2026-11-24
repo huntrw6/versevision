@@ -1,0 +1,55 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "Point",
+      "warnings": []
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "mentions Psalms 23:1 inside text (your setting skips these)",
+      "text": "As Psalm 23:1 says, he leads us."
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 3,
+      "reason": "mentions John 3:16, Romans 8:28, Acts 2:1 inside text (your setting skips these)",
+      "text": "See also John 3:16 and Romans 8:28 and Acts 2:1 and Acts 2:2 here"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "midref",
+      "line": 2,
+      "rule": "Bible reference found inside a sentence",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "midref",
+      "line": 3,
+      "rule": "Bible reference found inside a sentence",
+      "why": ""
+    }
+  ]
+}

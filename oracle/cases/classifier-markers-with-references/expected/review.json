@@ -1,0 +1,355 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NIV (nearest version above)",
+      "line": 3,
+      "status": "adjusted",
+      "text": "Genesis 1:1"
+    },
+    {
+      "detail": "no version listed; used NIV (nearest version above)",
+      "line": 3,
+      "status": "adjusted",
+      "text": "Exodus 3:14"
+    },
+    {
+      "detail": "no version listed; used NIV (nearest version above)",
+      "line": 4,
+      "status": "adjusted",
+      "text": "Acts 2:1"
+    },
+    {
+      "detail": "text mentions Romans 8:28; not added as a verse slide",
+      "line": 1,
+      "status": "adjusted",
+      "text": "1) Read Romans 8:28 today"
+    },
+    {
+      "detail": "text mentions Acts 2:2; not added as a verse slide",
+      "line": 5,
+      "status": "adjusted",
+      "text": "• see Acts 2:2 now"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [
+        "text mentions Romans 8:28; not added as a verse slide"
+      ],
+      "slides": [
+        1
+      ],
+      "text": "1) Read Romans 8:28 today",
+      "tier": "warning",
+      "title": "1) Read Romans 8:28 today"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "numbered line holds a reference; treated as a verse, not a sermon point"
+      ],
+      "slides": [
+        2
+      ],
+      "text": "John 3:16 NIV",
+      "tier": "warning",
+      "title": "John 3:16 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slides": [
+        3
+      ],
+      "text": "Genesis 1:1",
+      "tier": "warning",
+      "title": "Genesis 1:1 (NIV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)",
+        "numbered line holds a reference; treated as a verse, not a sermon point"
+      ],
+      "slides": [
+        4
+      ],
+      "text": "Exodus 3:14",
+      "tier": "warning",
+      "title": "Exodus 3:14 (NIV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slides": [
+        5
+      ],
+      "text": "Acts 2:1",
+      "tier": "warning",
+      "title": "Acts 2:1 (NIV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "point",
+      "line": 5,
+      "reasons": [
+        "text mentions Acts 2:2; not added as a verse slide"
+      ],
+      "slides": [
+        6
+      ],
+      "text": "• see Acts 2:2 now",
+      "tier": "warning",
+      "title": "• see Acts 2:2 now"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "verse",
+      "line": 6,
+      "reasons": [
+        "numbered line holds a reference; treated as a verse, not a sermon point"
+      ],
+      "slides": [
+        7,
+        8
+      ],
+      "text": "Romans 8:28 – 9:1 NIV",
+      "tier": "warning",
+      "title": "Romans 8:28-9:1 NIV"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [
+          "text mentions Romans 8:28; not added as a verse slide"
+        ],
+        "slides": [
+          1
+        ],
+        "text": "1) Read Romans 8:28 today",
+        "tier": "warning",
+        "title": "1) Read Romans 8:28 today"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "numbered line holds a reference; treated as a verse, not a sermon point"
+        ],
+        "slides": [
+          2
+        ],
+        "text": "John 3:16 NIV",
+        "tier": "warning",
+        "title": "John 3:16 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [
+          "no version listed; used NIV (nearest version above)"
+        ],
+        "slides": [
+          3
+        ],
+        "text": "Genesis 1:1",
+        "tier": "warning",
+        "title": "Genesis 1:1 (NIV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [
+          "no version listed; used NIV (nearest version above)",
+          "numbered line holds a reference; treated as a verse, not a sermon point"
+        ],
+        "slides": [
+          4
+        ],
+        "text": "Exodus 3:14",
+        "tier": "warning",
+        "title": "Exodus 3:14 (NIV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "verse",
+        "line": 4,
+        "reasons": [
+          "no version listed; used NIV (nearest version above)"
+        ],
+        "slides": [
+          5
+        ],
+        "text": "Acts 2:1",
+        "tier": "warning",
+        "title": "Acts 2:1 (NIV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "point",
+        "line": 5,
+        "reasons": [
+          "text mentions Acts 2:2; not added as a verse slide"
+        ],
+        "slides": [
+          6
+        ],
+        "text": "• see Acts 2:2 now",
+        "tier": "warning",
+        "title": "• see Acts 2:2 now"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "verse",
+        "line": 6,
+        "reasons": [
+          "numbered line holds a reference; treated as a verse, not a sermon point"
+        ],
+        "slides": [
+          7,
+          8
+        ],
+        "text": "Romans 8:28 – 9:1 NIV",
+        "tier": "warning",
+        "title": "Romans 8:28-9:1 NIV"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Read Romans 8:28 today",
+      "title": "1) Read Romans 8:28 today"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "",
+      "title": "John 3:16 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "",
+      "title": "Genesis 1:1 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "",
+      "title": "Exodus 3:14 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "",
+      "title": "Acts 2:1 (NIV)"
+    },
+    {
+      "kind": "point",
+      "n": 6,
+      "text": "• see Acts 2:2 now",
+      "title": "• see Acts 2:2 now"
+    },
+    {
+      "kind": "verse",
+      "n": 7,
+      "text": "",
+      "title": "Romans 8:28 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "",
+      "title": "Romans 9:1 (NIV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 5,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 0,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 2,
+    "slides": 8,
+    "verse_slides": 6,
+    "warnings": 7
+  }
+}

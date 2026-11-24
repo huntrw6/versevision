@@ -1,0 +1,216 @@
+{
+  "adjustments": [],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "• Pastor Amy's notes",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "error",
+      "line": 1,
+      "reasons": [
+        "line before the first verse or point (your setting asks to check these)"
+      ],
+      "slides": [],
+      "text": "Pastor Amy's notes",
+      "tier": "error",
+      "title": "Pastor Amy's notes"
+    },
+    {
+      "add_text": "• This was a good week",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "unlabeled line; not a reference, point, or known cue"
+      ],
+      "slides": [],
+      "text": "This was a good week.",
+      "tier": "error",
+      "title": "This was a good week."
+    },
+    {
+      "add_text": "• An overlong opening sentence\nthat rambles on and on\nwithout any end to it at all\nbecause it keeps going",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "unlabeled line; not a reference, point, or known cue"
+      ],
+      "slides": [],
+      "text": "An overlong opening sentence that rambles on and on without any end to it at all because it keeps going",
+      "tier": "error",
+      "title": "An overlong opening sentence that rambles on and on without any end to it at all"
+    },
+    {
+      "add_text": "• An overlong opening sentence\nthat rambles on and on past\neighty characters and ends here",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "unlabeled line; not a reference, point, or known cue"
+      ],
+      "slides": [],
+      "text": "An overlong opening sentence that rambles on and on past eighty characters and ends here.",
+      "tier": "error",
+      "title": "An overlong opening sentence that rambles on and on past eighty characters and e"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "line before the first verse or point (your setting asks to check these)",
+      "line": 1,
+      "status": "needs_review",
+      "text": "Pastor Amy's notes"
+    },
+    {
+      "detail": "unlabeled line; not a reference, point, or known cue",
+      "line": 2,
+      "status": "needs_review",
+      "text": "This was a good week."
+    },
+    {
+      "detail": "unlabeled line; not a reference, point, or known cue",
+      "line": 3,
+      "status": "needs_review",
+      "text": "An overlong opening sentence that rambles on and on without any end to it at all because it keeps going"
+    },
+    {
+      "detail": "unlabeled line; not a reference, point, or known cue",
+      "line": 4,
+      "status": "needs_review",
+      "text": "An overlong opening sentence that rambles on and on past eighty characters and ends here."
+    }
+  ],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• Pastor Amy's notes",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "error",
+        "line": 1,
+        "reasons": [
+          "line before the first verse or point (your setting asks to check these)"
+        ],
+        "slides": [],
+        "text": "Pastor Amy's notes",
+        "tier": "error",
+        "title": "Pastor Amy's notes"
+      },
+      {
+        "add_text": "• This was a good week",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "error",
+        "line": 2,
+        "reasons": [
+          "unlabeled line; not a reference, point, or known cue"
+        ],
+        "slides": [],
+        "text": "This was a good week.",
+        "tier": "error",
+        "title": "This was a good week."
+      },
+      {
+        "add_text": "• An overlong opening sentence\nthat rambles on and on\nwithout any end to it at all\nbecause it keeps going",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "error",
+        "line": 3,
+        "reasons": [
+          "unlabeled line; not a reference, point, or known cue"
+        ],
+        "slides": [],
+        "text": "An overlong opening sentence that rambles on and on without any end to it at all because it keeps going",
+        "tier": "error",
+        "title": "An overlong opening sentence that rambles on and on without any end to it at all"
+      },
+      {
+        "add_text": "• An overlong opening sentence\nthat rambles on and on past\neighty characters and ends here",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "error",
+        "line": 4,
+        "reasons": [
+          "unlabeled line; not a reference, point, or known cue"
+        ],
+        "slides": [],
+        "text": "An overlong opening sentence that rambles on and on past eighty characters and ends here.",
+        "tier": "error",
+        "title": "An overlong opening sentence that rambles on and on past eighty characters and e"
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "point",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) A point",
+      "title": "1) A point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 4,
+    "fixes": 0,
+    "flagged": 4,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 4,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 1,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

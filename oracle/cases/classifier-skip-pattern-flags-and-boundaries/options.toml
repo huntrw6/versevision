@@ -1,0 +1,9 @@
+[notes]
+skip_patterns = [
+    "(?-i:^another)",
+    "(?i:\\bWORD\\b)",
+    "^\\Bote",
+]
+
+[run]
+no_fetch = true

@@ -1,0 +1,586 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 22,
+      "status": "adjusted",
+      "text": "• the next sentence in lower case runs on for many words ind"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Opening point",
+      "tier": "good",
+      "title": "1) Opening point"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 7,
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "point",
+      "line": 9,
+      "reasons": [],
+      "slides": [
+        5
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "point",
+      "line": 11,
+      "reasons": [],
+      "slides": [
+        6
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "point",
+      "line": 13,
+      "reasons": [],
+      "slides": [
+        7
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 7,
+      "kind": "point",
+      "line": 15,
+      "reasons": [],
+      "slides": [
+        8
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "point",
+      "line": 17,
+      "reasons": [],
+      "slides": [
+        9
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 9,
+      "kind": "point",
+      "line": 19,
+      "reasons": [],
+      "slides": [
+        10
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 10,
+      "kind": "point",
+      "line": 21,
+      "reasons": [],
+      "slides": [
+        11
+      ],
+      "text": "A SHORT CAPITALS HEADING THAT NEEDS\nMORE WORDS HERE AND THERE AND",
+      "tier": "good",
+      "title": "A SHORT CAPITALS HEADING THAT NEEDS"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 11,
+      "kind": "point",
+      "line": 22,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        12
+      ],
+      "text": "• the next sentence in lower case\nruns on for many words indeed ok",
+      "tier": "warning",
+      "title": "• the next sentence in lower case"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 12,
+      "kind": "point",
+      "line": 24,
+      "reasons": [],
+      "slides": [
+        13
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 13,
+      "kind": "point",
+      "line": 26,
+      "reasons": [],
+      "slides": [
+        14
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 14,
+      "kind": "point",
+      "line": 28,
+      "reasons": [],
+      "slides": [
+        15
+      ],
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "tier": "good",
+      "title": "• Grace is the free and"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Opening point",
+        "tier": "good",
+        "title": "1) Opening point"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 7,
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "point",
+        "line": 9,
+        "reasons": [],
+        "slides": [
+          5
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "point",
+        "line": 11,
+        "reasons": [],
+        "slides": [
+          6
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "point",
+        "line": 13,
+        "reasons": [],
+        "slides": [
+          7
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 7,
+        "kind": "point",
+        "line": 15,
+        "reasons": [],
+        "slides": [
+          8
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "point",
+        "line": 17,
+        "reasons": [],
+        "slides": [
+          9
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 9,
+        "kind": "point",
+        "line": 19,
+        "reasons": [],
+        "slides": [
+          10
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 10,
+        "kind": "point",
+        "line": 21,
+        "reasons": [],
+        "slides": [
+          11
+        ],
+        "text": "A SHORT CAPITALS HEADING THAT NEEDS\nMORE WORDS HERE AND THERE AND",
+        "tier": "good",
+        "title": "A SHORT CAPITALS HEADING THAT NEEDS"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 12,
+        "kind": "point",
+        "line": 24,
+        "reasons": [],
+        "slides": [
+          13
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 13,
+        "kind": "point",
+        "line": 26,
+        "reasons": [],
+        "slides": [
+          14
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 14,
+        "kind": "point",
+        "line": 28,
+        "reasons": [],
+        "slides": [
+          15
+        ],
+        "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+        "tier": "good",
+        "title": "• Grace is the free and"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 11,
+        "kind": "point",
+        "line": 22,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          12
+        ],
+        "text": "• the next sentence in lower case\nruns on for many words indeed ok",
+        "tier": "warning",
+        "title": "• the next sentence in lower case"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Opening point",
+      "title": "1) Opening point"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 4,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 5,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 6,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 7,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 8,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 9,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 10,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 11,
+      "text": "A SHORT CAPITALS HEADING THAT NEEDS\nMORE WORDS HERE AND THERE AND",
+      "title": "A SHORT CAPITALS HEADING THAT NEEDS"
+    },
+    {
+      "kind": "point",
+      "n": 12,
+      "text": "• the next sentence in lower case\nruns on for many words indeed ok",
+      "title": "• the next sentence in lower case"
+    },
+    {
+      "kind": "point",
+      "n": 13,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 14,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    },
+    {
+      "kind": "point",
+      "n": 15,
+      "text": "• Grace is the free and\nundeserved favor of God\ntoward people who could never\nearn it by their own effort",
+      "title": "• Grace is the free and"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 14,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 15,
+    "slides": 15,
+    "verse_slides": 0,
+    "warnings": 1
+  }
+}

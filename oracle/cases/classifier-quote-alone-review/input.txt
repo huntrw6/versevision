@@ -1,0 +1,4 @@
+1) Point
+“A quotation with no reference anywhere near it.”
+'And one in single quotes'
+«Guillemets too»

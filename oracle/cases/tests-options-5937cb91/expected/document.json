@@ -1,0 +1,25 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "the grace of god",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    }
+  ]
+}

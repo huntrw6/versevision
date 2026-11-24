@@ -1,0 +1,127 @@
+{
+  "decisions": [
+    {
+      "add_text": "• Title 11/22/26",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slide_count": 0,
+      "text": "Title 11/22/26",
+      "tier": "good",
+      "title": "Title 11/22/26"
+    },
+    {
+      "add_text": "• “The Lord is my shepherd;\nI shall not want”",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "verse text quoted above its reference (your setting asks to check these)"
+      ],
+      "slide_count": 0,
+      "text": "“The Lord is my shepherd; I shall not want.”",
+      "tier": "error",
+      "title": "“The Lord is my shepherd; I shall not want.”"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Psalm 23:1 NKJV",
+      "tier": "good",
+      "title": "Psalms 23:1 NKJV"
+    },
+    {
+      "add_text": "• “Another quote that is far away”",
+      "correction": {},
+      "first_slide": 1,
+      "id": 3,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "quoted text with no reference"
+      ],
+      "slide_count": 0,
+      "text": "“Another quote that is far away.”",
+      "tier": "error",
+      "title": "“Another quote that is far away.”"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 4,
+      "kind": "verse",
+      "line": 9,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "John 3:16 NIV",
+      "tier": "good",
+      "title": "John 3:16 NIV"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [],
+  "point_count": 0,
+  "review": [
+    {
+      "line": 2,
+      "problem": "verse text quoted above its reference (your setting asks to check these)",
+      "text": "“The Lord is my shepherd; I shall not want.”"
+    },
+    {
+      "line": 4,
+      "problem": "quoted text with no reference",
+      "text": "“Another quote that is far away.”"
+    }
+  ],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: title / date line",
+      "text": "Title 11/22/26"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:1",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "PSA.23.1"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NIV"
+      }
+    ]
+  },
+  "verse_count": 2
+}

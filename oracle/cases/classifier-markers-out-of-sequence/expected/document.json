@@ -1,0 +1,119 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "One",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "2)",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "point",
+      "text": "Two",
+      "warnings": []
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "5)",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "list_item",
+      "text": "Five",
+      "warnings": [
+        "numbered out of sequence (after point 2); treated as a list item"
+      ]
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "3)",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "point",
+      "text": "Three",
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "4)",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "point",
+      "text": "Four",
+      "warnings": []
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "6)",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "list_item",
+      "text": "Six",
+      "warnings": [
+        "numbered out of sequence (after point 4); treated as a list item"
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 2,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 4,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 5,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 6,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "Title 11/22/26"
+    },
+    {
+      "category": "quoted_text",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "verse text quoted above its reference; text is fetched from the Bible provider",
+      "text": "“The Lord is my shepherd; I shall not want.”"
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "“The Lord is my shepherd; I shall not want.”",
+      "reference": {
+        "book_display_name": "Psalms",
+        "book_id": "PSA",
+        "normalized_text": "Psalms 23:1 NKJV",
+        "source_end": 15,
+        "source_start": 0,
+        "source_text": "Psalm 23:1 NKJV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 23,
+              "verse": 1
+            }
+          }
+        ],
+        "version": "NKJV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "review",
+      "line": 4,
+      "reason": "quoted text with no reference",
+      "text": "“Another quote that is far away.”"
+    },
+    {
+      "kind": "verse",
+      "line": 9,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16 NIV",
+        "source_end": 13,
+        "source_start": 0,
+        "source_text": "John 3:16 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "quote",
+      "line": 2,
+      "rule": "starts with a quotation mark",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 3,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "quote",
+      "line": 4,
+      "rule": "starts with a quotation mark",
+      "why": ""
+    },
+    {
+      "end_line": 9,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 9,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+[notes]
+duplicates = "drop"
+
+[run]
+no_fetch = true

@@ -1,0 +1,6 @@
+[notes]
+unlabeled_sentence = "bullet"
+unlabeled_short = "bullet"
+
+[run]
+no_fetch = true

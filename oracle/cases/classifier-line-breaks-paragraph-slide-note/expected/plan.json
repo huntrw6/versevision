@@ -1,0 +1,126 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• A note slide",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "[slide] tag that points at an existing slide or media item"
+      ],
+      "slide_count": 0,
+      "text": "A note slide",
+      "tier": "good",
+      "title": "A note slide"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• A detail sentence under it",
+      "tier": "good",
+      "title": "• A detail sentence under it"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Conclusion: done",
+      "tier": "good",
+      "title": "Conclusion: done"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• A detail after the label",
+      "tier": "good",
+      "title": "• A detail after the label"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [],
+  "point_count": 4,
+  "review": [],
+  "skipped": [
+    {
+      "line": 2,
+      "problem": "media_marker: [slide] tag that points at an existing slide or media item",
+      "text": "A note slide"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) A point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• A detail sentence under it",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Conclusion: done",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• A detail after the label",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 3,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

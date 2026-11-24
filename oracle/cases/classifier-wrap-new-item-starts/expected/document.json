@@ -1,0 +1,552 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "Opening point",
+      "warnings": []
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 7,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 7,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 9,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 9,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 11,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 11,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 13,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 13,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 15,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 15,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 17,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 17,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 19,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 19,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 21,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 21,
+      "role": "list_item",
+      "text": "The shepherd leads us beside still waters and gives us rest in every season of life and",
+      "warnings": []
+    },
+    {
+      "detail_end": 22,
+      "kind": "point",
+      "label": "KEY #2)",
+      "label_fixed_from": "",
+      "line": 22,
+      "role": "point",
+      "text": "NEXT",
+      "warnings": []
+    },
+    {
+      "detail_end": 24,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 24,
+      "role": "list_item",
+      "text": "The shepherd leads us beside still waters and gives us rest in every season of life and",
+      "warnings": []
+    },
+    {
+      "detail_end": 25,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 25,
+      "role": "list_item",
+      "text": "a bullet",
+      "warnings": []
+    },
+    {
+      "detail_end": 27,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 27,
+      "role": "list_item",
+      "text": "The shepherd leads us beside still waters and gives us rest in every season of life and",
+      "warnings": []
+    },
+    {
+      "detail_end": 28,
+      "kind": "point",
+      "label": "3)",
+      "label_fixed_from": "",
+      "line": 28,
+      "role": "point",
+      "text": "a marker",
+      "warnings": []
+    },
+    {
+      "detail_end": 30,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 30,
+      "role": "list_item",
+      "text": "The shepherd leads us beside still waters and gives us rest in every season of life and",
+      "warnings": []
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 31,
+      "reason": "stage/production cue",
+      "text": "Show the photo"
+    },
+    {
+      "detail_end": 33,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 33,
+      "role": "list_item",
+      "text": "The shepherd leads us beside still waters and gives us rest in every season of life and",
+      "warnings": []
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 34,
+      "reason": "stage/production cue",
+      "text": "https://example.com/x"
+    },
+    {
+      "detail_end": 36,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 36,
+      "role": "list_item",
+      "text": "The shepherd leads us beside still waters and gives us rest in every season of life and",
+      "warnings": []
+    },
+    {
+      "kind": "review",
+      "line": 37,
+      "reason": "quoted text with no reference",
+      "text": "“A quote opens”"
+    },
+    {
+      "detail_end": 39,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 39,
+      "role": "list_item",
+      "text": "The shepherd leads us beside still waters and gives us rest in every season of life and",
+      "warnings": []
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 40,
+      "reason": "stage/production cue",
+      "text": "(a note in brackets)"
+    },
+    {
+      "detail_end": 42,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 42,
+      "role": "list_item",
+      "text": "The shepherd leads us beside still waters and gives us rest in every season of life and",
+      "warnings": []
+    },
+    {
+      "detail_end": 43,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 43,
+      "role": "slide_note",
+      "text": "Recap",
+      "warnings": []
+    },
+    {
+      "detail_end": 45,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 45,
+      "role": "list_item",
+      "text": "The shepherd leads us beside still waters and gives us rest in every season of life and",
+      "warnings": []
+    },
+    {
+      "detail_end": 46,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 46,
+      "role": "slide_note",
+      "text": "a tag",
+      "warnings": []
+    },
+    {
+      "detail_end": 48,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 48,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 50,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 50,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    },
+    {
+      "detail_end": 52,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 52,
+      "role": "list_item",
+      "text": "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort.",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "other",
+      "line": 3,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "other",
+      "line": 5,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "other",
+      "line": 7,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 9,
+      "first_in_document": false,
+      "label": "other",
+      "line": 9,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 11,
+      "first_in_document": false,
+      "label": "other",
+      "line": 11,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 13,
+      "first_in_document": false,
+      "label": "other",
+      "line": 13,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 15,
+      "first_in_document": false,
+      "label": "other",
+      "line": 15,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 17,
+      "first_in_document": false,
+      "label": "other",
+      "line": 17,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 19,
+      "first_in_document": false,
+      "label": "other",
+      "line": 19,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 21,
+      "first_in_document": false,
+      "label": "other",
+      "line": 21,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 22,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 22,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 24,
+      "first_in_document": false,
+      "label": "other",
+      "line": 24,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 25,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 25,
+      "rule": "bullet character at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 27,
+      "first_in_document": false,
+      "label": "other",
+      "line": 27,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 28,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 28,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 30,
+      "first_in_document": false,
+      "label": "other",
+      "line": 30,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 31,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 31,
+      "rule": "starts with a stage/cue word",
+      "why": ""
+    },
+    {
+      "end_line": 33,
+      "first_in_document": false,
+      "label": "other",
+      "line": 33,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 34,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 34,
+      "rule": "contains a web address",
+      "why": ""
+    },
+    {
+      "end_line": 36,
+      "first_in_document": false,
+      "label": "other",
+      "line": 36,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 37,
+      "first_in_document": false,
+      "label": "quote",
+      "line": 37,
+      "rule": "starts with a quotation mark",
+      "why": ""
+    },
+    {
+      "end_line": 39,
+      "first_in_document": false,
+      "label": "other",
+      "line": 39,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 40,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 40,
+      "rule": "reads like a note to self (brackets, 'note:', 'remember'...)",
+      "why": ""
+    },
+    {
+      "end_line": 42,
+      "first_in_document": false,
+      "label": "other",
+      "line": 42,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 43,
+      "first_in_document": false,
+      "label": "header",
+      "line": 43,
+      "rule": "line starts with 'Recap'",
+      "why": "recap heading"
+    },
+    {
+      "end_line": 45,
+      "first_in_document": false,
+      "label": "other",
+      "line": 45,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 46,
+      "first_in_document": false,
+      "label": "slide_tag",
+      "line": 46,
+      "rule": "[slide] tag",
+      "why": ""
+    },
+    {
+      "end_line": 48,
+      "first_in_document": false,
+      "label": "other",
+      "line": 48,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 50,
+      "first_in_document": false,
+      "label": "other",
+      "line": 50,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 52,
+      "first_in_document": false,
+      "label": "other",
+      "line": 52,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

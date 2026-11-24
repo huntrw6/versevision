@@ -1,0 +1,264 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 6,
+      "status": "adjusted",
+      "text": "• As John 3:99 says"
+    }
+  ],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "• John 3:99",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "error",
+      "line": 1,
+      "reasons": [
+        "looks like a verse but is not one (John 3:99: John 3 has no verse 99)"
+      ],
+      "slides": [],
+      "text": "John 3:99",
+      "tier": "error",
+      "title": "John 3:99"
+    },
+    {
+      "add_text": "• Revelation 23:1",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "looks like a verse but is not one (Revelation 23:1: Revelation has no chapter 23)"
+      ],
+      "slides": [],
+      "text": "Revelation 23:1",
+      "tier": "error",
+      "title": "Revelation 23:1"
+    },
+    {
+      "add_text": "• Genesis 51:1",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "looks like a verse but is not one (Genesis 51:1: Genesis has no chapter 51)"
+      ],
+      "slides": [],
+      "text": "Genesis 51:1",
+      "tier": "error",
+      "title": "Genesis 51:1"
+    },
+    {
+      "add_text": "• Psalm 151:1",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "looks like a verse but is not one (Psalm 151:1: Psalms has no chapter 151)"
+      ],
+      "slides": [],
+      "text": "Psalm 151:1",
+      "tier": "error",
+      "title": "Psalm 151:1"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Not a real one: John 3:99",
+      "tier": "good",
+      "title": "1) Not a real one: John 3:99"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        2
+      ],
+      "text": "• As John 3:99 says",
+      "tier": "warning",
+      "title": "• As John 3:99 says"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "looks like a verse but is not one (John 3:99: John 3 has no verse 99)",
+      "line": 1,
+      "status": "needs_review",
+      "text": "John 3:99"
+    },
+    {
+      "detail": "looks like a verse but is not one (Revelation 23:1: Revelation has no chapter 23)",
+      "line": 2,
+      "status": "needs_review",
+      "text": "Revelation 23:1"
+    },
+    {
+      "detail": "looks like a verse but is not one (Genesis 51:1: Genesis has no chapter 51)",
+      "line": 3,
+      "status": "needs_review",
+      "text": "Genesis 51:1"
+    },
+    {
+      "detail": "looks like a verse but is not one (Psalm 151:1: Psalms has no chapter 151)",
+      "line": 4,
+      "status": "needs_review",
+      "text": "Psalm 151:1"
+    }
+  ],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• John 3:99",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "error",
+        "line": 1,
+        "reasons": [
+          "looks like a verse but is not one (John 3:99: John 3 has no verse 99)"
+        ],
+        "slides": [],
+        "text": "John 3:99",
+        "tier": "error",
+        "title": "John 3:99"
+      },
+      {
+        "add_text": "• Revelation 23:1",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "error",
+        "line": 2,
+        "reasons": [
+          "looks like a verse but is not one (Revelation 23:1: Revelation has no chapter 23)"
+        ],
+        "slides": [],
+        "text": "Revelation 23:1",
+        "tier": "error",
+        "title": "Revelation 23:1"
+      },
+      {
+        "add_text": "• Genesis 51:1",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "error",
+        "line": 3,
+        "reasons": [
+          "looks like a verse but is not one (Genesis 51:1: Genesis has no chapter 51)"
+        ],
+        "slides": [],
+        "text": "Genesis 51:1",
+        "tier": "error",
+        "title": "Genesis 51:1"
+      },
+      {
+        "add_text": "• Psalm 151:1",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "error",
+        "line": 4,
+        "reasons": [
+          "looks like a verse but is not one (Psalm 151:1: Psalms has no chapter 151)"
+        ],
+        "slides": [],
+        "text": "Psalm 151:1",
+        "tier": "error",
+        "title": "Psalm 151:1"
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "point",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Not a real one: John 3:99",
+        "tier": "good",
+        "title": "1) Not a real one: John 3:99"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "point",
+        "line": 6,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          2
+        ],
+        "text": "• As John 3:99 says",
+        "tier": "warning",
+        "title": "• As John 3:99 says"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Not a real one: John 3:99",
+      "title": "1) Not a real one: John 3:99"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "• As John 3:99 says",
+      "title": "• As John 3:99 says"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 4,
+    "fixes": 0,
+    "flagged": 4,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 4,
+    "not_added": 0,
+    "point_slides": 2,
+    "slides": 2,
+    "verse_slides": 0,
+    "warnings": 1
+  }
+}

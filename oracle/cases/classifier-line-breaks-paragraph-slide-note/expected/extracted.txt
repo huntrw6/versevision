@@ -1,0 +1,5 @@
+1) A point
+[slide] A note slide
+A detail sentence under it.
+Conclusion: done.
+A detail after the label.

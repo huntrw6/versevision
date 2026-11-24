@@ -1,0 +1,5 @@
+[notes]
+headings = "skip"
+
+[run]
+no_fetch = true

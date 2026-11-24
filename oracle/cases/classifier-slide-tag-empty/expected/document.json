@@ -1,0 +1,116 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "Title 11/22/26"
+    },
+    {
+      "kind": "review",
+      "line": 2,
+      "reason": "[slide] tag with no text",
+      "text": "[slide]"
+    },
+    {
+      "kind": "review",
+      "line": 3,
+      "reason": "[slide] tag with no text",
+      "text": "[slide]"
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "point",
+      "text": "One",
+      "warnings": []
+    },
+    {
+      "category": "media_marker",
+      "kind": "skipped",
+      "line": 5,
+      "reason": "[slide] tag that points at an existing slide or media item",
+      "text": "Photo of the cross"
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "slide_note",
+      "text": "Faith = pistis",
+      "warnings": []
+    },
+    {
+      "category": "media_marker",
+      "kind": "skipped",
+      "line": 7,
+      "reason": "[slide] tag that points at an existing slide or media item",
+      "text": "Video clip of the baptism"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "slide_tag",
+      "line": 2,
+      "rule": "[slide] tag",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "slide_tag",
+      "line": 3,
+      "rule": "[slide] tag",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 4,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "slide_tag",
+      "line": 5,
+      "rule": "[slide] tag",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "slide_tag",
+      "line": 6,
+      "rule": "[slide] tag",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "slide_tag",
+      "line": 7,
+      "rule": "[slide] tag",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "Title 11/22/26"
+    },
+    {
+      "kind": "verse",
+      "line": 2,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Esther",
+        "book_id": "EST",
+        "normalized_text": "Esther 8:9 NKJV",
+        "source_end": 15,
+        "source_start": 0,
+        "source_text": "Esther 8:9 NKJV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 8,
+              "verse": 9
+            }
+          }
+        ],
+        "version": "NKJV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Psalms",
+        "book_id": "PSA",
+        "normalized_text": "Psalms 119:1-3 NIV",
+        "source_end": 18,
+        "source_start": 0,
+        "source_text": "Psalms 119:1-3 NIV",
+        "spans": [
+          {
+            "end": {
+              "chapter": 119,
+              "verse": 3
+            },
+            "start": {
+              "chapter": 119,
+              "verse": 1
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 2,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 3,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    }
+  ]
+}

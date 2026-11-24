@@ -1,0 +1,5 @@
+[notes]
+quote_above_reference = "review"
+
+[run]
+no_fetch = true

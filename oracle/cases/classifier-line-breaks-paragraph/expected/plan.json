@@ -1,0 +1,259 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [
+        "joined unlabeled detail line(s) under this point"
+      ],
+      "slide_count": 1,
+      "text": "1) A point\nA detail sentence under it.\nAnother detail sentence",
+      "tier": "warning",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "point",
+      "line": 4,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• No end punctuation here",
+      "tier": "warning",
+      "title": "• No end punctuation here"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "point",
+      "line": 8,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• A far away sentence",
+      "tier": "good",
+      "title": "• A far away sentence"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 3,
+      "kind": "point",
+      "line": 9,
+      "reasons": [
+        "joined unlabeled detail line(s) under this point"
+      ],
+      "slide_count": 1,
+      "text": "2) Next\nA quote follows",
+      "tier": "warning",
+      "title": "2) Next"
+    },
+    {
+      "add_text": "• “A quoted detail”",
+      "correction": {},
+      "first_slide": 4,
+      "id": 4,
+      "kind": "error",
+      "line": 11,
+      "reasons": [
+        "quoted text with no reference"
+      ],
+      "slide_count": 0,
+      "text": "“A quoted detail.”",
+      "tier": "error",
+      "title": "“A quoted detail.”"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 4,
+      "id": 5,
+      "kind": "point",
+      "line": 12,
+      "reasons": [
+        "joined unlabeled detail line(s) under this point"
+      ],
+      "slide_count": 1,
+      "text": "• A question?\nAn exclamation!\nSOME HEADING",
+      "tier": "warning",
+      "title": "• A question?"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 5,
+      "id": 6,
+      "kind": "verse",
+      "line": 15,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slide_count": 1,
+      "text": "Psalm 23:1",
+      "tier": "warning",
+      "title": "Psalms 23:1 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 6,
+      "id": 7,
+      "kind": "point",
+      "line": 16,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• A detail after a verse",
+      "tier": "good",
+      "title": "• A detail after a verse"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 7,
+      "id": 8,
+      "kind": "point",
+      "line": 17,
+      "reasons": [
+        "joined unlabeled detail line(s) under this point"
+      ],
+      "slide_count": 1,
+      "text": "• bullet\nDetail under a bullet",
+      "tier": "warning",
+      "title": "• bullet"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 15,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "Psalms 23:1"
+    },
+    {
+      "line": 1,
+      "problem": "joined unlabeled detail line(s) under this point",
+      "text": "1) A point\nA detail sentence under it.\nAnother detail senten"
+    },
+    {
+      "line": 4,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• No end punctuation here"
+    },
+    {
+      "line": 9,
+      "problem": "joined unlabeled detail line(s) under this point",
+      "text": "2) Next\nA quote follows."
+    },
+    {
+      "line": 12,
+      "problem": "joined unlabeled detail line(s) under this point",
+      "text": "• A question?\nAn exclamation!\nSOME HEADING."
+    },
+    {
+      "line": 17,
+      "problem": "joined unlabeled detail line(s) under this point",
+      "text": "• bullet\nDetail under a bullet."
+    }
+  ],
+  "point_count": 7,
+  "review": [
+    {
+      "line": 11,
+      "problem": "quoted text with no reference",
+      "text": "“A quoted detail.”"
+    }
+  ],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) A point\nA detail sentence under it.\nAnother detail sentence",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• No end punctuation here",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• A far away sentence",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "2) Next\nA quote follows",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 3,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• A question?\nAn exclamation!\nSOME HEADING",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 4,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:1",
+        "source_passage_index": 5,
+        "verse_keys": [
+          "PSA.23.1"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "• A detail after a verse",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 6,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• bullet\nDetail under a bullet",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 7,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 1
+}

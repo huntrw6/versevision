@@ -1,0 +1,90 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "matches a skip pattern",
+      "text": "Another Word"
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "list_item",
+      "text": "wordy",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 4,
+      "reason": "matches a skip pattern",
+      "text": "word"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 5,
+      "reason": "stage/production cue",
+      "text": "NoTE to self"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 2,
+      "rule": "matches your skip pattern '(?i:\\\\bWORD\\\\b)'",
+      "why": "matches a skip pattern"
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "other",
+      "line": 3,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 4,
+      "rule": "matches your skip pattern '(?i:\\\\bWORD\\\\b)'",
+      "why": "matches a skip pattern"
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 5,
+      "rule": "reads like a note to self (brackets, 'note:', 'remember'...)",
+      "why": ""
+    }
+  ]
+}

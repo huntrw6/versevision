@@ -1,0 +1,5 @@
+[notes]
+quote_alone = "skip"
+
+[run]
+no_fetch = true

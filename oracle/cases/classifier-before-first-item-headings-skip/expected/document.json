@@ -1,0 +1,55 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "document title (first line)",
+      "text": "Pastor Amy's notes"
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "title/preamble before the first verse or point",
+      "text": "A Title Line"
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "other",
+      "line": 1,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "other",
+      "line": 2,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    }
+  ]
+}

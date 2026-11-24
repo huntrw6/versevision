@@ -1,0 +1,37 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "document title (first line)",
+      "text": "2 Corinthians"
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "2 or fewer capitalized words: looks like a heading",
+      "text": "12:9 NKJV"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "other",
+      "line": 1,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "other",
+      "line": 2,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

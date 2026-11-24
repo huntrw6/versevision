@@ -1,0 +1,213 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "Read Romans 8:28 today",
+      "warnings": [
+        "text mentions Romans 8:28; not added as a verse slide"
+      ]
+    },
+    {
+      "kind": "verse",
+      "line": 2,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16 NIV",
+        "source_end": 13,
+        "source_start": 0,
+        "source_text": "John 3:16 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": [
+        "numbered line holds a reference; treated as a verse, not a sermon point"
+      ]
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Genesis",
+        "book_id": "GEN",
+        "normalized_text": "Genesis 1:1",
+        "source_end": 11,
+        "source_start": 0,
+        "source_text": "Genesis 1:1",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 1,
+              "verse": 1
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Exodus",
+        "book_id": "EXO",
+        "normalized_text": "Exodus 3:14",
+        "source_end": 24,
+        "source_start": 13,
+        "source_text": "Exodus 3:14",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 14
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": [
+        "numbered line holds a reference; treated as a verse, not a sermon point"
+      ]
+    },
+    {
+      "kind": "verse",
+      "line": 4,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Acts",
+        "book_id": "ACT",
+        "normalized_text": "Acts 2:1",
+        "source_end": 10,
+        "source_start": 2,
+        "source_text": "Acts 2:1",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 2,
+              "verse": 1
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "list_item",
+      "text": "see Acts 2:2 now",
+      "warnings": [
+        "text mentions Acts 2:2; not added as a verse slide"
+      ]
+    },
+    {
+      "kind": "verse",
+      "line": 6,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 8:28-9:1 NIV",
+        "source_end": 21,
+        "source_start": 0,
+        "source_text": "Romans 8:28 – 9:1 NIV",
+        "spans": [
+          {
+            "end": {
+              "chapter": 9,
+              "verse": 1
+            },
+            "start": {
+              "chapter": 8,
+              "verse": 28
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": [
+        "numbered line holds a reference; treated as a verse, not a sermon point"
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 2,
+      "rule": "numbered line whose text starts with a Bible reference",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 3,
+      "rule": "numbered line whose text starts with a Bible reference",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 4,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 5,
+      "rule": "bullet character at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 6,
+      "rule": "numbered line whose text starts with a Bible reference",
+      "why": ""
+    }
+  ]
+}

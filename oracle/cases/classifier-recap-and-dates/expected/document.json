@@ -1,0 +1,142 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "slide_note",
+      "text": "Recap",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "slide_note",
+      "text": "Recap: the week",
+      "warnings": []
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "slide_note",
+      "text": "Recap of last week",
+      "warnings": []
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 5,
+      "reason": "title / date line",
+      "text": "Sunday 11/22/26 and more"
+    },
+    {
+      "kind": "verse",
+      "line": 6,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Psalms",
+        "book_id": "PSA",
+        "normalized_text": "Psalms 12:9",
+        "source_end": 10,
+        "source_start": 0,
+        "source_text": "Psalm 12:9",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 12,
+              "verse": 9
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 7,
+      "reason": "title / date line",
+      "text": "The date is 3/4/2026."
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "line starts with 'Recap'",
+      "why": "recap heading"
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "header",
+      "line": 2,
+      "rule": "line starts with 'Recap'",
+      "why": "recap heading"
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "header",
+      "line": 4,
+      "rule": "line starts with 'Recap'",
+      "why": "recap heading"
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "header",
+      "line": 5,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 6,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "header",
+      "line": 7,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    }
+  ]
+}

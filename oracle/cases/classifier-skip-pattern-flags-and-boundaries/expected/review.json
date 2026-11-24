@@ -1,0 +1,229 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 3,
+      "status": "adjusted",
+      "text": "• wordy"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• Another Word",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slides": [],
+      "text": "Another Word",
+      "tier": "warning",
+      "title": "Another Word"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        2
+      ],
+      "text": "• wordy",
+      "tier": "warning",
+      "title": "• wordy"
+    },
+    {
+      "add_text": "• word",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slides": [],
+      "text": "word",
+      "tier": "warning",
+      "title": "word"
+    },
+    {
+      "add_text": "• NoTE to self",
+      "addable": true,
+      "correction": null,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "NoTE to self",
+      "tier": "good",
+      "title": "NoTE to self"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "stage_note: matches a skip pattern",
+      "line": 2,
+      "status": "left_out",
+      "text": "Another Word"
+    },
+    {
+      "detail": "stage_note: matches a skip pattern",
+      "line": 4,
+      "status": "left_out",
+      "text": "word"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 5,
+      "status": "left_out",
+      "text": "NoTE to self"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• NoTE to self",
+        "addable": true,
+        "correction": null,
+        "id": 4,
+        "kind": "left_out",
+        "line": 5,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "NoTE to self",
+        "tier": "good",
+        "title": "NoTE to self"
+      }
+    ],
+    "left_out_warning": [
+      {
+        "add_text": "• Another Word",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "stage note: matches a skip pattern"
+        ],
+        "slides": [],
+        "text": "Another Word",
+        "tier": "warning",
+        "title": "Another Word"
+      },
+      {
+        "add_text": "• word",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "left_out",
+        "line": 4,
+        "reasons": [
+          "stage note: matches a skip pattern"
+        ],
+        "slides": [],
+        "text": "word",
+        "tier": "warning",
+        "title": "word"
+      }
+    ],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 3,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          2
+        ],
+        "text": "• wordy",
+        "tier": "warning",
+        "title": "• wordy"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) A point",
+      "title": "1) A point"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "• wordy",
+      "title": "• wordy"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 3,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 2,
+    "slides": 2,
+    "verse_slides": 0,
+    "warnings": 3
+  }
+}

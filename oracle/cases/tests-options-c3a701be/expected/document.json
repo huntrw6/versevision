@@ -1,0 +1,39 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "P",
+      "warnings": []
+    },
+    {
+      "kind": "review",
+      "line": 2,
+      "reason": "mentions Psalms 23:1 NIV inside text; put the reference on its own line to add it as a slide",
+      "text": "As Psalm 23:1 NIV tells us, we lack nothing in the Lord today."
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "midref",
+      "line": 2,
+      "rule": "Bible reference found inside a sentence",
+      "why": ""
+    }
+  ]
+}

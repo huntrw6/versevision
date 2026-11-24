@@ -1,0 +1,120 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• Show the photo of the cross",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "stage/production cue: your setting asks to check these"
+      ],
+      "slide_count": 0,
+      "text": "Show the photo of the cross",
+      "tier": "error",
+      "title": "Show the photo of the cross"
+    },
+    {
+      "add_text": "• https://example.com/x",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "stage/production cue: your setting asks to check these"
+      ],
+      "slide_count": 0,
+      "text": "https://example.com/x",
+      "tier": "error",
+      "title": "https://example.com/x"
+    },
+    {
+      "add_text": "• (ask Amy to cue the video)",
+      "correction": {},
+      "first_slide": 1,
+      "id": 3,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "stage/production cue: your setting asks to check these"
+      ],
+      "slide_count": 0,
+      "text": "(ask Amy to cue the video)",
+      "tier": "error",
+      "title": "(ask Amy to cue the video)"
+    },
+    {
+      "add_text": "• Sing it loud",
+      "correction": {},
+      "first_slide": 1,
+      "id": 4,
+      "kind": "error",
+      "line": 5,
+      "reasons": [
+        "matches a skip pattern: your setting asks to check these"
+      ],
+      "slide_count": 0,
+      "text": "Sing it loud",
+      "tier": "error",
+      "title": "Sing it loud"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [],
+  "point_count": 1,
+  "review": [
+    {
+      "line": 2,
+      "problem": "stage/production cue: your setting asks to check these",
+      "text": "Show the photo of the cross"
+    },
+    {
+      "line": 3,
+      "problem": "stage/production cue: your setting asks to check these",
+      "text": "https://example.com/x"
+    },
+    {
+      "line": 4,
+      "problem": "stage/production cue: your setting asks to check these",
+      "text": "(ask Amy to cue the video)"
+    },
+    {
+      "line": 5,
+      "problem": "matches a skip pattern: your setting asks to check these",
+      "text": "Sing it loud"
+    }
+  ],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) A point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

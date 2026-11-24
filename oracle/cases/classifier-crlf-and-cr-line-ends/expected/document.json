@@ -1,0 +1,76 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "One",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "2)",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "point",
+      "text": "Two",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16 NIV",
+        "source_end": 13,
+        "source_start": 0,
+        "source_text": "John 3:16 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 2,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 3,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    }
+  ]
+}

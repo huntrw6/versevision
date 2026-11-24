@@ -1,0 +1,122 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "Point",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 2,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16",
+        "source_end": 25,
+        "source_start": 16,
+        "source_text": "John 3:16",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": [
+        "taken from the sentence: \"He's told us in John 3:16 and Romans 8:28 that it \""
+      ]
+    },
+    {
+      "kind": "verse",
+      "line": 2,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 8:28",
+        "source_end": 41,
+        "source_start": 30,
+        "source_text": "Romans 8:28",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 8,
+              "verse": 28
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": [
+        "taken from the sentence: \"He's told us in John 3:16 and Romans 8:28 that it \""
+      ]
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Psalms",
+        "book_id": "PSA",
+        "normalized_text": "Psalms 23:1",
+        "source_end": 13,
+        "source_start": 3,
+        "source_text": "Psalm 23:1",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 23,
+              "verse": 1
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": [
+        "taken from the sentence: 'As Psalm 23:1 says'"
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "midref",
+      "line": 2,
+      "rule": "Bible reference found inside a sentence",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "midref",
+      "line": 3,
+      "rule": "Bible reference found inside a sentence",
+      "why": ""
+    }
+  ]
+}

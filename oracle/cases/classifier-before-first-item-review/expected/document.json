@@ -1,0 +1,81 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "kind": "review",
+      "line": 1,
+      "reason": "line before the first verse or point (your setting asks to check these)",
+      "text": "Pastor Amy's notes"
+    },
+    {
+      "kind": "review",
+      "line": 2,
+      "reason": "unlabeled line; not a reference, point, or known cue",
+      "text": "This was a good week."
+    },
+    {
+      "kind": "review",
+      "line": 3,
+      "reason": "unlabeled line; not a reference, point, or known cue",
+      "text": "An overlong opening sentence that rambles on and on without any end to it at all because it keeps going"
+    },
+    {
+      "kind": "review",
+      "line": 4,
+      "reason": "unlabeled line; not a reference, point, or known cue",
+      "text": "An overlong opening sentence that rambles on and on past eighty characters and ends here."
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "other",
+      "line": 1,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "other",
+      "line": 2,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "other",
+      "line": 3,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "other",
+      "line": 4,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 5,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [
+        "joined unlabeled detail line(s) under this point"
+      ],
+      "slide_count": 1,
+      "text": "1) A point\nA detail sentence under it",
+      "tier": "warning",
+      "title": "1) A point"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 1,
+      "problem": "joined unlabeled detail line(s) under this point",
+      "text": "1) A point\nA detail sentence under it."
+    }
+  ],
+  "point_count": 1,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) A point\nA detail sentence under it",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

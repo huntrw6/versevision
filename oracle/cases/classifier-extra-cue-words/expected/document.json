@@ -1,0 +1,125 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "stage/production cue",
+      "text": "Pause for prayer"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 3,
+      "reason": "stage/production cue",
+      "text": "sing the chorus"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 4,
+      "reason": "stage/production cue",
+      "text": "Loud + noise now"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 5,
+      "reason": "stage/production cue",
+      "text": "A|B test"
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "list_item",
+      "text": "pausing is not a cue",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 7,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 7,
+      "role": "list_item",
+      "text": "SILENCE here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 2,
+      "rule": "starts with a stage/cue word",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 3,
+      "rule": "starts with a stage/cue word",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 4,
+      "rule": "starts with a stage/cue word",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 5,
+      "rule": "starts with a stage/cue word",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "other",
+      "line": 6,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "other",
+      "line": 7,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

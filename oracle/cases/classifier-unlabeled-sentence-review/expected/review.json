@@ -1,0 +1,144 @@
+{
+  "adjustments": [],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• This is a full sentence\nof ordinary prose",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "unlabeled line; not a reference, point, or known cue"
+      ],
+      "slides": [],
+      "text": "This is a full sentence of ordinary prose.",
+      "tier": "error",
+      "title": "This is a full sentence of ordinary prose."
+    },
+    {
+      "add_text": "• A short line without an end",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "short unlabeled line: a heading, or a point missing its number? add a number or bullet to make it a slide"
+      ],
+      "slides": [],
+      "text": "A short line without an end",
+      "tier": "error",
+      "title": "A short line without an end"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "unlabeled line; not a reference, point, or known cue",
+      "line": 2,
+      "status": "needs_review",
+      "text": "This is a full sentence of ordinary prose."
+    },
+    {
+      "detail": "short unlabeled line: a heading, or a point missing its number? add a number or bullet to make it a slide",
+      "line": 3,
+      "status": "needs_review",
+      "text": "A short line without an end"
+    }
+  ],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• This is a full sentence\nof ordinary prose",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "error",
+        "line": 2,
+        "reasons": [
+          "unlabeled line; not a reference, point, or known cue"
+        ],
+        "slides": [],
+        "text": "This is a full sentence of ordinary prose.",
+        "tier": "error",
+        "title": "This is a full sentence of ordinary prose."
+      },
+      {
+        "add_text": "• A short line without an end",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "error",
+        "line": 3,
+        "reasons": [
+          "short unlabeled line: a heading, or a point missing its number? add a number or bullet to make it a slide"
+        ],
+        "slides": [],
+        "text": "A short line without an end",
+        "tier": "error",
+        "title": "A short line without an end"
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) A point",
+      "title": "1) A point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 2,
+    "fixes": 0,
+    "flagged": 2,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 2,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 1,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

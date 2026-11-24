@@ -1,0 +1,179 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• Pause for prayer",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "Pause for prayer",
+      "tier": "good",
+      "title": "Pause for prayer"
+    },
+    {
+      "add_text": "• sing the chorus",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "sing the chorus",
+      "tier": "good",
+      "title": "sing the chorus"
+    },
+    {
+      "add_text": "• Loud + noise now",
+      "correction": {},
+      "first_slide": 1,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "Loud + noise now",
+      "tier": "good",
+      "title": "Loud + noise now"
+    },
+    {
+      "add_text": "• A|B test",
+      "correction": {},
+      "first_slide": 1,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "A|B test",
+      "tier": "good",
+      "title": "A|B test"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• pausing is not a cue",
+      "tier": "warning",
+      "title": "• pausing is not a cue"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 6,
+      "kind": "point",
+      "line": 7,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• SILENCE here",
+      "tier": "warning",
+      "title": "• SILENCE here"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 6,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• pausing is not a cue"
+    },
+    {
+      "line": 7,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• SILENCE here"
+    }
+  ],
+  "point_count": 3,
+  "review": [],
+  "skipped": [
+    {
+      "line": 2,
+      "problem": "stage_note: stage/production cue",
+      "text": "Pause for prayer"
+    },
+    {
+      "line": 3,
+      "problem": "stage_note: stage/production cue",
+      "text": "sing the chorus"
+    },
+    {
+      "line": 4,
+      "problem": "stage_note: stage/production cue",
+      "text": "Loud + noise now"
+    },
+    {
+      "line": 5,
+      "problem": "stage_note: stage/production cue",
+      "text": "A|B test"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) A point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• pausing is not a cue",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• SILENCE here",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

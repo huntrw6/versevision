@@ -1,0 +1,670 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 2,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 3,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 4,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 5,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 6,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 7,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 8,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 9,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 10,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 11,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 12,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 13,
+      "status": "adjusted",
+      "text": "• A short line of about forty chars here"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 14,
+      "status": "adjusted",
+      "text": "• tail"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) One",
+      "tier": "good",
+      "title": "1) One"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        2
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        3
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        4
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        5
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        6
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "point",
+      "line": 7,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        7
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 7,
+      "kind": "point",
+      "line": 8,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        8
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "point",
+      "line": 9,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        9
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 9,
+      "kind": "point",
+      "line": 10,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        10
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 10,
+      "kind": "point",
+      "line": 11,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        11
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 11,
+      "kind": "point",
+      "line": 12,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        12
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 12,
+      "kind": "point",
+      "line": 13,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        13
+      ],
+      "text": "• A short line of about\nforty chars here",
+      "tier": "warning",
+      "title": "• A short line of about"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 13,
+      "kind": "point",
+      "line": 14,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        14
+      ],
+      "text": "• tail",
+      "tier": "warning",
+      "title": "• tail"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) One",
+        "tier": "good",
+        "title": "1) One"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 2,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          2
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 3,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          3
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 4,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          4
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "point",
+        "line": 5,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          5
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "point",
+        "line": 6,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          6
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "point",
+        "line": 7,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          7
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 7,
+        "kind": "point",
+        "line": 8,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          8
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "point",
+        "line": 9,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          9
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 9,
+        "kind": "point",
+        "line": 10,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          10
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 10,
+        "kind": "point",
+        "line": 11,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          11
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 11,
+        "kind": "point",
+        "line": 12,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          12
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 12,
+        "kind": "point",
+        "line": 13,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          13
+        ],
+        "text": "• A short line of about\nforty chars here",
+        "tier": "warning",
+        "title": "• A short line of about"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 13,
+        "kind": "point",
+        "line": 14,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          14
+        ],
+        "text": "• tail",
+        "tier": "warning",
+        "title": "• tail"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) One",
+      "title": "1) One"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 4,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 5,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 6,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 7,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 8,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 9,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 10,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 11,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 12,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 13,
+      "text": "• A short line of about\nforty chars here",
+      "title": "• A short line of about"
+    },
+    {
+      "kind": "point",
+      "n": 14,
+      "text": "• tail",
+      "title": "• tail"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 13,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 14,
+    "slides": 14,
+    "verse_slides": 0,
+    "warnings": 13
+  }
+}

@@ -1,0 +1,6 @@
+[bible.version_aliases]
+NKJ = "NKJV"
+YLT = "NLT"
+
+[run]
+no_fetch = true

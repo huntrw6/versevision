@@ -1,0 +1,185 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "matches a skip pattern",
+      "text": "Closing thoughts for the week"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 3,
+      "reason": "matches a skip pattern",
+      "text": "10 min"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 4,
+      "reason": "matches a skip pattern",
+      "text": "It's a trap"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 5,
+      "reason": "matches a skip pattern",
+      "text": "[x marks the spot"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 6,
+      "reason": "matches a skip pattern",
+      "text": "aab and ab"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 7,
+      "reason": "matches a skip pattern",
+      "text": "foo foo here"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 8,
+      "reason": "matches a skip pattern",
+      "text": "FOO bar"
+    },
+    {
+      "detail_end": 9,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 9,
+      "role": "list_item",
+      "text": "plain line that stays",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 10,
+      "reason": "matches a skip pattern",
+      "text": "Tab\there"
+    },
+    {
+      "detail_end": 11,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 11,
+      "role": "list_item",
+      "text": "keep me",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 2,
+      "rule": "matches your skip pattern '^Closing'",
+      "why": "matches a skip pattern"
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 3,
+      "rule": "matches your skip pattern '\\\\d+\\\\s*min$'",
+      "why": "matches a skip pattern"
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 4,
+      "rule": "matches your skip pattern \"it's\"",
+      "why": "matches a skip pattern"
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 5,
+      "rule": "matches your skip pattern '[[]x'",
+      "why": "matches a skip pattern"
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 6,
+      "rule": "matches your skip pattern 'a{,2}b'",
+      "why": "matches a skip pattern"
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 7,
+      "rule": "matches your skip pattern '(?P<w>foo)\\\\s+(?P=w)'",
+      "why": "matches a skip pattern"
+    },
+    {
+      "end_line": 8,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 8,
+      "rule": "matches your skip pattern 'a{,2}b'",
+      "why": "matches a skip pattern"
+    },
+    {
+      "end_line": 9,
+      "first_in_document": false,
+      "label": "other",
+      "line": 9,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 10,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 10,
+      "rule": "matches your skip pattern 'a{,2}b'",
+      "why": "matches a skip pattern"
+    },
+    {
+      "end_line": 11,
+      "first_in_document": false,
+      "label": "other",
+      "line": 11,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

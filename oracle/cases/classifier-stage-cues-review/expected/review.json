@@ -1,0 +1,216 @@
+{
+  "adjustments": [],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• Show the photo of the cross",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "stage/production cue: your setting asks to check these"
+      ],
+      "slides": [],
+      "text": "Show the photo of the cross",
+      "tier": "error",
+      "title": "Show the photo of the cross"
+    },
+    {
+      "add_text": "• https://example.com/x",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "stage/production cue: your setting asks to check these"
+      ],
+      "slides": [],
+      "text": "https://example.com/x",
+      "tier": "error",
+      "title": "https://example.com/x"
+    },
+    {
+      "add_text": "• (ask Amy to cue the video)",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "stage/production cue: your setting asks to check these"
+      ],
+      "slides": [],
+      "text": "(ask Amy to cue the video)",
+      "tier": "error",
+      "title": "(ask Amy to cue the video)"
+    },
+    {
+      "add_text": "• Sing it loud",
+      "addable": true,
+      "correction": null,
+      "id": 4,
+      "kind": "error",
+      "line": 5,
+      "reasons": [
+        "matches a skip pattern: your setting asks to check these"
+      ],
+      "slides": [],
+      "text": "Sing it loud",
+      "tier": "error",
+      "title": "Sing it loud"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "stage/production cue: your setting asks to check these",
+      "line": 2,
+      "status": "needs_review",
+      "text": "Show the photo of the cross"
+    },
+    {
+      "detail": "stage/production cue: your setting asks to check these",
+      "line": 3,
+      "status": "needs_review",
+      "text": "https://example.com/x"
+    },
+    {
+      "detail": "stage/production cue: your setting asks to check these",
+      "line": 4,
+      "status": "needs_review",
+      "text": "(ask Amy to cue the video)"
+    },
+    {
+      "detail": "matches a skip pattern: your setting asks to check these",
+      "line": 5,
+      "status": "needs_review",
+      "text": "Sing it loud"
+    }
+  ],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• Show the photo of the cross",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "error",
+        "line": 2,
+        "reasons": [
+          "stage/production cue: your setting asks to check these"
+        ],
+        "slides": [],
+        "text": "Show the photo of the cross",
+        "tier": "error",
+        "title": "Show the photo of the cross"
+      },
+      {
+        "add_text": "• https://example.com/x",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "error",
+        "line": 3,
+        "reasons": [
+          "stage/production cue: your setting asks to check these"
+        ],
+        "slides": [],
+        "text": "https://example.com/x",
+        "tier": "error",
+        "title": "https://example.com/x"
+      },
+      {
+        "add_text": "• (ask Amy to cue the video)",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "error",
+        "line": 4,
+        "reasons": [
+          "stage/production cue: your setting asks to check these"
+        ],
+        "slides": [],
+        "text": "(ask Amy to cue the video)",
+        "tier": "error",
+        "title": "(ask Amy to cue the video)"
+      },
+      {
+        "add_text": "• Sing it loud",
+        "addable": true,
+        "correction": null,
+        "id": 4,
+        "kind": "error",
+        "line": 5,
+        "reasons": [
+          "matches a skip pattern: your setting asks to check these"
+        ],
+        "slides": [],
+        "text": "Sing it loud",
+        "tier": "error",
+        "title": "Sing it loud"
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) A point",
+      "title": "1) A point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 4,
+    "fixes": 0,
+    "flagged": 4,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 4,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 1,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

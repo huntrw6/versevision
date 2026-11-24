@@ -1,0 +1,14 @@
+[notes]
+skip_patterns = [
+    "^Closing",
+    "\\d+\\s*min$",
+    "it's",
+    "[[]x",
+    "a{,2}b",
+    "(?P<w>foo)\\s+(?P=w)",
+    "\\ttab",
+    "tab\\t",
+]
+
+[run]
+no_fetch = true

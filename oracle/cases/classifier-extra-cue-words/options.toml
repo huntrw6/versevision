@@ -1,0 +1,12 @@
+[notes]
+extra_cue_words = [
+    "pause",
+    "Sing",
+    " loud + noise ",
+    "a|b",
+    "",
+    "   ",
+]
+
+[run]
+no_fetch = true

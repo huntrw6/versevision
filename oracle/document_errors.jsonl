@@ -1,0 +1,71 @@
+{"aliases":null,"input":"John 0:1\n","message":"1 validation error for VersePoint\nchapter\n  Input should be greater than 0 [type=greater_than, input_value=0, input_type=int]\n    For further information visit https://errors.pydantic.dev/2.13/v/greater_than","notes":{},"points":{},"raises":"ValidationError"}
+{"aliases":null,"input":"1) A point\nJohn 1:0\n","message":"1 validation error for VersePoint\nverse\n  Input should be greater than 0 [type=greater_than, input_value=0, input_type=int]\n    For further information visit https://errors.pydantic.dev/2.13/v/greater_than","notes":{},"points":{},"raises":"ValidationError"}
+{"aliases":null,"input":"1. Psalm 23\n","message":"'ReviewItem' object has no attribute 'warnings'","notes":{},"points":{},"raises":"AttributeError"}
+{"aliases":null,"input":"2) Genesis 1\n","message":"'ReviewItem' object has no attribute 'warnings'","notes":{"whole_chapter":"skip"},"points":{},"raises":"AttributeError"}
+{"aliases":null,"input":"John 3:16\n1. John 3:16\n","message":"'SkippedItem' object has no attribute 'warnings'","notes":{"duplicates":"drop"},"points":{},"raises":"AttributeError"}
+{"aliases":null,"input":"Romans 8:28 NIV\n2) Romans 8:28 NIV\n","message":"'SkippedItem' object has no attribute 'warnings'","notes":{"duplicates":"drop"},"points":{},"raises":"AttributeError"}
+{"aliases":null,"input":"x\n","message":"missing ), unterminated subpattern at position 0","notes":{"skip_patterns":["ok","("]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unbalanced parenthesis at position 0","notes":{"skip_patterns":["ok",")"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"multiple repeat at position 2","notes":{"skip_patterns":["ok","a**"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unterminated character set at position 0","notes":{"skip_patterns":["ok","[a"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"min repeat greater than max repeat at position 2","notes":{"skip_patterns":["ok","a{2,1}"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad escape (end of pattern) at position 0","notes":{"skip_patterns":["ok","\\"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad character in group name '1' at position 4","notes":{"skip_patterns":["ok","(?P<1>a)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unknown extension ?<a at position 1","notes":{"skip_patterns":["ok","(?<a)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad character range z-a at position 1","notes":{"skip_patterns":["ok","[z-a]"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad escape \\y at position 0","notes":{"skip_patterns":["ok","\\y"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"global flags not at the start of the expression at position 1","notes":{"skip_patterns":["ok","a(?i)b"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"look-behind requires fixed-width pattern","notes":{"skip_patterns":["ok","(?<=a+)b"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"invalid group reference 1 at position 1","notes":{"skip_patterns":["ok","\\1"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"invalid group reference 2 at position 4","notes":{"skip_patterns":["ok","(a)\\2"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad character range \\d-z at position 1","notes":{"skip_patterns":["ok","[\\d-z]"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"the repetition number is too large","notes":{"skip_patterns":["ok","x{99999999999}"]},"points":{},"raises":"OverflowError"}
+{"aliases":null,"input":"x\n","message":"redefinition of group name 'a' as group 2; was group 1 at position 12","notes":{"skip_patterns":["ok","(?P<a>x)(?P<a>y)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"nothing to repeat at position 0","notes":{"skip_patterns":["ok","*a"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing ), unterminated subpattern at position 2 (line 2, column 1)","notes":{"skip_patterns":["ok","a\n(b"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing >, unterminated name at position 4","notes":{"skip_patterns":["ok","(?P<n"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unknown group name 'n' at position 4","notes":{"skip_patterns":["ok","(?P=n)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unexpected end of pattern at position 2","notes":{"skip_patterns":["ok","(?"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unexpected end of pattern at position 3","notes":{"skip_patterns":["ok","(?P"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing ), unterminated comment at position 0","notes":{"skip_patterns":["ok","(?#abc"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unexpected end of pattern at position 3","notes":{"skip_patterns":["ok","(?<"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing -, : or ) at position 3","notes":{"skip_patterns":["ok","(?i"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing flag at position 4","notes":{"skip_patterns":["ok","(?i-"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing : at position 4","notes":{"skip_patterns":["ok","(?-i)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing flag at position 5","notes":{"skip_patterns":["ok","(?ia-:x)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"incomplete escape \\x4 at position 0","notes":{"skip_patterns":["ok","\\x4"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"incomplete escape \\u12 at position 0","notes":{"skip_patterns":["ok","\\u12"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"invalid group reference 8 at position 1","notes":{"skip_patterns":["ok","\\8"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad escape \\8 at position 1","notes":{"skip_patterns":["ok","[\\8]"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"octal escape value \\777 outside of range 0-0o377 at position 0","notes":{"skip_patterns":["ok","\\777"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"conditional backref with more than two branches at position 8","notes":{"skip_patterns":["ok","(?(1)a|b|c)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"invalid group reference 2 at position 3","notes":{"skip_patterns":["ok","(?(2)a)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unknown group name 'x' at position 3","notes":{"skip_patterns":["ok","(?(x)a)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"nothing to repeat at position 1","notes":{"skip_patterns":["ok","^*"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"nothing to repeat at position 1","notes":{"skip_patterns":["ok","$+"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"nothing to repeat at position 2","notes":{"skip_patterns":["ok","\\b?"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unknown extension ?P> at position 1","notes":{"skip_patterns":["ok","(?P>x)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unknown extension ?z at position 1","notes":{"skip_patterns":["ok","(?z)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad inline flags: flag turned on and off at position 5","notes":{"skip_patterns":["ok","(?i-i:x)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad inline flags: cannot turn off flags 'a', 'u' and 'L' at position 4","notes":{"skip_patterns":["ok","(?-a:x)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad inline flags: cannot use 'L' flag with a str pattern at position 3","notes":{"skip_patterns":["ok","(?L)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"ASCII and UNICODE flags are incompatible","notes":{"skip_patterns":["ok","(?a)(?u)"]},"points":{},"raises":"ValueError"}
+{"aliases":null,"input":"x\n","message":"unterminated character set at position 0","notes":{"skip_patterns":["ok","["]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unterminated character set at position 0","notes":{"skip_patterns":["ok","[^"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unterminated character set at position 0","notes":{"skip_patterns":["ok","[]"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"unterminated character set at position 0","notes":{"skip_patterns":["ok","[a-"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad character range a-\\d at position 1","notes":{"skip_patterns":["ok","[a-\\d]"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing ), unterminated subpattern at position 0","notes":{"skip_patterns":["ok","(|"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"nothing to repeat at position 2","notes":{"skip_patterns":["ok","a|*"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"look-behind requires fixed-width pattern","notes":{"skip_patterns":["ok","(?=a)(?<=b+)"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"multiple repeat at position 4","notes":{"skip_patterns":["ok","x{2}{3}"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"cannot refer to an open group at position 10","notes":{"skip_patterns":["ok","(?P<a>(?P=a))"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing ), unterminated subpattern at position 0","notes":{"skip_patterns":["ok","(?:"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing ), unterminated subpattern at position 0","notes":{"skip_patterns":["ok","(?>"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing ), unterminated subpattern at position 0","notes":{"skip_patterns":["ok","(?<!"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad escape \\k at position 0","notes":{"skip_patterns":["ok","\\k<a>"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad escape \\p at position 0","notes":{"skip_patterns":["ok","\\p{L}"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad escape \\z at position 0","notes":{"skip_patterns":["ok","\\z"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad escape \\G at position 0","notes":{"skip_patterns":["ok","\\G"]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"missing ), unterminated subpattern at position 7","notes":{"skip_patterns":["ok","(?x) a ("]},"points":{},"raises":"PatternError"}
+{"aliases":null,"input":"x\n","message":"bad escape (end of pattern) at position 3 (line 2, column 1)","notes":{"skip_patterns":["ok","a\r\n\\"]},"points":{},"raises":"PatternError"}

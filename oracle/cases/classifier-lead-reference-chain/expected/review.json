@@ -1,0 +1,367 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 1,
+      "status": "adjusted",
+      "text": "John 3:16"
+    },
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 2,
+      "status": "adjusted",
+      "text": "John 3:16"
+    },
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 2,
+      "status": "adjusted",
+      "text": "Romans 8:28"
+    },
+    {
+      "detail": "no version listed; used NIV (nearest version above)",
+      "line": 3,
+      "status": "adjusted",
+      "text": "John 3:16 & 17 & 19"
+    },
+    {
+      "detail": "no version listed; used NIV (nearest version above)",
+      "line": 5,
+      "status": "adjusted",
+      "text": "Genesis 1:1-2:3"
+    }
+  ],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "verse",
+      "line": 1,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slides": [
+        1
+      ],
+      "text": "John 3:16",
+      "tier": "warning",
+      "title": "John 3:16 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slides": [
+        2
+      ],
+      "text": "John 3:16",
+      "tier": "warning",
+      "title": "John 3:16 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slides": [
+        3
+      ],
+      "text": "Romans 8:28",
+      "tier": "warning",
+      "title": "Romans 8:28 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slides": [
+        4
+      ],
+      "text": "Acts 2:1 NIV",
+      "tier": "warning",
+      "title": "Acts 2:1 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slides": [
+        5,
+        6,
+        7
+      ],
+      "text": "John 3:16, 17, 19",
+      "tier": "warning",
+      "title": "John 3:16 & 17 & 19 (NIV)"
+    },
+    {
+      "add_text": "• Psalm 23",
+      "addable": true,
+      "correction": null,
+      "id": 5,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "whole-chapter reference; add verse numbers to include it"
+      ],
+      "slides": [],
+      "text": "Psalm 23",
+      "tier": "error",
+      "title": "Psalm 23"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "verse",
+      "line": 5,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slides": [
+        8,
+        9
+      ],
+      "text": "Genesis 1:1 – 2:3",
+      "tier": "warning",
+      "title": "Genesis 1:1-2:3 (NIV)"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "whole-chapter reference; add verse numbers to include it",
+      "line": 4,
+      "status": "needs_review",
+      "text": "Psalm 23"
+    }
+  ],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• Psalm 23",
+        "addable": true,
+        "correction": null,
+        "id": 5,
+        "kind": "error",
+        "line": 4,
+        "reasons": [
+          "whole-chapter reference; add verse numbers to include it"
+        ],
+        "slides": [],
+        "text": "Psalm 23",
+        "tier": "error",
+        "title": "Psalm 23"
+      }
+    ],
+    "good": [],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "verse",
+        "line": 1,
+        "reasons": [
+          "no version listed; used NKJV (default version)"
+        ],
+        "slides": [
+          1
+        ],
+        "text": "John 3:16",
+        "tier": "warning",
+        "title": "John 3:16 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "no version listed; used NKJV (default version)"
+        ],
+        "slides": [
+          2
+        ],
+        "text": "John 3:16",
+        "tier": "warning",
+        "title": "John 3:16 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "no version listed; used NKJV (default version)"
+        ],
+        "slides": [
+          3
+        ],
+        "text": "Romans 8:28",
+        "tier": "warning",
+        "title": "Romans 8:28 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "no version listed; used NKJV (default version)"
+        ],
+        "slides": [
+          4
+        ],
+        "text": "Acts 2:1 NIV",
+        "tier": "warning",
+        "title": "Acts 2:1 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [
+          "no version listed; used NIV (nearest version above)"
+        ],
+        "slides": [
+          5,
+          6,
+          7
+        ],
+        "text": "John 3:16, 17, 19",
+        "tier": "warning",
+        "title": "John 3:16 & 17 & 19 (NIV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "verse",
+        "line": 5,
+        "reasons": [
+          "no version listed; used NIV (nearest version above)"
+        ],
+        "slides": [
+          8,
+          9
+        ],
+        "text": "Genesis 1:1 – 2:3",
+        "tier": "warning",
+        "title": "Genesis 1:1-2:3 (NIV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "",
+      "title": "John 3:16 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "",
+      "title": "John 3:16 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "",
+      "title": "Romans 8:28 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "",
+      "title": "Acts 2:1 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "",
+      "title": "John 3:16 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "",
+      "title": "John 3:17 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 7,
+      "text": "",
+      "title": "John 3:19 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "",
+      "title": "Genesis 1:1 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 9,
+      "text": "",
+      "title": "Genesis 2:3 (NIV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 5,
+    "errors": 1,
+    "fixes": 0,
+    "flagged": 1,
+    "good": 0,
+    "left_out": 0,
+    "needs_review": 1,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 9,
+    "verse_slides": 9,
+    "warnings": 6
+  }
+}

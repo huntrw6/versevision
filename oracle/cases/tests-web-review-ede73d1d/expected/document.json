@@ -1,0 +1,140 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "Title 11/8/26"
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "point",
+      "text": "Faith",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16 NIV",
+        "source_end": 13,
+        "source_start": 0,
+        "source_text": "John 3:16 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 4,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 8:28",
+        "source_end": 11,
+        "source_start": 0,
+        "source_text": "Romans 8:28",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 8,
+              "verse": 28
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "list_item",
+      "text": "Open with prayer",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "kind": "review",
+      "line": 6,
+      "reason": "looks like a verse but is not one (John 3:99 NIV: John 3 has no verse 99)",
+      "text": "John 3:99 NIV"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 2,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 3,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 4,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "other",
+      "line": 5,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "badref",
+      "line": 6,
+      "rule": "looks like a reference at the start of the line, but is not a real verse",
+      "why": "John 3:99 NIV: John 3 has no verse 99"
+    }
+  ]
+}

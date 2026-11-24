@@ -1,0 +1,10 @@
+[notes]
+label_words = [
+    "custom word",
+    "the end",
+    "  ",
+    "a.b",
+]
+
+[run]
+no_fetch = true

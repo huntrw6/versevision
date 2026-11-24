@@ -1,0 +1,223 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Conclusion: first line\nis not its own slide",
+      "tier": "good",
+      "title": "Conclusion: first line"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Conclusion: Will You\nLet God Use Your Life?",
+      "tier": "good",
+      "title": "Conclusion: Will You"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Application - live it out",
+      "tier": "good",
+      "title": "Application - live it out"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 4,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "invitation — come forward",
+      "tier": "good",
+      "title": "invitation — come forward"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 5,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Takeaway : one thing",
+      "tier": "good",
+      "title": "Takeaway : one thing"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 6,
+      "id": 6,
+      "kind": "point",
+      "line": 7,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• Conclusions are not labels",
+      "tier": "warning",
+      "title": "• Conclusions are not labels"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 7,
+      "id": 7,
+      "kind": "point",
+      "line": 8,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Big idea: God is near",
+      "tier": "good",
+      "title": "Big idea: God is near"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 8,
+      "id": 8,
+      "kind": "point",
+      "line": 9,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "main point:none",
+      "tier": "good",
+      "title": "main point:none"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 7,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• Conclusions are not labels"
+    }
+  ],
+  "point_count": 9,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "Conclusion: first line\nis not its own slide",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "1) A point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Conclusion: Will You\nLet God Use Your Life?",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Application - live it out",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 3,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "invitation — come forward",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 4,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Takeaway : one thing",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 5,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• Conclusions are not labels",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 6,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Big idea: God is near",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 7,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "main point:none",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 8,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

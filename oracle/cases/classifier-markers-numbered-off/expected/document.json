@@ -1,0 +1,114 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "slide_note",
+      "text": "1) One",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "a)",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "list_item",
+      "text": "Letter",
+      "warnings": []
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "list_item",
+      "text": "bullet",
+      "warnings": []
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "list_item",
+      "text": "KEY #1) Header",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "kind": "verse",
+      "line": 5,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16 NIV",
+        "source_end": 16,
+        "source_start": 3,
+        "source_text": "John 3:16 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "other",
+      "line": 1,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 2,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "bullet character at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "other",
+      "line": 4,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 5,
+      "rule": "Bible reference at the end of a quoted block",
+      "why": ""
+    }
+  ]
+}

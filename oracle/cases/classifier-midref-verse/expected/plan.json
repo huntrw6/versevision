@@ -1,0 +1,136 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) Point",
+      "tier": "good",
+      "title": "1) Point"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)",
+        "taken from the sentence: \"He's told us in John 3:16 and Romans 8:28 that it \""
+      ],
+      "slide_count": 1,
+      "text": "John 3:16",
+      "tier": "warning",
+      "title": "John 3:16 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)",
+        "taken from the sentence: \"He's told us in John 3:16 and Romans 8:28 that it \""
+      ],
+      "slide_count": 1,
+      "text": "Romans 8:28",
+      "tier": "warning",
+      "title": "Romans 8:28 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 3,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [
+        "no version listed; used NKJV (default version)",
+        "taken from the sentence: 'As Psalm 23:1 says'"
+      ],
+      "slide_count": 1,
+      "text": "Psalm 23:1",
+      "tier": "warning",
+      "title": "Psalms 23:1 (NKJV)"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 2,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "John 3:16"
+    },
+    {
+      "line": 2,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "Romans 8:28"
+    },
+    {
+      "line": 3,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "Psalms 23:1"
+    }
+  ],
+  "point_count": 1,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) Point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Romans 8:28",
+        "source_passage_index": 2,
+        "verse_keys": [
+          "ROM.8.28"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:1",
+        "source_passage_index": 3,
+        "verse_keys": [
+          "PSA.23.1"
+        ],
+        "version_text": "NKJV"
+      }
+    ]
+  },
+  "verse_count": 3
+}

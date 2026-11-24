@@ -1,0 +1,454 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 9,
+      "status": "adjusted",
+      "text": "• plain line that stays"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 11,
+      "status": "adjusted",
+      "text": "• keep me"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• Closing thoughts for the week",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slides": [],
+      "text": "Closing thoughts for the week",
+      "tier": "warning",
+      "title": "Closing thoughts for the week"
+    },
+    {
+      "add_text": "• 10 min",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slides": [],
+      "text": "10 min",
+      "tier": "warning",
+      "title": "10 min"
+    },
+    {
+      "add_text": "• It's a trap",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slides": [],
+      "text": "It's a trap",
+      "tier": "warning",
+      "title": "It's a trap"
+    },
+    {
+      "add_text": "• [x marks the spot",
+      "addable": true,
+      "correction": null,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slides": [],
+      "text": "[x marks the spot",
+      "tier": "warning",
+      "title": "[x marks the spot"
+    },
+    {
+      "add_text": "• aab and ab",
+      "addable": true,
+      "correction": null,
+      "id": 5,
+      "kind": "left_out",
+      "line": 6,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slides": [],
+      "text": "aab and ab",
+      "tier": "warning",
+      "title": "aab and ab"
+    },
+    {
+      "add_text": "• foo foo here",
+      "addable": true,
+      "correction": null,
+      "id": 6,
+      "kind": "left_out",
+      "line": 7,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slides": [],
+      "text": "foo foo here",
+      "tier": "warning",
+      "title": "foo foo here"
+    },
+    {
+      "add_text": "• FOO bar",
+      "addable": true,
+      "correction": null,
+      "id": 7,
+      "kind": "left_out",
+      "line": 8,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slides": [],
+      "text": "FOO bar",
+      "tier": "warning",
+      "title": "FOO bar"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "point",
+      "line": 9,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        2
+      ],
+      "text": "• plain line that stays",
+      "tier": "warning",
+      "title": "• plain line that stays"
+    },
+    {
+      "add_text": "• Tab here",
+      "addable": true,
+      "correction": null,
+      "id": 9,
+      "kind": "left_out",
+      "line": 10,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slides": [],
+      "text": "Tab\there",
+      "tier": "warning",
+      "title": "Tab\there"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 10,
+      "kind": "point",
+      "line": 11,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        3
+      ],
+      "text": "• keep me",
+      "tier": "warning",
+      "title": "• keep me"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "stage_note: matches a skip pattern",
+      "line": 2,
+      "status": "left_out",
+      "text": "Closing thoughts for the week"
+    },
+    {
+      "detail": "stage_note: matches a skip pattern",
+      "line": 3,
+      "status": "left_out",
+      "text": "10 min"
+    },
+    {
+      "detail": "stage_note: matches a skip pattern",
+      "line": 4,
+      "status": "left_out",
+      "text": "It's a trap"
+    },
+    {
+      "detail": "stage_note: matches a skip pattern",
+      "line": 5,
+      "status": "left_out",
+      "text": "[x marks the spot"
+    },
+    {
+      "detail": "stage_note: matches a skip pattern",
+      "line": 6,
+      "status": "left_out",
+      "text": "aab and ab"
+    },
+    {
+      "detail": "stage_note: matches a skip pattern",
+      "line": 7,
+      "status": "left_out",
+      "text": "foo foo here"
+    },
+    {
+      "detail": "stage_note: matches a skip pattern",
+      "line": 8,
+      "status": "left_out",
+      "text": "FOO bar"
+    },
+    {
+      "detail": "stage_note: matches a skip pattern",
+      "line": 10,
+      "status": "left_out",
+      "text": "Tab\there"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [
+      {
+        "add_text": "• Closing thoughts for the week",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "stage note: matches a skip pattern"
+        ],
+        "slides": [],
+        "text": "Closing thoughts for the week",
+        "tier": "warning",
+        "title": "Closing thoughts for the week"
+      },
+      {
+        "add_text": "• 10 min",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "left_out",
+        "line": 3,
+        "reasons": [
+          "stage note: matches a skip pattern"
+        ],
+        "slides": [],
+        "text": "10 min",
+        "tier": "warning",
+        "title": "10 min"
+      },
+      {
+        "add_text": "• It's a trap",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "left_out",
+        "line": 4,
+        "reasons": [
+          "stage note: matches a skip pattern"
+        ],
+        "slides": [],
+        "text": "It's a trap",
+        "tier": "warning",
+        "title": "It's a trap"
+      },
+      {
+        "add_text": "• [x marks the spot",
+        "addable": true,
+        "correction": null,
+        "id": 4,
+        "kind": "left_out",
+        "line": 5,
+        "reasons": [
+          "stage note: matches a skip pattern"
+        ],
+        "slides": [],
+        "text": "[x marks the spot",
+        "tier": "warning",
+        "title": "[x marks the spot"
+      },
+      {
+        "add_text": "• aab and ab",
+        "addable": true,
+        "correction": null,
+        "id": 5,
+        "kind": "left_out",
+        "line": 6,
+        "reasons": [
+          "stage note: matches a skip pattern"
+        ],
+        "slides": [],
+        "text": "aab and ab",
+        "tier": "warning",
+        "title": "aab and ab"
+      },
+      {
+        "add_text": "• foo foo here",
+        "addable": true,
+        "correction": null,
+        "id": 6,
+        "kind": "left_out",
+        "line": 7,
+        "reasons": [
+          "stage note: matches a skip pattern"
+        ],
+        "slides": [],
+        "text": "foo foo here",
+        "tier": "warning",
+        "title": "foo foo here"
+      },
+      {
+        "add_text": "• FOO bar",
+        "addable": true,
+        "correction": null,
+        "id": 7,
+        "kind": "left_out",
+        "line": 8,
+        "reasons": [
+          "stage note: matches a skip pattern"
+        ],
+        "slides": [],
+        "text": "FOO bar",
+        "tier": "warning",
+        "title": "FOO bar"
+      },
+      {
+        "add_text": "• Tab here",
+        "addable": true,
+        "correction": null,
+        "id": 9,
+        "kind": "left_out",
+        "line": 10,
+        "reasons": [
+          "stage note: matches a skip pattern"
+        ],
+        "slides": [],
+        "text": "Tab\there",
+        "tier": "warning",
+        "title": "Tab\there"
+      }
+    ],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "point",
+        "line": 9,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          2
+        ],
+        "text": "• plain line that stays",
+        "tier": "warning",
+        "title": "• plain line that stays"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 10,
+        "kind": "point",
+        "line": 11,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          3
+        ],
+        "text": "• keep me",
+        "tier": "warning",
+        "title": "• keep me"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) A point",
+      "title": "1) A point"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "• plain line that stays",
+      "title": "• plain line that stays"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "• keep me",
+      "title": "• keep me"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 2,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 8,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 3,
+    "slides": 3,
+    "verse_slides": 0,
+    "warnings": 10
+  }
+}

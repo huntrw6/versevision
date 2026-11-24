@@ -1,0 +1,617 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "JPL 11/22/26 A Study in the Psalms"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "stage/production cue",
+      "text": "Show Photo of the shepherd"
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "slide_note",
+      "text": "THREE THINGS TO KNOW",
+      "warnings": []
+    },
+    {
+      "category": "quoted_text",
+      "kind": "skipped",
+      "line": 4,
+      "reason": "verse text quoted above its reference; text is fetched from the Bible provider",
+      "text": "“The Lord is my shepherd; I shall not want.”"
+    },
+    {
+      "kind": "verse",
+      "line": 5,
+      "quoted": "“The Lord is my shepherd; I shall not want.”",
+      "reference": {
+        "book_display_name": "Psalms",
+        "book_id": "PSA",
+        "normalized_text": "Psalms 23:1",
+        "source_end": 10,
+        "source_start": 0,
+        "source_text": "Psalm 23:1",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 23,
+              "verse": 1
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "point",
+      "text": "The Lord leads us beside still waters.",
+      "warnings": []
+    },
+    {
+      "detail_end": 7,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 7,
+      "role": "list_item",
+      "text": "A full sentence that sits under the first point and keeps going for a good while so that it wraps.",
+      "warnings": []
+    },
+    {
+      "detail_end": 8,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 8,
+      "role": "list_item",
+      "text": "Short heading",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 9,
+      "kind": "point",
+      "label": "2)",
+      "label_fixed_from": "",
+      "line": 9,
+      "role": "point",
+      "text": "He restores my soul and guides me in the paths of righteousness for His name's sake.",
+      "warnings": []
+    },
+    {
+      "detail_end": 10,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 10,
+      "role": "slide_note",
+      "text": "Conclusion: trust Him.",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 11,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 8:28",
+        "source_end": 11,
+        "source_start": 0,
+        "source_text": "Romans 8:28",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 8,
+              "verse": 28
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 12,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16-18 NIV",
+        "source_end": 16,
+        "source_start": 0,
+        "source_text": "John 3:16-18 NIV",
+        "spans": [
+          {
+            "end": {
+              "chapter": 3,
+              "verse": 18
+            },
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "review",
+      "line": 13,
+      "reason": "whole-chapter reference; add verse numbers to include it",
+      "text": "Psalm 23"
+    },
+    {
+      "kind": "review",
+      "line": 14,
+      "reason": "mentions Philippians 4:13 inside text; put the reference on its own line to add it as a slide",
+      "text": "As Philippians 4:13 says, we can do all things."
+    },
+    {
+      "kind": "verse",
+      "line": 15,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Philippians",
+        "book_id": "PHP",
+        "normalized_text": "Philippians 4:19",
+        "source_end": 16,
+        "source_start": 0,
+        "source_text": "Philippians 4:19",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 4,
+              "verse": 19
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 16,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16-18 NIV",
+        "source_end": 16,
+        "source_start": 0,
+        "source_text": "John 3:16-18 NIV",
+        "spans": [
+          {
+            "end": {
+              "chapter": 3,
+              "verse": 18
+            },
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 17,
+      "kind": "point",
+      "label": "a)",
+      "label_fixed_from": "",
+      "line": 17,
+      "role": "list_item",
+      "text": "Pray",
+      "warnings": []
+    },
+    {
+      "detail_end": 18,
+      "kind": "point",
+      "label": "b)",
+      "label_fixed_from": "",
+      "line": 18,
+      "role": "list_item",
+      "text": "Read",
+      "warnings": []
+    },
+    {
+      "detail_end": 19,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 19,
+      "role": "list_item",
+      "text": "A bullet line",
+      "warnings": []
+    },
+    {
+      "detail_end": 20,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 20,
+      "role": "list_item",
+      "text": "another bullet",
+      "warnings": []
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 21,
+      "reason": "stage/production cue",
+      "text": "(pause here)"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 22,
+      "reason": "stage/production cue",
+      "text": "https://example.com/slides"
+    },
+    {
+      "detail_end": 23,
+      "kind": "point",
+      "label": "3)",
+      "label_fixed_from": "",
+      "line": 23,
+      "role": "point",
+      "text": "KEY#3) mismatched label",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 24,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Matthew",
+        "book_id": "MAT",
+        "normalized_text": "Matthew 6:9-13 KJV",
+        "source_end": 18,
+        "source_start": 0,
+        "source_text": "Matthew 6:9-13 KJV",
+        "spans": [
+          {
+            "end": {
+              "chapter": 6,
+              "verse": 13
+            },
+            "start": {
+              "chapter": 6,
+              "verse": 9
+            }
+          }
+        ],
+        "version": "KJV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 25,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Acts",
+        "book_id": "ACT",
+        "normalized_text": "Acts 2:1-4 & 6-8",
+        "source_end": 16,
+        "source_start": 0,
+        "source_text": "Acts 2:1-4 & 6-8",
+        "spans": [
+          {
+            "end": {
+              "chapter": 2,
+              "verse": 4
+            },
+            "start": {
+              "chapter": 2,
+              "verse": 1
+            }
+          },
+          {
+            "end": {
+              "chapter": 2,
+              "verse": 8
+            },
+            "start": {
+              "chapter": 2,
+              "verse": 6
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 26,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Genesis",
+        "book_id": "GEN",
+        "normalized_text": "Genesis 1:1-2:3",
+        "source_end": 17,
+        "source_start": 0,
+        "source_text": "Genesis 1:1 – 2:3",
+        "spans": [
+          {
+            "end": {
+              "chapter": 2,
+              "verse": 3
+            },
+            "start": {
+              "chapter": 1,
+              "verse": 1
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 27,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 27,
+      "role": "list_item",
+      "text": "Closing thought for the evening.",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 2,
+      "rule": "starts with a stage/cue word",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "other",
+      "line": 3,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "quote",
+      "line": 4,
+      "rule": "starts with a quotation mark",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 5,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 6,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "other",
+      "line": 7,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 8,
+      "first_in_document": false,
+      "label": "other",
+      "line": 8,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 9,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 9,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 10,
+      "first_in_document": false,
+      "label": "other",
+      "line": 10,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 11,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 11,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 12,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 12,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 13,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 13,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 14,
+      "first_in_document": false,
+      "label": "midref",
+      "line": 14,
+      "rule": "Bible reference found inside a sentence",
+      "why": ""
+    },
+    {
+      "end_line": 15,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 15,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 16,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 16,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 17,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 17,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 18,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 18,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 19,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 19,
+      "rule": "bullet character at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 20,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 20,
+      "rule": "bullet character at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 21,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 21,
+      "rule": "reads like a note to self (brackets, 'note:', 'remember'...)",
+      "why": ""
+    },
+    {
+      "end_line": 22,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 22,
+      "rule": "contains a web address",
+      "why": ""
+    },
+    {
+      "end_line": 23,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 23,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 24,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 24,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 25,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 25,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 26,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 26,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 27,
+      "first_in_document": false,
+      "label": "other",
+      "line": 27,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+[notes]
+before_first_item = "review"
+
+[run]
+no_fetch = true

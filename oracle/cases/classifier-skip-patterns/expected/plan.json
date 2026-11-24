@@ -1,0 +1,259 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• Closing thoughts for the week",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slide_count": 0,
+      "text": "Closing thoughts for the week",
+      "tier": "warning",
+      "title": "Closing thoughts for the week"
+    },
+    {
+      "add_text": "• 10 min",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slide_count": 0,
+      "text": "10 min",
+      "tier": "warning",
+      "title": "10 min"
+    },
+    {
+      "add_text": "• It's a trap",
+      "correction": {},
+      "first_slide": 1,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slide_count": 0,
+      "text": "It's a trap",
+      "tier": "warning",
+      "title": "It's a trap"
+    },
+    {
+      "add_text": "• [x marks the spot",
+      "correction": {},
+      "first_slide": 1,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slide_count": 0,
+      "text": "[x marks the spot",
+      "tier": "warning",
+      "title": "[x marks the spot"
+    },
+    {
+      "add_text": "• aab and ab",
+      "correction": {},
+      "first_slide": 1,
+      "id": 5,
+      "kind": "left_out",
+      "line": 6,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slide_count": 0,
+      "text": "aab and ab",
+      "tier": "warning",
+      "title": "aab and ab"
+    },
+    {
+      "add_text": "• foo foo here",
+      "correction": {},
+      "first_slide": 1,
+      "id": 6,
+      "kind": "left_out",
+      "line": 7,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slide_count": 0,
+      "text": "foo foo here",
+      "tier": "warning",
+      "title": "foo foo here"
+    },
+    {
+      "add_text": "• FOO bar",
+      "correction": {},
+      "first_slide": 1,
+      "id": 7,
+      "kind": "left_out",
+      "line": 8,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slide_count": 0,
+      "text": "FOO bar",
+      "tier": "warning",
+      "title": "FOO bar"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 8,
+      "kind": "point",
+      "line": 9,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• plain line that stays",
+      "tier": "warning",
+      "title": "• plain line that stays"
+    },
+    {
+      "add_text": "• Tab here",
+      "correction": {},
+      "first_slide": 2,
+      "id": 9,
+      "kind": "left_out",
+      "line": 10,
+      "reasons": [
+        "stage note: matches a skip pattern"
+      ],
+      "slide_count": 0,
+      "text": "Tab\there",
+      "tier": "warning",
+      "title": "Tab\there"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 10,
+      "kind": "point",
+      "line": 11,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• keep me",
+      "tier": "warning",
+      "title": "• keep me"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 9,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• plain line that stays"
+    },
+    {
+      "line": 11,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• keep me"
+    }
+  ],
+  "point_count": 3,
+  "review": [],
+  "skipped": [
+    {
+      "line": 2,
+      "problem": "stage_note: matches a skip pattern",
+      "text": "Closing thoughts for the week"
+    },
+    {
+      "line": 3,
+      "problem": "stage_note: matches a skip pattern",
+      "text": "10 min"
+    },
+    {
+      "line": 4,
+      "problem": "stage_note: matches a skip pattern",
+      "text": "It's a trap"
+    },
+    {
+      "line": 5,
+      "problem": "stage_note: matches a skip pattern",
+      "text": "[x marks the spot"
+    },
+    {
+      "line": 6,
+      "problem": "stage_note: matches a skip pattern",
+      "text": "aab and ab"
+    },
+    {
+      "line": 7,
+      "problem": "stage_note: matches a skip pattern",
+      "text": "foo foo here"
+    },
+    {
+      "line": 8,
+      "problem": "stage_note: matches a skip pattern",
+      "text": "FOO bar"
+    },
+    {
+      "line": 10,
+      "problem": "stage_note: matches a skip pattern",
+      "text": "Tab\there"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) A point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• plain line that stays",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• keep me",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

@@ -1,0 +1,52 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "stage/production cue",
+      "text": "(ask Amy to cue the video)"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "stage/production cue",
+      "text": "NOTE: remember offering"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 3,
+      "reason": "stage/production cue",
+      "text": "TODO fix this"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "stage",
+      "line": 1,
+      "rule": "reads like a note to self (brackets, 'note:', 'remember'...)",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 2,
+      "rule": "reads like a note to self (brackets, 'note:', 'remember'...)",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 3,
+      "rule": "reads like a note to self (brackets, 'note:', 'remember'...)",
+      "why": ""
+    }
+  ]
+}
