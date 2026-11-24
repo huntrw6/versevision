@@ -412,8 +412,19 @@ fn run_fitting_line(row: &Value) -> Result<(), String> {
 
 fn run_reference_line(row: &Value) -> Result<(), String> {
     let aliases = row["aliases"].as_object();
-    let actual = parse_references(row["input"].as_str().unwrap_or(""), aliases)
-        .map_err(|e| e.to_string())?;
+    let actual = parse_references(row["input"].as_str().unwrap_or(""), aliases);
+    if let Some(exception) = row["raises"].as_str() {
+        // Python raised (the oracle records the exception, not a result): Rust has to fail too, the same way.
+        return match actual {
+            Err(e) if e.python_exception() == exception => Ok(()),
+            Err(e) => Err(format!("Python raises {exception}; Rust gave {e}")),
+            Ok(value) => Err(format!(
+                "Python raises {exception}; Rust returned {}",
+                show(&value)
+            )),
+        };
+    }
+    let actual = actual.map_err(|e| e.to_string())?;
     let expected = json!({"references": row["references"], "issues": row["issues"]});
     first_difference("out", &expected, &actual).map_or(Ok(()), Err)
 }
