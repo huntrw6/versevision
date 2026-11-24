@@ -1,0 +1,295 @@
+{
+  "source": "notes.txt",
+  "summary": {
+    "slides": 4,
+    "verse_slides": 2,
+    "point_slides": 2,
+    "flagged": 1,
+    "not_added": 0,
+    "needs_review": 1,
+    "left_out": 2,
+    "adjustments": 0,
+    "errors": 1,
+    "fixes": 0,
+    "warnings": 0,
+    "good": 4
+  },
+  "looks": null,
+  "decisions": [
+    {
+      "id": 0,
+      "line": 1,
+      "kind": "left_out",
+      "title": "Title 11/8/26",
+      "text": "Title 11/8/26",
+      "tier": "good",
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "addable": true,
+      "add_text": "• Title 11/8/26",
+      "correction": null
+    },
+    {
+      "id": 1,
+      "line": 2,
+      "kind": "left_out",
+      "title": "“For God so loved the world.”",
+      "text": "“For God so loved the world.”",
+      "tier": "good",
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "addable": true,
+      "add_text": "• “For God so loved the world”",
+      "correction": null
+    },
+    {
+      "id": 2,
+      "line": 3,
+      "kind": "verse",
+      "title": "John 3:16 NIV",
+      "text": "John 3:16 NIV",
+      "tier": "good",
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "addable": false,
+      "add_text": "",
+      "correction": null
+    },
+    {
+      "id": 3,
+      "line": 4,
+      "kind": "point",
+      "title": "1) First point",
+      "text": "1) First point",
+      "tier": "good",
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "addable": false,
+      "add_text": "",
+      "correction": null
+    },
+    {
+      "id": 4,
+      "line": 5,
+      "kind": "verse",
+      "title": "Psalms 23:1 NIV",
+      "text": "Psalm 23:1 NIV",
+      "tier": "good",
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "addable": false,
+      "add_text": "",
+      "correction": null
+    },
+    {
+      "id": 5,
+      "line": 6,
+      "kind": "point",
+      "title": "2) Second point",
+      "text": "2) Second point",
+      "tier": "good",
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "addable": false,
+      "add_text": "",
+      "correction": null
+    },
+    {
+      "id": 6,
+      "line": 7,
+      "kind": "error",
+      "title": "John 3:99 NIV",
+      "text": "John 3:99 NIV",
+      "tier": "error",
+      "reasons": [
+        "looks like a verse but is not one (John 3:99 NIV: John 3 has no verse 99)"
+      ],
+      "slides": [],
+      "addable": true,
+      "add_text": "• John 3:99 NIV",
+      "correction": null
+    }
+  ],
+  "review": {
+    "error": [
+      {
+        "id": 6,
+        "line": 7,
+        "kind": "error",
+        "title": "John 3:99 NIV",
+        "text": "John 3:99 NIV",
+        "tier": "error",
+        "reasons": [
+          "looks like a verse but is not one (John 3:99 NIV: John 3 has no verse 99)"
+        ],
+        "slides": [],
+        "addable": true,
+        "add_text": "• John 3:99 NIV",
+        "correction": null
+      }
+    ],
+    "warning": [],
+    "good": [
+      {
+        "id": 2,
+        "line": 3,
+        "kind": "verse",
+        "title": "John 3:16 NIV",
+        "text": "John 3:16 NIV",
+        "tier": "good",
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "addable": false,
+        "add_text": "",
+        "correction": null
+      },
+      {
+        "id": 3,
+        "line": 4,
+        "kind": "point",
+        "title": "1) First point",
+        "text": "1) First point",
+        "tier": "good",
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "addable": false,
+        "add_text": "",
+        "correction": null
+      },
+      {
+        "id": 4,
+        "line": 5,
+        "kind": "verse",
+        "title": "Psalms 23:1 NIV",
+        "text": "Psalm 23:1 NIV",
+        "tier": "good",
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "addable": false,
+        "add_text": "",
+        "correction": null
+      },
+      {
+        "id": 5,
+        "line": 6,
+        "kind": "point",
+        "title": "2) Second point",
+        "text": "2) Second point",
+        "tier": "good",
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "addable": false,
+        "add_text": "",
+        "correction": null
+      }
+    ],
+    "left_out_warning": [],
+    "left_out_good": [
+      {
+        "id": 0,
+        "line": 1,
+        "kind": "left_out",
+        "title": "Title 11/8/26",
+        "text": "Title 11/8/26",
+        "tier": "good",
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "addable": true,
+        "add_text": "• Title 11/8/26",
+        "correction": null
+      },
+      {
+        "id": 1,
+        "line": 2,
+        "kind": "left_out",
+        "title": "“For God so loved the world.”",
+        "text": "“For God so loved the world.”",
+        "tier": "good",
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "addable": true,
+        "add_text": "• “For God so loved the world”",
+        "correction": null
+      }
+    ]
+  },
+  "slides": [
+    {
+      "n": 1,
+      "kind": "verse",
+      "title": "John 3:16 (NIV)",
+      "text": "Text of NIV John 3:16. More words follow so that a long verse is cut into slides. More words follow so that a long verse is cut into slides. More words follow so that a long verse is cut into slides."
+    },
+    {
+      "n": 2,
+      "kind": "point",
+      "title": "1) First point",
+      "text": "1) First point"
+    },
+    {
+      "n": 3,
+      "kind": "verse",
+      "title": "Psalms 23:1 (NIV)",
+      "text": "Text of NIV Psalms 23:1. More words follow so that a long verse is cut into slides."
+    },
+    {
+      "n": 4,
+      "kind": "point",
+      "title": "2) Second point",
+      "text": "2) Second point"
+    }
+  ],
+  "flagged": [
+    {
+      "line": 7,
+      "text": "John 3:99 NIV",
+      "detail": "looks like a verse but is not one (John 3:99 NIV: John 3 has no verse 99)",
+      "status": "needs_review"
+    }
+  ],
+  "adjustments": [],
+  "left_out": [
+    {
+      "line": 1,
+      "text": "Title 11/8/26",
+      "detail": "header: title / date line",
+      "status": "left_out"
+    },
+    {
+      "line": 2,
+      "text": "“For God so loved the world.”",
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "status": "left_out"
+    }
+  ],
+  "clean": false,
+  "mode": "new",
+  "title": "Title 11-8-26",
+  "target": null,
+  "library": "Verses",
+  "node": "this computer (127.0.0.1:<PORT>)"
+}

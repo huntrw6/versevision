@@ -1,0 +1,33 @@
+[
+  {
+    "import_id": "87b0e5234b",
+    "created": "2026-07-19T00:06:12.500000Z",
+    "source_name": "notes.txt",
+    "source_sha256": "4d5b0e836730b84dab35ac8eb7a69b959d800ff2f608036faeec1d25b3ab5ac9",
+    "target_uuid": "N0001",
+    "target_name": "With added line",
+    "node": "local",
+    "cue_uuids": [
+      "2292e2be-ac11-4931-8bdf-e305e34c4bd4",
+      "033f32ea-89f1-4daf-a0bb-ce2f917e3758",
+      "bdd6290a-198b-4faa-aaab-4ed0dd2ea614",
+      "429f6a39-85c8-4367-acad-8b534fd06fe0",
+      "e1461ecd-d62b-4fbd-821b-a2734e45c338",
+      "4d87f2bc-1066-4815-b172-697619cc4a41",
+      "a8d4085a-412a-449d-9bbe-c35157e9473b"
+    ],
+    "slide_count": 7,
+    "verse_count": 1,
+    "point_count": 5,
+    "backup_path": null,
+    "status": "active",
+    "replaces": null,
+    "mode": "new",
+    "library": "Verses",
+    "file_path": "<ROOT>/Libraries/Verses/With added line.pro",
+    "file_sha256": "",
+    "file_cue_count": 7,
+    "copied_from": null,
+    "playlist_items": []
+  }
+]

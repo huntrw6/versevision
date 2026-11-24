@@ -1,0 +1,129 @@
+{
+  "description": "A presentation made by another ProPresenter version is refused, nothing changes; an API that is not v1 is refused.",
+  "libraries": [
+    "Verses"
+  ],
+  "files": [
+    {
+      "library": "Verses",
+      "name": "Sample",
+      "source": "fixture:sample/Sample.pro",
+      "id": "P1"
+    },
+    {
+      "library": "Verses",
+      "name": "Old",
+      "source": "oracle:wrong_version.pro",
+      "id": "P2"
+    },
+    {
+      "library": "Verses",
+      "name": "Other",
+      "source": "oracle:wrong_document.pro",
+      "id": "P3"
+    }
+  ],
+  "template": {
+    "library": "Verses",
+    "name": "Sample",
+    "id": "P1"
+  },
+  "playlist": {
+    "id": "PL1",
+    "name": "Sunday",
+    "items": [
+      {
+        "id": {
+          "uuid": "H1",
+          "name": "Sermon",
+          "index": 0
+        },
+        "type": "header",
+        "is_hidden": false,
+        "is_pco": false,
+        "header_color": {
+          "red": 0.5,
+          "green": 0.5,
+          "blue": 0.5,
+          "alpha": 1.0
+        }
+      },
+      {
+        "id": {
+          "uuid": "I1",
+          "name": "Sample",
+          "index": 1
+        },
+        "type": "presentation",
+        "is_hidden": false,
+        "is_pco": false,
+        "presentation_info": {
+          "presentation_uuid": "P1",
+          "arrangement_name": ""
+        }
+      },
+      {
+        "id": {
+          "uuid": "H2",
+          "name": "Closing",
+          "index": 2
+        },
+        "type": "header",
+        "is_hidden": false,
+        "is_pco": false,
+        "header_color": {
+          "red": 0.5,
+          "green": 0.5,
+          "blue": 0.5,
+          "alpha": 1.0
+        }
+      }
+    ]
+  },
+  "server": {
+    "landing": {
+      "listed_after": 0.5,
+      "reissue_at": [],
+      "loaded_after": 0.5
+    }
+  },
+  "running": true,
+  "steps": [
+    {
+      "op": "run",
+      "text": "Title 11/8/26\n“For God so loved the world.”\nJohn 3:16 NIV\n1) First point\nPsalm 23:1 NIV\n2) Second point\n",
+      "replace": true,
+      "presentation": "Old"
+    },
+    {
+      "op": "run",
+      "text": "Title 11/8/26\n“For God so loved the world.”\nJohn 3:16 NIV\n1) First point\nPsalm 23:1 NIV\n2) Second point\n",
+      "append": true,
+      "presentation": "Other"
+    },
+    {
+      "op": "server",
+      "set": {
+        "api_version": "v2"
+      }
+    },
+    {
+      "op": "client",
+      "calls": [
+        "version"
+      ]
+    },
+    {
+      "op": "server",
+      "set": {
+        "api_version": "v1"
+      }
+    },
+    {
+      "op": "client",
+      "calls": [
+        "version"
+      ]
+    }
+  ]
+}

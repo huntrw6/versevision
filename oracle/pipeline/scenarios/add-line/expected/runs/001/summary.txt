@@ -1,0 +1,37 @@
+VerseVision run 20260719-000611-7cfbf3
+============================================================
+Result:        DRY RUN
+Started:       2026-07-19T00:06:11+00:00
+Version:       VerseVision 0.38.1
+Document:      notes.txt
+Action:        new (dry run)
+ProPresenter on: this computer
+Options:       --yes
+Source text:   126 characters, 10 lines (sha256 4d5b0e836730), kept in source.txt
+
+What was understood
+------------------------------------------------------------
+8 slides: 1 verse, 7 sermon point. 1 flagged (0 not added, 0 need review). 0 adjustments. 2 lines left out on purpose.
+
+    1. point • Title 11/8/26                                • Title 11/8/26
+    2. point KEY #1) ONE                                    KEY #1) ONE
+    3. point KEY #2) TWO                                    KEY #2) TWO
+    4. point KEY #3) THREE                                  KEY #3) THREE
+    5. point KEY #4) FOUR                                   KEY #4) FOUR
+    6. point • (pause)                                      • (pause)
+    7. point • Some stray line                              • Some stray line of prose to maybe add
+    8. verse John 3:16 (NIV)                                Text of NIV John 3:16. More words follow so that a long vers
+
+FLAGGED (not imported or needs a look): 1
+  line    3  'KEY#1)'  -> automatic fix to approve: KEY#1) -> KEY #1)
+
+LEFT OUT on purpose: 2
+  line    1  'Title 11/8/26'  -> header: title / date line
+  line    7  '(pause)'  -> stage_note: stage/production cue
+
+Timeline
+------------------------------------------------------------
+  [   0.0s] plan_ready   6 slides, 0 not added, 0 to check, 2 left out, 0 adjustments
+
+Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json
+To follow any line of the document to its slide:  versevision explain 20260719-000611-7cfbf3

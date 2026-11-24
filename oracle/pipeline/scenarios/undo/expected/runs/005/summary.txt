@@ -1,0 +1,19 @@
+VerseVision run 20260719-000614-ca4f1e
+============================================================
+Result:        SUCCESS
+Started:       2026-07-19T00:06:14+00:00
+Version:       VerseVision 0.38.1
+Document:      undo of import d3c53966de
+Action:        undo
+
+What was undone
+------------------------------------------------------------
+Removed:       First (4 slides)
+Result:        Presentation removed
+
+Timeline
+------------------------------------------------------------
+  [   0.0s] progress     Removing the presentation
+
+Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json
+To follow any line of the document to its slide:  versevision explain 20260719-000614-ca4f1e

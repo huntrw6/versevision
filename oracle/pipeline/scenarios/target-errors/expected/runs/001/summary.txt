@@ -1,0 +1,21 @@
+VerseVision run 20260719-000611-466c9d
+============================================================
+Result:        FAILED
+Error:         --replace and --append change an existing presentation: name it with -p NAME (see: versevision presentations)
+Started:       2026-07-19T00:06:11+00:00
+Version:       VerseVision 0.38.1
+Document:      notes.txt
+Action:        replace
+ProPresenter on: this computer
+Source text:   104 characters, 7 lines (sha256 93720f1156e7), kept in source.txt
+
+Warnings and errors
+------------------------------------------------------------
+  [   0.0s] run_failed: --replace and --append change an existing presentation: name it with -p NAME (see: versevision presentations)
+
+Timeline
+------------------------------------------------------------
+  [   0.0s] run_failed   --replace and --append change an existing presentation: name it with -p NAME (see: versevision presentations)
+
+Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json
+To follow any line of the document to its slide:  versevision explain 20260719-000611-466c9d

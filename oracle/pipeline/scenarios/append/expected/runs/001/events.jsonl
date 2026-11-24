@@ -1,0 +1,13 @@
+{"t": "2026-07-19T00:06:27.500+00:00", "elapsed": 0.0, "step": "run_start", "level": "info", "run_id": "20260719-000627-cf8105", "kind": "undo", "application_version": "0.38.1", "started": "2026-07-19T00:06:27+00:00", "source": "undo of import 26bbddbaa7", "mode": "undo"}
+{"t": "2026-07-19T00:06:27.500+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Checking nothing changed since the import"}
+{"t": "2026-07-19T00:06:27.500+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Backing up the original"}
+{"t": "2026-07-19T00:06:27.500+00:00", "elapsed": 0.0, "step": "swap_start", "level": "info", "message": "Sample: original N0002, 1 playlist entries", "backup": "<ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000627", "old_sha256": "88baaa4a63957c05", "temp": "Sample (old 0763e3)"}
+{"t": "2026-07-19T00:06:27.500+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Renaming the original"}
+{"t": "2026-07-19T00:06:31.500+00:00", "elapsed": 4.0, "step": "progress", "level": "info", "message": "Writing the new file"}
+{"t": "2026-07-19T00:06:31.500+00:00", "elapsed": 4.0, "step": "file_placed", "level": "info", "message": "<ROOT>/Libraries/Verses/Sample.pro", "path": "<ROOT>/Libraries/Verses/Sample.pro", "sha256": "9271906f54d1ecb7"}
+{"t": "2026-07-19T00:06:31.500+00:00", "elapsed": 4.0, "step": "progress", "level": "info", "message": "Waiting for ProPresenter to show it"}
+{"t": "2026-07-19T00:06:41.500+00:00", "elapsed": 14.0, "step": "progress", "level": "info", "message": "Updating the playlist"}
+{"t": "2026-07-19T00:06:41.500+00:00", "elapsed": 14.0, "step": "playlist", "level": "info", "message": "entry in Sunday now opens the new file", "playlist": "Sunday", "entries": 1}
+{"t": "2026-07-19T00:06:44.000+00:00", "elapsed": 16.5, "step": "progress", "level": "info", "message": "Removing the renamed original"}
+{"t": "2026-07-19T00:06:44.000+00:00", "elapsed": 16.5, "step": "swap_done", "level": "info", "message": "Sample replaced; original removed (removed)"}
+{"t": "2026-07-19T00:06:44.000+00:00", "elapsed": 16.5, "step": "run_end", "level": "info", "outcome": "ok", "error": null}

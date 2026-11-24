@@ -1,0 +1,16 @@
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "run_start", "level": "info", "run_id": "20260719-000611-47f48d", "kind": "web", "application_version": "0.38.1", "started": "2026-07-19T00:06:11+00:00", "source": "notes.txt", "mode": "new", "title": null, "library": null, "target": null, "node": "this computer", "default_version": null}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "source_saved", "level": "info", "file": "notes.txt", "characters": 126, "lines": 10, "sha256": "4d5b0e836730b84dab35ac8eb7a69b959d800ff2f608036faeec1d25b3ab5ac9"}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "plan_start", "level": "info", "default_version": null, "no_fetch": false, "characters": 126}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "plan_ready", "level": "info", "message": "6 slides, 0 not added, 0 to check, 2 left out, 0 adjustments"}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "run_end", "level": "info", "outcome": "reviewed, not imported yet", "error": null}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "run_resumed", "level": "info"}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "apply_start", "level": "info", "message": "new: importing after review", "accept_flags": true}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "1 decision(s) switched off in the review"}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Reading the template"}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Building the presentation"}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Adding it to ProPresenter"}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "file_placed", "level": "info", "message": "<ROOT>/Libraries/Verses/Title 11-8-26.pro", "path": "<ROOT>/Libraries/Verses/Title 11-8-26.pro", "slides": 6, "sha256": "3715420b30008350", "original_sha256": "", "removed": 0}
+{"t": "2026-07-19T00:06:11.000+00:00", "elapsed": 0.0, "step": "progress", "level": "info", "message": "Waiting for ProPresenter to show it"}
+{"t": "2026-07-19T00:06:12.500+00:00", "elapsed": 1.5, "step": "verify", "level": "info", "message": "ProPresenter reports all 6 generated slides", "verified": true, "presentation_uuid": "N0001"}
+{"t": "2026-07-19T00:06:12.500+00:00", "elapsed": 1.5, "step": "history_recorded", "level": "info", "message": "import 11542e451f", "import_id": "11542e451f", "cue_uuids": 6}
+{"t": "2026-07-19T00:06:12.500+00:00", "elapsed": 1.5, "step": "run_end", "level": "info", "outcome": "ok", "error": null}

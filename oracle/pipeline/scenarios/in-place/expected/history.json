@@ -1,0 +1,58 @@
+[
+  {
+    "import_id": "724781cd8b",
+    "created": "2026-07-19T00:06:11Z",
+    "source_name": "notes.txt",
+    "source_sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1",
+    "target_uuid": "P1",
+    "target_name": "Sample",
+    "node": "local",
+    "cue_uuids": [
+      "9cbcb157-3362-4932-a1ec-ecbe55c6a20c",
+      "c32bfaf0-b29f-487f-97ee-1814267ccd01",
+      "f32e7e79-8d83-4417-8b83-23916d5a2039",
+      "c371fa0b-b045-4214-82f1-0f1fde8fd4d4"
+    ],
+    "slide_count": 4,
+    "verse_count": 2,
+    "point_count": 2,
+    "backup_path": "<ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000611",
+    "status": "undone",
+    "replaces": null,
+    "mode": "replace",
+    "library": "Verses",
+    "file_path": null,
+    "file_sha256": "",
+    "file_cue_count": 0,
+    "copied_from": null,
+    "playlist_items": []
+  },
+  {
+    "import_id": "1a7b714bb1",
+    "created": "2026-07-19T00:06:11Z",
+    "source_name": "notes.txt",
+    "source_sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1",
+    "target_uuid": "P1",
+    "target_name": "Sample",
+    "node": "local",
+    "cue_uuids": [
+      "708f64ac-42ce-4c37-a7b0-0dd661839e29",
+      "64794c58-5448-4f87-b69f-81b2d25c8884",
+      "c7a399aa-3ff4-4ae9-b800-4859b4ae4ea8",
+      "637ca5df-1cf9-4cae-a209-c896609eb3d4"
+    ],
+    "slide_count": 4,
+    "verse_count": 2,
+    "point_count": 2,
+    "backup_path": "<ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000611-2",
+    "status": "active",
+    "replaces": null,
+    "mode": "append",
+    "library": "Verses",
+    "file_path": null,
+    "file_sha256": "",
+    "file_cue_count": 0,
+    "copied_from": null,
+    "playlist_items": []
+  }
+]

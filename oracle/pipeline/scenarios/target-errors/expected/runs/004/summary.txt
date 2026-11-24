@@ -1,0 +1,24 @@
+VerseVision run 20260719-000611-9bde90
+============================================================
+Result:        FAILED
+Error:         Presentation 'Sample' was not found in ProPresenter
+Started:       2026-07-19T00:06:11+00:00
+Version:       VerseVision 0.38.1
+Document:      notes.txt
+Action:        append
+Library:       Nowhere
+Chosen presentation: Sample
+ProPresenter on: this computer
+Source text:   104 characters, 7 lines (sha256 93720f1156e7), kept in source.txt
+
+Warnings and errors
+------------------------------------------------------------
+  [   0.0s] run_failed: Presentation 'Sample' was not found in ProPresenter
+
+Timeline
+------------------------------------------------------------
+  [   0.0s] plan_ready   4 slides, 0 not added, 0 to check, 2 left out, 0 adjustments
+  [   0.0s] run_failed   Presentation 'Sample' was not found in ProPresenter
+
+Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json
+To follow any line of the document to its slide:  versevision explain 20260719-000611-9bde90

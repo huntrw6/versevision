@@ -1,6 +1,6 @@
 [package]
 name = "versevision-pp"
-description = "VerseVision ProPresenter 19 side: the presentation file writer (protobuf, template, slides, RTF) and the theme reader."
+description = "VerseVision ProPresenter 19 side: the presentation file writer (protobuf, template, slides, RTF), the theme reader, the ProPresenter API client, the swap pipeline, history, run log, explain and replay."
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -18,11 +18,22 @@ sha2 = "0.10"
 uuid = { version = "1", features = ["v4"] }
 regex = { workspace = true }
 thiserror = { workspace = true }
+serde_json = { workspace = true }
+indexmap = { workspace = true }
+# A plain-HTTP client for ProPresenter's network API on this computer (no TLS, no JSON feature: the bodies are made here).
+ureq = { version = "3", default-features = false }
+# Is ProPresenter running? (psutil's `process_iter` of the Python app)
+sysinfo = { version = "0.40", default-features = false, features = ["system"] }
+# Only the system clock's local time zone (the run folder's name is local time); everything else is own integer arithmetic.
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+tempfile = "3"
+sha1 = "0.10"
+pollster = "0.4"
 
 
 [dev-dependencies]
+versevision-docs = { path = "../versevision-docs" }
 # Only the test that proves the committed descriptor set is current and the example that rewrites it use these: a consumer never builds them.
 protox = "0.10"
 prost = "0.14"
-serde_json = { workspace = true }
 toml = { workspace = true }

@@ -1,0 +1,134 @@
+[propresenter]
+host = "127.0.0.1"
+port = <PORT>
+timeout_seconds = 5.0
+
+[node]
+type = "local"
+command = "hermes-remote"
+app_path = "/Applications/ProPresenter.app"
+process_pattern = "MacOS/ProPresenter$"
+process_name = "ProPresenter"
+backup_dir = "<ROOT>/backups"
+library_root = "<ROOT>/Libraries"
+helper_dir = "$HOME/VerseVision-tools"
+theme_root = "<ROOT>/Themes"
+confirm_quit = true
+retries = 2
+retry_delay_seconds = 20.0
+quit_wait_seconds = 25.0
+launch_wait_seconds = 90.0
+
+[slides]
+break_on_new_verse = true
+max_characters = 350
+max_verses_per_slide = 1
+preserve_poetry_lines = true
+even_split_punctuation_tolerance = 0.25
+even_split_tolerance = 0.15
+include_verse_numbers = false
+reference_format = "{book} {chapter}:{verses} {version}"
+reference_label_mode = "verse"
+max_body_lines = 5
+line_width_units = 48.0
+max_reference_lines = 1
+reference_width_units = 46.0
+prefer_punctuation_breaks = true
+repeat_reference_on_continuation = true
+
+[notes]
+line_breaks = "slide"
+unlabeled_sentence = "bullet"
+unlabeled_short = "bullet"
+before_first_item = "skip"
+stage_cues = "skip"
+extra_cue_words = []
+skip_patterns = []
+quote_above_reference = "skip"
+quote_alone = "review"
+reference_in_text = "review"
+whole_chapter = "review"
+duplicates = "keep"
+label_words = [
+    "conclusion",
+    "application",
+    "invitation",
+    "challenge",
+    "summary",
+    "closing",
+    "takeaway",
+    "big idea",
+    "main point",
+]
+label_own_slide = true
+header_max_words = 2
+headings = "slide"
+caps_lines = "heading"
+wrapped_lines = "join"
+orphan_max_words = 3
+
+[points]
+numbered = true
+lettered = true
+bullets = true
+require_sequence = true
+numbering = "renumber"
+number_style = "{n})"
+bullet_char = "•"
+case = "as_written"
+fix_label_typos = true
+strip_trailing_period = true
+balance_lines = true
+line_width_units = 33.0
+line_tolerance = 0.15
+line_tolerance_at_punctuation = 0.25
+max_lines_per_slide = 0
+max_lines = 4
+shown_in_capitals = true
+theme = ""
+theme_slide = ""
+
+[verses]
+version_source = "default"
+version_from_quote = "use"
+quote_versions = [
+    "KJV",
+    "NKJV",
+    "NIV",
+    "NASB1995",
+    "NLT",
+    "ESV",
+]
+quote_match = 0.85
+theme = ""
+theme_slide = ""
+
+[profiles]
+
+[presentation]
+backup_count = 10
+
+[presentation_template]
+presentation_uuid = "P1"
+presentation_name = "Sample"
+cue_uuid = "F94169B4-CB51-43C7-9851-EB802EAE7FA9"
+reference_object = "Reference"
+body_object = "Verse"
+style_fingerprint = "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+point_cue_uuid = "AD76111D-58E1-4023-8011-8FD4EEBC7748"
+point_object = "Sermon Point"
+point_style_fingerprint = "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"
+
+[output]
+library = "Verses"
+swap_keeps_id = false
+
+[bible]
+source = "auto"
+
+[bible.version_aliases]
+YLT = "NLT"
+
+[bible.version_routes]
+
+[bible.providers]

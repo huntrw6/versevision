@@ -1,0 +1,36 @@
+{
+  "description": "No playlist exists: Replace has nothing to repoint.",
+  "libraries": [
+    "Verses"
+  ],
+  "files": [
+    {
+      "library": "Verses",
+      "name": "Sample",
+      "source": "fixture:sample/Sample.pro",
+      "id": "P1"
+    }
+  ],
+  "template": {
+    "library": "Verses",
+    "name": "Sample",
+    "id": "P1"
+  },
+  "playlist": null,
+  "server": {
+    "landing": {
+      "listed_after": 0.5,
+      "reissue_at": [],
+      "loaded_after": 0.5
+    }
+  },
+  "running": true,
+  "steps": [
+    {
+      "op": "run",
+      "text": "Title 11/8/26\n“For God so loved the world.”\nJohn 3:16 NIV\n1) First point\nPsalm 23:1 NIV\n2) Second point\n",
+      "replace": true,
+      "presentation": "Sample"
+    }
+  ]
+}

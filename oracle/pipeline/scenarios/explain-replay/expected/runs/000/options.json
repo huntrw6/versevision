@@ -1,0 +1,95 @@
+{
+  "notes": {
+    "line_breaks": "slide",
+    "unlabeled_sentence": "bullet",
+    "unlabeled_short": "bullet",
+    "before_first_item": "skip",
+    "stage_cues": "skip",
+    "extra_cue_words": [],
+    "skip_patterns": [],
+    "quote_above_reference": "skip",
+    "quote_alone": "review",
+    "reference_in_text": "review",
+    "whole_chapter": "review",
+    "duplicates": "keep",
+    "label_words": [
+      "conclusion",
+      "application",
+      "invitation",
+      "challenge",
+      "summary",
+      "closing",
+      "takeaway",
+      "big idea",
+      "main point"
+    ],
+    "label_own_slide": true,
+    "header_max_words": 2,
+    "headings": "slide",
+    "caps_lines": "heading",
+    "wrapped_lines": "join",
+    "orphan_max_words": 3
+  },
+  "points": {
+    "numbered": true,
+    "lettered": true,
+    "bullets": true,
+    "require_sequence": true,
+    "numbering": "renumber",
+    "number_style": "{n})",
+    "bullet_char": "•",
+    "case": "as_written",
+    "fix_label_typos": true,
+    "strip_trailing_period": true,
+    "balance_lines": true,
+    "line_width_units": 33.0,
+    "line_tolerance": 0.15,
+    "line_tolerance_at_punctuation": 0.25,
+    "max_lines_per_slide": 0,
+    "max_lines": 4,
+    "shown_in_capitals": true,
+    "theme": "",
+    "theme_slide": ""
+  },
+  "slides": {
+    "break_on_new_verse": true,
+    "max_characters": 350,
+    "max_verses_per_slide": 1,
+    "preserve_poetry_lines": true,
+    "even_split_punctuation_tolerance": 0.25,
+    "even_split_tolerance": 0.15,
+    "include_verse_numbers": false,
+    "reference_format": "{book} {chapter}:{verses} {version}",
+    "reference_label_mode": "verse",
+    "max_body_lines": 5,
+    "line_width_units": 48.0,
+    "max_reference_lines": 1,
+    "reference_width_units": 46.0,
+    "prefer_punctuation_breaks": true,
+    "repeat_reference_on_continuation": true
+  },
+  "verses": {
+    "version_source": "default",
+    "version_from_quote": "use",
+    "quote_versions": [
+      "KJV",
+      "NKJV",
+      "NIV",
+      "NASB1995",
+      "NLT",
+      "ESV"
+    ],
+    "quote_match": 0.85,
+    "theme": "",
+    "theme_slide": ""
+  },
+  "bible": {
+    "default_version": null,
+    "version_aliases": {
+      "YLT": "NLT"
+    },
+    "version_routes": {}
+  },
+  "default_version_used": null,
+  "no_fetch": false
+}

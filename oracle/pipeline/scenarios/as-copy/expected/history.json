@@ -1,0 +1,100 @@
+[
+  {
+    "import_id": "f27bc5452a",
+    "created": "2026-07-19T00:06:12.500000Z",
+    "source_name": "notes.txt",
+    "source_sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1",
+    "target_uuid": "N0001",
+    "target_name": "Sample 2",
+    "node": "local",
+    "cue_uuids": [
+      "c7fd1154-d857-4d56-b397-4720205c597d",
+      "ea28e848-841a-4caf-80eb-0213895bdbf5",
+      "fc5a0f34-7e55-46ee-ac38-0f36a2924677",
+      "586e037c-910c-44e3-969e-f4014b890f6e"
+    ],
+    "slide_count": 4,
+    "verse_count": 2,
+    "point_count": 2,
+    "backup_path": null,
+    "status": "active",
+    "replaces": null,
+    "mode": "new",
+    "library": "Verses",
+    "file_path": "<ROOT>/Libraries/Verses/Sample 2.pro",
+    "file_sha256": "",
+    "file_cue_count": 6,
+    "copied_from": "Sample",
+    "playlist_items": [
+      {
+        "playlist": "PL1",
+        "item": "7E71F8B9-35C3-4CEA-B8C7-23B269365209",
+        "name": "Sample 2",
+        "presentation": "N0001"
+      }
+    ]
+  },
+  {
+    "import_id": "f2f7a3ca69",
+    "created": "2026-07-19T00:06:14Z",
+    "source_name": "notes.txt",
+    "source_sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1",
+    "target_uuid": "N0002",
+    "target_name": "Sample 3",
+    "node": "local",
+    "cue_uuids": [
+      "4da054a1-96f2-448c-934a-c89c6228b03c",
+      "3956c8cc-0140-4f89-a640-ef35c9d6a2bd",
+      "e15dd32f-ce1c-4fe5-880a-76bd322ecd23",
+      "b4f69191-4f79-4450-a9dc-9b1298f76fb6"
+    ],
+    "slide_count": 4,
+    "verse_count": 2,
+    "point_count": 2,
+    "backup_path": null,
+    "status": "active",
+    "replaces": null,
+    "mode": "new",
+    "library": "Verses",
+    "file_path": "<ROOT>/Libraries/Verses/Sample 3.pro",
+    "file_sha256": "",
+    "file_cue_count": 6,
+    "copied_from": "Sample",
+    "playlist_items": [
+      {
+        "playlist": "PL1",
+        "item": "50B52A63-9782-465E-97FE-16B0EAAF1F5E",
+        "name": "Sample 3",
+        "presentation": "N0002"
+      }
+    ]
+  },
+  {
+    "import_id": "c42d01f211",
+    "created": "2026-07-19T00:06:15.500000Z",
+    "source_name": "notes.txt",
+    "source_sha256": "93720f1156e78b2c01798dd1b3c47b33dba37ecb28f4b17c7f3b087d896b12a1",
+    "target_uuid": "N0003",
+    "target_name": "Sample 4",
+    "node": "local",
+    "cue_uuids": [
+      "6788f12e-88a8-4322-bd35-7cbdb1a791e1",
+      "1c1f1db1-374f-4ea3-ab07-e551c37f86c9",
+      "794db318-0eda-4b20-8d0c-40adadc67cb0",
+      "1fb9d5fe-5b97-427b-8932-e18bd72f59c9"
+    ],
+    "slide_count": 4,
+    "verse_count": 2,
+    "point_count": 2,
+    "backup_path": null,
+    "status": "active",
+    "replaces": null,
+    "mode": "new",
+    "library": "Verses",
+    "file_path": "<ROOT>/Libraries/Verses/Sample 4.pro",
+    "file_sha256": "",
+    "file_cue_count": 6,
+    "copied_from": "Sample",
+    "playlist_items": []
+  }
+]

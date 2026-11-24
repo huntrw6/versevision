@@ -1,0 +1,242 @@
+{
+  "file_ops": [
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Old.pro"
+      ],
+      "op": "fetch_file",
+      "result": "6541be72e5476847e2a5dee8762fb876f805280a7fd21aeb753833d201855fdc",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Sample.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+      "t": 0.0
+    },
+    {
+      "args": [
+        "<ROOT>/Libraries/Verses/Other.pro"
+      ],
+      "op": "fetch_file",
+      "result": "9340ba01558779491dc2ad97240d5e939fe80bb778d89a6cf2773751bf643e0f",
+      "t": 0.0
+    }
+  ],
+  "files": {
+    "<ROOT>/Libraries/Verses/Old.pro": "6541be72e5476847e2a5dee8762fb876f805280a7fd21aeb753833d201855fdc",
+    "<ROOT>/Libraries/Verses/Other.pro": "9340ba01558779491dc2ad97240d5e939fe80bb778d89a6cf2773751bf643e0f",
+    "<ROOT>/Libraries/Verses/Sample.pro": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df"
+  },
+  "playlist": [
+    {
+      "header_color": {
+        "alpha": 1.0,
+        "blue": 0.5,
+        "green": 0.5,
+        "red": 0.5
+      },
+      "id": {
+        "index": 0,
+        "name": "Sermon",
+        "uuid": "H1"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "type": "header"
+    },
+    {
+      "id": {
+        "index": 1,
+        "name": "Sample",
+        "uuid": "I1"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "presentation_info": {
+        "arrangement_name": "",
+        "presentation_uuid": "P1"
+      },
+      "type": "presentation"
+    },
+    {
+      "header_color": {
+        "alpha": 1.0,
+        "blue": 0.5,
+        "green": 0.5,
+        "red": 0.5
+      },
+      "id": {
+        "index": 2,
+        "name": "Closing",
+        "uuid": "H2"
+      },
+      "is_hidden": false,
+      "is_pco": false,
+      "type": "header"
+    }
+  ],
+  "requests": [
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/P2",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/P1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/P3",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/libraries",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/library/L1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/v1/presentation/P1",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/version",
+      "status": 200,
+      "t": 0.0
+    },
+    {
+      "body": null,
+      "method": "GET",
+      "path": "/version",
+      "status": 200,
+      "t": 0.0
+    }
+  ],
+  "running": true,
+  "steps": [
+    {
+      "exit_code": 1,
+      "op": "run",
+      "stdout": {
+        "error": "Unsupported ProPresenter version 19.1.1",
+        "exit_code": 1,
+        "ok": false
+      },
+      "t": 0.0
+    },
+    {
+      "exit_code": 1,
+      "op": "run",
+      "stdout": {
+        "error": "Unsupported ProPresenter document version 15/12345",
+        "exit_code": 1,
+        "ok": false
+      },
+      "t": 0.0
+    },
+    {
+      "op": "server",
+      "t": 0.0
+    },
+    {
+      "calls": {
+        "version": {
+          "error": "UnsupportedProPresenterError: Unsupported ProPresenter API version: v2. No files were changed."
+        }
+      },
+      "op": "client",
+      "t": 0.0
+    },
+    {
+      "op": "server",
+      "t": 0.0
+    },
+    {
+      "calls": {
+        "version": {
+          "api_version": "v1",
+          "host_description": "fake",
+          "name": "ProPresenter",
+          "os_version": "15.7.9",
+          "platform": "macOS"
+        }
+      },
+      "op": "client",
+      "t": 0.0
+    }
+  ]
+}

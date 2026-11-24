@@ -1,0 +1,2 @@
+{"seq": 1, "stage": "target", "how": "from the ProPresenter API", "name": "Sample", "library": "Verses", "path": "<ROOT>/Libraries/Verses/Sample.pro"}
+{"seq": 2, "stage": "output", "outcome": "ok", "mode": "new", "presentation_name": "", "target_name": "Sample", "slide_count": 0, "cue_count_before": 6, "cue_count_after": 2, "removed_slides": 4, "verification": "Slides removed", "verified": true, "steps": []}

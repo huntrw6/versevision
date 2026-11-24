@@ -1,0 +1,51 @@
+VerseVision run 20260719-000611-10de6a
+============================================================
+Result:        SUCCESS
+Started:       2026-07-19T00:06:11+00:00
+Version:       VerseVision 0.38.1
+Document:      notes.txt
+Action:        append
+Chosen presentation: Sample
+ProPresenter on: this computer
+Source text:   104 characters, 7 lines (sha256 93720f1156e7), kept in source.txt
+
+What was written
+------------------------------------------------------------
+New file:      Sample
+Slides:        4 added; the file has 6 slides (copied from one with 2, 0 removed)
+Verified:      yes - ProPresenter reports all 4 generated slides
+  - backup: <ROOT>/Libraries/Verses/Sample.pro.versevision-backup-20260719-000611
+  - renamed original to Sample (old 36e2af); wrote new Sample.pro
+  - playlist now opens the new file: Sunday
+  - removed Sample (old 36e2af).pro (removed)
+
+What was understood
+------------------------------------------------------------
+4 slides: 2 verse, 2 sermon point. 0 flagged (0 not added, 0 need review). 0 adjustments. 2 lines left out on purpose.
+
+    1. verse John 3:16 (NIV)                                Text of NIV John 3:16. More words follow so that a long vers
+    2. point 1) First point                                 1) First point
+    3. verse Psalms 23:1 (NIV)                              Text of NIV Psalms 23:1. More words follow so that a long ve
+    4. point 2) Second point                                2) Second point
+
+LEFT OUT on purpose: 2
+  line    1  'Title 11/8/26'  -> header: title / date line
+  line    2  '“For God so loved the world.”'  -> quoted_text: verse text quoted above its reference; text is fetched from the Bible provider
+
+Timeline
+------------------------------------------------------------
+  [   0.0s] plan_ready   4 slides, 0 not added, 0 to check, 2 left out, 0 adjustments
+  [   0.0s] progress     Reading the template
+  [   0.0s] progress     Reading Sample
+  [   0.0s] progress     Building the new version
+  [   0.0s] progress     Backing up the original
+  [   0.0s] progress     Renaming the original
+  [   4.0s] progress     Writing the new file
+  [   4.0s] file_placed  <ROOT>/Libraries/Verses/Sample.pro
+  [   4.0s] progress     Waiting for ProPresenter to show it
+  [  14.0s] progress     Updating the playlist
+  [  14.0s] playlist     entry in Sunday now opens the new file
+  [  16.5s] progress     Removing the renamed original
+
+Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json
+To follow any line of the document to its slide:  versevision explain 20260719-000611-10de6a

@@ -1,0 +1,54 @@
+VerseVision run 20260719-000611-1a5915
+============================================================
+Result:        FAILED
+Error:         the playlist would not settle on the new version
+Started:       2026-07-19T00:06:11+00:00
+Version:       VerseVision 0.38.1
+Document:      notes.txt
+Action:        replace
+Chosen presentation: Sample
+ProPresenter on: this computer
+Source text:   104 characters, 7 lines (sha256 93720f1156e7), kept in source.txt
+
+What was understood
+------------------------------------------------------------
+4 slides: 2 verse, 2 sermon point. 0 flagged (0 not added, 0 need review). 0 adjustments. 2 lines left out on purpose.
+
+    1. verse John 3:16 (NIV)                                Text of NIV John 3:16. More words follow so that a long vers
+    2. point 1) First point                                 1) First point
+    3. verse Psalms 23:1 (NIV)                              Text of NIV Psalms 23:1. More words follow so that a long ve
+    4. point 2) Second point                                2) Second point
+
+LEFT OUT on purpose: 2
+  line    1  'Title 11/8/26'  -> header: title / date line
+  line    2  '“For God so loved the world.”'  -> quoted_text: verse text quoted above its reference; text is fetched from the Bible provider
+
+Warnings and errors
+------------------------------------------------------------
+  [  18.5s] swap_pacing: ProPresenter re-issued the id (N0029 -> N0030); following it
+  [  29.0s] swap_pacing: ProPresenter re-issued the id (N0031 -> N0032); following it
+  [  38.5s] swap_pacing: ProPresenter re-issued the id (N0033 -> N0034); following it
+  [  49.0s] swap_pacing: ProPresenter re-issued the id (N0035 -> N0036); following it
+  [  56.0s] swap_rollback: the playlist would not settle on the new version
+  [  60.0s] run_failed: the playlist would not settle on the new version
+
+Timeline
+------------------------------------------------------------
+  [   0.0s] plan_ready   4 slides, 0 not added, 0 to check, 2 left out, 0 adjustments
+  [   0.0s] progress     Reading the template
+  [   0.0s] progress     Reading Sample
+  [   0.0s] progress     Building the new version
+  [   0.0s] progress     Backing up the original
+  [   0.0s] progress     Renaming the original
+  [   4.0s] progress     Writing the new file
+  [   4.0s] file_placed  <ROOT>/Libraries/Verses/Sample.pro
+  [   4.0s] progress     Waiting for ProPresenter to show it
+  [  16.0s] progress     Updating the playlist
+  [  16.0s] playlist     entry in Sunday now opens the new file
+  [  26.5s] playlist     entry in Sunday now opens the new file
+  [  36.0s] playlist     entry in Sunday now opens the new file
+  [  46.5s] playlist     entry in Sunday now opens the new file
+  [  60.0s] run_failed   the playlist would not settle on the new version
+
+Files in this folder: summary.txt, events.jsonl (every step), trace.jsonl (every decision), options.json, source.txt, report.json
+To follow any line of the document to its slide:  versevision explain 20260719-000611-1a5915

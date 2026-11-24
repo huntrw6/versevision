@@ -1,0 +1,3 @@
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "run_start", "level": "info", "run_id": "20260719-000614-28e1d2", "kind": "undo", "application_version": "0.38.1", "started": "2026-07-19T00:06:14+00:00", "source": "undo of import nosuchid", "mode": "undo"}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "run_failed", "level": "error", "error": "No active import with id nosuchid", "error_type": "ConfigurationError", "traceback": "<traceback>"}
+{"t": "2026-07-19T00:06:14.000+00:00", "elapsed": 0.0, "step": "run_end", "level": "error", "outcome": "failed", "error": "No active import with id nosuchid"}
