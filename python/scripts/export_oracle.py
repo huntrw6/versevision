@@ -1388,6 +1388,8 @@ def main() -> None:
         print(f"pro: {pro_oracle(out, REPO_ROOT)} cases")
         from oracle_pipeline import pipeline_oracle            # the ProPresenter side, run against a scripted ProPresenter (S6b): oracle/pipeline/
         print(f"pipeline: {pipeline_oracle(out, REPO_ROOT)} scenarios")
+        from oracle_web import web_oracle                      # the web app's data routes (S7a): oracle/web/
+        print(f"web: {web_oracle(out, REPO_ROOT)} cases")
     if not args.only:
         from oracle_documents import documents_oracle          # the document readers (S4): oracle/documents/
         for kind, count in documents_oracle(out, REPO_ROOT).items():
