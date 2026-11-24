@@ -1,0 +1,3 @@
+# Cases where the Rust binary is known to answer differently from Python (name | why). This list may only shrink: the test fails when a
+# listed case now passes, and when an unlisted case fails.
+config-broken-toml | the wording of a TOML syntax error: Python's tomllib says "Expected ']' at the end of a table declaration (at line 1, column 7)", the toml crate has its own words

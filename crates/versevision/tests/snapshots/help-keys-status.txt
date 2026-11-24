@@ -1,0 +1,10 @@
+                                                                                
+ Usage: versevision keys status [OPTIONS]                                       
+                                                                                
+ Say for each provider whether a key is set. A key is never shown.              
+                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --output        <str>  [default: terminal]                                   │
+│ --help                 Show this message and exit.                           │
+╰──────────────────────────────────────────────────────────────────────────────╯
+

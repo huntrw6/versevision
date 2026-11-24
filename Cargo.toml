@@ -32,3 +32,8 @@ regex = "1"
 # Python `re` syntax for the patterns a user writes in config (`notes.skip_patterns`); see notes/pyre.rs.
 fancy-regex = "0.20"
 unicode-normalization = "0.1"
+
+# The released binary: small and self-contained.
+[profile.release]
+lto = "thin"
+strip = true
