@@ -96,7 +96,10 @@ pub fn restore_backup(path: &Path, backup: &Path) -> Result<()> {
     ));
     let result = (|| -> Result<()> {
         fs::copy(&backup, &temp).map_err(PpError::io)?;
-        fs::File::open(&temp)
+        // FlushFileBuffers (sync_all) needs write access on Windows
+        fs::OpenOptions::new()
+            .write(true)
+            .open(&temp)
             .and_then(|f| f.sync_all())
             .map_err(PpError::io)?;
         fs::rename(&temp, &path).map_err(PpError::io)
