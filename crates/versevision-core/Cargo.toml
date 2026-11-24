@@ -19,3 +19,6 @@ thiserror.workspace = true
 regex.workspace = true
 fancy-regex.workspace = true
 unicode-normalization.workspace = true
+
+[dev-dependencies]
+pollster = "0.4"

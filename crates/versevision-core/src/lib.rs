@@ -1,12 +1,17 @@
 //! VerseVision core. No network, no files except through traits defined here later.
 //!
 //! S1: the config model, the line fitting and the plan types. S2a: Scripture references, versification and Bible versions.
-//! S2b: the notes classifier. The planner comes next.
+//! S2b: the notes classifier. S3: the planner (`workflow`), the slide planner (`slides`), the Bible text trait (`bibles`).
 
+pub mod bibles;
 pub mod config;
 pub mod fitting;
+pub mod looks;
 pub mod notes;
 pub mod plan;
+pub mod pyfmt;
 pub mod pystr;
 pub mod references;
+pub mod slides;
 pub mod versions;
+pub mod workflow;

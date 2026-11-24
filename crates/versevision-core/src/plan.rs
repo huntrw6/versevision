@@ -1,7 +1,7 @@
 //! The plan: what the notes planner returns, the review report built from it and the trace of how it got there.
 //!
 //! The types serialise to exactly the JSON of `oracle/cases/*/expected/*` (field names are the Python model's;
-//! `docs/PLAN_CONTRACT.md` is the contract). `plan_notes` itself arrives in S3: here it only says so.
+//! `docs/PLAN_CONTRACT.md` is the contract). The planner itself is [`crate::workflow::plan_notes`].
 
 use std::collections::BTreeSet;
 
@@ -9,13 +9,25 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
 use thiserror::Error;
 
-use crate::config::AppConfig;
+use crate::looks::Looks;
+use crate::notes::ClassifyError;
 
-/// A part of the port that is not written yet.
+/// What makes `plan_notes` raise where Python raises (everything else, a verse that cannot be had, is a decision in the plan).
 #[derive(Debug, Clone, PartialEq, Eq, Error)]
 pub enum PlanError {
-    #[error("not implemented yet: {0}")]
-    NotImplemented(&'static str),
+    /// `classify_document` raised (the reference parser, a bad `notes.skip_patterns` entry, the numbered-duplicate bug).
+    #[error("{0}")]
+    Classify(#[from] ClassifyError),
+    /// `VerseVisionError("Unknown Bible version: ...")`: the default version is not a Bible version.
+    #[error("Unknown Bible version: {0}")]
+    UnknownVersion(String),
+    /// Python builds the real provider registry from `bible.providers` when none is given; here the caller has to supply the
+    /// Bible text (S5 brings the real providers), unless the plan is made without it.
+    #[error("no Bible text source was given (pass one, or plan with no_fetch)")]
+    NoBibleSource,
+    /// `points.number_style` is not a `str.format` pattern with `{n}` (Python raises `KeyError`, `IndexError` or `ValueError`).
+    #[error("points.number_style {style:?} cannot be formatted: {why}")]
+    NumberStyle { style: String, why: String },
 }
 
 /// What kind of slide.
@@ -65,6 +77,9 @@ pub struct PlannedSlide {
 pub struct SlidePlan {
     pub slides: Vec<PlannedSlide>,
     pub attribution_slides: Vec<PlannedSlide>,
+    /// The theme slides chosen for verses and points (not part of the saved plan; the ProPresenter theme reader is S6).
+    #[serde(skip)]
+    pub looks: Option<Looks>,
 }
 
 /// An automatic fix the user has to approve (a point header written unlike the others).
@@ -151,7 +166,7 @@ pub struct NotesImportResult {
     pub review: Vec<ProblemEntry>,
     /// Could not be added.
     pub failed: Vec<ProblemEntry>,
-    /// Themes are not part of the contract: always `null`.
+    /// The contract's `looks` key: always `null` (the oracle does not cover themes). The real look is `slide_plan.looks`.
     pub looks: Option<Value>,
 }
 
@@ -256,7 +271,7 @@ pub struct ReviewReport {
 }
 
 /// One line of `trace.jsonl`: `{"seq": 1, "stage": "extract", ...fields}`. The fields differ by stage (the table is in
-/// `docs/PLAN_CONTRACT.md`), so they stay a JSON object here until the planner writes them (S2, S3).
+/// `docs/PLAN_CONTRACT.md`), so they stay a JSON object here.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TraceRecord {
     /// Counts from 1 with no gaps.
@@ -275,30 +290,6 @@ pub struct PlanOptions {
     pub no_fetch: bool,
 }
 
-/// Where the verse text comes from. A run reads one verse at a time by version, book display name, chapter and verse.
-/// (A sketch for the oracle runner's offline provider; the real providers and their errors arrive in S5.)
-pub trait VerseSource {
-    fn verse_text(&self, version: &str, book: &str, chapter: u32, verse: u32) -> Option<String>;
-}
-
-/// Everything one planning run produces.
-#[derive(Debug, Clone, PartialEq)]
-pub struct PlanRun {
-    pub result: NotesImportResult,
-    pub report: ReviewReport,
-    pub trace: Vec<TraceRecord>,
-}
-
-/// Plan a notes document (already read as text). Not written yet (S3): always `Err(NotImplemented)`.
-pub fn plan_notes(
-    _text: &str,
-    _config: &AppConfig,
-    _options: &PlanOptions,
-    _verses: &dyn VerseSource,
-) -> Result<PlanRun, PlanError> {
-    Err(PlanError::NotImplemented("plan_notes arrives in S3"))
-}
-
 /// Review choices applied after planning (`choices.json`): decision ids.
 #[derive(Debug, Clone, PartialEq, Eq, Default, Serialize, Deserialize)]
 pub struct ReviewChoices {
@@ -308,14 +299,4 @@ pub struct ReviewChoices {
     pub include: BTreeSet<usize>,
     #[serde(default)]
     pub reject_fixes: BTreeSet<usize>,
-}
-
-/// `apply_review_choices`: the slides after the choices. Not written yet (S3).
-pub fn apply_review_choices(
-    _result: &NotesImportResult,
-    _choices: &ReviewChoices,
-) -> Result<SlidePlan, PlanError> {
-    Err(PlanError::NotImplemented(
-        "apply_review_choices arrives in S3",
-    ))
 }

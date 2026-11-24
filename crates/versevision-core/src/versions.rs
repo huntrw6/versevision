@@ -1,7 +1,7 @@
 //! Bible version names (`versions/registry.py`, `models.py`, `resolver.py`) and the quote score the version check is built on
 //! (`quote_score` of `workflow/notes_workflow.py`, which `oracle/versions.jsonl` also records).
 //!
-//! The walk that gives every verse of a document a version (nearest version above, default, required) is the planner's (S3);
+//! The walk that gives every verse of a document a version (nearest version above, default, required) is the planner's (`workflow::versions`);
 //! what is here is what it asks of a single reference or of a pair of them: canonical names, aliases, spelling correction,
 //! [`resolve_versions`] for a list of references, [`is_comparison_pair`], and [`quote_score`].
 

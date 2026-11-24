@@ -174,7 +174,7 @@ so a missing or extra record shows up as a different `seq` further down. Strings
 `... [N more characters]` is appended (N = the number of characters removed); lists keep their first 300 items; a key containing `api_key`, `apikey`,
 `authorization`, `password`, `secret`, `token` has the value `"[REDACTED]"`.
 
-The stages, in the order they appear, with the S-stage that has to produce them in Rust (`PLAN.md`):
+The stages, in the order they appear, with the S-stage that produces them in Rust (`PLAN.md`; S3 = `workflow::plan_notes`, the reader's `extract` record is S4 and the oracle runner takes it from the expected file):
 
 | stage | when | fields | Rust stage |
 |---|---|---|---|

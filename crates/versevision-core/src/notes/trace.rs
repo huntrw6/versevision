@@ -49,7 +49,7 @@ pub fn clean_value(value: Value, limit: usize) -> Value {
     }
 }
 
-/// Receives the decision records in the order they are written. The planner (S3) numbers them (`seq`) and writes them to `trace.jsonl`.
+/// Receives the decision records in the order they are written (the classifier, then the planner). The caller numbers them (`seq`).
 pub trait TraceSink {
     /// One record: the stage name and its fields (already cleaned the way the Python run log does).
     fn trace(&mut self, stage: &str, fields: Map<String, Value>);
@@ -92,4 +92,23 @@ impl TraceLog {
             })
             .collect()
     }
+}
+
+/// `runlog.trace(stage, **fields)`: clean the fields the way the run log does (strings cut at 2000 characters, lists at 300 items,
+/// secret-looking keys redacted) and hand the record to `sink`.
+pub fn emit(sink: &mut dyn TraceSink, stage: &str, fields: Map<String, Value>) {
+    if let Value::Object(cleaned) = clean_value(Value::Object(fields), 2000) {
+        sink.trace(stage, cleaned);
+    }
+}
+
+/// Build a trace record's fields: `fields!{ "line" => 3, "note" => "x" }` (insertion order is kept).
+#[macro_export]
+macro_rules! trace_fields {
+    ($($key:expr => $value:expr),* $(,)?) => {{
+        #[allow(unused_mut)]
+        let mut map = ::serde_json::Map::new();
+        $( map.insert(($key).to_string(), ::serde_json::json!($value)); )*
+        map
+    }};
 }
