@@ -1372,6 +1372,10 @@ def main() -> None:
     if not args.only:
         write_text(out / "user_patterns_subjects.json", dumps(_PATTERN_SUBJECTS))
         write_config_oracle(out)
+        from oracle_providers import providers_oracle          # the Bible providers (S5): oracle/providers/
+        for filename, rows in providers_oracle(out, REPO_ROOT).items():
+            write_jsonl(out / "providers" / filename, rows)
+            print(f"providers/{filename}: {len(rows)} lines")
     print(f"cases: {len(cases)}")
     for group, count in sorted(groups.items()):
         print(f"   {group}: {count}")

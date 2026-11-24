@@ -2,8 +2,9 @@
 //! provider the oracle uses. No network and no runtime here: the real providers (API.Bible, YouVersion, ESV, USFM files) are S5
 //! and implement [`BibleProvider`]; the tests drive the `async fn`s with `pollster`.
 //!
-//! Python's `ProviderRegistry.fetch` also looks in a cache and logs an `events.jsonl` line (`bible_fetch`). The cache (it must
-//! never hold ESV text) arrives with the providers in S5; the event log is not part of the oracle.
+//! Python's `ProviderRegistry.fetch` also looks in a cache ([`VerseCache`], implemented by `versevision-bible`; the registry
+//! only ever stores what a provider says is cacheable, so ESV text never reaches it) and logs an `events.jsonl` line
+//! (`bible_fetch`); the event log is not part of the oracle and is not ported.
 
 mod memory;
 mod registry;
@@ -15,6 +16,7 @@ use std::fmt;
 
 use serde::{Deserialize, Serialize};
 
+use crate::config::CachePolicy;
 use crate::notes::TraceSink;
 pub use crate::references::models::{BibleVerse, ResolvedPassage};
 use crate::references::{PassageReference, VerseSpan};
@@ -98,4 +100,24 @@ pub trait BibleProvider {
     fn cacheable(&self) -> bool {
         true
     }
+    /// `config.providers[name].cache_policy`: `Allowed` reads the cache before asking the provider, `Fresh` always asks
+    /// (the answer is still stored when the provider is cacheable, as in Python).
+    fn cache_policy(&self) -> CachePolicy {
+        CachePolicy::Allowed
+    }
+}
+
+/// `bibles/cache.py` (`ScriptureCache`) as the registry sees it: verses by provider, provider version id, book, chapter and verse.
+/// A cache failure is a miss (reading) or is ignored (writing): the planner must not fail because a cache file could not be
+/// written. Implementations are shared between threads.
+pub trait VerseCache: fmt::Debug + Send + Sync {
+    fn get(
+        &self,
+        provider: &str,
+        provider_version_id: &str,
+        book_id: &str,
+        chapter: u64,
+        verse: u64,
+    ) -> Option<BibleVerse>;
+    fn put(&self, provider: &str, provider_version_id: &str, verse: &BibleVerse);
 }

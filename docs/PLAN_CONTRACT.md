@@ -252,6 +252,13 @@ One JSON object per line; `args` hold every parameter by its Python name, so a r
 * Do not "fix" an expectation to make Rust pass. If Rust is right and Python is wrong, the PR shows the Python bug and the owner decides; the
   rule is below.
 
+## 9a. The providers' oracle
+
+`oracle/providers/` is a second, smaller oracle for the real Bible providers (S5): what Python's API.Bible, YouVersion, ESV and USFM providers, the
+scripture cache and `ProviderRegistry._fetch` do with canned HTTP responses (`httpx.MockTransport`). Files and what they hold are in `oracle/README.md`; it
+is written by `python/scripts/oracle_providers.py` from `export_oracle.py` and compared by `crates/versevision-bible/tests/`. The case files above never
+use a real provider (they serve `bible.json`), so the two oracles do not overlap.
+
 ## 10. Rule for changes
 
 **Every Python rule change adds a case and regenerates the oracle** (`cd python && uv run python scripts/export_oracle.py`), in the same pull
@@ -270,3 +277,14 @@ edited by hand.
 * `parse_references` raises a pydantic `ValidationError` for a chapter or verse of `0` in a position it builds a `VersePoint`
   (`John 0:1` and `John 1:0` are in the oracle). The planner never sees these as references; the oracle records the line with `"raises"`. A Rust parser should
   return an issue instead, and S2 should say so in its PR (an intentional, listed difference).
+
+* **The providers do not retry.** A 429 or 5xx, a timeout or a dropped connection is one `BibleProviderError` for that call (`api_bible.py`, `youversion.py`,
+  `esv.py`: `_get` has no loop), and the planner shows it. The Rust providers do the same; there is no back-off to port. `oracle/providers/*.jsonl` has a
+  `status-500-then-200` row per provider (one request, one error, the next call asks again).
+* **A response of an unexpected shape is not a `BibleProviderError`.** `payload.get(...)` on a JSON list, or `for item in payload["data"]` on a number, raises
+  `AttributeError`/`TypeError`, which the planner shows as `not added: <Python's message>`. No oracle row has such a response; the Rust providers answer
+  `<Provider> response failed: unexpected response shape; no presentation files changed`.
+* **`cache_policy = "fresh"` still stores.** `ProviderRegistry._fetch` skips the cache read for `fresh` but writes every verse a cacheable provider answered
+  (`registry.jsonl`, scenario `routing-and-cache`: `KJV` is asked live each time and counted in the cache). ESV is the one provider that is never stored.
+* **Keys are read once.** Python reads a key when the provider is built; the Rust providers read it for every request, so a key set in the keys file takes
+  effect without rebuilding the registry. The environment variable still wins over the file, and a build-time bundled key does not exist in Rust.

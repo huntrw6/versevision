@@ -1,0 +1,112 @@
+{"body":"","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":" ","message":"Expecting value: line 1 column 2 (char 1)"}
+{"body":"\n","message":"Expecting value: line 2 column 1 (char 1)"}
+{"body":"x","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"<html>Bad gateway</html>","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"{","message":"Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"}
+{"body":"}","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"[","message":"Expecting value: line 1 column 2 (char 1)"}
+{"body":"]","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"{}","message":null}
+{"body":"[]","message":null}
+{"body":"null","message":null}
+{"body":"true","message":null}
+{"body":"false","message":null}
+{"body":"0","message":null}
+{"body":"-","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"-0","message":null}
+{"body":"01","message":"Extra data: line 1 column 2 (char 1)"}
+{"body":"1.","message":"Extra data: line 1 column 2 (char 1)"}
+{"body":"1.5","message":null}
+{"body":"1e","message":"Extra data: line 1 column 2 (char 1)"}
+{"body":"1e5","message":null}
+{"body":"-1.5E+3","message":null}
+{"body":".5","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"+1","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"nul","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"nulll","message":"Extra data: line 1 column 5 (char 4)"}
+{"body":"tru","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"'single'","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"\"str","message":"Unterminated string starting at: line 1 column 1 (char 0)"}
+{"body":"\"str\"","message":null}
+{"body":"\"a\\nb\"","message":null}
+{"body":"\"a\nb\"","message":"Invalid control character at: line 1 column 3 (char 2)"}
+{"body":"\"a\tb\"","message":"Invalid control character at: line 1 column 3 (char 2)"}
+{"body":"\"\\x\"","message":"Invalid \\escape: line 1 column 2 (char 1)"}
+{"body":"\"\\u12\"","message":"Invalid \\uXXXX escape: line 1 column 3 (char 2)"}
+{"body":"\"\\u12g4\"","message":"Invalid \\uXXXX escape: line 1 column 3 (char 2)"}
+{"body":"\"\\ud800\"","message":null}
+{"body":"\"\\ud800\\u0041\"","message":null}
+{"body":"\"\\ud83d\\ude00\"","message":null}
+{"body":"\"\\","message":"Unterminated string starting at: line 1 column 1 (char 0)"}
+{"body":"\"\\u","message":"Invalid \\uXXXX escape: line 1 column 3 (char 2)"}
+{"body":"\"\\u1234","message":"Unterminated string starting at: line 1 column 1 (char 0)"}
+{"body":"{\"a\":1}","message":null}
+{"body":"{\"a\":1,}","message":"Illegal trailing comma before end of object: line 1 column 7 (char 6)"}
+{"body":"{\"a\":1 \"b\":2}","message":"Expecting ',' delimiter: line 1 column 8 (char 7)"}
+{"body":"{\"a\" 1}","message":"Expecting ':' delimiter: line 1 column 6 (char 5)"}
+{"body":"{\"a\":}","message":"Expecting value: line 1 column 6 (char 5)"}
+{"body":"{\"a\"}","message":"Expecting ':' delimiter: line 1 column 5 (char 4)"}
+{"body":"{a:1}","message":"Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"}
+{"body":"{'a':1}","message":"Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"}
+{"body":"{\"a\":1","message":"Expecting ',' delimiter: line 1 column 7 (char 6)"}
+{"body":"{\"a\":1,","message":"Expecting property name enclosed in double quotes: line 1 column 8 (char 7)"}
+{"body":"{\"a\":[1,2}","message":"Expecting ',' delimiter: line 1 column 10 (char 9)"}
+{"body":"{\"a\":[1,2,]}","message":"Illegal trailing comma before end of array: line 1 column 10 (char 9)"}
+{"body":"{,}","message":"Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"}
+{"body":"{\"a\":1}}","message":"Extra data: line 1 column 8 (char 7)"}
+{"body":"{\"a\":1} x","message":"Extra data: line 1 column 9 (char 8)"}
+{"body":"{\"a\":1}\n\n","message":null}
+{"body":"[1,2","message":"Expecting ',' delimiter: line 1 column 5 (char 4)"}
+{"body":"[1,2,","message":"Expecting value: line 1 column 6 (char 5)"}
+{"body":"[1 2]","message":"Expecting ',' delimiter: line 1 column 4 (char 3)"}
+{"body":"[1,,2]","message":"Expecting value: line 1 column 4 (char 3)"}
+{"body":"[,]","message":"Expecting value: line 1 column 2 (char 1)"}
+{"body":"[1,]","message":"Illegal trailing comma before end of array: line 1 column 3 (char 2)"}
+{"body":"[[]","message":"Expecting ',' delimiter: line 1 column 4 (char 3)"}
+{"body":"[]]","message":"Extra data: line 1 column 3 (char 2)"}
+{"body":"[1,2]x","message":"Extra data: line 1 column 6 (char 5)"}
+{"body":"[\"a\" \"b\"]","message":"Expecting ',' delimiter: line 1 column 6 (char 5)"}
+{"body":"[tru]","message":"Expecting value: line 1 column 2 (char 1)"}
+{"body":"[nul]","message":"Expecting value: line 1 column 2 (char 1)"}
+{"body":"{\"data\":[{\"id\":\"x\"}","message":"Expecting ',' delimiter: line 1 column 20 (char 19)"}
+{"body":"{\"data\": [","message":"Expecting value: line 1 column 11 (char 10)"}
+{"body":"{\"data\":","message":"Expecting value: line 1 column 9 (char 8)"}
+{"body":"{\"data\"","message":"Expecting ':' delimiter: line 1 column 8 (char 7)"}
+{"body":"{\"data\":[{\"id\":\"x\",}]}","message":"Illegal trailing comma before end of object: line 1 column 19 (char 18)"}
+{"body":"NaN","message":null}
+{"body":"Infinity","message":null}
+{"body":"-Infinity","message":null}
+{"body":"[NaN]","message":null}
+{"body":"{\"a\":NaN}","message":null}
+{"body":"é","message":"Expecting value: line 1 column 1 (char 0)"}
+{"body":"\"é\"","message":null}
+{"body":"{\"é\":1}","message":null}
+{"body":"\n\n{\"a\":\n1,\n}","message":"Illegal trailing comma before end of object: line 4 column 2 (char 9)"}
+{"body":"  {\"a\"  :  1  ,  }","message":"Illegal trailing comma before end of object: line 1 column 15 (char 14)"}
+{"body":"\r\n[1,\r\n2,\r\n","message":"Expecting value: line 4 column 1 (char 11)"}
+{"body":"[\n1,\n2\n3]","message":"Expecting ',' delimiter: line 4 column 1 (char 7)"}
+{"body":"{\"data\": []}","message":null}
+{"body":"{\"data\":[{\"id\":\"b\",\"abbreviation\":\"TST\"}]}","message":null}
+{"body":"{\"a\":\"\\u00e9\"}","message":null}
+{"body":"\"\\/\"","message":null}
+{"body":"{\"a\":\"b\":\"c\"}","message":"Expecting ',' delimiter: line 1 column 9 (char 8)"}
+{"body":"{\"a\":1,\"b\"}","message":"Expecting ':' delimiter: line 1 column 11 (char 10)"}
+{"body":"{\"a\":1,\"b\":}","message":"Expecting value: line 1 column 12 (char 11)"}
+{"body":"[1,2,3,","message":"Expecting value: line 1 column 8 (char 7)"}
+{"body":"{\"a\":{\"b\":}}","message":"Expecting value: line 1 column 11 (char 10)"}
+{"body":"{\"a\":\"\u0001\"}","message":"Invalid control character at: line 1 column 7 (char 6)"}
+{"body":"\"\u001f\"","message":"Invalid control character at: line 1 column 2 (char 1)"}
+{"body":"\"\"","message":null}
+{"hex":"efbbbf7b2261223a317d","message":null}
+{"hex":"efbbbf","message":"Expecting value: line 1 column 1 (char 0)"}
+{"hex":"ff","message":"'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"}
+{"hex":"fffe","message":"Expecting value: line 1 column 1 (char 0)"}
+{"hex":"7b2261223a22ff227d","message":"'utf-8' codec can't decode byte 0xff in position 6: invalid start byte"}
+{"hex":"c3","message":"'utf-8' codec can't decode byte 0xc3 in position 0: unexpected end of data"}
+{"hex":"c328","message":"'utf-8' codec can't decode byte 0xc3 in position 0: invalid continuation byte"}
+{"hex":"616263e282","message":"'utf-8' codec can't decode bytes in position 3-4: unexpected end of data"}
+{"hex":"e228a1","message":"'utf-8' codec can't decode byte 0xe2 in position 0: invalid continuation byte"}
+{"hex":"80616263","message":"'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte"}
+{"hex":"f5808080","message":"'utf-8' codec can't decode byte 0xf5 in position 0: invalid start byte"}
+{"hex":"c080","message":"'utf-8' codec can't decode byte 0xc0 in position 0: invalid start byte"}

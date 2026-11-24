@@ -1,0 +1,9 @@
+\id ROM Synthetic Romans
+\h Romans
+\c 8
+\p
+\v 28 Synthetic text with a note\f + \fr 8:28 \ft footnote text\f* inside, and more.
+\v 29-30 Bridged verse text.
+\q2 continued poetry line
+\v 31 After the bridge
+\x - \xo 8:31 \xt Rom 1:1\x* text.

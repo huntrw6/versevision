@@ -1,0 +1,16 @@
+\id MAT
+\c 5
+\s1 Heading line
+\p
+\v 3 Blessed are the poor in spirit,
+continued on the next line
+and a third line.
+\v 4 Blessed are those who mourn.
+\q Plain q marker
+\v 5 Meek verse
+\qr right aligned
+\v 6 Six
+\pi indented paragraph
+\v 7 Seven
+\p text after p marker
+\v 8 Eight

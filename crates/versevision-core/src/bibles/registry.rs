@@ -3,11 +3,15 @@
 //! Which provider answers a version is `bible.version_routes` (version label, case-insensitive -> provider name); the providers
 //! themselves are built from `bible.providers` by the caller (S5), one type `P` (an enum of the four kinds, or a test double).
 
+use std::sync::Arc;
 use std::time::Instant;
 
 use indexmap::IndexMap;
 
-use super::{BibleError, BiblePassages, BibleProvider, ProviderHealth, ResolvedPassage};
+use super::{
+    BibleError, BiblePassages, BibleProvider, ProviderHealth, ResolvedPassage, VerseCache,
+};
+use crate::config::CachePolicy;
 use crate::notes::trace::emit;
 use crate::notes::TraceSink;
 use crate::pyfmt::fixed;
@@ -21,6 +25,8 @@ pub struct ProviderRegistry<P> {
     pub version_routes: IndexMap<String, String>,
     /// The configured providers by name (`bible.providers`).
     pub providers: IndexMap<String, P>,
+    /// The scripture cache (`ScriptureCache`); none = every lookup asks the provider.
+    cache: Option<Arc<dyn VerseCache>>,
 }
 
 impl<P: BibleProvider> ProviderRegistry<P> {
@@ -28,7 +34,14 @@ impl<P: BibleProvider> ProviderRegistry<P> {
         Self {
             version_routes,
             providers,
+            cache: None,
         }
+    }
+
+    /// Look in `cache` before asking a provider and store what a cacheable provider answers.
+    pub fn with_cache(mut self, cache: Arc<dyn VerseCache>) -> Self {
+        self.cache = Some(cache);
+        self
     }
 
     /// `_provider`: the name and the provider that answers `version`.
@@ -77,9 +90,51 @@ impl<P: BibleProvider> ProviderRegistry<P> {
                 "Provider {name} does not expose {version}"
             )));
         };
+        let version_id = metadata.provider_version_id.as_deref().unwrap_or_default();
+
+        // The cache holds a verse by (provider, provider version id, book, chapter, verse); a passage across chapters is never read from it.
+        let mut expected: Vec<(u64, u64)> = Vec::new();
+        let mut cacheable = true;
+        for span in &reference.spans {
+            let end = span.end.unwrap_or(span.start);
+            if end.chapter != span.start.chapter {
+                cacheable = false;
+                break;
+            }
+            expected.extend((span.start.verse..=end.verse).map(|n| (span.start.chapter, n)));
+        }
+        if let (Some(cache), true, CachePolicy::Allowed) =
+            (&self.cache, cacheable, provider.cache_policy())
+        {
+            let cached: Vec<_> = expected
+                .iter()
+                .map(|&(chapter, verse)| {
+                    cache.get(name, version_id, &reference.book_id, chapter, verse)
+                })
+                .collect();
+            if !cached.is_empty() && cached.iter().all(Option::is_some) {
+                return Ok((
+                    ResolvedPassage {
+                        reference: reference.clone(),
+                        resolved_version: metadata.abbreviation.clone(),
+                        verses: cached.into_iter().flatten().collect(),
+                    },
+                    name.to_string(),
+                    "cache",
+                ));
+            }
+        }
+
         let verses = provider
             .fetch_passage(version, &reference.book_id, &reference.spans)
             .await?;
+        if provider.cacheable() {
+            if let Some(cache) = &self.cache {
+                for verse in &verses {
+                    cache.put(name, version_id, verse);
+                }
+            }
+        }
         let source = if provider.cacheable() {
             "live"
         } else {
