@@ -166,7 +166,8 @@
   .rv .it .ctl{display:flex;gap:6px;align-items:center}
   .rv .it .add{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--mut,#9a9a9a);cursor:pointer;white-space:nowrap}
   .rv .it.adding{outline:1px solid #3fae5a66;background:#3fae5a14}
-  .rv .it .wouldadd{font-size:12px;color:#62cf7a}
+  .rv .it .fixbox{display:inline-flex;gap:4px;align-items:center;font-size:12px;margin-right:8px;white-space:nowrap}
+.wouldadd{font-size:12px;color:#62cf7a}
   .rv .ed{grid-column:2/4;margin-top:4px} .rv .ed input{width:100%;box-sizing:border-box;background:#1a1a1a;color:#eee;border:1px solid #555;border-radius:5px;padding:6px 8px;font:inherit}
   .rv .mini{background:#333;color:#ddd;border:1px solid #555;border-radius:4px;font-size:11px;padding:2px 7px;cursor:pointer}
   .tag.not_added{background:var(--red);color:#fff} .tag.needs_review{background:var(--amber);color:#1b1200}
@@ -583,7 +584,8 @@ function render(r){
   const b = $('banner'); b.replaceChildren();
   if(s.slides===0) b.append(banner('bad','No slides found in this file.'));
 
-  else if(s.errors>0) b.append(banner('bad',s.errors+' line'+(s.errors===1?'':'s')+' could not be decided. They are skipped unless you fix them below.'));
+  else if(s.errors-(s.fixes||0)>0) b.append(banner('bad',(s.errors-(s.fixes||0))+' line'+((s.errors-(s.fixes||0))===1?'':'s')+' could not be decided. They are skipped unless you fix them below.'));
+  else if(s.fixes>0) b.append(banner('bad',s.fixes+' automatic fix'+(s.fixes===1?'':'es')+' to approve (see Errors below). Each is already applied; untick \u201cUse the fix\u201d to keep what you wrote.'));
   else if(s.warnings>0) b.append(banner('warn',s.warnings+' decision'+(s.warnings===1?'':'s')+' used a guess. Look at them below, then import.'));
   if(r.mode==='new') b.append(banner('info','Makes \u201c'+r.title+'\u201d in '+r.library+'.'));
   else if(r.mode==='replace') b.append(banner('info','Replaces the verse and point slides in \u201c'+r.target.name+'\u201d. A backup is kept, and the playlist keeps working.'));
@@ -624,9 +626,9 @@ function addControl(x, it, ctl, mid){
 }
 function drawReview(r){
   const box = $('review'); box.replaceChildren(); box.className = 'rv';
-  state.skip = new Set(); state.include = new Set(); state.edits = {}; show('recheck', false);
+  state.skip = new Set(); state.include = new Set(); state.reject = new Set(); state.edits = {}; show('recheck', false);
   const groups = [
-    ['e','Errors: could not be decided', r.review.error, true],
+    ['e','Errors: need your decision', r.review.error, true],
     ['w','Warnings: a rule was a guess', r.review.warning.concat(r.review.left_out_warning), true],
     ['g','Good: no guesses were needed', r.review.good, false],
   ];
@@ -639,6 +641,12 @@ function drawReview(r){
       for(const why of x.reasons) mid.append(el('div','x',why));
       it.append(mid);
       const ctl = el('div','ctl');
+      if(x.correction){
+        const lab = el('label','fixbox'); const fb = el('input'); fb.type='checkbox'; fb.checked = true; fb.title='Untick to keep it as you wrote it';
+        fb.onchange = ()=>{ if(fb.checked) state.reject.delete(x.id); else state.reject.add(x.id); mid.querySelector('.fixnote').textContent = fb.checked ? '' : 'Kept as you wrote it: \u201c'+x.correction.from+'\u201d'; };
+        lab.append(fb, document.createTextNode(' Use the fix')); ctl.append(lab);
+        mid.append(el('div','x fixnote',''));
+      }
       if(x.slides.length){
         const cb = el('input'); cb.type='checkbox'; cb.checked = true; cb.title='Include this in the import';
         cb.onchange = ()=>{ if(cb.checked) state.skip.delete(x.id); else state.skip.add(x.id); it.classList.toggle('off', !cb.checked); updateCount(); };
@@ -690,10 +698,13 @@ function fill(listId, detId, nId, rows){
 $('go').onclick = async ()=>{
   if(!state.current) return;
   const r = state.current.report;
-  if(r.summary.errors && !confirm(r.summary.errors+' line(s) could not be decided and will be skipped. Continue with the other slides?')) return;
+  const undecided = r.summary.errors-(r.summary.fixes||0);
+  if(undecided>0 && !confirm(undecided+' line(s) could not be decided and will be skipped. Continue with the other slides?')) return;
+  const fixes = r.decisions.filter(d=>d.correction && !state.reject.has(d.id));
+  if(fixes.length && !confirm('Approve '+fixes.length+' automatic fix'+(fixes.length===1?'':'es')+'?\n\n'+fixes.map(d=>'L'+d.line+': '+d.correction.from+'  \u2192  '+d.correction.to).join('\n')+'\n\nOK imports them fixed. Cancel goes back so you can untick any.')) return;
   $('go').disabled = true; show('result', false); show('progress', true); $('progMsg').textContent='Starting\u2026';
   try{
-    const {job} = await api('/api/apply', {method:'POST', body:JSON.stringify({job: state.current.job, accept_flags: true, skip: [...state.skip], include: [...state.include]})});
+    const {job} = await api('/api/apply', {method:'POST', body:JSON.stringify({job: state.current.job, accept_flags: true, skip: [...state.skip], include: [...state.include], reject_fixes: [...state.reject]})});
     const done = await poll(job, j=>{ $('progMsg').textContent=j.message; });
     show('progress', false); show('result', true);
     if(done.state==='error') throw new Error(done.error);

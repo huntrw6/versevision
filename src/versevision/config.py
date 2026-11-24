@@ -166,6 +166,8 @@ class PointsConfig(BaseModel):
     number_style: str = "{n})"         # used by "renumber": "{n})", "{n}.", "#{n}:"
     bullet_char: str = "•"             # "" for no bullet mark on the slide
     case: Literal["as_written", "upper", "lower", "title"] = "as_written"
+    fix_label_typos: bool = True       # a point header written differently from the others ("KEY#1)" among "KEY #2)", "KEY #3)"...) is corrected to match, and shown in the review as an error for you to approve
+    strip_trailing_period: bool = True # a point that ends in "." loses it ("!" "?" and other endings stay; "etc.", "U.S." and "..." are left alone)
     balance_lines: bool = True         # break a long point into evenly wide lines (no short last line)
     line_width_units: float = Field(default=33.0, gt=5, le=200)      # how wide a line may be before it must break (one text-box line of the point slides is about 34)
     line_tolerance: float = Field(default=0.15, ge=0.0, le=1.0)                 # each line of a point is within this share of the average line width...

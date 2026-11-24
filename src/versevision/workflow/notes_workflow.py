@@ -25,6 +25,63 @@ def _title_case(text: str) -> str:
     return " ".join(w if (0 < i < len(words) - 1 and w.lower() in small) else (w[:1].upper() + w[1:].lower() if w.islower() or w.isupper() else w) for i, w in enumerate(words))
 
 
+_KEY_LABEL = __import__("re").compile(r"^(?P<word>[A-Za-z]{2,})(?P<s1>\s*)(?P<hash>#?)(?P<s2>\s*)(?P<n>\d{1,3})(?P<s3>\s*)(?P<close>[).:\-])$")
+_KEEP_PERIOD = {"etc", "vs", "mr", "mrs", "ms", "dr", "st", "jr", "sr", "no", "inc", "co", "ltd", "approx", "cf"}
+
+
+def _case_pattern(word: str) -> str:
+    return "upper" if word.isupper() else "title" if word[:1].isupper() and word[1:].islower() else "lower" if word.islower() else "as_is"
+
+
+def _apply_case(word: str, pattern: str) -> str:
+    return word.upper() if pattern == "upper" else word.title() if pattern == "title" else word.lower() if pattern == "lower" else word
+
+
+def fix_label_typos(items: list, cfg: PointsConfig) -> list[dict]:
+    """Make point headers like "KEY #1)" look the same: when most points of one kind are written one way (with a space before "#",
+    the same capitals, the same ")") and one is written differently ("KEY#1)"), that one is corrected. Needs 3 or more such headers
+    and a clear majority. Each change is recorded on the item (``label_fixed_from``) and returned."""
+    if not cfg.fix_label_typos:
+        return []
+    groups: dict[str, list[tuple[PointItem, "re.Match"]]] = {}
+    for item in items:
+        if getattr(item, "kind", "") == "point" and item.label:
+            m = _KEY_LABEL.match(item.label)
+            if m:
+                groups.setdefault(m.group("word").casefold(), []).append((item, m))
+    fixes: list[dict] = []
+    for word, members in groups.items():
+        if len(members) < 3:
+            continue
+        style = lambda m: (_case_pattern(m.group("word")), m.group("s1"), m.group("hash"), m.group("s2"), m.group("s3"), m.group("close"))
+        (top, count), = __import__("collections").Counter(style(m) for _, m in members).most_common(1)
+        if count < 2 or count * 2 <= len(members):
+            continue
+        for item, m in members:
+            if style(m) == top:
+                continue
+            fixed = f"{_apply_case(m.group('word'), top[0])}{top[1]}{top[2]}{top[3]}{m.group('n')}{top[4]}{top[5]}"
+            if fixed != item.label:
+                fixes.append({"line": item.line, "from": item.label, "to": fixed, "others": count, "of": len(members)})
+                item.label_fixed_from, item.label = item.label, fixed
+    return fixes
+
+
+def _strip_period(text: str) -> str:
+    """Drop one closing full stop from a point (\"...the Lord.\" -> \"...the Lord\"); keep ellipses, abbreviations and other endings."""
+    stripped = text.rstrip()
+    closers = ""
+    while stripped and stripped[-1] in "\"'”’)]":
+        closers, stripped = stripped[-1] + closers, stripped[:-1]
+    if not stripped.endswith(".") or stripped.endswith(".."):
+        return text
+    last = stripped[:-1].split()[-1] if stripped[:-1].split() else ""
+    bare = last.strip("\"'“‘([").casefold()
+    if "." in bare or bare in _KEEP_PERIOD or (len(bare) == 1 and bare.isalpha()) or not bare or bare.isdigit() and len(bare) <= 2 and not closers:
+        return text
+    return stripped[:-1] + closers
+
+
 def format_point(item: PointItem, cfg: PointsConfig, counter: int) -> str:
     """The text of a point slide (all of it, when ``points.max_lines_per_slide`` makes the point continue on more slides)."""
     return "\n\n".join(format_point_slides(item, cfg, counter))
@@ -49,6 +106,8 @@ def format_point_slides(item: PointItem, cfg: PointsConfig, counter: int) -> lis
         text = text.lower()
     elif cfg.case == "title":
         text = "\n".join(_title_case(line) for line in text.split("\n"))
+    if cfg.strip_trailing_period:
+        text = _strip_period(text)
     shown = f"{label} {text}".strip()
     if not cfg.balance_lines:
         return [shown]
@@ -69,11 +128,17 @@ def added_point_text(text: str, cfg: PointsConfig) -> str:
     return "\f".join(format_point_slides(PointItem(line=0, role="list_item", label="•", text=" ".join(text.split())), cfg, 0))     # \f separates slides
 
 
-def apply_review_choices(result: "NotesImportResult", skip: set[int] = frozenset(), include: set[int] = frozenset()) -> SlidePlan:
+def apply_review_choices(result: "NotesImportResult", skip: set[int] = frozenset(), include: set[int] = frozenset(), reject_fixes: set[int] = frozenset()) -> SlidePlan:
     """The slides after your choices in the review. ``skip``: decisions whose slides you switched off. ``include``: left-out lines
     you chose to add as a slide; each goes where the line stood in the document. Ids are the decision ids in ``result.decisions``."""
     from versevision import runlog
     slides = list(result.slide_plan.slides)
+    for d in result.decisions:         # an automatic fix you did not approve: the point goes in as you wrote it
+        if d.id in reject_fixes and d.correction:
+            for offset, original in enumerate(d.correction.get("original_slides", [])):
+                if d.first_slide + offset < len(slides) and offset < d.slide_count:
+                    slides[d.first_slide + offset] = slides[d.first_slide + offset].model_copy(update={"body_text": original})
+            runlog.trace("review_fix_rejected", id=d.id, line=d.line, kept=d.correction.get("from"), instead_of=d.correction.get("to"))
     drop = {n for d in result.decisions if d.id in skip for n in range(d.first_slide, d.first_slide + d.slide_count)}
     inserts: dict[int, list[PlannedSlide]] = {}
     added = []
@@ -115,6 +180,7 @@ class Decision(BaseModel):
     reasons: list[str] = Field(default_factory=list)
     first_slide: int = 0           # index of the first slide it produced in the plan (0-based); for a decision with no slide, where one would go
     slide_count: int = 0
+    correction: dict = Field(default_factory=dict)      # an automatic fix to approve: {"from": ..., "to": ..., "original_slides": [slide text as written]}
     add_text: str = ""             # for a left-out line: the slide text it would make if you choose "add this as a slide" in the review
 
 
@@ -299,6 +365,9 @@ async def plan_notes(
                           "default_version_used": default_version or config.bible.default_version, "no_fetch": no_fetch})
     document = classify_document(source, config.bible.version_aliases, config.notes, config.points)
     result = NotesImportResult(fetched=not no_fetch)
+    label_fixes = {fix["line"]: fix for fix in fix_label_typos(document.items, config.points)}
+    for fix in label_fixes.values():
+        runlog.trace("label_fix", line=fix["line"], written=fix["from"], corrected_to=fix["to"], rule=f"{fix['others']} of {fix['of']} such point headers are written \"{fix['to']}\"")
     for item in document.skipped:
         result.skipped.append(ProblemEntry(line=item.line, text=item.text, problem=f"{item.category}: {item.reason}"))
     for item in document.review:
@@ -325,7 +394,7 @@ async def plan_notes(
     group_index = 0
     numbered_points = 0
     try:
-        def add(item, kind: str, title: str, text: str, tier: str, reasons: list[str], first: int = 0, count: int = 0) -> None:
+        def add(item, kind: str, title: str, text: str, tier: str, reasons: list[str], first: int = 0, count: int = 0, correction: dict | None = None) -> None:
             seen: list[str] = []
             for r in reasons:
                 if r and r not in seen:
@@ -334,7 +403,7 @@ async def plan_notes(
             if count == 0 and kind in ("left_out", "error") and getattr(item, "kind", "") in ("skipped", "review") and text.strip():
                 extra = {"first_slide": len(slides), "add_text": added_point_text(text, config.points)}
             result.decisions.append(Decision(id=len(result.decisions), line=item.line, kind=kind, title=title, text=text, tier=tier,
-                                             reasons=seen, **({"first_slide": first, "slide_count": count} | extra)))
+                                             reasons=seen, correction=correction or {}, **({"first_slide": first, "slide_count": count} | extra)))
 
         for item in document.items:
             if item.kind == "point":
@@ -357,7 +426,15 @@ async def plan_notes(
                              settings={"numbering": config.points.numbering, "case": config.points.case, "bullet_char": config.points.bullet_char,
                                        "number_style": config.points.number_style,
                                        "max_lines_per_slide": config.points.max_lines_per_slide})
-                add(item, "point", shown_text.split("\n")[0][:80], shown_text, "warning" if item.warnings else "good", list(item.warnings), first, len(parts))
+                fix = label_fixes.get(item.line) if item.label_fixed_from else None
+                if fix:
+                    import copy
+                    original = format_point_slides(copy.copy(item).model_copy(update={"label": item.label_fixed_from, "label_fixed_from": ""}), config.points, numbered_points)
+                    add(item, "point", shown_text.split("\n")[0][:80], shown_text, "error",
+                        [f"Corrected \"{fix['from']}\" to \"{fix['to']}\" to match the other points ({fix['others']} of {fix['of']} are written that way)."]
+                        + list(item.warnings), first, len(parts), {"from": fix["from"], "to": fix["to"], "original_slides": original})
+                else:
+                    add(item, "point", shown_text.split("\n")[0][:80], shown_text, "warning" if item.warnings else "good", list(item.warnings), first, len(parts))
             elif item.kind == "verse":
                 line, reference, why = resolved_refs[id(item)]
                 shown = item.reference.normalized_text

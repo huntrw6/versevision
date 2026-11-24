@@ -24,11 +24,14 @@ def build_report(plan: NotesImportResult, *, source_name: str = "") -> dict[str,
         first = d.first_slide + 1 if d.slide_count else 0
         decisions.append({"id": d.id, "line": d.line, "kind": d.kind, "title": d.title, "text": d.text, "tier": d.tier, "reasons": d.reasons,
                           "slides": list(range(first, first + d.slide_count)) if d.slide_count else [],
-                          "addable": bool(d.add_text) and not d.slide_count, "add_text": d.add_text})
+                          "addable": bool(d.add_text) and not d.slide_count, "add_text": d.add_text,
+                          "correction": {k: x for k, x in d.correction.items() if k != "original_slides"} if d.correction else None})
     review = {tier: [d for d in decisions if d["tier"] == tier and d["kind"] != "left_out"] for tier in ("error", "warning", "good")}
     review["left_out_warning"] = [d for d in decisions if d["kind"] == "left_out" and d["tier"] == "warning"]
     review["left_out_good"] = [d for d in decisions if d["kind"] == "left_out" and d["tier"] == "good"]
     flagged = rows(plan.failed, "not_added") + rows(plan.review, "needs_review")
+    flagged += [{"line": d["line"], "text": d["correction"]["from"], "detail": f"automatic fix to approve: {d['correction']['from']} -> {d['correction']['to']}", "status": "needs_approval"}
+                for d in decisions if d["correction"]]
     flagged.sort(key=lambda row: row["line"])
     return {
         "source": source_name,
@@ -37,7 +40,7 @@ def build_report(plan: NotesImportResult, *, source_name: str = "") -> dict[str,
             "point_slides": sum(1 for s in slides if s["kind"] == "point"),
             "flagged": len(flagged), "not_added": len(plan.failed), "needs_review": len(plan.review),
             "left_out": len(plan.skipped), "adjustments": len(plan.notices),
-            "errors": len(review["error"]), "warnings": len(review["warning"]) + len(review["left_out_warning"]), "good": len(review["good"]),
+            "errors": len(review["error"]), "fixes": sum(1 for d in decisions if d["correction"]), "warnings": len(review["warning"]) + len(review["left_out_warning"]), "good": len(review["good"]),
         },
         "looks": (plan.slide_plan.looks.describe() if getattr(plan.slide_plan, "looks", None) else None),
         "decisions": decisions,

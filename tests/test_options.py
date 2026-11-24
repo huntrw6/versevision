@@ -30,11 +30,11 @@ def test_defaults_are_the_house_style():
     n = AppConfig().notes
     assert (n.line_breaks, n.unlabeled_sentence, n.unlabeled_short, n.before_first_item, n.stage_cues, n.headings, n.caps_lines) == ("slide", "bullet", "bullet", "skip", "skip", "slide", "heading")
     assert (AppConfig().points.numbering, AppConfig().points.bullet_char, AppConfig().verses.version_source) == ("keep", "•", "above")
-    assert bodies(run(NOTES)) == ["Title line here", "1) First point", "• A full sentence under it.", "• Short heading", "2) Second point"]      # the title is a slide with no bullet
+    assert bodies(run(NOTES)) == ["Title line here", "1) First point", "• A full sentence under it", "• Short heading", "2) Second point"]      # the title is a slide with no bullet
 
 
 def test_paragraph_mode_joins_a_sentence_to_its_point():
-    assert bodies(run(NOTES, cfg(notes__line_breaks="paragraph")))[1] == "1) First point\nA full sentence under it."
+    assert bodies(run(NOTES, cfg(notes__line_breaks="paragraph")))[1] == "1) First point\nA full sentence under it"
 
 
 @pytest.mark.parametrize("mode,expected", [("review", 1), ("skip", 0)])
@@ -63,14 +63,14 @@ def test_stage_cues_skip_review_or_become_slides():
     text = "1) P\nShow slide of the cross.\n"
     assert bodies(run(text)) == ["1) P"]
     assert [d.tier for d in run(text, cfg(notes__stage_cues="review")).decisions] == ["good", "error"]
-    assert bodies(run(text, cfg(notes__stage_cues="bullet")))[-1] == "• Show slide of the cross."
+    assert bodies(run(text, cfg(notes__stage_cues="bullet")))[-1] == "• Show slide of the cross"
 
 
 def test_extra_cue_words_and_skip_patterns():
     text = "1) P\nPause here for effect.\nSecret code 42\nKeep this sentence.\n"
-    assert "• Pause here for effect." in bodies(run(text))
+    assert "• Pause here for effect" in bodies(run(text))
     r = run(text, cfg(notes__extra_cue_words='["pause"]', notes__skip_patterns='["secret code"]'))
-    assert bodies(r) == ["1) P", "• Keep this sentence."]
+    assert bodies(r) == ["1) P", "• Keep this sentence"]
 
 
 def test_quote_handling():
@@ -138,8 +138,8 @@ def test_numbering_strip_and_renumber():
 
 def test_bullet_character_and_case():
     text = "1) first point\nplain sentence here.\n"
-    assert bodies(run(text, cfg(points__bullet_char="")))[-1] == "plain sentence here."
-    assert bodies(run(text, cfg(points__bullet_char="-")))[-1] == "- plain sentence here."
+    assert bodies(run(text, cfg(points__bullet_char="")))[-1] == "plain sentence here"
+    assert bodies(run(text, cfg(points__bullet_char="-")))[-1] == "- plain sentence here"
     assert bodies(run(text, cfg(points__case="upper")))[0] == "1) FIRST POINT"
     assert bodies(run("1) the grace of god\n", cfg(points__case="title")))[0] == "1) The Grace of God"
 

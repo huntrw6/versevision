@@ -63,6 +63,7 @@ class PointItem(BaseModel):
     text: str
     warnings: list[str] = Field(default_factory=list)
     detail_end: int = 0
+    label_fixed_from: str = ""        # the label as written, when the importer corrected it to match the other points
 
     @property
     def display(self) -> str:
