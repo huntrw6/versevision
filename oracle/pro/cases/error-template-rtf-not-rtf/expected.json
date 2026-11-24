@@ -1,0 +1,5 @@
+{
+  "error": "ValueError: template RTF has no recognizable header",
+  "result": null,
+  "validate": "ok"
+}

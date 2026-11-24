@@ -1,0 +1,5 @@
+{
+  "error": "ValueError: sermon-point template must contain exactly one configured point text object",
+  "result": null,
+  "validate": "ConfigurationError: Configured sermon-point template cue no longer exists; run template select-point"
+}

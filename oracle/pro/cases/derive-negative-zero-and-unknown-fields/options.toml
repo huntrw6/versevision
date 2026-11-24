@@ -1,0 +1,19 @@
+mode = "derive"
+uuid_seed = "derive-negative-zero-and-unknown-fields"
+now = 1784419571
+base = "files/quirks"
+name = "Quirks 2"
+clear_generated = false
+keep_uuid = true
+
+[definition]
+presentation_uuid = "EE748D35-FBF6-4076-AAE8-4F4C878B66BD"
+presentation_name = "Sample"
+library_name = "Verses"
+cue_uuid = "F94169B4-CB51-43C7-9851-EB802EAE7FA9"
+reference_object = "Reference"
+body_object = "Verse"
+style_fingerprint = "14f6ffc8ed721285f3c920eb9939cfd76638a755a208aa624501da1fcab617da"
+point_cue_uuid = "AD76111D-58E1-4023-8011-8FD4EEBC7748"
+point_object = "Sermon Point"
+point_style_fingerprint = "a9aaba5bd2048db855e28b0b9718c6251aac552e7b20cd9cee0b150fa91b4ab6"

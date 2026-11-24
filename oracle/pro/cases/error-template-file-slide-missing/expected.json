@@ -1,0 +1,5 @@
+{
+  "error": "ValueError: the source presentation no longer holds the template slide(s): F94169B4-CB51-43C7-9851-EB802EAE7FA9, AD76111D-58E1-4023-8011-8FD4EEBC7748",
+  "result": null,
+  "validate": "ConfigurationError: Configured template cue or named text objects no longer exist"
+}

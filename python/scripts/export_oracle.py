@@ -1376,6 +1376,8 @@ def main() -> None:
         for filename, rows in providers_oracle(out, REPO_ROOT).items():
             write_jsonl(out / "providers" / filename, rows)
             print(f"providers/{filename}: {len(rows)} lines")
+        from oracle_pro import pro_oracle                       # the ProPresenter file writer and the theme reader (S6a): oracle/pro/
+        print(f"pro: {pro_oracle(out, REPO_ROOT)} cases")
     print(f"cases: {len(cases)}")
     for group, count in sorted(groups.items()):
         print(f"   {group}: {count}")

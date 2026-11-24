@@ -1,0 +1,22 @@
+{
+  "error": null,
+  "result": {
+    "cue_count_after": 7,
+    "cue_count_before": 0,
+    "cue_uuids": [
+      "8d010540-baf7-4ebc-9632-73286c28c7fa",
+      "d540403d-2d28-406d-83fe-09f9a17a08bc",
+      "47c58cc4-7ce9-479c-9a0f-6a7f2808d204",
+      "7b7d74cb-5147-40c9-b580-dcacef4171f7",
+      "37c1cc84-79f1-4cce-85ed-2c013f4bd79b",
+      "a78a7b46-3329-46a0-b88e-480e975a0a34",
+      "1be3ea33-34bf-42f9-bf97-f048d79d7ea3"
+    ],
+    "group_count_after": 7,
+    "group_count_before": 0,
+    "original_sha256": "",
+    "output_sha256": "0d5b27ec0cfc87e9ce7848db9309a6ce43e6f4ef5dac07cf39dc8a2ea2efac90",
+    "removed_cue_count": 0
+  },
+  "validate": "ok"
+}

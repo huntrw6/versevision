@@ -31,6 +31,12 @@ import presentation_pb2  # type: ignore[import-not-found]  # generated binding
 _NIL_UUID = "00000000-0000-0000-0000-000000000000"
 
 
+def new_uuid() -> uuid.UUID:
+    """The one place this module gets a new id from. The oracle exporter swaps it for a seeded source (scripts/oracle_pro.py) so the
+    files the Rust port writes can be compared byte for byte; nothing else replaces it."""
+    return uuid.uuid4()
+
+
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -126,7 +132,7 @@ def _refresh_uuids(message: Message) -> set[str]:
             items = value if field.is_repeated else [value]
             for item in items:
                 if item.string and item.string != _NIL_UUID:
-                    item.string = str(uuid.uuid4())
+                    item.string = str(new_uuid())
                     generated.add(item.string)
         elif field.message_type:
             items = value if field.is_repeated else [value]
@@ -154,7 +160,7 @@ def _remap_owned_ids(message: Message) -> dict[str, str]:
 
     def swap(item) -> None:
         if item.string and item.string != _NIL_UUID:
-            item.string = mapping.setdefault(item.string.casefold(), str(uuid.uuid4()).upper())
+            item.string = mapping.setdefault(item.string.casefold(), str(new_uuid()).upper())
 
     def walk(node: Message) -> None:
         for field, value in node.ListFields():
@@ -484,7 +490,7 @@ class ProtobufPresentationWriter:
         self._remove_cues(copy, others)
         del copy.arrangements[:]
         copy.ClearField("selected_arrangement")
-        copy.uuid.string = str(uuid.uuid4()).upper()
+        copy.uuid.string = str(new_uuid()).upper()
         copy.name = name
         now = datetime.now(timezone.utc)
         for field in ("last_date_used", "last_modified_date"):
@@ -656,9 +662,9 @@ class ProtobufPresentationWriter:
         _set_text(text_elements[0], body_text)
 
         group = deepcopy(original.cue_groups[0])
-        group.group.uuid.string = str(uuid.uuid4())
+        group.group.uuid.string = str(new_uuid())
         if group.group.application_group_identifier.string != _NIL_UUID:
-            group.group.application_group_identifier.string = str(uuid.uuid4())
+            group.group.application_group_identifier.string = str(new_uuid())
         group.group.name = label
         group.group.application_group_name = label
         del group.cue_identifiers[:]

@@ -90,6 +90,28 @@ compare the Rust providers (against a local HTTP server that plays the same resp
 A Python quirk the files record: a provider response of an unexpected shape (a list where an object is expected) raises `AttributeError` in Python, not
 `BibleProviderError`; no row has such a response, the Rust providers answer `... response failed: unexpected response shape; ...` (own tests).
 
+## The ProPresenter files: `oracle/pro/` (S6a)
+
+What the Python file writer (`presentation/protobuf_writer.py`, with `themes.py`) writes for a slide plan, byte for byte. `python/scripts/oracle_pro.py`
+writes it from `export_oracle.py`; `crates/versevision-pp/tests/oracle_pro.rs` runs the Rust writer on the same inputs and prints
+`oracle pro: N/N cases byte-identical`. Randomness is injectable: `protobuf_writer.new_uuid()` (defaults to `uuid.uuid4`) is replaced by the exporter with
+a seeded source, the n-th id of a case being the version-4 uuid made from the first 16 bytes of `sha256("<case>:<n>")` (`SeededUuids` in Rust), and the
+module's clock is frozen (`now` in `options.toml`).
+
+| path | what |
+|---|---|
+| `files/*.pro` | the presentations the cases start from (built by the exporter from `tests/fixtures/sample/Sample.pro` and `propresenter19/Verses.original.pro`: a service with blank, title, shape, non-slide, plain and themed generated slides and an arrangement; the same without templates; an empty one; one with a `-0.0` float and unknown fields; a Windows-style one; files from another ProPresenter version; broken templates). A case may also name a fixture (`fixture:sample/Sample.pro`) |
+| `themes/` | a copy of ProPresenter's Themes folder: the three real theme files and made-up ones (a two-box layout, several slides, a slide without a text box, groups, a name used in two groups, an unreadable file, a `Theme` at the top) |
+| `themes.json` | what `themes.py` makes of that folder: every theme slide (group, theme, name, number, boxes, font, size, `has_reference_box`), the rows of the look picker (`/api/themes`) and 31 `find_slide` answers and error texts |
+| `candidates.json` | `inspect_template_candidates` / `inspect_point_candidates` (with the style fingerprints) of every file above |
+| `cases/<case>/` | `options.toml` (`mode`: append, replace, derive, create, template_file, synthetic; the files; the saved template definition; the looks), `plan.json` (a slide plan), `expected.pro` (the bytes) and `expected.json` (the `PlanWriteResult` without paths, or the error as `"<ExceptionName>: <message>"`, and what `validate_template` says) |
+
+The 60 cases: Append and Replace (the template in the target or in another file, other slides kept, a group shared with a slide that stays), derive (fresh id
+and `swap_keeps_id`, Replace and Append), create, the template-only file, the feasibility slide, real plans from `oracle/cases` (the whole Whitefield notes,
+a long verse cut into several slides, points limited to two lines, placeholders), special characters (the apostrophes and dashes become `\uN?`, not `\'92`: that
+is what Python writes), empty bodies, 200 slides, every theme layout, and the 15 cases that raise (compatibility, missing template, missing point template,
+no group, two slide actions, not RTF, empty plan).
+
 ## The bible text is synthetic
 
 `bible.json` of a case holds the verses it needs. The text is generated from the verse key (a fixed algorithm in `export_oracle.py`), so the
@@ -101,10 +123,11 @@ come from the tests (`quote-*`) use short KJV/NKJV quotations already in the tes
 * **Live Bible providers** (API.Bible, YouVersion, ESV, local USFM files; their caching, keys, errors, copyright text). The case files use a fake provider
   that serves `bible.json`. The real providers have their own oracle, `oracle/providers/` (below), recorded against canned HTTP responses; what no oracle can
   show is the real services (their live answers, rate limits, key checks).
-* **ProPresenter file writing**: the protobuf presentation writer, template cue/object detection, backups, atomic replacement, the
-  swap/append/replace pipeline, the playlist, quit/launch/verify. `python/tests/integration` and `test_write_workflow.py`/`test_pipeline.py` are the
-  specification for S6; the golden `.pro` files are in `python/tests/fixtures/propresenter19/`.
-* **Themes** (reading and choosing slide looks): `looks` is `null` everywhere.
+* **The swap/transport/history pipeline** (S6b): quit/launch/verify of ProPresenter, the playlist, the swap with its rollback, history and undo, the
+  run log folders. `python/tests/integration`, `test_write_workflow.py` and `test_pipeline.py` are the specification. (The files the pipeline writes
+  are covered, see `oracle/pro/` below.)
+* **A real ProPresenter opening the written files** (S9, on the rig). The oracle proves the Rust files are the same bytes as the Python app's; it cannot
+  prove ProPresenter accepts them.
 * **The web page and its server**: routes, jobs, PWA, review panel behaviour, authentication. The page itself is served unchanged from Rust (S7).
 * **History and undo**, the run log folders (`summary.txt`, `events.jsonl`, `options.json`, `source.txt`, `report.json`), `explain` and `replay`
   (only `trace.jsonl` is covered, and the `review_*` trace records written by `apply_review_choices` are not).

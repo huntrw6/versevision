@@ -1,0 +1,346 @@
+{
+  "bad_rtf": {
+    "points": [
+      [
+        2,
+        "AD76111D-58E1-4023-8011-8FD4EEBC7748",
+        "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "plain text, not rtf",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+      }
+    ]
+  },
+  "empty": {
+    "points": [],
+    "templates": []
+  },
+  "no_group": {
+    "points": [
+      [
+        2,
+        "AD76111D-58E1-4023-8011-8FD4EEBC7748",
+        "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Sample",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+      }
+    ]
+  },
+  "no_point_cue": {
+    "points": [],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Sample",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+      }
+    ]
+  },
+  "plain": {
+    "points": [
+      [
+        5,
+        "4DB065D6-FCA6-4F59-BE92-76FFC34A2977",
+        "e5f1eb51dac43973f2578362c1896c9534814ee85148bcfa2e58b1af89b41fbb"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "717B571A-1EE4-4220-A9CE-A99BE89B61AA",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Old verse text",
+        "cue_uuid": "BFC51150-FA9D-45A9-BE80-E63F1BE5CBB0",
+        "reference_object_uuid": "A4E4A3C6-C6A8-4024-AA88-807D687F1943",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; John 3:16 (NIV)",
+        "slide_number": 4,
+        "style_fingerprint": "b3790b658492b1d3f1358abedf977248eb84ca402aaaa6c3541ebf7950ad7a10"
+      },
+      {
+        "body_object_uuid": "E48CDFFD-33FA-4D79-AEE2-CB0A3678ADEB",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Old themed verse",
+        "cue_uuid": "F66013D3-099F-42A5-85CD-9161747C75D4",
+        "reference_object_uuid": "40A04EC3-DEB6-415E-8DE3-FDD422D7A6FB",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Romans 8:28 (NIV)",
+        "slide_number": 6,
+        "style_fingerprint": "7250773f7a014f0b69595ee282e218d77d01d0810ecf49f9dd5d6f0a3c48636a"
+      },
+      {
+        "body_object_uuid": "EF893357-FDED-4711-8D9B-EC85EDD64D1F",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Two",
+        "cue_uuid": "3F4CFD71-6F88-4D43-A72F-D87A3DD97E1E",
+        "reference_object_uuid": "3CE05BAB-F255-404E-9120-D71BB70E3192",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Psalm 23:1",
+        "slide_number": 7,
+        "style_fingerprint": "b5b50f85b4a85e532ed6411bea9f4751ffdd52bad8f27c6d3345fdcef2a5af0f"
+      }
+    ]
+  },
+  "quirks": {
+    "points": [
+      [
+        2,
+        "AD76111D-58E1-4023-8011-8FD4EEBC7748",
+        "a9aaba5bd2048db855e28b0b9718c6251aac552e7b20cd9cee0b150fa91b4ab6"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Sample",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "14f6ffc8ed721285f3c920eb9939cfd76638a755a208aa624501da1fcab617da"
+      }
+    ]
+  },
+  "sample": {
+    "points": [
+      [
+        2,
+        "AD76111D-58E1-4023-8011-8FD4EEBC7748",
+        "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Sample",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+      }
+    ]
+  },
+  "service": {
+    "points": [
+      [
+        2,
+        "AD76111D-58E1-4023-8011-8FD4EEBC7748",
+        "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"
+      ],
+      [
+        7,
+        "4DB065D6-FCA6-4F59-BE92-76FFC34A2977",
+        "e5f1eb51dac43973f2578362c1896c9534814ee85148bcfa2e58b1af89b41fbb"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Sample",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+      },
+      {
+        "body_object_uuid": "717B571A-1EE4-4220-A9CE-A99BE89B61AA",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Old verse text",
+        "cue_uuid": "BFC51150-FA9D-45A9-BE80-E63F1BE5CBB0",
+        "reference_object_uuid": "A4E4A3C6-C6A8-4024-AA88-807D687F1943",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; John 3:16 (NIV)",
+        "slide_number": 6,
+        "style_fingerprint": "b3790b658492b1d3f1358abedf977248eb84ca402aaaa6c3541ebf7950ad7a10"
+      },
+      {
+        "body_object_uuid": "E48CDFFD-33FA-4D79-AEE2-CB0A3678ADEB",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Old themed verse",
+        "cue_uuid": "F66013D3-099F-42A5-85CD-9161747C75D4",
+        "reference_object_uuid": "40A04EC3-DEB6-415E-8DE3-FDD422D7A6FB",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Romans 8:28 (NIV)",
+        "slide_number": 8,
+        "style_fingerprint": "7250773f7a014f0b69595ee282e218d77d01d0810ecf49f9dd5d6f0a3c48636a"
+      },
+      {
+        "body_object_uuid": "EF893357-FDED-4711-8D9B-EC85EDD64D1F",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Two",
+        "cue_uuid": "3F4CFD71-6F88-4D43-A72F-D87A3DD97E1E",
+        "reference_object_uuid": "3CE05BAB-F255-404E-9120-D71BB70E3192",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Psalm 23:1",
+        "slide_number": 9,
+        "style_fingerprint": "b5b50f85b4a85e532ed6411bea9f4751ffdd52bad8f27c6d3345fdcef2a5af0f"
+      }
+    ]
+  },
+  "service_shared_group": {
+    "points": [
+      [
+        2,
+        "AD76111D-58E1-4023-8011-8FD4EEBC7748",
+        "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"
+      ],
+      [
+        7,
+        "4DB065D6-FCA6-4F59-BE92-76FFC34A2977",
+        "e5f1eb51dac43973f2578362c1896c9534814ee85148bcfa2e58b1af89b41fbb"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Sample",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+      },
+      {
+        "body_object_uuid": "717B571A-1EE4-4220-A9CE-A99BE89B61AA",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Old verse text",
+        "cue_uuid": "BFC51150-FA9D-45A9-BE80-E63F1BE5CBB0",
+        "reference_object_uuid": "A4E4A3C6-C6A8-4024-AA88-807D687F1943",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; John 3:16 (NIV)",
+        "slide_number": 6,
+        "style_fingerprint": "b3790b658492b1d3f1358abedf977248eb84ca402aaaa6c3541ebf7950ad7a10"
+      },
+      {
+        "body_object_uuid": "E48CDFFD-33FA-4D79-AEE2-CB0A3678ADEB",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Old themed verse",
+        "cue_uuid": "F66013D3-099F-42A5-85CD-9161747C75D4",
+        "reference_object_uuid": "40A04EC3-DEB6-415E-8DE3-FDD422D7A6FB",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Romans 8:28 (NIV)",
+        "slide_number": 8,
+        "style_fingerprint": "7250773f7a014f0b69595ee282e218d77d01d0810ecf49f9dd5d6f0a3c48636a"
+      },
+      {
+        "body_object_uuid": "EF893357-FDED-4711-8D9B-EC85EDD64D1F",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Two",
+        "cue_uuid": "3F4CFD71-6F88-4D43-A72F-D87A3DD97E1E",
+        "reference_object_uuid": "3CE05BAB-F255-404E-9120-D71BB70E3192",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Psalm 23:1",
+        "slide_number": 9,
+        "style_fingerprint": "b5b50f85b4a85e532ed6411bea9f4751ffdd52bad8f27c6d3345fdcef2a5af0f"
+      }
+    ]
+  },
+  "templates": {
+    "points": [
+      [
+        2,
+        "AD76111D-58E1-4023-8011-8FD4EEBC7748",
+        "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Sample",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+      }
+    ]
+  },
+  "two_actions": {
+    "points": [
+      [
+        2,
+        "AD76111D-58E1-4023-8011-8FD4EEBC7748",
+        "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"
+      ]
+    ],
+    "templates": []
+  },
+  "two_point_texts": {
+    "points": [],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Sample",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+      }
+    ]
+  },
+  "windows": {
+    "points": [
+      [
+        2,
+        "187fb986-e6ff-42db-bff7-a8b43c38186c",
+        "f2e0acb0ba8ea67d943ab240d8fb70dfadceffe5f72b122e60b170f1a9fa28d5"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "b51ba962-832e-4c60-9832-ee6215be1547",
+        "body_preview": "ArialMT;;;;\\*;;;\\*\\*",
+        "cue_uuid": "970f2b7b-86eb-478c-958f-69af416c128b",
+        "reference_object_uuid": "6652d5b3-7d3b-4fcd-ad68-66aa8477649f",
+        "reference_preview": "ArialMT;;;;\\*;;;\\*\\*",
+        "slide_number": 1,
+        "style_fingerprint": "7bedd7f11ac02b9d65de8fdc5aeee535447d0befb5c66e542c932f48a8384851"
+      }
+    ]
+  },
+  "wrong_document": {
+    "points": [
+      [
+        2,
+        "AD76111D-58E1-4023-8011-8FD4EEBC7748",
+        "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Sample",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+      }
+    ]
+  },
+  "wrong_version": {
+    "points": [
+      [
+        2,
+        "AD76111D-58E1-4023-8011-8FD4EEBC7748",
+        "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"
+      ]
+    ],
+    "templates": [
+      {
+        "body_object_uuid": "053B3B29-C6F6-46E7-AC44-5B3C25D19477",
+        "body_preview": "TheBoldFont-Bold; ;;;; \\*;;;; Sample",
+        "cue_uuid": "F94169B4-CB51-43C7-9851-EB802EAE7FA9",
+        "reference_object_uuid": "56C4EF10-6654-4C16-AC83-2C22ED44A028",
+        "reference_preview": "Montserrat-ExtraBold; ;;;; \\*;;;; Sample",
+        "slide_number": 1,
+        "style_fingerprint": "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+      }
+    ]
+  }
+}

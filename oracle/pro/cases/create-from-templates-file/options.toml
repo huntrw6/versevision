@@ -1,0 +1,17 @@
+mode = "create"
+uuid_seed = "create-from-templates-file"
+now = 1784419571
+base = "files/templates"
+name = "New sermon"
+
+[definition]
+presentation_uuid = "EE748D35-FBF6-4076-AAE8-4F4C878B66BD"
+presentation_name = "Sample"
+library_name = "Verses"
+cue_uuid = "F94169B4-CB51-43C7-9851-EB802EAE7FA9"
+reference_object = "Reference"
+body_object = "Verse"
+style_fingerprint = "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+point_cue_uuid = "AD76111D-58E1-4023-8011-8FD4EEBC7748"
+point_object = "Sermon Point"
+point_style_fingerprint = "d536252b926bfac893800355d8eea011bd228e5deca09a00bf469b4e0476974b"

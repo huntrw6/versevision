@@ -7,3 +7,8 @@ Cargo.toml text eol=lf
 Cargo.lock text eol=lf
 rust-toolchain.toml text eol=lf
 .github/workflows/*.yml text eol=lf
+
+# ProPresenter files and the compiled schema are compared byte for byte (round-trip and oracle tests): never converted
+*.pro -text
+proto/descriptor.bin -text
+python/tests/fixtures/themes/** -text

@@ -14,6 +14,7 @@ on:
       - "rust-toolchain.toml"
       - "crates/**"
       - "oracle/**"
+      - "proto/**"
       - "python/**"
       - ".github/workflows/rust.yml"
   pull_request:
@@ -23,6 +24,7 @@ on:
       - "rust-toolchain.toml"
       - "crates/**"
       - "oracle/**"
+      - "proto/**"
       - "python/**"
       - ".github/workflows/rust.yml"
 
@@ -86,6 +88,9 @@ jobs:
 
       - name: The oracle in numbers
         run: cargo test -p versevision-core --test oracle -- --nocapture --test-threads=1 oracle_against_expected_failures
+
+      - name: The ProPresenter file oracle in numbers
+        run: cargo test -p versevision-pp --test oracle_pro --test roundtrip -- --nocapture --test-threads=1
 
   python:
     name: Python suite (the oracle)

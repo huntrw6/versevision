@@ -1,0 +1,17 @@
+mode = "create"
+uuid_seed = "create-windows-file"
+now = 1784419571
+base = "files/windows"
+name = "Windows new"
+
+[definition]
+presentation_uuid = "f2de2609-10c1-41e9-8f35-dc170d10186d"
+presentation_name = "WindowsVerses"
+library_name = "Verses"
+cue_uuid = "970f2b7b-86eb-478c-958f-69af416c128b"
+reference_object = "Reference"
+body_object = "Verse"
+style_fingerprint = "7bedd7f11ac02b9d65de8fdc5aeee535447d0befb5c66e542c932f48a8384851"
+point_cue_uuid = "187fb986-e6ff-42db-bff7-a8b43c38186c"
+point_object = "Sermon Point"
+point_style_fingerprint = "f2e0acb0ba8ea67d943ab240d8fb70dfadceffe5f72b122e60b170f1a9fa28d5"
