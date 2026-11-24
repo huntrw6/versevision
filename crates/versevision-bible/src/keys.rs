@@ -7,7 +7,8 @@
 //! display. Only a provider, when it builds a request, calls [`KeyStore::resolve`].
 //!
 //! The file is written only with owner-only access: mode `0600` on Unix (and `0700` for a directory this code creates), a private
-//! per-user ACL on Windows (`icacls`: inheritance removed, the current user only). The new content is written to a private
+//! per-user ACL on Windows (`icacls`: inheritance removed, a full-control entry for the current user; the system and administrator
+//! accounts that Windows gives every new file of this user stay, and can take the file anyway). The new content is written to a private
 //! temporary file in the same directory first and renamed over the old one, so there is no moment when the keys are readable by
 //! others and no half-written file.
 
@@ -342,7 +343,7 @@ fn restrict_to_user(_path: &Path) -> Result<(), KeyError> {
     Ok(())
 }
 
-/// Windows: remove the inherited permissions and grant the current user alone (`icacls`, part of every Windows install).
+/// Windows: remove the inherited permissions and grant the current user full control (`icacls`, part of every Windows install).
 #[cfg(windows)]
 fn restrict_to_user(path: &Path) -> Result<(), KeyError> {
     use std::os::windows::process::CommandExt;

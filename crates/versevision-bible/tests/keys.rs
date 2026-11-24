@@ -175,18 +175,23 @@ fn the_keys_file_has_a_private_acl() {
     let listing = String::from_utf8_lossy(&output.stdout).to_string();
     let user = std::env::var("USERNAME").unwrap();
     assert!(listing.contains(&user), "the user is in the ACL: {listing}");
+    // nothing is inherited from the folder, and nobody but the user (and the accounts every file of the user has: the system
+    // and the administrators, which can take the file anyway) is in it
+    assert!(!listing.contains("(I)"), "no inherited entry: {listing}");
     for other in [
         "Everyone",
         "BUILTIN\\Users",
         "Authenticated Users",
-        "BUILTIN\\Administrators",
-        "NT AUTHORITY\\SYSTEM",
+        "Domain Users",
+        "CREATOR OWNER",
     ] {
         assert!(
             !listing.contains(other),
             "{other} must not be in the ACL: {listing}"
         );
     }
+    let entries = listing.matches(":(").count();
+    assert!(entries <= 3, "{entries} entries: {listing}");
     assert_eq!(store.resolve("VV_ACL").unwrap().expose(), "v2");
 }
 
