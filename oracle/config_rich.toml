@@ -1,0 +1,176 @@
+[propresenter]
+host = "127.0.0.1"
+port = 50001
+timeout_seconds = 5.0
+
+[node]
+type = "hermes-remote"
+name = "iMac \"main\""
+command = "hermes-remote"
+app_path = "/Applications/ProPresenter.app"
+process_pattern = "MacOS/ProPresenter$"
+process_name = "ProPresenter"
+backup_dir = "$HOME/x y"
+library_root = "$HOME/Documents/ProPresenter/Libraries"
+helper_dir = "$HOME/VerseVision-tools"
+theme_root = "$HOME/Documents/ProPresenter/Themes"
+confirm_quit = true
+retries = 2
+retry_delay_seconds = 7.5
+quit_wait_seconds = 25.0
+launch_wait_seconds = 90.0
+
+[slides]
+break_on_new_verse = true
+max_characters = 350
+max_verses_per_slide = 1
+preserve_poetry_lines = true
+even_split_punctuation_tolerance = 0.25
+even_split_tolerance = 0.15
+include_verse_numbers = false
+reference_format = "{book} {chapter}:{verses} {version}"
+reference_label_mode = "verse"
+max_body_lines = 5
+line_width_units = 48.0
+max_reference_lines = 1
+reference_width_units = 46.0
+prefer_punctuation_breaks = true
+repeat_reference_on_continuation = true
+
+[notes]
+line_breaks = "paragraph"
+unlabeled_sentence = "bullet"
+unlabeled_short = "bullet"
+before_first_item = "skip"
+stage_cues = "skip"
+extra_cue_words = [
+    "pause",
+    "sing",
+]
+skip_patterns = [
+    "^\\d+$",
+    "a\"b",
+    "tab	here",
+]
+quote_above_reference = "skip"
+quote_alone = "review"
+reference_in_text = "review"
+whole_chapter = "review"
+duplicates = "keep"
+label_words = [
+    "conclusion",
+    "application",
+    "invitation",
+    "challenge",
+    "summary",
+    "closing",
+    "takeaway",
+    "big idea",
+    "main point",
+]
+label_own_slide = true
+header_max_words = 2
+headings = "slide"
+caps_lines = "heading"
+wrapped_lines = "join"
+orphan_max_words = 3
+
+[points]
+numbered = true
+lettered = true
+bullets = true
+require_sequence = true
+numbering = "keep"
+number_style = "{n})"
+bullet_char = "•"
+case = "as_written"
+fix_label_typos = true
+strip_trailing_period = true
+balance_lines = true
+line_width_units = 24.5
+line_tolerance = 0.15
+line_tolerance_at_punctuation = 0.25
+max_lines_per_slide = 0
+max_lines = 4
+shown_in_capitals = true
+theme = "Café – “Group”/Name"
+theme_slide = ""
+
+[verses]
+version_source = "above"
+version_from_quote = "use"
+quote_versions = [
+    "NIV",
+    "ESV",
+]
+quote_match = 0.9
+theme = ""
+theme_slide = ""
+
+[profiles."Sunday AM".notes]
+line_breaks = "paragraph"
+extra_cue_words = [
+    "pause",
+]
+
+[profiles."Sunday AM".slides]
+max_body_lines = 4
+include_verse_numbers = true
+
+[profiles.narrow.slides]
+line_width_units = 30.5
+
+[profiles.narrow.bible.providers.x]
+type = "esv"
+
+[presentation]
+backup_count = 10
+
+[presentation_template]
+presentation_uuid = "u-1"
+presentation_name = "Verses"
+library_name = "Lib"
+cue_uuid = "c-1"
+reference_object = "Reference"
+body_object = "Verse"
+style_fingerprint = "f"
+point_object = "Sermon Point"
+
+[output]
+library = "Verses"
+swap_keeps_id = false
+
+[bible]
+default_version = "NIV"
+
+[bible.version_aliases]
+YLT = "NLT"
+
+[bible.version_routes]
+ESV = "esv"
+
+[bible.providers.esv]
+type = "esv"
+api_key_env = "ESV_API_KEY"
+base_url = "https://api.esv.org/v3"
+timeout_seconds = 15.0
+cache_policy = "fresh"
+
+[bible.providers.api]
+type = "api_bible"
+api_key_env = "API_BIBLE_API_KEY"
+base_url = "https://api.scripture.api.bible/v1"
+timeout_seconds = 30.0
+cache_policy = "allowed"
+
+[bible.providers.api.bible_ids]
+NIV = "abc"
+KJV = "def"
+
+[bible.providers.local]
+type = "usfm"
+version = "NKJV"
+path = "~/Bibles/nkjv"
+name = "Local"
+copyright = "(c)"
+cache_policy = "allowed"

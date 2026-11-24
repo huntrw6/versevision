@@ -1,0 +1,108 @@
+# Builds and tests the Rust workspace on Linux, macOS (Intel and Apple Silicon) and Windows, and runs the Python app's
+# suite on Linux (Python is the oracle until the port reaches parity, so it has to stay green).
+# Only GitHub-hosted runners. Nothing here is packaged, tagged or published.
+name: rust
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "rust-toolchain.toml"
+      - "crates/**"
+      - "oracle/**"
+      - "python/**"
+      - ".github/workflows/rust.yml"
+  pull_request:
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "rust-toolchain.toml"
+      - "crates/**"
+      - "oracle/**"
+      - "python/**"
+      - ".github/workflows/rust.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rust-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust:
+    name: Rust — ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux
+            runner: ubuntu-latest
+          - name: macOS Intel
+            runner: macos-15-intel
+          - name: macOS Apple Silicon
+            runner: macos-latest
+          - name: Windows
+            runner: windows-latest
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: No two file names that differ only by case
+        shell: bash
+        run: |
+          clashes=$(git ls-files | tr 'A-Z' 'a-z' | sort | uniq -d)
+          if [ -n "$clashes" ]; then echo "case-only name clashes:"; echo "$clashes"; exit 1; fi
+
+      - name: Toolchain versions (pinned by rust-toolchain.toml)
+        run: |
+          rustc --version
+          cargo --version
+
+      - name: Restore cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: rust-${{ matrix.runner }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml') }}
+
+      - name: cargo fmt --check
+        run: cargo fmt --all --check
+
+      - name: cargo clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      # includes the oracle runner (crates/versevision-core/tests/oracle.rs): fitting, config and the ratchet
+      - name: cargo test
+        run: cargo test --workspace
+
+      - name: The oracle in numbers
+        run: cargo test -p versevision-core --test oracle -- --nocapture --test-threads=1 oracle_against_expected_failures
+
+  python:
+    name: Python suite (the oracle)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        run: python -m pip install uv
+
+      - name: pytest
+        working-directory: python
+        run: uv run --extra dev pytest -q -p no:cacheprovider
