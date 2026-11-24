@@ -112,6 +112,9 @@ backup_count = 10
 library = "Verses"
 swap_keeps_id = false
 
+[bible]
+source = "auto"
+
 [bible.version_aliases]
 YLT = "NLT"
 

@@ -2,6 +2,8 @@
 //! that makes the Rust providers do what the Python exporter had its providers do.
 #![allow(dead_code)]
 
+pub mod service;
+
 use std::collections::HashMap;
 use std::fs;
 use std::net::SocketAddr;

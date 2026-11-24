@@ -107,6 +107,7 @@ class BibleConfig(BaseModel):
     version_aliases: dict[str, str] = Field(default_factory=lambda: {"YLT": "NLT"})
     version_routes: dict[str, str] = Field(default_factory=dict)
     providers: dict[str, ProviderConfig] = Field(default_factory=dict)
+    source: Literal["auto", "stagepilot", "own_keys"] = "auto"      # where verse text comes from: auto (your own key first, then the StagePilot service), stagepilot (the service only), own_keys (never the service). This Python app has no StagePilot service, so every value behaves like own_keys here; the Rust app uses it
 
 
 class NodeConfig(BaseModel):

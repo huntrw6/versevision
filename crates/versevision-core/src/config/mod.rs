@@ -159,6 +159,21 @@ pub enum CachePolicy {
     Fresh,
 }
 
+/// `bible.source`: when the StagePilot Bible service may supply verse text (see `versevision-bible`).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default, Serialize, Deserialize)]
+pub enum BibleSource {
+    /// A version uses the user's own provider key when there is one, else the service.
+    #[default]
+    #[serde(rename = "auto")]
+    Auto,
+    /// The service only (for the versions it offers).
+    #[serde(rename = "stagepilot")]
+    StagePilot,
+    /// Never the service.
+    #[serde(rename = "own_keys")]
+    OwnKeys,
+}
+
 /// Where ProPresenter's network API listens.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ProPresenterConfig {
@@ -406,6 +421,7 @@ pub struct BibleConfig {
     pub version_aliases: IndexMap<String, String>,
     pub version_routes: IndexMap<String, String>,
     pub providers: IndexMap<String, ProviderConfig>,
+    pub source: BibleSource,
 }
 
 impl Default for BibleConfig {

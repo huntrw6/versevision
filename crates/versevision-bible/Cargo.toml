@@ -23,6 +23,8 @@ fancy-regex.workspace = true
 reqwest = { version = "0.13", default-features = false, features = ["rustls-no-provider"] }
 rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12"] }
 sha2 = "0.10"
+# Only the timer, for the one `Retry-After` wait of the StagePilot service client (reqwest already needs tokio).
+tokio = { version = "1", default-features = false, features = ["time"] }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "time", "sync"] }

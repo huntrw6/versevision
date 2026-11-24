@@ -12,11 +12,12 @@ use std::path::Path;
 use std::sync::Arc;
 use std::time::Duration;
 
+use common::service::*;
 use common::*;
 use serde_json::json;
 use versevision_bible::{
     AnyProvider, FileKeyStore, KeyError, KeyStore, MemoryKeyStore, RegistryBuilder, ScriptureCache,
-    Secret,
+    Secret, StagePilotProvider,
 };
 use versevision_core::bibles::{BibleError, BiblePassages, BibleProvider};
 use versevision_core::config::AppConfig;
@@ -315,4 +316,103 @@ fn the_library_never_prints_or_logs() {
         }
     }
     assert!(checked >= 10);
+}
+
+// ------------------------------------------------------------------------------------------------ the StagePilot service
+
+fn provider(origin: &str) -> StagePilotProvider {
+    StagePilotProvider::new("stagepilot", Some(TestAuth::enrolled(origin)))
+}
+
+fn spans(raw: &[serde_json::Value]) -> Vec<versevision_core::references::VerseSpan> {
+    raw.iter().map(span_of).collect()
+}
+
+fn clean_credential(label: &str, text: &str) {
+    use common::service::CREDENTIAL;
+    assert!(
+        !text.contains(CREDENTIAL),
+        "the credential is in {label}: {}",
+        text.replace(CREDENTIAL, "<<CREDENTIAL>>")
+    );
+}
+
+/// The StagePilot installation credential is in nothing the crate says: errors, health, `Debug`, whatever the service echoes back.
+#[tokio::test]
+async fn the_stagepilot_credential_is_never_printed() {
+    let echo = |status: u16| {
+        move |_: &Seen, _: usize| {
+            Reply {
+            status,
+            headers: vec![
+                ("x-echo".to_string(), CREDENTIAL.to_string()),
+                ("retry-after".to_string(), "99".to_string()),
+            ],
+            body: json!({"error": "invalid_reference", "message": format!("echo {CREDENTIAL}"), "detail": CREDENTIAL})
+                .to_string(),
+            delay: None,
+        }
+        }
+    };
+    let mut errors = 0;
+    for status in [200u16, 400, 401, 403, 404, 429, 500, 502, 503, 504, 301] {
+        let (origin, _s) = serve_service(echo(status)).await;
+        let p = provider(&origin);
+        clean_credential("Debug of the provider", &format!("{p:?}"));
+        for call in 0..3 {
+            let result = match call {
+                0 => p
+                    .fetch_passage("NIV", "JHN", &spans(&[json!([3, 16])]))
+                    .await
+                    .map(|_| ()),
+                1 => p.fetch_reference("NIV", "JHN 3:16").await.map(|_| ()),
+                _ => {
+                    let health = p.health_check().await;
+                    clean_credential(&format!("health ({status})"), &format!("{health:?}"));
+                    Ok(())
+                }
+            };
+            if let Err(error) = result {
+                errors += 1;
+                clean_credential(&format!("Display ({status})"), &error.to_string());
+                clean_credential(&format!("Debug ({status})"), &format!("{error:?}"));
+                clean_credential(&format!("message ({status})"), error.message());
+            }
+        }
+    }
+    assert!(errors > 20, "{errors} errors were checked");
+    // a body that holds the credential in a verse text is redacted too
+    let (origin, _s) = serve_service(|seen, _| {
+        let mut reply = contract_success(seen);
+        let mut body: serde_json::Value = serde_json::from_str(&reply.body).unwrap();
+        body["verses"][0]["text"] = json!(format!("text {CREDENTIAL}"));
+        reply.body = body.to_string();
+        reply
+    })
+    .await;
+    let verses = provider(&origin)
+        .fetch_passage("NIV", "JHN", &spans(&[json!([3, 16])]))
+        .await
+        .unwrap();
+    clean_credential("a verse text", &verses[0].text);
+    // a refused and a reset connection, and a credential that cannot be a header
+    let dead = {
+        let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+        format!("http://{}", listener.local_addr().unwrap())
+    };
+    let error = provider(&dead)
+        .fetch_passage("NIV", "JHN", &spans(&[json!([3, 16])]))
+        .await
+        .unwrap_err();
+    clean_credential("connection error", error.message());
+    let odd = Arc::new(TestAuth {
+        origin: dead.clone(),
+        id: Some(INSTALLATION.to_string()),
+        credential: Some(format!("{CREDENTIAL}\nline")),
+    });
+    let error = StagePilotProvider::new("stagepilot", Some(odd))
+        .fetch_passage("NIV", "JHN", &spans(&[json!([3, 16])]))
+        .await
+        .unwrap_err();
+    clean_credential("header error", error.message());
 }

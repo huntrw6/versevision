@@ -142,6 +142,7 @@ swap_keeps_id = false
 
 [bible]
 default_version = "NIV"
+source = "auto"
 
 [bible.version_aliases]
 YLT = "NLT"
