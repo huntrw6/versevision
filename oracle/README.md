@@ -133,6 +133,16 @@ no group, two slide actions, not RTF, empty plan).
 corpus has no Scripture text in it and no copyright to carry; it only has to have realistic length and punctuation. The few cases whose texts
 come from the tests (`quote-*`) use short KJV/NKJV quotations already in the test files.
 
+## The web app's data routes: `oracle/web/` (S7a)
+
+`python/scripts/oracle_web.py` starts the Python server on a port of its own, over the files in `oracle/web/state/` (a config with a template, two
+profiles and a node name; a history with three imports; three run folders), asks it the routes that only read or write data (`status`, `config` and
+its schema, `history`, `runs`, `run/<id>`, `check`, `presentations`, `themes`, the refusals of `config`, `replan`, `apply` and `plan`) and writes the
+answers to `routes.json`; `config_apply.jsonl` is what `configpage.apply` does with 21 sets of values (the error text, or what every option shows
+afterwards). The Rust side is `crates/versevision-web/tests/oracle_web.rs`: same files, same requests, same status and the same JSON (numbers by
+value, keys in any order). The routes that need ProPresenter are answered by a small fake transport on both sides. The review, import and undo jobs
+are not in this corpus: they are held to the S6b scenarios (`web_plan` / `web_apply`) and tested in `crates/versevision-web/tests/review.rs`.
+
 ## The ProPresenter side: `oracle/pipeline/` (S6b)
 
 `oracle/pipeline/scenarios/<name>/` holds a scenario (`scenario.json`) and what the Python app did with it (`expected/`): every request to a scripted
@@ -149,7 +159,9 @@ has the rules of the fake ProPresenter and the list of what is compared. The Rus
   ProPresenter behaves (when it re-issues ids, what it answers while it loads a file).
 * **A real ProPresenter opening the written files** (S9, on the rig). The oracle proves the Rust files are the same bytes as the Python app's; it cannot
   prove ProPresenter accepts them.
-* **The web page and its server**: routes, jobs, PWA, review panel behaviour, authentication. The page itself is served unchanged from Rust (S7).
+* **The web page in a browser**: the page's own JavaScript (the review panel, the Config page, the Bible keys section) is only exercised by screenshots taken
+  with Playwright; no test drives it. The data routes are compared with Python (`oracle/web/`, above); the new Bible keys routes, the Origin and Host checks and
+  the mount under a prefix have no Python twin.
 * **The remote-node transport** (`--node`, the SSH transport of `node/transport.py`): not ported yet, so not in the oracle.
 * **The command line**, the Config page and keys.env. (The config model itself, TOML load/save, profiles and the `--set` parser are covered by the `config_*` files.)
 * **Documents the extractors read differently**: only the formats in `cases/format-*` are covered (a small docx and two small pdfs). Real-world pdf

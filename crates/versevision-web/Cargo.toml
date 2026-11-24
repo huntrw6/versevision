@@ -1,0 +1,36 @@
+[package]
+name = "versevision-web"
+description = "VerseVision web app: the page and its JSON API as an axum Router (standalone at / or mounted under a prefix), the Config page and the Bible keys section."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+versevision-core = { path = "../versevision-core" }
+versevision-bible = { path = "../versevision-bible" }
+versevision-docs = { path = "../versevision-docs" }
+versevision-pp = { path = "../versevision-pp" }
+# The same axum as StagePilot (0.8.9 in its Cargo.lock). Only what the router uses.
+axum = { version = "0.8.9", default-features = false, features = ["http1", "json", "query", "tokio"] }
+# The host owns the runtime; this crate only spawns blocking work on it and waits on `tokio::net` in `serve`.
+tokio = { version = "1", default-features = false, features = ["rt", "net", "sync", "time"] }
+serde.workspace = true
+serde_json.workspace = true
+indexmap.workspace = true
+uuid = { version = "1", features = ["v4"] }
+# The one request for a theme thumbnail goes to ProPresenter over plain HTTP (the same client the pipeline uses).
+ureq = { version = "3", default-features = false }
+percent-encoding = "2"
+# `mount` hands the request on to the router itself (`ServiceExt::oneshot`).
+tower = { version = "0.5", default-features = false, features = ["util"] }
+tempfile = "3"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "time", "sync"] }
+tower = { version = "0.5", default-features = false, features = ["util"] }
+http-body-util = "0.1"

@@ -1,0 +1,2926 @@
+[
+ {
+  "json": {
+   "default_version": null,
+   "library": "Verses",
+   "node": "Sanctuary Mac",
+   "profiles": [
+    "long",
+    "short"
+   ],
+   "target": "Sample",
+   "template_ready": true,
+   "version": "0.38.1"
+  },
+  "method": "GET",
+  "name": "status",
+  "path": "/api/status",
+  "status": 200
+ },
+ {
+  "json": {
+   "path": "<ROOT>/config.toml",
+   "sections": [
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": 0.25,
+       "help": "Max size difference between pieces cut at punctuation (0.25 = 25%)",
+       "key": "slides.even_split_punctuation_tolerance",
+       "kind": "float",
+       "label": "Uneven split allowed (at punctuation)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.25
+      },
+      {
+       "choices": [],
+       "default": 0.15,
+       "help": "Max size difference between pieces cut mid-phrase (0.15 = 15%)",
+       "key": "slides.even_split_tolerance",
+       "kind": "float",
+       "label": "Uneven split allowed (mid-phrase)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.15
+      },
+      {
+       "choices": [],
+       "default": false,
+       "help": "Put the verse number before the verse text",
+       "key": "slides.include_verse_numbers",
+       "kind": "bool",
+       "label": "Show verse numbers in the text",
+       "value": false
+      },
+      {
+       "choices": [
+        "source",
+        "segment",
+        "verse"
+       ],
+       "default": "verse",
+       "help": "verse: Luke 13:5 · segment: range on the slide · source: as typed",
+       "key": "slides.reference_label_mode",
+       "kind": "choice",
+       "label": "Reference shows",
+       "value": "verse"
+      },
+      {
+       "choices": [],
+       "default": 5,
+       "help": "A longer verse is cut into near-equal slides",
+       "key": "slides.max_body_lines",
+       "kind": "int",
+       "label": "Most lines of verse text on a slide",
+       "max": 20,
+       "min": 1,
+       "value": 5
+      },
+      {
+       "choices": [],
+       "default": 48.0,
+       "help": "How wide a line of verse text is (about 48 letters)",
+       "key": "slides.line_width_units",
+       "kind": "float",
+       "label": "Verse line width",
+       "max": 200,
+       "min": 5,
+       "value": 48.0
+      },
+      {
+       "choices": [],
+       "default": 1,
+       "help": "A longer reference is flagged in the review",
+       "key": "slides.max_reference_lines",
+       "kind": "int",
+       "label": "Most lines for the reference",
+       "max": 3,
+       "min": 1,
+       "value": 1
+      },
+      {
+       "choices": [],
+       "default": 46.0,
+       "help": "How wide the reference line is (about 46 letters)",
+       "key": "slides.reference_width_units",
+       "kind": "float",
+       "label": "Reference line width",
+       "max": 200,
+       "min": 5,
+       "value": 46.0
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Cut after a comma, semicolon or full stop when close enough",
+       "key": "slides.prefer_punctuation_breaks",
+       "kind": "bool",
+       "label": "Prefer to cut a long verse at punctuation",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Off: only the first slide of a long verse shows it",
+       "key": "slides.repeat_reference_on_continuation",
+       "kind": "bool",
+       "label": "Repeat the reference on every slide of a long verse",
+       "value": true
+      }
+     ],
+     "help": "How a verse is cut and laid out on its slides.",
+     "id": "verse_slides",
+     "title": "Verse slides"
+    },
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"1)\", \"1.\" and \"#1:\" as points",
+       "key": "points.numbered",
+       "kind": "bool",
+       "label": "Numbered",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"a)\" and \"b.\" as points",
+       "key": "points.lettered",
+       "kind": "bool",
+       "label": "Lettered",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"•\", \"-\" and \"*\" as points",
+       "key": "points.bullets",
+       "kind": "bool",
+       "label": "Bullets",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Numbers out of order (1, 2, 5) become plain list items",
+       "key": "points.require_sequence",
+       "kind": "bool",
+       "label": "Require sequence",
+       "value": true
+      },
+      {
+       "choices": [
+        "keep",
+        "strip",
+        "renumber"
+       ],
+       "default": "keep",
+       "help": "Keep the numbers, strip them, or renumber 1, 2, 3",
+       "key": "points.numbering",
+       "kind": "choice",
+       "label": "Numbering",
+       "value": "keep"
+      },
+      {
+       "choices": [],
+       "default": "{n})",
+       "help": "Used when renumbering: \"{n})\", \"{n}.\", \"#{n}:\"",
+       "key": "points.number_style",
+       "kind": "text",
+       "label": "Number style",
+       "value": "{n})"
+      },
+      {
+       "choices": [],
+       "default": "•",
+       "help": "Mark before a plain point (empty = none)",
+       "key": "points.bullet_char",
+       "kind": "text",
+       "label": "Bullet mark",
+       "value": "•"
+      },
+      {
+       "choices": [
+        "as_written",
+        "upper",
+        "lower",
+        "title"
+       ],
+       "default": "as_written",
+       "help": "Letter case of the point text",
+       "key": "points.case",
+       "kind": "choice",
+       "label": "Case",
+       "value": "as_written"
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "\"KEY#1)\" is fixed to match the other headers and flagged",
+       "key": "points.fix_label_typos",
+       "kind": "bool",
+       "label": "Fix a header that differs from the others",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Remove the final \".\"; \"!\", \"?\" and \"etc.\" stay",
+       "key": "points.strip_trailing_period",
+       "kind": "bool",
+       "label": "Remove the period at the end of a point",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Break long points into evenly wide lines",
+       "key": "points.balance_lines",
+       "kind": "bool",
+       "label": "Break long points into evenly wide lines",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": 33.0,
+       "help": "How wide a line of a point is (about 33 capitals)",
+       "key": "points.line_width_units",
+       "kind": "float",
+       "label": "Point line width",
+       "max": 200,
+       "min": 5,
+       "value": 33.0
+      },
+      {
+       "choices": [],
+       "default": 0.15,
+       "help": "Max difference from the average line width (0.15 = 15%)",
+       "key": "points.line_tolerance",
+       "kind": "float",
+       "label": "Uneven lines allowed",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.15
+      },
+      {
+       "choices": [],
+       "default": 0.25,
+       "help": "Same, for a line that starts and ends at punctuation",
+       "key": "points.line_tolerance_at_punctuation",
+       "kind": "float",
+       "label": "Uneven lines allowed (at punctuation)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.25
+      },
+      {
+       "choices": [],
+       "default": 0,
+       "help": "A longer point continues on the next slide (0 = no limit)",
+       "key": "points.max_lines_per_slide",
+       "kind": "int",
+       "label": "Most lines on a sermon point slide",
+       "max": 12,
+       "min": 0,
+       "value": 0
+      },
+      {
+       "choices": [],
+       "default": 4,
+       "help": "Lines the point box holds before ProPresenter shrinks the text",
+       "key": "points.max_lines",
+       "kind": "int",
+       "label": "Lines a point box holds at full size",
+       "max": 12,
+       "min": 1,
+       "value": 4
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Measure line widths as capitals (wider letters)",
+       "key": "points.shown_in_capitals",
+       "kind": "bool",
+       "label": "Points are shown in capitals",
+       "value": true
+      }
+     ],
+     "help": "What counts as a point and how its slides are written.",
+     "id": "points",
+     "title": "Sermon points"
+    },
+    {
+     "fields": [
+      {
+       "choices": [
+        "above",
+        "default",
+        "required"
+       ],
+       "default": "above",
+       "help": "A verse with no version: use the one above, the default, or error",
+       "key": "verses.version_source",
+       "kind": "choice",
+       "label": "Version source",
+       "value": "above"
+      },
+      {
+       "choices": [
+        "use",
+        "off"
+       ],
+       "default": "use",
+       "help": "Use the version whose wording matches the quoted verse text",
+       "key": "verses.version_from_quote",
+       "kind": "choice",
+       "label": "Version from quote",
+       "value": "use"
+      },
+      {
+       "choices": [],
+       "default": [
+        "KJV",
+        "NKJV",
+        "NIV",
+        "NASB1995",
+        "NLT",
+        "ESV"
+       ],
+       "help": "Versions tried, in order, when matching a quote",
+       "key": "verses.quote_versions",
+       "kind": "list",
+       "label": "Quote versions",
+       "value": [
+        "KJV",
+        "NKJV",
+        "NIV",
+        "NASB1995",
+        "NLT",
+        "ESV"
+       ]
+      },
+      {
+       "choices": [],
+       "default": 0.85,
+       "help": "How closely a quote must match a version (0.85 = 85%)",
+       "key": "verses.quote_match",
+       "kind": "float",
+       "label": "Quote match",
+       "max": 1.0,
+       "min": 0.5,
+       "value": 0.85
+      }
+     ],
+     "help": "Which Bible version each verse gets.",
+     "id": "verses",
+     "title": "Verse versions"
+    },
+    {
+     "fields": [
+      {
+       "choices": [
+        "slide",
+        "paragraph"
+       ],
+       "default": "slide",
+       "help": "slide: each line is a slide · paragraph: a sentence joins its point",
+       "key": "notes.line_breaks",
+       "kind": "choice",
+       "label": "Each line break is",
+       "value": "slide"
+      },
+      {
+       "choices": [
+        "bullet",
+        "review",
+        "skip"
+       ],
+       "default": "bullet",
+       "help": "Plain sentence after a point: bullet slide, review, or skip",
+       "key": "notes.unlabeled_sentence",
+       "kind": "choice",
+       "label": "Unlabeled sentence",
+       "value": "bullet"
+      },
+      {
+       "choices": [
+        "bullet",
+        "review",
+        "skip"
+       ],
+       "default": "bullet",
+       "help": "Short line with no ending punctuation: bullet, review, or skip",
+       "key": "notes.unlabeled_short",
+       "kind": "choice",
+       "label": "Unlabeled short",
+       "value": "bullet"
+      },
+      {
+       "choices": [
+        "skip",
+        "review",
+        "bullet"
+       ],
+       "default": "skip",
+       "help": "Lines before the first verse or point (title, date, speaker)",
+       "key": "notes.before_first_item",
+       "kind": "choice",
+       "label": "Before first item",
+       "value": "skip"
+      },
+      {
+       "choices": [
+        "skip",
+        "review",
+        "bullet"
+       ],
+       "default": "skip",
+       "help": "\"Show slide of…\", \"(note)\", web links",
+       "key": "notes.stage_cues",
+       "kind": "choice",
+       "label": "Stage cues",
+       "value": "skip"
+      },
+      {
+       "choices": [],
+       "default": [],
+       "help": "More words that start a stage cue, e.g. \"pause\"",
+       "key": "notes.extra_cue_words",
+       "kind": "list",
+       "label": "Extra cue words",
+       "value": []
+      },
+      {
+       "choices": [],
+       "default": [],
+       "help": "Regular expressions: a matching line is always left out",
+       "key": "notes.skip_patterns",
+       "kind": "list",
+       "label": "Skip patterns",
+       "value": []
+      },
+      {
+       "choices": [
+        "skip",
+        "review"
+       ],
+       "default": "skip",
+       "help": "Verse text typed above its reference",
+       "key": "notes.quote_above_reference",
+       "kind": "choice",
+       "label": "Quote above reference",
+       "value": "skip"
+      },
+      {
+       "choices": [
+        "review",
+        "skip",
+        "bullet"
+       ],
+       "default": "review",
+       "help": "A quotation with no reference nearby",
+       "key": "notes.quote_alone",
+       "kind": "choice",
+       "label": "Quote alone",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "review",
+        "skip",
+        "verse"
+       ],
+       "default": "review",
+       "help": "A reference inside a sentence (\"as Psalm 23:1 says…\")",
+       "key": "notes.reference_in_text",
+       "kind": "choice",
+       "label": "Reference in text",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "review",
+        "skip"
+       ],
+       "default": "review",
+       "help": "A chapter with no verses (\"Psalm 23\")",
+       "key": "notes.whole_chapter",
+       "kind": "choice",
+       "label": "Whole chapter",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "keep",
+        "drop"
+       ],
+       "default": "keep",
+       "help": "The same verse and version appearing again later",
+       "key": "notes.duplicates",
+       "kind": "choice",
+       "label": "Duplicates",
+       "value": "keep"
+      },
+      {
+       "choices": [],
+       "default": [
+        "conclusion",
+        "application",
+        "invitation",
+        "challenge",
+        "summary",
+        "closing",
+        "takeaway",
+        "big idea",
+        "main point"
+       ],
+       "help": "Words that start a labelled line (\"Conclusion: …\")",
+       "key": "notes.label_words",
+       "kind": "list",
+       "label": "Label words",
+       "value": [
+        "conclusion",
+        "application",
+        "invitation",
+        "challenge",
+        "summary",
+        "closing",
+        "takeaway",
+        "big idea",
+        "main point"
+       ]
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "A labelled line gets its own slide",
+       "key": "notes.label_own_slide",
+       "kind": "bool",
+       "label": "Label own slide",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": 2,
+       "help": "Capitalized lines this short are headings, not slides",
+       "key": "notes.header_max_words",
+       "kind": "int",
+       "label": "Header max words",
+       "max": 6,
+       "min": 0,
+       "value": 2
+      },
+      {
+       "choices": [
+        "slide",
+        "skip"
+       ],
+       "default": "slide",
+       "help": "Titles and headings: a slide with no bullet, or left out",
+       "key": "notes.headings",
+       "kind": "choice",
+       "label": "Headings",
+       "value": "slide"
+      },
+      {
+       "choices": [
+        "heading",
+        "line"
+       ],
+       "default": "heading",
+       "help": "ALL-CAPS line with no ending punctuation: heading or plain line",
+       "key": "notes.caps_lines",
+       "kind": "choice",
+       "label": "Caps lines",
+       "value": "heading"
+      },
+      {
+       "choices": [
+        "join",
+        "separate"
+       ],
+       "default": "join",
+       "help": "join: a line the page cut mid-sentence rejoins the line above",
+       "key": "notes.wrapped_lines",
+       "kind": "choice",
+       "label": "Wrapped lines",
+       "value": "join"
+      },
+      {
+       "choices": [],
+       "default": 3,
+       "help": "A tail this short after a full line ends the sentence above",
+       "key": "notes.orphan_max_words",
+       "kind": "int",
+       "label": "Orphan max words",
+       "max": 8,
+       "min": 0,
+       "value": 3
+      }
+     ],
+     "help": "How lines of the document are read: titles, cues, wrapped lines, duplicates.",
+     "id": "notes",
+     "title": "Reading the notes"
+    },
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": null,
+       "help": "For a verse with no version written or above it",
+       "key": "bible.default_version",
+       "kind": "text",
+       "label": "Default Bible version",
+       "value": null
+      },
+      {
+       "choices": [],
+       "default": "Verses",
+       "help": "ProPresenter library a new presentation goes in",
+       "key": "output.library",
+       "kind": "text",
+       "label": "Library for new presentations",
+       "value": "Verses"
+      },
+      {
+       "choices": [],
+       "default": 10,
+       "help": "Backups kept of a changed presentation",
+       "key": "presentation.backup_count",
+       "kind": "int",
+       "label": "Backups to keep",
+       "max": 100,
+       "min": 1,
+       "value": 10
+      }
+     ],
+     "help": "Defaults for every import.",
+     "id": "general",
+     "title": "General"
+    }
+   ]
+  },
+  "method": "GET",
+  "name": "config",
+  "path": "/api/config",
+  "status": 200
+ },
+ {
+  "json": [
+   {
+    "id": "imp0000003",
+    "mode": "append",
+    "slides": 3,
+    "source": "sermon-3.txt",
+    "status": "undone",
+    "target": "Weekly",
+    "when": "2026-11-15T08:00:00+00:00"
+   },
+   {
+    "id": "imp0000002",
+    "mode": "replace",
+    "slides": 12,
+    "source": "sermon-2.pdf",
+    "status": "replaced",
+    "target": "Sample",
+    "when": "2026-11-08T09:30:15.123456+00:00"
+   },
+   {
+    "id": "imp0000001",
+    "mode": "new",
+    "slides": 7,
+    "source": "sermon-1.docx",
+    "status": "active",
+    "target": "Sample",
+    "when": "2026-11-01T10:00:00+00:00"
+   }
+  ],
+  "method": "GET",
+  "name": "history",
+  "path": "/api/history",
+  "status": 200
+ },
+ {
+  "json": [
+   {
+    "id": "20261115-080000-cccccc",
+    "mode": "web",
+    "outcome": "unfinished",
+    "path": "<ROOT>/logs/runs/20261115-080000-cccccc",
+    "source": "sermon-3.txt",
+    "started": "2026-11-15T08:00:00-08:00"
+   },
+   {
+    "id": "20261108-093015-bbbbbb",
+    "mode": "replace",
+    "outcome": "failed",
+    "path": "<ROOT>/logs/runs/20261108-093015-bbbbbb",
+    "source": "sermon-2.pdf",
+    "started": "2026-11-08T09:30:15-08:00"
+   },
+   {
+    "id": "20261101-100000-aaaaaa",
+    "mode": "new",
+    "outcome": "ok",
+    "path": "<ROOT>/logs/runs/20261101-100000-aaaaaa",
+    "source": "sermon-1.docx",
+    "started": "2026-11-01T10:00:00-08:00"
+   }
+  ],
+  "method": "GET",
+  "name": "runs",
+  "path": "/api/runs",
+  "status": 200
+ },
+ {
+  "json": {
+   "folder": "<ROOT>/logs/runs/20261101-100000-aaaaaa",
+   "id": "20261101-100000-aaaaaa",
+   "summary": "VerseVision run 20261101-100000-aaaaaa\nOutcome: ok\n"
+  },
+  "method": "GET",
+  "name": "run found",
+  "path": "/api/run/20261101-100000-aaaaaa",
+  "status": 200
+ },
+ {
+  "json": {
+   "folder": "<ROOT>/logs/runs/20261101-100000-aaaaaa",
+   "id": "20261101-100000-aaaaaa",
+   "summary": "VerseVision run 20261101-100000-aaaaaa\nOutcome: ok\n"
+  },
+  "method": "GET",
+  "name": "run by ending",
+  "path": "/api/run/aaaaaa",
+  "status": 200
+ },
+ {
+  "json": {
+   "error": "No such run"
+  },
+  "method": "GET",
+  "name": "run without a summary",
+  "path": "/api/run/20261108-093015-bbbbbb",
+  "status": 404
+ },
+ {
+  "json": {
+   "error": "No such run"
+  },
+  "method": "GET",
+  "name": "run unknown",
+  "path": "/api/run/nope",
+  "status": 404
+ },
+ {
+  "json": {
+   "error": "Unknown job"
+  },
+  "method": "GET",
+  "name": "job unknown",
+  "path": "/api/jobs/zzz",
+  "status": 404
+ },
+ {
+  "json": {
+   "error": "Not found"
+  },
+  "method": "GET",
+  "name": "route unknown",
+  "path": "/api/nothing",
+  "status": 404
+ },
+ {
+  "json": {
+   "ok": true,
+   "propresenter": "ProPresenter 19.0",
+   "running": true
+  },
+  "method": "GET",
+  "name": "check",
+  "path": "/api/check",
+  "status": 200
+ },
+ {
+  "json": {
+   "default_library": "Verses",
+   "libraries": [
+    "Songs",
+    "Verses"
+   ],
+   "presentations": [
+    {
+     "library": "Verses",
+     "library_uuid": "L1",
+     "name": "Sample",
+     "uuid": "P1"
+    },
+    {
+     "library": "Verses",
+     "library_uuid": "L1",
+     "name": "Weekly",
+     "uuid": "P2"
+    },
+    {
+     "library": "Songs",
+     "library_uuid": "L2",
+     "name": "Amazing Grace",
+     "uuid": "S1"
+    }
+   ]
+  },
+  "method": "GET",
+  "name": "presentations",
+  "path": "/api/presentations",
+  "status": 200
+ },
+ {
+  "json": {
+   "point": "",
+   "themes": [
+    {
+     "boxes": 1,
+     "group": "",
+     "key": "Scripture main screens::1",
+     "label": "Scripture main screens · Slide 1",
+     "number": 1,
+     "reference_box": false,
+     "slide": "Slide 1",
+     "theme": "Scripture main screens"
+    },
+    {
+     "boxes": 1,
+     "group": "",
+     "key": "Sermon Points::1",
+     "label": "Sermon Points · Theme Slide",
+     "number": 1,
+     "reference_box": false,
+     "slide": "Theme Slide",
+     "theme": "Sermon Points"
+    },
+    {
+     "boxes": 2,
+     "group": "",
+     "key": "The biblke::1",
+     "label": "The biblke · Slide 1",
+     "number": 1,
+     "reference_box": false,
+     "slide": "Slide 1",
+     "theme": "The biblke"
+    }
+   ],
+   "verse": ""
+  },
+  "method": "GET",
+  "name": "themes",
+  "path": "/api/themes",
+  "status": 200
+ },
+ {
+  "body": {
+   "values": {
+    "bible.default_version": "NKJV",
+    "points.max_lines_per_slide": 2
+   }
+  },
+  "json": {
+   "path": "<ROOT>/config.toml",
+   "sections": [
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": 0.25,
+       "help": "Max size difference between pieces cut at punctuation (0.25 = 25%)",
+       "key": "slides.even_split_punctuation_tolerance",
+       "kind": "float",
+       "label": "Uneven split allowed (at punctuation)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.25
+      },
+      {
+       "choices": [],
+       "default": 0.15,
+       "help": "Max size difference between pieces cut mid-phrase (0.15 = 15%)",
+       "key": "slides.even_split_tolerance",
+       "kind": "float",
+       "label": "Uneven split allowed (mid-phrase)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.15
+      },
+      {
+       "choices": [],
+       "default": false,
+       "help": "Put the verse number before the verse text",
+       "key": "slides.include_verse_numbers",
+       "kind": "bool",
+       "label": "Show verse numbers in the text",
+       "value": false
+      },
+      {
+       "choices": [
+        "source",
+        "segment",
+        "verse"
+       ],
+       "default": "verse",
+       "help": "verse: Luke 13:5 · segment: range on the slide · source: as typed",
+       "key": "slides.reference_label_mode",
+       "kind": "choice",
+       "label": "Reference shows",
+       "value": "verse"
+      },
+      {
+       "choices": [],
+       "default": 5,
+       "help": "A longer verse is cut into near-equal slides",
+       "key": "slides.max_body_lines",
+       "kind": "int",
+       "label": "Most lines of verse text on a slide",
+       "max": 20,
+       "min": 1,
+       "value": 5
+      },
+      {
+       "choices": [],
+       "default": 48.0,
+       "help": "How wide a line of verse text is (about 48 letters)",
+       "key": "slides.line_width_units",
+       "kind": "float",
+       "label": "Verse line width",
+       "max": 200,
+       "min": 5,
+       "value": 48.0
+      },
+      {
+       "choices": [],
+       "default": 1,
+       "help": "A longer reference is flagged in the review",
+       "key": "slides.max_reference_lines",
+       "kind": "int",
+       "label": "Most lines for the reference",
+       "max": 3,
+       "min": 1,
+       "value": 1
+      },
+      {
+       "choices": [],
+       "default": 46.0,
+       "help": "How wide the reference line is (about 46 letters)",
+       "key": "slides.reference_width_units",
+       "kind": "float",
+       "label": "Reference line width",
+       "max": 200,
+       "min": 5,
+       "value": 46.0
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Cut after a comma, semicolon or full stop when close enough",
+       "key": "slides.prefer_punctuation_breaks",
+       "kind": "bool",
+       "label": "Prefer to cut a long verse at punctuation",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Off: only the first slide of a long verse shows it",
+       "key": "slides.repeat_reference_on_continuation",
+       "kind": "bool",
+       "label": "Repeat the reference on every slide of a long verse",
+       "value": true
+      }
+     ],
+     "help": "How a verse is cut and laid out on its slides.",
+     "id": "verse_slides",
+     "title": "Verse slides"
+    },
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"1)\", \"1.\" and \"#1:\" as points",
+       "key": "points.numbered",
+       "kind": "bool",
+       "label": "Numbered",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"a)\" and \"b.\" as points",
+       "key": "points.lettered",
+       "kind": "bool",
+       "label": "Lettered",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"•\", \"-\" and \"*\" as points",
+       "key": "points.bullets",
+       "kind": "bool",
+       "label": "Bullets",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Numbers out of order (1, 2, 5) become plain list items",
+       "key": "points.require_sequence",
+       "kind": "bool",
+       "label": "Require sequence",
+       "value": true
+      },
+      {
+       "choices": [
+        "keep",
+        "strip",
+        "renumber"
+       ],
+       "default": "keep",
+       "help": "Keep the numbers, strip them, or renumber 1, 2, 3",
+       "key": "points.numbering",
+       "kind": "choice",
+       "label": "Numbering",
+       "value": "keep"
+      },
+      {
+       "choices": [],
+       "default": "{n})",
+       "help": "Used when renumbering: \"{n})\", \"{n}.\", \"#{n}:\"",
+       "key": "points.number_style",
+       "kind": "text",
+       "label": "Number style",
+       "value": "{n})"
+      },
+      {
+       "choices": [],
+       "default": "•",
+       "help": "Mark before a plain point (empty = none)",
+       "key": "points.bullet_char",
+       "kind": "text",
+       "label": "Bullet mark",
+       "value": "•"
+      },
+      {
+       "choices": [
+        "as_written",
+        "upper",
+        "lower",
+        "title"
+       ],
+       "default": "as_written",
+       "help": "Letter case of the point text",
+       "key": "points.case",
+       "kind": "choice",
+       "label": "Case",
+       "value": "as_written"
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "\"KEY#1)\" is fixed to match the other headers and flagged",
+       "key": "points.fix_label_typos",
+       "kind": "bool",
+       "label": "Fix a header that differs from the others",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Remove the final \".\"; \"!\", \"?\" and \"etc.\" stay",
+       "key": "points.strip_trailing_period",
+       "kind": "bool",
+       "label": "Remove the period at the end of a point",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Break long points into evenly wide lines",
+       "key": "points.balance_lines",
+       "kind": "bool",
+       "label": "Break long points into evenly wide lines",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": 33.0,
+       "help": "How wide a line of a point is (about 33 capitals)",
+       "key": "points.line_width_units",
+       "kind": "float",
+       "label": "Point line width",
+       "max": 200,
+       "min": 5,
+       "value": 33.0
+      },
+      {
+       "choices": [],
+       "default": 0.15,
+       "help": "Max difference from the average line width (0.15 = 15%)",
+       "key": "points.line_tolerance",
+       "kind": "float",
+       "label": "Uneven lines allowed",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.15
+      },
+      {
+       "choices": [],
+       "default": 0.25,
+       "help": "Same, for a line that starts and ends at punctuation",
+       "key": "points.line_tolerance_at_punctuation",
+       "kind": "float",
+       "label": "Uneven lines allowed (at punctuation)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.25
+      },
+      {
+       "choices": [],
+       "default": 0,
+       "help": "A longer point continues on the next slide (0 = no limit)",
+       "key": "points.max_lines_per_slide",
+       "kind": "int",
+       "label": "Most lines on a sermon point slide",
+       "max": 12,
+       "min": 0,
+       "value": 2
+      },
+      {
+       "choices": [],
+       "default": 4,
+       "help": "Lines the point box holds before ProPresenter shrinks the text",
+       "key": "points.max_lines",
+       "kind": "int",
+       "label": "Lines a point box holds at full size",
+       "max": 12,
+       "min": 1,
+       "value": 4
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Measure line widths as capitals (wider letters)",
+       "key": "points.shown_in_capitals",
+       "kind": "bool",
+       "label": "Points are shown in capitals",
+       "value": true
+      }
+     ],
+     "help": "What counts as a point and how its slides are written.",
+     "id": "points",
+     "title": "Sermon points"
+    },
+    {
+     "fields": [
+      {
+       "choices": [
+        "above",
+        "default",
+        "required"
+       ],
+       "default": "above",
+       "help": "A verse with no version: use the one above, the default, or error",
+       "key": "verses.version_source",
+       "kind": "choice",
+       "label": "Version source",
+       "value": "above"
+      },
+      {
+       "choices": [
+        "use",
+        "off"
+       ],
+       "default": "use",
+       "help": "Use the version whose wording matches the quoted verse text",
+       "key": "verses.version_from_quote",
+       "kind": "choice",
+       "label": "Version from quote",
+       "value": "use"
+      },
+      {
+       "choices": [],
+       "default": [
+        "KJV",
+        "NKJV",
+        "NIV",
+        "NASB1995",
+        "NLT",
+        "ESV"
+       ],
+       "help": "Versions tried, in order, when matching a quote",
+       "key": "verses.quote_versions",
+       "kind": "list",
+       "label": "Quote versions",
+       "value": [
+        "KJV",
+        "NKJV",
+        "NIV",
+        "NASB1995",
+        "NLT",
+        "ESV"
+       ]
+      },
+      {
+       "choices": [],
+       "default": 0.85,
+       "help": "How closely a quote must match a version (0.85 = 85%)",
+       "key": "verses.quote_match",
+       "kind": "float",
+       "label": "Quote match",
+       "max": 1.0,
+       "min": 0.5,
+       "value": 0.85
+      }
+     ],
+     "help": "Which Bible version each verse gets.",
+     "id": "verses",
+     "title": "Verse versions"
+    },
+    {
+     "fields": [
+      {
+       "choices": [
+        "slide",
+        "paragraph"
+       ],
+       "default": "slide",
+       "help": "slide: each line is a slide · paragraph: a sentence joins its point",
+       "key": "notes.line_breaks",
+       "kind": "choice",
+       "label": "Each line break is",
+       "value": "slide"
+      },
+      {
+       "choices": [
+        "bullet",
+        "review",
+        "skip"
+       ],
+       "default": "bullet",
+       "help": "Plain sentence after a point: bullet slide, review, or skip",
+       "key": "notes.unlabeled_sentence",
+       "kind": "choice",
+       "label": "Unlabeled sentence",
+       "value": "bullet"
+      },
+      {
+       "choices": [
+        "bullet",
+        "review",
+        "skip"
+       ],
+       "default": "bullet",
+       "help": "Short line with no ending punctuation: bullet, review, or skip",
+       "key": "notes.unlabeled_short",
+       "kind": "choice",
+       "label": "Unlabeled short",
+       "value": "bullet"
+      },
+      {
+       "choices": [
+        "skip",
+        "review",
+        "bullet"
+       ],
+       "default": "skip",
+       "help": "Lines before the first verse or point (title, date, speaker)",
+       "key": "notes.before_first_item",
+       "kind": "choice",
+       "label": "Before first item",
+       "value": "skip"
+      },
+      {
+       "choices": [
+        "skip",
+        "review",
+        "bullet"
+       ],
+       "default": "skip",
+       "help": "\"Show slide of…\", \"(note)\", web links",
+       "key": "notes.stage_cues",
+       "kind": "choice",
+       "label": "Stage cues",
+       "value": "skip"
+      },
+      {
+       "choices": [],
+       "default": [],
+       "help": "More words that start a stage cue, e.g. \"pause\"",
+       "key": "notes.extra_cue_words",
+       "kind": "list",
+       "label": "Extra cue words",
+       "value": []
+      },
+      {
+       "choices": [],
+       "default": [],
+       "help": "Regular expressions: a matching line is always left out",
+       "key": "notes.skip_patterns",
+       "kind": "list",
+       "label": "Skip patterns",
+       "value": []
+      },
+      {
+       "choices": [
+        "skip",
+        "review"
+       ],
+       "default": "skip",
+       "help": "Verse text typed above its reference",
+       "key": "notes.quote_above_reference",
+       "kind": "choice",
+       "label": "Quote above reference",
+       "value": "skip"
+      },
+      {
+       "choices": [
+        "review",
+        "skip",
+        "bullet"
+       ],
+       "default": "review",
+       "help": "A quotation with no reference nearby",
+       "key": "notes.quote_alone",
+       "kind": "choice",
+       "label": "Quote alone",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "review",
+        "skip",
+        "verse"
+       ],
+       "default": "review",
+       "help": "A reference inside a sentence (\"as Psalm 23:1 says…\")",
+       "key": "notes.reference_in_text",
+       "kind": "choice",
+       "label": "Reference in text",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "review",
+        "skip"
+       ],
+       "default": "review",
+       "help": "A chapter with no verses (\"Psalm 23\")",
+       "key": "notes.whole_chapter",
+       "kind": "choice",
+       "label": "Whole chapter",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "keep",
+        "drop"
+       ],
+       "default": "keep",
+       "help": "The same verse and version appearing again later",
+       "key": "notes.duplicates",
+       "kind": "choice",
+       "label": "Duplicates",
+       "value": "keep"
+      },
+      {
+       "choices": [],
+       "default": [
+        "conclusion",
+        "application",
+        "invitation",
+        "challenge",
+        "summary",
+        "closing",
+        "takeaway",
+        "big idea",
+        "main point"
+       ],
+       "help": "Words that start a labelled line (\"Conclusion: …\")",
+       "key": "notes.label_words",
+       "kind": "list",
+       "label": "Label words",
+       "value": [
+        "conclusion",
+        "application",
+        "invitation",
+        "challenge",
+        "summary",
+        "closing",
+        "takeaway",
+        "big idea",
+        "main point"
+       ]
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "A labelled line gets its own slide",
+       "key": "notes.label_own_slide",
+       "kind": "bool",
+       "label": "Label own slide",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": 2,
+       "help": "Capitalized lines this short are headings, not slides",
+       "key": "notes.header_max_words",
+       "kind": "int",
+       "label": "Header max words",
+       "max": 6,
+       "min": 0,
+       "value": 2
+      },
+      {
+       "choices": [
+        "slide",
+        "skip"
+       ],
+       "default": "slide",
+       "help": "Titles and headings: a slide with no bullet, or left out",
+       "key": "notes.headings",
+       "kind": "choice",
+       "label": "Headings",
+       "value": "slide"
+      },
+      {
+       "choices": [
+        "heading",
+        "line"
+       ],
+       "default": "heading",
+       "help": "ALL-CAPS line with no ending punctuation: heading or plain line",
+       "key": "notes.caps_lines",
+       "kind": "choice",
+       "label": "Caps lines",
+       "value": "heading"
+      },
+      {
+       "choices": [
+        "join",
+        "separate"
+       ],
+       "default": "join",
+       "help": "join: a line the page cut mid-sentence rejoins the line above",
+       "key": "notes.wrapped_lines",
+       "kind": "choice",
+       "label": "Wrapped lines",
+       "value": "join"
+      },
+      {
+       "choices": [],
+       "default": 3,
+       "help": "A tail this short after a full line ends the sentence above",
+       "key": "notes.orphan_max_words",
+       "kind": "int",
+       "label": "Orphan max words",
+       "max": 8,
+       "min": 0,
+       "value": 3
+      }
+     ],
+     "help": "How lines of the document are read: titles, cues, wrapped lines, duplicates.",
+     "id": "notes",
+     "title": "Reading the notes"
+    },
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": null,
+       "help": "For a verse with no version written or above it",
+       "key": "bible.default_version",
+       "kind": "text",
+       "label": "Default Bible version",
+       "value": "NKJV"
+      },
+      {
+       "choices": [],
+       "default": "Verses",
+       "help": "ProPresenter library a new presentation goes in",
+       "key": "output.library",
+       "kind": "text",
+       "label": "Library for new presentations",
+       "value": "Verses"
+      },
+      {
+       "choices": [],
+       "default": 10,
+       "help": "Backups kept of a changed presentation",
+       "key": "presentation.backup_count",
+       "kind": "int",
+       "label": "Backups to keep",
+       "max": 100,
+       "min": 1,
+       "value": 10
+      }
+     ],
+     "help": "Defaults for every import.",
+     "id": "general",
+     "title": "General"
+    }
+   ]
+  },
+  "method": "POST",
+  "name": "config save",
+  "path": "/api/config",
+  "status": 200
+ },
+ {
+  "body": {
+   "values": {
+    "slides.max_body_lines": 99
+   }
+  },
+  "json": {
+   "error": "slides.max_body_lines: Input should be less than or equal to 20"
+  },
+  "method": "POST",
+  "name": "config too many lines",
+  "path": "/api/config",
+  "status": 400
+ },
+ {
+  "body": {
+   "values": {
+    "propresenter.host": "evil.example"
+   }
+  },
+  "json": {
+   "error": "propresenter.host cannot be changed here"
+  },
+  "method": "POST",
+  "name": "config not editable",
+  "path": "/api/config",
+  "status": 400
+ },
+ {
+  "body": {},
+  "json": {
+   "path": "<ROOT>/config.toml",
+   "sections": [
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": 0.25,
+       "help": "Max size difference between pieces cut at punctuation (0.25 = 25%)",
+       "key": "slides.even_split_punctuation_tolerance",
+       "kind": "float",
+       "label": "Uneven split allowed (at punctuation)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.25
+      },
+      {
+       "choices": [],
+       "default": 0.15,
+       "help": "Max size difference between pieces cut mid-phrase (0.15 = 15%)",
+       "key": "slides.even_split_tolerance",
+       "kind": "float",
+       "label": "Uneven split allowed (mid-phrase)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.15
+      },
+      {
+       "choices": [],
+       "default": false,
+       "help": "Put the verse number before the verse text",
+       "key": "slides.include_verse_numbers",
+       "kind": "bool",
+       "label": "Show verse numbers in the text",
+       "value": false
+      },
+      {
+       "choices": [
+        "source",
+        "segment",
+        "verse"
+       ],
+       "default": "verse",
+       "help": "verse: Luke 13:5 · segment: range on the slide · source: as typed",
+       "key": "slides.reference_label_mode",
+       "kind": "choice",
+       "label": "Reference shows",
+       "value": "verse"
+      },
+      {
+       "choices": [],
+       "default": 5,
+       "help": "A longer verse is cut into near-equal slides",
+       "key": "slides.max_body_lines",
+       "kind": "int",
+       "label": "Most lines of verse text on a slide",
+       "max": 20,
+       "min": 1,
+       "value": 5
+      },
+      {
+       "choices": [],
+       "default": 48.0,
+       "help": "How wide a line of verse text is (about 48 letters)",
+       "key": "slides.line_width_units",
+       "kind": "float",
+       "label": "Verse line width",
+       "max": 200,
+       "min": 5,
+       "value": 48.0
+      },
+      {
+       "choices": [],
+       "default": 1,
+       "help": "A longer reference is flagged in the review",
+       "key": "slides.max_reference_lines",
+       "kind": "int",
+       "label": "Most lines for the reference",
+       "max": 3,
+       "min": 1,
+       "value": 1
+      },
+      {
+       "choices": [],
+       "default": 46.0,
+       "help": "How wide the reference line is (about 46 letters)",
+       "key": "slides.reference_width_units",
+       "kind": "float",
+       "label": "Reference line width",
+       "max": 200,
+       "min": 5,
+       "value": 46.0
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Cut after a comma, semicolon or full stop when close enough",
+       "key": "slides.prefer_punctuation_breaks",
+       "kind": "bool",
+       "label": "Prefer to cut a long verse at punctuation",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Off: only the first slide of a long verse shows it",
+       "key": "slides.repeat_reference_on_continuation",
+       "kind": "bool",
+       "label": "Repeat the reference on every slide of a long verse",
+       "value": true
+      }
+     ],
+     "help": "How a verse is cut and laid out on its slides.",
+     "id": "verse_slides",
+     "title": "Verse slides"
+    },
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"1)\", \"1.\" and \"#1:\" as points",
+       "key": "points.numbered",
+       "kind": "bool",
+       "label": "Numbered",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"a)\" and \"b.\" as points",
+       "key": "points.lettered",
+       "kind": "bool",
+       "label": "Lettered",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"•\", \"-\" and \"*\" as points",
+       "key": "points.bullets",
+       "kind": "bool",
+       "label": "Bullets",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Numbers out of order (1, 2, 5) become plain list items",
+       "key": "points.require_sequence",
+       "kind": "bool",
+       "label": "Require sequence",
+       "value": true
+      },
+      {
+       "choices": [
+        "keep",
+        "strip",
+        "renumber"
+       ],
+       "default": "keep",
+       "help": "Keep the numbers, strip them, or renumber 1, 2, 3",
+       "key": "points.numbering",
+       "kind": "choice",
+       "label": "Numbering",
+       "value": "keep"
+      },
+      {
+       "choices": [],
+       "default": "{n})",
+       "help": "Used when renumbering: \"{n})\", \"{n}.\", \"#{n}:\"",
+       "key": "points.number_style",
+       "kind": "text",
+       "label": "Number style",
+       "value": "{n})"
+      },
+      {
+       "choices": [],
+       "default": "•",
+       "help": "Mark before a plain point (empty = none)",
+       "key": "points.bullet_char",
+       "kind": "text",
+       "label": "Bullet mark",
+       "value": "•"
+      },
+      {
+       "choices": [
+        "as_written",
+        "upper",
+        "lower",
+        "title"
+       ],
+       "default": "as_written",
+       "help": "Letter case of the point text",
+       "key": "points.case",
+       "kind": "choice",
+       "label": "Case",
+       "value": "as_written"
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "\"KEY#1)\" is fixed to match the other headers and flagged",
+       "key": "points.fix_label_typos",
+       "kind": "bool",
+       "label": "Fix a header that differs from the others",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Remove the final \".\"; \"!\", \"?\" and \"etc.\" stay",
+       "key": "points.strip_trailing_period",
+       "kind": "bool",
+       "label": "Remove the period at the end of a point",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Break long points into evenly wide lines",
+       "key": "points.balance_lines",
+       "kind": "bool",
+       "label": "Break long points into evenly wide lines",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": 33.0,
+       "help": "How wide a line of a point is (about 33 capitals)",
+       "key": "points.line_width_units",
+       "kind": "float",
+       "label": "Point line width",
+       "max": 200,
+       "min": 5,
+       "value": 33.0
+      },
+      {
+       "choices": [],
+       "default": 0.15,
+       "help": "Max difference from the average line width (0.15 = 15%)",
+       "key": "points.line_tolerance",
+       "kind": "float",
+       "label": "Uneven lines allowed",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.15
+      },
+      {
+       "choices": [],
+       "default": 0.25,
+       "help": "Same, for a line that starts and ends at punctuation",
+       "key": "points.line_tolerance_at_punctuation",
+       "kind": "float",
+       "label": "Uneven lines allowed (at punctuation)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.25
+      },
+      {
+       "choices": [],
+       "default": 0,
+       "help": "A longer point continues on the next slide (0 = no limit)",
+       "key": "points.max_lines_per_slide",
+       "kind": "int",
+       "label": "Most lines on a sermon point slide",
+       "max": 12,
+       "min": 0,
+       "value": 2
+      },
+      {
+       "choices": [],
+       "default": 4,
+       "help": "Lines the point box holds before ProPresenter shrinks the text",
+       "key": "points.max_lines",
+       "kind": "int",
+       "label": "Lines a point box holds at full size",
+       "max": 12,
+       "min": 1,
+       "value": 4
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Measure line widths as capitals (wider letters)",
+       "key": "points.shown_in_capitals",
+       "kind": "bool",
+       "label": "Points are shown in capitals",
+       "value": true
+      }
+     ],
+     "help": "What counts as a point and how its slides are written.",
+     "id": "points",
+     "title": "Sermon points"
+    },
+    {
+     "fields": [
+      {
+       "choices": [
+        "above",
+        "default",
+        "required"
+       ],
+       "default": "above",
+       "help": "A verse with no version: use the one above, the default, or error",
+       "key": "verses.version_source",
+       "kind": "choice",
+       "label": "Version source",
+       "value": "above"
+      },
+      {
+       "choices": [
+        "use",
+        "off"
+       ],
+       "default": "use",
+       "help": "Use the version whose wording matches the quoted verse text",
+       "key": "verses.version_from_quote",
+       "kind": "choice",
+       "label": "Version from quote",
+       "value": "use"
+      },
+      {
+       "choices": [],
+       "default": [
+        "KJV",
+        "NKJV",
+        "NIV",
+        "NASB1995",
+        "NLT",
+        "ESV"
+       ],
+       "help": "Versions tried, in order, when matching a quote",
+       "key": "verses.quote_versions",
+       "kind": "list",
+       "label": "Quote versions",
+       "value": [
+        "KJV",
+        "NKJV",
+        "NIV",
+        "NASB1995",
+        "NLT",
+        "ESV"
+       ]
+      },
+      {
+       "choices": [],
+       "default": 0.85,
+       "help": "How closely a quote must match a version (0.85 = 85%)",
+       "key": "verses.quote_match",
+       "kind": "float",
+       "label": "Quote match",
+       "max": 1.0,
+       "min": 0.5,
+       "value": 0.85
+      }
+     ],
+     "help": "Which Bible version each verse gets.",
+     "id": "verses",
+     "title": "Verse versions"
+    },
+    {
+     "fields": [
+      {
+       "choices": [
+        "slide",
+        "paragraph"
+       ],
+       "default": "slide",
+       "help": "slide: each line is a slide · paragraph: a sentence joins its point",
+       "key": "notes.line_breaks",
+       "kind": "choice",
+       "label": "Each line break is",
+       "value": "slide"
+      },
+      {
+       "choices": [
+        "bullet",
+        "review",
+        "skip"
+       ],
+       "default": "bullet",
+       "help": "Plain sentence after a point: bullet slide, review, or skip",
+       "key": "notes.unlabeled_sentence",
+       "kind": "choice",
+       "label": "Unlabeled sentence",
+       "value": "bullet"
+      },
+      {
+       "choices": [
+        "bullet",
+        "review",
+        "skip"
+       ],
+       "default": "bullet",
+       "help": "Short line with no ending punctuation: bullet, review, or skip",
+       "key": "notes.unlabeled_short",
+       "kind": "choice",
+       "label": "Unlabeled short",
+       "value": "bullet"
+      },
+      {
+       "choices": [
+        "skip",
+        "review",
+        "bullet"
+       ],
+       "default": "skip",
+       "help": "Lines before the first verse or point (title, date, speaker)",
+       "key": "notes.before_first_item",
+       "kind": "choice",
+       "label": "Before first item",
+       "value": "skip"
+      },
+      {
+       "choices": [
+        "skip",
+        "review",
+        "bullet"
+       ],
+       "default": "skip",
+       "help": "\"Show slide of…\", \"(note)\", web links",
+       "key": "notes.stage_cues",
+       "kind": "choice",
+       "label": "Stage cues",
+       "value": "skip"
+      },
+      {
+       "choices": [],
+       "default": [],
+       "help": "More words that start a stage cue, e.g. \"pause\"",
+       "key": "notes.extra_cue_words",
+       "kind": "list",
+       "label": "Extra cue words",
+       "value": []
+      },
+      {
+       "choices": [],
+       "default": [],
+       "help": "Regular expressions: a matching line is always left out",
+       "key": "notes.skip_patterns",
+       "kind": "list",
+       "label": "Skip patterns",
+       "value": []
+      },
+      {
+       "choices": [
+        "skip",
+        "review"
+       ],
+       "default": "skip",
+       "help": "Verse text typed above its reference",
+       "key": "notes.quote_above_reference",
+       "kind": "choice",
+       "label": "Quote above reference",
+       "value": "skip"
+      },
+      {
+       "choices": [
+        "review",
+        "skip",
+        "bullet"
+       ],
+       "default": "review",
+       "help": "A quotation with no reference nearby",
+       "key": "notes.quote_alone",
+       "kind": "choice",
+       "label": "Quote alone",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "review",
+        "skip",
+        "verse"
+       ],
+       "default": "review",
+       "help": "A reference inside a sentence (\"as Psalm 23:1 says…\")",
+       "key": "notes.reference_in_text",
+       "kind": "choice",
+       "label": "Reference in text",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "review",
+        "skip"
+       ],
+       "default": "review",
+       "help": "A chapter with no verses (\"Psalm 23\")",
+       "key": "notes.whole_chapter",
+       "kind": "choice",
+       "label": "Whole chapter",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "keep",
+        "drop"
+       ],
+       "default": "keep",
+       "help": "The same verse and version appearing again later",
+       "key": "notes.duplicates",
+       "kind": "choice",
+       "label": "Duplicates",
+       "value": "keep"
+      },
+      {
+       "choices": [],
+       "default": [
+        "conclusion",
+        "application",
+        "invitation",
+        "challenge",
+        "summary",
+        "closing",
+        "takeaway",
+        "big idea",
+        "main point"
+       ],
+       "help": "Words that start a labelled line (\"Conclusion: …\")",
+       "key": "notes.label_words",
+       "kind": "list",
+       "label": "Label words",
+       "value": [
+        "conclusion",
+        "application",
+        "invitation",
+        "challenge",
+        "summary",
+        "closing",
+        "takeaway",
+        "big idea",
+        "main point"
+       ]
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "A labelled line gets its own slide",
+       "key": "notes.label_own_slide",
+       "kind": "bool",
+       "label": "Label own slide",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": 2,
+       "help": "Capitalized lines this short are headings, not slides",
+       "key": "notes.header_max_words",
+       "kind": "int",
+       "label": "Header max words",
+       "max": 6,
+       "min": 0,
+       "value": 2
+      },
+      {
+       "choices": [
+        "slide",
+        "skip"
+       ],
+       "default": "slide",
+       "help": "Titles and headings: a slide with no bullet, or left out",
+       "key": "notes.headings",
+       "kind": "choice",
+       "label": "Headings",
+       "value": "slide"
+      },
+      {
+       "choices": [
+        "heading",
+        "line"
+       ],
+       "default": "heading",
+       "help": "ALL-CAPS line with no ending punctuation: heading or plain line",
+       "key": "notes.caps_lines",
+       "kind": "choice",
+       "label": "Caps lines",
+       "value": "heading"
+      },
+      {
+       "choices": [
+        "join",
+        "separate"
+       ],
+       "default": "join",
+       "help": "join: a line the page cut mid-sentence rejoins the line above",
+       "key": "notes.wrapped_lines",
+       "kind": "choice",
+       "label": "Wrapped lines",
+       "value": "join"
+      },
+      {
+       "choices": [],
+       "default": 3,
+       "help": "A tail this short after a full line ends the sentence above",
+       "key": "notes.orphan_max_words",
+       "kind": "int",
+       "label": "Orphan max words",
+       "max": 8,
+       "min": 0,
+       "value": 3
+      }
+     ],
+     "help": "How lines of the document are read: titles, cues, wrapped lines, duplicates.",
+     "id": "notes",
+     "title": "Reading the notes"
+    },
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": null,
+       "help": "For a verse with no version written or above it",
+       "key": "bible.default_version",
+       "kind": "text",
+       "label": "Default Bible version",
+       "value": "NKJV"
+      },
+      {
+       "choices": [],
+       "default": "Verses",
+       "help": "ProPresenter library a new presentation goes in",
+       "key": "output.library",
+       "kind": "text",
+       "label": "Library for new presentations",
+       "value": "Verses"
+      },
+      {
+       "choices": [],
+       "default": 10,
+       "help": "Backups kept of a changed presentation",
+       "key": "presentation.backup_count",
+       "kind": "int",
+       "label": "Backups to keep",
+       "max": 100,
+       "min": 1,
+       "value": 10
+      }
+     ],
+     "help": "Defaults for every import.",
+     "id": "general",
+     "title": "General"
+    }
+   ]
+  },
+  "method": "POST",
+  "name": "config empty",
+  "path": "/api/config",
+  "status": 200
+ },
+ {
+  "json": {
+   "default_version": "NKJV",
+   "library": "Verses",
+   "node": "Sanctuary Mac",
+   "profiles": [
+    "long",
+    "short"
+   ],
+   "target": "Sample",
+   "template_ready": true,
+   "version": "0.38.1"
+  },
+  "method": "GET",
+  "name": "status after",
+  "path": "/api/status",
+  "status": 200
+ },
+ {
+  "json": {
+   "path": "<ROOT>/config.toml",
+   "sections": [
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": 0.25,
+       "help": "Max size difference between pieces cut at punctuation (0.25 = 25%)",
+       "key": "slides.even_split_punctuation_tolerance",
+       "kind": "float",
+       "label": "Uneven split allowed (at punctuation)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.25
+      },
+      {
+       "choices": [],
+       "default": 0.15,
+       "help": "Max size difference between pieces cut mid-phrase (0.15 = 15%)",
+       "key": "slides.even_split_tolerance",
+       "kind": "float",
+       "label": "Uneven split allowed (mid-phrase)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.15
+      },
+      {
+       "choices": [],
+       "default": false,
+       "help": "Put the verse number before the verse text",
+       "key": "slides.include_verse_numbers",
+       "kind": "bool",
+       "label": "Show verse numbers in the text",
+       "value": false
+      },
+      {
+       "choices": [
+        "source",
+        "segment",
+        "verse"
+       ],
+       "default": "verse",
+       "help": "verse: Luke 13:5 · segment: range on the slide · source: as typed",
+       "key": "slides.reference_label_mode",
+       "kind": "choice",
+       "label": "Reference shows",
+       "value": "verse"
+      },
+      {
+       "choices": [],
+       "default": 5,
+       "help": "A longer verse is cut into near-equal slides",
+       "key": "slides.max_body_lines",
+       "kind": "int",
+       "label": "Most lines of verse text on a slide",
+       "max": 20,
+       "min": 1,
+       "value": 5
+      },
+      {
+       "choices": [],
+       "default": 48.0,
+       "help": "How wide a line of verse text is (about 48 letters)",
+       "key": "slides.line_width_units",
+       "kind": "float",
+       "label": "Verse line width",
+       "max": 200,
+       "min": 5,
+       "value": 48.0
+      },
+      {
+       "choices": [],
+       "default": 1,
+       "help": "A longer reference is flagged in the review",
+       "key": "slides.max_reference_lines",
+       "kind": "int",
+       "label": "Most lines for the reference",
+       "max": 3,
+       "min": 1,
+       "value": 1
+      },
+      {
+       "choices": [],
+       "default": 46.0,
+       "help": "How wide the reference line is (about 46 letters)",
+       "key": "slides.reference_width_units",
+       "kind": "float",
+       "label": "Reference line width",
+       "max": 200,
+       "min": 5,
+       "value": 46.0
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Cut after a comma, semicolon or full stop when close enough",
+       "key": "slides.prefer_punctuation_breaks",
+       "kind": "bool",
+       "label": "Prefer to cut a long verse at punctuation",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Off: only the first slide of a long verse shows it",
+       "key": "slides.repeat_reference_on_continuation",
+       "kind": "bool",
+       "label": "Repeat the reference on every slide of a long verse",
+       "value": true
+      }
+     ],
+     "help": "How a verse is cut and laid out on its slides.",
+     "id": "verse_slides",
+     "title": "Verse slides"
+    },
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"1)\", \"1.\" and \"#1:\" as points",
+       "key": "points.numbered",
+       "kind": "bool",
+       "label": "Numbered",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"a)\" and \"b.\" as points",
+       "key": "points.lettered",
+       "kind": "bool",
+       "label": "Lettered",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Treat \"•\", \"-\" and \"*\" as points",
+       "key": "points.bullets",
+       "kind": "bool",
+       "label": "Bullets",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Numbers out of order (1, 2, 5) become plain list items",
+       "key": "points.require_sequence",
+       "kind": "bool",
+       "label": "Require sequence",
+       "value": true
+      },
+      {
+       "choices": [
+        "keep",
+        "strip",
+        "renumber"
+       ],
+       "default": "keep",
+       "help": "Keep the numbers, strip them, or renumber 1, 2, 3",
+       "key": "points.numbering",
+       "kind": "choice",
+       "label": "Numbering",
+       "value": "keep"
+      },
+      {
+       "choices": [],
+       "default": "{n})",
+       "help": "Used when renumbering: \"{n})\", \"{n}.\", \"#{n}:\"",
+       "key": "points.number_style",
+       "kind": "text",
+       "label": "Number style",
+       "value": "{n})"
+      },
+      {
+       "choices": [],
+       "default": "•",
+       "help": "Mark before a plain point (empty = none)",
+       "key": "points.bullet_char",
+       "kind": "text",
+       "label": "Bullet mark",
+       "value": "•"
+      },
+      {
+       "choices": [
+        "as_written",
+        "upper",
+        "lower",
+        "title"
+       ],
+       "default": "as_written",
+       "help": "Letter case of the point text",
+       "key": "points.case",
+       "kind": "choice",
+       "label": "Case",
+       "value": "as_written"
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "\"KEY#1)\" is fixed to match the other headers and flagged",
+       "key": "points.fix_label_typos",
+       "kind": "bool",
+       "label": "Fix a header that differs from the others",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Remove the final \".\"; \"!\", \"?\" and \"etc.\" stay",
+       "key": "points.strip_trailing_period",
+       "kind": "bool",
+       "label": "Remove the period at the end of a point",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Break long points into evenly wide lines",
+       "key": "points.balance_lines",
+       "kind": "bool",
+       "label": "Break long points into evenly wide lines",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": 33.0,
+       "help": "How wide a line of a point is (about 33 capitals)",
+       "key": "points.line_width_units",
+       "kind": "float",
+       "label": "Point line width",
+       "max": 200,
+       "min": 5,
+       "value": 33.0
+      },
+      {
+       "choices": [],
+       "default": 0.15,
+       "help": "Max difference from the average line width (0.15 = 15%)",
+       "key": "points.line_tolerance",
+       "kind": "float",
+       "label": "Uneven lines allowed",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.15
+      },
+      {
+       "choices": [],
+       "default": 0.25,
+       "help": "Same, for a line that starts and ends at punctuation",
+       "key": "points.line_tolerance_at_punctuation",
+       "kind": "float",
+       "label": "Uneven lines allowed (at punctuation)",
+       "max": 1.0,
+       "min": 0.0,
+       "value": 0.25
+      },
+      {
+       "choices": [],
+       "default": 0,
+       "help": "A longer point continues on the next slide (0 = no limit)",
+       "key": "points.max_lines_per_slide",
+       "kind": "int",
+       "label": "Most lines on a sermon point slide",
+       "max": 12,
+       "min": 0,
+       "value": 2
+      },
+      {
+       "choices": [],
+       "default": 4,
+       "help": "Lines the point box holds before ProPresenter shrinks the text",
+       "key": "points.max_lines",
+       "kind": "int",
+       "label": "Lines a point box holds at full size",
+       "max": 12,
+       "min": 1,
+       "value": 4
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "Measure line widths as capitals (wider letters)",
+       "key": "points.shown_in_capitals",
+       "kind": "bool",
+       "label": "Points are shown in capitals",
+       "value": true
+      }
+     ],
+     "help": "What counts as a point and how its slides are written.",
+     "id": "points",
+     "title": "Sermon points"
+    },
+    {
+     "fields": [
+      {
+       "choices": [
+        "above",
+        "default",
+        "required"
+       ],
+       "default": "above",
+       "help": "A verse with no version: use the one above, the default, or error",
+       "key": "verses.version_source",
+       "kind": "choice",
+       "label": "Version source",
+       "value": "above"
+      },
+      {
+       "choices": [
+        "use",
+        "off"
+       ],
+       "default": "use",
+       "help": "Use the version whose wording matches the quoted verse text",
+       "key": "verses.version_from_quote",
+       "kind": "choice",
+       "label": "Version from quote",
+       "value": "use"
+      },
+      {
+       "choices": [],
+       "default": [
+        "KJV",
+        "NKJV",
+        "NIV",
+        "NASB1995",
+        "NLT",
+        "ESV"
+       ],
+       "help": "Versions tried, in order, when matching a quote",
+       "key": "verses.quote_versions",
+       "kind": "list",
+       "label": "Quote versions",
+       "value": [
+        "KJV",
+        "NKJV",
+        "NIV",
+        "NASB1995",
+        "NLT",
+        "ESV"
+       ]
+      },
+      {
+       "choices": [],
+       "default": 0.85,
+       "help": "How closely a quote must match a version (0.85 = 85%)",
+       "key": "verses.quote_match",
+       "kind": "float",
+       "label": "Quote match",
+       "max": 1.0,
+       "min": 0.5,
+       "value": 0.85
+      }
+     ],
+     "help": "Which Bible version each verse gets.",
+     "id": "verses",
+     "title": "Verse versions"
+    },
+    {
+     "fields": [
+      {
+       "choices": [
+        "slide",
+        "paragraph"
+       ],
+       "default": "slide",
+       "help": "slide: each line is a slide · paragraph: a sentence joins its point",
+       "key": "notes.line_breaks",
+       "kind": "choice",
+       "label": "Each line break is",
+       "value": "slide"
+      },
+      {
+       "choices": [
+        "bullet",
+        "review",
+        "skip"
+       ],
+       "default": "bullet",
+       "help": "Plain sentence after a point: bullet slide, review, or skip",
+       "key": "notes.unlabeled_sentence",
+       "kind": "choice",
+       "label": "Unlabeled sentence",
+       "value": "bullet"
+      },
+      {
+       "choices": [
+        "bullet",
+        "review",
+        "skip"
+       ],
+       "default": "bullet",
+       "help": "Short line with no ending punctuation: bullet, review, or skip",
+       "key": "notes.unlabeled_short",
+       "kind": "choice",
+       "label": "Unlabeled short",
+       "value": "bullet"
+      },
+      {
+       "choices": [
+        "skip",
+        "review",
+        "bullet"
+       ],
+       "default": "skip",
+       "help": "Lines before the first verse or point (title, date, speaker)",
+       "key": "notes.before_first_item",
+       "kind": "choice",
+       "label": "Before first item",
+       "value": "skip"
+      },
+      {
+       "choices": [
+        "skip",
+        "review",
+        "bullet"
+       ],
+       "default": "skip",
+       "help": "\"Show slide of…\", \"(note)\", web links",
+       "key": "notes.stage_cues",
+       "kind": "choice",
+       "label": "Stage cues",
+       "value": "skip"
+      },
+      {
+       "choices": [],
+       "default": [],
+       "help": "More words that start a stage cue, e.g. \"pause\"",
+       "key": "notes.extra_cue_words",
+       "kind": "list",
+       "label": "Extra cue words",
+       "value": []
+      },
+      {
+       "choices": [],
+       "default": [],
+       "help": "Regular expressions: a matching line is always left out",
+       "key": "notes.skip_patterns",
+       "kind": "list",
+       "label": "Skip patterns",
+       "value": []
+      },
+      {
+       "choices": [
+        "skip",
+        "review"
+       ],
+       "default": "skip",
+       "help": "Verse text typed above its reference",
+       "key": "notes.quote_above_reference",
+       "kind": "choice",
+       "label": "Quote above reference",
+       "value": "skip"
+      },
+      {
+       "choices": [
+        "review",
+        "skip",
+        "bullet"
+       ],
+       "default": "review",
+       "help": "A quotation with no reference nearby",
+       "key": "notes.quote_alone",
+       "kind": "choice",
+       "label": "Quote alone",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "review",
+        "skip",
+        "verse"
+       ],
+       "default": "review",
+       "help": "A reference inside a sentence (\"as Psalm 23:1 says…\")",
+       "key": "notes.reference_in_text",
+       "kind": "choice",
+       "label": "Reference in text",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "review",
+        "skip"
+       ],
+       "default": "review",
+       "help": "A chapter with no verses (\"Psalm 23\")",
+       "key": "notes.whole_chapter",
+       "kind": "choice",
+       "label": "Whole chapter",
+       "value": "review"
+      },
+      {
+       "choices": [
+        "keep",
+        "drop"
+       ],
+       "default": "keep",
+       "help": "The same verse and version appearing again later",
+       "key": "notes.duplicates",
+       "kind": "choice",
+       "label": "Duplicates",
+       "value": "keep"
+      },
+      {
+       "choices": [],
+       "default": [
+        "conclusion",
+        "application",
+        "invitation",
+        "challenge",
+        "summary",
+        "closing",
+        "takeaway",
+        "big idea",
+        "main point"
+       ],
+       "help": "Words that start a labelled line (\"Conclusion: …\")",
+       "key": "notes.label_words",
+       "kind": "list",
+       "label": "Label words",
+       "value": [
+        "conclusion",
+        "application",
+        "invitation",
+        "challenge",
+        "summary",
+        "closing",
+        "takeaway",
+        "big idea",
+        "main point"
+       ]
+      },
+      {
+       "choices": [],
+       "default": true,
+       "help": "A labelled line gets its own slide",
+       "key": "notes.label_own_slide",
+       "kind": "bool",
+       "label": "Label own slide",
+       "value": true
+      },
+      {
+       "choices": [],
+       "default": 2,
+       "help": "Capitalized lines this short are headings, not slides",
+       "key": "notes.header_max_words",
+       "kind": "int",
+       "label": "Header max words",
+       "max": 6,
+       "min": 0,
+       "value": 2
+      },
+      {
+       "choices": [
+        "slide",
+        "skip"
+       ],
+       "default": "slide",
+       "help": "Titles and headings: a slide with no bullet, or left out",
+       "key": "notes.headings",
+       "kind": "choice",
+       "label": "Headings",
+       "value": "slide"
+      },
+      {
+       "choices": [
+        "heading",
+        "line"
+       ],
+       "default": "heading",
+       "help": "ALL-CAPS line with no ending punctuation: heading or plain line",
+       "key": "notes.caps_lines",
+       "kind": "choice",
+       "label": "Caps lines",
+       "value": "heading"
+      },
+      {
+       "choices": [
+        "join",
+        "separate"
+       ],
+       "default": "join",
+       "help": "join: a line the page cut mid-sentence rejoins the line above",
+       "key": "notes.wrapped_lines",
+       "kind": "choice",
+       "label": "Wrapped lines",
+       "value": "join"
+      },
+      {
+       "choices": [],
+       "default": 3,
+       "help": "A tail this short after a full line ends the sentence above",
+       "key": "notes.orphan_max_words",
+       "kind": "int",
+       "label": "Orphan max words",
+       "max": 8,
+       "min": 0,
+       "value": 3
+      }
+     ],
+     "help": "How lines of the document are read: titles, cues, wrapped lines, duplicates.",
+     "id": "notes",
+     "title": "Reading the notes"
+    },
+    {
+     "fields": [
+      {
+       "choices": [],
+       "default": null,
+       "help": "For a verse with no version written or above it",
+       "key": "bible.default_version",
+       "kind": "text",
+       "label": "Default Bible version",
+       "value": "NKJV"
+      },
+      {
+       "choices": [],
+       "default": "Verses",
+       "help": "ProPresenter library a new presentation goes in",
+       "key": "output.library",
+       "kind": "text",
+       "label": "Library for new presentations",
+       "value": "Verses"
+      },
+      {
+       "choices": [],
+       "default": 10,
+       "help": "Backups kept of a changed presentation",
+       "key": "presentation.backup_count",
+       "kind": "int",
+       "label": "Backups to keep",
+       "max": 100,
+       "min": 1,
+       "value": 10
+      }
+     ],
+     "help": "Defaults for every import.",
+     "id": "general",
+     "title": "General"
+    }
+   ]
+  },
+  "method": "GET",
+  "name": "config after",
+  "path": "/api/config",
+  "status": 200
+ },
+ {
+  "body": {
+   "edits": {},
+   "job": "zzz"
+  },
+  "json": {
+   "error": "That review is no longer available; drop the file again"
+  },
+  "method": "POST",
+  "name": "replan without a review",
+  "path": "/api/replan",
+  "status": 400
+ },
+ {
+  "body": {
+   "job": "zzz"
+  },
+  "json": {
+   "error": "That review is no longer available; drop the file again"
+  },
+  "method": "POST",
+  "name": "apply without a review",
+  "path": "/api/apply",
+  "status": 400
+ },
+ {
+  "json": {
+   "error": "Unsupported file type .exe. Use PDF, Word (.docx), text, Markdown or HTML."
+  },
+  "method": "POST",
+  "name": "plan with the wrong type",
+  "path": "/api/plan",
+  "status": 400
+ }
+]

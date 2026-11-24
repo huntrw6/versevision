@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/versevision-core", "crates/versevision-bible", "crates/versevision-pp", "crates/versevision", "crates/versevision-docs"]
+members = ["crates/versevision-core", "crates/versevision-bible", "crates/versevision-pp", "crates/versevision", "crates/versevision-docs", "crates/versevision-web"]
 
 [workspace.package]
 # 0.0.0 is the pre-release label until the Rust port ships (the Python app is 0.38.x and stays the oracle).

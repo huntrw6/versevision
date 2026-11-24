@@ -2155,6 +2155,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "versevision-web"
+version = "0.0.0"
+dependencies = [
+ "axum",
+ "http-body-util",
+ "indexmap",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "tokio",
+ "tower",
+ "ureq",
+ "uuid",
+ "versevision-bible",
+ "versevision-core",
+ "versevision-docs",
+ "versevision-pp",
+]
+
+[[package]]
 name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
