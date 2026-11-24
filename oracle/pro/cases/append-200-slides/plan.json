@@ -1,0 +1,2125 @@
+{
+  "attribution_slides": [],
+  "slides": [
+    {
+      "body_text": "Synthetic text of slide 0, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 1:1",
+      "source_passage_index": 0,
+      "verse_keys": [
+        "BK0"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 1, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 1:2",
+      "source_passage_index": 0,
+      "verse_keys": [
+        "BK1"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 2, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 2:3",
+      "source_passage_index": 1,
+      "verse_keys": [
+        "BK2"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 3, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 2:4",
+      "source_passage_index": 1,
+      "verse_keys": [
+        "BK3"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "1) Point number 4\nsecond line 4",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 2,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 5, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 3:6",
+      "source_passage_index": 2,
+      "verse_keys": [
+        "BK5"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 6, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 4:7",
+      "source_passage_index": 3,
+      "verse_keys": [
+        "BK6"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 7, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 4:8",
+      "source_passage_index": 3,
+      "verse_keys": [
+        "BK7"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 8, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 5:9",
+      "source_passage_index": 4,
+      "verse_keys": [
+        "BK8"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "2) Point number 9\nsecond line 9",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 4,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 10, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 6:11",
+      "source_passage_index": 5,
+      "verse_keys": [
+        "BK10"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 11, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 6:12",
+      "source_passage_index": 5,
+      "verse_keys": [
+        "BK11"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 12, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 7:13",
+      "source_passage_index": 6,
+      "verse_keys": [
+        "BK12"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 13, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 7:14",
+      "source_passage_index": 6,
+      "verse_keys": [
+        "BK13"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "3) Point number 14\nsecond line 14",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 7,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 15, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 8:16",
+      "source_passage_index": 7,
+      "verse_keys": [
+        "BK15"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 16, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 9:17",
+      "source_passage_index": 8,
+      "verse_keys": [
+        "BK16"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 17, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 9:18",
+      "source_passage_index": 8,
+      "verse_keys": [
+        "BK17"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 18, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 10:19",
+      "source_passage_index": 9,
+      "verse_keys": [
+        "BK18"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "4) Point number 19\nsecond line 19",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 9,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 20, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 11:21",
+      "source_passage_index": 10,
+      "verse_keys": [
+        "BK20"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 21, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 11:22",
+      "source_passage_index": 10,
+      "verse_keys": [
+        "BK21"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 22, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 12:23",
+      "source_passage_index": 11,
+      "verse_keys": [
+        "BK22"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 23, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 12:24",
+      "source_passage_index": 11,
+      "verse_keys": [
+        "BK23"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "5) Point number 24\nsecond line 24",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 12,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 25, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 13:26",
+      "source_passage_index": 12,
+      "verse_keys": [
+        "BK25"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 26, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 14:27",
+      "source_passage_index": 13,
+      "verse_keys": [
+        "BK26"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 27, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 14:28",
+      "source_passage_index": 13,
+      "verse_keys": [
+        "BK27"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 28, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 15:29",
+      "source_passage_index": 14,
+      "verse_keys": [
+        "BK28"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "6) Point number 29\nsecond line 29",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 14,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 30, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 16:1",
+      "source_passage_index": 15,
+      "verse_keys": [
+        "BK30"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 31, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 16:2",
+      "source_passage_index": 15,
+      "verse_keys": [
+        "BK31"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 32, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 17:3",
+      "source_passage_index": 16,
+      "verse_keys": [
+        "BK32"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 33, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 17:4",
+      "source_passage_index": 16,
+      "verse_keys": [
+        "BK33"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "7) Point number 34\nsecond line 34",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 17,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 35, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 18:6",
+      "source_passage_index": 17,
+      "verse_keys": [
+        "BK35"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 36, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 19:7",
+      "source_passage_index": 18,
+      "verse_keys": [
+        "BK36"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 37, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 19:8",
+      "source_passage_index": 18,
+      "verse_keys": [
+        "BK37"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 38, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 20:9",
+      "source_passage_index": 19,
+      "verse_keys": [
+        "BK38"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "8) Point number 39\nsecond line 39",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 19,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 40, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 21:11",
+      "source_passage_index": 20,
+      "verse_keys": [
+        "BK40"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 41, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 21:12",
+      "source_passage_index": 20,
+      "verse_keys": [
+        "BK41"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 42, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 22:13",
+      "source_passage_index": 21,
+      "verse_keys": [
+        "BK42"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 43, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 22:14",
+      "source_passage_index": 21,
+      "verse_keys": [
+        "BK43"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "9) Point number 44\nsecond line 44",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 22,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 45, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 23:16",
+      "source_passage_index": 22,
+      "verse_keys": [
+        "BK45"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 46, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 24:17",
+      "source_passage_index": 23,
+      "verse_keys": [
+        "BK46"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 47, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 24:18",
+      "source_passage_index": 23,
+      "verse_keys": [
+        "BK47"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 48, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 25:19",
+      "source_passage_index": 24,
+      "verse_keys": [
+        "BK48"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "10) Point number 49\nsecond line 49",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 24,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 50, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 26:21",
+      "source_passage_index": 25,
+      "verse_keys": [
+        "BK50"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 51, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 26:22",
+      "source_passage_index": 25,
+      "verse_keys": [
+        "BK51"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 52, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 27:23",
+      "source_passage_index": 26,
+      "verse_keys": [
+        "BK52"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 53, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 27:24",
+      "source_passage_index": 26,
+      "verse_keys": [
+        "BK53"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "11) Point number 54\nsecond line 54",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 27,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 55, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 28:26",
+      "source_passage_index": 27,
+      "verse_keys": [
+        "BK55"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 56, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 29:27",
+      "source_passage_index": 28,
+      "verse_keys": [
+        "BK56"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 57, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 29:28",
+      "source_passage_index": 28,
+      "verse_keys": [
+        "BK57"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 58, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 30:29",
+      "source_passage_index": 29,
+      "verse_keys": [
+        "BK58"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "12) Point number 59\nsecond line 59",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 29,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 60, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 31:1",
+      "source_passage_index": 30,
+      "verse_keys": [
+        "BK60"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 61, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 31:2",
+      "source_passage_index": 30,
+      "verse_keys": [
+        "BK61"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 62, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 32:3",
+      "source_passage_index": 31,
+      "verse_keys": [
+        "BK62"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 63, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 32:4",
+      "source_passage_index": 31,
+      "verse_keys": [
+        "BK63"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "13) Point number 64\nsecond line 64",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 32,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 65, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 33:6",
+      "source_passage_index": 32,
+      "verse_keys": [
+        "BK65"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 66, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 34:7",
+      "source_passage_index": 33,
+      "verse_keys": [
+        "BK66"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 67, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 34:8",
+      "source_passage_index": 33,
+      "verse_keys": [
+        "BK67"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 68, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 35:9",
+      "source_passage_index": 34,
+      "verse_keys": [
+        "BK68"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "14) Point number 69\nsecond line 69",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 34,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 70, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 36:11",
+      "source_passage_index": 35,
+      "verse_keys": [
+        "BK70"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 71, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 36:12",
+      "source_passage_index": 35,
+      "verse_keys": [
+        "BK71"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 72, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 37:13",
+      "source_passage_index": 36,
+      "verse_keys": [
+        "BK72"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 73, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 37:14",
+      "source_passage_index": 36,
+      "verse_keys": [
+        "BK73"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "15) Point number 74\nsecond line 74",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 37,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 75, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 38:16",
+      "source_passage_index": 37,
+      "verse_keys": [
+        "BK75"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 76, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 39:17",
+      "source_passage_index": 38,
+      "verse_keys": [
+        "BK76"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 77, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 39:18",
+      "source_passage_index": 38,
+      "verse_keys": [
+        "BK77"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 78, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 40:19",
+      "source_passage_index": 39,
+      "verse_keys": [
+        "BK78"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "16) Point number 79\nsecond line 79",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 39,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 80, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 41:21",
+      "source_passage_index": 40,
+      "verse_keys": [
+        "BK80"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 81, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 41:22",
+      "source_passage_index": 40,
+      "verse_keys": [
+        "BK81"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 82, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 42:23",
+      "source_passage_index": 41,
+      "verse_keys": [
+        "BK82"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 83, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 42:24",
+      "source_passage_index": 41,
+      "verse_keys": [
+        "BK83"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "17) Point number 84\nsecond line 84",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 42,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 85, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 43:26",
+      "source_passage_index": 42,
+      "verse_keys": [
+        "BK85"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 86, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 44:27",
+      "source_passage_index": 43,
+      "verse_keys": [
+        "BK86"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 87, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 44:28",
+      "source_passage_index": 43,
+      "verse_keys": [
+        "BK87"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 88, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 45:29",
+      "source_passage_index": 44,
+      "verse_keys": [
+        "BK88"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "18) Point number 89\nsecond line 89",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 44,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 90, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 46:1",
+      "source_passage_index": 45,
+      "verse_keys": [
+        "BK90"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 91, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 46:2",
+      "source_passage_index": 45,
+      "verse_keys": [
+        "BK91"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 92, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 47:3",
+      "source_passage_index": 46,
+      "verse_keys": [
+        "BK92"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 93, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 47:4",
+      "source_passage_index": 46,
+      "verse_keys": [
+        "BK93"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "19) Point number 94\nsecond line 94",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 47,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 95, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 48:6",
+      "source_passage_index": 47,
+      "verse_keys": [
+        "BK95"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 96, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 49:7",
+      "source_passage_index": 48,
+      "verse_keys": [
+        "BK96"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 97, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 49:8",
+      "source_passage_index": 48,
+      "verse_keys": [
+        "BK97"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 98, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 50:9",
+      "source_passage_index": 49,
+      "verse_keys": [
+        "BK98"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "20) Point number 99\nsecond line 99",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 49,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 100, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 51:11",
+      "source_passage_index": 50,
+      "verse_keys": [
+        "BK100"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 101, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 51:12",
+      "source_passage_index": 50,
+      "verse_keys": [
+        "BK101"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 102, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 52:13",
+      "source_passage_index": 51,
+      "verse_keys": [
+        "BK102"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 103, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 52:14",
+      "source_passage_index": 51,
+      "verse_keys": [
+        "BK103"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "21) Point number 104\nsecond line 104",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 52,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 105, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 53:16",
+      "source_passage_index": 52,
+      "verse_keys": [
+        "BK105"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 106, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 54:17",
+      "source_passage_index": 53,
+      "verse_keys": [
+        "BK106"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 107, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 54:18",
+      "source_passage_index": 53,
+      "verse_keys": [
+        "BK107"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 108, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 55:19",
+      "source_passage_index": 54,
+      "verse_keys": [
+        "BK108"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "22) Point number 109\nsecond line 109",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 54,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 110, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 56:21",
+      "source_passage_index": 55,
+      "verse_keys": [
+        "BK110"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 111, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 56:22",
+      "source_passage_index": 55,
+      "verse_keys": [
+        "BK111"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 112, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 57:23",
+      "source_passage_index": 56,
+      "verse_keys": [
+        "BK112"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 113, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 57:24",
+      "source_passage_index": 56,
+      "verse_keys": [
+        "BK113"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "23) Point number 114\nsecond line 114",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 57,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 115, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 58:26",
+      "source_passage_index": 57,
+      "verse_keys": [
+        "BK115"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 116, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 59:27",
+      "source_passage_index": 58,
+      "verse_keys": [
+        "BK116"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 117, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 59:28",
+      "source_passage_index": 58,
+      "verse_keys": [
+        "BK117"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 118, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 60:29",
+      "source_passage_index": 59,
+      "verse_keys": [
+        "BK118"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "24) Point number 119\nsecond line 119",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 59,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 120, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 61:1",
+      "source_passage_index": 60,
+      "verse_keys": [
+        "BK120"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 121, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 61:2",
+      "source_passage_index": 60,
+      "verse_keys": [
+        "BK121"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 122, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 62:3",
+      "source_passage_index": 61,
+      "verse_keys": [
+        "BK122"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 123, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 62:4",
+      "source_passage_index": 61,
+      "verse_keys": [
+        "BK123"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "25) Point number 124\nsecond line 124",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 62,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 125, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 63:6",
+      "source_passage_index": 62,
+      "verse_keys": [
+        "BK125"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 126, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 64:7",
+      "source_passage_index": 63,
+      "verse_keys": [
+        "BK126"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 127, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 64:8",
+      "source_passage_index": 63,
+      "verse_keys": [
+        "BK127"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 128, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 65:9",
+      "source_passage_index": 64,
+      "verse_keys": [
+        "BK128"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "26) Point number 129\nsecond line 129",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 64,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 130, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 66:11",
+      "source_passage_index": 65,
+      "verse_keys": [
+        "BK130"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 131, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 66:12",
+      "source_passage_index": 65,
+      "verse_keys": [
+        "BK131"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 132, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 1:13",
+      "source_passage_index": 66,
+      "verse_keys": [
+        "BK132"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 133, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 1:14",
+      "source_passage_index": 66,
+      "verse_keys": [
+        "BK133"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "27) Point number 134\nsecond line 134",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 67,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 135, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 2:16",
+      "source_passage_index": 67,
+      "verse_keys": [
+        "BK135"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 136, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 3:17",
+      "source_passage_index": 68,
+      "verse_keys": [
+        "BK136"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 137, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 3:18",
+      "source_passage_index": 68,
+      "verse_keys": [
+        "BK137"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 138, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 4:19",
+      "source_passage_index": 69,
+      "verse_keys": [
+        "BK138"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "28) Point number 139\nsecond line 139",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 69,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 140, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 5:21",
+      "source_passage_index": 70,
+      "verse_keys": [
+        "BK140"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 141, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 5:22",
+      "source_passage_index": 70,
+      "verse_keys": [
+        "BK141"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 142, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 6:23",
+      "source_passage_index": 71,
+      "verse_keys": [
+        "BK142"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 143, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 6:24",
+      "source_passage_index": 71,
+      "verse_keys": [
+        "BK143"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "29) Point number 144\nsecond line 144",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 72,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 145, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 7:26",
+      "source_passage_index": 72,
+      "verse_keys": [
+        "BK145"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 146, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 8:27",
+      "source_passage_index": 73,
+      "verse_keys": [
+        "BK146"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 147, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 8:28",
+      "source_passage_index": 73,
+      "verse_keys": [
+        "BK147"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 148, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 9:29",
+      "source_passage_index": 74,
+      "verse_keys": [
+        "BK148"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "30) Point number 149\nsecond line 149",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 74,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 150, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 10:1",
+      "source_passage_index": 75,
+      "verse_keys": [
+        "BK150"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 151, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 10:2",
+      "source_passage_index": 75,
+      "verse_keys": [
+        "BK151"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 152, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 11:3",
+      "source_passage_index": 76,
+      "verse_keys": [
+        "BK152"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 153, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 11:4",
+      "source_passage_index": 76,
+      "verse_keys": [
+        "BK153"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "31) Point number 154\nsecond line 154",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 77,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 155, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 12:6",
+      "source_passage_index": 77,
+      "verse_keys": [
+        "BK155"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 156, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 13:7",
+      "source_passage_index": 78,
+      "verse_keys": [
+        "BK156"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 157, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 13:8",
+      "source_passage_index": 78,
+      "verse_keys": [
+        "BK157"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 158, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 14:9",
+      "source_passage_index": 79,
+      "verse_keys": [
+        "BK158"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "32) Point number 159\nsecond line 159",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 79,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 160, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 15:11",
+      "source_passage_index": 80,
+      "verse_keys": [
+        "BK160"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 161, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 15:12",
+      "source_passage_index": 80,
+      "verse_keys": [
+        "BK161"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 162, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 16:13",
+      "source_passage_index": 81,
+      "verse_keys": [
+        "BK162"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 163, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 16:14",
+      "source_passage_index": 81,
+      "verse_keys": [
+        "BK163"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "33) Point number 164\nsecond line 164",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 82,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 165, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 17:16",
+      "source_passage_index": 82,
+      "verse_keys": [
+        "BK165"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 166, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 18:17",
+      "source_passage_index": 83,
+      "verse_keys": [
+        "BK166"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 167, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 18:18",
+      "source_passage_index": 83,
+      "verse_keys": [
+        "BK167"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 168, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 19:19",
+      "source_passage_index": 84,
+      "verse_keys": [
+        "BK168"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "34) Point number 169\nsecond line 169",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 84,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 170, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 20:21",
+      "source_passage_index": 85,
+      "verse_keys": [
+        "BK170"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 171, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 20:22",
+      "source_passage_index": 85,
+      "verse_keys": [
+        "BK171"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 172, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 21:23",
+      "source_passage_index": 86,
+      "verse_keys": [
+        "BK172"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 173, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 21:24",
+      "source_passage_index": 86,
+      "verse_keys": [
+        "BK173"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "35) Point number 174\nsecond line 174",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 87,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 175, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 22:26",
+      "source_passage_index": 87,
+      "verse_keys": [
+        "BK175"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 176, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 23:27",
+      "source_passage_index": 88,
+      "verse_keys": [
+        "BK176"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 177, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 23:28",
+      "source_passage_index": 88,
+      "verse_keys": [
+        "BK177"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 178, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 24:29",
+      "source_passage_index": 89,
+      "verse_keys": [
+        "BK178"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "36) Point number 179\nsecond line 179",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 89,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 180, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 25:1",
+      "source_passage_index": 90,
+      "verse_keys": [
+        "BK180"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 181, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 25:2",
+      "source_passage_index": 90,
+      "verse_keys": [
+        "BK181"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 182, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 26:3",
+      "source_passage_index": 91,
+      "verse_keys": [
+        "BK182"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 183, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 26:4",
+      "source_passage_index": 91,
+      "verse_keys": [
+        "BK183"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "37) Point number 184\nsecond line 184",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 92,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 185, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 27:6",
+      "source_passage_index": 92,
+      "verse_keys": [
+        "BK185"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 186, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 28:7",
+      "source_passage_index": 93,
+      "verse_keys": [
+        "BK186"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 187, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 28:8",
+      "source_passage_index": 93,
+      "verse_keys": [
+        "BK187"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 188, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 29:9",
+      "source_passage_index": 94,
+      "verse_keys": [
+        "BK188"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "38) Point number 189\nsecond line 189",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 94,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 190, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 30:11",
+      "source_passage_index": 95,
+      "verse_keys": [
+        "BK190"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 191, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 30:12",
+      "source_passage_index": 95,
+      "verse_keys": [
+        "BK191"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 192, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 31:13",
+      "source_passage_index": 96,
+      "verse_keys": [
+        "BK192"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 193, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 31:14",
+      "source_passage_index": 96,
+      "verse_keys": [
+        "BK193"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "39) Point number 194\nsecond line 194",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 97,
+      "verse_keys": [],
+      "version_text": ""
+    },
+    {
+      "body_text": "Synthetic text of slide 195, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 32:16",
+      "source_passage_index": 97,
+      "verse_keys": [
+        "BK195"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 196, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 33:17",
+      "source_passage_index": 98,
+      "verse_keys": [
+        "BK196"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 197, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 33:18",
+      "source_passage_index": 98,
+      "verse_keys": [
+        "BK197"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "Synthetic text of slide 198, with a comma, and a period.",
+      "copyright_text": null,
+      "kind": "verse",
+      "reference_text": "Book 34:19",
+      "source_passage_index": 99,
+      "verse_keys": [
+        "BK198"
+      ],
+      "version_text": "NIV"
+    },
+    {
+      "body_text": "40) Point number 199\nsecond line 199",
+      "copyright_text": null,
+      "kind": "point",
+      "reference_text": "",
+      "source_passage_index": 99,
+      "verse_keys": [],
+      "version_text": ""
+    }
+  ]
+}

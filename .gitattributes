@@ -10,3 +10,8 @@ rust-toolchain.toml text eol=lf
 
 # ReportLab fixtures of the document oracle: binary, never converted
 python/tests/fixtures/pdf/*.pdf -text
+
+# ProPresenter files and the compiled schema are compared byte for byte (round-trip and oracle tests): never converted
+*.pro -text
+proto/descriptor.bin -text
+python/tests/fixtures/themes/** -text

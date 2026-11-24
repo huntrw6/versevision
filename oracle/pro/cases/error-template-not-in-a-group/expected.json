@@ -1,0 +1,5 @@
+{
+  "error": "ValueError: template cue is not assigned to a cue group",
+  "result": null,
+  "validate": "ok"
+}

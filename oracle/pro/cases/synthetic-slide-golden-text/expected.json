@@ -1,0 +1,10 @@
+{
+  "error": null,
+  "result": {
+    "cue_count_after": 2,
+    "cue_count_before": 1,
+    "cue_uuid": "d7e24681-5eba-4d10-808b-9eb619e24c72",
+    "output_sha256": "d3d67853b3f99b25947c21a4e90851e59d56fe6142965f8a073dc6f0155dedb7"
+  },
+  "validate": null
+}

@@ -1,0 +1,5 @@
+{
+  "error": "ValueError: no sermon-point template is configured; run versevision template select-point",
+  "result": null,
+  "validate": "ok"
+}

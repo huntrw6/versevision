@@ -1,0 +1,20 @@
+{
+  "error": null,
+  "result": {
+    "cue_count_after": 7,
+    "cue_count_before": 2,
+    "cue_uuids": [
+      "c2aaf1eb-a3d8-4db1-a353-86b2196b914c",
+      "f188c343-c478-48f8-8ec9-bcd06a182f38",
+      "34cb1f27-db7f-4279-a7c9-d877febee6c0",
+      "fe1e0fa9-ed44-4246-a846-c119baa21b16",
+      "78b34529-55a4-4d79-92d5-b5806690c7ae"
+    ],
+    "group_count_after": 6,
+    "group_count_before": 2,
+    "original_sha256": "9271906f54d1ecb76ffcb319bca8cd0438798cf1c56e5660a2d3b0ac7b2ef6df",
+    "output_sha256": "1cbe182fad86c31e467d8d75dd154f1687cfcd397335558ce7649c489450f15c",
+    "removed_cue_count": 0
+  },
+  "validate": "ConfigurationError: Configured template styling or geometry changed; select the template again"
+}

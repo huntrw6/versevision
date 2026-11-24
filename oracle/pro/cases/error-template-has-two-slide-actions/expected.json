@@ -1,0 +1,5 @@
+{
+  "error": "ValueError: template cue must contain exactly one slide action",
+  "result": null,
+  "validate": "ConfigurationError: Configured template cue or named text objects no longer exist"
+}

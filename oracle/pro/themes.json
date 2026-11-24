@@ -1,0 +1,763 @@
+{
+  "finds": [
+    {
+      "ok": {
+        "label": "Sermon Points · Theme Slide",
+        "number": 1,
+        "theme_label": "Sermon Points"
+      },
+      "slide": "",
+      "theme": "Sermon Points"
+    },
+    {
+      "ok": {
+        "label": "Sermon Points · Theme Slide",
+        "number": 1,
+        "theme_label": "Sermon Points"
+      },
+      "slide": "",
+      "theme": "sermon points"
+    },
+    {
+      "ok": {
+        "label": "Sermon Points · Theme Slide",
+        "number": 1,
+        "theme_label": "Sermon Points"
+      },
+      "slide": "",
+      "theme": "  SERMON POINTS  "
+    },
+    {
+      "ok": {
+        "label": "Sermon Points · Theme Slide",
+        "number": 1,
+        "theme_label": "Sermon Points"
+      },
+      "slide": "1",
+      "theme": "Sermon Points"
+    },
+    {
+      "ok": {
+        "label": "Sermon Points · Theme Slide",
+        "number": 1,
+        "theme_label": "Sermon Points"
+      },
+      "slide": "theme slide",
+      "theme": "Sermon Points"
+    },
+    {
+      "error": "Theme 'Sermon Points' has no slide '9'. Its slides: 1=Theme Slide",
+      "slide": "9",
+      "theme": "Sermon Points"
+    },
+    {
+      "error": "Theme 'Sermon Points' has no slide 'nope'. Its slides: 1=Theme Slide",
+      "slide": "nope",
+      "theme": "Sermon Points"
+    },
+    {
+      "ok": {
+        "label": "The biblke · Slide 1",
+        "number": 1,
+        "theme_label": "The biblke"
+      },
+      "slide": "",
+      "theme": "The biblke"
+    },
+    {
+      "ok": {
+        "label": "Split · Slide 1",
+        "number": 1,
+        "theme_label": "Split"
+      },
+      "slide": "1",
+      "theme": "Split"
+    },
+    {
+      "ok": {
+        "label": "Scripture main screens · Slide 1",
+        "number": 1,
+        "theme_label": "Scripture main screens"
+      },
+      "slide": "",
+      "theme": "Scripture main screens"
+    },
+    {
+      "error": "No ProPresenter theme named 'Nope'. Loaded themes: Church/Choir, Church/Deep/Nested, Church/Hymn, Multi, Odd fonts, Pictures, Scripture main screens, Sermon Points, Split, The biblke, Youth/Hymn",
+      "slide": "",
+      "theme": "Nope"
+    },
+    {
+      "error": "No ProPresenter theme named ''. Loaded themes: Church/Choir, Church/Deep/Nested, Church/Hymn, Multi, Odd fonts, Pictures, Scripture main screens, Sermon Points, Split, The biblke, Youth/Hymn",
+      "slide": "",
+      "theme": ""
+    },
+    {
+      "ok": {
+        "label": "Multi · Verse A",
+        "number": 1,
+        "theme_label": "Multi"
+      },
+      "slide": "",
+      "theme": "Multi"
+    },
+    {
+      "ok": {
+        "label": "Multi · Slide 2",
+        "number": 2,
+        "theme_label": "Multi"
+      },
+      "slide": "2",
+      "theme": "Multi"
+    },
+    {
+      "ok": {
+        "label": "Multi · Points",
+        "number": 3,
+        "theme_label": "Multi"
+      },
+      "slide": "points",
+      "theme": "Multi"
+    },
+    {
+      "ok": {
+        "label": "Multi · Verse A",
+        "number": 1,
+        "theme_label": "Multi"
+      },
+      "slide": "Verse A",
+      "theme": "Multi"
+    },
+    {
+      "error": "Theme 'Multi' has no slide '4'. Its slides: 1=Verse A, 2=(unnamed), 3=Points",
+      "slide": "4",
+      "theme": "Multi"
+    },
+    {
+      "error": "Theme 'Multi' has no slide '0'. Its slides: 1=Verse A, 2=(unnamed), 3=Points",
+      "slide": "0",
+      "theme": "Multi"
+    },
+    {
+      "error": "Theme 'Pictures' has no slide with a text box",
+      "slide": "",
+      "theme": "Pictures"
+    },
+    {
+      "error": "Slide 'Pictures · Pictures' has no text box, so it cannot show a verse or point",
+      "slide": "1",
+      "theme": "Pictures"
+    },
+    {
+      "error": "'Hymn' matches several themes (Church/Hymn, Youth/Hymn); use Group/Name",
+      "slide": "",
+      "theme": "Hymn"
+    },
+    {
+      "ok": {
+        "label": "Church/Hymn · Theme Slide",
+        "number": 1,
+        "theme_label": "Church/Hymn"
+      },
+      "slide": "",
+      "theme": "Church/Hymn"
+    },
+    {
+      "ok": {
+        "label": "Church/Hymn · Theme Slide",
+        "number": 1,
+        "theme_label": "Church/Hymn"
+      },
+      "slide": "1",
+      "theme": "church/hymn"
+    },
+    {
+      "ok": {
+        "label": "Youth/Hymn · Slide 1",
+        "number": 1,
+        "theme_label": "Youth/Hymn"
+      },
+      "slide": "",
+      "theme": "Youth/Hymn"
+    },
+    {
+      "ok": {
+        "label": "Church/Deep/Nested · Slide 1",
+        "number": 1,
+        "theme_label": "Church/Deep/Nested"
+      },
+      "slide": "",
+      "theme": "Nested"
+    },
+    {
+      "ok": {
+        "label": "Church/Deep/Nested · Slide 1",
+        "number": 1,
+        "theme_label": "Church/Deep/Nested"
+      },
+      "slide": "",
+      "theme": "Church/Deep/Nested"
+    },
+    {
+      "error": "No ProPresenter theme named 'Deep'. Loaded themes: Church/Choir, Church/Deep/Nested, Church/Hymn, Multi, Odd fonts, Pictures, Scripture main screens, Sermon Points, Split, The biblke, Youth/Hymn",
+      "slide": "",
+      "theme": "Deep"
+    },
+    {
+      "ok": {
+        "label": "Church/Choir · Slide 1",
+        "number": 1,
+        "theme_label": "Church/Choir"
+      },
+      "slide": "",
+      "theme": "Choir"
+    },
+    {
+      "error": "No ProPresenter theme named 'Broken'. Loaded themes: Church/Choir, Church/Deep/Nested, Church/Hymn, Multi, Odd fonts, Pictures, Scripture main screens, Sermon Points, Split, The biblke, Youth/Hymn",
+      "slide": "",
+      "theme": "Broken"
+    },
+    {
+      "ok": {
+        "label": "Odd fonts · Slide 1",
+        "number": 1,
+        "theme_label": "Odd fonts"
+      },
+      "slide": "",
+      "theme": "Odd fonts"
+    },
+    {
+      "error": "No ProPresenter theme named 'Theme'. Loaded themes: Church/Choir, Church/Deep/Nested, Church/Hymn, Multi, Odd fonts, Pictures, Scripture main screens, Sermon Points, Split, The biblke, Youth/Hymn",
+      "slide": "",
+      "theme": "Theme"
+    }
+  ],
+  "picker": [
+    {
+      "boxes": 2,
+      "group": "Church",
+      "key": "Church/Choir::1",
+      "label": "Church/Choir · Slide 1",
+      "number": 1,
+      "reference_box": false,
+      "slide": "Slide 1",
+      "theme": "Choir"
+    },
+    {
+      "boxes": 1,
+      "group": "Church/Deep",
+      "key": "Church/Deep/Nested::1",
+      "label": "Church/Deep/Nested · Slide 1",
+      "number": 1,
+      "reference_box": false,
+      "slide": "Slide 1",
+      "theme": "Nested"
+    },
+    {
+      "boxes": 1,
+      "group": "Church",
+      "key": "Church/Hymn::1",
+      "label": "Church/Hymn · Theme Slide",
+      "number": 1,
+      "reference_box": false,
+      "slide": "Theme Slide",
+      "theme": "Hymn"
+    },
+    {
+      "boxes": 2,
+      "group": "",
+      "key": "Multi::1",
+      "label": "Multi · Verse A",
+      "number": 1,
+      "reference_box": false,
+      "slide": "Verse A",
+      "theme": "Multi"
+    },
+    {
+      "boxes": 2,
+      "group": "",
+      "key": "Multi::2",
+      "label": "Multi · Slide 2",
+      "number": 2,
+      "reference_box": false,
+      "slide": "Slide 2",
+      "theme": "Multi"
+    },
+    {
+      "boxes": 1,
+      "group": "",
+      "key": "Multi::3",
+      "label": "Multi · Points",
+      "number": 3,
+      "reference_box": false,
+      "slide": "Points",
+      "theme": "Multi"
+    },
+    {
+      "boxes": 2,
+      "group": "",
+      "key": "Odd fonts::1",
+      "label": "Odd fonts · Slide 1",
+      "number": 1,
+      "reference_box": false,
+      "slide": "Slide 1",
+      "theme": "Odd fonts"
+    },
+    {
+      "boxes": 1,
+      "group": "",
+      "key": "Scripture main screens::1",
+      "label": "Scripture main screens · Slide 1",
+      "number": 1,
+      "reference_box": false,
+      "slide": "Slide 1",
+      "theme": "Scripture main screens"
+    },
+    {
+      "boxes": 1,
+      "group": "",
+      "key": "Sermon Points::1",
+      "label": "Sermon Points · Theme Slide",
+      "number": 1,
+      "reference_box": false,
+      "slide": "Theme Slide",
+      "theme": "Sermon Points"
+    },
+    {
+      "boxes": 2,
+      "group": "",
+      "key": "Split::1",
+      "label": "Split · Slide 1",
+      "number": 1,
+      "reference_box": true,
+      "slide": "Slide 1",
+      "theme": "Split"
+    },
+    {
+      "boxes": 2,
+      "group": "",
+      "key": "The biblke::1",
+      "label": "The biblke · Slide 1",
+      "number": 1,
+      "reference_box": false,
+      "slide": "Slide 1",
+      "theme": "The biblke"
+    },
+    {
+      "boxes": 2,
+      "group": "Youth",
+      "key": "Youth/Hymn::1",
+      "label": "Youth/Hymn · Slide 1",
+      "number": 1,
+      "reference_box": false,
+      "slide": "Slide 1",
+      "theme": "Hymn"
+    }
+  ],
+  "slides": [
+    {
+      "boxes": [
+        {
+          "font": "BanglaMN-Bold",
+          "h": 94.0,
+          "name": "",
+          "size": 46.0,
+          "w": 1620.0,
+          "x": 150.0,
+          "y": 493.0
+        },
+        {
+          "font": "HelveticaNeue",
+          "h": 285.2795549976572,
+          "name": "",
+          "size": 42.0,
+          "w": 1920.0,
+          "x": 3.848938306780672e-14,
+          "y": 397.3602225011714
+        }
+      ],
+      "group": "Church",
+      "has_reference_box": false,
+      "label": "Church/Choir · Slide 1",
+      "name": "",
+      "number": 1,
+      "other_objects": 0,
+      "path": "Church/Choir/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Choir",
+      "theme_label": "Church/Choir",
+      "usable": true
+    },
+    {
+      "boxes": [
+        {
+          "font": "HelveticaNeue",
+          "h": 880.0,
+          "name": "",
+          "size": 42.0,
+          "w": 1620.0,
+          "x": 150.0,
+          "y": 100.0
+        }
+      ],
+      "group": "Church/Deep",
+      "has_reference_box": false,
+      "label": "Church/Deep/Nested · Slide 1",
+      "name": "",
+      "number": 1,
+      "other_objects": 0,
+      "path": "Church/Deep/Nested/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Nested",
+      "theme_label": "Church/Deep/Nested",
+      "usable": true
+    },
+    {
+      "boxes": [
+        {
+          "font": "Helvetica-Bold",
+          "h": 748.5070588760759,
+          "name": "Lyrics",
+          "size": 42.0,
+          "w": 1824.9602824360104,
+          "x": 47.5198587819948,
+          "y": 181.2
+        }
+      ],
+      "group": "Church",
+      "has_reference_box": false,
+      "label": "Church/Hymn · Theme Slide",
+      "name": "Theme Slide",
+      "number": 1,
+      "other_objects": 0,
+      "path": "Church/Hymn/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Hymn",
+      "theme_label": "Church/Hymn",
+      "usable": true
+    },
+    {
+      "boxes": [
+        {
+          "font": "BanglaMN-Bold",
+          "h": 94.0,
+          "name": "",
+          "size": 46.0,
+          "w": 1620.0,
+          "x": 150.0,
+          "y": 493.0
+        },
+        {
+          "font": "HelveticaNeue",
+          "h": 285.2795549976572,
+          "name": "",
+          "size": 42.0,
+          "w": 1920.0,
+          "x": 3.848938306780672e-14,
+          "y": 397.3602225011714
+        }
+      ],
+      "group": "",
+      "has_reference_box": false,
+      "label": "Multi · Verse A",
+      "name": "Verse A",
+      "number": 1,
+      "other_objects": 0,
+      "path": "Multi/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Multi",
+      "theme_label": "Multi",
+      "usable": true
+    },
+    {
+      "boxes": [
+        {
+          "font": "BanglaMN-Bold",
+          "h": 94.0,
+          "name": "",
+          "size": 46.0,
+          "w": 1620.0,
+          "x": 150.0,
+          "y": 493.0
+        },
+        {
+          "font": "HelveticaNeue",
+          "h": 285.2795549976572,
+          "name": "",
+          "size": 42.0,
+          "w": 1920.0,
+          "x": 3.848938306780672e-14,
+          "y": 397.3602225011714
+        }
+      ],
+      "group": "",
+      "has_reference_box": false,
+      "label": "Multi · Slide 2",
+      "name": "",
+      "number": 2,
+      "other_objects": 0,
+      "path": "Multi/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Multi",
+      "theme_label": "Multi",
+      "usable": true
+    },
+    {
+      "boxes": [
+        {
+          "font": "Helvetica-Bold",
+          "h": 748.5070588760759,
+          "name": "Lyrics",
+          "size": 42.0,
+          "w": 1824.9602824360104,
+          "x": 47.5198587819948,
+          "y": 181.2
+        }
+      ],
+      "group": "",
+      "has_reference_box": false,
+      "label": "Multi · Points",
+      "name": "Points",
+      "number": 3,
+      "other_objects": 0,
+      "path": "Multi/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Multi",
+      "theme_label": "Multi",
+      "usable": true
+    },
+    {
+      "boxes": [
+        {
+          "font": "",
+          "h": 94.0,
+          "name": "",
+          "size": 0.0,
+          "w": 1620.0,
+          "x": 150.0,
+          "y": 493.0
+        },
+        {
+          "font": "",
+          "h": 285.2795549976572,
+          "name": "",
+          "size": 0.0,
+          "w": 1920.0,
+          "x": 3.848938306780672e-14,
+          "y": 397.3602225011714
+        }
+      ],
+      "group": "",
+      "has_reference_box": false,
+      "label": "Odd fonts · Slide 1",
+      "name": "",
+      "number": 1,
+      "other_objects": 0,
+      "path": "Odd fonts/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Odd fonts",
+      "theme_label": "Odd fonts",
+      "usable": true
+    },
+    {
+      "boxes": [],
+      "group": "",
+      "has_reference_box": false,
+      "label": "Pictures · Pictures",
+      "name": "Pictures",
+      "number": 1,
+      "other_objects": 0,
+      "path": "Pictures/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Pictures",
+      "theme_label": "Pictures",
+      "usable": false
+    },
+    {
+      "boxes": [
+        {
+          "font": "HelveticaNeue",
+          "h": 880.0,
+          "name": "",
+          "size": 42.0,
+          "w": 1620.0,
+          "x": 150.0,
+          "y": 100.0
+        }
+      ],
+      "group": "",
+      "has_reference_box": false,
+      "label": "Scripture main screens · Slide 1",
+      "name": "",
+      "number": 1,
+      "other_objects": 0,
+      "path": "Scripture main screens/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Scripture main screens",
+      "theme_label": "Scripture main screens",
+      "usable": true
+    },
+    {
+      "boxes": [
+        {
+          "font": "Helvetica-Bold",
+          "h": 748.5070588760759,
+          "name": "Lyrics",
+          "size": 42.0,
+          "w": 1824.9602824360104,
+          "x": 47.5198587819948,
+          "y": 181.2
+        }
+      ],
+      "group": "",
+      "has_reference_box": false,
+      "label": "Sermon Points · Theme Slide",
+      "name": "Theme Slide",
+      "number": 1,
+      "other_objects": 0,
+      "path": "Sermon Points/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Sermon Points",
+      "theme_label": "Sermon Points",
+      "usable": true
+    },
+    {
+      "boxes": [
+        {
+          "font": "BanglaMN-Bold",
+          "h": 94.0,
+          "name": "",
+          "size": 46.0,
+          "w": 1620.0,
+          "x": 150.0,
+          "y": 800.0
+        },
+        {
+          "font": "HelveticaNeue",
+          "h": 285.2795549976572,
+          "name": "",
+          "size": 42.0,
+          "w": 1920.0,
+          "x": 3.848938306780672e-14,
+          "y": 397.3602225011714
+        }
+      ],
+      "group": "",
+      "has_reference_box": true,
+      "label": "Split · Slide 1",
+      "name": "",
+      "number": 1,
+      "other_objects": 0,
+      "path": "Split/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Split",
+      "theme_label": "Split",
+      "usable": true
+    },
+    {
+      "boxes": [
+        {
+          "font": "BanglaMN-Bold",
+          "h": 94.0,
+          "name": "",
+          "size": 46.0,
+          "w": 1620.0,
+          "x": 150.0,
+          "y": 493.0
+        },
+        {
+          "font": "HelveticaNeue",
+          "h": 285.2795549976572,
+          "name": "",
+          "size": 42.0,
+          "w": 1920.0,
+          "x": 3.848938306780672e-14,
+          "y": 397.3602225011714
+        }
+      ],
+      "group": "",
+      "has_reference_box": false,
+      "label": "The biblke · Slide 1",
+      "name": "",
+      "number": 1,
+      "other_objects": 0,
+      "path": "The biblke/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "The biblke",
+      "theme_label": "The biblke",
+      "usable": true
+    },
+    {
+      "boxes": [
+        {
+          "font": "BanglaMN-Bold",
+          "h": 94.0,
+          "name": "",
+          "size": 46.0,
+          "w": 1620.0,
+          "x": 150.0,
+          "y": 493.0
+        },
+        {
+          "font": "HelveticaNeue",
+          "h": 285.2795549976572,
+          "name": "",
+          "size": 42.0,
+          "w": 1920.0,
+          "x": 3.848938306780672e-14,
+          "y": 397.3602225011714
+        }
+      ],
+      "group": "Youth",
+      "has_reference_box": false,
+      "label": "Youth/Hymn · Slide 1",
+      "name": "",
+      "number": 1,
+      "other_objects": 0,
+      "path": "Youth/Hymn/Theme",
+      "size": [
+        1920,
+        1080
+      ],
+      "theme": "Hymn",
+      "theme_label": "Youth/Hymn",
+      "usable": true
+    }
+  ]
+}

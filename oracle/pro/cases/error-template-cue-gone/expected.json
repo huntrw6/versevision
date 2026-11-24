@@ -1,0 +1,5 @@
+{
+  "error": "ValueError: configured template cue no longer exists",
+  "result": null,
+  "validate": "ConfigurationError: Configured template cue or named text objects no longer exist"
+}

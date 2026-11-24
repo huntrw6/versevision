@@ -1,0 +1,15 @@
+mode = "append"
+uuid_seed = "error-no-point-template-configured"
+now = 1784419571
+base = "fixture:sample/Sample.pro"
+name = ""
+
+[definition]
+presentation_uuid = "EE748D35-FBF6-4076-AAE8-4F4C878B66BD"
+presentation_name = "Sample"
+library_name = "Verses"
+cue_uuid = "F94169B4-CB51-43C7-9851-EB802EAE7FA9"
+reference_object = "Reference"
+body_object = "Verse"
+style_fingerprint = "f77d14c989584cd1977f3d9b47b1dcb5a9dcc0c05e5636845ffbd83a8669e170"
+point_object = "Sermon Point"
