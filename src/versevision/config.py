@@ -27,17 +27,17 @@ class SlideConfig(BaseModel):
     even_split_tolerance: float = Field(default=0.15, ge=0.0, le=1.0)      # a long verse's slides each hold within this share (0.15 = 15%) of the average amount of text
     include_verse_numbers: bool = False      # verse text only; the reference is on the slide already
     reference_format: str = "{book} {chapter}:{verses} {version}"
-    reference_label_mode: Literal["source", "segment", "verse"] = "verse"
-    max_body_lines: int = Field(default=5, ge=1, le=20)      # VERSES: most lines one verse slide may have; a longer verse is cut into near-equal slides (points have their own limit: points.max_lines_per_slide)
-    line_width_units: float = Field(default=48.0, gt=5, le=200)
+    reference_label_mode: Literal["source", "segment", "verse"] = "verse"      # what the reference says: verse = "Luke 13:5", segment = the range the slide covers, source = as typed in the notes
+    max_body_lines: int = Field(default=5, ge=1, le=20)      # most lines of text one verse slide may have; a longer verse is cut into near-equal slides (sermon points have their own limit)
+    line_width_units: float = Field(default=48.0, gt=5, le=200)      # how wide one line of verse text is (about 48 average letters); used to count lines
     max_reference_lines: int = Field(default=1, ge=1, le=3)            # the reference ("Luke 13:5 (NKJV)") must fit on this many lines; a longer one is flagged in the review
     reference_width_units: float = Field(default=46.0, gt=5, le=200)   # how wide one line of the reference box is (about 46 average letters in the template's bold 50 pt)
-    prefer_punctuation_breaks: bool = True
-    repeat_reference_on_continuation: bool = True
+    prefer_punctuation_breaks: bool = True      # cut a long verse after a comma, semicolon or full stop when that costs little
+    repeat_reference_on_continuation: bool = True      # every slide of a long verse shows the reference (off: only the first slide)
 
 
 class PresentationConfig(BaseModel):
-    backup_count: int = Field(default=10, ge=1, le=100)
+    backup_count: int = Field(default=10, ge=1, le=100)      # how many backups of a changed presentation to keep
 
 
 class PresentationTemplateConfig(BaseModel):
@@ -55,7 +55,7 @@ class PresentationTemplateConfig(BaseModel):
 
 class OutputConfig(BaseModel):
     """Where new presentations go. The default is a NEW presentation in this library (no restart needed)."""
-    library: str = "Verses"
+    library: str = "Verses"      # the ProPresenter library a new presentation is made in
     swap_keeps_id: bool = False     # Replace/Append: the new file keeps the old presentation id (playlists need no change). False: a fresh id, so ProPresenter treats it as a new document and shows it even if the old one is open
 
 
@@ -103,7 +103,7 @@ ProviderConfig = Annotated[
 
 
 class BibleConfig(BaseModel):
-    default_version: str | None = None
+    default_version: str | None = None      # the version for a verse with none written and none above it (for example NKJV)
     version_aliases: dict[str, str] = Field(default_factory=lambda: {"YLT": "NLT"})
     version_routes: dict[str, str] = Field(default_factory=dict)
     providers: dict[str, ProviderConfig] = Field(default_factory=dict)
@@ -147,7 +147,7 @@ class NotesConfig(BaseModel):
     reference_in_text: Literal["review", "skip", "verse"] = "review"   # "as Psalm 23:1 says, ..." (verse: also add that verse)
     whole_chapter: Literal["review", "skip"] = "review"                # "Psalm 23" with no verses
     duplicates: Literal["keep", "drop"] = "keep"                       # the same verse and version again later
-    label_words: list[str] = Field(default_factory=lambda: ["conclusion", "application", "invitation", "challenge", "summary", "closing", "takeaway", "big idea", "main point"])
+    label_words: list[str] = Field(default_factory=lambda: ["conclusion", "application", "invitation", "challenge", "summary", "closing", "takeaway", "big idea", "main point"])      # words that start a labelled line such as "Conclusion: ..."
     label_own_slide: bool = True                                       # "Conclusion: ..." is its own slide instead of part of the point above
     header_max_words: int = Field(default=2, ge=0, le=6)               # capitalized lines this short are headings, not slides
     headings: Literal["slide", "skip"] = "slide"                       # titles and headings ("6 KEYS TO...", "RECAP: ...", "Introduction"): a slide with no bullet, or left out
@@ -165,14 +165,14 @@ class PointsConfig(BaseModel):
     numbering: Literal["keep", "strip", "renumber"] = "keep"          # keep "1)", drop the numbers, or number them 1, 2, 3 again
     number_style: str = "{n})"         # used by "renumber": "{n})", "{n}.", "#{n}:"
     bullet_char: str = "•"             # "" for no bullet mark on the slide
-    case: Literal["as_written", "upper", "lower", "title"] = "as_written"
+    case: Literal["as_written", "upper", "lower", "title"] = "as_written"      # the letter case of the point text
     fix_label_typos: bool = True       # a point header written differently from the others ("KEY#1)" among "KEY #2)", "KEY #3)"...) is corrected to match, and shown in the review as an error for you to approve
     strip_trailing_period: bool = True # a point that ends in "." loses it ("!" "?" and other endings stay; "etc.", "U.S." and "..." are left alone)
     balance_lines: bool = True         # break a long point into evenly wide lines (no short last line)
     line_width_units: float = Field(default=33.0, gt=5, le=200)      # how wide a line may be before it must break (one text-box line of the point slides is about 34)
     line_tolerance: float = Field(default=0.15, ge=0.0, le=1.0)                 # each line of a point is within this share of the average line width...
     line_tolerance_at_punctuation: float = Field(default=0.25, ge=0.0, le=1.0)  # ...or this share when it starts and ends at punctuation (a natural break)
-    max_lines_per_slide: int = Field(default=0, ge=0, le=12)   # most lines one point slide may have; a longer point continues on the next slide (0 = no limit: long points shrink to fit instead)
+    max_lines_per_slide: int = Field(default=0, ge=0, le=12)   # most lines one sermon point slide may have; a longer point continues on the next slide (0 = no limit: long points shrink to fit instead)
     max_lines: int = Field(default=4, ge=1, le=12)      # lines the point text box holds at full size (ProPresenter shrinks longer text to fit)
     shown_in_capitals: bool = True     # the point slides show capitals (wider letters): measure the text that way
     theme: str = ""                    # a loaded ProPresenter theme to take the look from ("Name" or "Group/Name"); empty = the VerseVision template slide
@@ -181,7 +181,7 @@ class PointsConfig(BaseModel):
 
 class VersesConfig(BaseModel):
     """Which version a verse gets, and how repeats are handled. Slide layout (verse numbers, reference format, splitting) is under [slides]."""
-    version_source: Literal["above", "default", "required"] = "above"
+    version_source: Literal["above", "default", "required"] = "above"      # the version of a verse with none written: above = the nearest version above it, default = always the default version, required = an error
     version_from_quote: Literal["use", "off"] = "use"   # a verse with no version whose text is quoted in the notes: if the quote matches another version's wording better, use that version
     quote_versions: list[str] = Field(default_factory=lambda: ["KJV", "NKJV", "NIV", "NASB1995", "NLT", "ESV"])   # versions tried, in order, when the quote does not match
     quote_match: float = Field(default=0.85, ge=0.5, le=1.0)            # how closely (0-1) a quote must match a version's wording to count as that version

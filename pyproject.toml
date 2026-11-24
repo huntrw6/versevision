@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "versevision"
-version = "0.37.0"
+version = "0.38.0"
 description = "Cross-platform Bible reference importer foundations for ProPresenter"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -46,6 +46,7 @@ packages = ["src/versevision"]
 "src/versevision/web/ico-replace.svg" = "versevision/web/ico-replace.svg"
 "src/versevision/web/ico-append.svg" = "versevision/web/ico-append.svg"
 "src/versevision/web/ico-history.svg" = "versevision/web/ico-history.svg"
+"src/versevision/web/ico-config.svg" = "versevision/web/ico-config.svg"
 "src/versevision/web/manifest.webmanifest" = "versevision/web/manifest.webmanifest"
 "src/versevision/web/icon-180.png" = "versevision/web/icon-180.png"
 "src/versevision/web/icon-192.png" = "versevision/web/icon-192.png"

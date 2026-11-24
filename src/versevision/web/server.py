@@ -348,7 +348,7 @@ def make_handler(state: AppState):
         "/sw.js": ("sw.js", "text/javascript"),
         "/ico-library.svg": ("ico-library.svg", "image/svg+xml"), "/ico-playlist.svg": ("ico-playlist.svg", "image/svg+xml"),
         "/ico-presentation.svg": ("ico-presentation.svg", "image/svg+xml"),
-        **{f"/ico-{n}.svg": (f"ico-{n}.svg", "image/svg+xml") for n in ("new", "replace", "append", "history")},
+        **{f"/ico-{n}.svg": (f"ico-{n}.svg", "image/svg+xml") for n in ("new", "replace", "append", "history", "config")},
     }
     static_files = {route: (resources.files("versevision.web").joinpath(name).read_bytes(), ctype) for route, (name, ctype) in static.items()}
 
@@ -418,6 +418,9 @@ def make_handler(state: AppState):
                     self._json(200, {"playlists": list_playlist_presentations(state.transport())})
                 except Exception as exc:
                     self._json(200, {"playlists": [], "error": str(exc)})
+            elif path == "/api/config":
+                from versevision.web.configpage import describe
+                self._json(200, describe(state.config))
             elif path == "/api/themethumb":
                 query = parse_qs(urlparse(self.path).query)
                 data = theme_thumbnail(state, (query.get("theme") or [""])[0], int((query.get("slide") or ["1"])[0] or 1))
@@ -498,6 +501,14 @@ def make_handler(state: AppState):
                     body = json.loads(self._body() or b"{}")
                     job = start_apply(state, body.get("job", ""), bool(body.get("accept_flags")), {int(x) for x in body.get("skip", [])}, {int(x) for x in body.get("include", [])}, {int(x) for x in body.get("reject_fixes", [])})
                     self._json(202, {"job": job.id})
+                elif parsed.path == "/api/config":
+                    from versevision.web.configpage import apply, describe
+                    body = json.loads(self._body() or b"{}")
+                    with state.lock:
+                        if state.busy:
+                            raise VerseVisionError("An import is running; change settings when it finishes")
+                        state.config = apply(state.config, dict(body.get("values") or {}))
+                    self._json(200, describe(state.config))
                 elif parsed.path == "/api/replan":
                     body = json.loads(self._body() or b"{}")
                     job = start_replan(state, body.get("job", ""), dict(body.get("edits") or {}))

@@ -103,6 +103,16 @@ dddddddd
 .dddddd.
 """, {"p": "#8b6bd9", "h": "#ad92f0", "d": "#5f45a8", "w": "#ffffff"}),
 }
+TITLE_ICONS["config"] = ("""
+.hhhhhh.
+swyywwws
+ssssssss
+swwwwyys
+ssssssss
+swwyywws
+dddddddd
+.dddddd.
+""", {"s": "#5d7fb0", "h": "#86a5d1", "d": "#3b567f", "w": "#ffffff", "y": "#ffd75e"})
 for name, (art, palette) in TITLE_ICONS.items():
     (WEB / f"ico-{name}.svg").write_text(svg(art, palette))
 print("pixel icons written")

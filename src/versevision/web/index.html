@@ -64,7 +64,26 @@
   #titlebar{height:42px;flex:none;background:#1a1a1a;border-bottom:1px solid #000;display:flex;align-items:center;gap:10px;padding:0 16px}
   #titlebar .ic{width:24px;height:24px;flex:none;background:center/contain no-repeat url(/ico-new.svg);image-rendering:pixelated}
   #titlebar .ic.new{background-image:url(/ico-new.svg)} #titlebar .ic.replace{background-image:url(/ico-replace.svg)}
-  #titlebar .ic.append{background-image:url(/ico-append.svg)} #titlebar .ic.history{background-image:url(/ico-history.svg)}
+  #titlebar .ic.append{background-image:url(/ico-append.svg)} #titlebar .ic.history{background-image:url(/ico-history.svg)} #titlebar .ic.config{background-image:url(/ico-config.svg)}
+  #viewConfig{display:flex;flex-direction:column;gap:12px;flex:none;width:100%;max-width:920px}
+  #viewConfig>*{flex:none}
+  #cfgFind{height:34px;width:100%;background:#3a3a3a;border:1px solid #1a1a1a;border-radius:6px;padding:0 10px;color:var(--text);outline:none}
+  .cfgnote{color:var(--dim);font-size:12px}
+  .cfg{margin:0;background:var(--panel);border:1px solid #111;border-radius:8px}
+  .cfg>summary{cursor:pointer;padding:10px 14px;font-weight:700;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--head);list-style:none;display:flex;gap:10px;align-items:baseline}
+  .cfg>summary::before{content:'\25B8';color:#9a9a9a;font-size:12px;width:10px;display:inline-block} .cfg[open]>summary::before{content:'\25BE'}
+  .cfg>summary::-webkit-details-marker{display:none} .cfg>summary em{font-style:normal;font-weight:500;letter-spacing:0;text-transform:none;color:var(--dim);font-size:12px}
+  .cfg .row{display:grid;grid-template-columns:minmax(0,1fr) 230px 26px;gap:12px;align-items:center;padding:9px 14px;border-top:1px solid #1d1d1d}
+  .cfg .row .nm{font-size:13px} .cfg .row .hp{color:var(--dim);font-size:11.5px;margin-top:2px;line-height:1.35} .cfg .row .key{color:#8a8a8a;font-size:10.5px;font-family:ui-monospace,Menlo,monospace}
+  .cfg .row.changed .nm{color:#9bc1ff} .cfg .row.bad .nm{color:#ff8b8b}
+  .cfg .row.bad{background:#ff8b8b12} .cfg .row.bad input,.cfg .row.bad select{border-color:#ff6b6b} .cfg .row>div:first-child{overflow-wrap:anywhere}
+  .cfg input[type=text],.cfg input[type=number],.cfg select,.cfg textarea{width:100%;background-color:#3a3a3a;border:1px solid #1a1a1a;border-radius:6px;padding:0 9px;color:var(--text);outline:none;height:32px}
+  .cfg textarea{height:64px;padding:6px 9px;resize:vertical;font:inherit}
+  .cfg input[type=checkbox]{width:18px;height:18px;accent-color:var(--blue)}
+  .cfg .rs{background:none;border:0;color:#8a8a8a;cursor:pointer;font-size:15px;padding:0;visibility:hidden} .cfg .row.nondefault .rs{visibility:visible} .cfg .rs:hover{color:#fff}
+  #cfgActions{flex:none;background:#262626;border-top:1px solid #000;padding:10px 22px;display:flex;align-items:center;gap:12px}
+  #cfgActions .msg{flex:1;font-size:12.5px;color:var(--dim)} #cfgActions .msg.err{color:#ff8b8b} #cfgActions .msg.ok{color:#62cf7a}
+
   #titlebar h1{margin:0;font-size:15px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   #titlebar .meta{margin-left:auto;color:var(--dim);font-size:12px;white-space:nowrap}
   #stage{flex:1;overflow:auto;padding:18px 22px 24px;min-height:0;display:flex;flex-direction:column}
@@ -207,6 +226,7 @@
   <div class="brand"><img class="logo" src="/icon.svg" alt="">VerseVision</div>
   <button class="tool on" id="tab-import" data-view="import"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14"/></svg></span><span class="lbl">Import</span></button>
   <button class="tool" id="tab-history" data-view="history"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg></span><span class="lbl">History</span></button>
+  <button class="tool" id="tab-config" data-view="config"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h8M18 7h2M4 12h2M12 12h8M4 17h9M19 17h1"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="12" r="2.2"/><circle cx="16" cy="17" r="2.2"/></svg></span><span class="lbl">Config</span></button>
   <div class="spacer"></div>
   <div id="status"><span class="led" id="led"></span><span id="statusText">Checking…</span></div>
 </div>
@@ -290,6 +310,11 @@
         </div>
       </div>
 
+      <div id="viewConfig" class="hidden">
+        <input id="cfgFind" type="search" placeholder="Search settings (for example: lines, period, version)" autocomplete="off">
+        <div class="cfgnote" id="cfgNote">Changes apply to the next file you drop. They are saved on this computer.</div>
+        <div id="cfgBody"></div>
+      </div>
       <div id="viewHistory" class="hidden">
         <div class="panel"><h3>Imports</h3><div id="hist"></div></div>
         <div class="panel" style="margin-top:16px"><h3>Logs <em id="logFolder"></em></h3><div id="runs"></div></div>
@@ -297,6 +322,7 @@
       </div>
     </div>
 
+    <div id="cfgActions" class="hidden"><span class="msg" id="cfgMsg"></span><button class="btn" id="cfgDiscard" disabled>Discard changes</button><button class="btn primary" id="cfgSave" disabled>Save</button></div>
     <div id="actions" class="hidden"><div class="note" id="actionNote"></div><button class="btn" id="again">Back</button><button class="btn primary" id="go">Import</button></div>
     <div id="bottom">
       <label id="autoWrap" class="hidden"><input type="checkbox" id="auto"> Open VerseVision at login</label>
@@ -773,11 +799,73 @@ async function undo(r, btn){
   show('progress', false); show('setup', true); loadHistory(); loadPresentations();
 }
 
-function titleIcon(kind){ $('ttlIcon').className = 'ic ' + (['new','replace','append','history'].includes(kind) ? kind : 'new'); }
+/* ---- Config page: every option the importer has, read from and saved to the configuration ---- */
+const cfg = {data:null, edits:{}};
+const fieldMap = () => Object.fromEntries((cfg.data?cfg.data.sections:[]).flatMap(s=>s.fields).map(f=>[f.key,f]));
+const same = (a,b) => JSON.stringify(a)===JSON.stringify(b);
+async function loadConfig(){
+  try{ cfg.data = await api('/api/config'); cfg.edits = {}; drawConfig(); }
+  catch(e){ $('cfgBody').replaceChildren(el('div','cfgnote','Could not load the settings: '+e.message)); }
+}
+function drawConfig(){
+  const box = $('cfgBody'); const open = new Set([...box.querySelectorAll('details.cfg[open]')].map(d=>d.dataset.id)); box.replaceChildren();
+  const q = $('cfgFind').value.trim().toLowerCase();
+  for(const sec of cfg.data.sections){
+    const d = el('details','cfg'); d.dataset.id = sec.id; let shown = 0;
+    const sm = el('summary'); sm.append(document.createTextNode(sec.title), el('em','',sec.help)); d.append(sm);
+    for(const f of sec.fields){
+      if(q && !(f.label+' '+f.key+' '+f.help).toLowerCase().includes(q)) continue;
+      shown++; d.append(configRow(f));
+    }
+    if(!shown) continue;
+    d.open = q ? true : (open.size ? open.has(sec.id) : sec.id==='verse_slides' || sec.id==='points');
+    box.append(d);
+  }
+  if(!box.children.length) box.append(el('div','cfgnote','No setting matches \u201c'+q+'\u201d.'));
+  refreshConfigBar();
+}
+function configRow(f){
+  const cur = f.key in cfg.edits ? cfg.edits[f.key] : f.value;
+  const row = el('div','row'); row.dataset.key = f.key;
+  const left = el('div'); left.append(el('div','nm',f.label)); if(f.help) left.append(el('div','hp',f.help)); left.append(el('div','key',f.key));
+  let input;
+  const set = v => { if(v==='' && f.value===null) v = null; if(same(v,f.value)) delete cfg.edits[f.key]; else cfg.edits[f.key] = v; mark(); };
+  const mark = () => { const v = f.key in cfg.edits ? cfg.edits[f.key] : f.value; row.classList.toggle('changed', f.key in cfg.edits); row.classList.toggle('nondefault', !same(v,f.default)); row.classList.remove('bad'); refreshConfigBar(); };
+  if(f.kind==='bool'){ input = el('input'); input.type='checkbox'; input.checked = !!cur; input.onchange = ()=>set(input.checked); }
+  else if(f.kind==='choice'){ input = el('select'); for(const c of f.choices){ const o = el('option','',c.replace(/_/g,' ')); o.value=c; input.append(o); } input.value = cur; input.onchange = ()=>set(input.value); }
+  else if(f.kind==='int'||f.kind==='float'){ input = el('input'); input.type='number'; if(f.min!==undefined) input.min=f.min; if(f.max!==undefined) input.max=f.max; input.step = f.kind==='int' ? 1 : 0.05; input.value = cur;
+    input.oninput = ()=>{ if(input.value==='') return; set(f.kind==='int' ? parseInt(input.value,10) : parseFloat(input.value)); }; }
+  else if(f.kind==='list'){ input = el('textarea'); input.value = (cur||[]).join('\n'); input.placeholder='one per line'; input.oninput = ()=>set(input.value.split('\n').map(x=>x.trim()).filter(Boolean)); }
+  else { input = el('input'); input.type='text'; input.value = cur===null||cur===undefined ? '' : cur; input.oninput = ()=>set(input.value); }
+  const rs = el('button','rs','\u21ba'); rs.title = 'Back to the default ('+(Array.isArray(f.default)?f.default.join(', '):String(f.default))+')';
+  rs.onclick = ()=>{ if(same(f.default,f.value)) delete cfg.edits[f.key]; else cfg.edits[f.key] = f.default; drawConfig(); };
+  row.append(left, input, rs);
+  row.classList.toggle('changed', f.key in cfg.edits); row.classList.toggle('nondefault', !same(cur,f.default));
+  return row;
+}
+function refreshConfigBar(){
+  const n = Object.keys(cfg.edits).length;
+  $('cfgSave').disabled = $('cfgDiscard').disabled = n===0;
+  const m = $('cfgMsg'); if(n){ m.className='msg'; m.textContent = n+' unsaved change'+(n===1?'':'s'); } else if(!m.classList.contains('ok')){ m.textContent=''; }
+}
+$('cfgFind').oninput = ()=>{ if(cfg.data) drawConfig(); };
+$('cfgDiscard').onclick = ()=>{ cfg.edits = {}; $('cfgMsg').textContent=''; drawConfig(); };
+$('cfgSave').onclick = async ()=>{
+  $('cfgSave').disabled = true; $('cfgMsg').className='msg'; $('cfgMsg').textContent='Saving\u2026';
+  try{
+    cfg.data = await api('/api/config', {method:'POST', body:JSON.stringify({values: cfg.edits})});
+    cfg.edits = {}; drawConfig(); const m = $('cfgMsg'); m.className='msg ok'; m.textContent='Saved. The next file you drop uses these settings.'; setTimeout(()=>{ m.className='msg'; if(!Object.keys(cfg.edits).length) m.textContent=''; }, 5000);
+  }catch(e){
+    const m = $('cfgMsg'); m.className='msg err'; m.textContent = e.message; $('cfgSave').disabled = false;
+    const key = (e.message.match(/^([a-z_]+\.[a-z_]+)/)||[])[1]; const bad = key && document.querySelector('#cfgBody .row[data-key="'+key+'"]'); if(bad) bad.classList.add('bad');
+  }
+};
+function titleIcon(kind){ $('ttlIcon').className = 'ic ' + (['new','replace','append','history','config'].includes(kind) ? kind : 'new'); }
 
 function setView(v){
-  state.view = v; show('viewImport', v==='import'); show('viewHistory', v==='history');
-  $('tab-import').classList.toggle('on', v==='import'); $('tab-history').classList.toggle('on', v==='history');
+  state.view = v; show('viewImport', v==='import'); show('viewHistory', v==='history'); show('viewConfig', v==='config'); show('cfgActions', v==='config');
+  $('tab-import').classList.toggle('on', v==='import'); $('tab-history').classList.toggle('on', v==='history'); $('tab-config').classList.toggle('on', v==='config');
+  if(v==='config'){ $('ttl').textContent='Config'; titleIcon('config'); $('meta').textContent=''; show('actions', false); loadConfig(); return; }
   if(v==='history'){ $('ttl').textContent='History'; titleIcon('history'); $('meta').textContent=''; loadHistory(); loadRuns(); show('actions', false); }
   else if(state.current){ show('actions', true); } else { setMode(state.mode); }
 }
