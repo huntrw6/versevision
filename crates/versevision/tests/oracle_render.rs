@@ -187,7 +187,12 @@ fn macos_autostart_writes_the_launch_agent_and_loads_it() {
         .path()
         .join("home/Library/LaunchAgents/org.versevision.serve.plist");
     let text = fs::read_to_string(&plist).unwrap();
-    let log = root.path().join("logs/serve.log").display().to_string();
+    let log = root
+        .path()
+        .join("logs")
+        .join("serve.log")
+        .display()
+        .to_string();
     assert_eq!(
         text,
         autostart::launch_agent_plist(

@@ -69,8 +69,8 @@ pub fn launch_agent_plist(args: &[String], log_path: &str, home: &Path) -> Strin
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n",
     );
     let path = format!(
-        "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:{}",
-        home.join(".local/bin").display()
+        "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:{}/.local/bin",
+        home.display()
     );
     out.push_str("\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n");
     out.push_str(&format!(
