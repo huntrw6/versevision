@@ -2,6 +2,7 @@
   "bible": {
     "default_version": null,
     "providers": {},
+    "source": "auto",
     "version_aliases": {
       "YLT": "NLT"
     },

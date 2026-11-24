@@ -19,6 +19,8 @@ use versevision_core::versions::BibleVersion;
 use crate::api_bible::ApiBibleProvider;
 use crate::esv::EsvProvider;
 use crate::keys::KeyStore;
+use crate::sources::BibleSources;
+use crate::stagepilot::{InstallationAuth, StagePilotProvider};
 use crate::usfm::LocalUsfmProvider;
 use crate::youversion::YouVersionProvider;
 
@@ -49,6 +51,8 @@ pub enum AnyProvider {
     YouVersion(YouVersionProvider),
     Esv(EsvProvider),
     Usfm(LocalUsfmProvider),
+    /// The StagePilot Bible service (S5b): verse text from the control plane, with the installation's credential.
+    StagePilot(StagePilotProvider),
     Custom(Box<dyn DynBibleProvider>),
 }
 
@@ -59,6 +63,7 @@ impl BibleProvider for AnyProvider {
             Self::YouVersion(p) => p.list_versions().await,
             Self::Esv(p) => p.list_versions().await,
             Self::Usfm(p) => p.list_versions().await,
+            Self::StagePilot(p) => p.list_versions().await,
             Self::Custom(p) => p.list_versions().await,
         }
     }
@@ -74,6 +79,7 @@ impl BibleProvider for AnyProvider {
             Self::YouVersion(p) => p.fetch_passage(version, book_id, spans).await,
             Self::Esv(p) => p.fetch_passage(version, book_id, spans).await,
             Self::Usfm(p) => p.fetch_passage(version, book_id, spans).await,
+            Self::StagePilot(p) => p.fetch_passage(version, book_id, spans).await,
             Self::Custom(p) => p.fetch_passage(version, book_id, spans).await,
         }
     }
@@ -84,6 +90,7 @@ impl BibleProvider for AnyProvider {
             Self::YouVersion(p) => p.health_check().await,
             Self::Esv(p) => p.health_check().await,
             Self::Usfm(p) => p.health_check().await,
+            Self::StagePilot(p) => p.health_check().await,
             Self::Custom(p) => p.health_check().await,
         }
     }
@@ -94,6 +101,7 @@ impl BibleProvider for AnyProvider {
             Self::YouVersion(p) => p.cacheable(),
             Self::Esv(p) => p.cacheable(),
             Self::Usfm(p) => p.cacheable(),
+            Self::StagePilot(p) => p.cacheable(),
             Self::Custom(p) => p.cacheable(),
         }
     }
@@ -104,7 +112,23 @@ impl BibleProvider for AnyProvider {
             Self::YouVersion(p) => p.cache_policy(),
             Self::Esv(p) => p.cache_policy(),
             Self::Usfm(p) => p.cache_policy(),
+            Self::StagePilot(p) => p.cache_policy(),
             Self::Custom(p) => p.cache_policy(),
+        }
+    }
+}
+
+impl AnyProvider {
+    /// Can this provider answer without the StagePilot service? A keyed provider needs its key in `keys` (read now, so a key
+    /// added in the UI counts at once); local USFM files and any custom kind need nothing; the service itself is not "own".
+    pub(crate) fn own_ready(&self, keys: &dyn KeyStore) -> bool {
+        let key = |env: &str| keys.resolve(env).is_some_and(|k| !k.is_empty());
+        match self {
+            Self::ApiBible(p) => key(p.key_env()),
+            Self::YouVersion(p) => key(p.key_env()),
+            Self::Esv(p) => key(p.key_env()),
+            Self::Usfm(_) | Self::Custom(_) => true,
+            Self::StagePilot(_) => false,
         }
     }
 }
@@ -115,6 +139,7 @@ pub struct RegistryBuilder {
     keys: Arc<dyn KeyStore>,
     cache: Option<Arc<dyn VerseCache>>,
     extra: IndexMap<String, AnyProvider>,
+    auth: Option<Arc<dyn InstallationAuth>>,
 }
 
 impl std::fmt::Debug for RegistryBuilder {
@@ -132,6 +157,7 @@ impl RegistryBuilder {
             keys,
             cache: None,
             extra: IndexMap::new(),
+            auth: None,
         }
     }
 
@@ -145,6 +171,22 @@ impl RegistryBuilder {
     pub fn provider(mut self, name: &str, provider: AnyProvider) -> Self {
         self.extra.insert(name.to_string(), provider);
         self
+    }
+
+    /// The StagePilot installation the Bible service is asked on behalf of (only [`RegistryBuilder::build_sources`] uses it).
+    pub fn installation_auth(mut self, auth: Arc<dyn InstallationAuth>) -> Self {
+        self.auth = Some(auth);
+        self
+    }
+
+    /// The registry that follows `bible.source`: the user's own providers ([`RegistryBuilder::build`]) and the StagePilot
+    /// service, chosen per version at every lookup. See [`BibleSources`].
+    pub fn build_sources(self, bible: &BibleConfig) -> BibleSources {
+        let keys = self.keys.clone();
+        let cache = self.cache.clone();
+        let auth = self.auth.clone();
+        let own = self.build(bible);
+        BibleSources::new(own, bible.source, keys, cache, auth)
     }
 
     pub fn build(self, bible: &BibleConfig) -> ProviderRegistry<AnyProvider> {

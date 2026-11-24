@@ -258,3 +258,10 @@ impl BibleProvider for YouVersionProvider {
         self.config.cache_policy
     }
 }
+
+impl YouVersionProvider {
+    /// The name of the key this provider reads (for `bible.source = auto`: is there one?).
+    pub(crate) fn key_env(&self) -> &str {
+        &self.config.api_key_env
+    }
+}

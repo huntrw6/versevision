@@ -6,6 +6,9 @@
 //! keys file and the cache folder. The library starts no runtime and spawns nothing: its futures run on whatever executor drives
 //! them (StagePilot's tokio runtime, or the standalone binary's), and they are `Send`.
 //!
+//! The fifth source is the StagePilot Bible service ([`StagePilotProvider`], [`BibleSources`], `bible.source`): verse text from
+//! StagePilot's control plane for an install with no key of its own. Everything else behaves as Python's.
+//!
 //! Behaviour is Python's (`python/src/versevision/bibles/`): same endpoints, headers, query parameters, error texts, timeouts and
 //! (no) retry. See `oracle/providers/` for what is compared with Python.
 
@@ -20,6 +23,8 @@ mod provider;
 pub mod pyjson;
 mod remote;
 mod secret;
+mod sources;
+mod stagepilot;
 mod usfm;
 mod youversion;
 
@@ -29,5 +34,10 @@ pub use esv::{EsvProvider, COPYRIGHT as ESV_COPYRIGHT};
 pub use keys::{FileKeyStore, KeyError, KeyStore, MemoryKeyStore};
 pub use provider::{AnyProvider, BoxFuture, DynBibleProvider, RegistryBuilder};
 pub use secret::Secret;
+pub use sources::{BibleSources, Route, SERVICE_ESV_PROVIDER, SERVICE_PROVIDER};
+pub use stagepilot::{
+    clean_text, service_label, InstallationAuth, ServicePassage, StagePilotProvider,
+    SERVICE_VERSIONS,
+};
 pub use usfm::LocalUsfmProvider;
 pub use youversion::YouVersionProvider;

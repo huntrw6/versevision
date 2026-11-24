@@ -223,6 +223,7 @@ pub static BIBLE: Model = Model {
         ),
         f("version_routes", Ty::StrMap, Def::EmptyMap),
         f("providers", Ty::Providers, Def::EmptyMap),
+        choice("source", &["auto", "stagepilot", "own_keys"], "auto"),
     ],
 };
 

@@ -28,7 +28,7 @@ pub(crate) struct Endpoint {
 }
 
 /// `rustls` needs a crypto provider chosen once per process. StagePilot installs `ring` itself; when nothing has, this does.
-fn ensure_crypto_provider() {
+pub(crate) fn ensure_crypto_provider() {
     if rustls::crypto::CryptoProvider::get_default().is_none() {
         let _ = rustls::crypto::ring::default_provider().install_default();
     }
@@ -181,7 +181,7 @@ impl ClassifyName for serde_json::Error {
 }
 
 /// The text of a transport error without the URL, with the causes after it.
-fn describe(error: &reqwest::Error) -> String {
+pub(crate) fn describe(error: &reqwest::Error) -> String {
     use std::error::Error;
     let mut text = String::new();
     let plain = error.without_url_ref();
