@@ -1,0 +1,218 @@
+{
+  "adjustments": [],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "Pastor Amy's notes",
+      "tier": "good",
+      "title": "Pastor Amy's notes"
+    },
+    {
+      "add_text": "• This was a good week",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "header: title/preamble before the first verse or point"
+      ],
+      "slides": [],
+      "text": "This was a good week.",
+      "tier": "warning",
+      "title": "This was a good week."
+    },
+    {
+      "add_text": "• An overlong opening sentence\nthat rambles on and on\nwithout any end to it at all\nbecause it keeps going",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "unlabeled line; not a reference, point, or known cue"
+      ],
+      "slides": [],
+      "text": "An overlong opening sentence that rambles on and on without any end to it at all because it keeps going",
+      "tier": "error",
+      "title": "An overlong opening sentence that rambles on and on without any end to it at all"
+    },
+    {
+      "add_text": "• An overlong opening sentence\nthat rambles on and on past\neighty characters and ends here",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "unlabeled line; not a reference, point, or known cue"
+      ],
+      "slides": [],
+      "text": "An overlong opening sentence that rambles on and on past eighty characters and ends here.",
+      "tier": "error",
+      "title": "An overlong opening sentence that rambles on and on past eighty characters and e"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "unlabeled line; not a reference, point, or known cue",
+      "line": 3,
+      "status": "needs_review",
+      "text": "An overlong opening sentence that rambles on and on without any end to it at all because it keeps going"
+    },
+    {
+      "detail": "unlabeled line; not a reference, point, or known cue",
+      "line": 4,
+      "status": "needs_review",
+      "text": "An overlong opening sentence that rambles on and on past eighty characters and ends here."
+    }
+  ],
+  "left_out": [
+    {
+      "detail": "header: title/preamble before the first verse or point",
+      "line": 2,
+      "status": "left_out",
+      "text": "This was a good week."
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• An overlong opening sentence\nthat rambles on and on\nwithout any end to it at all\nbecause it keeps going",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "error",
+        "line": 3,
+        "reasons": [
+          "unlabeled line; not a reference, point, or known cue"
+        ],
+        "slides": [],
+        "text": "An overlong opening sentence that rambles on and on without any end to it at all because it keeps going",
+        "tier": "error",
+        "title": "An overlong opening sentence that rambles on and on without any end to it at all"
+      },
+      {
+        "add_text": "• An overlong opening sentence\nthat rambles on and on past\neighty characters and ends here",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "error",
+        "line": 4,
+        "reasons": [
+          "unlabeled line; not a reference, point, or known cue"
+        ],
+        "slides": [],
+        "text": "An overlong opening sentence that rambles on and on past eighty characters and ends here.",
+        "tier": "error",
+        "title": "An overlong opening sentence that rambles on and on past eighty characters and e"
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "Pastor Amy's notes",
+        "tier": "good",
+        "title": "Pastor Amy's notes"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "point",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [
+      {
+        "add_text": "• This was a good week",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "header: title/preamble before the first verse or point"
+        ],
+        "slides": [],
+        "text": "This was a good week.",
+        "tier": "warning",
+        "title": "This was a good week."
+      }
+    ],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "Pastor Amy's notes",
+      "title": "Pastor Amy's notes"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "1) A point",
+      "title": "1) A point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 2,
+    "fixes": 0,
+    "flagged": 2,
+    "good": 2,
+    "left_out": 1,
+    "needs_review": 2,
+    "not_added": 0,
+    "point_slides": 2,
+    "slides": 2,
+    "verse_slides": 0,
+    "warnings": 1
+  }
+}

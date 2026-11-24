@@ -1,0 +1,5 @@
+[points]
+require_sequence = false
+
+[run]
+no_fetch = true

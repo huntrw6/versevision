@@ -1,0 +1,5 @@
+1) One
+a) Letter
+- bullet
+• bullet
+* star

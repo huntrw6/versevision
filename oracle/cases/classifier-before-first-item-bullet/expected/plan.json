@@ -1,0 +1,156 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [
+        "line before the first verse or point made a slide because of your setting"
+      ],
+      "slide_count": 1,
+      "text": "• Pastor Amy's notes",
+      "tier": "warning",
+      "title": "• Pastor Amy's notes"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [
+        "line before the first verse or point made a slide because of your setting"
+      ],
+      "slide_count": 1,
+      "text": "• This was a good week",
+      "tier": "warning",
+      "title": "• This was a good week"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "line before the first verse or point made a slide because of your setting"
+      ],
+      "slide_count": 1,
+      "text": "• An overlong opening sentence\nthat rambles on and on\nwithout any end to it at all\nbecause it keeps going",
+      "tier": "warning",
+      "title": "• An overlong opening sentence"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [
+        "line before the first verse or point made a slide because of your setting"
+      ],
+      "slide_count": 1,
+      "text": "• An overlong opening sentence\nthat rambles on and on past\neighty characters and ends here",
+      "tier": "warning",
+      "title": "• An overlong opening sentence"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 4,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 1,
+      "problem": "line before the first verse or point made a slide because of your setting",
+      "text": "• Pastor Amy's notes"
+    },
+    {
+      "line": 2,
+      "problem": "line before the first verse or point made a slide because of your setting",
+      "text": "• This was a good week."
+    },
+    {
+      "line": 3,
+      "problem": "line before the first verse or point made a slide because of your setting",
+      "text": "• An overlong opening sentence that rambles on and on withou"
+    },
+    {
+      "line": 4,
+      "problem": "line before the first verse or point made a slide because of your setting",
+      "text": "• An overlong opening sentence that rambles on and on past e"
+    }
+  ],
+  "point_count": 5,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "• Pastor Amy's notes",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• This was a good week",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• An overlong opening sentence\nthat rambles on and on\nwithout any end to it at all\nbecause it keeps going",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• An overlong opening sentence\nthat rambles on and on past\neighty characters and ends here",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 3,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "1) A point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 4,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

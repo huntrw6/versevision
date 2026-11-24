@@ -1,0 +1,94 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    },
+    {
+      "category": "media_marker",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "[slide] tag that points at an existing slide or media item",
+      "text": "A note slide"
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "list_item",
+      "text": "A detail sentence under it.",
+      "warnings": []
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "slide_note",
+      "text": "Conclusion: done.",
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "list_item",
+      "text": "A detail after the label.",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "slide_tag",
+      "line": 2,
+      "rule": "[slide] tag",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "other",
+      "line": 3,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "other",
+      "line": 4,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "other",
+      "line": 5,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

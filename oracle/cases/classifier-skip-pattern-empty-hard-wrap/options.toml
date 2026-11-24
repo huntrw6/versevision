@@ -1,0 +1,7 @@
+[notes]
+skip_patterns = [
+    "",
+]
+
+[run]
+no_fetch = true

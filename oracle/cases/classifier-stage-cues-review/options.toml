@@ -1,0 +1,8 @@
+[notes]
+skip_patterns = [
+    "loud$",
+]
+stage_cues = "review"
+
+[run]
+no_fetch = true

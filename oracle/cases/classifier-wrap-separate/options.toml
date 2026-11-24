@@ -1,0 +1,5 @@
+[notes]
+wrapped_lines = "separate"
+
+[run]
+no_fetch = true

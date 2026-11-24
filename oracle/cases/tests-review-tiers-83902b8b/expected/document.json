@@ -1,0 +1,39 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "Point",
+      "warnings": []
+    },
+    {
+      "kind": "review",
+      "line": 2,
+      "reason": "quoted text with no reference",
+      "text": "\"A quote with no reference at all that the notes never explain.\""
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "quote",
+      "line": 2,
+      "rule": "starts with a quotation mark",
+      "why": ""
+    }
+  ]
+}

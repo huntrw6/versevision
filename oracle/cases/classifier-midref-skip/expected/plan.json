@@ -1,0 +1,80 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) Point",
+      "tier": "good",
+      "title": "1) Point"
+    },
+    {
+      "add_text": "• As Psalm 23:1 says, he leads us",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage note: mentions Psalms 23:1 inside text (your setting skips these)"
+      ],
+      "slide_count": 0,
+      "text": "As Psalm 23:1 says, he leads us.",
+      "tier": "warning",
+      "title": "As Psalm 23:1 says, he leads us."
+    },
+    {
+      "add_text": "• See also John 3:16 and Romans\n8:28 and Acts 2:1 and Acts 2:2 here",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage note: mentions John 3:16, Romans 8:28, Acts 2:1 inside text (your setting skips these)"
+      ],
+      "slide_count": 0,
+      "text": "See also John 3:16 and Romans 8:28 and Acts 2:1 and Acts 2:2 here",
+      "tier": "warning",
+      "title": "See also John 3:16 and Romans 8:28 and Acts 2:1 and Acts 2:2 here"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [],
+  "point_count": 1,
+  "review": [],
+  "skipped": [
+    {
+      "line": 2,
+      "problem": "stage_note: mentions Psalms 23:1 inside text (your setting skips these)",
+      "text": "As Psalm 23:1 says, he leads us."
+    },
+    {
+      "line": 3,
+      "problem": "stage_note: mentions John 3:16, Romans 8:28, Acts 2:1 inside text (your setting skips these)",
+      "text": "See also John 3:16 and Romans 8:28 and Acts 2:1 and Acts 2:2 here"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) Point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

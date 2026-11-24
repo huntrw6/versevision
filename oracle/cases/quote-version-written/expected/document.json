@@ -1,0 +1,106 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "Faith",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 2,
+      "quoted": "\"By grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast\"",
+      "reference": {
+        "book_display_name": "Ephesians",
+        "book_id": "EPH",
+        "normalized_text": "Ephesians 2:8 NKJV",
+        "source_end": 149,
+        "source_start": 131,
+        "source_text": "Ephesians 2:8 NKJV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 2,
+              "verse": 8
+            }
+          }
+        ],
+        "version": "NKJV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "category": "quoted_text",
+      "kind": "skipped",
+      "line": 3,
+      "reason": "verse text quoted above its reference; text is fetched from the Bible provider",
+      "text": "\"Jesus answered and said to him, Most assuredly, I say to you, unless one is born again, he cannot see the kingdom of God.\""
+    },
+    {
+      "kind": "verse",
+      "line": 4,
+      "quoted": "\"Jesus answered and said to him, Most assuredly, I say to you, unless one is born again, he cannot see the kingdom of God.\"",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:3",
+        "source_end": 8,
+        "source_start": 0,
+        "source_text": "John 3:3",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 3
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 2,
+      "rule": "Bible reference at the end of a quoted block",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "quote",
+      "line": 3,
+      "rule": "starts with a quotation mark",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 4,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "adjustments": [],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Point",
+      "tier": "good",
+      "title": "1) Point"
+    },
+    {
+      "add_text": "• As Psalm 23:1 says, he leads us",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "mentions Psalms 23:1 inside text; put the reference on its own line to add it as a slide"
+      ],
+      "slides": [],
+      "text": "As Psalm 23:1 says, he leads us.",
+      "tier": "error",
+      "title": "As Psalm 23:1 says, he leads us."
+    },
+    {
+      "add_text": "• See Genesis 1:1; Exodus 3:14;\nActs 2:1; Acts 2:2 for more",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "mentions Genesis 1:1, Exodus 3:14, Acts 2:1 inside text; put the reference on its own line to add it as a slide"
+      ],
+      "slides": [],
+      "text": "See Genesis 1:1; Exodus 3:14; Acts 2:1; Acts 2:2 for more",
+      "tier": "error",
+      "title": "See Genesis 1:1; Exodus 3:14; Acts 2:1; Acts 2:2 for more"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "mentions Psalms 23:1 inside text; put the reference on its own line to add it as a slide",
+      "line": 2,
+      "status": "needs_review",
+      "text": "As Psalm 23:1 says, he leads us."
+    },
+    {
+      "detail": "mentions Genesis 1:1, Exodus 3:14, Acts 2:1 inside text; put the reference on its own line to add it as a slide",
+      "line": 3,
+      "status": "needs_review",
+      "text": "See Genesis 1:1; Exodus 3:14; Acts 2:1; Acts 2:2 for more"
+    }
+  ],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• As Psalm 23:1 says, he leads us",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "error",
+        "line": 2,
+        "reasons": [
+          "mentions Psalms 23:1 inside text; put the reference on its own line to add it as a slide"
+        ],
+        "slides": [],
+        "text": "As Psalm 23:1 says, he leads us.",
+        "tier": "error",
+        "title": "As Psalm 23:1 says, he leads us."
+      },
+      {
+        "add_text": "• See Genesis 1:1; Exodus 3:14;\nActs 2:1; Acts 2:2 for more",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "error",
+        "line": 3,
+        "reasons": [
+          "mentions Genesis 1:1, Exodus 3:14, Acts 2:1 inside text; put the reference on its own line to add it as a slide"
+        ],
+        "slides": [],
+        "text": "See Genesis 1:1; Exodus 3:14; Acts 2:1; Acts 2:2 for more",
+        "tier": "error",
+        "title": "See Genesis 1:1; Exodus 3:14; Acts 2:1; Acts 2:2 for more"
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Point",
+        "tier": "good",
+        "title": "1) Point"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Point",
+      "title": "1) Point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 2,
+    "fixes": 0,
+    "flagged": 2,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 2,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 1,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "Title 11/8/26"
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "point",
+      "text": "Trust the Lord with all your heart, lean not on your own understanding, and in all your ways acknowledge Him, and He will direct your paths.",
+      "warnings": []
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "2)",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "point",
+      "text": "Be still.",
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "list_item",
+      "text": "Pray without ceasing, give thanks in everything, and rejoice always in the Lord, because this is the will of God for you.",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 4,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 5,
+      "rule": "bullet character at the start of the line",
+      "why": ""
+    }
+  ]
+}

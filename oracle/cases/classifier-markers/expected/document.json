@@ -1,0 +1,363 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "First",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "2.",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "point",
+      "text": "Second",
+      "warnings": []
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "#3:",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "point",
+      "text": "Third",
+      "warnings": []
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "a)",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "list_item",
+      "text": "Letter",
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "B.",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "list_item",
+      "text": "Letter two",
+      "warnings": []
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "3:",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "list_item",
+      "text": "Colon",
+      "warnings": [
+        "numbered out of sequence (after point 3); treated as a list item"
+      ]
+    },
+    {
+      "detail_end": 7,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 7,
+      "role": "list_item",
+      "text": "12: 9 NKJV",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 8,
+      "kind": "point",
+      "label": "4)",
+      "label_fixed_from": "",
+      "line": 8,
+      "role": "point",
+      "text": "12 apples",
+      "warnings": []
+    },
+    {
+      "detail_end": 9,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 9,
+      "role": "slide_note",
+      "text": "5)",
+      "warnings": []
+    },
+    {
+      "detail_end": 10,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 10,
+      "role": "slide_note",
+      "text": "6)",
+      "warnings": []
+    },
+    {
+      "detail_end": 11,
+      "kind": "point",
+      "label": "7)",
+      "label_fixed_from": "",
+      "line": 11,
+      "role": "list_item",
+      "text": "space before",
+      "warnings": [
+        "numbered out of sequence (after point 4); treated as a list item"
+      ]
+    },
+    {
+      "detail_end": 12,
+      "kind": "point",
+      "label": "#8)",
+      "label_fixed_from": "",
+      "line": 12,
+      "role": "list_item",
+      "text": "hash",
+      "warnings": [
+        "numbered out of sequence (after point 4); treated as a list item"
+      ]
+    },
+    {
+      "detail_end": 13,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 13,
+      "role": "list_item",
+      "text": "c: not a letter marker",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 14,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 14,
+      "role": "list_item",
+      "text": "1000) too long",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 15,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 15,
+      "role": "list_item",
+      "text": "dash bullet",
+      "warnings": []
+    },
+    {
+      "detail_end": 16,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 16,
+      "role": "list_item",
+      "text": "dot bullet",
+      "warnings": []
+    },
+    {
+      "detail_end": 17,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 17,
+      "role": "list_item",
+      "text": "star",
+      "warnings": []
+    },
+    {
+      "detail_end": 18,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 18,
+      "role": "list_item",
+      "text": "en dash",
+      "warnings": []
+    },
+    {
+      "detail_end": 19,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 19,
+      "role": "list_item",
+      "text": "—x",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 2,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 4,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 5,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 6,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "other",
+      "line": 7,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 8,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 8,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 9,
+      "first_in_document": false,
+      "label": "other",
+      "line": 9,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 10,
+      "first_in_document": false,
+      "label": "other",
+      "line": 10,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 11,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 11,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 12,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 12,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 13,
+      "first_in_document": false,
+      "label": "other",
+      "line": 13,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 14,
+      "first_in_document": false,
+      "label": "other",
+      "line": 14,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 15,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 15,
+      "rule": "bullet character at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 16,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 16,
+      "rule": "bullet character at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 17,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 17,
+      "rule": "bullet character at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 18,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 18,
+      "rule": "bullet character at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 19,
+      "first_in_document": false,
+      "label": "other",
+      "line": 19,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

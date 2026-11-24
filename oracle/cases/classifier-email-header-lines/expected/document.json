@@ -1,0 +1,130 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "email header line",
+      "text": "Subject: Easter plans"
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "email header line",
+      "text": "From: Pastor Amy"
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 4,
+      "reason": "email header line",
+      "text": "Reply to <amy@example.com> please"
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 5,
+      "reason": "email header line",
+      "text": "To: Everyone"
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 6,
+      "reason": "email header line",
+      "text": "Cc : Someone"
+    },
+    {
+      "category": "stage_note",
+      "kind": "skipped",
+      "line": 7,
+      "reason": "stage/production cue",
+      "text": "[quoted text hidden]"
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 8,
+      "reason": "email header line",
+      "text": "sent: Monday"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "other",
+      "line": 1,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "other",
+      "line": 2,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "other",
+      "line": 4,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "other",
+      "line": 5,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "other",
+      "line": 6,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 7,
+      "rule": "reads like a note to self (brackets, 'note:', 'remember'...)",
+      "why": ""
+    },
+    {
+      "end_line": 8,
+      "first_in_document": false,
+      "label": "other",
+      "line": 8,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

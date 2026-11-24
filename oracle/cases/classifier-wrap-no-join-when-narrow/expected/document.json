@@ -1,0 +1,285 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "One",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 7,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 7,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 8,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 8,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 9,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 9,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 10,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 10,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 11,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 11,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 12,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 12,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 13,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 13,
+      "role": "list_item",
+      "text": "A short line of about forty chars here",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 14,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 14,
+      "role": "list_item",
+      "text": "tail",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "other",
+      "line": 2,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "other",
+      "line": 3,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "other",
+      "line": 4,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "other",
+      "line": 5,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "other",
+      "line": 6,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "other",
+      "line": 7,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 8,
+      "first_in_document": false,
+      "label": "other",
+      "line": 8,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 9,
+      "first_in_document": false,
+      "label": "other",
+      "line": 9,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 10,
+      "first_in_document": false,
+      "label": "other",
+      "line": 10,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 11,
+      "first_in_document": false,
+      "label": "other",
+      "line": 11,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 12,
+      "first_in_document": false,
+      "label": "other",
+      "line": 12,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 13,
+      "first_in_document": false,
+      "label": "other",
+      "line": 13,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 14,
+      "first_in_document": false,
+      "label": "other",
+      "line": 14,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

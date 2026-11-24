@@ -1,0 +1,164 @@
+{
+  "adjustments": [
+    {
+      "detail": "numbered out of sequence (after point 0); treated as a list item",
+      "line": 1,
+      "status": "adjusted",
+      "text": "KEY #2) Second first"
+    },
+    {
+      "detail": "numbered out of sequence (after point 1); treated as a list item",
+      "line": 3,
+      "status": "adjusted",
+      "text": "KEY #4) Four"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [
+        "numbered out of sequence (after point 0); treated as a list item"
+      ],
+      "slides": [
+        1
+      ],
+      "text": "KEY #2) Second first",
+      "tier": "warning",
+      "title": "KEY #2) Second first"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "KEY #1) First",
+      "tier": "good",
+      "title": "KEY #1) First"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "numbered out of sequence (after point 1); treated as a list item"
+      ],
+      "slides": [
+        3
+      ],
+      "text": "KEY #4) Four",
+      "tier": "warning",
+      "title": "KEY #4) Four"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "KEY #1) First",
+        "tier": "good",
+        "title": "KEY #1) First"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [
+          "numbered out of sequence (after point 0); treated as a list item"
+        ],
+        "slides": [
+          1
+        ],
+        "text": "KEY #2) Second first",
+        "tier": "warning",
+        "title": "KEY #2) Second first"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 3,
+        "reasons": [
+          "numbered out of sequence (after point 1); treated as a list item"
+        ],
+        "slides": [
+          3
+        ],
+        "text": "KEY #4) Four",
+        "tier": "warning",
+        "title": "KEY #4) Four"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "KEY #2) Second first",
+      "title": "KEY #2) Second first"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "KEY #1) First",
+      "title": "KEY #1) First"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "KEY #4) Four",
+      "title": "KEY #4) Four"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 2,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 3,
+    "slides": 3,
+    "verse_slides": 0,
+    "warnings": 2
+  }
+}

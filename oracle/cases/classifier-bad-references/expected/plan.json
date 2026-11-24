@@ -1,0 +1,150 @@
+{
+  "decisions": [
+    {
+      "add_text": "• John 3:99",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "error",
+      "line": 1,
+      "reasons": [
+        "looks like a verse but is not one (John 3:99: John 3 has no verse 99)"
+      ],
+      "slide_count": 0,
+      "text": "John 3:99",
+      "tier": "error",
+      "title": "John 3:99"
+    },
+    {
+      "add_text": "• Revelation 23:1",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "looks like a verse but is not one (Revelation 23:1: Revelation has no chapter 23)"
+      ],
+      "slide_count": 0,
+      "text": "Revelation 23:1",
+      "tier": "error",
+      "title": "Revelation 23:1"
+    },
+    {
+      "add_text": "• Genesis 51:1",
+      "correction": {},
+      "first_slide": 0,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "looks like a verse but is not one (Genesis 51:1: Genesis has no chapter 51)"
+      ],
+      "slide_count": 0,
+      "text": "Genesis 51:1",
+      "tier": "error",
+      "title": "Genesis 51:1"
+    },
+    {
+      "add_text": "• Psalm 151:1",
+      "correction": {},
+      "first_slide": 0,
+      "id": 3,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "looks like a verse but is not one (Psalm 151:1: Psalms has no chapter 151)"
+      ],
+      "slide_count": 0,
+      "text": "Psalm 151:1",
+      "tier": "error",
+      "title": "Psalm 151:1"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) Not a real one: John 3:99",
+      "tier": "good",
+      "title": "1) Not a real one: John 3:99"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• As John 3:99 says",
+      "tier": "warning",
+      "title": "• As John 3:99 says"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 6,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• As John 3:99 says"
+    }
+  ],
+  "point_count": 2,
+  "review": [
+    {
+      "line": 1,
+      "problem": "looks like a verse but is not one (John 3:99: John 3 has no verse 99)",
+      "text": "John 3:99"
+    },
+    {
+      "line": 2,
+      "problem": "looks like a verse but is not one (Revelation 23:1: Revelation has no chapter 23)",
+      "text": "Revelation 23:1"
+    },
+    {
+      "line": 3,
+      "problem": "looks like a verse but is not one (Genesis 51:1: Genesis has no chapter 51)",
+      "text": "Genesis 51:1"
+    },
+    {
+      "line": 4,
+      "problem": "looks like a verse but is not one (Psalm 151:1: Psalms has no chapter 151)",
+      "text": "Psalm 151:1"
+    }
+  ],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) Not a real one: John 3:99",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• As John 3:99 says",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

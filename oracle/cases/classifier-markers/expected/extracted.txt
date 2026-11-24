@@ -1,0 +1,19 @@
+1) First
+2. Second
+#3: Third
+a) Letter
+B. Letter two
+3: Colon
+12: 9 NKJV
+4) 12 apples
+5)
+6) 
+7 ) space before
+#8) hash
+c: not a letter marker
+1000) too long
+- dash bullet
+• dot bullet
+* star
+– en dash
+—x

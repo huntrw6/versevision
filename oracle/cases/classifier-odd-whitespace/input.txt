@@ -1,0 +1,8 @@
+1) One with nbsp
+ 2) Two
+3)	Tab
+4) vertical tab
+5) form feed
+6) Six
+   7) Indented
+　　8) Ideographic space

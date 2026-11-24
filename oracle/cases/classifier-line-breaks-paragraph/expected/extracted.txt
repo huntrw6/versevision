@@ -1,0 +1,18 @@
+1) A point
+A detail sentence under it.
+Another detail sentence.
+No end punctuation here
+
+
+
+A far away sentence.
+2) Next
+A quote follows.
+“A quoted detail.”
+A question?
+An exclamation!
+SOME HEADING.
+Psalm 23:1
+A detail after a verse.
+- bullet
+Detail under a bullet.

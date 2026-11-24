@@ -1,0 +1,180 @@
+{
+  "adjustments": [],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Point",
+      "tier": "good",
+      "title": "1) Point"
+    },
+    {
+      "add_text": "• “A quotation with no\nreference anywhere near it”",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "quoted text with no reference"
+      ],
+      "slides": [],
+      "text": "“A quotation with no reference anywhere near it.”",
+      "tier": "error",
+      "title": "“A quotation with no reference anywhere near it.”"
+    },
+    {
+      "add_text": "• 'And one in single quotes'",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "quoted text with no reference"
+      ],
+      "slides": [],
+      "text": "'And one in single quotes'",
+      "tier": "error",
+      "title": "'And one in single quotes'"
+    },
+    {
+      "add_text": "• «Guillemets too»",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "quoted text with no reference"
+      ],
+      "slides": [],
+      "text": "«Guillemets too»",
+      "tier": "error",
+      "title": "«Guillemets too»"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "quoted text with no reference",
+      "line": 2,
+      "status": "needs_review",
+      "text": "“A quotation with no reference anywhere near it.”"
+    },
+    {
+      "detail": "quoted text with no reference",
+      "line": 3,
+      "status": "needs_review",
+      "text": "'And one in single quotes'"
+    },
+    {
+      "detail": "quoted text with no reference",
+      "line": 4,
+      "status": "needs_review",
+      "text": "«Guillemets too»"
+    }
+  ],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• “A quotation with no\nreference anywhere near it”",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "error",
+        "line": 2,
+        "reasons": [
+          "quoted text with no reference"
+        ],
+        "slides": [],
+        "text": "“A quotation with no reference anywhere near it.”",
+        "tier": "error",
+        "title": "“A quotation with no reference anywhere near it.”"
+      },
+      {
+        "add_text": "• 'And one in single quotes'",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "error",
+        "line": 3,
+        "reasons": [
+          "quoted text with no reference"
+        ],
+        "slides": [],
+        "text": "'And one in single quotes'",
+        "tier": "error",
+        "title": "'And one in single quotes'"
+      },
+      {
+        "add_text": "• «Guillemets too»",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "error",
+        "line": 4,
+        "reasons": [
+          "quoted text with no reference"
+        ],
+        "slides": [],
+        "text": "«Guillemets too»",
+        "tier": "error",
+        "title": "«Guillemets too»"
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Point",
+        "tier": "good",
+        "title": "1) Point"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Point",
+      "title": "1) Point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 3,
+    "fixes": 0,
+    "flagged": 3,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 3,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 1,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

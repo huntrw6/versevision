@@ -1,0 +1,160 @@
+{
+  "decisions": [
+    {
+      "add_text": "• From: Pastor Amy\n<amy@example.com>\nSubject: Sunday notes",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "email header line"
+      ],
+      "slide_count": 0,
+      "text": "From: Pastor Amy <amy@example.com> Subject: Sunday notes",
+      "tier": "good",
+      "title": "From: Pastor Amy <amy@example.com> Subject: Sunday notes"
+    },
+    {
+      "add_text": "• Dear friends, this week we will look at what\nit means to rest in the Lord who is our shepherd\nand leads us beside quiet waters, restoring our\nsouls and guiding us in paths of righteousness\nfor the sake of His name. When we walk through the\ndarkest valley we fear no evil, for You are with me;\nYour rod and Your staff, they comfort me",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "unlabeled line; not a reference, point, or known cue"
+      ],
+      "slide_count": 0,
+      "text": "Dear friends, this week we will look at what it means to rest in the Lord who is our shepherd and leads us beside quiet waters, restoring our souls and guiding us in paths of righteousness for the sake of His name. When we walk through the darkest valley we fear no evil, for You are with me; Your rod and Your staff, they comfort me.",
+      "tier": "error",
+      "title": "Dear friends, this week we will look at what it means to rest in the Lord who is"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 2,
+      "kind": "point",
+      "line": 10,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) Rest",
+      "tier": "good",
+      "title": "1) Rest"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 3,
+      "kind": "verse",
+      "line": 11,
+      "reasons": [],
+      "slide_count": 4,
+      "text": "Psalm 23:1-4 NKJV",
+      "tier": "good",
+      "title": "Psalms 23:1-4 NKJV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 5,
+      "id": 4,
+      "kind": "point",
+      "line": 12,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• Dear friends, this week we will\nlook at what it means to rest\nin the Lord who is our shepherd\nand leads us beside quiet waters,\nrestoring our souls and",
+      "tier": "good",
+      "title": "• Dear friends, this week we will"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [],
+  "point_count": 2,
+  "review": [
+    {
+      "line": 4,
+      "problem": "unlabeled line; not a reference, point, or known cue",
+      "text": "Dear friends, this week we will look at what it means to rest in the Lord who is our shepherd and leads us beside quiet waters, restoring our souls and guiding us in paths of righteousness for the sake of His name. When we walk through the darkest valley we fear no evil, for You are with me; Your rod and Your staff, they comfort me."
+    }
+  ],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: email header line",
+      "text": "From: Pastor Amy <amy@example.com> Subject: Sunday notes"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) Rest",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:1",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.1"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:2",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.2"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:3",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.3"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:4",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.4"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "• Dear friends, this week we will\nlook at what it means to rest\nin the Lord who is our shepherd\nand leads us beside quiet waters,\nrestoring our souls and",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 1
+}

@@ -1,0 +1,6 @@
+[notes]
+unlabeled_sentence = "review"
+unlabeled_short = "review"
+
+[run]
+no_fetch = true

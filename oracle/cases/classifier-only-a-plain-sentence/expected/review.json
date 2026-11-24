@@ -1,0 +1,70 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• This is only one plain sentence\nthat is not anything at all",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "header: title/preamble before the first verse or point"
+      ],
+      "slides": [],
+      "text": "This is only one plain sentence that is not anything at all.",
+      "tier": "warning",
+      "title": "This is only one plain sentence that is not anything at all."
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title/preamble before the first verse or point",
+      "line": 1,
+      "status": "left_out",
+      "text": "This is only one plain sentence that is not anything at all."
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [],
+    "left_out_good": [],
+    "left_out_warning": [
+      {
+        "add_text": "• This is only one plain sentence\nthat is not anything at all",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "header: title/preamble before the first verse or point"
+        ],
+        "slides": [],
+        "text": "This is only one plain sentence that is not anything at all.",
+        "tier": "warning",
+        "title": "This is only one plain sentence that is not anything at all."
+      }
+    ],
+    "warning": []
+  },
+  "slides": [],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 0,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 0,
+    "verse_slides": 0,
+    "warnings": 1
+  }
+}

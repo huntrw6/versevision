@@ -23,6 +23,11 @@ pub fn strip(text: &str) -> &str {
     text.trim_matches(is_space)
 }
 
+/// `text.rstrip()`.
+pub fn rstrip(text: &str) -> &str {
+    text.trim_end_matches(is_space)
+}
+
 /// `text.splitlines()`: boundaries `\n \r \r\n \v \f \x1c \x1d \x1e \x85 \u2028 \u2029`; no empty last element.
 pub fn splitlines(text: &str) -> Vec<&str> {
     let mut lines = Vec::new();

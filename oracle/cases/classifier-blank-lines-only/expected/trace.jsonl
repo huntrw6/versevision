@@ -1,0 +1,3 @@
+{"blank_lines":4,"characters":8,"lines":4,"method":"plain text","odd_characters":[],"seq":1,"stage":"extract","type":".txt"}
+{"full_line_width":0,"hard_wrapped":false,"lines":5,"non_blank":0,"note":"hard_wrapped means the text looks like a PDF/email with lines broken mid-sentence. Widths are measured as they look on the page (capitals are wider). A line is joined to the one above when that line has not ended its sentence and is full width, or when it is a short tail (orphan_max_words or fewer) after a line that is over half full","orphan_max_words":3,"seq":2,"stage":"parse_start","wrapped_lines":"join"}
+{"point_slides":0,"seq":3,"slide_count":0,"slides":[],"stage":"plan","verse_slides":0}

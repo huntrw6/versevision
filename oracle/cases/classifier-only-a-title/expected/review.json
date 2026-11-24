@@ -1,0 +1,70 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• Sunday 11/22/26",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "Sunday 11/22/26",
+      "tier": "good",
+      "title": "Sunday 11/22/26"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "Sunday 11/22/26"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [],
+    "left_out_good": [
+      {
+        "add_text": "• Sunday 11/22/26",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "Sunday 11/22/26",
+        "tier": "good",
+        "title": "Sunday 11/22/26"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 0,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 0,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

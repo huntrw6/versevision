@@ -1,0 +1,101 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "kind": "review",
+      "line": 1,
+      "reason": "looks like a verse but is not one (John 3:99: John 3 has no verse 99)",
+      "text": "John 3:99"
+    },
+    {
+      "kind": "review",
+      "line": 2,
+      "reason": "looks like a verse but is not one (Revelation 23:1: Revelation has no chapter 23)",
+      "text": "Revelation 23:1"
+    },
+    {
+      "kind": "review",
+      "line": 3,
+      "reason": "looks like a verse but is not one (Genesis 51:1: Genesis has no chapter 51)",
+      "text": "Genesis 51:1"
+    },
+    {
+      "kind": "review",
+      "line": 4,
+      "reason": "looks like a verse but is not one (Psalm 151:1: Psalms has no chapter 151)",
+      "text": "Psalm 151:1"
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "point",
+      "text": "Not a real one: John 3:99",
+      "warnings": []
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "list_item",
+      "text": "As John 3:99 says",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "badref",
+      "line": 1,
+      "rule": "looks like a reference at the start of the line, but is not a real verse",
+      "why": "John 3:99: John 3 has no verse 99"
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "badref",
+      "line": 2,
+      "rule": "looks like a reference at the start of the line, but is not a real verse",
+      "why": "Revelation 23:1: Revelation has no chapter 23"
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "badref",
+      "line": 3,
+      "rule": "looks like a reference at the start of the line, but is not a real verse",
+      "why": "Genesis 51:1: Genesis has no chapter 51"
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "badref",
+      "line": 4,
+      "rule": "looks like a reference at the start of the line, but is not a real verse",
+      "why": "Psalm 151:1: Psalms has no chapter 151"
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 5,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "other",
+      "line": 6,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

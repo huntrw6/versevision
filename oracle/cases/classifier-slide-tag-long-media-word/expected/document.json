@@ -1,0 +1,43 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "One",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "slide_note",
+      "text": "a very long description of the screen that goes on and on and on for a while a very long description of the screen that goes on and on and on for a while",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "slide_tag",
+      "line": 2,
+      "rule": "[slide] tag",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+[notes]
+reference_in_text = "verse"
+
+[run]
+no_fetch = true

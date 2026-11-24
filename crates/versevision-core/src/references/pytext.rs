@@ -27,7 +27,7 @@ fn in_ranges(table: &[(u32, u32)], c: char) -> bool {
 }
 
 /// `c.isalpha()`.
-pub(super) fn is_alpha(c: char) -> bool {
+pub(crate) fn is_alpha(c: char) -> bool {
     if c.is_ascii() {
         return c.is_ascii_alphabetic();
     }
@@ -35,7 +35,7 @@ pub(super) fn is_alpha(c: char) -> bool {
 }
 
 /// `unicodedata.decimal(c, None)`: the value of a decimal digit (category Nd), which is what `\d` matches and `int()` reads.
-pub(super) fn decimal_value(c: char) -> Option<u32> {
+pub(crate) fn decimal_value(c: char) -> Option<u32> {
     if c.is_ascii_digit() {
         return Some(c as u32 - '0' as u32);
     }
@@ -46,7 +46,7 @@ pub(super) fn decimal_value(c: char) -> Option<u32> {
 }
 
 /// `c.isdigit()`: a decimal digit, or one of the digits that are not decimal (`①`, `²`, ...).
-pub(super) fn is_digit(c: char) -> bool {
+pub(crate) fn is_digit(c: char) -> bool {
     decimal_value(c).is_some() || in_ranges(DIGIT_NOT_DECIMAL, c)
 }
 
@@ -82,14 +82,33 @@ pub(crate) fn casefold(text: &str) -> String {
     out
 }
 
-/// `str.isupper()`: at least one cased character and no lower-case one.
-pub(super) fn is_upper(text: &str) -> bool {
+/// Titlecase letters (category Lt): `str.isupper()` and `str.islower()` are false for a string that has one.
+pub(crate) fn is_title(c: char) -> bool {
+    matches!(c as u32, 0x1C5 | 0x1C8 | 0x1CB | 0x1F2 | 0x1F88..=0x1F8F | 0x1F98..=0x1F9F | 0x1FA8..=0x1FAF | 0x1FBC | 0x1FCC | 0x1FFC)
+}
+
+/// `str.isupper()`: at least one cased character, no lower-case or titlecase one.
+pub(crate) fn is_upper(text: &str) -> bool {
     let mut cased = false;
     for c in text.chars() {
-        if c.is_lowercase() {
+        if c.is_lowercase() || is_title(c) {
             return false;
         }
         if c.is_uppercase() {
+            cased = true;
+        }
+    }
+    cased
+}
+
+/// `str.islower()`: at least one cased character, no upper-case or titlecase one.
+pub(crate) fn is_lower(text: &str) -> bool {
+    let mut cased = false;
+    for c in text.chars() {
+        if c.is_uppercase() || is_title(c) {
+            return false;
+        }
+        if c.is_lowercase() {
             cased = true;
         }
     }

@@ -1,0 +1,526 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 12,
+      "status": "adjusted",
+      "text": "• playing with fire"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 13,
+      "status": "adjusted",
+      "text": "• Showing off"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• Show the photo of the cross",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "Show the photo of the cross",
+      "tier": "good",
+      "title": "Show the photo of the cross"
+    },
+    {
+      "add_text": "• When I say Amen, roll the video",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "When I say Amen, roll the video",
+      "tier": "good",
+      "title": "When I say Amen, roll the video"
+    },
+    {
+      "add_text": "• after this, stop the music",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "after this, stop the music",
+      "tier": "good",
+      "title": "after this, stop the music"
+    },
+    {
+      "add_text": "• https://example.com/x",
+      "addable": true,
+      "correction": null,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "https://example.com/x",
+      "tier": "good",
+      "title": "https://example.com/x"
+    },
+    {
+      "add_text": "• www.example.com",
+      "addable": true,
+      "correction": null,
+      "id": 5,
+      "kind": "left_out",
+      "line": 6,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "www.example.com",
+      "tier": "good",
+      "title": "www.example.com"
+    },
+    {
+      "add_text": "• (ask Amy to cue the video)",
+      "addable": true,
+      "correction": null,
+      "id": 6,
+      "kind": "left_out",
+      "line": 7,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "(ask Amy to cue the video)",
+      "tier": "good",
+      "title": "(ask Amy to cue the video)"
+    },
+    {
+      "add_text": "• [todo: fix slide]",
+      "addable": true,
+      "correction": null,
+      "id": 7,
+      "kind": "left_out",
+      "line": 8,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "[todo: fix slide]",
+      "tier": "good",
+      "title": "[todo: fix slide]"
+    },
+    {
+      "add_text": "• Note: remember the offering",
+      "addable": true,
+      "correction": null,
+      "id": 8,
+      "kind": "left_out",
+      "line": 9,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "Note: remember the offering",
+      "tier": "good",
+      "title": "Note: remember the offering"
+    },
+    {
+      "add_text": "• TBD",
+      "addable": true,
+      "correction": null,
+      "id": 9,
+      "kind": "left_out",
+      "line": 10,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "TBD",
+      "tier": "good",
+      "title": "TBD"
+    },
+    {
+      "add_text": "• FYI the band is late",
+      "addable": true,
+      "correction": null,
+      "id": 10,
+      "kind": "left_out",
+      "line": 11,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "FYI the band is late",
+      "tier": "good",
+      "title": "FYI the band is late"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 11,
+      "kind": "point",
+      "line": 12,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        2
+      ],
+      "text": "• playing with fire",
+      "tier": "warning",
+      "title": "• playing with fire"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 12,
+      "kind": "point",
+      "line": 13,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        3
+      ],
+      "text": "• Showing off",
+      "tier": "warning",
+      "title": "• Showing off"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 2,
+      "status": "left_out",
+      "text": "Show the photo of the cross"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 3,
+      "status": "left_out",
+      "text": "When I say Amen, roll the video"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 4,
+      "status": "left_out",
+      "text": "after this, stop the music"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 5,
+      "status": "left_out",
+      "text": "https://example.com/x"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 6,
+      "status": "left_out",
+      "text": "www.example.com"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 7,
+      "status": "left_out",
+      "text": "(ask Amy to cue the video)"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 8,
+      "status": "left_out",
+      "text": "[todo: fix slide]"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 9,
+      "status": "left_out",
+      "text": "Note: remember the offering"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 10,
+      "status": "left_out",
+      "text": "TBD"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 11,
+      "status": "left_out",
+      "text": "FYI the band is late"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Show the photo of the cross",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "Show the photo of the cross",
+        "tier": "good",
+        "title": "Show the photo of the cross"
+      },
+      {
+        "add_text": "• When I say Amen, roll the video",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "left_out",
+        "line": 3,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "When I say Amen, roll the video",
+        "tier": "good",
+        "title": "When I say Amen, roll the video"
+      },
+      {
+        "add_text": "• after this, stop the music",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "left_out",
+        "line": 4,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "after this, stop the music",
+        "tier": "good",
+        "title": "after this, stop the music"
+      },
+      {
+        "add_text": "• https://example.com/x",
+        "addable": true,
+        "correction": null,
+        "id": 4,
+        "kind": "left_out",
+        "line": 5,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "https://example.com/x",
+        "tier": "good",
+        "title": "https://example.com/x"
+      },
+      {
+        "add_text": "• www.example.com",
+        "addable": true,
+        "correction": null,
+        "id": 5,
+        "kind": "left_out",
+        "line": 6,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "www.example.com",
+        "tier": "good",
+        "title": "www.example.com"
+      },
+      {
+        "add_text": "• (ask Amy to cue the video)",
+        "addable": true,
+        "correction": null,
+        "id": 6,
+        "kind": "left_out",
+        "line": 7,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "(ask Amy to cue the video)",
+        "tier": "good",
+        "title": "(ask Amy to cue the video)"
+      },
+      {
+        "add_text": "• [todo: fix slide]",
+        "addable": true,
+        "correction": null,
+        "id": 7,
+        "kind": "left_out",
+        "line": 8,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "[todo: fix slide]",
+        "tier": "good",
+        "title": "[todo: fix slide]"
+      },
+      {
+        "add_text": "• Note: remember the offering",
+        "addable": true,
+        "correction": null,
+        "id": 8,
+        "kind": "left_out",
+        "line": 9,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "Note: remember the offering",
+        "tier": "good",
+        "title": "Note: remember the offering"
+      },
+      {
+        "add_text": "• TBD",
+        "addable": true,
+        "correction": null,
+        "id": 9,
+        "kind": "left_out",
+        "line": 10,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "TBD",
+        "tier": "good",
+        "title": "TBD"
+      },
+      {
+        "add_text": "• FYI the band is late",
+        "addable": true,
+        "correction": null,
+        "id": 10,
+        "kind": "left_out",
+        "line": 11,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "FYI the band is late",
+        "tier": "good",
+        "title": "FYI the band is late"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 11,
+        "kind": "point",
+        "line": 12,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          2
+        ],
+        "text": "• playing with fire",
+        "tier": "warning",
+        "title": "• playing with fire"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 12,
+        "kind": "point",
+        "line": 13,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          3
+        ],
+        "text": "• Showing off",
+        "tier": "warning",
+        "title": "• Showing off"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) A point",
+      "title": "1) A point"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "• playing with fire",
+      "title": "• playing with fire"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "• Showing off",
+      "title": "• Showing off"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 2,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 10,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 3,
+    "slides": 3,
+    "verse_slides": 0,
+    "warnings": 2
+  }
+}

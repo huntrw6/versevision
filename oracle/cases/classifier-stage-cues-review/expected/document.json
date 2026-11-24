@@ -1,0 +1,81 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    },
+    {
+      "kind": "review",
+      "line": 2,
+      "reason": "stage/production cue: your setting asks to check these",
+      "text": "Show the photo of the cross"
+    },
+    {
+      "kind": "review",
+      "line": 3,
+      "reason": "stage/production cue: your setting asks to check these",
+      "text": "https://example.com/x"
+    },
+    {
+      "kind": "review",
+      "line": 4,
+      "reason": "stage/production cue: your setting asks to check these",
+      "text": "(ask Amy to cue the video)"
+    },
+    {
+      "kind": "review",
+      "line": 5,
+      "reason": "matches a skip pattern: your setting asks to check these",
+      "text": "Sing it loud"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 2,
+      "rule": "starts with a stage/cue word",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 3,
+      "rule": "contains a web address",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 4,
+      "rule": "reads like a note to self (brackets, 'note:', 'remember'...)",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "stage",
+      "line": 5,
+      "rule": "matches your skip pattern 'loud$'",
+      "why": "matches a skip pattern"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+[notes]
+skip_patterns = [
+    "^Closing",
+]
+
+[run]
+no_fetch = true

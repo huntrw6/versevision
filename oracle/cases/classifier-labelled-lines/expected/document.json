@@ -1,0 +1,171 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "slide_note",
+      "text": "Conclusion: first line is not its own slide",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "slide_note",
+      "text": "Conclusion: Will You Let God Use Your Life?",
+      "warnings": []
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "slide_note",
+      "text": "Application - live it out",
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "slide_note",
+      "text": "invitation — come forward",
+      "warnings": []
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "slide_note",
+      "text": "Takeaway : one thing",
+      "warnings": []
+    },
+    {
+      "detail_end": 7,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 7,
+      "role": "list_item",
+      "text": "Conclusions are not labels",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 8,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 8,
+      "role": "slide_note",
+      "text": "Big idea: God is near",
+      "warnings": []
+    },
+    {
+      "detail_end": 9,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 9,
+      "role": "slide_note",
+      "text": "main point:none",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "other",
+      "line": 1,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 2,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "other",
+      "line": 3,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "other",
+      "line": 4,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "other",
+      "line": 5,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "other",
+      "line": 6,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "other",
+      "line": 7,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 8,
+      "first_in_document": false,
+      "label": "other",
+      "line": 8,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 9,
+      "first_in_document": false,
+      "label": "other",
+      "line": 9,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

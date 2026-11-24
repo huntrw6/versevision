@@ -1,0 +1,145 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• Pastor Amy's notes",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "document title (first line)"
+      ],
+      "slides": [],
+      "text": "Pastor Amy's notes",
+      "tier": "good",
+      "title": "Pastor Amy's notes"
+    },
+    {
+      "add_text": "• A Title Line",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "header: title/preamble before the first verse or point"
+      ],
+      "slides": [],
+      "text": "A Title Line",
+      "tier": "warning",
+      "title": "A Title Line"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: document title (first line)",
+      "line": 1,
+      "status": "left_out",
+      "text": "Pastor Amy's notes"
+    },
+    {
+      "detail": "header: title/preamble before the first verse or point",
+      "line": 2,
+      "status": "left_out",
+      "text": "A Title Line"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Pastor Amy's notes",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "document title (first line)"
+        ],
+        "slides": [],
+        "text": "Pastor Amy's notes",
+        "tier": "good",
+        "title": "Pastor Amy's notes"
+      }
+    ],
+    "left_out_warning": [
+      {
+        "add_text": "• A Title Line",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "header: title/preamble before the first verse or point"
+        ],
+        "slides": [],
+        "text": "A Title Line",
+        "tier": "warning",
+        "title": "A Title Line"
+      }
+    ],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) A point",
+      "title": "1) A point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 2,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 1,
+    "verse_slides": 0,
+    "warnings": 1
+  }
+}

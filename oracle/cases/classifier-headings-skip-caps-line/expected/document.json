@@ -1,0 +1,120 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "A point",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "list_item",
+      "text": "THE LORD IS GOOD",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 3,
+      "reason": "title / heading line",
+      "text": "Part 2: The Shepherd"
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 4,
+      "reason": "2 or fewer capitalized words: looks like a heading",
+      "text": "Two Words"
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 5,
+      "reason": "2 or fewer capitalized words: looks like a heading",
+      "text": "Introduction"
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 6,
+      "reason": "recap heading",
+      "text": "RECAP: Keys"
+    },
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 7,
+      "reason": "recap heading",
+      "text": "Recap the week"
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "other",
+      "line": 2,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "other",
+      "line": 3,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "other",
+      "line": 4,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "other",
+      "line": 5,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "header",
+      "line": 6,
+      "rule": "line starts with 'Recap'",
+      "why": "recap heading"
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "header",
+      "line": 7,
+      "rule": "line starts with 'Recap'",
+      "why": "recap heading"
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 2,
+      "status": "adjusted",
+      "text": "• THE LORD IS GOOD"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        2
+      ],
+      "text": "• THE LORD IS GOOD",
+      "tier": "warning",
+      "title": "• THE LORD IS GOOD"
+    },
+    {
+      "add_text": "• Part 2: The Shepherd",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "title / heading line"
+      ],
+      "slides": [],
+      "text": "Part 2: The Shepherd",
+      "tier": "good",
+      "title": "Part 2: The Shepherd"
+    },
+    {
+      "add_text": "• Two Words",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "header: 2 or fewer capitalized words: looks like a heading"
+      ],
+      "slides": [],
+      "text": "Two Words",
+      "tier": "warning",
+      "title": "Two Words"
+    },
+    {
+      "add_text": "• Introduction",
+      "addable": true,
+      "correction": null,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "header: 2 or fewer capitalized words: looks like a heading"
+      ],
+      "slides": [],
+      "text": "Introduction",
+      "tier": "warning",
+      "title": "Introduction"
+    },
+    {
+      "add_text": "• RECAP: Keys",
+      "addable": true,
+      "correction": null,
+      "id": 5,
+      "kind": "left_out",
+      "line": 6,
+      "reasons": [
+        "recap heading"
+      ],
+      "slides": [],
+      "text": "RECAP: Keys",
+      "tier": "good",
+      "title": "RECAP: Keys"
+    },
+    {
+      "add_text": "• Recap the week",
+      "addable": true,
+      "correction": null,
+      "id": 6,
+      "kind": "left_out",
+      "line": 7,
+      "reasons": [
+        "recap heading"
+      ],
+      "slides": [],
+      "text": "Recap the week",
+      "tier": "good",
+      "title": "Recap the week"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / heading line",
+      "line": 3,
+      "status": "left_out",
+      "text": "Part 2: The Shepherd"
+    },
+    {
+      "detail": "header: 2 or fewer capitalized words: looks like a heading",
+      "line": 4,
+      "status": "left_out",
+      "text": "Two Words"
+    },
+    {
+      "detail": "header: 2 or fewer capitalized words: looks like a heading",
+      "line": 5,
+      "status": "left_out",
+      "text": "Introduction"
+    },
+    {
+      "detail": "header: recap heading",
+      "line": 6,
+      "status": "left_out",
+      "text": "RECAP: Keys"
+    },
+    {
+      "detail": "header: recap heading",
+      "line": 7,
+      "status": "left_out",
+      "text": "Recap the week"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Part 2: The Shepherd",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "left_out",
+        "line": 3,
+        "reasons": [
+          "title / heading line"
+        ],
+        "slides": [],
+        "text": "Part 2: The Shepherd",
+        "tier": "good",
+        "title": "Part 2: The Shepherd"
+      },
+      {
+        "add_text": "• RECAP: Keys",
+        "addable": true,
+        "correction": null,
+        "id": 5,
+        "kind": "left_out",
+        "line": 6,
+        "reasons": [
+          "recap heading"
+        ],
+        "slides": [],
+        "text": "RECAP: Keys",
+        "tier": "good",
+        "title": "RECAP: Keys"
+      },
+      {
+        "add_text": "• Recap the week",
+        "addable": true,
+        "correction": null,
+        "id": 6,
+        "kind": "left_out",
+        "line": 7,
+        "reasons": [
+          "recap heading"
+        ],
+        "slides": [],
+        "text": "Recap the week",
+        "tier": "good",
+        "title": "Recap the week"
+      }
+    ],
+    "left_out_warning": [
+      {
+        "add_text": "• Two Words",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "left_out",
+        "line": 4,
+        "reasons": [
+          "header: 2 or fewer capitalized words: looks like a heading"
+        ],
+        "slides": [],
+        "text": "Two Words",
+        "tier": "warning",
+        "title": "Two Words"
+      },
+      {
+        "add_text": "• Introduction",
+        "addable": true,
+        "correction": null,
+        "id": 4,
+        "kind": "left_out",
+        "line": 5,
+        "reasons": [
+          "header: 2 or fewer capitalized words: looks like a heading"
+        ],
+        "slides": [],
+        "text": "Introduction",
+        "tier": "warning",
+        "title": "Introduction"
+      }
+    ],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 2,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          2
+        ],
+        "text": "• THE LORD IS GOOD",
+        "tier": "warning",
+        "title": "• THE LORD IS GOOD"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) A point",
+      "title": "1) A point"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "• THE LORD IS GOOD",
+      "title": "• THE LORD IS GOOD"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 5,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 2,
+    "slides": 2,
+    "verse_slides": 0,
+    "warnings": 3
+  }
+}

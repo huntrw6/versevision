@@ -14,7 +14,11 @@ Written (all deterministic: sorted keys, no timestamps, run ids, uuids or absolu
     oracle/cases/<name>/expected/plan.json   the plan: slides, decisions, notices ...
     oracle/cases/<name>/expected/trace.jsonl the run trace (one JSON object per line)
     oracle/cases/<name>/expected/review.json the review report the web page is built from
+    oracle/cases/<name>/expected/extracted.txt   the text the document reader returned (what the classifier receives)
+    oracle/cases/<name>/expected/document.json   what the notes classifier made of it (items, issues, the rule of each paragraph)
     oracle/references.jsonl, fitting.jsonl, versions.jsonl   line-level oracles
+    oracle/document_errors.jsonl                              documents (and options) for which the classifier raises, with the exception and message
+    oracle/user_patterns.jsonl, user_patterns_subjects.json   Python `re` as a user writes it in notes.skip_patterns: search results and compile errors
     oracle/config_defaults.json, config_defaults.toml, config_rich.toml   the default config and a config using every kind of value (what `save_config` writes)
     oracle/config_options.jsonl                               `with_options` (profile + `--set` strings): the changed fields or the exact error
 
@@ -51,6 +55,7 @@ from versevision.config import AppConfig, with_options                   # noqa:
 from versevision.errors import ConfigurationError                        # noqa: E402
 from versevision.documents import extract_text                          # noqa: E402
 from versevision.errors import BibleProviderError                       # noqa: E402
+from versevision.notes import classify_document                          # noqa: E402
 from versevision.references import parse_references                     # noqa: E402
 from versevision.references.versification import VERSE_COUNTS           # noqa: E402
 from versevision.slides import fitting                                  # noqa: E402
@@ -419,6 +424,128 @@ def curated_cases() -> list[Case]:
     return cases
 
 
+# ---- classifier cases: one small document per rule branch of notes/classifier.py that the documents above never reach
+# (found with scripts/classifier_coverage.py), plus a few per setting. They run with no_fetch (no Bible text needed): what is compared is the
+# classifier's output (expected/document.json and the parse_start / line_join / paragraph / item trace records).
+_FULL = "Grace is the free and undeserved favor of God toward people who could never earn it by their own effort."
+_LEAD = "The shepherd leads us beside still waters and gives us rest in every season of life and"
+
+
+def _page(*middle: str) -> str:
+    """A page of notes whose long lines make the classifier treat the text as hard wrapped (like a PDF)."""
+    return "1) Opening point\n\n" + "\n\n".join([_FULL] * 9 + list(middle) + [_FULL] * 3) + "\n"
+
+
+def classifier_cases() -> list[Case]:
+    def cls(name: str, text: str, **options) -> Case:
+        return text_case(f"classifier-{name}", text, "classifier", run={"no_fetch": True}, options=options)
+
+    cases = [
+        # --- [slide] tags
+        cls("slide-tag-empty", "Title 11/22/26\n[slide]\n[slide] -\n1) One\n[ slide ] : Photo of the cross\n[slide] Faith = pistis\n[SLIDE] Video clip of the baptism\n"),
+        cls("slide-tag-long-media-word", "1) One\n[slide] " + "a very long description of the screen that goes on and on and on for a while " * 2 + "\n"),
+        # --- a reference in the middle of a sentence
+        cls("midref-skip", "1) Point\nAs Psalm 23:1 says, he leads us.\nSee also John 3:16 and Romans 8:28 and Acts 2:1 and Acts 2:2 here\n", notes={"reference_in_text": "skip"}),
+        cls("midref-verse", "1) Point\nHe's told us in John 3:16 and Romans 8:28 that it is so, and more.\nAs Psalm 23:1 says\n", notes={"reference_in_text": "verse"}),
+        cls("midref-review", "1) Point\nAs Psalm 23:1 says, he leads us.\nSee Genesis 1:1; Exodus 3:14; Acts 2:1; Acts 2:2 for more\n"),
+        # --- quoted text
+        cls("quote-above-reference-review", "Title 11/22/26\n“The Lord is my shepherd; I shall not want.”\nPsalm 23:1 NKJV\n“Another quote that is far away.”\n\n\n\n\nJohn 3:16 NIV\n", notes={"quote_above_reference": "review"}),
+        cls("quote-above-reference-skip", "Title 11/22/26\n“The Lord is my shepherd; I shall not want.”\nPsalm 23:1 NKJV\n“Another quote that is far away.”\n\n\n\n\nJohn 3:16 NIV\n"),
+        cls("quote-alone-skip", "1) Point\n“A quotation with no reference anywhere near it.”\n", notes={"quote_alone": "skip"}),
+        cls("quote-alone-bullet", "1) Point\n“A quotation with no reference anywhere near it.”\n", notes={"quote_alone": "bullet"}),
+        cls("quote-alone-review", "1) Point\n“A quotation with no reference anywhere near it.”\n'And one in single quotes'\n«Guillemets too»\n"),
+        cls("quote-inline-and-above", "“For God so loved the world that He gave His only begotten Son” (John 3:16 NKJV)\n“For by grace you have been saved through faith, and that not of yourselves”\nEphesians 2:8-9\n“Four words only here”\nPsalm 23:1\n\nLong ago, in the days of Moses, “Trust in the Lord with all your heart, and lean not on your own understanding” — Proverbs 3:5\n"),
+        # --- references: lead, trailing, in brackets, bad, whole chapter
+        cls("lead-reference-chain", "John 3:16 and then Romans 8:28 NIV\nJohn 3:16; Romans 8:28; Acts 2:1 NIV\nJohn 3:16, 17, 19\nPsalm 23\nGenesis 1:1 – 2:3\n"),
+        cls("trailing-reference-chain", "“For God so loved the world that He gave His only Son” John 3:16; Romans 8:28 NIV\n“Be still, and know that I am God” John 3:16 and Psalm 46:10\n"),
+        cls("reference-in-brackets", "(Romans 8:16)\n[John 3:16 NIV]\n(Romans 8:16) and more words\n(see Romans 8:16)\n(John 3:16; Romans 8:28)\n( Psalm 23:1 )\n[Psalm 23]\n"),
+        cls("issues-in-a-verse-line", "John 3:16; John 3:99\nRomans 8:28 NIV and Genesis 51:2\n1) John 3:16; Acts 99:99\n(Romans 8:28)\nPsalm 23:1; Psalm 23:999 NIV\n"),
+        cls("bad-references", "John 3:99\nRevelation 23:1\nGenesis 51:1\nPsalm 151:1\n1) Not a real one: John 3:99\nAs John 3:99 says\n"),
+        cls("references-and-aliases", "John 3:16 YLT\nRomans 8:28 (NKJ)\nPsalm 23:1 xyz\nActs 2:1 NIVV\n", bible={"version_aliases": {"YLT": "NLT", "NKJ": "NKJV"}}),
+        # --- a document with nothing in it, or only a title
+        cls("empty-document", ""),
+        cls("blank-lines-only", "\n\n   \n\t\n"),
+        cls("only-a-title", "Sunday 11/22/26"),
+        cls("only-a-plain-sentence", "This is only one plain sentence that is not anything at all."),
+        # --- the lines before the first verse or point, and what to do with them
+        cls("before-first-item-skip", "Pastor Amy's notes\nThis was a good week.\nAn overlong opening sentence that rambles on and on without any end to it at all because it keeps going\nAn overlong opening sentence that rambles on and on past eighty characters and ends here.\n1) A point\n"),
+        cls("before-first-item-review", "Pastor Amy's notes\nThis was a good week.\nAn overlong opening sentence that rambles on and on without any end to it at all because it keeps going\nAn overlong opening sentence that rambles on and on past eighty characters and ends here.\n1) A point\n", notes={"before_first_item": "review"}),
+        cls("before-first-item-bullet", "Pastor Amy's notes\nThis was a good week.\nAn overlong opening sentence that rambles on and on without any end to it at all because it keeps going\nAn overlong opening sentence that rambles on and on past eighty characters and ends here.\n1) A point\n", notes={"before_first_item": "bullet"}),
+        cls("before-first-item-headings-skip", "Pastor Amy's notes\nA Title Line\n1) A point\n", notes={"headings": "skip"}),
+        cls("email-header-lines", "Subject: Easter plans\nFrom: Pastor Amy\n1) A point\nReply to <amy@example.com> please\nTo: Everyone\nCc : Someone\n[quoted text hidden]\nsent: Monday\n"),
+        # --- headings, titles and ALL CAPS lines
+        cls("headings-and-titles", "Part 2: The Shepherd\n1) A point\nWeek 3 - Rest\nSession 4.\nSeries 5:\n6 KEYS TO A NEW AWAKENING\nTwo Words\nA Longer Heading Line Here\nIntroduction\n2 Corinthians\n12:9 NKJV\nTHE LORD IS GOOD.\nTHE LORD IS GOOD\nGOD\nTHE LORD IS GOOD, SAYS THE PSALMIST\n"),
+        cls("headings-skip-caps-line", "1) A point\nTHE LORD IS GOOD\nPart 2: The Shepherd\nTwo Words\nIntroduction\nRECAP: Keys\nRecap the week\n", notes={"headings": "skip", "caps_lines": "line"}),
+        cls("headings-header-max-words", "1) A point\nOne Two Three Four\nOne Two Three\nOne Two\nOne\n12 Days\nlower case Words\n", notes={"header_max_words": 4}),
+        cls("headings-header-max-words-zero", "1) A point\nOne Two\nOne\n", notes={"header_max_words": 0}),
+        cls("unlabeled-sentence-review", "1) A point\nThis is a full sentence of ordinary prose.\nA short line without an end\n", notes={"unlabeled_sentence": "review", "unlabeled_short": "review"}),
+        cls("unlabeled-sentence-skip", "1) A point\nThis is a full sentence of ordinary prose.\nA short line without an end\n", notes={"unlabeled_sentence": "skip", "unlabeled_short": "skip"}),
+        cls("unlabeled-sentence-bullet", "1) A point\nThis is a full sentence of ordinary prose.\nA short line without an end\nthe lowest case of all\n", notes={"unlabeled_sentence": "bullet", "unlabeled_short": "bullet"}),
+        # --- Recap, dates, web addresses, notes to self, stage cues
+        cls("recap-and-dates", "Recap\nRecap: the week\n1) A point\nRecap of last week\nSunday 11/22/26 and more\nPsalm 12:9 on 1/2/26\nThe date is 3/4/2026.\n"),
+        cls("stage-cues-skip", "1) A point\nShow the photo of the cross\nWhen I say Amen, roll the video\nafter this, stop the music\nhttps://example.com/x\nwww.example.com\n(ask Amy to cue the video)\n[todo: fix slide]\nNote: remember the offering\nTBD\nFYI the band is late\nplaying with fire\nShowing off\n"),
+        cls("stage-cues-bullet", "1) A point\nShow the photo of the cross\nhttps://example.com/x\n(ask Amy to cue the video)\n", notes={"stage_cues": "bullet"}),
+        cls("stage-cues-review", "1) A point\nShow the photo of the cross\nhttps://example.com/x\n(ask Amy to cue the video)\nSing it loud\n", notes={"stage_cues": "review", "skip_patterns": ["loud$"]}),
+        cls("extra-cue-words", "1) A point\nPause for prayer\nsing the chorus\nLoud + noise now\nA|B test\npausing is not a cue\nSILENCE here\n", notes={"extra_cue_words": ["pause", "Sing", " loud + noise ", "a|b", "", "   "]}),
+        cls("skip-patterns", "1) A point\nClosing thoughts for the week\n10 min\nIt's a trap\n[x marks the spot\naab and ab\nfoo foo here\nFOO bar\nplain line that stays\nTab\there\nkeep me\n", notes={"skip_patterns": ["^Closing", "\\d+\\s*min$", "it's", "[[]x", "a{,2}b", "(?P<w>foo)\\s+(?P=w)", "\\ttab", "tab\\t"]}),
+        cls("skip-pattern-flags-and-boundaries", "1) A point\nAnother Word\nwordy\nword\nNoTE to self\n", notes={"skip_patterns": ["(?-i:^another)", "(?i:\\bWORD\\b)", "^\\Bote"]}),
+        cls("skip-pattern-empty-hard-wrap", _page(_LEAD + "\nEvery Single Day"), notes={"skip_patterns": [""]}),
+        cls("skip-pattern-hits-in-hard-wrap", _page(_LEAD + "\nEvery Single Day", _LEAD + "\nClosing remarks"), notes={"skip_patterns": ["^Closing"]}),
+        # --- markers and keyed headers
+        cls("markers", "1) First\n2. Second\n#3: Third\na) Letter\nB. Letter two\n3: Colon\n12: 9 NKJV\n4) 12 apples\n5)\n6) \n7 ) space before\n#8) hash\nc: not a letter marker\n1000) too long\n- dash bullet\n• dot bullet\n* star\n– en dash\n—x\n"),
+        cls("markers-out-of-sequence", "1) One\n2) Two\n5) Five\n3) Three\n4) Four\n6) Six\n"),
+        cls("markers-no-sequence-rule", "1) One\n2) Two\n5) Five\n3) Three\n", points={"require_sequence": False}),
+        cls("markers-numbered-off", "1) One\na) Letter\n- bullet\nKEY #1) Header\n2. John 3:16 NIV\n", points={"numbered": False}),
+        cls("markers-lettered-off", "1) One\na) Letter\nb. Letter\n- bullet\n", points={"lettered": False}),
+        cls("markers-bullets-off", "1) One\na) Letter\n- bullet\n• bullet\n* star\n", points={"bullets": False}),
+        cls("markers-with-references", "1) Read Romans 8:28 today\n2. John 3:16 NIV\na) Genesis 1:1; Exodus 3:14\n- Acts 2:1\n- see Acts 2:2 now\n#4: Romans 8:28 – 9:1 NIV\n"),
+        cls("keyed-points", "KEY #1) First\nKEY#2) Second\nStep 3: Third\nPrinciple #4. Fourth\nreason 5- Fifth\nWAY 6) Sixth\nTip 7: Seventh\nLesson #8) Eighth\nTruth 9. Ninth\nKEY #10) Tenth\nKEY #1000) Too many\nKEY #11)\nPoint #12) John 3:16 and Romans 8:28 here\nkey #13) Psalm 23:1 NIV\n"),
+        cls("keyed-points-out-of-order", "KEY #2) Second first\nKEY #1) First\nKEY #4) Four\n"),
+        # --- labelled lines ("Conclusion: ...")
+        cls("labelled-lines", "Conclusion: first line is not its own slide\n1) A point\nConclusion: Will You Let God Use Your Life?\nApplication - live it out\ninvitation — come forward\nTakeaway : one thing\nConclusions are not labels\nBig idea: God is near\nmain point:none\n"),
+        cls("labelled-lines-options", "1) A point\nConclusion: Will You Let God Use Your Life?\nCustom word: this one counts\nThe end - this one too\n", notes={"label_words": ["custom word", "the end", "  ", "a.b"]}),
+        cls("labelled-lines-own-slide-off", "1) A point\nConclusion: Will You Let God Use Your Life?\n", notes={"label_own_slide": False}),
+        cls("labelled-lines-no-words", "1) A point\nConclusion: Will You Let God Use Your Life?\n", notes={"label_words": []}),
+        # --- one line break = one slide, or a paragraph under the point
+        cls("line-breaks-paragraph", "1) A point\nA detail sentence under it.\nAnother detail sentence.\nNo end punctuation here\n\n\n\nA far away sentence.\n2) Next\nA quote follows.\n“A quoted detail.”\nA question?\nAn exclamation!\nSOME HEADING.\nPsalm 23:1\nA detail after a verse.\n- bullet\nDetail under a bullet.\n", notes={"line_breaks": "paragraph"}),
+        cls("line-breaks-paragraph-skip-detail", "1) A point\nA detail sentence under it.\n", notes={"line_breaks": "paragraph", "unlabeled_sentence": "skip"}),
+        cls("line-breaks-paragraph-review", "1) A point\nA detail sentence under it.\n", notes={"line_breaks": "paragraph", "unlabeled_sentence": "review"}),
+        cls("line-breaks-paragraph-slide-note", "1) A point\n[slide] A note slide\nA detail sentence under it.\nConclusion: done.\nA detail after the label.\n", notes={"line_breaks": "paragraph"}),
+        # --- duplicates
+        cls("duplicates-drop", "John 3:16 NIV\nJohn 3:16 NIV\njohn 3:16 niv\nJohn 3:16 KJV\nRomans 8:28; Romans 8:28 NIV\nAs John 3:16 says\n", notes={"duplicates": "drop"}),
+        cls("duplicates-keep", "John 3:16 NIV\nJohn 3:16 NIV\n"),
+        # --- wrapped lines (a PDF or an email broke the lines mid-sentence)
+        cls("wrap-tail-joins", _page(_LEAD + "\nEvery Single Day")),
+        cls("wrap-orphan-max-words-1", _page(_LEAD + "\nEvery Single Day"), notes={"orphan_max_words": 1}),
+        cls("wrap-orphan-max-words-0", _page(_LEAD + "\nDay"), notes={"orphan_max_words": 0}),
+        cls("wrap-separate", _page(_LEAD + "\nEvery Single Day"), notes={"wrapped_lines": "separate"}),
+        cls("wrap-sentence-ended", _page(_LEAD.replace("life and", "life.") + "\nEvery Single Day")),
+        cls("wrap-lower-case-continues", _page(_LEAD + "\nthen walks beside us on the road to the very end of it all")),
+        cls("wrap-numbered-point-complete", _page("2) The Lord is my shepherd.\nThe shepherd leads us beside still waters and more")),
+        cls("wrap-capitals-heading", _page("A SHORT CAPITALS HEADING THAT NEEDS MORE WORDS HERE AND THERE AND\nthe next sentence in lower case runs on for many words indeed ok")),
+        cls("wrap-capitals-heading-tail", _page("A SHORT CAPITALS HEADING THAT NEEDS MORE WORDS HERE AND THERE AND\nTHE END")),
+        cls("wrap-reference-after-full-line", _page("“" + _LEAD + " and it goes on and so on into the evening”\nJohn 3:16 NIV")),
+        cls("wrap-reference-after-short-line", _page("“A short quote of about nine words in a row.”\nJohn 3:16 NIV")),
+        cls("wrap-open-quote-note", _page("“Jesus said to him, Truly I say to you, today you will be with Me in paradise and he said\nremember me when You come into Your kingdom.”\nLuke 23:42-43 NKJV")),
+        cls("wrap-new-item-starts", _page(_LEAD + "\nKEY #2) NEXT", _LEAD + "\n- a bullet", _LEAD + "\n3) a marker", _LEAD + "\nShow the photo", _LEAD + "\nhttps://example.com/x", _LEAD + "\n“A quote opens”", _LEAD + "\n(a note in brackets)", _LEAD + "\nRecap", _LEAD + "\n[slide] a tag")),
+        cls("wrap-reference-closes-the-line", _page("“" + _LEAD + " and it goes on” John 3:16 NIV\nwith more words after it\nNIV is a version", "Psalm 23:1 NIV\nand more words follow")),
+        cls("wrap-capital-letters-narrow", _page("ILLICIT ILLNESS IS ITIL FILLED LIT LIFTS JUST IT ITS ALL TILL FIT\nIT IS")),
+        cls("wrap-email-style", "\n".join(["From: Pastor Amy <amy@example.com>", "Subject: Sunday notes", ""] + [
+            "Dear friends, this week we will look at what it means to rest in the Lord who", "is our shepherd and leads us beside quiet waters, restoring our souls and", "guiding us in paths of righteousness for the sake of His name. When we walk",
+            "through the darkest valley we fear no evil, for You are with me; Your rod and", "Your staff, they comfort me.", "", "1) Rest", "Psalm 23:1-4 NKJV"] + [
+            "Dear friends, this week we will look at what it means to rest in the Lord who", "is our shepherd and leads us beside quiet waters, restoring our souls and"]) + "\n"),
+        cls("wrap-no-join-when-narrow", "1) One\n" + "\n".join(["A short line of about forty chars here"] * 12) + "\ntail\n"),
+        # --- text oddities
+        cls("odd-whitespace", "1) One\u00a0with nbsp\n\u00a02) Two\n3)\tTab\n\x0b4) vertical tab\n\x0c5) form feed\n6) Six\x1c\n   7) Indented\n\u3000\u30008) Ideographic space\n"),
+        cls("turkish-dotted-i", "Conclusıon: dotless i\n1) A point\nCONCLUSİON: dotted capital\nConclusion: plain\nSHOW the photo\nSHOW\u0307 mark\nKELVIN: \u212aEY #1) x\n\u212aEY #2) kelvin sign\nſtep 3) long s\n"),
+        cls("unicode-case", "1) ÉCOLE ÉLÈVES\nÉCOLE ÉLÈVES\nÀ la carte\nΣΟΦΊΑ ΘΕΟΎ\nǅ titlecase\nA\u0301B\u0301C\u0301\n² superscript\n1: ² verse?\n1: ① circled\n"),
+        cls("many-points-and-verses", "\n".join(f"{n}) Point number {n}\nJohn 3:{n} NIV" for n in range(1, 13)) + "\n"),
+        cls("long-text-in-trace", "1) " + "word " * 500 + "\nA long line " + "x" * 2500 + "\n"),
+        cls("crlf-and-cr-line-ends", "1) One\r\n2) Two\rJohn 3:16 NIV\r\n"),
+    ]
+    return cases
+
+
 # ---- documents lifted mechanically from the test files
 _SKIP_FILES = {"test_autostart.py", "test_bible_providers.py", "test_config_page.py", "test_fetched_workflow.py", "test_themes.py", "test_trace.py", "test_logging.py"}
 _CALLS = {"plan_notes", "classify_document", "run", "plan", "_plan", "doc", "notes", "classify", "_classify"}
@@ -484,7 +611,7 @@ def test_derived_cases() -> list[Case]:
 
 
 def all_cases() -> list[Case]:
-    cases = whitefield_cases() + fixture_cases() + format_cases() + synthetic_cases() + curated_cases() + test_derived_cases()
+    cases = whitefield_cases() + fixture_cases() + format_cases() + synthetic_cases() + curated_cases() + test_derived_cases() + classifier_cases()
     names = [c.name for c in cases]
     assert len(names) == len(set(names)), "duplicate case names"
     return cases
@@ -501,6 +628,13 @@ def plan_json(result) -> dict:
     data.pop("files_changed", None)
     data["looks"] = None
     return data
+
+
+def document_json(text: str, config: AppConfig, trace_rows: list[dict]) -> dict:
+    """The NoteDocument the classifier made of the extracted text, plus the rule that decided each paragraph (from the run's own trace)."""
+    document = classify_document(text, config.bible.version_aliases, config.notes, config.points)
+    paragraphs = [{key: row[key] for key in ("line", "end_line", "label", "rule", "why", "first_in_document")} for row in trace_rows if row["stage"] == "paragraph"]
+    return {**document.model_dump(mode="json"), "paragraphs": paragraphs}
 
 
 def run_case(case: Case, folder: Path) -> dict[str, str | bytes]:
@@ -556,7 +690,7 @@ def run_case(case: Case, folder: Path) -> dict[str, str | bytes]:
         finally:
             runlog.deactivate(token)
         trace_path = trace_folder / "trace.jsonl"
-        trace_rows = [json.loads(line) for line in trace_path.read_text(encoding="utf-8").splitlines()] if trace_path.exists() else []
+        trace_rows = [json.loads(line) for line in trace_path.read_text(encoding="utf-8").split("\n") if line] if trace_path.exists() else []   # not splitlines(): U+2028 and U+0085 can sit inside a JSON string
         files: dict[str, str | bytes] = {
             input_name: case.data,
             "options.toml": options_toml,
@@ -564,6 +698,8 @@ def run_case(case: Case, folder: Path) -> dict[str, str | bytes]:
             "expected/plan.json": dumps(plan_json(result)),
             "expected/trace.jsonl": "".join(dumps(row, indent=None) for row in trace_rows),
             "expected/review.json": dumps(build_report(result, source_name=input_name)),
+            "expected/extracted.txt": text,
+            "expected/document.json": dumps(document_json(text, config, trace_rows)),
         }
         if case.choices:
             after = apply_review_choices(result, skip=set(case.choices.get("skip", [])), include=set(case.choices.get("include", [])),
@@ -1092,6 +1228,116 @@ def write_config_oracle(out: Path) -> None:
 
 
 # ------------------------------------------------------------------------------------------------------------------- main
+# ------------------------------------------------------------------------------------------------ what the classifier raises
+def document_errors_oracle() -> list[dict]:
+    """Documents (and options) for which `classify_document` raises, with the exception and its message. The Rust port must fail the same way.
+
+    Three kinds: the reference parser raising (chapter or verse 0), a pattern in `notes.skip_patterns` that `re.compile` rejects (the exact
+    `re.error` text, position included), and two documents that crash the Python importer with an `AttributeError` (a numbered line that holds a
+    whole-chapter reference, or a verse the duplicates setting dropped: `doc.items[-1].warnings` is not there on a review or skipped item).
+    """
+    import warnings
+    warnings.simplefilter("ignore")                  # `re` warns about "possible nested set" in some patterns
+    rows: list[dict] = []
+
+    def add(text: str, notes: dict | None = None, points: dict | None = None, aliases: dict | None = None, must_raise: bool = True) -> None:
+        config = AppConfig.model_validate({"notes": notes or {}, "points": points or {}})
+        try:
+            classify_document(text, aliases, config.notes, config.points)
+        except Exception as exc:                      # noqa: BLE001  (the oracle records whatever the Python app raises)
+            rows.append({"aliases": aliases, "input": text, "message": str(exc), "notes": notes or {}, "points": points or {}, "raises": type(exc).__name__})
+        else:
+            if must_raise:
+                raise AssertionError(f"classify_document did not raise for {text!r} {notes!r}")
+
+    add("John 0:1\n")
+    add("1) A point\nJohn 1:0\n")
+    add("1. Psalm 23\n")
+    add("2) Genesis 1\n", notes={"whole_chapter": "skip"})
+    add("John 3:16\n1. John 3:16\n", notes={"duplicates": "drop"})
+    add("Romans 8:28 NIV\n2) Romans 8:28 NIV\n", notes={"duplicates": "drop"})
+    for pattern in ["(", ")", "a**", "[a", "a{2,1}", "\\", "(?P<1>a)", "(?<a)", "[z-a]", "\\y", "a(?i)b", "(?<=a+)b", "\\1", "(a)\\2", "[\\d-z]",
+                    "x{99999999999}", "(?P<a>x)(?P<a>y)", "*a", "a\n(b", "(?P<n", "(?P=n)", "(?", "(?P", "(?#abc", "(?<", "(?i", "(?i-", "(?-i)", "(?ia-:x)",
+                    "\\x4", "\\u12", "\\8", "[\\8]", "\\777", "(?(1)a|b|c)", "(?(2)a)", "(?(x)a)", "^*", "$+", "\\b?", "(?P>x)", "(?z)", "(?i-i:x)", "(?-a:x)",
+                    "(?L)", "(?a)(?u)", "[", "[^", "[]", "[a-", "[a-\\d]", "(|", "a|*", "(?=a)(?<=b+)", "(a)(?<=\\1b)", "\\Z{", "x{1,2", "x{2}{3}",
+                    "(?P<a>(?P=a))", "(?:", "(?>", "(?<!", "(?<=)", "\\k<a>", "\\p{L}", "\\z", "\\G", "(?x) a (", "a\r\n\\"]:
+        add("x\n", notes={"skip_patterns": ["ok", pattern]}, must_raise=False)       # a pattern that compiles raises nothing: no row
+    add("x\n", notes={"skip_patterns": ["fine"], "extra_cue_words": ["a(b", "c)"], "label_words": ["[x", "y]"]}, must_raise=False)   # these are escaped: no error
+    return rows
+
+
+# ------------------------------------------------------------------------------------------------ user patterns (Python `re`)
+_PATTERN_SUBJECTS = [
+    "", " ", "x", "Show the photo", "  SHOW the photo", "showing", "show", "Show\u0301 mark", "When I say Amen", "Conclusion: be kind", "Conclusıon: dotless",
+    "CONCLUSİON: dotted", "1) One", "a) Letter", "#2: two", "12: 9 NKJV", "KEY #3) three", "ſtep 3) long s", "\u212aEY #1) kelvin", "10 min", "It's a trap",
+    "[x marks", "aab and ab", "foo foo here", "FOO bar", "a\nb", "a\n", "\nabc", "tab\there", "\x1cfoo", "foo\x1c", "foo\u00a0bar", "ééé", "e\u0301", "École",
+    "٣٤٥ digits", "² sup", "①", "snake_case", "snake case", "(note)", "[slide] tag", "http://example.com", "www.example.com", "line one.  ", "Psalm 23:1",
+    "İstanbul", "ı", "i", "ǅ", "ß", "Σίσυφος", "日本語 text", "😀 emoji", "a" * 40,
+]
+
+_PATTERNS = [
+    # literals, escapes, special characters
+    "show", "^show", "show$", "^$", "", "a|b", "a||b", "(a|b)+", "\\.", "a.b", "\\$", "\\^", "\\\\", "\\/", "\\-", "\\ ", "\\#", "\\n", "\\t", "\\a", "\\f", "\\v", "\\0", "\\x41", "\\x4a", "\\u00e9",
+    "\\U0001F600", "\\101", "\\060", "\\1000" if False else "\\400"[:0] + "a", "}", "]", "{", "{}", "{x", "x{", "x{1", "x{,", "x{1,2", "a{,2}", "a{2,}", "a{0}", "a{1}", "a{2,3}", "a{,}",
+    "{1}", "x{2}{", "\\{", "a\\{2\\}",
+    # classes
+    "[abc]", "[^abc]", "[a-c]", "[a-cx-z]", "[]a]", "[^]a]", "[a-]", "[-a]", "[a\\-c]", "[\\d]", "[\\D]", "[\\w-]", "[\\s]", "[\\S]", "[\\W]", "[[]", "[[a]", "[a[]", "[&&]", "[--]",
+    "[a&&b]", "[~~]", "[||]", "[\\]]", "[\\[]", "[\\\\]", "[\\n]", "[\\b]", "[\\x41-\\x43]", "[\\u0041-\\u0043]", "[\\101]", "[.]", "[$^]", "[*+?]", "[(){}]", "[é-ü]", "[ß]", "[İ]", "[ıi]",
+    "[A-Za-z]", "[0-9]", "[^\\W\\d_]", "[\\w\\s]", "[^\\s\\S]", "[•▪◦●‣*\\-–—]", "[:\\-–—]", "[).:]", "[)\\].]", "[(\\[]",
+    # categories and boundaries
+    "\\d", "\\D", "\\d+", "\\s", "\\S", "\\s+", "\\w", "\\W", "\\w+", "\\b", "\\B", "\\bshow\\b", "\\Bhow", "show\\B", "\\Ashow", "show\\Z", "^\\s*\\w+\\s*[:\\-]", "\\bé", "\\b\\d+\\b",
+    # quantifiers: greedy, lazy, possessive
+    "a*", "a+", "a?", "a*?", "a+?", "a??", "a{2,3}?", "a*+", "a++", "a?+", "a{1,2}+", "(ab)*", "(?:ab)+", "(?:ab){2}", "(a|b)*c", "x*y*z*", ".*", ".+?", ".*?e", "o{1,}", "o{,1}",
+    # groups
+    "(a)", "(a)(b)", "(?:a)", "(?P<n>a)", "(?P<n>a)(?P<m>b)", "(?P<n>a)(?P=n)", "(a)\\1", "(a)(b)\\2\\1", "(?P<n_1>x)", "()", "(?:)", "(a|)", "(|a)", "((a)(b))", "(a(b(c)))", "(?#comment)a",
+    "a(?#comment)b", "(?>a+)b", "(?>a|ab)c", "(?:(?:a))", "((?:a)|b)",
+    # look-around and conditionals
+    "(?=a)", "(?!a)", "(?<=a)b", "(?<!a)b", "a(?=b)", "a(?!b)", "(?<=ab|cd)e", "(?<=\\d{2})x", "(?<![A-Za-z])foo", "(?=.*\\d)\\w+", "(?!)", "(?=)", "(?<=(a))b", "(a)?(?(1)b|c)", "(a)?(?(1)b)",
+    "(?P<n>a)?(?(n)b|c)", "(a)?b(?(1)c|d)",
+    # flags
+    "(?i)show", "(?i)SHOW", "(?s).", "(?m)^a", "(?m)a$", "(?x) a b # comment\n c", "(?x)a\\ b", "(?x)[ ]a", "(?i:a)b", "a(?i:b)c", "(?-i:a)b", "(?s:.)", "(?m:^a)", "(?x: a b )c", "(?im)^a", "(?a)\\w+", "(?a)é",
+    "(?u)é", "(?i)é", "(?i)É", "(?i)ß", "(?i)ǅ", "(?i)σ", "(?i)ς", "(?i)\u212a", "(?i)k", "(?i)s", "(?i)ſ", "(?i)i", "(?i)ı", "(?i)İ", "(?i)[i]", "(?i)[ı]", "(?i)[a-z]", "(?i)[^a]",
+    # the classifier's own patterns
+    "^\\s*(show|play|put|start|cue|fade|transition|bring up|display|run|roll|when i (?:mention(?:ed)?|sa(?:y|id)|get|got|talk(?:ed)?|read|come|came)|after (?:this|that)|at the end|end with|stop)\\b",
+    "^\\s*(\\(.*\\)\\s*$|\\[(?!\\s*slide)[^\\]]*\\]\\s*$|(note|notes|todo|to do|reminder|remember|ask|tell|check|fix|tbd|fyi)\\b\\s*[:\\-]?)",
+    "^\\s*(from|to|cc|bcc|subject|date|sent)\\s*:|<[^>\\s]+@[^>\\s]+>|^\\[quoted text hidden\\]$",
+    "^(?P<label>\\s*(?P<word>key|point|step|principle|reason|way|tip|lesson|truth)\\s*#?\\s*(?P<n>\\d{1,3})\\s*[).:\\-])\\s*(?P<rest>\\S.*)$",
+    "^\\s*(?P<hash>#\\s*)?(?P<label>\\d{1,3}|[A-Za-z](?=[).]\\s))\\s*(?P<punct>[).:])\\s*(?P<rest>.*)$",
+    "^\\s*[•▪◦●‣*\\-–—]\\s+(?P<rest>\\S.*)$", "^\\s*\\[\\s*slide\\s*\\]\\s*[-–—:]*\\s*(?P<rest>.*)$", "https?://|www\\.", "\\b(slide|photo|picture|image|video|clip|screen|portrait|graphic|manuscript)\\b",
+    "^\\s*recap\\b", "\\d{1,2}/\\d{1,2}/\\d{2,4}", "\\d:\\d", "\\d+\\s*:\\s*\\d+", "^(part|week|session|series)\\s*\\d+\\s*[:.-]", "^\\s*(conclusion|application|invitation)\\s*[:\\-–—]\\s*\\S",
+    "^\\s*[(\\[]\\s*(?P<inner>[^()\\[\\]]+?)\\s*[)\\]]\\s*$", "[\\[(]?([A-Za-z0-9]+)", "[\\\\/:*?\"<>|\\x00-\\x1f]", "\\s+-\\s+-\\s+", "\\s+\\d+$", "^\\s*(key|point)\\s*#?\\s*\\d+\\s*[).:\\-]",
+    # what a user might write
+    "^Closing", "\\d+\\s*min$", "it's", "^\\(.*\\)$", "^\\[.*\\]$", "(?i)^music", "^-{3,}$", "^\\*\\*\\*", "\\bTODO\\b", "^=+$", "^\\s*$", "^.{0,3}$", "^[A-Z ]+$", "\\.{3}", "\\?$", "^(Amen|Pray)\\b", "slide \\d+",
+    "(?P<w>foo)\\s+(?P=w)", "(\\w+) \\1", "([a-z])\\1", "^(?!.*\\d)", "colou?r", "gr[ae]y", "^\\W+$", "[^\\x00-\\x7f]", "\\p", "é|e\u0301", "(?:^|\\s)x(?:$|\\s)", "\\S+@\\S+",
+]
+
+
+def user_patterns_oracle() -> list[dict]:
+    """`re.compile(pattern, re.IGNORECASE or 0)` then `search` on a fixed list of texts: the span, the groups, or the exact error. The Rust port of
+    Python's `re` syntax (what the user's `skip_patterns` need) must give the same answer for every pair."""
+    import re
+    import warnings
+    warnings.simplefilter("ignore")
+    rows = []
+    for pattern in dict.fromkeys(_PATTERNS):
+        for ignore_case in (True, False):
+            if re.search(r"\(\?[a-zA-Z]*a", pattern) and (ignore_case or "(?i" in pattern):
+                continue                              # the ASCII flag together with IGNORECASE: not supported by the Rust port (see notes/pyre.rs)
+            row: dict = {"ignorecase": ignore_case, "pattern": pattern}
+            try:
+                compiled = re.compile(pattern, re.IGNORECASE if ignore_case else 0)
+            except Exception as exc:                  # noqa: BLE001
+                row["error"] = {"message": str(exc), "type": type(exc).__name__}
+            else:
+                outcomes = []
+                for subject in _PATTERN_SUBJECTS:
+                    match = compiled.search(subject)
+                    outcomes.append(None if match is None else {"groups": [match.group(i) for i in range(compiled.groups + 1)], "span": list(match.span())})
+                row["matches"] = outcomes
+            rows.append(row)
+    return rows
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--out", type=Path, default=REPO_ROOT / "oracle", help="where to write (default: <repo>/oracle)")
@@ -1114,7 +1360,8 @@ def main() -> None:
             target.write_bytes(content if isinstance(content, bytes) else content.encode("utf-8"))
         groups[case.group] = groups.get(case.group, 0) + 1
     if not args.only:
-        for filename, rows in (("references.jsonl", references_oracle()), ("fitting.jsonl", fitting_oracle()), ("versions.jsonl", versions_oracle())):
+        for filename, rows in (("references.jsonl", references_oracle()), ("fitting.jsonl", fitting_oracle()), ("versions.jsonl", versions_oracle()),
+                               ("document_errors.jsonl", document_errors_oracle()), ("user_patterns.jsonl", user_patterns_oracle())):
             write_jsonl(out / filename, rows)
             print(f"{filename}: {len(rows)} lines")
             if filename == "fitting.jsonl":
@@ -1123,6 +1370,7 @@ def main() -> None:
                     by_fn[r["fn"]] = by_fn.get(r["fn"], 0) + 1
                 print("   ", dict(sorted(by_fn.items())))
     if not args.only:
+        write_text(out / "user_patterns_subjects.json", dumps(_PATTERN_SUBJECTS))
         write_config_oracle(out)
     print(f"cases: {len(cases)}")
     for group, count in sorted(groups.items()):

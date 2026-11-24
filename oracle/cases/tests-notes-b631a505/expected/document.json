@@ -1,0 +1,63 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "First point",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "21)",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "list_item",
+      "text": "Thesis text",
+      "warnings": [
+        "numbered out of sequence (after point 1); treated as a list item"
+      ]
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "2)",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "point",
+      "text": "Second point",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 2,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    }
+  ]
+}

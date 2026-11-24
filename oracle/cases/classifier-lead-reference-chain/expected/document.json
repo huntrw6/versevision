@@ -1,0 +1,220 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "kind": "verse",
+      "line": 1,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16",
+        "source_end": 9,
+        "source_start": 0,
+        "source_text": "John 3:16",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 2,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16",
+        "source_end": 9,
+        "source_start": 0,
+        "source_text": "John 3:16",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 2,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 8:28",
+        "source_end": 22,
+        "source_start": 11,
+        "source_text": "Romans 8:28",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 8,
+              "verse": 28
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 2,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Acts",
+        "book_id": "ACT",
+        "normalized_text": "Acts 2:1 NIV",
+        "source_end": 36,
+        "source_start": 24,
+        "source_text": "Acts 2:1 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 2,
+              "verse": 1
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16 & 17 & 19",
+        "source_end": 17,
+        "source_start": 0,
+        "source_text": "John 3:16, 17, 19",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          },
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 17
+            }
+          },
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 19
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "review",
+      "line": 4,
+      "reason": "whole-chapter reference; add verse numbers to include it",
+      "text": "Psalm 23"
+    },
+    {
+      "kind": "verse",
+      "line": 5,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Genesis",
+        "book_id": "GEN",
+        "normalized_text": "Genesis 1:1-2:3",
+        "source_end": 17,
+        "source_start": 0,
+        "source_text": "Genesis 1:1 – 2:3",
+        "spans": [
+          {
+            "end": {
+              "chapter": 2,
+              "verse": 3
+            },
+            "start": {
+              "chapter": 1,
+              "verse": 1
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "verse",
+      "line": 1,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 2,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 3,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 4,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 5,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "decisions": [
+    {
+      "add_text": "• This is only one plain sentence\nthat is not anything at all",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "header: title/preamble before the first verse or point"
+      ],
+      "slide_count": 0,
+      "text": "This is only one plain sentence that is not anything at all.",
+      "tier": "warning",
+      "title": "This is only one plain sentence that is not anything at all."
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [],
+  "point_count": 0,
+  "review": [],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: title/preamble before the first verse or point",
+      "text": "This is only one plain sentence that is not anything at all."
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": []
+  },
+  "verse_count": 0
+}

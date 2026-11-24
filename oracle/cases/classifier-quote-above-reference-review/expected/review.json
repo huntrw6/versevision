@@ -1,0 +1,218 @@
+{
+  "adjustments": [],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "• Title 11/22/26",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "Title 11/22/26",
+      "tier": "good",
+      "title": "Title 11/22/26"
+    },
+    {
+      "add_text": "• “The Lord is my shepherd;\nI shall not want”",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "verse text quoted above its reference (your setting asks to check these)"
+      ],
+      "slides": [],
+      "text": "“The Lord is my shepherd; I shall not want.”",
+      "tier": "error",
+      "title": "“The Lord is my shepherd; I shall not want.”"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "Psalm 23:1 NKJV",
+      "tier": "good",
+      "title": "Psalms 23:1 NKJV"
+    },
+    {
+      "add_text": "• “Another quote that is far away”",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "quoted text with no reference"
+      ],
+      "slides": [],
+      "text": "“Another quote that is far away.”",
+      "tier": "error",
+      "title": "“Another quote that is far away.”"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "verse",
+      "line": 9,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "John 3:16 NIV",
+      "tier": "good",
+      "title": "John 3:16 NIV"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "verse text quoted above its reference (your setting asks to check these)",
+      "line": 2,
+      "status": "needs_review",
+      "text": "“The Lord is my shepherd; I shall not want.”"
+    },
+    {
+      "detail": "quoted text with no reference",
+      "line": 4,
+      "status": "needs_review",
+      "text": "“Another quote that is far away.”"
+    }
+  ],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "Title 11/22/26"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• “The Lord is my shepherd;\nI shall not want”",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "error",
+        "line": 2,
+        "reasons": [
+          "verse text quoted above its reference (your setting asks to check these)"
+        ],
+        "slides": [],
+        "text": "“The Lord is my shepherd; I shall not want.”",
+        "tier": "error",
+        "title": "“The Lord is my shepherd; I shall not want.”"
+      },
+      {
+        "add_text": "• “Another quote that is far away”",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "error",
+        "line": 4,
+        "reasons": [
+          "quoted text with no reference"
+        ],
+        "slides": [],
+        "text": "“Another quote that is far away.”",
+        "tier": "error",
+        "title": "“Another quote that is far away.”"
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "Psalm 23:1 NKJV",
+        "tier": "good",
+        "title": "Psalms 23:1 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "verse",
+        "line": 9,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "John 3:16 NIV",
+        "tier": "good",
+        "title": "John 3:16 NIV"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Title 11/22/26",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "Title 11/22/26",
+        "tier": "good",
+        "title": "Title 11/22/26"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "",
+      "title": "Psalms 23:1 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "",
+      "title": "John 3:16 (NIV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 2,
+    "fixes": 0,
+    "flagged": 2,
+    "good": 2,
+    "left_out": 1,
+    "needs_review": 2,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 2,
+    "verse_slides": 2,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "Title 11/22/26 Grace"
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "point",
+      "text": "God saves by grace through faith.",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Ephesians",
+        "book_id": "EPH",
+        "normalized_text": "Ephesians 2:8-9 NKJV",
+        "source_end": 20,
+        "source_start": 0,
+        "source_text": "Ephesians 2:8-9 NKJV",
+        "spans": [
+          {
+            "end": {
+              "chapter": 2,
+              "verse": 9
+            },
+            "start": {
+              "chapter": 2,
+              "verse": 8
+            }
+          }
+        ],
+        "version": "NKJV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "2)",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "point",
+      "text": "We were made for good works that He prepared for us beforehand so that we would walk in them every day of our lives.",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 5,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Ephesians",
+        "book_id": "EPH",
+        "normalized_text": "Ephesians 2:10",
+        "source_end": 14,
+        "source_start": 0,
+        "source_text": "Ephesians 2:10",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 2,
+              "verse": 10
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "3)",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "point",
+      "text": "Peace",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 7,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 5:1 ESV",
+        "source_end": 14,
+        "source_start": 0,
+        "source_text": "Romans 5:1 ESV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 5,
+              "verse": 1
+            }
+          }
+        ],
+        "version": "ESV",
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 2,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 3,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 4,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 5,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 6,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 7,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    }
+  ]
+}

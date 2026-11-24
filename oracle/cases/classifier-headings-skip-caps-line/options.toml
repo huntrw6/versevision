@@ -1,0 +1,6 @@
+[notes]
+caps_lines = "line"
+headings = "skip"
+
+[run]
+no_fetch = true

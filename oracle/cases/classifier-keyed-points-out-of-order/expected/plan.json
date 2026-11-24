@@ -1,0 +1,98 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [
+        "numbered out of sequence (after point 0); treated as a list item"
+      ],
+      "slide_count": 1,
+      "text": "KEY #2) Second first",
+      "tier": "warning",
+      "title": "KEY #2) Second first"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "KEY #1) First",
+      "tier": "good",
+      "title": "KEY #1) First"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "numbered out of sequence (after point 1); treated as a list item"
+      ],
+      "slide_count": 1,
+      "text": "KEY #4) Four",
+      "tier": "warning",
+      "title": "KEY #4) Four"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 1,
+      "problem": "numbered out of sequence (after point 0); treated as a list item",
+      "text": "KEY #2) Second first"
+    },
+    {
+      "line": 3,
+      "problem": "numbered out of sequence (after point 1); treated as a list item",
+      "text": "KEY #4) Four"
+    }
+  ],
+  "point_count": 3,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "KEY #2) Second first",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "KEY #1) First",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "KEY #4) Four",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

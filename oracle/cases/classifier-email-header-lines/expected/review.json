@@ -1,0 +1,324 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• Subject: Easter plans",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "email header line"
+      ],
+      "slides": [],
+      "text": "Subject: Easter plans",
+      "tier": "good",
+      "title": "Subject: Easter plans"
+    },
+    {
+      "add_text": "• From: Pastor Amy",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "email header line"
+      ],
+      "slides": [],
+      "text": "From: Pastor Amy",
+      "tier": "good",
+      "title": "From: Pastor Amy"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• Reply to\n<amy@example.com> please",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "email header line"
+      ],
+      "slides": [],
+      "text": "Reply to <amy@example.com> please",
+      "tier": "good",
+      "title": "Reply to <amy@example.com> please"
+    },
+    {
+      "add_text": "• To: Everyone",
+      "addable": true,
+      "correction": null,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "email header line"
+      ],
+      "slides": [],
+      "text": "To: Everyone",
+      "tier": "good",
+      "title": "To: Everyone"
+    },
+    {
+      "add_text": "• Cc : Someone",
+      "addable": true,
+      "correction": null,
+      "id": 5,
+      "kind": "left_out",
+      "line": 6,
+      "reasons": [
+        "email header line"
+      ],
+      "slides": [],
+      "text": "Cc : Someone",
+      "tier": "good",
+      "title": "Cc : Someone"
+    },
+    {
+      "add_text": "• [quoted text hidden]",
+      "addable": true,
+      "correction": null,
+      "id": 6,
+      "kind": "left_out",
+      "line": 7,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "[quoted text hidden]",
+      "tier": "good",
+      "title": "[quoted text hidden]"
+    },
+    {
+      "add_text": "• sent: Monday",
+      "addable": true,
+      "correction": null,
+      "id": 7,
+      "kind": "left_out",
+      "line": 8,
+      "reasons": [
+        "email header line"
+      ],
+      "slides": [],
+      "text": "sent: Monday",
+      "tier": "good",
+      "title": "sent: Monday"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: email header line",
+      "line": 1,
+      "status": "left_out",
+      "text": "Subject: Easter plans"
+    },
+    {
+      "detail": "header: email header line",
+      "line": 2,
+      "status": "left_out",
+      "text": "From: Pastor Amy"
+    },
+    {
+      "detail": "header: email header line",
+      "line": 4,
+      "status": "left_out",
+      "text": "Reply to <amy@example.com> please"
+    },
+    {
+      "detail": "header: email header line",
+      "line": 5,
+      "status": "left_out",
+      "text": "To: Everyone"
+    },
+    {
+      "detail": "header: email header line",
+      "line": 6,
+      "status": "left_out",
+      "text": "Cc : Someone"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 7,
+      "status": "left_out",
+      "text": "[quoted text hidden]"
+    },
+    {
+      "detail": "header: email header line",
+      "line": 8,
+      "status": "left_out",
+      "text": "sent: Monday"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) A point",
+        "tier": "good",
+        "title": "1) A point"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Subject: Easter plans",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "email header line"
+        ],
+        "slides": [],
+        "text": "Subject: Easter plans",
+        "tier": "good",
+        "title": "Subject: Easter plans"
+      },
+      {
+        "add_text": "• From: Pastor Amy",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "email header line"
+        ],
+        "slides": [],
+        "text": "From: Pastor Amy",
+        "tier": "good",
+        "title": "From: Pastor Amy"
+      },
+      {
+        "add_text": "• Reply to\n<amy@example.com> please",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "left_out",
+        "line": 4,
+        "reasons": [
+          "email header line"
+        ],
+        "slides": [],
+        "text": "Reply to <amy@example.com> please",
+        "tier": "good",
+        "title": "Reply to <amy@example.com> please"
+      },
+      {
+        "add_text": "• To: Everyone",
+        "addable": true,
+        "correction": null,
+        "id": 4,
+        "kind": "left_out",
+        "line": 5,
+        "reasons": [
+          "email header line"
+        ],
+        "slides": [],
+        "text": "To: Everyone",
+        "tier": "good",
+        "title": "To: Everyone"
+      },
+      {
+        "add_text": "• Cc : Someone",
+        "addable": true,
+        "correction": null,
+        "id": 5,
+        "kind": "left_out",
+        "line": 6,
+        "reasons": [
+          "email header line"
+        ],
+        "slides": [],
+        "text": "Cc : Someone",
+        "tier": "good",
+        "title": "Cc : Someone"
+      },
+      {
+        "add_text": "• [quoted text hidden]",
+        "addable": true,
+        "correction": null,
+        "id": 6,
+        "kind": "left_out",
+        "line": 7,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "[quoted text hidden]",
+        "tier": "good",
+        "title": "[quoted text hidden]"
+      },
+      {
+        "add_text": "• sent: Monday",
+        "addable": true,
+        "correction": null,
+        "id": 7,
+        "kind": "left_out",
+        "line": 8,
+        "reasons": [
+          "email header line"
+        ],
+        "slides": [],
+        "text": "sent: Monday",
+        "tier": "good",
+        "title": "sent: Monday"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) A point",
+      "title": "1) A point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 7,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 1,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

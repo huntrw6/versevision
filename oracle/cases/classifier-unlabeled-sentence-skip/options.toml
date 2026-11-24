@@ -1,0 +1,6 @@
+[notes]
+unlabeled_sentence = "skip"
+unlabeled_short = "skip"
+
+[run]
+no_fetch = true

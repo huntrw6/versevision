@@ -20,7 +20,7 @@ reproducibly.
 
 ## What is in it
 
-Whole documents, `cases/<name>/`: 129 cases
+Whole documents, `cases/<name>/`: 213 cases (each has `input.<ext>`, `options.toml`, `bible.json` and `expected/`: `extracted.txt` (the text the reader returned, which the classifier receives), `document.json` (the classifier's items, issues and the rule of every paragraph), `plan.json`, `review.json`, `trace.jsonl`)
 
 | group | cases | what |
 |---|---|---|
@@ -34,6 +34,7 @@ Whole documents, `cases/<name>/`: 129 cases
 | `versions-*`, `quote-*`, `version-*` | 5 | the version of a verse: nearest above, written, comparison pair, version taken from the quoted wording (KJV vs NKJV), quote check off |
 | `provider-*` | 2 | a version the offline provider does not have; a version label that is not a version |
 | `label-fix-*`, `long-verse-split`, `review-choices-*` | 3 | point header typos corrected to match the others, a verse cut into several slides, review choices applied after planning (`choices.json`) |
+| `classifier-*` | 84 | small documents, one per rule branch of `notes/classifier.py` that the cases above never reach (found with `python/scripts/classifier_coverage.py`) and per setting: `[slide]` tags, references in the middle of a sentence, quotes (above a reference, alone), lead and trailing reference chains, references in brackets, bad references, empty and one-line documents, the lines before the first item, headings and ALL CAPS lines, `Recap` and dates, stage cues, extra cue words, skip patterns, markers and `KEY #n)` headers, labelled lines (`Conclusion:`), one slide per line break or one paragraph per point, duplicates, wrapped (PDF/email) lines, odd whitespace and case-insensitive Unicode. They run with `no_fetch` (`bible.json` is `{}`): what they test is the classifier |
 
 Line level, one JSON object per line:
 
@@ -41,6 +42,8 @@ Line level, one JSON object per line:
 |---|---|---|
 | `references.jsonl` | 132 | `parse_references` of one line: every line of the reference-parser tests that contains a digit, extra lines (abbreviations, ranges across chapters, `&`/`;`/`,` lists, invalid chapters and verses, unknown books), and every line with a digit in the Whitefield and kitchen-sink documents; 7 have issues, 2 make the Python parser raise (`John 0:1`, `John 1:0`), 6 use version aliases |
 | `fitting.jsonl` | 405 | `balance_lines` 108, `split_verse_text` 108, `split_point_text` 108 (each over 27 texts and 4-5 parameter sets, including `tolerance`/`punctuation_tolerance` 0.0, 0.05, 0.1, 0.15, 0.25, 0.5, 0.6), plus `text_width_units` 27 and `wrap_body_lines` 54 |
+| `document_errors.jsonl` | 71 | documents and options for which `classify_document` raises: the reference parser (chapter 0), a `skip_patterns` entry that `re.compile` rejects (the exact message), and two crashes of the Python importer (a numbered whole-chapter reference, a numbered duplicate that is dropped) |
+| `user_patterns.jsonl` (+ `user_patterns_subjects.json`) | 520 | Python `re` as the user writes it in `notes.skip_patterns`: 261 patterns, with and without IGNORECASE (4 of the rows are compile errors), each searched in 55 texts: the span and groups of `search`, or the exact compile error |
 | `versions.jsonl` | 82 | `canonical_version`/`correct_version`/`is_real_version` of 58 labels (every known version, case variants, edition aliases, typos, unknown), `correct_version` against an available set 6, `quote_score` 18 |
 
 The config model (`python/src/versevision/config.py`):
@@ -61,6 +64,11 @@ provides changes the caller's profile too (calling it twice on one config shows 
 `cargo test -p versevision-core --test oracle -- --nocapture` runs everything above and prints the pass count per group. `expected_failures.txt` is a ratchet:
 it lists the case groups (`group:tests`), single cases (`case:...`) and files (`file:references.jsonl`) that do not pass yet. The test fails when a listed
 one passes (delete the line) or an unlisted one fails, so the list only shrinks.
+
+Progress is tracked per aspect. `group:`/`case:` entries are the whole plan comparison (`plan.json`, `review.json` and the full trace: they need the planner,
+S3). The notes classifier (S2b) is checked on its own, from `expected/extracted.txt`, so it does not wait for the document readers (S4):
+`document:<case-or-group>` is `expected/document.json` of that case, and `trace-stage:<name>` is one of the classifier's trace stages (`parse_start`,
+`line_join`, `paragraph`, `item`) over every case. `ORACLE_VERBOSE=1` prints every failing line of the line-level files, not only the first.
 
 ## The bible text is synthetic
 
@@ -84,6 +92,14 @@ come from the tests (`quote-*`) use short KJV/NKJV quotations already in the tes
   and docx layouts (tables, text boxes, columns, scanned pages) are not.
 * **Live versions of Python's libraries**: the oracle is produced with the locked environment; `difflib`, `pypdf` and `BeautifulSoup` behaviour in
   other versions is not tracked.
+
+## The classifier's coverage
+
+`python/scripts/classifier_coverage.py` classifies every case document with its own options and reports the coverage of `notes/classifier.py` alone
+(`--without-group classifier` leaves out the `classifier-*` cases). It was 93% (26 statements and 19 branches missed) before the `classifier-*` cases
+and is 98% after; what is left is not reachable from a case file: the `PointItem.display` and `NoteDocument` list properties (the planner reads them,
+the oracle does not), the two older keyword shortcuts of `classify_document` (`line_mode`, `unlabeled_bullets`: not config options) and two lines that
+no input reaches (a quote opener after a closed quote, which an earlier rule has already answered; an item type that is never none of the four).
 
 ## Adding a case
 

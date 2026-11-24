@@ -1,0 +1,73 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "Point",
+      "warnings": []
+    },
+    {
+      "category": "quoted_text",
+      "kind": "skipped",
+      "line": 2,
+      "reason": "verse text quoted above its reference; text is fetched from the Bible provider",
+      "text": "\"Quote.\""
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 8:16",
+        "source_end": 11,
+        "source_start": 0,
+        "source_text": "Romans 8:16",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 8,
+              "verse": 16
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "quote",
+      "line": 2,
+      "rule": "starts with a quotation mark",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 3,
+      "rule": "whole line is a reference in brackets",
+      "why": ""
+    }
+  ]
+}

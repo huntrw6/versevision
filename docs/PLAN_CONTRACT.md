@@ -15,6 +15,8 @@ oracle/cases/<name>/
   options.toml             only what differs from the defaults (may be empty); [run] holds the run parameters
   bible.json               the verse text the case needs: "<VERSION> <Book> <ch>:<v>" -> text   (a run is offline and deterministic)
   choices.json             (rare) review choices to apply after planning: {"skip": [ids], "include": [ids], "reject_fixes": [ids]}
+  expected/extracted.txt   the text the document reader returned: what the classifier receives (section 1a)
+  expected/document.json   what the notes classifier made of that text (section 4a)
   expected/plan.json       the plan (section 4)
   expected/review.json     the review report the web page is built from (section 5)
   expected/trace.jsonl     the decision trace (section 6)
@@ -52,6 +54,13 @@ oracle/cases/<name>/
    * `bible.json` texts are **synthetic** (made up, not Scripture), except the few cases whose texts come from the tests
      (`quote-version-*`, which need real wording differences between KJV and NKJV to exercise the quote check).
    * The quote check may ask the provider for the same verse in other versions (`verses.quote_versions`); those verses are in `bible.json` too.
+
+### 1a. `expected/extracted.txt` and `expected/document.json`
+
+`extracted.txt` is the text after step 1 (the ligatures replaced), written as UTF-8 with no change at all: for a `.txt` or `.md` input it is the
+input with `\r\n` and `\r` turned into `\n`; for html, docx and pdf it is the extracted text. A stage that works on text (the classifier, S2b) uses it
+as its input, so it does not depend on a document reader (S4). `document.json` is what `classify_document(text, config.bible.version_aliases,
+config.notes, config.points)` returned (section 4a). Both are compared exactly.
 
 ## 2. Encoding of the files
 
@@ -113,6 +122,26 @@ plus `looks: null` (themes are not part of this contract).
 `notices`, `skipped`, `review` and `failed` are lists of `{line, text, problem}` in the order the planner appended them (not sorted).
 Every string is compared exactly, so the prose of `reasons` and `problem` is part of the contract.
 
+## 4a. `expected/document.json`
+
+`NoteDocument.model_dump(mode="json")` plus `paragraphs`, in document order. Every field is compared.
+
+```jsonc
+{ "items": [ {"kind": "verse",   "line": 5, "reference": {…as in references.jsonl…}, "warnings": [], "quoted": ""},
+             {"kind": "point",   "line": 6, "role": "point" | "list_item" | "slide_note", "label": "1)", "text": "…", "warnings": [], "detail_end": 6, "label_fixed_from": ""},
+             {"kind": "skipped", "line": 1, "category": "stage_note" | "header" | "media_marker" | "quoted_text", "text": "…", "reason": "…"},
+             {"kind": "review",  "line": 9, "text": "…", "reason": "…"} ],
+  "issues": [ {"source_text", "source_start", "source_end", "message", "suggestion"} ],      // invalid references, in document order
+  "paragraphs": [ {"line": 3, "end_line": 4, "label": "verse", "rule": "Bible reference at the start of the line", "why": "", "first_in_document": false} ] }
+```
+
+`line` is the 1-based line of `extracted.txt`. `paragraphs` has one entry per paragraph (a line, or the lines the page wrapped and the classifier
+joined): its first and last line, what it was recognised as (`other`, `slide_tag`, `verse`, `stage`, `marker`, `header`, `midref`, `badref`, `quote`),
+the name of the rule that decided it (the strings of `notes/classifier.py`; every one of them is compared) and, for some, the reason. The same values are in the `paragraph` records of the trace.
+
+The classifier's own trace stages (`parse_start`, `line_join`, `paragraph`, `item`) are one run of records right after `extract` (`seq` 2, 3, ...); the
+runner compares them stage by stage with the whole record, `seq` included.
+
 ## 5. `expected/review.json`
 
 `versevision.workflow.report.build_report(plan, source_name="input.<ext>")`: the structure the review page reads.
@@ -150,10 +179,10 @@ The stages, in the order they appear, with the S-stage that has to produce them 
 | stage | when | fields | Rust stage |
 |---|---|---|---|
 | `extract` | once, first | `type` (".txt"), `method`, `characters`, `lines`, `blank_lines`, `odd_characters` (sorted non-letter characters above U+007F, at most 40) | S4 |
-| `parse_start` | once | `lines`, `non_blank`, `full_line_width`, `hard_wrapped`, `wrapped_lines`, `orphan_max_words`, `note` | S2 |
-| `line_join` | a wrapped line joined to the line above | `line`, `into_paragraph`, `text`, `why` | S2 |
-| `paragraph` | every paragraph of the document | `line`, `end_line`, `first_in_document`, `label`, `marker`, `raw_lines`, `references`, `rule`, `text`, `why` | S2 |
-| `item` | every parsed item | `line`, `label`, `settings`, `outcome` (a list of objects; the keys that occur are `kind`, `category`, `line`, `reason`, `text`, `label`, `role`, `reference`, `version_written`, `warnings`, depending on the kind of item) | S2 |
+| `parse_start` | once | `lines`, `non_blank`, `full_line_width`, `hard_wrapped`, `wrapped_lines`, `orphan_max_words`, `note` | S2b |
+| `line_join` | a wrapped line joined to the line above | `line`, `into_paragraph`, `text`, `why` | S2b |
+| `paragraph` | every paragraph of the document | `line`, `end_line`, `first_in_document`, `label`, `marker`, `raw_lines`, `references`, `rule`, `text`, `why` | S2b |
+| `item` | every parsed item | `line`, `label`, `settings`, `outcome` (a list of objects; the keys that occur are `kind`, `category`, `line`, `reason`, `text`, `label`, `role`, `reference`, `version_written`, `warnings`, depending on the kind of item) | S2b |
 | `label_fix` | a point header corrected to match the others | `line`, `written`, `corrected_to`, `rule` | S3 |
 | `version` | every verse | `line`, `reference`, `version`, `how`, `note`, `sets_version_for_later_verses` or `version_source`, `default_version`, `last_explicit_version` | S3 |
 | `point_format` | every point | `line`, `role`, `label_in_notes`, `text_in_notes`, `slide_text`, `slides`, `settings` | S3 |
@@ -192,6 +221,14 @@ One JSON object per line; `args` hold every parameter by its Python name, so a r
   `quote_score` comes from `difflib.SequenceMatcher(autojunk=False)`: a port must give the same matching blocks (compare the float with a
   tolerance of 1e-12).
 
+* `oracle/document_errors.jsonl`: `{"input", "notes", "points", "aliases", "raises", "message"}`: a document and options for which `classify_document` *raises*
+  (the exception name, `str(exception)`). Three kinds: the reference parser raising (`John 0:1`, a pydantic `ValidationError`: only the name is compared),
+  a pattern in `notes.skip_patterns` that `re.compile` rejects (the exact `re.error` text with its position, `PatternError` on Python 3.13), and two
+  documents that crash the Python importer with `AttributeError: 'ReviewItem' object has no attribute 'warnings'` (see "Known Python quirks").
+* `oracle/user_patterns.jsonl` and `user_patterns_subjects.json`: Python `re` for the patterns a user writes in `notes.skip_patterns`.
+  `{"pattern", "ignorecase", "matches": [...]}` or `{..., "error": {"type", "message"}}`; `matches` has one entry per text of
+  `user_patterns_subjects.json`, in order: `null` (no match) or `{"span": [start, end], "groups": [...]}` of `re.compile(pattern, re.IGNORECASE or 0).search(text)`
+  (character offsets; a group that did not take part is `null`). Patterns with the ASCII flag `(?a)` together with IGNORECASE are not in it.
 * `oracle/config_defaults.json`, `config_defaults.toml`, `config_rich.toml`, `config_options.jsonl`: the config model. The JSON is `AppConfig().model_dump(mode="json")`.
   The TOML files are what `save_config` writes (`model_dump(mode="json", exclude_none=True)` through `tomli_w`); Rust must write the same bytes (a config
   with the same values has one text), and `config_rich.toml` read and written again must not change. `config_options.jsonl` rows are
@@ -223,6 +260,12 @@ request. A case that shows the new behaviour is added to `export_oracle.py` firs
 edited by hand.
 
 ## Known Python quirks the oracle records (not fixed here)
+
+* **A numbered line that holds a whole-chapter reference crashes the importer.** `1. Psalm 23` (marker, then a chapter with no verses) and a numbered
+  verse that `notes.duplicates = "drop"` drops (`John 3:16` above, `1. John 3:16` below) end in `doc.items[-1].warnings.append(...)` on a review or
+  skipped item: `AttributeError: 'ReviewItem' object has no attribute 'warnings'`. Both are in `oracle/document_errors.jsonl`; the Rust classifier fails with
+  the same exception and message (`ClassifyError::NoWarnings`). The fix is probably to add the warning only when the last item is a verse; it is the
+  owner's decision, so it is not made here.
 
 * `parse_references` raises a pydantic `ValidationError` for a chapter or verse of `0` in a position it builds a `VersePoint`
   (`John 0:1` and `John 1:0` are in the oracle). The planner never sees these as references; the oracle records the line with `"raises"`. A Rust parser should

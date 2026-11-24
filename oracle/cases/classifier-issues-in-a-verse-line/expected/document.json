@@ -1,0 +1,203 @@
+{
+  "issues": [
+    {
+      "message": "John 3 has no verse 99",
+      "source_end": 20,
+      "source_start": 11,
+      "source_text": "John 3:99",
+      "suggestion": null
+    },
+    {
+      "message": "Genesis has no chapter 51",
+      "source_end": 32,
+      "source_start": 20,
+      "source_text": "Genesis 51:2",
+      "suggestion": null
+    },
+    {
+      "message": "Acts has no chapter 99",
+      "source_end": 24,
+      "source_start": 14,
+      "source_text": "Acts 99:99",
+      "suggestion": null
+    },
+    {
+      "message": "Psalms 23 has no verse 999",
+      "source_end": 28,
+      "source_start": 12,
+      "source_text": "Psalm 23:999 NIV",
+      "suggestion": null
+    }
+  ],
+  "items": [
+    {
+      "kind": "verse",
+      "line": 1,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16",
+        "source_end": 9,
+        "source_start": 0,
+        "source_text": "John 3:16",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 2,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 8:28 NIV",
+        "source_end": 15,
+        "source_start": 0,
+        "source_text": "Romans 8:28 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 8,
+              "verse": 28
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:16",
+        "source_end": 9,
+        "source_start": 0,
+        "source_text": "John 3:16",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 16
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": [
+        "numbered line holds a reference; treated as a verse, not a sermon point"
+      ]
+    },
+    {
+      "kind": "verse",
+      "line": 4,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Romans",
+        "book_id": "ROM",
+        "normalized_text": "Romans 8:28",
+        "source_end": 11,
+        "source_start": 0,
+        "source_text": "Romans 8:28",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 8,
+              "verse": 28
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 5,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Psalms",
+        "book_id": "PSA",
+        "normalized_text": "Psalms 23:1",
+        "source_end": 10,
+        "source_start": 0,
+        "source_text": "Psalm 23:1",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 23,
+              "verse": 1
+            }
+          }
+        ],
+        "version": null,
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "verse",
+      "line": 1,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 2,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 3,
+      "rule": "numbered line whose text starts with a Bible reference",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 4,
+      "rule": "whole line is a reference in brackets",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 5,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "category": "header",
+      "kind": "skipped",
+      "line": 1,
+      "reason": "title / date line",
+      "text": "Title 11/8/26"
+    },
+    {
+      "kind": "verse",
+      "line": 3,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Ephesians",
+        "book_id": "EPH",
+        "normalized_text": "Ephesians 4:5 NKJV",
+        "source_end": 18,
+        "source_start": 0,
+        "source_text": "Ephesians 4:5 NKJV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 4,
+              "verse": 5
+            }
+          }
+        ],
+        "version": "NKJV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 5,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "Matthew",
+        "book_id": "MAT",
+        "normalized_text": "Matthew 7:16-20 & 21-23 & 24-27 NKJV",
+        "source_end": 34,
+        "source_start": 0,
+        "source_text": "Matthew 7:16-20, 21-23, 24-27 NKJV",
+        "spans": [
+          {
+            "end": {
+              "chapter": 7,
+              "verse": 20
+            },
+            "start": {
+              "chapter": 7,
+              "verse": 16
+            }
+          },
+          {
+            "end": {
+              "chapter": 7,
+              "verse": 23
+            },
+            "start": {
+              "chapter": 7,
+              "verse": 21
+            }
+          },
+          {
+            "end": {
+              "chapter": 7,
+              "verse": 27
+            },
+            "start": {
+              "chapter": 7,
+              "verse": 24
+            }
+          }
+        ],
+        "version": "NKJV",
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "header",
+      "line": 1,
+      "rule": "contains a date (d/m/y) and no verse-like d:d",
+      "why": "title / date line"
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 3,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 5,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Point",
+      "tier": "good",
+      "title": "1) Point"
+    },
+    {
+      "add_text": "• As Psalm 23:1 says, he leads us",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage note: mentions Psalms 23:1 inside text (your setting skips these)"
+      ],
+      "slides": [],
+      "text": "As Psalm 23:1 says, he leads us.",
+      "tier": "warning",
+      "title": "As Psalm 23:1 says, he leads us."
+    },
+    {
+      "add_text": "• See also John 3:16 and Romans\n8:28 and Acts 2:1 and Acts 2:2 here",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage note: mentions John 3:16, Romans 8:28, Acts 2:1 inside text (your setting skips these)"
+      ],
+      "slides": [],
+      "text": "See also John 3:16 and Romans 8:28 and Acts 2:1 and Acts 2:2 here",
+      "tier": "warning",
+      "title": "See also John 3:16 and Romans 8:28 and Acts 2:1 and Acts 2:2 here"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "stage_note: mentions Psalms 23:1 inside text (your setting skips these)",
+      "line": 2,
+      "status": "left_out",
+      "text": "As Psalm 23:1 says, he leads us."
+    },
+    {
+      "detail": "stage_note: mentions John 3:16, Romans 8:28, Acts 2:1 inside text (your setting skips these)",
+      "line": 3,
+      "status": "left_out",
+      "text": "See also John 3:16 and Romans 8:28 and Acts 2:1 and Acts 2:2 here"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Point",
+        "tier": "good",
+        "title": "1) Point"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [
+      {
+        "add_text": "• As Psalm 23:1 says, he leads us",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "stage note: mentions Psalms 23:1 inside text (your setting skips these)"
+        ],
+        "slides": [],
+        "text": "As Psalm 23:1 says, he leads us.",
+        "tier": "warning",
+        "title": "As Psalm 23:1 says, he leads us."
+      },
+      {
+        "add_text": "• See also John 3:16 and Romans\n8:28 and Acts 2:1 and Acts 2:2 here",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "left_out",
+        "line": 3,
+        "reasons": [
+          "stage note: mentions John 3:16, Romans 8:28, Acts 2:1 inside text (your setting skips these)"
+        ],
+        "slides": [],
+        "text": "See also John 3:16 and Romans 8:28 and Acts 2:1 and Acts 2:2 here",
+        "tier": "warning",
+        "title": "See also John 3:16 and Romans 8:28 and Acts 2:1 and Acts 2:2 here"
+      }
+    ],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Point",
+      "title": "1) Point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 2,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 1,
+    "verse_slides": 0,
+    "warnings": 2
+  }
+}

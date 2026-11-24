@@ -1,0 +1,244 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) ÉCOLE ÉLÈVES",
+      "tier": "good",
+      "title": "1) ÉCOLE ÉLÈVES"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "ÉCOLE ÉLÈVES",
+      "tier": "good",
+      "title": "ÉCOLE ÉLÈVES"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• À la carte",
+      "tier": "warning",
+      "title": "• À la carte"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "ΣΟΦΊΑ ΘΕΟΎ",
+      "tier": "good",
+      "title": "ΣΟΦΊΑ ΘΕΟΎ"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 4,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• ǅ titlecase",
+      "tier": "warning",
+      "title": "• ǅ titlecase"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 5,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "ÁB́Ć",
+      "tier": "good",
+      "title": "ÁB́Ć"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 6,
+      "id": 6,
+      "kind": "point",
+      "line": 7,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• ² superscript",
+      "tier": "warning",
+      "title": "• ² superscript"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 7,
+      "id": 7,
+      "kind": "point",
+      "line": 8,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• 1: ² verse?",
+      "tier": "good",
+      "title": "• 1: ² verse?"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 8,
+      "id": 8,
+      "kind": "point",
+      "line": 9,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• 1: ① circled",
+      "tier": "warning",
+      "title": "• 1: ① circled"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 3,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• À la carte"
+    },
+    {
+      "line": 5,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• ǅ titlecase"
+    },
+    {
+      "line": 7,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• ² superscript"
+    },
+    {
+      "line": 9,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• 1: ① circled"
+    }
+  ],
+  "point_count": 9,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) ÉCOLE ÉLÈVES",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "ÉCOLE ÉLÈVES",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• À la carte",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "ΣΟΦΊΑ ΘΕΟΎ",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 3,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• ǅ titlecase",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 4,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "ÁB́Ć",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 5,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• ² superscript",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 6,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• 1: ² verse?",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 7,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• 1: ① circled",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 8,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

@@ -1,0 +1,25 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "slide_note",
+      "text": "The shepherd leads us beside still waters and gives us rest in every season of life and",
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "other",
+      "line": 1,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    }
+  ]
+}

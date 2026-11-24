@@ -1,0 +1,248 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "verse",
+      "line": 1,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slide_count": 1,
+      "text": "John 3:16",
+      "tier": "warning",
+      "title": "John 3:16 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Romans 8:28 NIV",
+      "tier": "good",
+      "title": "Romans 8:28 NIV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)",
+        "numbered line holds a reference; treated as a verse, not a sermon point"
+      ],
+      "slide_count": 1,
+      "text": "John 3:16",
+      "tier": "warning",
+      "title": "John 3:16 (NIV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 3,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slide_count": 1,
+      "text": "Romans 8:28",
+      "tier": "warning",
+      "title": "Romans 8:28 (NIV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 4,
+      "id": 4,
+      "kind": "verse",
+      "line": 5,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slide_count": 1,
+      "text": "Psalm 23:1",
+      "tier": "warning",
+      "title": "Psalms 23:1 (NIV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 5,
+      "kind": "error",
+      "line": 0,
+      "reasons": [
+        "invalid reference: John 3 has no verse 99"
+      ],
+      "slide_count": 0,
+      "text": "John 3:99",
+      "tier": "error",
+      "title": "John 3:99"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 6,
+      "kind": "error",
+      "line": 0,
+      "reasons": [
+        "invalid reference: Genesis has no chapter 51"
+      ],
+      "slide_count": 0,
+      "text": "Genesis 51:2",
+      "tier": "error",
+      "title": "Genesis 51:2"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 7,
+      "kind": "error",
+      "line": 0,
+      "reasons": [
+        "invalid reference: Acts has no chapter 99"
+      ],
+      "slide_count": 0,
+      "text": "Acts 99:99",
+      "tier": "error",
+      "title": "Acts 99:99"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 8,
+      "kind": "error",
+      "line": 0,
+      "reasons": [
+        "invalid reference: Psalms 23 has no verse 999"
+      ],
+      "slide_count": 0,
+      "text": "Psalm 23:999 NIV",
+      "tier": "error",
+      "title": "Psalm 23:999 NIV"
+    }
+  ],
+  "failed": [
+    {
+      "line": 0,
+      "problem": "invalid reference: John 3 has no verse 99",
+      "text": "John 3:99"
+    },
+    {
+      "line": 0,
+      "problem": "invalid reference: Genesis has no chapter 51",
+      "text": "Genesis 51:2"
+    },
+    {
+      "line": 0,
+      "problem": "invalid reference: Acts has no chapter 99",
+      "text": "Acts 99:99"
+    },
+    {
+      "line": 0,
+      "problem": "invalid reference: Psalms 23 has no verse 999",
+      "text": "Psalm 23:999 NIV"
+    }
+  ],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 1,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "John 3:16"
+    },
+    {
+      "line": 3,
+      "problem": "no version listed; used NIV (nearest version above)",
+      "text": "John 3:16"
+    },
+    {
+      "line": 4,
+      "problem": "no version listed; used NIV (nearest version above)",
+      "text": "Romans 8:28"
+    },
+    {
+      "line": 5,
+      "problem": "no version listed; used NIV (nearest version above)",
+      "text": "Psalms 23:1"
+    }
+  ],
+  "point_count": 0,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Romans 8:28",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "ROM.8.28"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 2,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Romans 8:28",
+        "source_passage_index": 3,
+        "verse_keys": [
+          "ROM.8.28"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:1",
+        "source_passage_index": 4,
+        "verse_keys": [
+          "PSA.23.1"
+        ],
+        "version_text": "NIV"
+      }
+    ]
+  },
+  "verse_count": 5
+}

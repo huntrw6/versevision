@@ -1,0 +1,268 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "KEY #1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "First",
+      "warnings": []
+    },
+    {
+      "detail_end": 2,
+      "kind": "point",
+      "label": "KEY#2)",
+      "label_fixed_from": "",
+      "line": 2,
+      "role": "point",
+      "text": "Second",
+      "warnings": []
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "Step 3:",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "point",
+      "text": "Third",
+      "warnings": []
+    },
+    {
+      "detail_end": 4,
+      "kind": "point",
+      "label": "Principle #4.",
+      "label_fixed_from": "",
+      "line": 4,
+      "role": "point",
+      "text": "Fourth",
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "reason 5-",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "point",
+      "text": "Fifth",
+      "warnings": []
+    },
+    {
+      "detail_end": 6,
+      "kind": "point",
+      "label": "WAY 6)",
+      "label_fixed_from": "",
+      "line": 6,
+      "role": "point",
+      "text": "Sixth",
+      "warnings": []
+    },
+    {
+      "detail_end": 7,
+      "kind": "point",
+      "label": "Tip 7:",
+      "label_fixed_from": "",
+      "line": 7,
+      "role": "point",
+      "text": "Seventh",
+      "warnings": []
+    },
+    {
+      "detail_end": 8,
+      "kind": "point",
+      "label": "Lesson #8)",
+      "label_fixed_from": "",
+      "line": 8,
+      "role": "point",
+      "text": "Eighth",
+      "warnings": []
+    },
+    {
+      "detail_end": 9,
+      "kind": "point",
+      "label": "Truth 9.",
+      "label_fixed_from": "",
+      "line": 9,
+      "role": "point",
+      "text": "Ninth",
+      "warnings": []
+    },
+    {
+      "detail_end": 10,
+      "kind": "point",
+      "label": "KEY #10)",
+      "label_fixed_from": "",
+      "line": 10,
+      "role": "point",
+      "text": "Tenth",
+      "warnings": []
+    },
+    {
+      "detail_end": 11,
+      "kind": "point",
+      "label": "•",
+      "label_fixed_from": "",
+      "line": 11,
+      "role": "list_item",
+      "text": "KEY #1000) Too many",
+      "warnings": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ]
+    },
+    {
+      "detail_end": 12,
+      "kind": "point",
+      "label": "",
+      "label_fixed_from": "",
+      "line": 12,
+      "role": "slide_note",
+      "text": "KEY #11)",
+      "warnings": []
+    },
+    {
+      "detail_end": 13,
+      "kind": "point",
+      "label": "Point #12)",
+      "label_fixed_from": "",
+      "line": 13,
+      "role": "list_item",
+      "text": "John 3:16 and Romans 8:28 here",
+      "warnings": [
+        "numbered out of sequence (after point 10); treated as a list item",
+        "text mentions John 3:16; not added as a verse slide",
+        "text mentions Romans 8:28; not added as a verse slide"
+      ]
+    },
+    {
+      "detail_end": 14,
+      "kind": "point",
+      "label": "key #13)",
+      "label_fixed_from": "",
+      "line": 14,
+      "role": "list_item",
+      "text": "Psalm 23:1 NIV",
+      "warnings": [
+        "numbered out of sequence (after point 10); treated as a list item",
+        "text mentions Psalms 23:1 NIV; not added as a verse slide"
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 2,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "'STEP #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 4,
+      "rule": "'PRINCIPLE #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 5,
+      "rule": "'REASON #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 6,
+      "rule": "'WAY #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 7,
+      "rule": "'TIP #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 8,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 8,
+      "rule": "'LESSON #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 9,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 9,
+      "rule": "'TRUTH #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 10,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 10,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 11,
+      "first_in_document": false,
+      "label": "other",
+      "line": 11,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 12,
+      "first_in_document": false,
+      "label": "other",
+      "line": 12,
+      "rule": "no reference, marker or cue word: a plain line",
+      "why": ""
+    },
+    {
+      "end_line": 13,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 13,
+      "rule": "'POINT #n)' is the point's own header",
+      "why": ""
+    },
+    {
+      "end_line": 14,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 14,
+      "rule": "'KEY #n)' is the point's own header",
+      "why": ""
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+[notes]
+quote_alone = "bullet"
+
+[run]
+no_fetch = true

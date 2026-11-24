@@ -1,0 +1,60 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) Point",
+      "tier": "good",
+      "title": "1) Point"
+    },
+    {
+      "add_text": "• “A quotation with no\nreference anywhere near it”",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "quoted text: quoted text with no reference (your setting skips these)"
+      ],
+      "slide_count": 0,
+      "text": "“A quotation with no reference anywhere near it.”",
+      "tier": "warning",
+      "title": "“A quotation with no reference anywhere near it.”"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [],
+  "point_count": 1,
+  "review": [],
+  "skipped": [
+    {
+      "line": 2,
+      "problem": "quoted_text: quoted text with no reference (your setting skips these)",
+      "text": "“A quotation with no reference anywhere near it.”"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) Point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

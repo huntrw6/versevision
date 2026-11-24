@@ -1,0 +1,170 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• THE LORD IS GOOD",
+      "tier": "warning",
+      "title": "• THE LORD IS GOOD"
+    },
+    {
+      "add_text": "• Part 2: The Shepherd",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "title / heading line"
+      ],
+      "slide_count": 0,
+      "text": "Part 2: The Shepherd",
+      "tier": "good",
+      "title": "Part 2: The Shepherd"
+    },
+    {
+      "add_text": "• Two Words",
+      "correction": {},
+      "first_slide": 2,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "header: 2 or fewer capitalized words: looks like a heading"
+      ],
+      "slide_count": 0,
+      "text": "Two Words",
+      "tier": "warning",
+      "title": "Two Words"
+    },
+    {
+      "add_text": "• Introduction",
+      "correction": {},
+      "first_slide": 2,
+      "id": 4,
+      "kind": "left_out",
+      "line": 5,
+      "reasons": [
+        "header: 2 or fewer capitalized words: looks like a heading"
+      ],
+      "slide_count": 0,
+      "text": "Introduction",
+      "tier": "warning",
+      "title": "Introduction"
+    },
+    {
+      "add_text": "• RECAP: Keys",
+      "correction": {},
+      "first_slide": 2,
+      "id": 5,
+      "kind": "left_out",
+      "line": 6,
+      "reasons": [
+        "recap heading"
+      ],
+      "slide_count": 0,
+      "text": "RECAP: Keys",
+      "tier": "good",
+      "title": "RECAP: Keys"
+    },
+    {
+      "add_text": "• Recap the week",
+      "correction": {},
+      "first_slide": 2,
+      "id": 6,
+      "kind": "left_out",
+      "line": 7,
+      "reasons": [
+        "recap heading"
+      ],
+      "slide_count": 0,
+      "text": "Recap the week",
+      "tier": "good",
+      "title": "Recap the week"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [
+    {
+      "line": 2,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• THE LORD IS GOOD"
+    }
+  ],
+  "point_count": 2,
+  "review": [],
+  "skipped": [
+    {
+      "line": 3,
+      "problem": "header: title / heading line",
+      "text": "Part 2: The Shepherd"
+    },
+    {
+      "line": 4,
+      "problem": "header: 2 or fewer capitalized words: looks like a heading",
+      "text": "Two Words"
+    },
+    {
+      "line": 5,
+      "problem": "header: 2 or fewer capitalized words: looks like a heading",
+      "text": "Introduction"
+    },
+    {
+      "line": 6,
+      "problem": "header: recap heading",
+      "text": "RECAP: Keys"
+    },
+    {
+      "line": 7,
+      "problem": "header: recap heading",
+      "text": "Recap the week"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) A point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• THE LORD IS GOOD",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

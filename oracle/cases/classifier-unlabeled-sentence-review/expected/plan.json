@@ -1,0 +1,80 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) A point",
+      "tier": "good",
+      "title": "1) A point"
+    },
+    {
+      "add_text": "• This is a full sentence\nof ordinary prose",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "unlabeled line; not a reference, point, or known cue"
+      ],
+      "slide_count": 0,
+      "text": "This is a full sentence of ordinary prose.",
+      "tier": "error",
+      "title": "This is a full sentence of ordinary prose."
+    },
+    {
+      "add_text": "• A short line without an end",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "error",
+      "line": 3,
+      "reasons": [
+        "short unlabeled line: a heading, or a point missing its number? add a number or bullet to make it a slide"
+      ],
+      "slide_count": 0,
+      "text": "A short line without an end",
+      "tier": "error",
+      "title": "A short line without an end"
+    }
+  ],
+  "failed": [],
+  "fetched": false,
+  "looks": null,
+  "notices": [],
+  "point_count": 1,
+  "review": [
+    {
+      "line": 2,
+      "problem": "unlabeled line; not a reference, point, or known cue",
+      "text": "This is a full sentence of ordinary prose."
+    },
+    {
+      "line": 3,
+      "problem": "short unlabeled line: a heading, or a point missing its number? add a number or bullet to make it a slide",
+      "text": "A short line without an end"
+    }
+  ],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) A point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

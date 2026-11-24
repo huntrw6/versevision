@@ -1,0 +1,6 @@
+[notes]
+line_breaks = "paragraph"
+unlabeled_sentence = "review"
+
+[run]
+no_fetch = true

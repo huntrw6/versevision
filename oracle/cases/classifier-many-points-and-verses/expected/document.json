@@ -1,0 +1,619 @@
+{
+  "issues": [],
+  "items": [
+    {
+      "detail_end": 1,
+      "kind": "point",
+      "label": "1)",
+      "label_fixed_from": "",
+      "line": 1,
+      "role": "point",
+      "text": "Point number 1",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 2,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:1 NIV",
+        "source_end": 12,
+        "source_start": 0,
+        "source_text": "John 3:1 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 1
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 3,
+      "kind": "point",
+      "label": "2)",
+      "label_fixed_from": "",
+      "line": 3,
+      "role": "point",
+      "text": "Point number 2",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 4,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:2 NIV",
+        "source_end": 12,
+        "source_start": 0,
+        "source_text": "John 3:2 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 2
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 5,
+      "kind": "point",
+      "label": "3)",
+      "label_fixed_from": "",
+      "line": 5,
+      "role": "point",
+      "text": "Point number 3",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 6,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:3 NIV",
+        "source_end": 12,
+        "source_start": 0,
+        "source_text": "John 3:3 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 3
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 7,
+      "kind": "point",
+      "label": "4)",
+      "label_fixed_from": "",
+      "line": 7,
+      "role": "point",
+      "text": "Point number 4",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 8,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:4 NIV",
+        "source_end": 12,
+        "source_start": 0,
+        "source_text": "John 3:4 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 4
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 9,
+      "kind": "point",
+      "label": "5)",
+      "label_fixed_from": "",
+      "line": 9,
+      "role": "point",
+      "text": "Point number 5",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 10,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:5 NIV",
+        "source_end": 12,
+        "source_start": 0,
+        "source_text": "John 3:5 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 5
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 11,
+      "kind": "point",
+      "label": "6)",
+      "label_fixed_from": "",
+      "line": 11,
+      "role": "point",
+      "text": "Point number 6",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 12,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:6 NIV",
+        "source_end": 12,
+        "source_start": 0,
+        "source_text": "John 3:6 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 6
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 13,
+      "kind": "point",
+      "label": "7)",
+      "label_fixed_from": "",
+      "line": 13,
+      "role": "point",
+      "text": "Point number 7",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 14,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:7 NIV",
+        "source_end": 12,
+        "source_start": 0,
+        "source_text": "John 3:7 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 7
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 15,
+      "kind": "point",
+      "label": "8)",
+      "label_fixed_from": "",
+      "line": 15,
+      "role": "point",
+      "text": "Point number 8",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 16,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:8 NIV",
+        "source_end": 12,
+        "source_start": 0,
+        "source_text": "John 3:8 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 8
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 17,
+      "kind": "point",
+      "label": "9)",
+      "label_fixed_from": "",
+      "line": 17,
+      "role": "point",
+      "text": "Point number 9",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 18,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:9 NIV",
+        "source_end": 12,
+        "source_start": 0,
+        "source_text": "John 3:9 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 9
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 19,
+      "kind": "point",
+      "label": "10)",
+      "label_fixed_from": "",
+      "line": 19,
+      "role": "point",
+      "text": "Point number 10",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 20,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:10 NIV",
+        "source_end": 13,
+        "source_start": 0,
+        "source_text": "John 3:10 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 10
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 21,
+      "kind": "point",
+      "label": "11)",
+      "label_fixed_from": "",
+      "line": 21,
+      "role": "point",
+      "text": "Point number 11",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 22,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:11 NIV",
+        "source_end": 13,
+        "source_start": 0,
+        "source_text": "John 3:11 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 11
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    },
+    {
+      "detail_end": 23,
+      "kind": "point",
+      "label": "12)",
+      "label_fixed_from": "",
+      "line": 23,
+      "role": "point",
+      "text": "Point number 12",
+      "warnings": []
+    },
+    {
+      "kind": "verse",
+      "line": 24,
+      "quoted": "",
+      "reference": {
+        "book_display_name": "John",
+        "book_id": "JHN",
+        "normalized_text": "John 3:12 NIV",
+        "source_end": 13,
+        "source_start": 0,
+        "source_text": "John 3:12 NIV",
+        "spans": [
+          {
+            "end": null,
+            "start": {
+              "chapter": 3,
+              "verse": 12
+            }
+          }
+        ],
+        "version": "NIV",
+        "warnings": []
+      },
+      "warnings": []
+    }
+  ],
+  "paragraphs": [
+    {
+      "end_line": 1,
+      "first_in_document": true,
+      "label": "marker",
+      "line": 1,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 2,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 2,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 3,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 3,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 4,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 4,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 5,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 5,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 6,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 6,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 7,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 7,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 8,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 8,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 9,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 9,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 10,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 10,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 11,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 11,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 12,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 12,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 13,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 13,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 14,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 14,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 15,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 15,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 16,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 16,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 17,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 17,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 18,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 18,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 19,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 19,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 20,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 20,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 21,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 21,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 22,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 22,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 23,
+      "first_in_document": false,
+      "label": "marker",
+      "line": 23,
+      "rule": "numbered/lettered marker at the start of the line",
+      "why": ""
+    },
+    {
+      "end_line": 24,
+      "first_in_document": false,
+      "label": "verse",
+      "line": 24,
+      "rule": "Bible reference at the start of the line",
+      "why": ""
+    }
+  ]
+}
