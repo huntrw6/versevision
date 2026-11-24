@@ -90,14 +90,20 @@ fn copy_all(source: &Path, target: &Path) {
 /// Windows prints paths with backslashes; the oracle has slashes.
 fn normalise(text: &str, root: &Path) -> String {
     let mut out = text.to_string();
-    for variant in [
-        root.to_string_lossy().to_string(),
-        fs::canonicalize(root)
-            .map(|p| p.to_string_lossy().trim_start_matches(r"\\?\").to_string())
-            .unwrap_or_default(),
-    ] {
-        if !variant.is_empty() {
-            out = out.replace(&variant, "{ROOT}");
+    let plain = root.to_string_lossy().to_string();
+    let canonical = fs::canonicalize(root)
+        .map(|p| p.to_string_lossy().trim_start_matches(r"\\?\").to_string())
+        .unwrap_or_default();
+    // longest spellings first: JSON escapes a backslash (`\\`), TOML and Python's repr may use either separator
+    for base in [plain, canonical] {
+        for variant in [
+            base.replace('\\', r"\\"),
+            base.clone(),
+            base.replace('\\', "/"),
+        ] {
+            if !variant.is_empty() {
+                out = out.replace(&variant, "{ROOT}");
+            }
         }
     }
     // the operating system's words for a refused connection (the oracle was made on Linux)
@@ -117,7 +123,7 @@ fn normalise(text: &str, root: &Path) -> String {
             let end = tail
                 .find(|c: char| c.is_whitespace() || c == '\'' || c == '"')
                 .unwrap_or(tail.len());
-            fixed.push_str(&tail[..end].replace('\\', "/"));
+            fixed.push_str(&tail[..end].replace(r"\\", "/").replace('\\', "/"));
             rest = &tail[end..];
         }
         fixed.push_str(rest);
@@ -239,6 +245,9 @@ fn every_case_matches_python() {
         let name = case["name"].as_str().unwrap().to_string();
         if !only.is_empty() && !name.contains(&only) {
             continue;
+        }
+        if cfg!(windows) && line.contains("127.0.0.1:1") {
+            continue; // a closed port does not refuse on Windows, it times out: the oracle's answer is Linux's
         }
         if name == "autostart-status" && !cfg!(target_os = "linux") {
             continue; // the oracle's answer is the Linux one; the other systems' login items are in oracle_render.rs
