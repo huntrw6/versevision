@@ -1,0 +1,192 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NIV (nearest version above)",
+      "line": 3,
+      "status": "adjusted",
+      "text": "Romans 8:28"
+    }
+  ],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Point",
+      "tier": "good",
+      "title": "1) Point"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "John 3:16 NIV",
+      "tier": "good",
+      "title": "John 3:16 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slides": [
+        3
+      ],
+      "text": "Romans 8:28",
+      "tier": "warning",
+      "title": "Romans 8:28 (NIV)"
+    },
+    {
+      "add_text": "• \"Orphan quote with no reference\nanywhere near it in the notes\"",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "error",
+      "line": 4,
+      "reasons": [
+        "quoted text with no reference"
+      ],
+      "slides": [],
+      "text": "\"Orphan quote with no reference anywhere near it in the notes.\"",
+      "tier": "error",
+      "title": "\"Orphan quote with no reference anywhere near it in the notes.\""
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "quoted text with no reference",
+      "line": 4,
+      "status": "needs_review",
+      "text": "\"Orphan quote with no reference anywhere near it in the notes.\""
+    }
+  ],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "• \"Orphan quote with no reference\nanywhere near it in the notes\"",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "error",
+        "line": 4,
+        "reasons": [
+          "quoted text with no reference"
+        ],
+        "slides": [],
+        "text": "\"Orphan quote with no reference anywhere near it in the notes.\"",
+        "tier": "error",
+        "title": "\"Orphan quote with no reference anywhere near it in the notes.\""
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Point",
+        "tier": "good",
+        "title": "1) Point"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "John 3:16 NIV",
+        "tier": "good",
+        "title": "John 3:16 NIV"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [
+          "no version listed; used NIV (nearest version above)"
+        ],
+        "slides": [
+          3
+        ],
+        "text": "Romans 8:28",
+        "tier": "warning",
+        "title": "Romans 8:28 (NIV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Point",
+      "title": "1) Point"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "Bread: ancient living; faith humble.",
+      "title": "John 3:16 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "Peace kingdom — open humble truth: glory truth shepherd.",
+      "title": "Romans 8:28 (NIV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 1,
+    "fixes": 0,
+    "flagged": 1,
+    "good": 2,
+    "left_out": 0,
+    "needs_review": 1,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 3,
+    "verse_slides": 2,
+    "warnings": 1
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "decisions": [
+    {
+      "add_text": "• Title 11/22/26",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slide_count": 0,
+      "text": "Title 11/22/26",
+      "tier": "good",
+      "title": "Title 11/22/26"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 6,
+      "text": "Genesis 1:30 – 2:3 NKJV",
+      "tier": "good",
+      "title": "Genesis 1:30-2:3 NKJV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 6,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slide_count": 7,
+      "text": "Psalm 23:1-6",
+      "tier": "warning",
+      "title": "Psalms 23:1-6 (NKJV)"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 3,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "Psalms 23:1-6"
+    }
+  ],
+  "point_count": 0,
+  "review": [],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: title / date line",
+      "text": "Title 11/22/26"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "Tender; shepherd. ready, living stranger faithful tender prayer — prayer grace: temple truth open lamp kingdom, righteous temple: temple mighty song ready, lamp; truth.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:30",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "GEN.1.30"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "“Kingdom — covenant wisdom song wisdom: shepherd vine grace: steadfast harvest faithful: ready, gentle mighty”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:31",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "GEN.1.31"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Living servant wisdom; light — open. song. kingdom: faithful river; song; living harvest peace righteous promise: brother song: temple wisdom.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 2:1",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "GEN.2.1"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Peace vine steadfast. glory; river — wisdom mountain, shepherd truth peace. kingdom stranger; servant wisdom living kingdom; harvest lamp mercy.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 2:2",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "GEN.2.2"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "River wisdom. bread; stranger; bread righteous bread light truth, river stranger, shepherd, promise harvest glory; father gentle. judge. living stranger covenant covenant. heaven, kingdom shepherd; hidden, light:",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 2:3",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "GEN.2.3"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "stranger faithful ready, bread tender open brother kingdom humble servant, kingdom — vine open river: glory wisdom covenant truth — seed covenant, mountain, promise open — tender. living: father. river faith, promise.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 2:3",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "GEN.2.3"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Promise ready father mercy: bread heaven humble; stranger faith glory, kingdom. promise servant — father; lamp father: bread mercy kingdom; mighty, peace; vine; bread — kingdom ancient — judge faithful; mighty.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:1",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.1"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Truth prayer living; righteous, kingdom, grace mercy; father truth lamp, righteous seed ancient open righteous truth — harvest glory — faithful grace kingdom; mountain living river mercy: gentle: seed; steadfast, bread brother steadfast stranger mighty;",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:2",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.2"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "promise: living living servant. seed hidden. ancient, shepherd covenant father: lamp seed humble living heaven: river prayer — prayer kingdom mercy father. righteous hidden open shepherd spirit: tender mighty covenant river.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:2",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.2"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Peace: temple light promise faithful; living. harvest truth — judge truth faith; harvest.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:3",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.3"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Mountain: faith steadfast bread covenant song faith mercy — humble servant covenant; faithful ready bread tender judge; truth — promise lamp. steadfast bread heaven.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:4",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.4"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Mercy brother light wisdom light faithful; vine, ancient song.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:5",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.5"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "“Harvest, grace servant harvest truth. harvest promise shepherd: river: seed, tender — kingdom truth, grace open: ancient promise stranger grace lamp; kingdom prayer humble steadfast”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:6",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.6"
+        ],
+        "version_text": "NKJV"
+      }
+    ]
+  },
+  "verse_count": 2
+}

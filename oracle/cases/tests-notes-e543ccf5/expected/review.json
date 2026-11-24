@@ -1,0 +1,108 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Point",
+      "tier": "good",
+      "title": "1) Point"
+    },
+    {
+      "add_text": "• (see me about this later)",
+      "addable": true,
+      "correction": null,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "(see me about this later)",
+      "tier": "good",
+      "title": "(see me about this later)"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 2,
+      "status": "left_out",
+      "text": "(see me about this later)"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Point",
+        "tier": "good",
+        "title": "1) Point"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• (see me about this later)",
+        "addable": true,
+        "correction": null,
+        "id": 1,
+        "kind": "left_out",
+        "line": 2,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "(see me about this later)",
+        "tier": "good",
+        "title": "(see me about this later)"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Point",
+      "title": "1) Point"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 1,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) Faith",
+      "tier": "good",
+      "title": "1) Faith"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slide_count": 1,
+      "text": "Ephesians 2:8",
+      "tier": "warning",
+      "title": "Ephesians 2:8 (NKJV)"
+    },
+    {
+      "add_text": "• \"Jesus answered and said to him,\nMost assuredly, I say to you,\nunless one is born again,\nhe cannot see the kingdom of God\"",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slide_count": 0,
+      "text": "\"Jesus answered and said to him, Most assuredly, I say to you, unless one is born again, he cannot see the kingdom of God.\"",
+      "tier": "good",
+      "title": "\"Jesus answered and said to him, Most assuredly, I say to you, unless one is bor"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 3,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slide_count": 1,
+      "text": "John 3:3",
+      "tier": "warning",
+      "title": "John 3:3 (NKJV)"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 2,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "Ephesians 2:8"
+    },
+    {
+      "line": 4,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "John 3:3"
+    }
+  ],
+  "point_count": 1,
+  "review": [],
+  "skipped": [
+    {
+      "line": 3,
+      "problem": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "text": "\"Jesus answered and said to him, Most assuredly, I say to you, unless one is born again, he cannot see the kingdom of God.\""
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) Faith",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "For by grace you have been saved through faith, and that not of yourselves; it is the gift of God, not of works, lest anyone should boast.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Ephesians 2:8",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "EPH.2.8"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Jesus answered and said to him, Most assuredly, I say to you, unless one is born again, he cannot see the kingdom of God.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:3",
+        "source_passage_index": 2,
+        "verse_keys": [
+          "JHN.3.3"
+        ],
+        "version_text": "NKJV"
+      }
+    ]
+  },
+  "verse_count": 2
+}

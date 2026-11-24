@@ -1,0 +1,71 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [
+        "text mentions Psalms 46:10; not added as a verse slide"
+      ],
+      "slide_count": 1,
+      "text": "1. We rest in him, see\nPsalm 46:10 for more",
+      "tier": "warning",
+      "title": "1. We rest in him, see"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "John 3:16 NIV",
+      "tier": "good",
+      "title": "John 3:16 NIV"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 1,
+      "problem": "text mentions Psalms 46:10; not added as a verse slide",
+      "text": "1. We rest in him, see Psalm 46:10 for more."
+    }
+  ],
+  "point_count": 1,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1. We rest in him, see\nPsalm 46:10 for more",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Bread: ancient living; faith humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NIV"
+      }
+    ]
+  },
+  "verse_count": 1
+}

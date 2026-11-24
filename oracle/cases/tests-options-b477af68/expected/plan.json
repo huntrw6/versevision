@@ -1,0 +1,113 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) P",
+      "tier": "good",
+      "title": "1) P"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• Pause here for effect",
+      "tier": "good",
+      "title": "• Pause here for effect"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• Secret code 42",
+      "tier": "warning",
+      "title": "• Secret code 42"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 3,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• Keep this sentence",
+      "tier": "good",
+      "title": "• Keep this sentence"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 3,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• Secret code 42"
+    }
+  ],
+  "point_count": 4,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) P",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• Pause here for effect",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• Secret code 42",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• Keep this sentence",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 3,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

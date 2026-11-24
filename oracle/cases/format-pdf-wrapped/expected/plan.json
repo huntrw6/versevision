@@ -1,0 +1,128 @@
+{
+  "decisions": [
+    {
+      "add_text": "• Title 11/22/26 Grace",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slide_count": 0,
+      "text": "Title 11/22/26 Grace",
+      "tier": "good",
+      "title": "Title 11/22/26 Grace"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) God saves by grace through\nfaith in Jesus Christ and",
+      "tier": "good",
+      "title": "1) God saves by grace through"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• not by anything we have done",
+      "tier": "good",
+      "title": "• not by anything we have done"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 3,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [],
+      "slide_count": 3,
+      "text": "Ephesians 2:8-9 NKJV",
+      "tier": "good",
+      "title": "Ephesians 2:8-9 NKJV"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [],
+  "point_count": 2,
+  "review": [],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: title / date line",
+      "text": "Title 11/22/26 Grace"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) God saves by grace through\nfaith in Jesus Christ and",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• not by anything we have done",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Father bread: light faith covenant lamp: truth seed spirit, righteous tender harvest seed: kingdom steadfast father, harvest prayer light prayer: gentle; mountain — kingdom mighty humble — mercy open truth stranger living heaven. humble,",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Ephesians 2:8",
+        "source_passage_index": 2,
+        "verse_keys": [
+          "EPH.2.8"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "hidden tender river, light light; bread — temple: song living. servant. mountain tender kingdom: lamp steadfast ready father shepherd heaven — peace lamp faithful stranger father kingdom promise; covenant — hidden humble; grace vine mercy open glory.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Ephesians 2:8",
+        "source_passage_index": 2,
+        "verse_keys": [
+          "EPH.2.8"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Tender glory lamp harvest ancient stranger: faithful judge; light seed. steadfast.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Ephesians 2:9",
+        "source_passage_index": 2,
+        "verse_keys": [
+          "EPH.2.9"
+        ],
+        "version_text": "NKJV"
+      }
+    ]
+  },
+  "verse_count": 1
+}

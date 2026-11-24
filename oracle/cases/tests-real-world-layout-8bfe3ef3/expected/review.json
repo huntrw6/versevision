@@ -1,0 +1,236 @@
+{
+  "adjustments": [
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 3,
+      "status": "adjusted",
+      "text": "• More prose"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 5,
+      "status": "adjusted",
+      "text": "• Closing prose"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "Opening prose",
+      "tier": "good",
+      "title": "Opening prose"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "Luke 11:1 NKJV",
+      "tier": "good",
+      "title": "Luke 11:1 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        3
+      ],
+      "text": "• More prose",
+      "tier": "warning",
+      "title": "• More prose"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "text": "Matthew 6:9 NIV",
+      "tier": "good",
+      "title": "Matthew 6:9 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "point",
+      "line": 5,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        5
+      ],
+      "text": "• Closing prose",
+      "tier": "warning",
+      "title": "• Closing prose"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "Opening prose",
+        "tier": "good",
+        "title": "Opening prose"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "Luke 11:1 NKJV",
+        "tier": "good",
+        "title": "Luke 11:1 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "verse",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "text": "Matthew 6:9 NIV",
+        "tier": "good",
+        "title": "Matthew 6:9 NIV"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 3,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          3
+        ],
+        "text": "• More prose",
+        "tier": "warning",
+        "title": "• More prose"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "point",
+        "line": 5,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          5
+        ],
+        "text": "• Closing prose",
+        "tier": "warning",
+        "title": "• Closing prose"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "Opening prose",
+      "title": "Opening prose"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "“Mighty vine steadfast harvest — truth vine. kingdom faithful”",
+      "title": "Luke 11:1 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "• More prose",
+      "title": "• More prose"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Vine promise faithful shepherd — harvest.",
+      "title": "Matthew 6:9 (NIV)"
+    },
+    {
+      "kind": "point",
+      "n": 5,
+      "text": "• Closing prose",
+      "title": "• Closing prose"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 2,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 3,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 3,
+    "slides": 5,
+    "verse_slides": 2,
+    "warnings": 2
+  }
+}

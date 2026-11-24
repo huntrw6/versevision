@@ -1,0 +1,91 @@
+{
+  "decisions": [
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) First point",
+      "tier": "good",
+      "title": "1) First point"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [
+        "numbered out of sequence (after point 1); treated as a list item"
+      ],
+      "slide_count": 1,
+      "text": "21) Thesis text",
+      "tier": "warning",
+      "title": "21) Thesis text"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "2) Second point",
+      "tier": "good",
+      "title": "2) Second point"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 2,
+      "problem": "numbered out of sequence (after point 1); treated as a list item",
+      "text": "21) Thesis text"
+    }
+  ],
+  "point_count": 3,
+  "review": [],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "1) First point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "21) Thesis text",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 1,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "2) Second point",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 0
+}

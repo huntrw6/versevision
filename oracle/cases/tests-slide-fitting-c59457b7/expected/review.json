@@ -1,0 +1,264 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• Title 11/8/26",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "Title 11/8/26",
+      "tier": "good",
+      "title": "Title 11/8/26"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "Ephesians 4:5 NKJV",
+      "tier": "good",
+      "title": "Ephesians 4:5 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "text": "Matthew 7:16-20, 21-23, 24-27 NKJV",
+      "tier": "good",
+      "title": "Matthew 7:16-20 & 21-23 & 24-27 NKJV"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "Title 11/8/26"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "Ephesians 4:5 NKJV",
+        "tier": "good",
+        "title": "Ephesians 4:5 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "text": "Matthew 7:16-20, 21-23, 24-27 NKJV",
+        "tier": "good",
+        "title": "Matthew 7:16-20 & 21-23 & 24-27 NKJV"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Title 11/8/26",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "Title 11/8/26",
+        "tier": "good",
+        "title": "Title 11/8/26"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "Temple mighty, glory hidden open; covenant grace; light light.",
+      "title": "Ephesians 4:5 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "“Spirit — ancient peace: temple lamp. shepherd — covenant; mountain river shepherd ancient. spirit: seed — grace harvest”",
+      "title": "Matthew 7:16 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "“Living grace brother mighty river seed bread, truth: humble — servant; covenant tender servant — judge: kingdom: lamp; tender. spirit. faithful tender. light grace. servant faith; spirit faithful peace: wisdom ready stranger;",
+      "title": "Matthew 7:17 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "ready: living; stranger: living glory steadfast, bread: ready — covenant; kingdom. mighty. open: mountain servant heaven seed; mercy — father: truth father — shepherd mighty temple song ancient lamp. peace truth hidden righteous”",
+      "title": "Matthew 7:17 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "“Spirit ready mercy bread — ancient light harvest vine stranger heaven kingdom servant: bread. ancient stranger mighty. steadfast”",
+      "title": "Matthew 7:18 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "Faith peace kingdom, father: spirit bread tender promise — mercy: stranger shepherd glory: steadfast; truth: harvest covenant — vine.",
+      "title": "Matthew 7:19 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 7,
+      "text": "Gentle shepherd mercy mercy, living. light stranger ready vine. ready wisdom; prayer; hidden; bread ancient, river judge humble river mercy mountain judge: mighty servant.",
+      "title": "Matthew 7:20 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "Grace spirit: truth spirit ready: shepherd: temple heaven father ready steadfast: faith faithful: temple judge truth stranger — temple. brother judge grace.",
+      "title": "Matthew 7:21 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 9,
+      "text": "Judge. living glory ready prayer — faith glory servant — peace heaven spirit. prayer — song lamp prayer: truth: living — mercy wisdom glory; song. ancient promise; bread steadfast stranger tender humble seed — covenant, light:",
+      "title": "Matthew 7:22 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 10,
+      "text": "promise bread harvest father living — gentle humble, covenant living; song kingdom, faith mountain. brother wisdom judge glory — prayer — ready father shepherd humble. river — river song spirit servant, bread.",
+      "title": "Matthew 7:22 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 11,
+      "text": "“Servant promise. vine. gentle faithful righteous kingdom humble — light mighty. truth; truth, spirit servant harvest river, grace stranger temple peace. mercy ancient: light, living: father.",
+      "title": "Matthew 7:23 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 12,
+      "text": "wisdom steadfast steadfast righteous ancient brother spirit open: temple tender. hidden tender; seed servant. mountain; father covenant, seed: hidden shepherd ready”",
+      "title": "Matthew 7:23 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 13,
+      "text": "Mercy steadfast ready prayer steadfast: lamp kingdom faithful grace.",
+      "title": "Matthew 7:24 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 14,
+      "text": "“Peace. river vine light living truth; ancient peace: living father living, covenant gentle bread: seed. harvest ancient: father. faith gentle: righteous — faith judge — brother, lamp spirit kingdom. servant, heaven: mountain”",
+      "title": "Matthew 7:25 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 15,
+      "text": "“Heaven steadfast vine brother; tender heaven faithful — lamp: ancient, vine truth — ready: living; mercy gentle wisdom. open”",
+      "title": "Matthew 7:26 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 16,
+      "text": "Mercy seed temple covenant ready song — lamp wisdom river; stranger prayer, spirit; gentle servant promise promise prayer wisdom seed — tender, faithful spirit righteous wisdom gentle river; bread mountain bread mighty wisdom peace.",
+      "title": "Matthew 7:27 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 17,
+      "text": "temple faithful wisdom faith righteous: servant hidden kingdom. humble — light: song. mountain lamp glory hidden steadfast river temple harvest: harvest stranger: spirit, father judge: vine — mountain faith wisdom. faith, shepherd: father.",
+      "title": "Matthew 7:27 (NKJV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 2,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 17,
+    "verse_slides": 17,
+    "warnings": 0
+  }
+}

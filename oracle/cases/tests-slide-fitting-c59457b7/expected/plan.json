@@ -1,0 +1,251 @@
+{
+  "decisions": [
+    {
+      "add_text": "• Title 11/8/26",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slide_count": 0,
+      "text": "Title 11/8/26",
+      "tier": "good",
+      "title": "Title 11/8/26"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Ephesians 4:5 NKJV",
+      "tier": "good",
+      "title": "Ephesians 4:5 NKJV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "verse",
+      "line": 5,
+      "reasons": [],
+      "slide_count": 16,
+      "text": "Matthew 7:16-20, 21-23, 24-27 NKJV",
+      "tier": "good",
+      "title": "Matthew 7:16-20 & 21-23 & 24-27 NKJV"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [],
+  "point_count": 0,
+  "review": [],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: title / date line",
+      "text": "Title 11/8/26"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "Temple mighty, glory hidden open; covenant grace; light light.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Ephesians 4:5",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "EPH.4.5"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "“Spirit — ancient peace: temple lamp. shepherd — covenant; mountain river shepherd ancient. spirit: seed — grace harvest”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:16",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.16"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "“Living grace brother mighty river seed bread, truth: humble — servant; covenant tender servant — judge: kingdom: lamp; tender. spirit. faithful tender. light grace. servant faith; spirit faithful peace: wisdom ready stranger;",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:17",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.17"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "ready: living; stranger: living glory steadfast, bread: ready — covenant; kingdom. mighty. open: mountain servant heaven seed; mercy — father: truth father — shepherd mighty temple song ancient lamp. peace truth hidden righteous”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:17",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.17"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "“Spirit ready mercy bread — ancient light harvest vine stranger heaven kingdom servant: bread. ancient stranger mighty. steadfast”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:18",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.18"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Faith peace kingdom, father: spirit bread tender promise — mercy: stranger shepherd glory: steadfast; truth: harvest covenant — vine.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:19",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.19"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Gentle shepherd mercy mercy, living. light stranger ready vine. ready wisdom; prayer; hidden; bread ancient, river judge humble river mercy mountain judge: mighty servant.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:20",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.20"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Grace spirit: truth spirit ready: shepherd: temple heaven father ready steadfast: faith faithful: temple judge truth stranger — temple. brother judge grace.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:21",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.21"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Judge. living glory ready prayer — faith glory servant — peace heaven spirit. prayer — song lamp prayer: truth: living — mercy wisdom glory; song. ancient promise; bread steadfast stranger tender humble seed — covenant, light:",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:22",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.22"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "promise bread harvest father living — gentle humble, covenant living; song kingdom, faith mountain. brother wisdom judge glory — prayer — ready father shepherd humble. river — river song spirit servant, bread.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:22",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.22"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "“Servant promise. vine. gentle faithful righteous kingdom humble — light mighty. truth; truth, spirit servant harvest river, grace stranger temple peace. mercy ancient: light, living: father.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:23",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.23"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "wisdom steadfast steadfast righteous ancient brother spirit open: temple tender. hidden tender; seed servant. mountain; father covenant, seed: hidden shepherd ready”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:23",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.23"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Mercy steadfast ready prayer steadfast: lamp kingdom faithful grace.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:24",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.24"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "“Peace. river vine light living truth; ancient peace: living father living, covenant gentle bread: seed. harvest ancient: father. faith gentle: righteous — faith judge — brother, lamp spirit kingdom. servant, heaven: mountain”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:25",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.25"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "“Heaven steadfast vine brother; tender heaven faithful — lamp: ancient, vine truth — ready: living; mercy gentle wisdom. open”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:26",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.26"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Mercy seed temple covenant ready song — lamp wisdom river; stranger prayer, spirit; gentle servant promise promise prayer wisdom seed — tender, faithful spirit righteous wisdom gentle river; bread mountain bread mighty wisdom peace.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:27",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.27"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "temple faithful wisdom faith righteous: servant hidden kingdom. humble — light: song. mountain lamp glory hidden steadfast river temple harvest: harvest stranger: spirit, father judge: vine — mountain faith wisdom. faith, shepherd: father.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 7:27",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "MAT.7.27"
+        ],
+        "version_text": "NKJV"
+      }
+    ]
+  },
+  "verse_count": 2
+}

@@ -1,0 +1,142 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NIV (nearest version above)",
+      "line": 2,
+      "status": "adjusted",
+      "text": "Psalms 23:1"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "verse",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "text": "John 3:16-18 NIV",
+      "tier": "good",
+      "title": "John 3:16-18 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slides": [
+        5
+      ],
+      "text": "Psalm 23:1",
+      "tier": "warning",
+      "title": "Psalms 23:1 (NIV)"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "verse",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "text": "John 3:16-18 NIV",
+        "tier": "good",
+        "title": "John 3:16-18 NIV"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "no version listed; used NIV (nearest version above)"
+        ],
+        "slides": [
+          5
+        ],
+        "text": "Psalm 23:1",
+        "tier": "warning",
+        "title": "Psalms 23:1 (NIV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "Bread: ancient living; faith humble.",
+      "title": "John 3:16 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "Heaven humble — promise kingdom: stranger brother — mighty open temple steadfast hidden grace humble river, promise promise — faith.",
+      "title": "John 3:17 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "wisdom kingdom; bread — light song living righteous peace glory mercy spirit righteous. mountain judge hidden hidden; river: ready — kingdom brother; kingdom righteous.",
+      "title": "John 3:17 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Righteous. wisdom covenant shepherd. mercy light, grace kingdom, promise glory kingdom father tender.",
+      "title": "John 3:18 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "Mountain truth faith light servant temple heaven; lamp brother mercy, bread tender, living; gentle; hidden — promise kingdom; peace; bread truth, mighty.",
+      "title": "Psalms 23:1 (NIV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 5,
+    "verse_slides": 5,
+    "warnings": 1
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 2,
+      "status": "adjusted",
+      "text": "Ephesians 2:8"
+    },
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 4,
+      "status": "adjusted",
+      "text": "John 3:3"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Faith",
+      "tier": "good",
+      "title": "1) Faith"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)",
+        "the quoted text in the notes does not match NKJV wording (match 4%); check the version"
+      ],
+      "slides": [
+        2,
+        3
+      ],
+      "text": "Ephesians 2:8",
+      "tier": "warning",
+      "title": "Ephesians 2:8 (NKJV)"
+    },
+    {
+      "add_text": "• \"Jesus answered and said to him,\nMost assuredly, I say to you,\nunless one is born again,\nhe cannot see the kingdom of God\"",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "\"Jesus answered and said to him, Most assuredly, I say to you, unless one is born again, he cannot see the kingdom of God.\"",
+      "tier": "good",
+      "title": "\"Jesus answered and said to him, Most assuredly, I say to you, unless one is bor"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [
+        "no version listed; used NKJV (default version)",
+        "the quoted text in the notes does not match NKJV wording (match 4%); check the version"
+      ],
+      "slides": [
+        4,
+        5
+      ],
+      "text": "John 3:3",
+      "tier": "warning",
+      "title": "John 3:3 (NKJV)"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 3,
+      "status": "left_out",
+      "text": "\"Jesus answered and said to him, Most assuredly, I say to you, unless one is born again, he cannot see the kingdom of God.\""
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Faith",
+        "tier": "good",
+        "title": "1) Faith"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• \"Jesus answered and said to him,\nMost assuredly, I say to you,\nunless one is born again,\nhe cannot see the kingdom of God\"",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "left_out",
+        "line": 3,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "\"Jesus answered and said to him, Most assuredly, I say to you, unless one is born again, he cannot see the kingdom of God.\"",
+        "tier": "good",
+        "title": "\"Jesus answered and said to him, Most assuredly, I say to you, unless one is bor"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "no version listed; used NKJV (default version)",
+          "the quoted text in the notes does not match NKJV wording (match 4%); check the version"
+        ],
+        "slides": [
+          2,
+          3
+        ],
+        "text": "Ephesians 2:8",
+        "tier": "warning",
+        "title": "Ephesians 2:8 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "verse",
+        "line": 4,
+        "reasons": [
+          "no version listed; used NKJV (default version)",
+          "the quoted text in the notes does not match NKJV wording (match 4%); check the version"
+        ],
+        "slides": [
+          4,
+          5
+        ],
+        "text": "John 3:3",
+        "tier": "warning",
+        "title": "John 3:3 (NKJV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Faith",
+      "title": "1) Faith"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "Father bread: light faith covenant lamp: truth seed spirit, righteous tender harvest seed: kingdom steadfast father, harvest prayer light prayer: gentle; mountain — kingdom mighty humble — mercy open truth stranger living heaven. humble,",
+      "title": "Ephesians 2:8 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "hidden tender river, light light; bread — temple: song living. servant. mountain tender kingdom: lamp steadfast ready father shepherd heaven — peace lamp faithful stranger father kingdom promise; covenant — hidden humble; grace vine mercy open glory.",
+      "title": "Ephesians 2:8 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Faithful prayer. living mountain righteous grace kingdom hidden stranger, righteous ancient faithful faith, steadfast faithful peace, mercy faith; father prayer, spirit.",
+      "title": "John 3:3 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "mighty vine gentle. peace mercy peace living servant temple peace righteous peace; tender; steadfast harvest mighty bread: lamp faith — peace kingdom.",
+      "title": "John 3:3 (NKJV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 2,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 5,
+    "verse_slides": 4,
+    "warnings": 2
+  }
+}

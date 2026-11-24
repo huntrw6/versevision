@@ -1,0 +1,129 @@
+{
+  "decisions": [
+    {
+      "add_text": "• Title 11/22/26",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slide_count": 0,
+      "text": "Title 11/22/26",
+      "tier": "good",
+      "title": "Title 11/22/26"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "John 3:16 NKJV",
+      "tier": "good",
+      "title": "John 3:16 NKJV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "John 3:16 NIV",
+      "tier": "good",
+      "title": "John 3:16 NIV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 3,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slide_count": 2,
+      "text": "Romans 8:28",
+      "tier": "warning",
+      "title": "Romans 8:28 (NKJV)"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 4,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "Romans 8:28"
+    }
+  ],
+  "point_count": 0,
+  "review": [],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: title / date line",
+      "text": "Title 11/22/26"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "Seed; lamp, steadfast judge steadfast kingdom living servant — living. servant: shepherd faithful.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 0,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Bread: ancient living; faith humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Harvest — vine living faith; living heaven ancient river: father ready — seed: father — wisdom — shepherd seed faithful song: judge brother — stranger, mercy faith;",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Romans 8:28",
+        "source_passage_index": 2,
+        "verse_keys": [
+          "ROM.8.28"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "brother, truth, stranger — servant; father, open hidden judge shepherd kingdom hidden, spirit. tender servant. mountain: mighty kingdom, ancient lamp wisdom. river harvest river mountain.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Romans 8:28",
+        "source_passage_index": 2,
+        "verse_keys": [
+          "ROM.8.28"
+        ],
+        "version_text": "NKJV"
+      }
+    ]
+  },
+  "verse_count": 3
+}

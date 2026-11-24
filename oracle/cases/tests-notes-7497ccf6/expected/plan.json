@@ -1,0 +1,57 @@
+{
+  "decisions": [
+    {
+      "add_text": "• Psalm 23",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "error",
+      "line": 1,
+      "reasons": [
+        "whole-chapter reference; add verse numbers to include it"
+      ],
+      "slide_count": 0,
+      "text": "Psalm 23",
+      "tier": "error",
+      "title": "Psalm 23"
+    },
+    {
+      "add_text": "• See Romans 8:28 for context",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "error",
+      "line": 2,
+      "reasons": [
+        "mentions Romans 8:28 inside text; put the reference on its own line to add it as a slide"
+      ],
+      "slide_count": 0,
+      "text": "See Romans 8:28 for context",
+      "tier": "error",
+      "title": "See Romans 8:28 for context"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [],
+  "point_count": 0,
+  "review": [
+    {
+      "line": 1,
+      "problem": "whole-chapter reference; add verse numbers to include it",
+      "text": "Psalm 23"
+    },
+    {
+      "line": 2,
+      "problem": "mentions Romans 8:28 inside text; put the reference on its own line to add it as a slide",
+      "text": "See Romans 8:28 for context"
+    }
+  ],
+  "skipped": [],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": []
+  },
+  "verse_count": 0
+}

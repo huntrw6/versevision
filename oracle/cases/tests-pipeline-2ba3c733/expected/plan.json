@@ -1,0 +1,92 @@
+{
+  "decisions": [
+    {
+      "add_text": "• Illuminary <a@b.com>",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "email header line"
+      ],
+      "slide_count": 0,
+      "text": "Illuminary <a@b.com>",
+      "tier": "good",
+      "title": "Illuminary <a@b.com>"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Sunday Scripture List",
+      "tier": "good",
+      "title": "Sunday Scripture List"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slide_count": 1,
+      "text": "John 3:16",
+      "tier": "warning",
+      "title": "John 3:16 (NKJV)"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 3,
+      "problem": "no version listed; used NKJV (default version)",
+      "text": "John 3:16"
+    }
+  ],
+  "point_count": 1,
+  "review": [],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: email header line",
+      "text": "Illuminary <a@b.com>"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "Sunday Scripture List",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Seed; lamp, steadfast judge steadfast kingdom living servant — living. servant: shepherd faithful.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NKJV"
+      }
+    ]
+  },
+  "verse_count": 1
+}

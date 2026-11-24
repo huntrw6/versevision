@@ -1,0 +1,5 @@
+[notes]
+extra_cue_words = [
+    "pause",
+]
+stage_cues = "review"

@@ -1,0 +1,3030 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (nearest version above)",
+      "line": 9,
+      "status": "adjusted",
+      "text": "Ephesians 2:8-9"
+    },
+    {
+      "detail": "no version listed; used NKJV (nearest version above)",
+      "line": 17,
+      "status": "adjusted",
+      "text": "John 3:3"
+    },
+    {
+      "detail": "no version listed; used NKJV (nearest version above)",
+      "line": 34,
+      "status": "adjusted",
+      "text": "Matthew 7:21"
+    },
+    {
+      "detail": "no version listed; used NKJV (nearest version above)",
+      "line": 41,
+      "status": "adjusted",
+      "text": "Matthew 7:16"
+    },
+    {
+      "detail": "no version listed; used NKJV (nearest version above)",
+      "line": 45,
+      "status": "adjusted",
+      "text": "2 Corinthians 5:17"
+    },
+    {
+      "detail": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "line": 55,
+      "status": "adjusted",
+      "text": "• It changes our commitment to prayer and Scripture"
+    }
+  ],
+  "clean": false,
+  "decisions": [
+    {
+      "add_text": "• JPL 11/22/26 George\nWhitefield - A New Awakening",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "JPL 11/22/26 George Whitefield - A New Awakening",
+      "tier": "good",
+      "title": "JPL 11/22/26 George Whitefield - A New Awakening"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 2,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "6 KEYS TO A NEW AWAKENING",
+      "tier": "good",
+      "title": "6 KEYS TO A NEW AWAKENING"
+    },
+    {
+      "add_text": "• Show Photo of George Whitefield",
+      "addable": true,
+      "correction": null,
+      "id": 2,
+      "kind": "left_out",
+      "line": 3,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "Show Photo of George Whitefield",
+      "tier": "good",
+      "title": "Show Photo of George Whitefield"
+    },
+    {
+      "add_text": "• “For you see your calling,\nbrethren, that not many wise\faccording to the flesh, not many\nmighty, not many noble, are called.\fBut God has chosen the foolish\nthings of the world to put\fto shame the wise, and God\nhas chosen the weak things of\fthe world to put to shame\nthe things which are mighty;”",
+      "addable": true,
+      "correction": null,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“For you see your calling, brethren, that not many wise according to the flesh, not many mighty, not many noble, are called. But God has chosen the foolish things of the world to put to shame the wise, and God has chosen the weak things of the world to put to shame the things which are mighty;”",
+      "tier": "good",
+      "title": "“For you see your calling, brethren, that not many wise according to the flesh, "
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "verse",
+      "line": 8,
+      "reasons": [],
+      "slides": [
+        2,
+        3
+      ],
+      "text": "I Corinthians 1:26-27 NKJV",
+      "tier": "good",
+      "title": "1 Corinthians 1:26-27 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "verse",
+      "line": 9,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)",
+        "the quoted text in the notes does not match NKJV wording (match 4%); check the version"
+      ],
+      "slides": [
+        4,
+        5,
+        6
+      ],
+      "text": "Ephesians 2:8–9",
+      "tier": "warning",
+      "title": "Ephesians 2:8-9 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": {
+        "from": "KEY#1)",
+        "to": "KEY #1)"
+      },
+      "id": 6,
+      "kind": "point",
+      "line": 11,
+      "reasons": [
+        "Corrected \"KEY#1)\" to \"KEY #1)\" to match the other points (10 of 12 are written that way)."
+      ],
+      "slides": [
+        7
+      ],
+      "text": "KEY #1) SPEAK THE BORN AGAIN MESSAGE",
+      "tier": "error",
+      "title": "KEY #1) SPEAK THE BORN AGAIN MESSAGE"
+    },
+    {
+      "add_text": "• “How then shall they call on Him\nin whom they have not believed?\fAnd how shall they believe in Him of\nwhom they have not heard? And how\fshall they hear without a preacher?\nAnd how shall they preach unless\fthey are sent? As it is written: “How\nbeautiful are the feet of those who\fpreach the gospel of peace, Who\nbring glad tidings of good things!””",
+      "addable": true,
+      "correction": null,
+      "id": 7,
+      "kind": "left_out",
+      "line": 12,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“How then shall they call on Him in whom they have not believed? And how shall they believe in Him of whom they have not heard? And how shall they hear without a preacher? And how shall they preach unless they are sent? As it is written: “How beautiful are the feet of those who preach the gospel of peace, Who bring glad tidings of good things!””",
+      "tier": "good",
+      "title": "“How then shall they call on Him in whom they have not believed? And how shall t"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "verse",
+      "line": 16,
+      "reasons": [],
+      "slides": [
+        8,
+        9,
+        10
+      ],
+      "text": "Romans 10:14-15 NKJV",
+      "tier": "good",
+      "title": "Romans 10:14-15 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 9,
+      "kind": "verse",
+      "line": 17,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)",
+        "the quoted text in the notes does not match NKJV wording (match 8%); check the version"
+      ],
+      "slides": [
+        11,
+        12
+      ],
+      "text": "John 3:3",
+      "tier": "warning",
+      "title": "John 3:3 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 10,
+      "kind": "verse",
+      "line": 18,
+      "reasons": [],
+      "slides": [
+        13
+      ],
+      "text": "James 2:19 NKJV",
+      "tier": "good",
+      "title": "James 2:19 NKJV"
+    },
+    {
+      "add_text": "• “Therefore, having\nbeen justified by faith,\fwe have peace with God\nthrough our Lord Jesus Christ,\fthrough whom also we have\naccess by faith into this grace\fin which we stand, and rejoice\nin hope of the glory of God”",
+      "addable": true,
+      "correction": null,
+      "id": 11,
+      "kind": "left_out",
+      "line": 20,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“Therefore, having been justified by faith, we have peace with God through our Lord Jesus Christ, through whom also we have access by faith into this grace in which we stand, and rejoice in hope of the glory of God.”",
+      "tier": "good",
+      "title": "“Therefore, having been justified by faith, we have peace with God through our L"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 12,
+      "kind": "verse",
+      "line": 23,
+      "reasons": [],
+      "slides": [
+        14,
+        15,
+        16
+      ],
+      "text": "Romans 5:1-2 NKJV",
+      "tier": "good",
+      "title": "Romans 5:1-2 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 13,
+      "kind": "point",
+      "line": 24,
+      "reasons": [],
+      "slides": [
+        17
+      ],
+      "text": "KEY #2) PREACHING MUST CONFRONT\nSIN AND POINT PEOPLE TO THE SAVIOR",
+      "tier": "good",
+      "title": "KEY #2) PREACHING MUST CONFRONT"
+    },
+    {
+      "add_text": "• “Preach the word! Be ready\nin season and out of season.\fConvince, rebuke, exhort, with\nall longsuffering and teaching”",
+      "addable": true,
+      "correction": null,
+      "id": 14,
+      "kind": "left_out",
+      "line": 25,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“Preach the word! Be ready in season and out of season. Convince, rebuke, exhort, with all longsuffering and teaching.”",
+      "tier": "good",
+      "title": "“Preach the word! Be ready in season and out of season. Convince, rebuke, exhort"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 15,
+      "kind": "verse",
+      "line": 27,
+      "reasons": [],
+      "slides": [
+        18
+      ],
+      "text": "II Timothy 4:2 NKJV",
+      "tier": "good",
+      "title": "2 Timothy 4:2 NKJV"
+    },
+    {
+      "add_text": "• Show Photo of\nWhitefield Preaching",
+      "addable": true,
+      "correction": null,
+      "id": 16,
+      "kind": "left_out",
+      "line": 28,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "Show Photo of Whitefield Preaching",
+      "tier": "good",
+      "title": "Show Photo of Whitefield Preaching"
+    },
+    {
+      "add_text": "• Show Photo Of Whitefield Pulpit",
+      "addable": true,
+      "correction": null,
+      "id": 17,
+      "kind": "left_out",
+      "line": 29,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slides": [],
+      "text": "Show Photo Of Whitefield Pulpit",
+      "tier": "good",
+      "title": "Show Photo Of Whitefield Pulpit"
+    },
+    {
+      "add_text": "• “King Agrippa, do you\nbelieve the prophets?\fI know that you do believe.”\nThen Agrippa said to Paul,\f“You almost persuade me\nto become a Christian””",
+      "addable": true,
+      "correction": null,
+      "id": 18,
+      "kind": "left_out",
+      "line": 30,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“King Agrippa, do you believe the prophets? I know that you do believe.” Then Agrippa said to Paul, “You almost persuade me to become a Christian.””",
+      "tier": "good",
+      "title": "“King Agrippa, do you believe the prophets? I know that you do believe.” Then Ag"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 19,
+      "kind": "verse",
+      "line": 32,
+      "reasons": [],
+      "slides": [
+        19,
+        20
+      ],
+      "text": "Acts 26:27-28 NKJV",
+      "tier": "good",
+      "title": "Acts 26:27-28 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 20,
+      "kind": "point",
+      "line": 33,
+      "reasons": [],
+      "slides": [
+        21
+      ],
+      "text": "KEY #3) DON’T BE ‘THE\nALMOST CHRISTIAN’",
+      "tier": "good",
+      "title": "KEY #3) DON’T BE ‘THE"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 21,
+      "kind": "verse",
+      "line": 34,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)",
+        "the quoted text in the notes does not match NKJV wording (match 7%); check the version"
+      ],
+      "slides": [
+        22
+      ],
+      "text": "Matthew 7:21",
+      "tier": "warning",
+      "title": "Matthew 7:21 (NKJV)"
+    },
+    {
+      "add_text": "• “Examine yourselves as to\nwhether you are in the faith.\fTest yourselves. Do you\nnot know yourselves,\fthat Jesus Christ is in you?—unless\nindeed you are disqualified”",
+      "addable": true,
+      "correction": null,
+      "id": 22,
+      "kind": "left_out",
+      "line": 36,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“Examine yourselves as to whether you are in the faith. Test yourselves. Do you not know yourselves, that Jesus Christ is in you?—unless indeed you are disqualified.”",
+      "tier": "good",
+      "title": "“Examine yourselves as to whether you are in the faith. Test yourselves. Do you "
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 23,
+      "kind": "verse",
+      "line": 38,
+      "reasons": [],
+      "slides": [
+        23
+      ],
+      "text": "II Corinthians 13:5 NKJV",
+      "tier": "good",
+      "title": "2 Corinthians 13:5 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 24,
+      "kind": "point",
+      "line": 39,
+      "reasons": [],
+      "slides": [
+        24,
+        25
+      ],
+      "text": "KEY #4) REVIVAL MUST\nPRODUCE MORE THAN\n\nEMOTION — IT MUST\nPRODUCE A CHANGED LIFE",
+      "tier": "good",
+      "title": "KEY #4) REVIVAL MUST"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 25,
+      "kind": "verse",
+      "line": 41,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)",
+        "the quoted text in the notes does not match NKJV wording (match 0%); check the version"
+      ],
+      "slides": [
+        26
+      ],
+      "text": "Matthew 7:16",
+      "tier": "warning",
+      "title": "Matthew 7:16 (NKJV)"
+    },
+    {
+      "add_text": "• \"Therefore if any man be\nin Christ, he is a new creature:\fold things are passed away;\nbehold, all things are become new\"",
+      "addable": true,
+      "correction": null,
+      "id": 26,
+      "kind": "left_out",
+      "line": 43,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "\"Therefore if any man be in Christ, he is a new creature: old things are passed away; behold, all things are become new.\"",
+      "tier": "good",
+      "title": "\"Therefore if any man be in Christ, he is a new creature: old things are passed "
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 27,
+      "kind": "verse",
+      "line": 45,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)",
+        "the quoted text in the notes does not match NKJV wording (match 0%); check the version"
+      ],
+      "slides": [
+        27
+      ],
+      "text": "2 Corinthians 5:17",
+      "tier": "warning",
+      "title": "2 Corinthians 5:17 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 28,
+      "kind": "point",
+      "line": 46,
+      "reasons": [],
+      "slides": [
+        28
+      ],
+      "text": "• A true revival changes\nthe way people live",
+      "tier": "good",
+      "title": "• A true revival changes"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 29,
+      "kind": "point",
+      "line": 47,
+      "reasons": [],
+      "slides": [
+        29
+      ],
+      "text": "• It changes how husbands\ntreat their wives",
+      "tier": "good",
+      "title": "• It changes how husbands"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 30,
+      "kind": "point",
+      "line": 48,
+      "reasons": [],
+      "slides": [
+        30
+      ],
+      "text": "• It changes how wives\ntreat their husbands",
+      "tier": "good",
+      "title": "• It changes how wives"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 31,
+      "kind": "point",
+      "line": 49,
+      "reasons": [],
+      "slides": [
+        31
+      ],
+      "text": "• It changes how parents\nraise their children",
+      "tier": "good",
+      "title": "• It changes how parents"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 32,
+      "kind": "point",
+      "line": 50,
+      "reasons": [],
+      "slides": [
+        32
+      ],
+      "text": "• It changes how young\npeople make decisions",
+      "tier": "good",
+      "title": "• It changes how young"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 33,
+      "kind": "point",
+      "line": 51,
+      "reasons": [],
+      "slides": [
+        33
+      ],
+      "text": "• It changes how people\nconduct business",
+      "tier": "good",
+      "title": "• It changes how people"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 34,
+      "kind": "point",
+      "line": 52,
+      "reasons": [],
+      "slides": [
+        34
+      ],
+      "text": "• It changes how we treat the poor",
+      "tier": "good",
+      "title": "• It changes how we treat the poor"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 35,
+      "kind": "point",
+      "line": 53,
+      "reasons": [],
+      "slides": [
+        35
+      ],
+      "text": "• It changes how we respond\nto those who disagree with us",
+      "tier": "good",
+      "title": "• It changes how we respond"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 36,
+      "kind": "point",
+      "line": 54,
+      "reasons": [],
+      "slides": [
+        36
+      ],
+      "text": "• It changes our\nattitudes toward sin",
+      "tier": "good",
+      "title": "• It changes our"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 37,
+      "kind": "point",
+      "line": 55,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slides": [
+        37
+      ],
+      "text": "• It changes our commitment\nto prayer and Scripture",
+      "tier": "warning",
+      "title": "• It changes our commitment"
+    },
+    {
+      "add_text": "• “But the fruit of the\nSpirit is love, joy, peace,\flongsuffering, kindness,\ngoodness, faithfulness,\fgentleness, self-control.\nAgainst such there is no law”",
+      "addable": true,
+      "correction": null,
+      "id": 38,
+      "kind": "left_out",
+      "line": 56,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“But the fruit of the Spirit is love, joy, peace, longsuffering, kindness, goodness, faithfulness, gentleness, self-control. Against such there is no law.”",
+      "tier": "good",
+      "title": "“But the fruit of the Spirit is love, joy, peace, longsuffering, kindness, goodn"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 39,
+      "kind": "verse",
+      "line": 58,
+      "reasons": [],
+      "slides": [
+        38,
+        39
+      ],
+      "text": "Galatians 5:22-23 NKJV",
+      "tier": "good",
+      "title": "Galatians 5:22-23 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 40,
+      "kind": "point",
+      "line": 59,
+      "reasons": [],
+      "slides": [
+        40,
+        41
+      ],
+      "text": "• A genuine response to a spiritual\n\nawakening should make\nus more like Jesus",
+      "tier": "good",
+      "title": "• A genuine response to a spiritual"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 41,
+      "kind": "point",
+      "line": 60,
+      "reasons": [],
+      "slides": [
+        42,
+        43
+      ],
+      "text": "• It should make us more\nloving, more compassionate,\n\nmore truthful, more forgiving, and\nmore committed to righteousness",
+      "tier": "good",
+      "title": "• It should make us more"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 42,
+      "kind": "point",
+      "line": 62,
+      "reasons": [],
+      "slides": [
+        44,
+        45,
+        46
+      ],
+      "text": "• The evidence of a genuine\nrevival is not merely how\n\nloudly people shout in church,\nbut how faithfully\n\nthey live for Jesus\nwhen they leave church!",
+      "tier": "good",
+      "title": "• The evidence of a genuine"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 43,
+      "kind": "point",
+      "line": 64,
+      "reasons": [],
+      "slides": [
+        47
+      ],
+      "text": "KEY #5) THERE MUST BE CONVERGENCE",
+      "tier": "good",
+      "title": "KEY #5) THERE MUST BE CONVERGENCE"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 44,
+      "kind": "point",
+      "line": 65,
+      "reasons": [],
+      "slides": [
+        48,
+        49
+      ],
+      "text": "• Convergence is the act or state\nof coming together from\n\ndifferent directions to meet at a\ncommon point, limit, or similarity",
+      "tier": "good",
+      "title": "• Convergence is the act or state"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 45,
+      "kind": "verse",
+      "line": 67,
+      "reasons": [],
+      "slides": [
+        50,
+        51,
+        52
+      ],
+      "text": "Ephesians 4:4-6 NKJV",
+      "tier": "good",
+      "title": "Ephesians 4:4-6 NKJV"
+    },
+    {
+      "add_text": "• “that they all may be one,\nas You, Father, are in Me,\fand I in You; that they\nalso may be one in Us,\fthat the world may\nbelieve that You sent Me”",
+      "addable": true,
+      "correction": null,
+      "id": 46,
+      "kind": "left_out",
+      "line": 70,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“that they all may be one, as You, Father, are in Me, and I in You; that they also may be one in Us, that the world may believe that You sent Me.”",
+      "tier": "good",
+      "title": "“that they all may be one, as You, Father, are in Me, and I in You; that they al"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 47,
+      "kind": "verse",
+      "line": 72,
+      "reasons": [],
+      "slides": [
+        53
+      ],
+      "text": "John 17:21 NKJV",
+      "tier": "good",
+      "title": "John 17:21 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 48,
+      "kind": "point",
+      "line": 73,
+      "reasons": [],
+      "slides": [
+        54,
+        55
+      ],
+      "text": "• The devil wants to divide the\nchurch over secondary matters\n\nwhile the world waits to hear\nthe primary message of salvation!",
+      "tier": "good",
+      "title": "• The devil wants to divide the"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 49,
+      "kind": "point",
+      "line": 75,
+      "reasons": [],
+      "slides": [
+        56
+      ],
+      "text": "A SPIRITUAL AWAKENING CAN UNITE\nPEOPLE WHO HAVE BEEN DIVIDED",
+      "tier": "good",
+      "title": "A SPIRITUAL AWAKENING CAN UNITE"
+    },
+    {
+      "add_text": "• “with all lowliness and\ngentleness, with longsuffering,\fbearing with one another\nin love, endeavoring to\fkeep the unity of the Spirit\nin the bond of peace”",
+      "addable": true,
+      "correction": null,
+      "id": 50,
+      "kind": "left_out",
+      "line": 76,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“with all lowliness and gentleness, with longsuffering, bearing with one another in love, endeavoring to keep the unity of the Spirit in the bond of peace.”",
+      "tier": "good",
+      "title": "“with all lowliness and gentleness, with longsuffering, bearing with one another"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 51,
+      "kind": "verse",
+      "line": 78,
+      "reasons": [],
+      "slides": [
+        57,
+        58
+      ],
+      "text": "Ephesians 4:2-3 NKJV",
+      "tier": "good",
+      "title": "Ephesians 4:2-3 NKJV"
+    },
+    {
+      "add_text": "• “I tell you, no; but unless you\frepent you will all\nlikewise perish””",
+      "addable": true,
+      "correction": null,
+      "id": 52,
+      "kind": "left_out",
+      "line": 79,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“I tell you, no; but unless you repent you will all likewise perish.””",
+      "tier": "good",
+      "title": "“I tell you, no; but unless you repent you will all likewise perish.””"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 53,
+      "kind": "verse",
+      "line": 80,
+      "reasons": [],
+      "slides": [
+        59,
+        60
+      ],
+      "text": "Luke 13:5 NKJV",
+      "tier": "good",
+      "title": "Luke 13:5 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 54,
+      "kind": "point",
+      "line": 81,
+      "reasons": [],
+      "slides": [
+        61
+      ],
+      "text": "KEY #6) BELIEVE IN THE\nPOWER OF THE GOSPEL",
+      "tier": "good",
+      "title": "KEY #6) BELIEVE IN THE"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 55,
+      "kind": "point",
+      "line": 82,
+      "reasons": [],
+      "slides": [
+        62,
+        63
+      ],
+      "text": "• A revival that begins\nin the heart can eventually\n\ninfluence a family, a community,\na church, and even a nation",
+      "tier": "good",
+      "title": "• A revival that begins"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 56,
+      "kind": "point",
+      "line": 83,
+      "reasons": [],
+      "slides": [
+        64,
+        65
+      ],
+      "text": "CONCLUSION: WHAT\nAMERICA AND THE WORLD\n\nNEEDS MOST IS ANOTHER\nSPIRITUAL AWAKENING",
+      "tier": "good",
+      "title": "CONCLUSION: WHAT"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 57,
+      "kind": "point",
+      "line": 85,
+      "reasons": [],
+      "slides": [
+        66,
+        67
+      ],
+      "text": "• We should pray and follow these\n\nkeys for another\nspiritual awakening",
+      "tier": "good",
+      "title": "• We should pray and follow these"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 58,
+      "kind": "point",
+      "line": 86,
+      "reasons": [],
+      "slides": [
+        68
+      ],
+      "text": "• We need revival in our pulpits",
+      "tier": "good",
+      "title": "• We need revival in our pulpits"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 59,
+      "kind": "point",
+      "line": 87,
+      "reasons": [],
+      "slides": [
+        69
+      ],
+      "text": "• We need revival in our pews",
+      "tier": "good",
+      "title": "• We need revival in our pews"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 60,
+      "kind": "point",
+      "line": 88,
+      "reasons": [],
+      "slides": [
+        70
+      ],
+      "text": "• We need revival in our homes",
+      "tier": "good",
+      "title": "• We need revival in our homes"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 61,
+      "kind": "point",
+      "line": 89,
+      "reasons": [],
+      "slides": [
+        71
+      ],
+      "text": "• We need revival among\nour young people",
+      "tier": "good",
+      "title": "• We need revival among"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 62,
+      "kind": "point",
+      "line": 90,
+      "reasons": [],
+      "slides": [
+        72
+      ],
+      "text": "• We need revival in our communities",
+      "tier": "good",
+      "title": "• We need revival in our communities"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 63,
+      "kind": "point",
+      "line": 91,
+      "reasons": [],
+      "slides": [
+        73
+      ],
+      "text": "• And we need revival\nin our own hearts",
+      "tier": "good",
+      "title": "• And we need revival"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 64,
+      "kind": "point",
+      "line": 92,
+      "reasons": [],
+      "slides": [
+        74,
+        75,
+        76
+      ],
+      "text": "• The greatest contribution\nChristians can make to America is\n\nnot simply to argue about what\nis wrong with the nation, but to live\n\nand proclaim the gospel that can\nchange the hearts of its people",
+      "tier": "good",
+      "title": "• The greatest contribution"
+    },
+    {
+      "add_text": "• “and from Jesus Christ,\nthe faithful witness, the firstborn\ffrom the dead, and the ruler\nover the kings of the earth.\fTo Him who loved us and washed us\nfrom our sins in His own blood,\fand has made us kings and\npriests to His God and Father,\fto Him be glory and dominion\nforever and ever. Amen”",
+      "addable": true,
+      "correction": null,
+      "id": 65,
+      "kind": "left_out",
+      "line": 94,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“and from Jesus Christ, the faithful witness, the firstborn from the dead, and the ruler over the kings of the earth. To Him who loved us and washed us from our sins in His own blood, and has made us kings and priests to His God and Father, to Him be glory and dominion forever and ever. Amen.”",
+      "tier": "good",
+      "title": "“and from Jesus Christ, the faithful witness, the firstborn from the dead, and t"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 66,
+      "kind": "verse",
+      "line": 98,
+      "reasons": [],
+      "slides": [
+        77,
+        78
+      ],
+      "text": "Revelation 1:5-6 NKJV",
+      "tier": "good",
+      "title": "Revelation 1:5-6 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 67,
+      "kind": "point",
+      "line": 99,
+      "reasons": [],
+      "slides": [
+        79
+      ],
+      "text": "RECAP: KEYS TO A NEW AWAKENING",
+      "tier": "good",
+      "title": "RECAP: KEYS TO A NEW AWAKENING"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": {
+        "from": "KEY#1)",
+        "to": "KEY #1)"
+      },
+      "id": 68,
+      "kind": "point",
+      "line": 100,
+      "reasons": [
+        "Corrected \"KEY#1)\" to \"KEY #1)\" to match the other points (10 of 12 are written that way)."
+      ],
+      "slides": [
+        80
+      ],
+      "text": "KEY #1) SPEAK THE BORN AGAIN MESSAGE",
+      "tier": "error",
+      "title": "KEY #1) SPEAK THE BORN AGAIN MESSAGE"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 69,
+      "kind": "point",
+      "line": 101,
+      "reasons": [],
+      "slides": [
+        81
+      ],
+      "text": "KEY #2) PREACHING MUST CONFRONT\nSIN AND POINT PEOPLE TO THE SAVIOR",
+      "tier": "good",
+      "title": "KEY #2) PREACHING MUST CONFRONT"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 70,
+      "kind": "point",
+      "line": 102,
+      "reasons": [],
+      "slides": [
+        82
+      ],
+      "text": "KEY #3) DON’T BE ‘THE\nALMOST CHRISTIAN’",
+      "tier": "good",
+      "title": "KEY #3) DON’T BE ‘THE"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 71,
+      "kind": "point",
+      "line": 103,
+      "reasons": [],
+      "slides": [
+        83,
+        84
+      ],
+      "text": "KEY #4) REVIVAL MUST\nPRODUCE MORE THAN\n\nEMOTION — IT MUST\nPRODUCE A CHANGED LIFE",
+      "tier": "good",
+      "title": "KEY #4) REVIVAL MUST"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 72,
+      "kind": "point",
+      "line": 105,
+      "reasons": [],
+      "slides": [
+        85
+      ],
+      "text": "KEY #5) THERE MUST BE CONVERGENCE",
+      "tier": "good",
+      "title": "KEY #5) THERE MUST BE CONVERGENCE"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 73,
+      "kind": "point",
+      "line": 106,
+      "reasons": [],
+      "slides": [
+        86
+      ],
+      "text": "KEY #6) BELIEVE IN THE\nPOWER OF THE GOSPEL",
+      "tier": "good",
+      "title": "KEY #6) BELIEVE IN THE"
+    }
+  ],
+  "flagged": [
+    {
+      "detail": "automatic fix to approve: KEY#1) -> KEY #1)",
+      "line": 11,
+      "status": "needs_approval",
+      "text": "KEY#1)"
+    },
+    {
+      "detail": "automatic fix to approve: KEY#1) -> KEY #1)",
+      "line": 100,
+      "status": "needs_approval",
+      "text": "KEY#1)"
+    }
+  ],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "JPL 11/22/26 George Whitefield - A New Awakening"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 3,
+      "status": "left_out",
+      "text": "Show Photo of George Whitefield"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 4,
+      "status": "left_out",
+      "text": "“For you see your calling, brethren, that not many wise according to the flesh, not many mighty, not many noble, are called. But God has chosen the foolish things of the world to put to shame the wise, and God has chosen the weak things of the world to put to shame the things which are mighty;”"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 12,
+      "status": "left_out",
+      "text": "“How then shall they call on Him in whom they have not believed? And how shall they believe in Him of whom they have not heard? And how shall they hear without a preacher? And how shall they preach unless they are sent? As it is written: “How beautiful are the feet of those who preach the gospel of peace, Who bring glad tidings of good things!””"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 20,
+      "status": "left_out",
+      "text": "“Therefore, having been justified by faith, we have peace with God through our Lord Jesus Christ, through whom also we have access by faith into this grace in which we stand, and rejoice in hope of the glory of God.”"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 25,
+      "status": "left_out",
+      "text": "“Preach the word! Be ready in season and out of season. Convince, rebuke, exhort, with all longsuffering and teaching.”"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 28,
+      "status": "left_out",
+      "text": "Show Photo of Whitefield Preaching"
+    },
+    {
+      "detail": "stage_note: stage/production cue",
+      "line": 29,
+      "status": "left_out",
+      "text": "Show Photo Of Whitefield Pulpit"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 30,
+      "status": "left_out",
+      "text": "“King Agrippa, do you believe the prophets? I know that you do believe.” Then Agrippa said to Paul, “You almost persuade me to become a Christian.””"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 36,
+      "status": "left_out",
+      "text": "“Examine yourselves as to whether you are in the faith. Test yourselves. Do you not know yourselves, that Jesus Christ is in you?—unless indeed you are disqualified.”"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 43,
+      "status": "left_out",
+      "text": "\"Therefore if any man be in Christ, he is a new creature: old things are passed away; behold, all things are become new.\""
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 56,
+      "status": "left_out",
+      "text": "“But the fruit of the Spirit is love, joy, peace, longsuffering, kindness, goodness, faithfulness, gentleness, self-control. Against such there is no law.”"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 70,
+      "status": "left_out",
+      "text": "“that they all may be one, as You, Father, are in Me, and I in You; that they also may be one in Us, that the world may believe that You sent Me.”"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 76,
+      "status": "left_out",
+      "text": "“with all lowliness and gentleness, with longsuffering, bearing with one another in love, endeavoring to keep the unity of the Spirit in the bond of peace.”"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 79,
+      "status": "left_out",
+      "text": "“I tell you, no; but unless you repent you will all likewise perish.””"
+    },
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 94,
+      "status": "left_out",
+      "text": "“and from Jesus Christ, the faithful witness, the firstborn from the dead, and the ruler over the kings of the earth. To Him who loved us and washed us from our sins in His own blood, and has made us kings and priests to His God and Father, to Him be glory and dominion forever and ever. Amen.”"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": {
+          "from": "KEY#1)",
+          "to": "KEY #1)"
+        },
+        "id": 6,
+        "kind": "point",
+        "line": 11,
+        "reasons": [
+          "Corrected \"KEY#1)\" to \"KEY #1)\" to match the other points (10 of 12 are written that way)."
+        ],
+        "slides": [
+          7
+        ],
+        "text": "KEY #1) SPEAK THE BORN AGAIN MESSAGE",
+        "tier": "error",
+        "title": "KEY #1) SPEAK THE BORN AGAIN MESSAGE"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": {
+          "from": "KEY#1)",
+          "to": "KEY #1)"
+        },
+        "id": 68,
+        "kind": "point",
+        "line": 100,
+        "reasons": [
+          "Corrected \"KEY#1)\" to \"KEY #1)\" to match the other points (10 of 12 are written that way)."
+        ],
+        "slides": [
+          80
+        ],
+        "text": "KEY #1) SPEAK THE BORN AGAIN MESSAGE",
+        "tier": "error",
+        "title": "KEY #1) SPEAK THE BORN AGAIN MESSAGE"
+      }
+    ],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 2,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "6 KEYS TO A NEW AWAKENING",
+        "tier": "good",
+        "title": "6 KEYS TO A NEW AWAKENING"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "verse",
+        "line": 8,
+        "reasons": [],
+        "slides": [
+          2,
+          3
+        ],
+        "text": "I Corinthians 1:26-27 NKJV",
+        "tier": "good",
+        "title": "1 Corinthians 1:26-27 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "verse",
+        "line": 16,
+        "reasons": [],
+        "slides": [
+          8,
+          9,
+          10
+        ],
+        "text": "Romans 10:14-15 NKJV",
+        "tier": "good",
+        "title": "Romans 10:14-15 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 10,
+        "kind": "verse",
+        "line": 18,
+        "reasons": [],
+        "slides": [
+          13
+        ],
+        "text": "James 2:19 NKJV",
+        "tier": "good",
+        "title": "James 2:19 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 12,
+        "kind": "verse",
+        "line": 23,
+        "reasons": [],
+        "slides": [
+          14,
+          15,
+          16
+        ],
+        "text": "Romans 5:1-2 NKJV",
+        "tier": "good",
+        "title": "Romans 5:1-2 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 13,
+        "kind": "point",
+        "line": 24,
+        "reasons": [],
+        "slides": [
+          17
+        ],
+        "text": "KEY #2) PREACHING MUST CONFRONT\nSIN AND POINT PEOPLE TO THE SAVIOR",
+        "tier": "good",
+        "title": "KEY #2) PREACHING MUST CONFRONT"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 15,
+        "kind": "verse",
+        "line": 27,
+        "reasons": [],
+        "slides": [
+          18
+        ],
+        "text": "II Timothy 4:2 NKJV",
+        "tier": "good",
+        "title": "2 Timothy 4:2 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 19,
+        "kind": "verse",
+        "line": 32,
+        "reasons": [],
+        "slides": [
+          19,
+          20
+        ],
+        "text": "Acts 26:27-28 NKJV",
+        "tier": "good",
+        "title": "Acts 26:27-28 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 20,
+        "kind": "point",
+        "line": 33,
+        "reasons": [],
+        "slides": [
+          21
+        ],
+        "text": "KEY #3) DON’T BE ‘THE\nALMOST CHRISTIAN’",
+        "tier": "good",
+        "title": "KEY #3) DON’T BE ‘THE"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 23,
+        "kind": "verse",
+        "line": 38,
+        "reasons": [],
+        "slides": [
+          23
+        ],
+        "text": "II Corinthians 13:5 NKJV",
+        "tier": "good",
+        "title": "2 Corinthians 13:5 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 24,
+        "kind": "point",
+        "line": 39,
+        "reasons": [],
+        "slides": [
+          24,
+          25
+        ],
+        "text": "KEY #4) REVIVAL MUST\nPRODUCE MORE THAN\n\nEMOTION — IT MUST\nPRODUCE A CHANGED LIFE",
+        "tier": "good",
+        "title": "KEY #4) REVIVAL MUST"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 28,
+        "kind": "point",
+        "line": 46,
+        "reasons": [],
+        "slides": [
+          28
+        ],
+        "text": "• A true revival changes\nthe way people live",
+        "tier": "good",
+        "title": "• A true revival changes"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 29,
+        "kind": "point",
+        "line": 47,
+        "reasons": [],
+        "slides": [
+          29
+        ],
+        "text": "• It changes how husbands\ntreat their wives",
+        "tier": "good",
+        "title": "• It changes how husbands"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 30,
+        "kind": "point",
+        "line": 48,
+        "reasons": [],
+        "slides": [
+          30
+        ],
+        "text": "• It changes how wives\ntreat their husbands",
+        "tier": "good",
+        "title": "• It changes how wives"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 31,
+        "kind": "point",
+        "line": 49,
+        "reasons": [],
+        "slides": [
+          31
+        ],
+        "text": "• It changes how parents\nraise their children",
+        "tier": "good",
+        "title": "• It changes how parents"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 32,
+        "kind": "point",
+        "line": 50,
+        "reasons": [],
+        "slides": [
+          32
+        ],
+        "text": "• It changes how young\npeople make decisions",
+        "tier": "good",
+        "title": "• It changes how young"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 33,
+        "kind": "point",
+        "line": 51,
+        "reasons": [],
+        "slides": [
+          33
+        ],
+        "text": "• It changes how people\nconduct business",
+        "tier": "good",
+        "title": "• It changes how people"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 34,
+        "kind": "point",
+        "line": 52,
+        "reasons": [],
+        "slides": [
+          34
+        ],
+        "text": "• It changes how we treat the poor",
+        "tier": "good",
+        "title": "• It changes how we treat the poor"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 35,
+        "kind": "point",
+        "line": 53,
+        "reasons": [],
+        "slides": [
+          35
+        ],
+        "text": "• It changes how we respond\nto those who disagree with us",
+        "tier": "good",
+        "title": "• It changes how we respond"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 36,
+        "kind": "point",
+        "line": 54,
+        "reasons": [],
+        "slides": [
+          36
+        ],
+        "text": "• It changes our\nattitudes toward sin",
+        "tier": "good",
+        "title": "• It changes our"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 39,
+        "kind": "verse",
+        "line": 58,
+        "reasons": [],
+        "slides": [
+          38,
+          39
+        ],
+        "text": "Galatians 5:22-23 NKJV",
+        "tier": "good",
+        "title": "Galatians 5:22-23 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 40,
+        "kind": "point",
+        "line": 59,
+        "reasons": [],
+        "slides": [
+          40,
+          41
+        ],
+        "text": "• A genuine response to a spiritual\n\nawakening should make\nus more like Jesus",
+        "tier": "good",
+        "title": "• A genuine response to a spiritual"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 41,
+        "kind": "point",
+        "line": 60,
+        "reasons": [],
+        "slides": [
+          42,
+          43
+        ],
+        "text": "• It should make us more\nloving, more compassionate,\n\nmore truthful, more forgiving, and\nmore committed to righteousness",
+        "tier": "good",
+        "title": "• It should make us more"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 42,
+        "kind": "point",
+        "line": 62,
+        "reasons": [],
+        "slides": [
+          44,
+          45,
+          46
+        ],
+        "text": "• The evidence of a genuine\nrevival is not merely how\n\nloudly people shout in church,\nbut how faithfully\n\nthey live for Jesus\nwhen they leave church!",
+        "tier": "good",
+        "title": "• The evidence of a genuine"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 43,
+        "kind": "point",
+        "line": 64,
+        "reasons": [],
+        "slides": [
+          47
+        ],
+        "text": "KEY #5) THERE MUST BE CONVERGENCE",
+        "tier": "good",
+        "title": "KEY #5) THERE MUST BE CONVERGENCE"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 44,
+        "kind": "point",
+        "line": 65,
+        "reasons": [],
+        "slides": [
+          48,
+          49
+        ],
+        "text": "• Convergence is the act or state\nof coming together from\n\ndifferent directions to meet at a\ncommon point, limit, or similarity",
+        "tier": "good",
+        "title": "• Convergence is the act or state"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 45,
+        "kind": "verse",
+        "line": 67,
+        "reasons": [],
+        "slides": [
+          50,
+          51,
+          52
+        ],
+        "text": "Ephesians 4:4-6 NKJV",
+        "tier": "good",
+        "title": "Ephesians 4:4-6 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 47,
+        "kind": "verse",
+        "line": 72,
+        "reasons": [],
+        "slides": [
+          53
+        ],
+        "text": "John 17:21 NKJV",
+        "tier": "good",
+        "title": "John 17:21 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 48,
+        "kind": "point",
+        "line": 73,
+        "reasons": [],
+        "slides": [
+          54,
+          55
+        ],
+        "text": "• The devil wants to divide the\nchurch over secondary matters\n\nwhile the world waits to hear\nthe primary message of salvation!",
+        "tier": "good",
+        "title": "• The devil wants to divide the"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 49,
+        "kind": "point",
+        "line": 75,
+        "reasons": [],
+        "slides": [
+          56
+        ],
+        "text": "A SPIRITUAL AWAKENING CAN UNITE\nPEOPLE WHO HAVE BEEN DIVIDED",
+        "tier": "good",
+        "title": "A SPIRITUAL AWAKENING CAN UNITE"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 51,
+        "kind": "verse",
+        "line": 78,
+        "reasons": [],
+        "slides": [
+          57,
+          58
+        ],
+        "text": "Ephesians 4:2-3 NKJV",
+        "tier": "good",
+        "title": "Ephesians 4:2-3 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 53,
+        "kind": "verse",
+        "line": 80,
+        "reasons": [],
+        "slides": [
+          59,
+          60
+        ],
+        "text": "Luke 13:5 NKJV",
+        "tier": "good",
+        "title": "Luke 13:5 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 54,
+        "kind": "point",
+        "line": 81,
+        "reasons": [],
+        "slides": [
+          61
+        ],
+        "text": "KEY #6) BELIEVE IN THE\nPOWER OF THE GOSPEL",
+        "tier": "good",
+        "title": "KEY #6) BELIEVE IN THE"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 55,
+        "kind": "point",
+        "line": 82,
+        "reasons": [],
+        "slides": [
+          62,
+          63
+        ],
+        "text": "• A revival that begins\nin the heart can eventually\n\ninfluence a family, a community,\na church, and even a nation",
+        "tier": "good",
+        "title": "• A revival that begins"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 56,
+        "kind": "point",
+        "line": 83,
+        "reasons": [],
+        "slides": [
+          64,
+          65
+        ],
+        "text": "CONCLUSION: WHAT\nAMERICA AND THE WORLD\n\nNEEDS MOST IS ANOTHER\nSPIRITUAL AWAKENING",
+        "tier": "good",
+        "title": "CONCLUSION: WHAT"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 57,
+        "kind": "point",
+        "line": 85,
+        "reasons": [],
+        "slides": [
+          66,
+          67
+        ],
+        "text": "• We should pray and follow these\n\nkeys for another\nspiritual awakening",
+        "tier": "good",
+        "title": "• We should pray and follow these"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 58,
+        "kind": "point",
+        "line": 86,
+        "reasons": [],
+        "slides": [
+          68
+        ],
+        "text": "• We need revival in our pulpits",
+        "tier": "good",
+        "title": "• We need revival in our pulpits"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 59,
+        "kind": "point",
+        "line": 87,
+        "reasons": [],
+        "slides": [
+          69
+        ],
+        "text": "• We need revival in our pews",
+        "tier": "good",
+        "title": "• We need revival in our pews"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 60,
+        "kind": "point",
+        "line": 88,
+        "reasons": [],
+        "slides": [
+          70
+        ],
+        "text": "• We need revival in our homes",
+        "tier": "good",
+        "title": "• We need revival in our homes"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 61,
+        "kind": "point",
+        "line": 89,
+        "reasons": [],
+        "slides": [
+          71
+        ],
+        "text": "• We need revival among\nour young people",
+        "tier": "good",
+        "title": "• We need revival among"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 62,
+        "kind": "point",
+        "line": 90,
+        "reasons": [],
+        "slides": [
+          72
+        ],
+        "text": "• We need revival in our communities",
+        "tier": "good",
+        "title": "• We need revival in our communities"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 63,
+        "kind": "point",
+        "line": 91,
+        "reasons": [],
+        "slides": [
+          73
+        ],
+        "text": "• And we need revival\nin our own hearts",
+        "tier": "good",
+        "title": "• And we need revival"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 64,
+        "kind": "point",
+        "line": 92,
+        "reasons": [],
+        "slides": [
+          74,
+          75,
+          76
+        ],
+        "text": "• The greatest contribution\nChristians can make to America is\n\nnot simply to argue about what\nis wrong with the nation, but to live\n\nand proclaim the gospel that can\nchange the hearts of its people",
+        "tier": "good",
+        "title": "• The greatest contribution"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 66,
+        "kind": "verse",
+        "line": 98,
+        "reasons": [],
+        "slides": [
+          77,
+          78
+        ],
+        "text": "Revelation 1:5-6 NKJV",
+        "tier": "good",
+        "title": "Revelation 1:5-6 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 67,
+        "kind": "point",
+        "line": 99,
+        "reasons": [],
+        "slides": [
+          79
+        ],
+        "text": "RECAP: KEYS TO A NEW AWAKENING",
+        "tier": "good",
+        "title": "RECAP: KEYS TO A NEW AWAKENING"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 69,
+        "kind": "point",
+        "line": 101,
+        "reasons": [],
+        "slides": [
+          81
+        ],
+        "text": "KEY #2) PREACHING MUST CONFRONT\nSIN AND POINT PEOPLE TO THE SAVIOR",
+        "tier": "good",
+        "title": "KEY #2) PREACHING MUST CONFRONT"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 70,
+        "kind": "point",
+        "line": 102,
+        "reasons": [],
+        "slides": [
+          82
+        ],
+        "text": "KEY #3) DON’T BE ‘THE\nALMOST CHRISTIAN’",
+        "tier": "good",
+        "title": "KEY #3) DON’T BE ‘THE"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 71,
+        "kind": "point",
+        "line": 103,
+        "reasons": [],
+        "slides": [
+          83,
+          84
+        ],
+        "text": "KEY #4) REVIVAL MUST\nPRODUCE MORE THAN\n\nEMOTION — IT MUST\nPRODUCE A CHANGED LIFE",
+        "tier": "good",
+        "title": "KEY #4) REVIVAL MUST"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 72,
+        "kind": "point",
+        "line": 105,
+        "reasons": [],
+        "slides": [
+          85
+        ],
+        "text": "KEY #5) THERE MUST BE CONVERGENCE",
+        "tier": "good",
+        "title": "KEY #5) THERE MUST BE CONVERGENCE"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 73,
+        "kind": "point",
+        "line": 106,
+        "reasons": [],
+        "slides": [
+          86
+        ],
+        "text": "KEY #6) BELIEVE IN THE\nPOWER OF THE GOSPEL",
+        "tier": "good",
+        "title": "KEY #6) BELIEVE IN THE"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• JPL 11/22/26 George\nWhitefield - A New Awakening",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "JPL 11/22/26 George Whitefield - A New Awakening",
+        "tier": "good",
+        "title": "JPL 11/22/26 George Whitefield - A New Awakening"
+      },
+      {
+        "add_text": "• Show Photo of George Whitefield",
+        "addable": true,
+        "correction": null,
+        "id": 2,
+        "kind": "left_out",
+        "line": 3,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "Show Photo of George Whitefield",
+        "tier": "good",
+        "title": "Show Photo of George Whitefield"
+      },
+      {
+        "add_text": "• “For you see your calling,\nbrethren, that not many wise\faccording to the flesh, not many\nmighty, not many noble, are called.\fBut God has chosen the foolish\nthings of the world to put\fto shame the wise, and God\nhas chosen the weak things of\fthe world to put to shame\nthe things which are mighty;”",
+        "addable": true,
+        "correction": null,
+        "id": 3,
+        "kind": "left_out",
+        "line": 4,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“For you see your calling, brethren, that not many wise according to the flesh, not many mighty, not many noble, are called. But God has chosen the foolish things of the world to put to shame the wise, and God has chosen the weak things of the world to put to shame the things which are mighty;”",
+        "tier": "good",
+        "title": "“For you see your calling, brethren, that not many wise according to the flesh, "
+      },
+      {
+        "add_text": "• “How then shall they call on Him\nin whom they have not believed?\fAnd how shall they believe in Him of\nwhom they have not heard? And how\fshall they hear without a preacher?\nAnd how shall they preach unless\fthey are sent? As it is written: “How\nbeautiful are the feet of those who\fpreach the gospel of peace, Who\nbring glad tidings of good things!””",
+        "addable": true,
+        "correction": null,
+        "id": 7,
+        "kind": "left_out",
+        "line": 12,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“How then shall they call on Him in whom they have not believed? And how shall they believe in Him of whom they have not heard? And how shall they hear without a preacher? And how shall they preach unless they are sent? As it is written: “How beautiful are the feet of those who preach the gospel of peace, Who bring glad tidings of good things!””",
+        "tier": "good",
+        "title": "“How then shall they call on Him in whom they have not believed? And how shall t"
+      },
+      {
+        "add_text": "• “Therefore, having\nbeen justified by faith,\fwe have peace with God\nthrough our Lord Jesus Christ,\fthrough whom also we have\naccess by faith into this grace\fin which we stand, and rejoice\nin hope of the glory of God”",
+        "addable": true,
+        "correction": null,
+        "id": 11,
+        "kind": "left_out",
+        "line": 20,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“Therefore, having been justified by faith, we have peace with God through our Lord Jesus Christ, through whom also we have access by faith into this grace in which we stand, and rejoice in hope of the glory of God.”",
+        "tier": "good",
+        "title": "“Therefore, having been justified by faith, we have peace with God through our L"
+      },
+      {
+        "add_text": "• “Preach the word! Be ready\nin season and out of season.\fConvince, rebuke, exhort, with\nall longsuffering and teaching”",
+        "addable": true,
+        "correction": null,
+        "id": 14,
+        "kind": "left_out",
+        "line": 25,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“Preach the word! Be ready in season and out of season. Convince, rebuke, exhort, with all longsuffering and teaching.”",
+        "tier": "good",
+        "title": "“Preach the word! Be ready in season and out of season. Convince, rebuke, exhort"
+      },
+      {
+        "add_text": "• Show Photo of\nWhitefield Preaching",
+        "addable": true,
+        "correction": null,
+        "id": 16,
+        "kind": "left_out",
+        "line": 28,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "Show Photo of Whitefield Preaching",
+        "tier": "good",
+        "title": "Show Photo of Whitefield Preaching"
+      },
+      {
+        "add_text": "• Show Photo Of Whitefield Pulpit",
+        "addable": true,
+        "correction": null,
+        "id": 17,
+        "kind": "left_out",
+        "line": 29,
+        "reasons": [
+          "stage/production cue"
+        ],
+        "slides": [],
+        "text": "Show Photo Of Whitefield Pulpit",
+        "tier": "good",
+        "title": "Show Photo Of Whitefield Pulpit"
+      },
+      {
+        "add_text": "• “King Agrippa, do you\nbelieve the prophets?\fI know that you do believe.”\nThen Agrippa said to Paul,\f“You almost persuade me\nto become a Christian””",
+        "addable": true,
+        "correction": null,
+        "id": 18,
+        "kind": "left_out",
+        "line": 30,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“King Agrippa, do you believe the prophets? I know that you do believe.” Then Agrippa said to Paul, “You almost persuade me to become a Christian.””",
+        "tier": "good",
+        "title": "“King Agrippa, do you believe the prophets? I know that you do believe.” Then Ag"
+      },
+      {
+        "add_text": "• “Examine yourselves as to\nwhether you are in the faith.\fTest yourselves. Do you\nnot know yourselves,\fthat Jesus Christ is in you?—unless\nindeed you are disqualified”",
+        "addable": true,
+        "correction": null,
+        "id": 22,
+        "kind": "left_out",
+        "line": 36,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“Examine yourselves as to whether you are in the faith. Test yourselves. Do you not know yourselves, that Jesus Christ is in you?—unless indeed you are disqualified.”",
+        "tier": "good",
+        "title": "“Examine yourselves as to whether you are in the faith. Test yourselves. Do you "
+      },
+      {
+        "add_text": "• \"Therefore if any man be\nin Christ, he is a new creature:\fold things are passed away;\nbehold, all things are become new\"",
+        "addable": true,
+        "correction": null,
+        "id": 26,
+        "kind": "left_out",
+        "line": 43,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "\"Therefore if any man be in Christ, he is a new creature: old things are passed away; behold, all things are become new.\"",
+        "tier": "good",
+        "title": "\"Therefore if any man be in Christ, he is a new creature: old things are passed "
+      },
+      {
+        "add_text": "• “But the fruit of the\nSpirit is love, joy, peace,\flongsuffering, kindness,\ngoodness, faithfulness,\fgentleness, self-control.\nAgainst such there is no law”",
+        "addable": true,
+        "correction": null,
+        "id": 38,
+        "kind": "left_out",
+        "line": 56,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“But the fruit of the Spirit is love, joy, peace, longsuffering, kindness, goodness, faithfulness, gentleness, self-control. Against such there is no law.”",
+        "tier": "good",
+        "title": "“But the fruit of the Spirit is love, joy, peace, longsuffering, kindness, goodn"
+      },
+      {
+        "add_text": "• “that they all may be one,\nas You, Father, are in Me,\fand I in You; that they\nalso may be one in Us,\fthat the world may\nbelieve that You sent Me”",
+        "addable": true,
+        "correction": null,
+        "id": 46,
+        "kind": "left_out",
+        "line": 70,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“that they all may be one, as You, Father, are in Me, and I in You; that they also may be one in Us, that the world may believe that You sent Me.”",
+        "tier": "good",
+        "title": "“that they all may be one, as You, Father, are in Me, and I in You; that they al"
+      },
+      {
+        "add_text": "• “with all lowliness and\ngentleness, with longsuffering,\fbearing with one another\nin love, endeavoring to\fkeep the unity of the Spirit\nin the bond of peace”",
+        "addable": true,
+        "correction": null,
+        "id": 50,
+        "kind": "left_out",
+        "line": 76,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“with all lowliness and gentleness, with longsuffering, bearing with one another in love, endeavoring to keep the unity of the Spirit in the bond of peace.”",
+        "tier": "good",
+        "title": "“with all lowliness and gentleness, with longsuffering, bearing with one another"
+      },
+      {
+        "add_text": "• “I tell you, no; but unless you\frepent you will all\nlikewise perish””",
+        "addable": true,
+        "correction": null,
+        "id": 52,
+        "kind": "left_out",
+        "line": 79,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“I tell you, no; but unless you repent you will all likewise perish.””",
+        "tier": "good",
+        "title": "“I tell you, no; but unless you repent you will all likewise perish.””"
+      },
+      {
+        "add_text": "• “and from Jesus Christ,\nthe faithful witness, the firstborn\ffrom the dead, and the ruler\nover the kings of the earth.\fTo Him who loved us and washed us\nfrom our sins in His own blood,\fand has made us kings and\npriests to His God and Father,\fto Him be glory and dominion\nforever and ever. Amen”",
+        "addable": true,
+        "correction": null,
+        "id": 65,
+        "kind": "left_out",
+        "line": 94,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“and from Jesus Christ, the faithful witness, the firstborn from the dead, and the ruler over the kings of the earth. To Him who loved us and washed us from our sins in His own blood, and has made us kings and priests to His God and Father, to Him be glory and dominion forever and ever. Amen.”",
+        "tier": "good",
+        "title": "“and from Jesus Christ, the faithful witness, the firstborn from the dead, and t"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "verse",
+        "line": 9,
+        "reasons": [
+          "no version listed; used NKJV (nearest version above)",
+          "the quoted text in the notes does not match NKJV wording (match 4%); check the version"
+        ],
+        "slides": [
+          4,
+          5,
+          6
+        ],
+        "text": "Ephesians 2:8–9",
+        "tier": "warning",
+        "title": "Ephesians 2:8-9 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 9,
+        "kind": "verse",
+        "line": 17,
+        "reasons": [
+          "no version listed; used NKJV (nearest version above)",
+          "the quoted text in the notes does not match NKJV wording (match 8%); check the version"
+        ],
+        "slides": [
+          11,
+          12
+        ],
+        "text": "John 3:3",
+        "tier": "warning",
+        "title": "John 3:3 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 21,
+        "kind": "verse",
+        "line": 34,
+        "reasons": [
+          "no version listed; used NKJV (nearest version above)",
+          "the quoted text in the notes does not match NKJV wording (match 7%); check the version"
+        ],
+        "slides": [
+          22
+        ],
+        "text": "Matthew 7:21",
+        "tier": "warning",
+        "title": "Matthew 7:21 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 25,
+        "kind": "verse",
+        "line": 41,
+        "reasons": [
+          "no version listed; used NKJV (nearest version above)",
+          "the quoted text in the notes does not match NKJV wording (match 0%); check the version"
+        ],
+        "slides": [
+          26
+        ],
+        "text": "Matthew 7:16",
+        "tier": "warning",
+        "title": "Matthew 7:16 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 27,
+        "kind": "verse",
+        "line": 45,
+        "reasons": [
+          "no version listed; used NKJV (nearest version above)",
+          "the quoted text in the notes does not match NKJV wording (match 0%); check the version"
+        ],
+        "slides": [
+          27
+        ],
+        "text": "2 Corinthians 5:17",
+        "tier": "warning",
+        "title": "2 Corinthians 5:17 (NKJV)"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 37,
+        "kind": "point",
+        "line": 55,
+        "reasons": [
+          "short line with no ending punctuation made a bullet point; it may be a heading instead"
+        ],
+        "slides": [
+          37
+        ],
+        "text": "• It changes our commitment\nto prayer and Scripture",
+        "tier": "warning",
+        "title": "• It changes our commitment"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "6 KEYS TO A NEW AWAKENING",
+      "title": "6 KEYS TO A NEW AWAKENING"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "Humble, tender: prayer mercy steadfast heaven, prayer father hidden wisdom ancient: river.",
+      "title": "1 Corinthians 1:26 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "Kingdom wisdom righteous mighty ready prayer faith.",
+      "title": "1 Corinthians 1:27 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Father bread: light faith covenant lamp: truth seed spirit, righteous tender harvest seed: kingdom steadfast father, harvest prayer light prayer: gentle; mountain — kingdom mighty humble — mercy open truth stranger living heaven. humble,",
+      "title": "Ephesians 2:8 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "hidden tender river, light light; bread — temple: song living. servant. mountain tender kingdom: lamp steadfast ready father shepherd heaven — peace lamp faithful stranger father kingdom promise; covenant — hidden humble; grace vine mercy open glory.",
+      "title": "Ephesians 2:8 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "Tender glory lamp harvest ancient stranger: faithful judge; light seed. steadfast.",
+      "title": "Ephesians 2:9 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 7,
+      "text": "KEY #1) SPEAK THE BORN AGAIN MESSAGE",
+      "title": "KEY #1) SPEAK THE BORN AGAIN MESSAGE"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "Stranger grace kingdom; peace promise tender; covenant, prayer: peace grace — ready, shepherd servant: mighty; hidden lamp righteous harvest; temple, bread. kingdom promise peace truth. shepherd heaven servant.",
+      "title": "Romans 10:14 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 9,
+      "text": "grace. spirit river. heaven prayer light; seed; seed mercy servant. shepherd faith humble faith gentle righteous hidden covenant promise. mercy lamp; spirit faith promise humble; brother servant.",
+      "title": "Romans 10:14 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 10,
+      "text": "“Stranger ancient — father, promise. mountain; kingdom shepherd judge — song prayer — seed faithful: wisdom hidden river heaven lamp — vine; wisdom heaven — prayer spirit”",
+      "title": "Romans 10:15 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 11,
+      "text": "Faithful prayer. living mountain righteous grace kingdom hidden stranger, righteous ancient faithful faith, steadfast faithful peace, mercy faith; father prayer, spirit.",
+      "title": "John 3:3 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 12,
+      "text": "mighty vine gentle. peace mercy peace living servant temple peace righteous peace; tender; steadfast harvest mighty bread: lamp faith — peace kingdom.",
+      "title": "John 3:3 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 13,
+      "text": "Servant judge: shepherd: shepherd stranger humble: promise truth promise promise. vine; heaven righteous.",
+      "title": "James 2:19 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 14,
+      "text": "“Brother truth, light light promise judge grace, father glory; spirit spirit: seed hidden”",
+      "title": "Romans 5:1 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 15,
+      "text": "Ready shepherd faithful — tender father song kingdom; song song — ancient — hidden prayer ancient light, prayer shepherd: heaven shepherd open:",
+      "title": "Romans 5:2 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 16,
+      "text": "light: faith righteous ancient open light faithful shepherd shepherd mountain peace light: temple vine temple, spirit open living; mountain lamp.",
+      "title": "Romans 5:2 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 17,
+      "text": "KEY #2) PREACHING MUST CONFRONT\nSIN AND POINT PEOPLE TO THE SAVIOR",
+      "title": "KEY #2) PREACHING MUST CONFRONT"
+    },
+    {
+      "kind": "verse",
+      "n": 18,
+      "text": "Harvest kingdom servant peace: lamp, heaven temple. grace father, judge: living; stranger: kingdom judge, father, faith — humble; brother mountain.",
+      "title": "2 Timothy 4:2 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 19,
+      "text": "Ancient: judge: vine mountain. glory — faith grace judge prayer heaven harvest; heaven open spirit.",
+      "title": "Acts 26:27 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 20,
+      "text": "Stranger steadfast, hidden: song tender.",
+      "title": "Acts 26:28 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 21,
+      "text": "KEY #3) DON’T BE ‘THE\nALMOST CHRISTIAN’",
+      "title": "KEY #3) DON’T BE ‘THE"
+    },
+    {
+      "kind": "verse",
+      "n": 22,
+      "text": "Grace spirit: truth spirit ready: shepherd: temple heaven father ready steadfast: faith faithful: temple judge truth stranger — temple. brother judge grace.",
+      "title": "Matthew 7:21 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 23,
+      "text": "Righteous truth; grace faithful steadfast. covenant gentle; spirit.",
+      "title": "2 Corinthians 13:5 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 24,
+      "text": "KEY #4) REVIVAL MUST\nPRODUCE MORE THAN",
+      "title": "KEY #4) REVIVAL MUST"
+    },
+    {
+      "kind": "point",
+      "n": 25,
+      "text": "EMOTION — IT MUST\nPRODUCE A CHANGED LIFE",
+      "title": "EMOTION — IT MUST"
+    },
+    {
+      "kind": "verse",
+      "n": 26,
+      "text": "“Spirit — ancient peace: temple lamp. shepherd — covenant; mountain river shepherd ancient. spirit: seed — grace harvest”",
+      "title": "Matthew 7:16 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 27,
+      "text": "“Vine tender righteous bread. faithful prayer, faith righteous; covenant: heaven, song; tender, covenant. seed, promise hidden ready judge judge. harvest grace grace prayer song. spirit — mercy father. covenant temple; prayer”",
+      "title": "2 Corinthians 5:17 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 28,
+      "text": "• A true revival changes\nthe way people live",
+      "title": "• A true revival changes"
+    },
+    {
+      "kind": "point",
+      "n": 29,
+      "text": "• It changes how husbands\ntreat their wives",
+      "title": "• It changes how husbands"
+    },
+    {
+      "kind": "point",
+      "n": 30,
+      "text": "• It changes how wives\ntreat their husbands",
+      "title": "• It changes how wives"
+    },
+    {
+      "kind": "point",
+      "n": 31,
+      "text": "• It changes how parents\nraise their children",
+      "title": "• It changes how parents"
+    },
+    {
+      "kind": "point",
+      "n": 32,
+      "text": "• It changes how young\npeople make decisions",
+      "title": "• It changes how young"
+    },
+    {
+      "kind": "point",
+      "n": 33,
+      "text": "• It changes how people\nconduct business",
+      "title": "• It changes how people"
+    },
+    {
+      "kind": "point",
+      "n": 34,
+      "text": "• It changes how we treat the poor",
+      "title": "• It changes how we treat the poor"
+    },
+    {
+      "kind": "point",
+      "n": 35,
+      "text": "• It changes how we respond\nto those who disagree with us",
+      "title": "• It changes how we respond"
+    },
+    {
+      "kind": "point",
+      "n": 36,
+      "text": "• It changes our\nattitudes toward sin",
+      "title": "• It changes our"
+    },
+    {
+      "kind": "point",
+      "n": 37,
+      "text": "• It changes our commitment\nto prayer and Scripture",
+      "title": "• It changes our commitment"
+    },
+    {
+      "kind": "verse",
+      "n": 38,
+      "text": "“Open glory, wisdom promise. grace; kingdom. peace — kingdom”",
+      "title": "Galatians 5:22 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 39,
+      "text": "Bread; truth river glory.",
+      "title": "Galatians 5:23 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 40,
+      "text": "• A genuine response to a spiritual",
+      "title": "• A genuine response to a spiritual"
+    },
+    {
+      "kind": "point",
+      "n": 41,
+      "text": "awakening should make\nus more like Jesus",
+      "title": "awakening should make"
+    },
+    {
+      "kind": "point",
+      "n": 42,
+      "text": "• It should make us more\nloving, more compassionate,",
+      "title": "• It should make us more"
+    },
+    {
+      "kind": "point",
+      "n": 43,
+      "text": "more truthful, more forgiving, and\nmore committed to righteousness",
+      "title": "more truthful, more forgiving, and"
+    },
+    {
+      "kind": "point",
+      "n": 44,
+      "text": "• The evidence of a genuine\nrevival is not merely how",
+      "title": "• The evidence of a genuine"
+    },
+    {
+      "kind": "point",
+      "n": 45,
+      "text": "loudly people shout in church,\nbut how faithfully",
+      "title": "loudly people shout in church,"
+    },
+    {
+      "kind": "point",
+      "n": 46,
+      "text": "they live for Jesus\nwhen they leave church!",
+      "title": "they live for Jesus"
+    },
+    {
+      "kind": "point",
+      "n": 47,
+      "text": "KEY #5) THERE MUST BE CONVERGENCE",
+      "title": "KEY #5) THERE MUST BE CONVERGENCE"
+    },
+    {
+      "kind": "point",
+      "n": 48,
+      "text": "• Convergence is the act or state\nof coming together from",
+      "title": "• Convergence is the act or state"
+    },
+    {
+      "kind": "point",
+      "n": 49,
+      "text": "different directions to meet at a\ncommon point, limit, or similarity",
+      "title": "different directions to meet at a"
+    },
+    {
+      "kind": "verse",
+      "n": 50,
+      "text": "Harvest steadfast glory servant; spirit mercy wisdom grace bread.",
+      "title": "Ephesians 4:4 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 51,
+      "text": "Temple mighty, glory hidden open; covenant grace; light light.",
+      "title": "Ephesians 4:5 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 52,
+      "text": "Open living; heaven prayer lamp temple stranger.",
+      "title": "Ephesians 4:6 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 53,
+      "text": "Covenant — shepherd — father, shepherd, open. ready kingdom living harvest peace promise grace promise seed; mercy humble mercy: river — humble: mountain. mighty covenant, covenant seed heaven. truth spirit shepherd.",
+      "title": "John 17:21 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 54,
+      "text": "• The devil wants to divide the\nchurch over secondary matters",
+      "title": "• The devil wants to divide the"
+    },
+    {
+      "kind": "point",
+      "n": 55,
+      "text": "while the world waits to hear\nthe primary message of salvation!",
+      "title": "while the world waits to hear"
+    },
+    {
+      "kind": "point",
+      "n": 56,
+      "text": "A SPIRITUAL AWAKENING CAN UNITE\nPEOPLE WHO HAVE BEEN DIVIDED",
+      "title": "A SPIRITUAL AWAKENING CAN UNITE"
+    },
+    {
+      "kind": "verse",
+      "n": 57,
+      "text": "Song. stranger song faithful bread — peace mountain faithful living: humble wisdom kingdom gentle truth — river steadfast; bread, ready. light, living, heaven humble seed.",
+      "title": "Ephesians 4:2 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 58,
+      "text": "Mighty father covenant open faith. father. living. ancient. brother; prayer shepherd — vine faith spirit; harvest gentle stranger: stranger tender heaven promise. ready lamp — truth, ancient stranger vine.",
+      "title": "Ephesians 4:3 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 59,
+      "text": "Living light glory: steadfast, grace prayer tender covenant mountain — song bread truth — prayer wisdom light grace — grace light gentle living lamp;",
+      "title": "Luke 13:5 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 60,
+      "text": "shepherd — heaven light faithful faithful. humble humble. bread. river vine kingdom servant, lamp; kingdom bread truth promise — truth.",
+      "title": "Luke 13:5 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 61,
+      "text": "KEY #6) BELIEVE IN THE\nPOWER OF THE GOSPEL",
+      "title": "KEY #6) BELIEVE IN THE"
+    },
+    {
+      "kind": "point",
+      "n": 62,
+      "text": "• A revival that begins\nin the heart can eventually",
+      "title": "• A revival that begins"
+    },
+    {
+      "kind": "point",
+      "n": 63,
+      "text": "influence a family, a community,\na church, and even a nation",
+      "title": "influence a family, a community,"
+    },
+    {
+      "kind": "point",
+      "n": 64,
+      "text": "CONCLUSION: WHAT\nAMERICA AND THE WORLD",
+      "title": "CONCLUSION: WHAT"
+    },
+    {
+      "kind": "point",
+      "n": 65,
+      "text": "NEEDS MOST IS ANOTHER\nSPIRITUAL AWAKENING",
+      "title": "NEEDS MOST IS ANOTHER"
+    },
+    {
+      "kind": "point",
+      "n": 66,
+      "text": "• We should pray and follow these",
+      "title": "• We should pray and follow these"
+    },
+    {
+      "kind": "point",
+      "n": 67,
+      "text": "keys for another\nspiritual awakening",
+      "title": "keys for another"
+    },
+    {
+      "kind": "point",
+      "n": 68,
+      "text": "• We need revival in our pulpits",
+      "title": "• We need revival in our pulpits"
+    },
+    {
+      "kind": "point",
+      "n": 69,
+      "text": "• We need revival in our pews",
+      "title": "• We need revival in our pews"
+    },
+    {
+      "kind": "point",
+      "n": 70,
+      "text": "• We need revival in our homes",
+      "title": "• We need revival in our homes"
+    },
+    {
+      "kind": "point",
+      "n": 71,
+      "text": "• We need revival among\nour young people",
+      "title": "• We need revival among"
+    },
+    {
+      "kind": "point",
+      "n": 72,
+      "text": "• We need revival in our communities",
+      "title": "• We need revival in our communities"
+    },
+    {
+      "kind": "point",
+      "n": 73,
+      "text": "• And we need revival\nin our own hearts",
+      "title": "• And we need revival"
+    },
+    {
+      "kind": "point",
+      "n": 74,
+      "text": "• The greatest contribution\nChristians can make to America is",
+      "title": "• The greatest contribution"
+    },
+    {
+      "kind": "point",
+      "n": 75,
+      "text": "not simply to argue about what\nis wrong with the nation, but to live",
+      "title": "not simply to argue about what"
+    },
+    {
+      "kind": "point",
+      "n": 76,
+      "text": "and proclaim the gospel that can\nchange the hearts of its people",
+      "title": "and proclaim the gospel that can"
+    },
+    {
+      "kind": "verse",
+      "n": 77,
+      "text": "Mighty; river, faithful song glory steadfast — wisdom.",
+      "title": "Revelation 1:5 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 78,
+      "text": "Wisdom kingdom covenant lamp — steadfast lamp; truth grace: open mercy: father — steadfast servant servant faith — ancient — ready vine judge open harvest glory humble judge light light; vine — grace.",
+      "title": "Revelation 1:6 (NKJV)"
+    },
+    {
+      "kind": "point",
+      "n": 79,
+      "text": "RECAP: KEYS TO A NEW AWAKENING",
+      "title": "RECAP: KEYS TO A NEW AWAKENING"
+    },
+    {
+      "kind": "point",
+      "n": 80,
+      "text": "KEY #1) SPEAK THE BORN AGAIN MESSAGE",
+      "title": "KEY #1) SPEAK THE BORN AGAIN MESSAGE"
+    },
+    {
+      "kind": "point",
+      "n": 81,
+      "text": "KEY #2) PREACHING MUST CONFRONT\nSIN AND POINT PEOPLE TO THE SAVIOR",
+      "title": "KEY #2) PREACHING MUST CONFRONT"
+    },
+    {
+      "kind": "point",
+      "n": 82,
+      "text": "KEY #3) DON’T BE ‘THE\nALMOST CHRISTIAN’",
+      "title": "KEY #3) DON’T BE ‘THE"
+    },
+    {
+      "kind": "point",
+      "n": 83,
+      "text": "KEY #4) REVIVAL MUST\nPRODUCE MORE THAN",
+      "title": "KEY #4) REVIVAL MUST"
+    },
+    {
+      "kind": "point",
+      "n": 84,
+      "text": "EMOTION — IT MUST\nPRODUCE A CHANGED LIFE",
+      "title": "EMOTION — IT MUST"
+    },
+    {
+      "kind": "point",
+      "n": 85,
+      "text": "KEY #5) THERE MUST BE CONVERGENCE",
+      "title": "KEY #5) THERE MUST BE CONVERGENCE"
+    },
+    {
+      "kind": "point",
+      "n": 86,
+      "text": "KEY #6) BELIEVE IN THE\nPOWER OF THE GOSPEL",
+      "title": "KEY #6) BELIEVE IN THE"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 6,
+    "errors": 2,
+    "fixes": 2,
+    "flagged": 2,
+    "good": 50,
+    "left_out": 16,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 53,
+    "slides": 86,
+    "verse_slides": 33,
+    "warnings": 6
+  }
+}

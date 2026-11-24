@@ -1,0 +1,119 @@
+{
+  "adjustments": [
+    {
+      "detail": "no version listed; used NKJV (default version)",
+      "line": 2,
+      "status": "adjusted",
+      "text": "John 3:16"
+    }
+  ],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• “A quote”",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slides": [],
+      "text": "“A quote.”",
+      "tier": "good",
+      "title": "“A quote.”"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "no version listed; used NKJV (default version)"
+      ],
+      "slides": [
+        1
+      ],
+      "text": "John 3:16",
+      "tier": "warning",
+      "title": "John 3:16 (NKJV)"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "line": 1,
+      "status": "left_out",
+      "text": "“A quote.”"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [],
+    "left_out_good": [
+      {
+        "add_text": "• “A quote”",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "verse text quoted above its reference; text is fetched from the Bible provider"
+        ],
+        "slides": [],
+        "text": "“A quote.”",
+        "tier": "good",
+        "title": "“A quote.”"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "no version listed; used NKJV (default version)"
+        ],
+        "slides": [
+          1
+        ],
+        "text": "John 3:16",
+        "tier": "warning",
+        "title": "John 3:16 (NKJV)"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "Seed; lamp, steadfast judge steadfast kingdom living servant — living. servant: shepherd faithful.",
+      "title": "John 3:16 (NKJV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 1,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 0,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 1,
+    "verse_slides": 1,
+    "warnings": 1
+  }
+}

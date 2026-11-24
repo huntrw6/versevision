@@ -1,0 +1,1356 @@
+{
+  "decisions": [
+    {
+      "add_text": "• JPL 11/22/26 A Study in the Psalms",
+      "correction": {},
+      "first_slide": 0,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slide_count": 0,
+      "text": "JPL 11/22/26 A Study in the Psalms",
+      "tier": "good",
+      "title": "JPL 11/22/26 A Study in the Psalms"
+    },
+    {
+      "add_text": "• Show Photo of the shepherd",
+      "correction": {},
+      "first_slide": 0,
+      "id": 1,
+      "kind": "left_out",
+      "line": 2,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "Show Photo of the shepherd",
+      "tier": "good",
+      "title": "Show Photo of the shepherd"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 0,
+      "id": 2,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "THREE THINGS TO KNOW",
+      "tier": "good",
+      "title": "THREE THINGS TO KNOW"
+    },
+    {
+      "add_text": "• “The Lord is my shepherd;\nI shall not want”",
+      "correction": {},
+      "first_slide": 1,
+      "id": 3,
+      "kind": "left_out",
+      "line": 4,
+      "reasons": [
+        "verse text quoted above its reference; text is fetched from the Bible provider"
+      ],
+      "slide_count": 0,
+      "text": "“The Lord is my shepherd; I shall not want.”",
+      "tier": "good",
+      "title": "“The Lord is my shepherd; I shall not want.”"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 1,
+      "id": 4,
+      "kind": "verse",
+      "line": 5,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Psalm 23:1 NKJV",
+      "tier": "good",
+      "title": "Psalms 23:1 NKJV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 2,
+      "id": 5,
+      "kind": "point",
+      "line": 6,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "1) The Lord leads us\nbeside still waters",
+      "tier": "good",
+      "title": "1) The Lord leads us"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 3,
+      "id": 6,
+      "kind": "point",
+      "line": 7,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• A full sentence that sits under\nthe first point and keeps going\nfor a good while so that it wraps",
+      "tier": "good",
+      "title": "• A full sentence that sits under"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 4,
+      "id": 7,
+      "kind": "point",
+      "line": 8,
+      "reasons": [
+        "short line with no ending punctuation made a bullet point; it may be a heading instead"
+      ],
+      "slide_count": 1,
+      "text": "• Short heading",
+      "tier": "warning",
+      "title": "• Short heading"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 5,
+      "id": 8,
+      "kind": "point",
+      "line": 9,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "2) He restores my soul\nand guides me in the paths of\nrighteousness for His name's sake",
+      "tier": "good",
+      "title": "2) He restores my soul"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 6,
+      "id": 9,
+      "kind": "point",
+      "line": 10,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "Conclusion: trust Him",
+      "tier": "good",
+      "title": "Conclusion: trust Him"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 7,
+      "id": 10,
+      "kind": "verse",
+      "line": 11,
+      "reasons": [
+        "no version listed; used NKJV (nearest version above)"
+      ],
+      "slide_count": 2,
+      "text": "Romans 8:28",
+      "tier": "warning",
+      "title": "Romans 8:28 (NKJV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 9,
+      "id": 11,
+      "kind": "verse",
+      "line": 12,
+      "reasons": [],
+      "slide_count": 4,
+      "text": "John 3:16-18 NIV",
+      "tier": "good",
+      "title": "John 3:16-18 NIV"
+    },
+    {
+      "add_text": "• Psalm 23",
+      "correction": {},
+      "first_slide": 13,
+      "id": 12,
+      "kind": "error",
+      "line": 13,
+      "reasons": [
+        "whole-chapter reference; add verse numbers to include it"
+      ],
+      "slide_count": 0,
+      "text": "Psalm 23",
+      "tier": "error",
+      "title": "Psalm 23"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 13,
+      "id": 13,
+      "kind": "verse",
+      "line": 14,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)",
+        "taken from the sentence: 'As Philippians 4:13 says, we can do all things.'"
+      ],
+      "slide_count": 1,
+      "text": "Philippians 4:13",
+      "tier": "warning",
+      "title": "Philippians 4:13 (NIV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 14,
+      "id": 14,
+      "kind": "verse",
+      "line": 15,
+      "reasons": [
+        "no version listed; used NIV (nearest version above)"
+      ],
+      "slide_count": 1,
+      "text": "Philippians 4:19",
+      "tier": "warning",
+      "title": "Philippians 4:19 (NIV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 15,
+      "id": 15,
+      "kind": "verse",
+      "line": 16,
+      "reasons": [],
+      "slide_count": 4,
+      "text": "John 3:16-18 NIV",
+      "tier": "good",
+      "title": "John 3:16-18 NIV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 19,
+      "id": 16,
+      "kind": "point",
+      "line": 17,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "a) Pray",
+      "tier": "good",
+      "title": "a) Pray"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 20,
+      "id": 17,
+      "kind": "point",
+      "line": 18,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "b) Read",
+      "tier": "good",
+      "title": "b) Read"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 21,
+      "id": 18,
+      "kind": "point",
+      "line": 19,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• A bullet line",
+      "tier": "good",
+      "title": "• A bullet line"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 22,
+      "id": 19,
+      "kind": "point",
+      "line": 20,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• another bullet",
+      "tier": "good",
+      "title": "• another bullet"
+    },
+    {
+      "add_text": "• (pause here)",
+      "correction": {},
+      "first_slide": 23,
+      "id": 20,
+      "kind": "left_out",
+      "line": 21,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "(pause here)",
+      "tier": "good",
+      "title": "(pause here)"
+    },
+    {
+      "add_text": "• https://example.com/slides",
+      "correction": {},
+      "first_slide": 23,
+      "id": 21,
+      "kind": "left_out",
+      "line": 22,
+      "reasons": [
+        "stage/production cue"
+      ],
+      "slide_count": 0,
+      "text": "https://example.com/slides",
+      "tier": "good",
+      "title": "https://example.com/slides"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 23,
+      "id": 22,
+      "kind": "point",
+      "line": 23,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "3) KEY#3) mismatched label",
+      "tier": "good",
+      "title": "3) KEY#3) mismatched label"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 24,
+      "id": 23,
+      "kind": "verse",
+      "line": 24,
+      "reasons": [],
+      "slide_count": 5,
+      "text": "Matthew 6:9-13 KJV",
+      "tier": "good",
+      "title": "Matthew 6:9-13 KJV"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 29,
+      "id": 24,
+      "kind": "verse",
+      "line": 25,
+      "reasons": [
+        "no version listed; used KJV (nearest version above)"
+      ],
+      "slide_count": 10,
+      "text": "Acts 2:1-4 & 6-8",
+      "tier": "warning",
+      "title": "Acts 2:1-4 & 6-8 (KJV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 39,
+      "id": 25,
+      "kind": "verse",
+      "line": 26,
+      "reasons": [
+        "no version listed; used KJV (nearest version above)"
+      ],
+      "slide_count": 44,
+      "text": "Genesis 1:1 – 2:3",
+      "tier": "warning",
+      "title": "Genesis 1:1-2:3 (KJV)"
+    },
+    {
+      "add_text": "",
+      "correction": {},
+      "first_slide": 83,
+      "id": 26,
+      "kind": "point",
+      "line": 27,
+      "reasons": [],
+      "slide_count": 1,
+      "text": "• Closing thought for the evening",
+      "tier": "good",
+      "title": "• Closing thought for the evening"
+    }
+  ],
+  "failed": [],
+  "fetched": true,
+  "looks": null,
+  "notices": [
+    {
+      "line": 11,
+      "problem": "no version listed; used NKJV (nearest version above)",
+      "text": "Romans 8:28"
+    },
+    {
+      "line": 14,
+      "problem": "no version listed; used NIV (nearest version above)",
+      "text": "Philippians 4:13"
+    },
+    {
+      "line": 15,
+      "problem": "no version listed; used NIV (nearest version above)",
+      "text": "Philippians 4:19"
+    },
+    {
+      "line": 25,
+      "problem": "no version listed; used KJV (nearest version above)",
+      "text": "Acts 2:1-4 & 6-8"
+    },
+    {
+      "line": 26,
+      "problem": "no version listed; used KJV (nearest version above)",
+      "text": "Genesis 1:1-2:3"
+    },
+    {
+      "line": 8,
+      "problem": "short line with no ending punctuation made a bullet point; it may be a heading instead",
+      "text": "• Short heading"
+    }
+  ],
+  "point_count": 12,
+  "review": [
+    {
+      "line": 13,
+      "problem": "whole-chapter reference; add verse numbers to include it",
+      "text": "Psalm 23"
+    }
+  ],
+  "skipped": [
+    {
+      "line": 1,
+      "problem": "header: title / date line",
+      "text": "JPL 11/22/26 A Study in the Psalms"
+    },
+    {
+      "line": 2,
+      "problem": "stage_note: stage/production cue",
+      "text": "Show Photo of the shepherd"
+    },
+    {
+      "line": 4,
+      "problem": "quoted_text: verse text quoted above its reference; text is fetched from the Bible provider",
+      "text": "“The Lord is my shepherd; I shall not want.”"
+    },
+    {
+      "line": 21,
+      "problem": "stage_note: stage/production cue",
+      "text": "(pause here)"
+    },
+    {
+      "line": 22,
+      "problem": "stage_note: stage/production cue",
+      "text": "https://example.com/slides"
+    }
+  ],
+  "slide_plan": {
+    "attribution_slides": [],
+    "slides": [
+      {
+        "body_text": "THREE THINGS TO KNOW",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 0,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Promise ready father mercy: bread heaven humble; stranger faith glory, kingdom. promise servant — father; lamp father: bread mercy kingdom; mighty, peace; vine; bread — kingdom ancient — judge faithful; mighty.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Psalms 23:1",
+        "source_passage_index": 1,
+        "verse_keys": [
+          "PSA.23.1"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "1) The Lord leads us\nbeside still waters",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 2,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• A full sentence that sits under\nthe first point and keeps going\nfor a good while so that it wraps",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 3,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• Short heading",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 4,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "2) He restores my soul\nand guides me in the paths of\nrighteousness for His name's sake",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 5,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Conclusion: trust Him",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 6,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Harvest — vine living faith; living heaven ancient river: father ready — seed: father — wisdom — shepherd seed faithful song: judge brother — stranger, mercy faith;",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Romans 8:28",
+        "source_passage_index": 7,
+        "verse_keys": [
+          "ROM.8.28"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "brother, truth, stranger — servant; father, open hidden judge shepherd kingdom hidden, spirit. tender servant. mountain: mighty kingdom, ancient lamp wisdom. river harvest river mountain.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Romans 8:28",
+        "source_passage_index": 7,
+        "verse_keys": [
+          "ROM.8.28"
+        ],
+        "version_text": "NKJV"
+      },
+      {
+        "body_text": "Bread: ancient living; faith humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 8,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Heaven humble — promise kingdom: stranger brother — mighty open temple steadfast hidden grace humble river, promise promise — faith.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:17",
+        "source_passage_index": 8,
+        "verse_keys": [
+          "JHN.3.17"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "wisdom kingdom; bread — light song living righteous peace glory mercy spirit righteous. mountain judge hidden hidden; river: ready — kingdom brother; kingdom righteous.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:17",
+        "source_passage_index": 8,
+        "verse_keys": [
+          "JHN.3.17"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Righteous. wisdom covenant shepherd. mercy light, grace kingdom, promise glory kingdom father tender.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:18",
+        "source_passage_index": 8,
+        "verse_keys": [
+          "JHN.3.18"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Light; servant light. grace — promise, mighty. servant.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Philippians 4:13",
+        "source_passage_index": 9,
+        "verse_keys": [
+          "PHP.4.13"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Faith harvest brother: tender kingdom servant. living river righteous gentle: faith: glory: river servant stranger: gentle light; song. kingdom: wisdom humble harvest lamp brother, faith; gentle.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Philippians 4:19",
+        "source_passage_index": 10,
+        "verse_keys": [
+          "PHP.4.19"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Bread: ancient living; faith humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:16",
+        "source_passage_index": 11,
+        "verse_keys": [
+          "JHN.3.16"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Heaven humble — promise kingdom: stranger brother — mighty open temple steadfast hidden grace humble river, promise promise — faith.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:17",
+        "source_passage_index": 11,
+        "verse_keys": [
+          "JHN.3.17"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "wisdom kingdom; bread — light song living righteous peace glory mercy spirit righteous. mountain judge hidden hidden; river: ready — kingdom brother; kingdom righteous.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:17",
+        "source_passage_index": 11,
+        "verse_keys": [
+          "JHN.3.17"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "Righteous. wisdom covenant shepherd. mercy light, grace kingdom, promise glory kingdom father tender.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "John 3:18",
+        "source_passage_index": 11,
+        "verse_keys": [
+          "JHN.3.18"
+        ],
+        "version_text": "NIV"
+      },
+      {
+        "body_text": "a) Pray",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 12,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "b) Read",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 13,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• A bullet line",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 14,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "• another bullet",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 15,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "3) KEY#3) mismatched label",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 16,
+        "verse_keys": [],
+        "version_text": ""
+      },
+      {
+        "body_text": "Prayer open, mountain living glory heaven steadfast vine: glory living open promise, prayer temple shepherd harvest humble judge — gentle bread song.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 6:9",
+        "source_passage_index": 17,
+        "verse_keys": [
+          "MAT.6.9"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Gentle light prayer mountain ancient vine open: shepherd — covenant servant song: truth grace living — mercy. faithful glory humble — steadfast heaven stranger. faith; seed tender mercy father glory. stranger. open: mercy glory.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 6:10",
+        "source_passage_index": 17,
+        "verse_keys": [
+          "MAT.6.10"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Kingdom vine promise ready faith, lamp — shepherd righteous faith. servant brother; song mercy father.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 6:11",
+        "source_passage_index": 17,
+        "verse_keys": [
+          "MAT.6.11"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Glory. heaven temple grace. vine. mighty stranger steadfast light wisdom, faith temple; vine servant.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 6:12",
+        "source_passage_index": 17,
+        "verse_keys": [
+          "MAT.6.12"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Glory. mighty judge seed harvest — truth. prayer, gentle living heaven. steadfast; covenant, light lamp light grace — peace.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Matthew 6:13",
+        "source_passage_index": 17,
+        "verse_keys": [
+          "MAT.6.13"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Bread steadfast. song; humble faith: ancient humble mercy. truth; father song prayer — living promise mercy gentle faithful kingdom.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Acts 2:1",
+        "source_passage_index": 18,
+        "verse_keys": [
+          "ACT.2.1"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Heaven faith: ancient judge judge — shepherd: light mercy grace.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Acts 2:2",
+        "source_passage_index": 18,
+        "verse_keys": [
+          "ACT.2.2"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "“Steadfast. spirit; righteous righteous judge bread — peace; glory”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Acts 2:3",
+        "source_passage_index": 18,
+        "verse_keys": [
+          "ACT.2.3"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Judge. humble grace, faithful heaven song song; mountain glory covenant — gentle — tender gentle faithful gentle; promise. glory brother ancient gentle. servant glory: prayer: ready heaven mercy.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Acts 2:4",
+        "source_passage_index": 18,
+        "verse_keys": [
+          "ACT.2.4"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "gentle kingdom mercy. spirit stranger. wisdom. glory; song — bread, kingdom living — tender kingdom — father faith humble, living. mountain: steadfast, temple — open — seed hidden spirit, bread, living — light glory mercy.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Acts 2:4",
+        "source_passage_index": 18,
+        "verse_keys": [
+          "ACT.2.4"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "River; tender righteous — father peace truth: spirit: river river vine humble — grace — faith spirit river truth glory ancient, righteous glory mountain — judge covenant glory servant song: promise shepherd, bread peace; judge.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Acts 2:6",
+        "source_passage_index": 18,
+        "verse_keys": [
+          "ACT.2.6"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Faith wisdom. living: river — gentle; bread. spirit; song stranger prayer. lamp — bread steadfast mountain tender. mercy: glory covenant mercy.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Acts 2:7",
+        "source_passage_index": 18,
+        "verse_keys": [
+          "ACT.2.7"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "bread tender. gentle, faithful ancient righteous: bread humble song judge; glory gentle river living — lamp. father: promise.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Acts 2:7",
+        "source_passage_index": 18,
+        "verse_keys": [
+          "ACT.2.7"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Ancient open, song hidden harvest mighty harvest: lamp. shepherd open, tender harvest — wisdom ready: promise. faithful truth hidden stranger promise river glory stranger kingdom living glory truth, harvest: covenant:",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Acts 2:8",
+        "source_passage_index": 18,
+        "verse_keys": [
+          "ACT.2.8"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "gentle spirit hidden grace; peace; prayer harvest — humble grace — open river: mountain servant spirit vine temple, shepherd — river mighty — brother, grace. prayer mighty; shepherd light. vine. vine father. heaven: open living servant tender open.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Acts 2:8",
+        "source_passage_index": 18,
+        "verse_keys": [
+          "ACT.2.8"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Righteous grace glory, kingdom, brother truth, servant grace gentle: ready righteous faith prayer spirit brother — mighty: hidden river, spirit. bread heaven, wisdom humble humble righteous harvest mighty peace hidden.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:1",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.1"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "“Peace light: father — mountain. lamp. bread, spirit father — wisdom. gentle. peace river tender covenant; light; shepherd steadfast — harvest — lamp.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:2",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.2"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "shepherd: hidden mighty — wisdom vine. servant; grace covenant. harvest tender spirit living grace river hidden: gentle — righteous grace; ancient”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:2",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.2"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Righteous; faith faithful tender; faithful kingdom prayer grace, prayer river open servant; harvest spirit song hidden temple father vine servant ready mountain.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:3",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.3"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Tender: ready, prayer grace. servant heaven: mountain stranger living shepherd grace. tender hidden — peace bread ready, ready; glory: lamp.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:4",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.4"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Wisdom — seed gentle light. living mighty shepherd light. truth prayer. mountain; judge — stranger faith.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:5",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.5"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Truth, bread hidden. living tender; mountain, ancient temple seed; mercy truth glory mighty, prayer steadfast open kingdom: prayer: tender — harvest.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:6",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.6"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Vine, grace river promise glory tender brother servant. mountain shepherd. spirit. mercy.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:7",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.7"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Shepherd; temple, ancient mighty shepherd steadfast mercy peace prayer. judge truth righteous prayer, truth prayer living prayer stranger: living judge. mighty.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:8",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.8"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Servant — song grace open glory father seed mountain, temple: seed glory; lamp — hidden — spirit; glory, tender; living shepherd heaven wisdom tender stranger promise mighty — promise: seed stranger; judge: heaven grace harvest.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:9",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.9"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "harvest humble stranger faithful glory peace. ready — bread truth, steadfast — tender hidden peace. steadfast, mighty bread. promise mountain brother light, mighty; temple covenant heaven promise temple prayer righteous, promise glory bread promise.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:9",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.9"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Faith mighty tender kingdom; mighty living heaven seed. open river; peace grace. mercy mercy steadfast heaven humble; song kingdom harvest, truth.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:10",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.10"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "wisdom judge light truth kingdom: humble — heaven faith steadfast; kingdom father, servant kingdom. mercy. judge living.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:10",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.10"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Ancient promise covenant, covenant; mountain wisdom. spirit glory, promise stranger brother — spirit; ancient; shepherd mighty, song: righteous river faithful; mountain — ready prayer humble:",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:11",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.11"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "living truth — faithful ancient shepherd hidden covenant steadfast judge — faithful, temple. seed, faith servant vine mercy, ready prayer — truth lamp faithful grace, steadfast; righteous river: judge kingdom.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:11",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.11"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Servant stranger: peace father; prayer; kingdom promise — mercy truth harvest promise — father: tender ancient. servant grace. open vine covenant.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:12",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.12"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "mountain spirit tender: brother. light, mountain river mountain, mighty; steadfast: bread father: spirit — truth. faith seed father: river faithful — spirit.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:12",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.12"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Peace faithful mountain humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:13",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.13"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Mercy shepherd — humble wisdom; wisdom seed. ready spirit.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:14",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.14"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Brother prayer hidden: spirit; river mountain. brother; light faithful steadfast — ready hidden, harvest, righteous kingdom — judge stranger faith mighty shepherd mighty, servant humble, covenant glory vine peace hidden;",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:15",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.15"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "light hidden servant truth mountain peace. heaven shepherd, vine — wisdom mighty song harvest. tender. harvest living; glory: faithful: mountain grace, mighty light. seed kingdom wisdom seed.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:15",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.15"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Ready mercy lamp lamp; grace. ready; peace temple open.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:16",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.16"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "“Living: tender light bread: mighty: kingdom”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:17",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.17"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Song; stranger gentle. gentle judge.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:18",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.18"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Mercy song mercy — grace promise stranger kingdom tender — shepherd. judge ready living; vine faithful.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:19",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.19"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Seed mercy harvest, stranger glory seed temple. vine; gentle: servant hidden. vine — judge — mountain righteous — ancient: judge shepherd prayer judge; shepherd; servant lamp covenant grace ready humble: open: humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:20",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.20"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "river. truth: seed righteous wisdom: harvest, humble: righteous peace: river living — living, bread faithful. lamp, bread, light, grace, grace; mighty stranger vine: open vine.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:20",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.20"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Ancient river. mountain; tender mountain: gentle, glory light: heaven: covenant bread. mercy temple shepherd — covenant: harvest. steadfast peace brother mercy mountain gentle.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:21",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.21"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Humble. steadfast spirit grace faith: grace. humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:22",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.22"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Stranger; ready, faith river.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:23",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.23"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "“River temple kingdom covenant faith: peace river lamp kingdom temple — open song grace servant, stranger covenant glory. servant spirit — ancient ready. peace, truth truth”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:24",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.24"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Prayer — kingdom righteous faith — peace lamp spirit; living mountain — covenant grace open shepherd — song. temple hidden mountain living father, wisdom — promise; seed covenant heaven shepherd, faithful tender grace;",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:25",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.25"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "river heaven: shepherd humble judge: prayer brother gentle living, peace gentle. peace harvest light covenant — song; open; heaven — seed. peace: peace father — song spirit servant. living humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:25",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.25"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Heaven heaven — spirit; open ready light, temple — humble stranger.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:26",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.26"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Steadfast — stranger: truth ancient. shepherd prayer; lamp — living temple covenant, faith truth harvest. righteous: lamp; harvest steadfast servant: steadfast heaven gentle. gentle spirit — covenant — open — river.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:27",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.27"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Prayer. vine truth ready: faith light humble.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:28",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.28"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "“Light mighty; temple: glory mercy glory, servant; river shepherd harvest: truth prayer promise stranger mercy mercy spirit — temple shepherd mighty prayer. living; temple; spirit”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:29",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.29"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Temple, prayer bread wisdom covenant faith covenant — covenant humble. prayer covenant; truth judge temple.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:30",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.30"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "mountain: judge, promise — promise: gentle — vine ready: peace judge faith peace. open steadfast open, hidden spirit spirit. vine, mercy father spirit ancient tender faith.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:30",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.30"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "“Seed: grace light — ancient faithful. covenant ancient — light faithful mighty covenant river: open stranger faith grace, peace — hidden: river mercy mighty”",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 1:31",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.1.31"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Father prayer humble — hidden; spirit ready. bread humble mountain open seed heaven bread seed: lamp shepherd: servant: ancient shepherd seed river — righteous: mighty righteous promise humble servant, stranger righteous lamp. truth.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 2:1",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.2.1"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Temple harvest seed song servant judge spirit; stranger. living — ancient wisdom. servant — harvest prayer harvest.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 2:2",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.2.2"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "prayer ready humble: mercy father covenant — light. promise: righteous — bread light stranger. bread seed shepherd vine: peace; heaven ready.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 2:2",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.2.2"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "Judge bread. harvest truth; truth faithful. temple tender — righteous, truth: servant harvest hidden mercy; steadfast lamp covenant grace promise.",
+        "copyright_text": null,
+        "kind": "verse",
+        "reference_text": "Genesis 2:3",
+        "source_passage_index": 19,
+        "verse_keys": [
+          "GEN.2.3"
+        ],
+        "version_text": "KJV"
+      },
+      {
+        "body_text": "• Closing thought for the evening",
+        "copyright_text": null,
+        "kind": "point",
+        "reference_text": "",
+        "source_passage_index": 20,
+        "verse_keys": [],
+        "version_text": ""
+      }
+    ]
+  },
+  "verse_count": 9
+}

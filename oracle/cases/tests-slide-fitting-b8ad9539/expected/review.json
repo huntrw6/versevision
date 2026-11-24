@@ -1,0 +1,180 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "• Title 11/8/26",
+      "addable": true,
+      "correction": null,
+      "id": 0,
+      "kind": "left_out",
+      "line": 1,
+      "reasons": [
+        "title / date line"
+      ],
+      "slides": [],
+      "text": "Title 11/8/26",
+      "tier": "good",
+      "title": "Title 11/8/26"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "point",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) Trust the Lord with all\nyour heart, lean not on your\nown understanding, and in all\nyour ways acknowledge Him,\nand He will direct your paths",
+      "tier": "good",
+      "title": "1) Trust the Lord with all"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "point",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        2
+      ],
+      "text": "2) Be still",
+      "tier": "good",
+      "title": "2) Be still"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "point",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "text": "• Pray without ceasing, give\nthanks in everything, and rejoice\nalways in the Lord, because\nthis is the will of God for you",
+      "tier": "good",
+      "title": "• Pray without ceasing, give"
+    }
+  ],
+  "flagged": [],
+  "left_out": [
+    {
+      "detail": "header: title / date line",
+      "line": 1,
+      "status": "left_out",
+      "text": "Title 11/8/26"
+    }
+  ],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "point",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) Trust the Lord with all\nyour heart, lean not on your\nown understanding, and in all\nyour ways acknowledge Him,\nand He will direct your paths",
+        "tier": "good",
+        "title": "1) Trust the Lord with all"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "point",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          2
+        ],
+        "text": "2) Be still",
+        "tier": "good",
+        "title": "2) Be still"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "point",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "text": "• Pray without ceasing, give\nthanks in everything, and rejoice\nalways in the Lord, because\nthis is the will of God for you",
+        "tier": "good",
+        "title": "• Pray without ceasing, give"
+      }
+    ],
+    "left_out_good": [
+      {
+        "add_text": "• Title 11/8/26",
+        "addable": true,
+        "correction": null,
+        "id": 0,
+        "kind": "left_out",
+        "line": 1,
+        "reasons": [
+          "title / date line"
+        ],
+        "slides": [],
+        "text": "Title 11/8/26",
+        "tier": "good",
+        "title": "Title 11/8/26"
+      }
+    ],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) Trust the Lord with all\nyour heart, lean not on your\nown understanding, and in all\nyour ways acknowledge Him,\nand He will direct your paths",
+      "title": "1) Trust the Lord with all"
+    },
+    {
+      "kind": "point",
+      "n": 2,
+      "text": "2) Be still",
+      "title": "2) Be still"
+    },
+    {
+      "kind": "point",
+      "n": 3,
+      "text": "• Pray without ceasing, give\nthanks in everything, and rejoice\nalways in the Lord, because\nthis is the will of God for you",
+      "title": "• Pray without ceasing, give"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 3,
+    "left_out": 1,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 3,
+    "slides": 3,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

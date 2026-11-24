@@ -1,0 +1,803 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "verse",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "Luke 11:1 NKJV",
+      "tier": "good",
+      "title": "Luke 11:1 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "verse-part suffix 'a' detected; the provider will retrieve the full verse"
+      ],
+      "slides": [
+        2
+      ],
+      "text": "Luke 11:2a NKJV",
+      "tier": "warning",
+      "title": "Luke 11:2 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "text": "Matthew 6:9 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:9 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        4,
+        5
+      ],
+      "text": "Romans 8:15 NIV",
+      "tier": "good",
+      "title": "Romans 8:15 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "verse",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        6
+      ],
+      "text": "Matthew 6:9 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:9 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "verse",
+      "line": 6,
+      "reasons": [],
+      "slides": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "text": "Revelation 4:8-11 NIV",
+      "tier": "good",
+      "title": "Revelation 4:8-11 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "verse",
+      "line": 7,
+      "reasons": [],
+      "slides": [
+        12,
+        13
+      ],
+      "text": "Psalms 103:1 NKJV",
+      "tier": "good",
+      "title": "Psalms 103:1 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 7,
+      "kind": "verse",
+      "line": 8,
+      "reasons": [],
+      "slides": [
+        14,
+        15
+      ],
+      "text": "Matthew 6:10 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:10 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "verse",
+      "line": 9,
+      "reasons": [],
+      "slides": [
+        16
+      ],
+      "text": "Matthew 6:11 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:11 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 9,
+      "kind": "verse",
+      "line": 10,
+      "reasons": [],
+      "slides": [
+        17
+      ],
+      "text": "Philippians 4:19 NIV",
+      "tier": "good",
+      "title": "Philippians 4:19 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 10,
+      "kind": "verse",
+      "line": 11,
+      "reasons": [],
+      "slides": [
+        18
+      ],
+      "text": "Matthew 6:12 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:12 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 11,
+      "kind": "verse",
+      "line": 12,
+      "reasons": [],
+      "slides": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "text": "Matthew 18:24, 27-28, 32-35 NKJV",
+      "tier": "good",
+      "title": "Matthew 18:24 & 27-28 & 32-35 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 12,
+      "kind": "verse",
+      "line": 13,
+      "reasons": [],
+      "slides": [
+        30
+      ],
+      "text": "Matthew 6:13 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:13 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 13,
+      "kind": "verse",
+      "line": 14,
+      "reasons": [],
+      "slides": [
+        31,
+        32
+      ],
+      "text": "Luke 22:31-32 NIV",
+      "tier": "good",
+      "title": "Luke 22:31-32 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 14,
+      "kind": "verse",
+      "line": 15,
+      "reasons": [],
+      "slides": [
+        33
+      ],
+      "text": "1 Corinthians 10:13 NKJV",
+      "tier": "good",
+      "title": "1 Corinthians 10:13 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 15,
+      "kind": "verse",
+      "line": 16,
+      "reasons": [],
+      "slides": [
+        34
+      ],
+      "text": "John 17:15 NKJV",
+      "tier": "good",
+      "title": "John 17:15 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 16,
+      "kind": "verse",
+      "line": 17,
+      "reasons": [],
+      "slides": [
+        35,
+        36
+      ],
+      "text": "Matthew 6:14-15 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:14-15 NKJV"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "verse",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "Luke 11:1 NKJV",
+        "tier": "good",
+        "title": "Luke 11:1 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "text": "Matthew 6:9 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:9 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "verse",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          4,
+          5
+        ],
+        "text": "Romans 8:15 NIV",
+        "tier": "good",
+        "title": "Romans 8:15 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "verse",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          6
+        ],
+        "text": "Matthew 6:9 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:9 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "verse",
+        "line": 6,
+        "reasons": [],
+        "slides": [
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "text": "Revelation 4:8-11 NIV",
+        "tier": "good",
+        "title": "Revelation 4:8-11 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "verse",
+        "line": 7,
+        "reasons": [],
+        "slides": [
+          12,
+          13
+        ],
+        "text": "Psalms 103:1 NKJV",
+        "tier": "good",
+        "title": "Psalms 103:1 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 7,
+        "kind": "verse",
+        "line": 8,
+        "reasons": [],
+        "slides": [
+          14,
+          15
+        ],
+        "text": "Matthew 6:10 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:10 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "verse",
+        "line": 9,
+        "reasons": [],
+        "slides": [
+          16
+        ],
+        "text": "Matthew 6:11 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:11 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 9,
+        "kind": "verse",
+        "line": 10,
+        "reasons": [],
+        "slides": [
+          17
+        ],
+        "text": "Philippians 4:19 NIV",
+        "tier": "good",
+        "title": "Philippians 4:19 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 10,
+        "kind": "verse",
+        "line": 11,
+        "reasons": [],
+        "slides": [
+          18
+        ],
+        "text": "Matthew 6:12 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:12 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 11,
+        "kind": "verse",
+        "line": 12,
+        "reasons": [],
+        "slides": [
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ],
+        "text": "Matthew 18:24, 27-28, 32-35 NKJV",
+        "tier": "good",
+        "title": "Matthew 18:24 & 27-28 & 32-35 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 12,
+        "kind": "verse",
+        "line": 13,
+        "reasons": [],
+        "slides": [
+          30
+        ],
+        "text": "Matthew 6:13 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:13 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 13,
+        "kind": "verse",
+        "line": 14,
+        "reasons": [],
+        "slides": [
+          31,
+          32
+        ],
+        "text": "Luke 22:31-32 NIV",
+        "tier": "good",
+        "title": "Luke 22:31-32 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 14,
+        "kind": "verse",
+        "line": 15,
+        "reasons": [],
+        "slides": [
+          33
+        ],
+        "text": "1 Corinthians 10:13 NKJV",
+        "tier": "good",
+        "title": "1 Corinthians 10:13 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 15,
+        "kind": "verse",
+        "line": 16,
+        "reasons": [],
+        "slides": [
+          34
+        ],
+        "text": "John 17:15 NKJV",
+        "tier": "good",
+        "title": "John 17:15 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 16,
+        "kind": "verse",
+        "line": 17,
+        "reasons": [],
+        "slides": [
+          35,
+          36
+        ],
+        "text": "Matthew 6:14-15 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:14-15 NKJV"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "verse-part suffix 'a' detected; the provider will retrieve the full verse"
+        ],
+        "slides": [
+          2
+        ],
+        "text": "Luke 11:2a NKJV",
+        "tier": "warning",
+        "title": "Luke 11:2 NKJV"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "“Mighty vine steadfast harvest — truth vine. kingdom faithful”",
+      "title": "Luke 11:1 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "Prayer father kingdom: mountain; servant; grace heaven glory covenant truth truth — ancient kingdom; grace grace harvest: promise.",
+      "title": "Luke 11:2 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "Wisdom: hidden, lamp kingdom; brother lamp stranger, faith faithful song: wisdom. bread — wisdom: heaven; hidden. spirit, truth: bread, ready. righteous, gentle kingdom glory, prayer.",
+      "title": "Matthew 6:9 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Light song, mighty: brother promise; righteous shepherd temple brother spirit father river; living peace — faith peace glory judge faith — river river; light — ready grace;",
+      "title": "Romans 8:15 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "stranger mighty promise, faith; judge shepherd: mountain: judge prayer tender brother glory kingdom righteous — mercy — heaven prayer kingdom: father.",
+      "title": "Romans 8:15 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "Wisdom: hidden, lamp kingdom; brother lamp stranger, faith faithful song: wisdom. bread — wisdom: heaven; hidden. spirit, truth: bread, ready. righteous, gentle kingdom glory, prayer.",
+      "title": "Matthew 6:9 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 7,
+      "text": "Judge spirit open. faithful tender faith ready glory, vine, vine, kingdom: mountain; wisdom humble mountain: song seed: faith. humble grace. covenant, kingdom — peace temple, light; tender truth.",
+      "title": "Revelation 4:8 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "Spirit; truth; wisdom hidden; faith peace river, temple spirit living glory.",
+      "title": "Revelation 4:9 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 9,
+      "text": "Humble light; ready humble; judge river: tender faith mighty; temple: tender stranger — grace; ancient. judge kingdom: peace — spirit. promise mercy seed kingdom — river bread.",
+      "title": "Revelation 4:10 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 10,
+      "text": "Promise; mercy humble promise: servant; ancient river, grace tender righteous stranger — faith lamp: glory — heaven promise. brother father: righteous open ready faith mercy, ancient river father;",
+      "title": "Revelation 4:11 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 11,
+      "text": "mighty ready: hidden lamp grace open mountain: tender humble — kingdom vine spirit: gentle tender, faith: spirit righteous father wisdom faithful peace.",
+      "title": "Revelation 4:11 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 12,
+      "text": "Faithful, living grace. temple lamp hidden: peace, mountain hidden promise hidden; prayer father covenant; harvest; promise tender;",
+      "title": "Psalms 103:1 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 13,
+      "text": "judge peace grace — servant; covenant; promise; glory mercy, vine judge. stranger: gentle; glory gentle ready covenant, faith, faithful, light: tender truth.",
+      "title": "Psalms 103:1 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 14,
+      "text": "Stranger, kingdom ready; truth: ready — faith, ready, righteous tender covenant: truth shepherd bread steadfast, ancient humble heaven, father light gentle covenant, mighty light — prayer;",
+      "title": "Matthew 6:10 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 15,
+      "text": "servant spirit father; shepherd. humble heaven gentle song, temple spirit; wisdom — vine prayer father song — covenant; open: steadfast kingdom: mighty covenant.",
+      "title": "Matthew 6:10 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 16,
+      "text": "“Prayer — glory. steadfast — temple; faith; kingdom; righteous kingdom living; river ready judge. ancient righteous covenant gentle. humble seed open steadfast covenant harvest”",
+      "title": "Matthew 6:11 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 17,
+      "text": "Faith harvest brother: tender kingdom servant. living river righteous gentle: faith: glory: river servant stranger: gentle light; song. kingdom: wisdom humble harvest lamp brother, faith; gentle.",
+      "title": "Philippians 4:19 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 18,
+      "text": "“Gentle: bread river mighty judge kingdom; servant lamp wisdom, seed servant peace. bread”",
+      "title": "Matthew 6:12 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 19,
+      "text": "Faith hidden song, grace righteous judge humble mighty; righteous living; song. wisdom — prayer. peace, living: peace promise hidden faith: temple humble shepherd. ready covenant ready grace; river.",
+      "title": "Matthew 18:24 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 20,
+      "text": "tender, hidden. mercy steadfast prayer. river faith steadfast. servant humble song — humble ready living: stranger — lamp judge, truth servant brother: steadfast mercy glory, gentle.",
+      "title": "Matthew 18:24 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 21,
+      "text": "Hidden: seed kingdom vine hidden: truth faithful faithful: light stranger father heaven truth promise brother living.",
+      "title": "Matthew 18:27 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 22,
+      "text": "Mighty — grace — ancient ready — hidden humble kingdom; promise; mountain. lamp covenant promise: heaven. truth; stranger: spirit prayer; glory: vine heaven, grace, prayer covenant, grace faith temple.",
+      "title": "Matthew 18:28 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 23,
+      "text": "prayer heaven; father tender — covenant; kingdom — lamp — shepherd hidden — servant. humble seed steadfast; grace prayer; open; promise ancient shepherd wisdom — mighty glory.",
+      "title": "Matthew 18:28 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 24,
+      "text": "Living river brother mercy — hidden: mountain promise faith promise peace hidden; grace tender open: heaven grace.",
+      "title": "Matthew 18:32 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 25,
+      "text": "Covenant humble — truth temple hidden humble truth shepherd righteous light; seed: spirit; shepherd harvest mighty — mighty mercy tender. servant mighty mighty tender father. tender, hidden faith ready, bread — promise. living.",
+      "title": "Matthew 18:33 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 26,
+      "text": "Gentle peace. righteous; faithful faithful heaven brother stranger. open, shepherd: river; light; lamp; righteous grace wisdom faithful temple — father kingdom father grace lamp righteous — harvest vine light; living.",
+      "title": "Matthew 18:34 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 27,
+      "text": "peace. truth humble faithful ready grace, prayer stranger, mercy spirit — truth promise heaven steadfast wisdom glory faithful gentle — humble stranger heaven.",
+      "title": "Matthew 18:34 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 28,
+      "text": "“Steadfast grace; faithful; steadfast song: temple; hidden prayer. steadfast mighty mercy living, temple steadfast hidden — peace; faithful, living seed:",
+      "title": "Matthew 18:35 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 29,
+      "text": "mighty gentle gentle ready truth, wisdom gentle river grace, heaven, faithful, truth ready: gentle — father ready judge — mercy covenant bread humble — truth”",
+      "title": "Matthew 18:35 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 30,
+      "text": "River — lamp: vine tender. prayer lamp — hidden, truth harvest stranger servant: covenant river; mountain promise; seed peace truth mighty; mountain spirit — faith: righteous peace grace, lamp kingdom; spirit. faith: truth hidden wisdom.",
+      "title": "Matthew 6:13 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 31,
+      "text": "Spirit grace promise wisdom mercy peace shepherd open river humble light — mercy open — peace gentle righteous — kingdom river shepherd tender: living light.",
+      "title": "Luke 22:31 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 32,
+      "text": "Bread open living — harvest; shepherd truth — mighty, wisdom humble glory kingdom, truth — righteous — prayer humble; shepherd stranger, bread righteous.",
+      "title": "Luke 22:32 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 33,
+      "text": "Steadfast ancient — spirit grace servant lamp; grace servant peace. judge — light steadfast, temple; ready shepherd — peace mountain mercy, bread covenant truth mountain, harvest; glory bread.",
+      "title": "1 Corinthians 10:13 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 34,
+      "text": "Truth faithful tender grace judge servant light song spirit light mighty mountain mountain servant hidden father — light tender servant mighty. bread; humble servant wisdom — faith humble. grace judge kingdom.",
+      "title": "John 17:15 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 35,
+      "text": "Wisdom song bread living — song; glory gentle peace. mercy: song — steadfast open — grace: harvest. song glory — gentle, prayer: promise truth — song tender peace — grace tender: vine promise — kingdom — lamp.",
+      "title": "Matthew 6:14 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 36,
+      "text": "Bread living grace, spirit river truth, temple; faith.",
+      "title": "Matthew 6:15 (NKJV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 16,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 36,
+    "verse_slides": 36,
+    "warnings": 1
+  }
+}

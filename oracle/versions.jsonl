@@ -1,0 +1,82 @@
+{"input":"NLT","kind":"version","out":{"canonical":"NLT","corrected":null,"is_real":true}}
+{"input":"NIV","kind":"version","out":{"canonical":"NIV","corrected":null,"is_real":true}}
+{"input":"ESV","kind":"version","out":{"canonical":"ESV","corrected":null,"is_real":true}}
+{"input":"KJV","kind":"version","out":{"canonical":"KJV","corrected":null,"is_real":true}}
+{"input":"NKJV","kind":"version","out":{"canonical":"NKJV","corrected":null,"is_real":true}}
+{"input":"NASB","kind":"version","out":{"canonical":"NASB2020","corrected":null,"is_real":true}}
+{"input":"NASB1995","kind":"version","out":{"canonical":"NASB1995","corrected":null,"is_real":true}}
+{"input":"NASB2020","kind":"version","out":{"canonical":"NASB2020","corrected":null,"is_real":true}}
+{"input":"CSB","kind":"version","out":{"canonical":"CSB","corrected":null,"is_real":true}}
+{"input":"NRSV","kind":"version","out":{"canonical":"NRSV","corrected":null,"is_real":true}}
+{"input":"RSV","kind":"version","out":{"canonical":"RSV","corrected":null,"is_real":true}}
+{"input":"AMP","kind":"version","out":{"canonical":"AMP","corrected":null,"is_real":true}}
+{"input":"MSG","kind":"version","out":{"canonical":"MSG","corrected":null,"is_real":true}}
+{"input":"NET","kind":"version","out":{"canonical":"NET","corrected":null,"is_real":true}}
+{"input":"WEB","kind":"version","out":{"canonical":"WEB","corrected":null,"is_real":true}}
+{"input":"ASV","kind":"version","out":{"canonical":"ASV","corrected":null,"is_real":true}}
+{"input":"TPT","kind":"version","out":{"canonical":"TPT","corrected":null,"is_real":true}}
+{"input":"NIRV","kind":"version","out":{"canonical":"NIRV","corrected":null,"is_real":true}}
+{"input":"BSB","kind":"version","out":{"canonical":"BSB","corrected":null,"is_real":true}}
+{"input":"LSV","kind":"version","out":{"canonical":"LSV","corrected":null,"is_real":true}}
+{"input":"YLT","kind":"version","out":{"canonical":"YLT","corrected":null,"is_real":true}}
+{"input":"nkjv","kind":"version","out":{"canonical":"NKJV","corrected":null,"is_real":true}}
+{"input":"Niv","kind":"version","out":{"canonical":"NIV","corrected":null,"is_real":true}}
+{"input":"esv","kind":"version","out":{"canonical":"ESV","corrected":null,"is_real":true}}
+{"input":"NASB","kind":"version","out":{"canonical":"NASB2020","corrected":null,"is_real":true}}
+{"input":"nasb","kind":"version","out":{"canonical":"NASB2020","corrected":null,"is_real":true}}
+{"input":"NASB95","kind":"version","out":{"canonical":"NASB1995","corrected":null,"is_real":true}}
+{"input":"NASB20","kind":"version","out":{"canonical":"NASB2020","corrected":null,"is_real":true}}
+{"input":"NASB1995","kind":"version","out":{"canonical":"NASB1995","corrected":null,"is_real":true}}
+{"input":"NASB2020","kind":"version","out":{"canonical":"NASB2020","corrected":null,"is_real":true}}
+{"input":"NIV11","kind":"version","out":{"canonical":"NIV","corrected":null,"is_real":true}}
+{"input":"niv2011","kind":"version","out":{"canonical":"NIV","corrected":null,"is_real":true}}
+{"input":"NIV84","kind":"version","out":{"canonical":null,"corrected":null,"is_real":true}}
+{"input":"NIV2011","kind":"version","out":{"canonical":"NIV","corrected":null,"is_real":true}}
+{"input":"YLT","kind":"version","out":{"canonical":"YLT","corrected":null,"is_real":true}}
+{"input":"HCSB","kind":"version","out":{"canonical":null,"corrected":null,"is_real":true}}
+{"input":"NCV","kind":"version","out":{"canonical":null,"corrected":null,"is_real":true}}
+{"input":"GNT","kind":"version","out":{"canonical":null,"corrected":null,"is_real":true}}
+{"input":"CEV","kind":"version","out":{"canonical":null,"corrected":null,"is_real":true}}
+{"input":"MEV","kind":"version","out":{"canonical":null,"corrected":null,"is_real":true}}
+{"input":"NABRE","kind":"version","out":{"canonical":null,"corrected":null,"is_real":true}}
+{"input":"KJ21","kind":"version","out":{"canonical":null,"corrected":null,"is_real":true}}
+{"input":"TANAKH","kind":"version","out":{"canonical":null,"corrected":null,"is_real":true}}
+{"input":"Phillips","kind":"version","out":{"canonical":null,"corrected":null,"is_real":true}}
+{"input":"NIVV","kind":"version","out":{"canonical":null,"corrected":null,"is_real":false}}
+{"input":"NKJVV","kind":"version","out":{"canonical":null,"corrected":"NKJV","is_real":false}}
+{"input":"ESB","kind":"version","out":{"canonical":null,"corrected":null,"is_real":false}}
+{"input":"NLTT","kind":"version","out":{"canonical":null,"corrected":"NLT","is_real":false}}
+{"input":"NIB","kind":"version","out":{"canonical":null,"corrected":"NIV","is_real":false}}
+{"input":"KJ","kind":"version","out":{"canonical":null,"corrected":"KJV","is_real":false}}
+{"input":"NKJ","kind":"version","out":{"canonical":null,"corrected":"NKJV","is_real":false}}
+{"input":"NA","kind":"version","out":{"canonical":null,"corrected":null,"is_real":false}}
+{"input":"X","kind":"version","out":{"canonical":null,"corrected":null,"is_real":false}}
+{"input":"XYZ","kind":"version","out":{"canonical":null,"corrected":null,"is_real":false}}
+{"input":"","kind":"version","out":{"canonical":null,"corrected":null,"is_real":false}}
+{"input":"John","kind":"version","out":{"canonical":null,"corrected":null,"is_real":false}}
+{"input":"AMPC","kind":"version","out":{"canonical":null,"corrected":"AMP","is_real":false}}
+{"input":"NIRV","kind":"version","out":{"canonical":"NIRV","corrected":null,"is_real":true}}
+{"available":["NIV","NKJV"],"input":"NIVV","kind":"version_available","out":{"corrected":null}}
+{"available":["KJV","NKJV"],"input":"NKJ","kind":"version_available","out":{"corrected":"NKJV"}}
+{"available":["ESB","ESV"],"input":"ES","kind":"version_available","out":{"corrected":null}}
+{"available":["NLT"],"input":"NLTT","kind":"version_available","out":{"corrected":"NLT"}}
+{"available":["AMP"],"input":"AMPC","kind":"version_available","out":{"corrected":"AMP"}}
+{"available":["CSB","CSV"],"input":"CSBB","kind":"version_available","out":{"corrected":"CSB"}}
+{"kind":"quote_score","out":1.0,"quoted":"Except a man be born again, he cannot see the kingdom of God","verse_texts":["Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God."]}
+{"kind":"quote_score","out":0.6923076923076923,"quoted":"Except a man be born again, he cannot see the kingdom of God","verse_texts":["Jesus answered and said to him, Most assuredly, I say to you, unless one is born again, he cannot see the kingdom of God."]}
+{"kind":"quote_score","out":1.0,"quoted":"Most assuredly, I say to you, unless one is born again","verse_texts":["Jesus answered and said to him, Most assuredly, I say to you, unless one is born again, he cannot see the kingdom of God."]}
+{"kind":"quote_score","out":0.36363636363636365,"quoted":"Most assuredly, I say to you, unless one is born again","verse_texts":["Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God."]}
+{"kind":"quote_score","out":1.0,"quoted":"By grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast","verse_texts":["For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."]}
+{"kind":"quote_score","out":0.8461538461538461,"quoted":"By grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast","verse_texts":["For by grace you have been saved through faith, and that not of yourselves; it is the gift of God, not of works, lest anyone should boast."]}
+{"kind":"quote_score","out":1.0,"quoted":"FOR BY GRACE ARE YE SAVED","verse_texts":["For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."]}
+{"kind":"quote_score","out":0.6666666666666666,"quoted":"for by grace are ye saved","verse_texts":["For by grace you have been saved through faith, and that not of yourselves; it is the gift of God, not of works, lest anyone should boast."]}
+{"kind":"quote_score","out":1.0,"quoted":"lest anyone should boast","verse_texts":["For by grace you have been saved through faith, and that not of yourselves; it is the gift of God, not of works, lest anyone should boast."]}
+{"kind":"quote_score","out":0.75,"quoted":"lest anyone should boast","verse_texts":["For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."]}
+{"kind":"quote_score","out":1.0,"quoted":"it’s the gift of God","verse_texts":["It's the gift of God."]}
+{"kind":"quote_score","out":0.6666666666666666,"quoted":"‘Verily’ I say","verse_texts":["Verily, verily, I say unto thee"]}
+{"kind":"quote_score","out":0.0,"quoted":"","verse_texts":["For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."]}
+{"kind":"quote_score","out":0.0,"quoted":"something","verse_texts":[]}
+{"kind":"quote_score","out":0.0,"quoted":"something","verse_texts":[""]}
+{"kind":"quote_score","out":0.75,"quoted":"1 2 3 four","verse_texts":["1. two 3 four"]}
+{"kind":"quote_score","out":1.0,"quoted":"In the beginning God created","verse_texts":["In the beginning God created the heavens and the earth.","And God said, Let there be light."]}
+{"kind":"quote_score","out":0.5,"quoted":"the earth the beginning","verse_texts":["In the beginning God created the heavens and the earth."]}

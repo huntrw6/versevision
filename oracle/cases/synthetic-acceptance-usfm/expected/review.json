@@ -1,0 +1,747 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "verse",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "Luke 11:1 NKJV",
+      "tier": "good",
+      "title": "Luke 11:1 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 1,
+      "kind": "verse",
+      "line": 2,
+      "reasons": [
+        "verse-part suffix 'a' detected; the provider will retrieve the full verse"
+      ],
+      "slides": [
+        2
+      ],
+      "text": "Luke 11:2a NKJV",
+      "tier": "warning",
+      "title": "Luke 11:2 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 2,
+      "kind": "verse",
+      "line": 3,
+      "reasons": [],
+      "slides": [
+        3
+      ],
+      "text": "Matthew 6:9 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:9 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 3,
+      "kind": "verse",
+      "line": 4,
+      "reasons": [],
+      "slides": [
+        4
+      ],
+      "text": "Romans 8:15 NIV",
+      "tier": "good",
+      "title": "Romans 8:15 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 4,
+      "kind": "verse",
+      "line": 5,
+      "reasons": [],
+      "slides": [
+        5
+      ],
+      "text": "Matthew 6:9 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:9 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 5,
+      "kind": "verse",
+      "line": 6,
+      "reasons": [],
+      "slides": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "text": "Revelation 4:8-11 NIV",
+      "tier": "good",
+      "title": "Revelation 4:8-11 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 6,
+      "kind": "verse",
+      "line": 7,
+      "reasons": [],
+      "slides": [
+        10
+      ],
+      "text": "Psalms 103:1 NKJV",
+      "tier": "good",
+      "title": "Psalms 103:1 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 7,
+      "kind": "verse",
+      "line": 8,
+      "reasons": [],
+      "slides": [
+        11
+      ],
+      "text": "Matthew 6:10 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:10 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 8,
+      "kind": "verse",
+      "line": 9,
+      "reasons": [],
+      "slides": [
+        12
+      ],
+      "text": "Matthew 6:11 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:11 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 9,
+      "kind": "verse",
+      "line": 10,
+      "reasons": [],
+      "slides": [
+        13
+      ],
+      "text": "Philippians 4:19 NIV",
+      "tier": "good",
+      "title": "Philippians 4:19 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 10,
+      "kind": "verse",
+      "line": 11,
+      "reasons": [],
+      "slides": [
+        14
+      ],
+      "text": "Matthew 6:12 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:12 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 11,
+      "kind": "verse",
+      "line": 12,
+      "reasons": [],
+      "slides": [
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "text": "Matthew 18:24, 27-28, 32-35 NKJV",
+      "tier": "good",
+      "title": "Matthew 18:24 & 27-28 & 32-35 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 12,
+      "kind": "verse",
+      "line": 13,
+      "reasons": [],
+      "slides": [
+        22
+      ],
+      "text": "Matthew 6:13 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:13 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 13,
+      "kind": "verse",
+      "line": 14,
+      "reasons": [],
+      "slides": [
+        23,
+        24
+      ],
+      "text": "Luke 22:31-32 NIV",
+      "tier": "good",
+      "title": "Luke 22:31-32 NIV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 14,
+      "kind": "verse",
+      "line": 15,
+      "reasons": [],
+      "slides": [
+        25,
+        26
+      ],
+      "text": "1 Corinthians 10:13 NKJV",
+      "tier": "good",
+      "title": "1 Corinthians 10:13 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 15,
+      "kind": "verse",
+      "line": 16,
+      "reasons": [],
+      "slides": [
+        27
+      ],
+      "text": "John 17:15 NKJV",
+      "tier": "good",
+      "title": "John 17:15 NKJV"
+    },
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 16,
+      "kind": "verse",
+      "line": 17,
+      "reasons": [],
+      "slides": [
+        28,
+        29
+      ],
+      "text": "Matthew 6:14-15 NKJV",
+      "tier": "good",
+      "title": "Matthew 6:14-15 NKJV"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "verse",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "Luke 11:1 NKJV",
+        "tier": "good",
+        "title": "Luke 11:1 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 2,
+        "kind": "verse",
+        "line": 3,
+        "reasons": [],
+        "slides": [
+          3
+        ],
+        "text": "Matthew 6:9 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:9 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 3,
+        "kind": "verse",
+        "line": 4,
+        "reasons": [],
+        "slides": [
+          4
+        ],
+        "text": "Romans 8:15 NIV",
+        "tier": "good",
+        "title": "Romans 8:15 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 4,
+        "kind": "verse",
+        "line": 5,
+        "reasons": [],
+        "slides": [
+          5
+        ],
+        "text": "Matthew 6:9 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:9 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 5,
+        "kind": "verse",
+        "line": 6,
+        "reasons": [],
+        "slides": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "text": "Revelation 4:8-11 NIV",
+        "tier": "good",
+        "title": "Revelation 4:8-11 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 6,
+        "kind": "verse",
+        "line": 7,
+        "reasons": [],
+        "slides": [
+          10
+        ],
+        "text": "Psalms 103:1 NKJV",
+        "tier": "good",
+        "title": "Psalms 103:1 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 7,
+        "kind": "verse",
+        "line": 8,
+        "reasons": [],
+        "slides": [
+          11
+        ],
+        "text": "Matthew 6:10 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:10 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 8,
+        "kind": "verse",
+        "line": 9,
+        "reasons": [],
+        "slides": [
+          12
+        ],
+        "text": "Matthew 6:11 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:11 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 9,
+        "kind": "verse",
+        "line": 10,
+        "reasons": [],
+        "slides": [
+          13
+        ],
+        "text": "Philippians 4:19 NIV",
+        "tier": "good",
+        "title": "Philippians 4:19 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 10,
+        "kind": "verse",
+        "line": 11,
+        "reasons": [],
+        "slides": [
+          14
+        ],
+        "text": "Matthew 6:12 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:12 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 11,
+        "kind": "verse",
+        "line": 12,
+        "reasons": [],
+        "slides": [
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "text": "Matthew 18:24, 27-28, 32-35 NKJV",
+        "tier": "good",
+        "title": "Matthew 18:24 & 27-28 & 32-35 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 12,
+        "kind": "verse",
+        "line": 13,
+        "reasons": [],
+        "slides": [
+          22
+        ],
+        "text": "Matthew 6:13 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:13 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 13,
+        "kind": "verse",
+        "line": 14,
+        "reasons": [],
+        "slides": [
+          23,
+          24
+        ],
+        "text": "Luke 22:31-32 NIV",
+        "tier": "good",
+        "title": "Luke 22:31-32 NIV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 14,
+        "kind": "verse",
+        "line": 15,
+        "reasons": [],
+        "slides": [
+          25,
+          26
+        ],
+        "text": "1 Corinthians 10:13 NKJV",
+        "tier": "good",
+        "title": "1 Corinthians 10:13 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 15,
+        "kind": "verse",
+        "line": 16,
+        "reasons": [],
+        "slides": [
+          27
+        ],
+        "text": "John 17:15 NKJV",
+        "tier": "good",
+        "title": "John 17:15 NKJV"
+      },
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 16,
+        "kind": "verse",
+        "line": 17,
+        "reasons": [],
+        "slides": [
+          28,
+          29
+        ],
+        "text": "Matthew 6:14-15 NKJV",
+        "tier": "good",
+        "title": "Matthew 6:14-15 NKJV"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 1,
+        "kind": "verse",
+        "line": 2,
+        "reasons": [
+          "verse-part suffix 'a' detected; the provider will retrieve the full verse"
+        ],
+        "slides": [
+          2
+        ],
+        "text": "Luke 11:2a NKJV",
+        "tier": "warning",
+        "title": "Luke 11:2 NKJV"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "kind": "verse",
+      "n": 1,
+      "text": "Synthetic text for Luke 11:1.",
+      "title": "Luke 11:1 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 2,
+      "text": "Synthetic text for Luke 11:2.",
+      "title": "Luke 11:2 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 3,
+      "text": "Synthetic text for Matthew 6:9.",
+      "title": "Matthew 6:9 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 4,
+      "text": "Synthetic text for Romans 8:15.",
+      "title": "Romans 8:15 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 5,
+      "text": "Synthetic text for Matthew 6:9.",
+      "title": "Matthew 6:9 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 6,
+      "text": "Synthetic text for Revelation 4:8.",
+      "title": "Revelation 4:8 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 7,
+      "text": "Synthetic text for Revelation 4:9.",
+      "title": "Revelation 4:9 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 8,
+      "text": "Synthetic text for Revelation 4:10.",
+      "title": "Revelation 4:10 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 9,
+      "text": "Synthetic text for Revelation 4:11.",
+      "title": "Revelation 4:11 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 10,
+      "text": "Synthetic text for Psalms 103:1.",
+      "title": "Psalms 103:1 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 11,
+      "text": "Synthetic text for Matthew 6:10.",
+      "title": "Matthew 6:10 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 12,
+      "text": "Synthetic text for Matthew 6:11.",
+      "title": "Matthew 6:11 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 13,
+      "text": "Synthetic text for Philippians 4:19.",
+      "title": "Philippians 4:19 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 14,
+      "text": "Synthetic text for Matthew 6:12.",
+      "title": "Matthew 6:12 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 15,
+      "text": "Synthetic text for Matthew 18:24.",
+      "title": "Matthew 18:24 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 16,
+      "text": "Synthetic text for Matthew 18:27.",
+      "title": "Matthew 18:27 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 17,
+      "text": "Synthetic text for Matthew 18:28.",
+      "title": "Matthew 18:28 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 18,
+      "text": "Synthetic text for Matthew 18:32.",
+      "title": "Matthew 18:32 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 19,
+      "text": "Synthetic text for Matthew 18:33.",
+      "title": "Matthew 18:33 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 20,
+      "text": "Synthetic text for Matthew 18:34.",
+      "title": "Matthew 18:34 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 21,
+      "text": "Synthetic text for Matthew 18:35.",
+      "title": "Matthew 18:35 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 22,
+      "text": "Synthetic text for Matthew 6:13.",
+      "title": "Matthew 6:13 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 23,
+      "text": "Synthetic text for Luke 22:31.",
+      "title": "Luke 22:31 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 24,
+      "text": "Synthetic text for Luke 22:32.",
+      "title": "Luke 22:32 (NIV)"
+    },
+    {
+      "kind": "verse",
+      "n": 25,
+      "text": "This synthetic test sentence contains enough harmless words to occupy several lines in the selected theme, and it ends at a natural punctuation boundary.",
+      "title": "1 Corinthians 10:13 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 26,
+      "text": "This second synthetic sentence continues with additional neutral language so VerseVision must create a continuation slide, repeat the reference, and preserve the selected styling without using copyrighted Scripture text.",
+      "title": "1 Corinthians 10:13 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 27,
+      "text": "Synthetic text for John 17:15.",
+      "title": "John 17:15 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 28,
+      "text": "Synthetic text for Matthew 6:14.",
+      "title": "Matthew 6:14 (NKJV)"
+    },
+    {
+      "kind": "verse",
+      "n": 29,
+      "text": "Synthetic text for Matthew 6:15.",
+      "title": "Matthew 6:15 (NKJV)"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 16,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 0,
+    "slides": 29,
+    "verse_slides": 29,
+    "warnings": 1
+  }
+}

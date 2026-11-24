@@ -1,0 +1,70 @@
+{
+  "adjustments": [],
+  "clean": true,
+  "decisions": [
+    {
+      "add_text": "",
+      "addable": false,
+      "correction": null,
+      "id": 0,
+      "kind": "point",
+      "line": 1,
+      "reasons": [],
+      "slides": [
+        1
+      ],
+      "text": "1) the grace of god",
+      "tier": "good",
+      "title": "1) the grace of god"
+    }
+  ],
+  "flagged": [],
+  "left_out": [],
+  "looks": null,
+  "review": {
+    "error": [],
+    "good": [
+      {
+        "add_text": "",
+        "addable": false,
+        "correction": null,
+        "id": 0,
+        "kind": "point",
+        "line": 1,
+        "reasons": [],
+        "slides": [
+          1
+        ],
+        "text": "1) the grace of god",
+        "tier": "good",
+        "title": "1) the grace of god"
+      }
+    ],
+    "left_out_good": [],
+    "left_out_warning": [],
+    "warning": []
+  },
+  "slides": [
+    {
+      "kind": "point",
+      "n": 1,
+      "text": "1) the grace of god",
+      "title": "1) the grace of god"
+    }
+  ],
+  "source": "input.txt",
+  "summary": {
+    "adjustments": 0,
+    "errors": 0,
+    "fixes": 0,
+    "flagged": 0,
+    "good": 1,
+    "left_out": 0,
+    "needs_review": 0,
+    "not_added": 0,
+    "point_slides": 1,
+    "slides": 1,
+    "verse_slides": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,2 @@
+# the oracle is compared byte for byte: no line-end conversion, binary inputs (docx, pdf) untouched
+oracle/** -text

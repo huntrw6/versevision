@@ -1,0 +1,12 @@
+{
+  "include": [
+    5,
+    6
+  ],
+  "reject_fixes": [
+    1
+  ],
+  "skip": [
+    4
+  ]
+}
