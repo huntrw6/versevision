@@ -416,3 +416,41 @@ async fn the_stagepilot_credential_is_never_printed() {
         .unwrap_err();
     clean_credential("header error", error.message());
 }
+
+/// A default install (no provider tables) with a key for every built-in provider: the key is in no error, trace, health line or `Debug`.
+#[tokio::test(flavor = "multi_thread")]
+async fn the_built_in_providers_never_print_the_key() {
+    let keys = keys_with(&[
+        (env_name("api_bible"), CANARY),
+        (env_name("youversion"), CANARY),
+        (env_name("esv"), CANARY),
+    ]);
+    let script = Script::new(&json!({
+        "/v1/bibles": [{"status": 401, "headers": {"x-echo": CANARY}, "text": format!("{{\"detail\": \"Token {CANARY}\"}}")}],
+        "/yv/bibles": [{"status": 401, "headers": {"x-echo": CANARY}, "text": format!("{{\"detail\": \"Token {CANARY}\"}}")}],
+        "/v3/passage/text/": [{"status": 401, "headers": {"x-echo": CANARY}, "text": format!("{{\"detail\": \"Token {CANARY}\"}}")}],
+    }));
+    let addr = serve(script).await;
+    let defaults = builtin_at(&format!("http://{addr}"));
+    let sources = RegistryBuilder::new(keys.clone())
+        .builtin_providers(defaults.clone())
+        .build_sources(&AppConfig::default().bible);
+    assert!(sources.uses_builtin_providers());
+    let mut errors = 0;
+    for version in ["NKJV", "NIV", "ESV", "NASB2020", "KJV", "TPT"] {
+        let parsed = versevision_core::references::parse_references(&format!("John 3:16 {version}"), None).unwrap();
+        let reference = serde_json::from_value(parsed["references"][0].clone()).unwrap();
+        let mut trace = TraceLog::default();
+        let error = sources.fetch(&reference, &mut trace).await.expect_err("401 from every server");
+        formats(version, &error);
+        clean("the trace", &format!("{:?}", trace.to_json(1)));
+        errors += 1;
+    }
+    assert_eq!(errors, 6);
+    clean("the Debug of the sources", &format!("{sources:?}"));
+    clean("the description", &sources.description());
+    clean("the built-in config", &format!("{defaults:?}"));
+    for health in sources.health_checks().await {
+        clean("a health check", &format!("{health:?}"));
+    }
+}

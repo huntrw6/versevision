@@ -424,6 +424,89 @@ pub struct BibleConfig {
     pub source: BibleSource,
 }
 
+/// The versions the StagePilot Bible service offers, which provider serves each and the provider's own Bible id (a public
+/// identifier, not a secret). The same table as the operator's VerseVision configuration and the service's `VERSION_ROUTES`.
+/// `(version, provider name, bible id)`; ESV has no id.
+pub const BUILTIN_VERSION_ROUTES: [(&str, &str, &str); 14] = [
+    ("ESV", "esv", ""),
+    ("NIV", "youversion", "111"),
+    ("AMP", "youversion", "1588"),
+    ("BSB", "youversion", "3034"),
+    ("LSV", "youversion", "2660"),
+    ("NIRV", "youversion", "110"),
+    ("NASB1995", "youversion", "100"),
+    ("NASB2020", "youversion", "2692"),
+    ("TPT", "youversion", "1849"),
+    ("NKJV", "api_bible", "63097d2a0a2f7db3-01"),
+    ("NLT", "api_bible", "d6e14a625393b4da-01"),
+    ("KJV", "api_bible", "de4e12af7f28f599-01"),
+    ("MSG", "api_bible", "6f11a7de016f942e-01"),
+    ("WEB", "api_bible", "9879dbb7cfe39e4d-01"),
+];
+
+impl BibleConfig {
+    /// The providers a config gets when it defines no `[bible.providers.*]` of its own: API.Bible, YouVersion and the ESV API with
+    /// their default settings, and a route for each version in [`BUILTIN_VERSION_ROUTES`]. Only `providers` and `version_routes`
+    /// are filled. (An addition to Python, which has no built-in providers; see `bible.source`.)
+    pub fn builtin_providers() -> BibleConfig {
+        let mut routes = Map::new();
+        let mut api = Map::new();
+        let mut youversion = Map::new();
+        for (version, provider, id) in BUILTIN_VERSION_ROUTES {
+            routes.insert(version.to_string(), Value::String(provider.to_string()));
+            let ids = match provider {
+                "api_bible" => &mut api,
+                "youversion" => &mut youversion,
+                _ => continue,
+            };
+            ids.insert(version.to_string(), Value::String(id.to_string()));
+        }
+        let provider = |kind: &str, ids: Option<Map<String, Value>>| {
+            let mut table = Map::new();
+            table.insert("type".into(), Value::String(kind.to_string()));
+            if let Some(ids) = ids {
+                table.insert("bible_ids".into(), Value::Object(ids));
+            }
+            Value::Object(table)
+        };
+        let mut providers = Map::new();
+        providers.insert("api_bible".into(), provider("api_bible", Some(api)));
+        providers.insert("youversion".into(), provider("youversion", Some(youversion)));
+        providers.insert("esv".into(), provider("esv", None));
+        let mut bible = Map::new();
+        bible.insert("providers".into(), Value::Object(providers));
+        bible.insert("version_routes".into(), Value::Object(routes));
+        let mut root = Map::new();
+        root.insert("bible".into(), Value::Object(bible));
+        AppConfig::from_value(&Value::Object(root))
+            .expect("the built-in provider tables are valid")
+            .bible
+    }
+
+    /// This config with the built-in providers and routes when it defines no provider table; the config itself otherwise. Routes the
+    /// user wrote win over a built-in route for the same version (compared without regard to case).
+    pub fn with_builtin_providers(&self, builtin: &BibleConfig) -> BibleConfig {
+        if !self.providers.is_empty() {
+            return self.clone();
+        }
+        let mut out = self.clone();
+        out.providers = builtin.providers.clone();
+        out.version_routes = builtin
+            .version_routes
+            .iter()
+            .filter(|(version, _)| {
+                !self
+                    .version_routes
+                    .keys()
+                    .any(|own| crate::references::casefold(own) == crate::references::casefold(version))
+            })
+            .map(|(version, provider)| (version.clone(), provider.clone()))
+            .chain(self.version_routes.iter().map(|(v, p)| (v.clone(), p.clone())))
+            .collect();
+        out
+    }
+}
+
 impl Default for BibleConfig {
     fn default() -> Self {
         section_default(&schema::BIBLE)
