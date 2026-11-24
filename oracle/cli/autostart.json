@@ -1,0 +1,259 @@
+{
+ "args": [],
+ "plist": [
+  {
+   "args": [
+    "/usr/local/bin/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8777",
+    "--no-open"
+   ],
+   "expected": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n\t\t<string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/home/u/.local/bin</string>\n\t</dict>\n\t<key>KeepAlive</key>\n\t<dict>\n\t\t<key>SuccessfulExit</key>\n\t\t<false/>\n\t</dict>\n\t<key>Label</key>\n\t<string>org.versevision.serve</string>\n\t<key>ProcessType</key>\n\t<string>Background</string>\n\t<key>ProgramArguments</key>\n\t<array>\n\t\t<string>/usr/local/bin/versevision</string>\n\t\t<string>serve</string>\n\t\t<string>--host</string>\n\t\t<string>127.0.0.1</string>\n\t\t<string>--port</string>\n\t\t<string>8777</string>\n\t\t<string>--no-open</string>\n\t</array>\n\t<key>RunAtLoad</key>\n\t<true/>\n\t<key>StandardErrorPath</key>\n\t<string>/Users/me/Library/Logs/versevision/serve.log</string>\n\t<key>StandardOutPath</key>\n\t<string>/Users/me/Library/Logs/versevision/serve.log</string>\n</dict>\n</plist>\n",
+   "log": "/Users/me/Library/Logs/versevision/serve.log"
+  },
+  {
+   "args": [
+    "/usr/local/bin/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8777",
+    "--no-open"
+   ],
+   "expected": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n\t\t<string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/home/u/.local/bin</string>\n\t</dict>\n\t<key>KeepAlive</key>\n\t<dict>\n\t\t<key>SuccessfulExit</key>\n\t\t<false/>\n\t</dict>\n\t<key>Label</key>\n\t<string>org.versevision.serve</string>\n\t<key>ProcessType</key>\n\t<string>Background</string>\n\t<key>ProgramArguments</key>\n\t<array>\n\t\t<string>/usr/local/bin/versevision</string>\n\t\t<string>serve</string>\n\t\t<string>--host</string>\n\t\t<string>127.0.0.1</string>\n\t\t<string>--port</string>\n\t\t<string>8777</string>\n\t\t<string>--no-open</string>\n\t</array>\n\t<key>RunAtLoad</key>\n\t<true/>\n\t<key>StandardErrorPath</key>\n\t<string>/home/u/.local/state/versevision/log/serve.log</string>\n\t<key>StandardOutPath</key>\n\t<string>/home/u/.local/state/versevision/log/serve.log</string>\n</dict>\n</plist>\n",
+   "log": "/home/u/.local/state/versevision/log/serve.log"
+  },
+  {
+   "args": [
+    "/Users/me/Applications/Verse Vision/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "9000",
+    "--no-open"
+   ],
+   "expected": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n\t\t<string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/home/u/.local/bin</string>\n\t</dict>\n\t<key>KeepAlive</key>\n\t<dict>\n\t\t<key>SuccessfulExit</key>\n\t\t<false/>\n\t</dict>\n\t<key>Label</key>\n\t<string>org.versevision.serve</string>\n\t<key>ProcessType</key>\n\t<string>Background</string>\n\t<key>ProgramArguments</key>\n\t<array>\n\t\t<string>/Users/me/Applications/Verse Vision/versevision</string>\n\t\t<string>serve</string>\n\t\t<string>--host</string>\n\t\t<string>127.0.0.1</string>\n\t\t<string>--port</string>\n\t\t<string>9000</string>\n\t\t<string>--no-open</string>\n\t</array>\n\t<key>RunAtLoad</key>\n\t<true/>\n\t<key>StandardErrorPath</key>\n\t<string>/Users/me/Library/Logs/versevision/serve.log</string>\n\t<key>StandardOutPath</key>\n\t<string>/Users/me/Library/Logs/versevision/serve.log</string>\n</dict>\n</plist>\n",
+   "log": "/Users/me/Library/Logs/versevision/serve.log"
+  },
+  {
+   "args": [
+    "/Users/me/Applications/Verse Vision/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "9000",
+    "--no-open"
+   ],
+   "expected": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n\t\t<string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/home/u/.local/bin</string>\n\t</dict>\n\t<key>KeepAlive</key>\n\t<dict>\n\t\t<key>SuccessfulExit</key>\n\t\t<false/>\n\t</dict>\n\t<key>Label</key>\n\t<string>org.versevision.serve</string>\n\t<key>ProcessType</key>\n\t<string>Background</string>\n\t<key>ProgramArguments</key>\n\t<array>\n\t\t<string>/Users/me/Applications/Verse Vision/versevision</string>\n\t\t<string>serve</string>\n\t\t<string>--host</string>\n\t\t<string>127.0.0.1</string>\n\t\t<string>--port</string>\n\t\t<string>9000</string>\n\t\t<string>--no-open</string>\n\t</array>\n\t<key>RunAtLoad</key>\n\t<true/>\n\t<key>StandardErrorPath</key>\n\t<string>/home/u/.local/state/versevision/log/serve.log</string>\n\t<key>StandardOutPath</key>\n\t<string>/home/u/.local/state/versevision/log/serve.log</string>\n</dict>\n</plist>\n",
+   "log": "/home/u/.local/state/versevision/log/serve.log"
+  },
+  {
+   "args": [
+    "C:\\Program Files\\VerseVision\\versevision.exe",
+    "serve",
+    "--host",
+    "localhost",
+    "--port",
+    "8777",
+    "--no-open"
+   ],
+   "expected": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n\t\t<string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/home/u/.local/bin</string>\n\t</dict>\n\t<key>KeepAlive</key>\n\t<dict>\n\t\t<key>SuccessfulExit</key>\n\t\t<false/>\n\t</dict>\n\t<key>Label</key>\n\t<string>org.versevision.serve</string>\n\t<key>ProcessType</key>\n\t<string>Background</string>\n\t<key>ProgramArguments</key>\n\t<array>\n\t\t<string>C:\\Program Files\\VerseVision\\versevision.exe</string>\n\t\t<string>serve</string>\n\t\t<string>--host</string>\n\t\t<string>localhost</string>\n\t\t<string>--port</string>\n\t\t<string>8777</string>\n\t\t<string>--no-open</string>\n\t</array>\n\t<key>RunAtLoad</key>\n\t<true/>\n\t<key>StandardErrorPath</key>\n\t<string>/Users/me/Library/Logs/versevision/serve.log</string>\n\t<key>StandardOutPath</key>\n\t<string>/Users/me/Library/Logs/versevision/serve.log</string>\n</dict>\n</plist>\n",
+   "log": "/Users/me/Library/Logs/versevision/serve.log"
+  },
+  {
+   "args": [
+    "C:\\Program Files\\VerseVision\\versevision.exe",
+    "serve",
+    "--host",
+    "localhost",
+    "--port",
+    "8777",
+    "--no-open"
+   ],
+   "expected": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n\t\t<string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/home/u/.local/bin</string>\n\t</dict>\n\t<key>KeepAlive</key>\n\t<dict>\n\t\t<key>SuccessfulExit</key>\n\t\t<false/>\n\t</dict>\n\t<key>Label</key>\n\t<string>org.versevision.serve</string>\n\t<key>ProcessType</key>\n\t<string>Background</string>\n\t<key>ProgramArguments</key>\n\t<array>\n\t\t<string>C:\\Program Files\\VerseVision\\versevision.exe</string>\n\t\t<string>serve</string>\n\t\t<string>--host</string>\n\t\t<string>localhost</string>\n\t\t<string>--port</string>\n\t\t<string>8777</string>\n\t\t<string>--no-open</string>\n\t</array>\n\t<key>RunAtLoad</key>\n\t<true/>\n\t<key>StandardErrorPath</key>\n\t<string>/home/u/.local/state/versevision/log/serve.log</string>\n\t<key>StandardOutPath</key>\n\t<string>/home/u/.local/state/versevision/log/serve.log</string>\n</dict>\n</plist>\n",
+   "log": "/home/u/.local/state/versevision/log/serve.log"
+  },
+  {
+   "args": [
+    "/opt/we\"ird/versevision",
+    "serve",
+    "--host",
+    "::1",
+    "--port",
+    "1",
+    "--no-open"
+   ],
+   "expected": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n\t\t<string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/home/u/.local/bin</string>\n\t</dict>\n\t<key>KeepAlive</key>\n\t<dict>\n\t\t<key>SuccessfulExit</key>\n\t\t<false/>\n\t</dict>\n\t<key>Label</key>\n\t<string>org.versevision.serve</string>\n\t<key>ProcessType</key>\n\t<string>Background</string>\n\t<key>ProgramArguments</key>\n\t<array>\n\t\t<string>/opt/we\"ird/versevision</string>\n\t\t<string>serve</string>\n\t\t<string>--host</string>\n\t\t<string>::1</string>\n\t\t<string>--port</string>\n\t\t<string>1</string>\n\t\t<string>--no-open</string>\n\t</array>\n\t<key>RunAtLoad</key>\n\t<true/>\n\t<key>StandardErrorPath</key>\n\t<string>/Users/me/Library/Logs/versevision/serve.log</string>\n\t<key>StandardOutPath</key>\n\t<string>/Users/me/Library/Logs/versevision/serve.log</string>\n</dict>\n</plist>\n",
+   "log": "/Users/me/Library/Logs/versevision/serve.log"
+  },
+  {
+   "args": [
+    "/opt/we\"ird/versevision",
+    "serve",
+    "--host",
+    "::1",
+    "--port",
+    "1",
+    "--no-open"
+   ],
+   "expected": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n\t\t<string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/home/u/.local/bin</string>\n\t</dict>\n\t<key>KeepAlive</key>\n\t<dict>\n\t\t<key>SuccessfulExit</key>\n\t\t<false/>\n\t</dict>\n\t<key>Label</key>\n\t<string>org.versevision.serve</string>\n\t<key>ProcessType</key>\n\t<string>Background</string>\n\t<key>ProgramArguments</key>\n\t<array>\n\t\t<string>/opt/we\"ird/versevision</string>\n\t\t<string>serve</string>\n\t\t<string>--host</string>\n\t\t<string>::1</string>\n\t\t<string>--port</string>\n\t\t<string>1</string>\n\t\t<string>--no-open</string>\n\t</array>\n\t<key>RunAtLoad</key>\n\t<true/>\n\t<key>StandardErrorPath</key>\n\t<string>/home/u/.local/state/versevision/log/serve.log</string>\n\t<key>StandardOutPath</key>\n\t<string>/home/u/.local/state/versevision/log/serve.log</string>\n</dict>\n</plist>\n",
+   "log": "/home/u/.local/state/versevision/log/serve.log"
+  },
+  {
+   "args": [
+    "/home/ünï/bin/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "65535",
+    "--no-open"
+   ],
+   "expected": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n\t\t<string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/home/u/.local/bin</string>\n\t</dict>\n\t<key>KeepAlive</key>\n\t<dict>\n\t\t<key>SuccessfulExit</key>\n\t\t<false/>\n\t</dict>\n\t<key>Label</key>\n\t<string>org.versevision.serve</string>\n\t<key>ProcessType</key>\n\t<string>Background</string>\n\t<key>ProgramArguments</key>\n\t<array>\n\t\t<string>/home/ünï/bin/versevision</string>\n\t\t<string>serve</string>\n\t\t<string>--host</string>\n\t\t<string>127.0.0.1</string>\n\t\t<string>--port</string>\n\t\t<string>65535</string>\n\t\t<string>--no-open</string>\n\t</array>\n\t<key>RunAtLoad</key>\n\t<true/>\n\t<key>StandardErrorPath</key>\n\t<string>/Users/me/Library/Logs/versevision/serve.log</string>\n\t<key>StandardOutPath</key>\n\t<string>/Users/me/Library/Logs/versevision/serve.log</string>\n</dict>\n</plist>\n",
+   "log": "/Users/me/Library/Logs/versevision/serve.log"
+  },
+  {
+   "args": [
+    "/home/ünï/bin/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "65535",
+    "--no-open"
+   ],
+   "expected": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>EnvironmentVariables</key>\n\t<dict>\n\t\t<key>PATH</key>\n\t\t<string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/home/u/.local/bin</string>\n\t</dict>\n\t<key>KeepAlive</key>\n\t<dict>\n\t\t<key>SuccessfulExit</key>\n\t\t<false/>\n\t</dict>\n\t<key>Label</key>\n\t<string>org.versevision.serve</string>\n\t<key>ProcessType</key>\n\t<string>Background</string>\n\t<key>ProgramArguments</key>\n\t<array>\n\t\t<string>/home/ünï/bin/versevision</string>\n\t\t<string>serve</string>\n\t\t<string>--host</string>\n\t\t<string>127.0.0.1</string>\n\t\t<string>--port</string>\n\t\t<string>65535</string>\n\t\t<string>--no-open</string>\n\t</array>\n\t<key>RunAtLoad</key>\n\t<true/>\n\t<key>StandardErrorPath</key>\n\t<string>/home/u/.local/state/versevision/log/serve.log</string>\n\t<key>StandardOutPath</key>\n\t<string>/home/u/.local/state/versevision/log/serve.log</string>\n</dict>\n</plist>\n",
+   "log": "/home/u/.local/state/versevision/log/serve.log"
+  }
+ ],
+ "systemd": [
+  {
+   "args": [
+    "/usr/local/bin/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8777",
+    "--no-open"
+   ],
+   "expected": "[Unit]\nDescription=VerseVision web page\nAfter=network-online.target\n\n[Service]\nExecStart=/usr/local/bin/versevision serve --host 127.0.0.1 --port 8777 --no-open\nRestart=on-failure\nRestartSec=5\n\n[Install]\nWantedBy=default.target\n"
+  },
+  {
+   "args": [
+    "/Users/me/Applications/Verse Vision/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "9000",
+    "--no-open"
+   ],
+   "expected": "[Unit]\nDescription=VerseVision web page\nAfter=network-online.target\n\n[Service]\nExecStart=\"/Users/me/Applications/Verse Vision/versevision\" serve --host 127.0.0.1 --port 9000 --no-open\nRestart=on-failure\nRestartSec=5\n\n[Install]\nWantedBy=default.target\n"
+  },
+  {
+   "args": [
+    "C:\\Program Files\\VerseVision\\versevision.exe",
+    "serve",
+    "--host",
+    "localhost",
+    "--port",
+    "8777",
+    "--no-open"
+   ],
+   "expected": "[Unit]\nDescription=VerseVision web page\nAfter=network-online.target\n\n[Service]\nExecStart=\"C:\\\\Program Files\\\\VerseVision\\\\versevision.exe\" serve --host localhost --port 8777 --no-open\nRestart=on-failure\nRestartSec=5\n\n[Install]\nWantedBy=default.target\n"
+  },
+  {
+   "args": [
+    "/opt/we\"ird/versevision",
+    "serve",
+    "--host",
+    "::1",
+    "--port",
+    "1",
+    "--no-open"
+   ],
+   "expected": "[Unit]\nDescription=VerseVision web page\nAfter=network-online.target\n\n[Service]\nExecStart=\"/opt/we\\\"ird/versevision\" serve --host ::1 --port 1 --no-open\nRestart=on-failure\nRestartSec=5\n\n[Install]\nWantedBy=default.target\n"
+  },
+  {
+   "args": [
+    "/home/ünï/bin/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "65535",
+    "--no-open"
+   ],
+   "expected": "[Unit]\nDescription=VerseVision web page\nAfter=network-online.target\n\n[Service]\nExecStart=/home/ünï/bin/versevision serve --host 127.0.0.1 --port 65535 --no-open\nRestart=on-failure\nRestartSec=5\n\n[Install]\nWantedBy=default.target\n"
+  }
+ ],
+ "windows": [
+  {
+   "args": [
+    "/usr/local/bin/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8777",
+    "--no-open"
+   ],
+   "expected": "/usr/local/bin/versevision serve --host 127.0.0.1 --port 8777 --no-open"
+  },
+  {
+   "args": [
+    "/Users/me/Applications/Verse Vision/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "9000",
+    "--no-open"
+   ],
+   "expected": "\"/Users/me/Applications/Verse Vision/versevision\" serve --host 127.0.0.1 --port 9000 --no-open"
+  },
+  {
+   "args": [
+    "C:\\Program Files\\VerseVision\\versevision.exe",
+    "serve",
+    "--host",
+    "localhost",
+    "--port",
+    "8777",
+    "--no-open"
+   ],
+   "expected": "\"C:\\Program Files\\VerseVision\\versevision.exe\" serve --host localhost --port 8777 --no-open"
+  },
+  {
+   "args": [
+    "/opt/we\"ird/versevision",
+    "serve",
+    "--host",
+    "::1",
+    "--port",
+    "1",
+    "--no-open"
+   ],
+   "expected": "/opt/we\"ird/versevision serve --host ::1 --port 1 --no-open"
+  },
+  {
+   "args": [
+    "/home/ünï/bin/versevision",
+    "serve",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "65535",
+    "--no-open"
+   ],
+   "expected": "/home/ünï/bin/versevision serve --host 127.0.0.1 --port 65535 --no-open"
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+                                                                                
+ Usage: versevision keys set [OPTIONS] {provider}                               
+                                                                                
+ Store a key. It is read from a hidden prompt, or from standard input when that 
+ is not a terminal; never from an argument.                                     
+                                                                                
+╭─ Arguments ──────────────────────────────────────────────────────────────────╮
+│ *    provider      <str>  api_bible, youversion or esv [required]            │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --help          Show this message and exit.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+

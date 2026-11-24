@@ -39,6 +39,25 @@ fn agent(timeout: Duration) -> ureq::Agent {
         .into()
 }
 
+/// What Python's `OSError` says for a failed connection (`[Errno 111] Connection refused`; `[WinError 10061] ...` on Windows),
+/// instead of the Rust wording (`io: Connection refused (os error 111)`).
+pub fn transport_text(error: &ureq::Error) -> String {
+    if let ureq::Error::Io(io) = error {
+        if let Some(code) = io.raw_os_error() {
+            let text = io.to_string();
+            let strerror = text
+                .rsplit_once(" (os error")
+                .map_or(text.as_str(), |(head, _)| head);
+            return if cfg!(windows) {
+                format!("[WinError {code}] {strerror}")
+            } else {
+                format!("[Errno {code}] {strerror}")
+            };
+        }
+    }
+    error.to_string()
+}
+
 /// httpx's `reason_phrase` for the statuses a server is likely to send (the phrase is part of the error text Python shows).
 pub fn reason_phrase(code: u16) -> &'static str {
     match code {
@@ -122,7 +141,7 @@ impl HttpApi {
             .agent
             .get(self.url(route))
             .call()
-            .map_err(|e| HttpFailure::Transport(e.to_string()))?;
+            .map_err(|e| HttpFailure::Transport(transport_text(&e)))?;
         let (status, bytes) = Self::read_body(response).map_err(HttpFailure::Transport)?;
         if status >= 300 {
             return Err(HttpFailure::Status(status));
@@ -138,7 +157,7 @@ impl HttpApi {
             .put(self.url(route))
             .header("Content-Type", "application/json")
             .send(text.as_bytes())
-            .map_err(|e| HttpFailure::Transport(e.to_string()))?;
+            .map_err(|e| HttpFailure::Transport(transport_text(&e)))?;
         let (status, _) = Self::read_body(response).map_err(HttpFailure::Transport)?;
         if status >= 300 {
             return Err(HttpFailure::Status(status));

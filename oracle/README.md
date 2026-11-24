@@ -133,6 +133,16 @@ no group, two slide actions, not RTF, empty plan).
 corpus has no Scripture text in it and no copyright to carry; it only has to have realistic length and punctuation. The few cases whose texts
 come from the tests (`quote-*`) use short KJV/NKJV quotations already in the test files.
 
+## The command line: `oracle/cli/` (S7b)
+
+`cases.jsonl` is one case per line: the sandbox to build (config, themes, run folders and history seeded from the S6b scenarios), the steps (`argv`,
+`stdin`) and what the Python app answered (exit code, standard output, standard error) plus the files it left behind. Every case runs in two sandboxes with
+root paths of different lengths; if the answers differ a path made the text wrap, so the case is run again 4000 columns wide (`columns`). `render.jsonl` is
+the report printing on its own (every run of the S6b scenarios at 80 and 100 columns), `autostart.json` the login-item files (launchd plist, systemd unit,
+Windows task command), `dirs.json` `platformdirs` for Linux and macOS. The Rust side is `crates/versevision/tests/oracle_cli.rs` and `oracle_render.rs`;
+`crates/versevision/tests/known_differences.txt` lists the cases that differ and why (it may only shrink). `keys` is the one command Python does not have, so it
+is not in the oracle (`tests/keys.rs`).
+
 ## The ProPresenter side: `oracle/pipeline/` (S6b)
 
 `oracle/pipeline/scenarios/<name>/` holds a scenario (`scenario.json`) and what the Python app did with it (`expected/`): every request to a scripted

@@ -1,0 +1,18 @@
+[
+ {
+  "cache": "/home/u/.cache/versevision",
+  "config": "/home/u/.config/versevision",
+  "data": "/home/u/.local/share/versevision",
+  "home": "/home/u",
+  "logs": "/home/u/.local/state/versevision/log",
+  "os": "linux"
+ },
+ {
+  "cache": "/Users/u/Library/Caches/versevision",
+  "config": "/Users/u/Library/Application Support/versevision",
+  "data": "/Users/u/Library/Application Support/versevision",
+  "home": "/Users/u",
+  "logs": "/Users/u/Library/Logs/versevision",
+  "os": "macos"
+ }
+]

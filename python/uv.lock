@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.12"
 
 [[package]]
@@ -938,7 +938,7 @@ wheels = [
 
 [[package]]
 name = "versevision"
-version = "0.38.0"
+version = "0.38.1"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },

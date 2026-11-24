@@ -1,0 +1,12 @@
+                                                                                
+ Usage: versevision keys remove [OPTIONS] {provider}                            
+                                                                                
+ Forget a stored key (an environment variable is not touched).                  
+                                                                                
+╭─ Arguments ──────────────────────────────────────────────────────────────────╮
+│ *    provider      <str>  api_bible, youversion or esv [required]            │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --help          Show this message and exit.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+

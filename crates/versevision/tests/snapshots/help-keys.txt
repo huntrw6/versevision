@@ -1,0 +1,15 @@
+                                                                                
+ Usage: versevision keys [OPTIONS] COMMAND [ARGS]...                            
+                                                                                
+ Store, remove or check Bible API keys (never shown).                           
+                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --help          Show this message and exit.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────────────────────────────────────╮
+│ set     Store a key. It is read from a hidden prompt, or from standard input │
+│         when that is not a terminal; never from an argument.                 │
+│ remove  Forget a stored key (an environment variable is not touched).        │
+│ status  Say for each provider whether a key is set. A key is never shown.    │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
