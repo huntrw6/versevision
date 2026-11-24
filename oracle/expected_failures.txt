@@ -1,0 +1,27 @@
+# What the Rust port does not reproduce yet. `cargo test -p versevision-core --test oracle` FAILS when
+#   * something listed here now passes (delete its line: this list only shrinks), or
+#   * something not listed here fails.
+#
+# One entry per line:  group:<name>  every case whose folder starts with <name>- (all of them must still fail)
+#                      case:<folder> one case folder of oracle/cases
+#                      file:<name>   a line-level or config file of oracle/ (all of its lines must pass to leave this list)
+# `#` starts a comment. At the end of S1 only fitting.jsonl, config_defaults.json/.toml and config_options.jsonl pass.
+
+# the planner (S3), and what it needs: parsing and references (S2), document readers (S4)
+group:fixture
+group:format
+group:kitchen
+group:label
+group:long
+group:options
+group:provider
+group:quote
+group:review
+group:synthetic
+group:tests
+group:version
+group:whitefield
+
+# S2
+file:references.jsonl
+file:versions.jsonl

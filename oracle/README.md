@@ -43,6 +43,25 @@ Line level, one JSON object per line:
 | `fitting.jsonl` | 405 | `balance_lines` 108, `split_verse_text` 108, `split_point_text` 108 (each over 27 texts and 4-5 parameter sets, including `tolerance`/`punctuation_tolerance` 0.0, 0.05, 0.1, 0.15, 0.25, 0.5, 0.6), plus `text_width_units` 27 and `wrap_body_lines` 54 |
 | `versions.jsonl` | 82 | `canonical_version`/`correct_version`/`is_real_version` of 58 labels (every known version, case variants, edition aliases, typos, unknown), `correct_version` against an available set 6, `quote_score` 18 |
 
+The config model (`python/src/versevision/config.py`):
+
+| file | what |
+|---|---|
+| `config_defaults.json` | `AppConfig().model_dump(mode="json")`: every section, field and default |
+| `config_defaults.toml` | the same, as `save_config` writes it (`tomli_w`, `exclude_none`); Rust must write the same bytes |
+| `config_rich.toml` | a config that uses every kind of value (lists, providers, a template, profiles with odd names, text that needs escaping), saved by Python; Rust must read it and write the same bytes back |
+| `config_options.jsonl` | `with_options(config, profile=..., sets=[...])`: `{"base", "profile", "sets", "out"}`, where `out` is `{"changed": {"a.b": value}, "removed": [...]}` (the fields that differ from the base, flattened) or `{"error": "<exact message>"}`. Includes unknown names, out-of-range numbers, lists, bool words, profile merges and the first-error order |
+
+Python quirk the file does not record: `with_options` hands the profile's own tables to the data it edits, so a `--set` on a table that only the profile
+provides changes the caller's profile too (calling it twice on one config shows it). The Rust `with_options` works on a copy; the exporter takes the
+"before" side of `changed` first and gives every row its own copy of the base.
+
+## How the Rust side is checked
+
+`cargo test -p versevision-core --test oracle -- --nocapture` runs everything above and prints the pass count per group. `expected_failures.txt` is a ratchet:
+it lists the case groups (`group:tests`), single cases (`case:...`) and files (`file:references.jsonl`) that do not pass yet. The test fails when a listed
+one passes (delete the line) or an unlisted one fails, so the list only shrinks.
+
 ## The bible text is synthetic
 
 `bible.json` of a case holds the verses it needs. The text is generated from the verse key (a fixed algorithm in `export_oracle.py`), so the
@@ -60,8 +79,7 @@ come from the tests (`quote-*`) use short KJV/NKJV quotations already in the tes
 * **The web page and its server**: routes, jobs, PWA, review panel behaviour, authentication. The page itself is served unchanged from Rust (S7).
 * **History and undo**, the run log folders (`summary.txt`, `events.jsonl`, `options.json`, `source.txt`, `report.json`), `explain` and `replay`
   (only `trace.jsonl` is covered, and the `review_*` trace records written by `apply_review_choices` are not).
-* **The command line** and everything in `config.py` beyond defaults and TOML field names: config file loading, the `--set` option parser, the Config
-  page, profiles, keys.env.
+* **The command line**, the Config page and keys.env. (The config model itself, TOML load/save, profiles and the `--set` parser are covered by the `config_*` files.)
 * **Documents the extractors read differently**: only the formats in `cases/format-*` are covered (a small docx and two small pdfs). Real-world pdf
   and docx layouts (tables, text boxes, columns, scanned pages) are not.
 * **Live versions of Python's libraries**: the oracle is produced with the locked environment; `difflib`, `pypdf` and `BeautifulSoup` behaviour in

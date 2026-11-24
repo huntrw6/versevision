@@ -1,0 +1,31 @@
+[workspace]
+resolver = "2"
+members = ["crates/versevision-core", "crates/versevision"]
+
+[workspace.package]
+# 0.0.0 is the pre-release label until the Rust port ships (the Python app is 0.38.x and stays the oracle).
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.98"
+publish = false
+license = "MIT"
+
+# Shared lints: every crate opts in with `[lints] workspace = true`.
+[workspace.lints.rust]
+unsafe_code = "forbid"
+unused_must_use = "deny"
+
+[workspace.lints.clippy]
+dbg_macro = "deny"
+todo = "deny"
+unimplemented = "deny"
+
+[workspace.dependencies]
+# `preserve_order`: JSON objects keep their insertion order (pydantic validates fields in that order, so
+# "the first error" depends on it). `float_roundtrip`: a float read from an oracle file is the exact f64 Python wrote.
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+toml = { version = "0.9", features = ["preserve_order"] }
+indexmap = { version = "2", features = ["serde"] }
+thiserror = "2"
+regex = "1"

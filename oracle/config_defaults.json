@@ -1,0 +1,125 @@
+{
+  "bible": {
+    "default_version": null,
+    "providers": {},
+    "version_aliases": {
+      "YLT": "NLT"
+    },
+    "version_routes": {}
+  },
+  "node": {
+    "app_path": "/Applications/ProPresenter.app",
+    "backup_dir": "$HOME/VerseVision-backups",
+    "command": "hermes-remote",
+    "confirm_quit": true,
+    "helper_dir": "$HOME/VerseVision-tools",
+    "launch_wait_seconds": 90.0,
+    "library_root": "$HOME/Documents/ProPresenter/Libraries",
+    "name": null,
+    "process_name": "ProPresenter",
+    "process_pattern": "MacOS/ProPresenter$",
+    "quit_wait_seconds": 25.0,
+    "retries": 2,
+    "retry_delay_seconds": 20.0,
+    "theme_root": "$HOME/Documents/ProPresenter/Themes",
+    "type": "local"
+  },
+  "notes": {
+    "before_first_item": "skip",
+    "caps_lines": "heading",
+    "duplicates": "keep",
+    "extra_cue_words": [],
+    "header_max_words": 2,
+    "headings": "slide",
+    "label_own_slide": true,
+    "label_words": [
+      "conclusion",
+      "application",
+      "invitation",
+      "challenge",
+      "summary",
+      "closing",
+      "takeaway",
+      "big idea",
+      "main point"
+    ],
+    "line_breaks": "slide",
+    "orphan_max_words": 3,
+    "quote_above_reference": "skip",
+    "quote_alone": "review",
+    "reference_in_text": "review",
+    "skip_patterns": [],
+    "stage_cues": "skip",
+    "unlabeled_sentence": "bullet",
+    "unlabeled_short": "bullet",
+    "whole_chapter": "review",
+    "wrapped_lines": "join"
+  },
+  "output": {
+    "library": "Verses",
+    "swap_keeps_id": false
+  },
+  "points": {
+    "balance_lines": true,
+    "bullet_char": "•",
+    "bullets": true,
+    "case": "as_written",
+    "fix_label_typos": true,
+    "lettered": true,
+    "line_tolerance": 0.15,
+    "line_tolerance_at_punctuation": 0.25,
+    "line_width_units": 33.0,
+    "max_lines": 4,
+    "max_lines_per_slide": 0,
+    "number_style": "{n})",
+    "numbered": true,
+    "numbering": "keep",
+    "require_sequence": true,
+    "shown_in_capitals": true,
+    "strip_trailing_period": true,
+    "theme": "",
+    "theme_slide": ""
+  },
+  "presentation": {
+    "backup_count": 10
+  },
+  "presentation_template": null,
+  "profiles": {},
+  "propresenter": {
+    "host": "127.0.0.1",
+    "port": 50001,
+    "timeout_seconds": 5.0
+  },
+  "slides": {
+    "break_on_new_verse": true,
+    "even_split_punctuation_tolerance": 0.25,
+    "even_split_tolerance": 0.15,
+    "include_verse_numbers": false,
+    "line_width_units": 48.0,
+    "max_body_lines": 5,
+    "max_characters": 350,
+    "max_reference_lines": 1,
+    "max_verses_per_slide": 1,
+    "prefer_punctuation_breaks": true,
+    "preserve_poetry_lines": true,
+    "reference_format": "{book} {chapter}:{verses} {version}",
+    "reference_label_mode": "verse",
+    "reference_width_units": 46.0,
+    "repeat_reference_on_continuation": true
+  },
+  "verses": {
+    "quote_match": 0.85,
+    "quote_versions": [
+      "KJV",
+      "NKJV",
+      "NIV",
+      "NASB1995",
+      "NLT",
+      "ESV"
+    ],
+    "theme": "",
+    "theme_slide": "",
+    "version_from_quote": "use",
+    "version_source": "above"
+  }
+}

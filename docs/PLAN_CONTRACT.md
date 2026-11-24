@@ -192,6 +192,14 @@ One JSON object per line; `args` hold every parameter by its Python name, so a r
   `quote_score` comes from `difflib.SequenceMatcher(autojunk=False)`: a port must give the same matching blocks (compare the float with a
   tolerance of 1e-12).
 
+* `oracle/config_defaults.json`, `config_defaults.toml`, `config_rich.toml`, `config_options.jsonl`: the config model. The JSON is `AppConfig().model_dump(mode="json")`.
+  The TOML files are what `save_config` writes (`model_dump(mode="json", exclude_none=True)` through `tomli_w`); Rust must write the same bytes (a config
+  with the same values has one text), and `config_rich.toml` read and written again must not change. `config_options.jsonl` rows are
+  `{"base": <dict for AppConfig.model_validate>, "profile": null | "name", "sets": ["a.b=c", ...], "out": {"changed": {"a.b": value, ...}, "removed": [...]} | {"error": "..."}}`
+  from `with_options`; `changed` lists the dotted paths of the leaf fields that differ from the base (a list or an empty table is one leaf), and an
+  `error` is the exact `ConfigurationError` text, including pydantic's message for the first invalid field in model order. Unknown keys in a TOML file are
+  ignored (pydantic's default); an unknown name in `--set` is an error.
+
 ## 9. How a Rust run is compared
 
 * A case passes when `plan.json`, `review.json` and `trace.jsonl` of the Rust run **equal the expected files field by field**: same keys, same

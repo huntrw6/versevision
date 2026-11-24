@@ -7,3 +7,6 @@ build/
 dist/
 *.spec
 python/src/versevision/_bundled_credentials.py
+
+# Rust
+target/

@@ -1,2 +1,9 @@
 # the oracle is compared byte for byte: no line-end conversion, binary inputs (docx, pdf) untouched
 oracle/** -text
+
+# Rust sources and manifests keep LF on every platform (`cargo fmt --check` on Windows)
+*.rs text eol=lf
+Cargo.toml text eol=lf
+Cargo.lock text eol=lf
+rust-toolchain.toml text eol=lf
+.github/workflows/*.yml text eol=lf

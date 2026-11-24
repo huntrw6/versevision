@@ -15,6 +15,8 @@ Written (all deterministic: sorted keys, no timestamps, run ids, uuids or absolu
     oracle/cases/<name>/expected/trace.jsonl the run trace (one JSON object per line)
     oracle/cases/<name>/expected/review.json the review report the web page is built from
     oracle/references.jsonl, fitting.jsonl, versions.jsonl   line-level oracles
+    oracle/config_defaults.json, config_defaults.toml, config_rich.toml   the default config and a config using every kind of value (what `save_config` writes)
+    oracle/config_options.jsonl                               `with_options` (profile + `--set` strings): the changed fields or the exact error
 
 Only the standard library and the app itself are used. Nothing here changes how the app behaves.
 """
@@ -23,6 +25,7 @@ from __future__ import annotations
 import argparse
 import ast
 import asyncio
+import copy
 import hashlib
 import io
 import json
@@ -44,7 +47,8 @@ sys.path.insert(0, str(PY_ROOT / "src"))
 
 from versevision import runlog                                         # noqa: E402
 from versevision.bibles.models import BibleVerse, ResolvedPassage       # noqa: E402
-from versevision.config import AppConfig                                # noqa: E402
+from versevision.config import AppConfig, with_options                   # noqa: E402
+from versevision.errors import ConfigurationError                        # noqa: E402
 from versevision.documents import extract_text                          # noqa: E402
 from versevision.errors import BibleProviderError                       # noqa: E402
 from versevision.references import parse_references                     # noqa: E402
@@ -744,11 +748,354 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
     write_text(path, "".join(dumps(r, indent=None) for r in rows))
 
 
+# ------------------------------------------------------------------------------------------------------------ config
+def flatten_config(value: Any, prefix: str = "") -> dict[str, Any]:
+    """Leaves of a dumped config: tables are flattened to dotted paths, a list, a scalar or an empty table is one leaf."""
+    if isinstance(value, dict) and value:
+        out: dict[str, Any] = {}
+        for key, inner in value.items():
+            out.update(flatten_config(inner, f"{prefix}.{key}" if prefix else key))
+        return out
+    return {prefix: value}
+
+
+def dump_config(config: AppConfig) -> dict:
+    return config.model_dump(mode="json")
+
+
+# (base, profile, sets): `base` is validated into the starting config (usually {} or a few profiles).
+PROFILES = {
+    "profiles": {
+        "sunday": {"notes": {"line_breaks": "paragraph", "extra_cue_words": ["pause", "sing"]}, "slides": {"max_body_lines": 4}},
+        "narrow": {"slides": {"line_width_units": 30, "max_body_lines": 3}, "points": {"line_width_units": 20.5}},
+        "bad-range": {"slides": {"max_body_lines": 99}},
+        "bad-name": {"slides": {"no_such_option": 1}, "no_such_section": {"x": 1}},
+        "replace": {"bible": {"version_aliases": {"YLT": "NIV", "XYZ": "ESV"}, "default_version": "NIV"}},
+        "text-for-number": {"propresenter": {"port": "8080", "timeout_seconds": "7.5"}},
+        "providers": {"bible": {"providers": {
+            "esv": {"type": "esv"},
+            "api": {"type": "api_bible", "bible_ids": {"NIV": "abc"}, "timeout_seconds": 30},
+            "local": {"type": "usfm", "version": "NKJV", "path": "~/Bibles//nkjv/", "name": "Local"},
+        }}},
+        "bad-provider": {"bible": {"providers": {"x": {"type": "nope"}}}},
+        "provider-no-type": {"bible": {"providers": {"x": {"timeout_seconds": 3}}}},
+        "provider-esv-cache": {"bible": {"providers": {"x": {"type": "esv", "cache_policy": "allowed"}}}},
+        "usfm-incomplete": {"bible": {"providers": {"x": {"type": "usfm"}}}},
+        "template": {"presentation_template": {"presentation_uuid": "u", "presentation_name": "n", "cue_uuid": "c", "style_fingerprint": "f"}},
+        "template-incomplete": {"presentation_template": {"presentation_uuid": "u"}},
+        "template-not-table": {"presentation_template": 5},
+        "section-not-table": {"slides": 5},
+        "wrong-types": {"slides": {"include_verse_numbers": "yes", "max_characters": 200.0, "reference_format": 5}},
+        "bool-words": {"slides": {"include_verse_numbers": "T", "break_on_new_verse": "off", "preserve_poetry_lines": 0}},
+    },
+}
+
+CONFIG_OPTION_ROWS: list[tuple[dict, str | None, list[str]]] = [
+    # valid: every kind of field
+    ({}, None, []),
+    ({}, None, ["slides.max_body_lines=3"]),
+    ({}, None, ["slides.max_body_lines= 4 "]),
+    ({}, None, ["slides.max_body_lines=1_0"]),
+    ({}, None, ["slides.max_body_lines=1e1"]),
+    ({}, None, ["slides.max_body_lines=7.0"]),
+    ({}, None, ["slides.max_body_lines=true"]),
+    ({}, None, ["slides.line_width_units=40"]),
+    ({}, None, ["slides.line_width_units=40.5"]),
+    ({}, None, ["slides.line_width_units=1e2"]),
+    ({}, None, ["slides.line_width_units=5.0001"]),
+    ({}, None, ["slides.line_width_units=200"]),
+    ({}, None, ["slides.include_verse_numbers=true"]),
+    ({}, None, ["slides.include_verse_numbers=YES"]),
+    ({}, None, ["slides.include_verse_numbers=on"]),
+    ({}, None, ["slides.include_verse_numbers=1"]),
+    ({}, None, ["slides.include_verse_numbers=t"]),
+    ({}, None, ["slides.include_verse_numbers=1.0"]),
+    ({}, None, ["slides.break_on_new_verse=off"]),
+    ({}, None, ["slides.break_on_new_verse= No "]),
+    ({}, None, ["slides.break_on_new_verse=false"]),
+    ({}, None, ["slides.break_on_new_verse=0"]),
+    ({}, None, ["slides.break_on_new_verse=ye\u017f"]),
+    ({}, None, ["slides.reference_format={book} {chapter}:{verses}"]),
+    ({}, None, ["slides.reference_format=1"]),
+    ({}, None, ["slides.reference_format=true"]),
+    ({}, None, ["slides.reference_format= padded "]),
+    ({}, None, ["slides.reference_label_mode=segment"]),
+    ({}, None, ["slides.even_split_tolerance=0"]),
+    ({}, None, ["slides.even_split_tolerance=0.5"]),
+    ({}, None, ["slides.even_split_tolerance=1"]),
+    ({}, None, ["slides.max_characters=500", "slides.max_verses_per_slide=2"]),
+    ({}, None, ["notes.line_breaks=paragraph"]),
+    ({}, None, ["notes.unlabeled_sentence=review", "notes.stage_cues=bullet"]),
+    ({}, None, ["notes.extra_cue_words=[\"pause\", \"sing\"]"]),
+    ({}, None, ["notes.extra_cue_words=[]"]),
+    ({}, None, ["notes.label_words= [\"conclusion\"] "]),
+    ({}, None, ["notes.skip_patterns=[\"^\\\\d+$\", \"x{2}\"]"]),
+    ({}, None, ["notes.header_max_words=0"]),
+    ({}, None, ["notes.header_max_words=6"]),
+    ({}, None, ["notes.orphan_max_words=8"]),
+    ({}, None, ["notes.label_own_slide=no"]),
+    ({}, None, ["points.numbering=renumber", "points.number_style=#{n}:"]),
+    ({}, None, ["points.bullet_char="]),
+    ({}, None, ["points.case=title"]),
+    ({}, None, ["points.theme=Group/Name", "points.theme_slide=1"]),
+    ({}, None, ["points.theme_slide=2"]),
+    ({}, None, ["points.max_lines_per_slide=0"]),
+    ({}, None, ["points.max_lines_per_slide=12"]),
+    ({}, None, ["points.line_tolerance=0.2", "points.line_tolerance_at_punctuation=0.3"]),
+    ({}, None, ["points.line_width_units=24"]),
+    ({}, None, ["verses.version_source=required"]),
+    ({}, None, ["verses.quote_versions=[\"NIV\"]"]),
+    ({}, None, ["verses.quote_match=0.5"]),
+    ({}, None, ["verses.quote_match=1"]),
+    ({}, None, ["propresenter.host=10.0.0.5", "propresenter.port=50002", "propresenter.timeout_seconds=2.5"]),
+    ({}, None, ["propresenter.port=65535"]),
+    ({}, None, ["propresenter.timeout_seconds=120"]),
+    ({}, None, ["node.type=hermes-remote", "node.name=imac"]),
+    ({}, None, ["node.name="]),
+    ({}, None, ["node.retries=0", "node.retry_delay_seconds=0", "node.quit_wait_seconds=1", "node.launch_wait_seconds=600"]),
+    ({}, None, ["node.library_root=$HOME/Pro Presenter/Libraries"]),
+    ({}, None, ["presentation.backup_count=100"]),
+    ({}, None, ["output.library=Sermons", "output.swap_keeps_id=yes"]),
+    ({}, None, ["bible.default_version=NIV"]),
+    ({}, None, ["bible.default_version="]),
+    ({}, None, ["bible.version_aliases.YLT=KJV"]),
+    ({}, None, ["bible.version_aliases.YLT=5"]),
+    ({}, None, ["slides.max_body_lines=2", "slides.max_body_lines=6"]),
+    # unknown names and bad shapes
+    ({}, None, ["slides.nope=1"]),
+    ({}, None, ["nope.max_body_lines=1"]),
+    ({}, None, ["slides=1"]),
+    ({}, None, ["slides.max_body_lines"]),
+    ({}, None, [""]),
+    ({}, None, ["=3"]),
+    ({}, None, [".max_body_lines=3"]),
+    ({}, None, ["slides..max_body_lines=3"]),
+    ({}, None, [" slides.max_body_lines =3"]),
+    ({}, None, ["Slides.max_body_lines=3"]),
+    ({}, None, ["slides.max_body_lines.x=3"]),
+    ({}, None, ["bible.version_aliases.Q=NIV"]),
+    ({}, None, ["bible.providers.x.type=esv"]),
+    ({}, None, ["bible.providers.x=esv"]),
+    ({}, None, ["presentation_template.cue_uuid=x"]),
+    ({}, None, ["presentation_template=1"]),
+    ({}, None, ["profiles.sunday.notes.line_breaks=slide"]),
+    ({}, None, ["slides.max_body_lines=3", "nope.x=1"]),
+    # out of range and wrong type
+    ({}, None, ["slides.max_body_lines=0"]),
+    ({}, None, ["slides.max_body_lines=21"]),
+    ({}, None, ["slides.max_body_lines=-1"]),
+    ({}, None, ["slides.max_body_lines=2.5"]),
+    ({}, None, ["slides.max_body_lines=abc"]),
+    ({}, None, ["slides.max_body_lines="]),
+    ({}, None, ["slides.max_body_lines=inf"]),
+    ({}, None, ["slides.max_body_lines=nan"]),
+    ({}, None, ["slides.max_body_lines=1e400"]),
+    ({}, None, ["slides.max_body_lines=\uff11\uff12"]),
+    ({}, None, ["slides.line_width_units=\uff11\uff12.\uff15"]),
+    ({}, None, ["slides.include_verse_numbers=5.0"]),
+    ({}, None, ["slides.include_verse_numbers=1e1"]),
+    ({}, None, ["slides.include_verse_numbers=-1"]),
+    ({}, None, ["slides.max_body_lines=[3]"]),
+    ({}, None, ["slides.max_body_lines=0x10"]),
+    ({}, None, ["slides.max_body_lines=1__0"]),
+    ({}, None, ["slides.max_characters=0"]),
+    ({}, None, ["slides.max_verses_per_slide=0"]),
+    ({}, None, ["slides.max_reference_lines=4"]),
+    ({}, None, ["slides.max_reference_lines=0"]),
+    ({}, None, ["slides.line_width_units=5"]),
+    ({}, None, ["slides.line_width_units=4.99"]),
+    ({}, None, ["slides.line_width_units=200.5"]),
+    ({}, None, ["slides.line_width_units=nan"]),
+    ({}, None, ["slides.line_width_units=inf"]),
+    ({}, None, ["slides.line_width_units=-inf"]),
+    ({}, None, ["slides.line_width_units=wide"]),
+    ({}, None, ["slides.line_width_units="]),
+    ({}, None, ["slides.reference_width_units=5"]),
+    ({}, None, ["slides.reference_width_units=201"]),
+    ({}, None, ["slides.even_split_tolerance=-0.1"]),
+    ({}, None, ["slides.even_split_tolerance=1.1"]),
+    ({}, None, ["slides.even_split_tolerance=nan"]),
+    ({}, None, ["slides.even_split_punctuation_tolerance=2"]),
+    ({}, None, ["slides.include_verse_numbers=maybe"]),
+    ({}, None, ["slides.include_verse_numbers=2"]),
+    ({}, None, ["slides.include_verse_numbers=1.5"]),
+    ({}, None, ["slides.include_verse_numbers=[1]"]),
+    ({}, None, ["slides.include_verse_numbers=ſ"]),
+    ({}, None, ["slides.include_verse_numbers="]),
+    ({}, None, ["slides.reference_label_mode=Segment"]),
+    ({}, None, ["slides.reference_label_mode=words"]),
+    ({}, None, ["slides.reference_label_mode=1"]),
+    ({}, None, ["notes.line_breaks=line"]),
+    ({}, None, ["notes.before_first_item=bullets"]),
+    ({}, None, ["notes.quote_alone=verse"]),
+    ({}, None, ["notes.reference_in_text=bullet"]),
+    ({}, None, ["notes.whole_chapter=verse"]),
+    ({}, None, ["notes.duplicates=true"]),
+    ({}, None, ["notes.extra_cue_words=pause"]),
+    ({}, None, ["notes.extra_cue_words=pause,sing"]),
+    ({}, None, ["notes.extra_cue_words=[1]"]),
+    ({}, None, ["notes.extra_cue_words=[\"a\", 2]"]),
+    ({}, None, ["notes.extra_cue_words=[\"a\", null]"]),
+    ({}, None, ["notes.extra_cue_words=[[\"a\"]]"]),
+    ({}, None, ["notes.extra_cue_words=[\"a\""]),
+    ({}, None, ["notes.extra_cue_words=5"]),
+    ({}, None, ["notes.extra_cue_words=true"]),
+    ({}, None, ["notes.extra_cue_words="]),
+    ({}, None, ["notes.header_max_words=7"]),
+    ({}, None, ["notes.header_max_words=-1"]),
+    ({}, None, ["notes.orphan_max_words=9"]),
+    ({}, None, ["points.numbering=roman"]),
+    ({}, None, ["points.case=Upper"]),
+    ({}, None, ["points.max_lines_per_slide=13"]),
+    ({}, None, ["points.max_lines_per_slide=-1"]),
+    ({}, None, ["points.max_lines=0"]),
+    ({}, None, ["points.max_lines=13"]),
+    ({}, None, ["points.line_width_units=5"]),
+    ({}, None, ["points.line_tolerance=1.5"]),
+    ({}, None, ["points.line_tolerance_at_punctuation=-0.5"]),
+    ({}, None, ["verses.version_source=always"]),
+    ({}, None, ["verses.version_from_quote=on"]),
+    ({}, None, ["verses.quote_match=0.49"]),
+    ({}, None, ["verses.quote_match=1.01"]),
+    ({}, None, ["verses.quote_match=0"]),
+    ({}, None, ["propresenter.port=0"]),
+    ({}, None, ["propresenter.port=65536"]),
+    ({}, None, ["propresenter.port=80.5"]),
+    ({}, None, ["propresenter.port=http"]),
+    ({}, None, ["propresenter.port=true"]),
+    ({}, None, ["propresenter.host=5"]),
+    ({}, None, ["propresenter.timeout_seconds=0"]),
+    ({}, None, ["propresenter.timeout_seconds=-1"]),
+    ({}, None, ["propresenter.timeout_seconds=120.5"]),
+    ({}, None, ["propresenter.timeout_seconds=nan"]),
+    ({}, None, ["node.type=remote"]),
+    ({}, None, ["node.name=5"]),
+    ({}, None, ["node.name=true"]),
+    ({}, None, ["node.name=[\"a\"]"]),
+    ({}, None, ["node.retries=6"]),
+    ({}, None, ["node.retries=-1"]),
+    ({}, None, ["node.retry_delay_seconds=-1"]),
+    ({}, None, ["node.retry_delay_seconds=121"]),
+    ({}, None, ["node.quit_wait_seconds=0.5"]),
+    ({}, None, ["node.launch_wait_seconds=4"]),
+    ({}, None, ["node.launch_wait_seconds=601"]),
+    ({}, None, ["node.confirm_quit=perhaps"]),
+    ({}, None, ["presentation.backup_count=0"]),
+    ({}, None, ["presentation.backup_count=101"]),
+    ({}, None, ["output.swap_keeps_id=2"]),
+    ({}, None, ["bible.default_version=5"]),
+    ({}, None, ["bible.default_version=1.5"]),
+    ({}, None, ["bible.providers=foo"]),
+    ({}, None, ["bible.version_aliases=[1]"]),
+    # the first error is the first in the model's field order, not the first --set
+    ({}, None, ["slides.max_body_lines=0", "propresenter.port=0"]),
+    ({}, None, ["points.max_lines=0", "notes.header_max_words=9", "slides.max_characters=0"]),
+    ({}, None, ["bible.default_version=7", "node.name=7", "notes.line_breaks=x"]),
+    ({}, None, ["slides.even_split_tolerance=2", "slides.line_width_units=1", "slides.max_body_lines=0"]),
+    # profiles
+    (PROFILES, "sunday", []),
+    (PROFILES, "sunday", ["notes.line_breaks=slide"]),
+    (PROFILES, "sunday", ["slides.max_body_lines=2"]),
+    (PROFILES, "narrow", []),
+    (PROFILES, "narrow", ["points.line_width_units=33"]),
+    (PROFILES, "replace", []),
+    (PROFILES, "text-for-number", []),
+    (PROFILES, "providers", []),
+    (PROFILES, "providers", ["bible.providers.api.timeout_seconds=45"]),
+    (PROFILES, "providers", ["bible.providers.api.bible_ids.NIV=xyz"]),
+    (PROFILES, "providers", ["bible.providers.api.bible_ids.KJV=xyz"]),
+    (PROFILES, "providers", ["bible.providers.api.timeout_seconds=0"]),
+    (PROFILES, "providers", ["bible.providers.esv.cache_policy=allowed"]),
+    (PROFILES, "providers", ["bible.providers.local.copyright=(c) someone"]),
+    (PROFILES, "providers", ["bible.providers.local.name="]),
+    (PROFILES, "providers", ["bible.providers.local.path=a/./b/"]),
+    (PROFILES, "providers", ["bible.providers.local.path=5"]),
+    (PROFILES, "providers", ["bible.providers.local.type=esv"]),
+    (PROFILES, "providers", ["bible.providers.nothing.type=esv"]),
+    (PROFILES, "template", []),
+    (PROFILES, "template", ["presentation_template.reference_object=Ref"]),
+    (PROFILES, "template", ["presentation_template.cue_uuid=zz"]),
+    (PROFILES, "template", ["presentation_template.cue_uuid=5"]),
+    (PROFILES, "providers", ["bible.providers.api.type=esv"]),
+    (PROFILES, "providers", ["bible.providers.api.type=nope"]),
+    (PROFILES, "providers", ["bible.providers.api.timeout_seconds=abc"]),
+    (PROFILES, "providers", ["bible.providers.local.version=KJV"]),
+    (PROFILES, "providers", ["bible.providers.local.path=true"]),
+    (PROFILES, "template", ["presentation_template.point_cue_uuid=p1"]),
+    (PROFILES, "template", ["presentation_template.library_name=5"]),
+    (PROFILES, "bool-words", []),
+    (PROFILES, "bad-range", []),
+    (PROFILES, "bad-range", ["slides.max_body_lines=3"]),
+    (PROFILES, "bad-name", []),
+    (PROFILES, "bad-provider", []),
+    (PROFILES, "provider-no-type", []),
+    (PROFILES, "provider-esv-cache", []),
+    (PROFILES, "usfm-incomplete", []),
+    (PROFILES, "template-incomplete", []),
+    (PROFILES, "template-not-table", []),
+    (PROFILES, "section-not-table", []),
+    (PROFILES, "wrong-types", []),
+    (PROFILES, "nobody", []),
+    (PROFILES, "", ["slides.max_body_lines=3"]),
+    ({}, "sunday", []),
+    ({"profiles": {"b": {}, "a": {}, "C": {}}}, "zzz", []),
+    (PROFILES, "sunday", ["notes.extra_cue_words=[\"x\"]"]),
+]
+
+
+def config_options_oracle() -> list[dict]:
+    rows = []
+    for base, profile, sets in CONFIG_OPTION_ROWS:
+        start = AppConfig.model_validate(copy.deepcopy(base))          # with_options hands pieces of the profile to the data it edits: never share
+        row: dict[str, Any] = {"base": base, "profile": profile, "sets": sets}
+        before = flatten_config(dump_config(start))          # before the call: it may edit the profile tables it merges
+        try:
+            result = with_options(start, profile=profile, sets=sets)
+        except ConfigurationError as exc:
+            row["out"] = {"error": str(exc)}
+        else:
+            after = flatten_config(dump_config(result))
+            changed = {path: value for path, value in after.items() if before.get(path, object()) != value}
+            removed = [path for path in before if path not in after]
+            row["out"] = {"changed": changed, **({"removed": removed} if removed else {})}
+        rows.append(row)
+    return rows
+
+
+def write_config_oracle(out: Path) -> None:
+    import tomli_w
+    defaults = AppConfig()
+    write_text(out / "config_defaults.json", dumps(dump_config(defaults)))
+    write_text(out / "config_defaults.toml", tomli_w.dumps(defaults.model_dump(mode="json", exclude_none=True)))
+    # a config that uses every kind of value (lists, providers, a template, profiles with odd names, text that needs escaping)
+    rich = AppConfig.model_validate({
+        "node": {"type": "hermes-remote", "name": "iMac \"main\"", "backup_dir": "$HOME/x y", "retry_delay_seconds": 7.5},
+        "notes": {"extra_cue_words": ["pause", "sing"], "skip_patterns": ["^\\d+$", "a\"b", "tab\there"], "line_breaks": "paragraph"},
+        "points": {"bullet_char": "\u2022", "theme": "Café – “Group”/Name", "line_width_units": 24.5},
+        "verses": {"quote_versions": ["NIV", "ESV"], "quote_match": 0.9},
+        "presentation_template": {"presentation_uuid": "u-1", "presentation_name": "Verses", "cue_uuid": "c-1", "style_fingerprint": "f", "library_name": "Lib"},
+        "bible": {"default_version": "NIV", "version_routes": {"ESV": "esv"}, "providers": {
+            "esv": {"type": "esv"},
+            "api": {"type": "api_bible", "bible_ids": {"NIV": "abc", "KJV": "def"}, "timeout_seconds": 30},
+            "local": {"type": "usfm", "version": "NKJV", "path": "~/Bibles//nkjv/", "name": "Local", "copyright": "(c)"},
+        }},
+        "profiles": {
+            "Sunday AM": {"notes": {"line_breaks": "paragraph", "extra_cue_words": ["pause"]}, "slides": {"max_body_lines": 4, "include_verse_numbers": True}},
+            "narrow": {"slides": {"line_width_units": 30.5}, "bible": {"providers": {"x": {"type": "esv"}}}},
+        },
+    })
+    write_text(out / "config_rich.toml", tomli_w.dumps(rich.model_dump(mode="json", exclude_none=True)))
+    rows = config_options_oracle()
+    write_jsonl(out / "config_options.jsonl", rows)
+    ok = sum(1 for r in rows if "changed" in r["out"])
+    print(f"config_defaults.json, config_defaults.toml, config_rich.toml, config_options.jsonl: {len(rows)} lines ({ok} valid, {len(rows) - ok} errors)")
+
+
 # ------------------------------------------------------------------------------------------------------------------- main
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--out", type=Path, default=REPO_ROOT / "oracle", help="where to write (default: <repo>/oracle)")
-    parser.add_argument("--lines-only", action="store_true", help="only write references/fitting/versions.jsonl (quick check)")
+    parser.add_argument("--lines-only", action="store_true", help="only write the line-level files and the config files (quick check)")
     parser.add_argument("--only", help="only cases whose name contains this text (does not clean the output)")
     args = parser.parse_args()
     out: Path = args.out
@@ -775,6 +1122,8 @@ def main() -> None:
                 for r in rows:
                     by_fn[r["fn"]] = by_fn.get(r["fn"], 0) + 1
                 print("   ", dict(sorted(by_fn.items())))
+    if not args.only:
+        write_config_oracle(out)
     print(f"cases: {len(cases)}")
     for group, count in sorted(groups.items()):
         print(f"   {group}: {count}")
