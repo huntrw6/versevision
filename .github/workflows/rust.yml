@@ -87,6 +87,9 @@ jobs:
       - name: The oracle in numbers
         run: cargo test -p versevision-core --test oracle -- --nocapture --test-threads=1 oracle_against_expected_failures
 
+      - name: The document readers in numbers
+        run: cargo test -p versevision-docs --test oracle_documents -- --nocapture --test-threads=1
+
   python:
     name: Python suite (the oracle)
     runs-on: ubuntu-latest

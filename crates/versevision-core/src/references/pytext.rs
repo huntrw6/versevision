@@ -27,7 +27,7 @@ fn in_ranges(table: &[(u32, u32)], c: char) -> bool {
 }
 
 /// `c.isalpha()`.
-pub(crate) fn is_alpha(c: char) -> bool {
+pub fn is_alpha(c: char) -> bool {
     if c.is_ascii() {
         return c.is_ascii_alphabetic();
     }

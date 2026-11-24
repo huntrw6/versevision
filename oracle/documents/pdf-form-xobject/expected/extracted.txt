@@ -1,0 +1,3 @@
+Before the form
+Text inside a form XObject
+After the form

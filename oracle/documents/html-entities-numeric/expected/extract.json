@@ -1,0 +1,14 @@
+{
+  "blank_lines": 1,
+  "characters": 25,
+  "lines": 2,
+  "method": "BeautifulSoup get_text (one line per block)",
+  "odd_characters": [
+    "–",
+    "—",
+    "€",
+    "�",
+    "🙏"
+  ],
+  "type": ".html"
+}

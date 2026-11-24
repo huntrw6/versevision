@@ -32,6 +32,8 @@ oracle/cases/<name>/
    * `.pdf`: the text layer of every page (pypdf `extract_text`), joined with `\n`; no text at all is an error.
    * then the ligature characters U+FB00..U+FB06 are replaced by `ff fi fl ffi ffl st st`.
    * The `extract` trace record is written here (section 6).
+   * Rust: `versevision_docs::extract_text(bytes, file_name)` returns the text and the `extract` record, or `DocumentError` with Python's message
+     (`oracle/documents/<case>/expected/error.json`: `kind` `document` = `VerseVisionError`, `unexpected` = any other exception).
 2. **Options.** Start from the default config (`python/src/versevision/config.py`: every field name and default there is part of the contract) and
    apply the tables of `options.toml` (`[points]`, `[slides]`, `[notes]`, `[verses]`, `[bible]`, ...). Missing key = the default.
    `[run]` is not config; it holds

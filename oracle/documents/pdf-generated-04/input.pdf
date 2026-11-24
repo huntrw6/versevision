@@ -1,0 +1,368 @@
+%PDF-1.5
+%‚„œ”
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Roman >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Symbol >>
+endobj
+4 0 obj
+<< /Length 667  >>
+stream
+/CIDInit /ProcSet findresource begin 12 dict begin begincmap /CMapName /Adobe-Identity-UCS def
+1 begincodespacerange <00> <FF> endcodespacerange
+30 beginbfchar
+<85> <0085>
+<BE> <2013>
+<40> <201C>
+<E4> <00E9>
+<64> <0057>
+<CA> <0055>
+<2F> <002F>
+<4A> <2019>
+<D0> <00D0>
+<C2> <2019>
+<96> <0055>
+<B1> <FB01>
+<98> <201C>
+<DF> <00DF>
+<87> <00E9>
+<83> <2019>
+<57> <0057>
+<EC> <FB01>
+<20> <00E9>
+<56> <2019>
+<48> <2019>
+<23> <004A>
+<BC> <0020>
+<61> <2013>
+<3D> <FB01>
+<FF> <0020>
+<E5> <2013>
+<81> <005A>
+<58> <0020>
+<AC> <2019>
+endbfchar
+2 beginbfrange
+<33> <38> <0062>
+<3D> <3F> [<0041> <0042> <FB02>]
+endbfrange
+endcmap CMapName currentdict /CMap defineresource pop end end
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /TrueType /BaseFont /ABCDEF+Foo /FirstChar 32 /LastChar 126 /Widths [305 690 268 762 760.3 427 568 376 383.2 217.9 466 335.4 842 872.6 460.7 436.2 454 684 760 205.0 519 555.9 813 662 512 244 673 487 863 551 889 622 644.5 388 802 771 531 263 484 830 285.5 403.6 565 492 534 495 356 620 808.7 279 396 404.4 813 431.9 245 573 571 600.0 412 412 263 372 353 759 455 236 741 619 405 447 703 631 862 781.7 232 459 413 627 299.2 522 783 868 241 295 786 847.2 872 857 630 870 760.8 601 252.1 873.2 245] /Encoding /WinAnsiEncoding /ToUnicode 4 0 R /FontDescriptor << /Type /FontDescriptor /FontName /ABCDEF+Foo /Flags 32 >> >>
+endobj
+6 0 obj
+<< /Length 828  >>
+stream
+/CIDInit /ProcSet findresource begin 12 dict begin begincmap /CMapName /Adobe-Identity-UCS def
+1 begincodespacerange <0000> <FFFF> endcodespacerange
+39 beginbfchar
+<0001> <05D1>
+<0002> <0629>
+<0003> <0020>
+<0004> <4E04>
+<0005> <0020>
+<0006> <FB01>
+<0007> <2019>
+<0008> <4E08>
+<0009> <0630>
+<000A> <0020>
+<000B> <006C>
+<000C> <05DC>
+<000D> <006E>
+<000E> <006F>
+<000F> <0070>
+<0010> <05E0>
+<0011> <4E11>
+<0012> <05E2>
+<0013> <2019>
+<0014> <0055>
+<0015> <0076>
+<0016> <0057>
+<0017> <2019>
+<0018> <0020>
+<0019> <0020>
+<001A> <4E1A>
+<001B> <4E1B>
+<001C> <0020>
+<001D> <FB01>
+<001E> <0631>
+<001F> <2019>
+<0020> <05DC>
+<0021> <FB01>
+<0022> <0069>
+<0023> <004A>
+<0024> <004B>
+<0025> <05E1>
+<0026> <4E26>
+<0027> <2019>
+endbfchar
+1 beginbfrange
+<0030> <0040> <0061>
+endbfrange
+endcmap CMapName currentdict /CMap defineresource pop end end
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type0 /BaseFont /ABCDEF+Cid /Encoding /Identity-H /DescendantFonts [<< /Type /Font /Subtype /CIDFontType2 /BaseFont /ABCDEF+Cid /CIDSystemInfo << /Registry (Adobe) /Ordering (Identity) /Supplement 0 >> /DW 800 /W [1 [500 600 700] 5 20 450 21 [300 310.5]] /FontDescriptor << /Type /FontDescriptor /FontName /ABCDEF+Cid /Flags 4 >> >>] /ToUnicode 6 0 R >>
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Palatino-Roman /Encoding << /Type /Encoding /BaseEncoding /MacRomanEncoding /Differences [32 /space /fi /fl 65 /Euro /g17 /uni0041 /Aacute 200 /quoteright /bullet /unknownglyph] >> >>
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding /FontDescriptor << /Type /FontDescriptor /FontName /Courier-Bold /Flags 33 /MissingWidth 600 >> >>
+endobj
+10 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Arial,Bold /Encoding /WinAnsiEncoding >>
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Unknown-Font /Encoding /MacRomanEncoding /FirstChar 32 /Widths [250 333 408] /FontDescriptor << /Type /FontDescriptor /FontName /Unknown-Font /Flags 34 /MissingWidth 400 >> >>
+endobj
+12 0 obj
+<< /Length 31  >>
+stream
+0 0 500 700 d1 0 0 500 700 re f
+endstream
+endobj
+13 0 obj
+<< /Type /Font /Subtype /Type3 /FontBBox [0 0 500 700] /FontMatrix [0.001 0 0 0.001 0 0] /CharProcs << /a 12 0 R /b 12 0 R >> /Encoding << /Type /Encoding /Differences [97 /a /b] >> /FirstChar 97 /LastChar 98 /Widths [500 600] >>
+endobj
+14 0 obj
+<< /Length 667  >>
+stream
+/CIDInit /ProcSet findresource begin 12 dict begin begincmap /CMapName /Adobe-Identity-UCS def
+1 begincodespacerange <00> <FF> endcodespacerange
+30 beginbfchar
+<BC> <201C>
+<BE> <00E9>
+<91> <00E9>
+<84> <00E9>
+<44> <201C>
+<60> <FB01>
+<E5> <00E5>
+<B8> <00B8>
+<7C> <2019>
+<C9> <00E9>
+<77> <2019>
+<42> <201C>
+<8E> <201C>
+<35> <0042>
+<BB> <2019>
+<FB> <2019>
+<CC> <201C>
+<BF> <004A>
+<4D> <2013>
+<69> <FB01>
+<7F> <0020>
+<52> <2013>
+<B3> <0058>
+<79> <2013>
+<EF> <FB01>
+<FE> <00E9>
+<37> <2013>
+<33> <00E9>
+<87> <0046>
+<C5> <0020>
+endbfchar
+2 beginbfrange
+<A1> <A6> <0067>
+<AB> <AD> [<0041> <0042> <FB02>]
+endbfrange
+endcmap CMapName currentdict /CMap defineresource pop end end
+endstream
+endobj
+15 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /ToUnicode 14 0 R >>
+endobj
+16 0 obj
+<< /Type /Font /Subtype /TrueType /BaseFont /Georgia /Encoding /Identity-H /FirstChar 0 /Widths [796 718 460 445 524 510 601 306 428 394 759 576 534 654 587 614 722 486 506 786 498 619 314 379 561 334 534 798 794 622] >>
+endobj
+17 0 obj
+<< /Length 880 /Type /XObject /Subtype /Form /BBox [0 0 600 800] /Resources << /Font << /F10 13 0 R /F5 7 0 R /F2 2 0 R /F11 15 0 R /F8 10 0 R /F12 16 0 R /F6 8 0 R >> >> >>
+stream
+[-120 <2020>] TJ
+[(ab) (   b   a bbaa ) (bba aaa  b) 200 (ab baa b)] TJ
+0 4.466 ( bb a  abaa a ) "
+0 -22 TD
+58 -16.15 Td
+T*
+3 0.32 (  abab b) "
+100 Tz
+1.2 0 0 1.2 143 21.058 Tm
+3 -14.978 TD
+4.962 Tw
+[-300 -50 (aab)] TJ
+69.096 0 TD
+[-250 -1000] TJ
+[( aaa ) -250 -600.5] TJ
+[-300 (  ) (abaa b) <622061> ( a bbbbb ab) ( )] TJ
+(a ) Tj
+BT
+[<6162> <6120202020622061> <612061> <206161206161626220>] TJ
+[-600.5] TJ
+0 0 100 20 re
+BT
+( aaa  a   a  ) Tj
+20 TL
+0 1 -1 0 255.311 482.852 Tm
+ET
+(  ) Tj
+(b    bb ) Tj
+2 0 0 -2 185 173.304 Tm
+3 0 (a   bab  ) "
+( a b) Tj
+[(aa a) (a  aab  a )] TJ
+-1 0 0 -1 66.316 98 Tm
+[( abaabbb ) <2062202020206120626220202020> (b aabb ab     ) -300 -300] TJ
+1.2 0 0 1.2 473.01 0 Tm
+[( a  aaab aa) <62616161206161622061> -50 -120 -600.5 <2062206262>] TJ
+ET
+Q
+[-300] TJ
+[(a  b   bb  ) -1000 ( ba   aab baab) (a    b aa    b)] TJ
+(b aba ) '
+98 15.756 Td
+( baa) Tj
+
+endstream
+endobj
+18 0 obj
+<< /Type /Pages /Kids [20 0 R] /Count 1  >>
+endobj
+19 0 obj
+<< /Length 2970  >>
+stream
+BT /F11 14 Tf
+1 0 0 0.9 72.5 760.533 Tm
+(faith still 3:16 leads restores Romans down is the my loved) Tj
+1 0 0 1 72.5 744.433 Tm
+[(2\)) 12 (restores) -1000 (pastures) -278 (my) -250 (want) -278 (John) -200 (my) -200 (Psalm) 12 (23:1-4)] TJ
+1 0 0 1 72.5 728.333 Tm
+(pastures) Tj 60.2 0 Td
+(makes) Tj 39 0 Td
+(grace) Tj 39 0 Td
+(God) Tj 21 0 Td
+(John) Tj 28 0 Td
+(John) Tj 30.1 0 Td
+(the) Tj 25 0 Td
+0.9 0 0 0.9 72.5 712.233 Tm
+(leads) Tj 35 0 Td
+1 0 0 1 72.5 696.133 Tm
+[(23:1-4) -310 (leads) -40 (2\)) -210 (makes) -210 (Lord) 5 (shall) -40 (want)] TJ
+1 0 0 1 72.5 680.033 Tm
+[(grace) -333 (makes) -180 (Lord) -333 (restores) -333 (pastures) 12 (pastures) -120.5 (pastures) -278 (3:16) -333 (restores) -278 (my) -278 (the) 12 (he)] TJ
+1 0 0 0.9 72.5 663.933 Tm
+(gave grace the makes 1\) \225 me beside soul) Tj
+0.9 0 0 1 72.5 647.833 Tm
+[(God) -250 (that) -1000 (God) 12 (lie) -1000 (beside) -30 (so) -1000 (3:16) -200 (pastures)] TJ
+1 0 0 1 72.5 631.733 Tm
+[(in) -600 (he) -210 (John) -40 (that)] TJ
+1 0 0 0.9 72.5 615.633 Tm
+(\225) Tj 11.2 0 Td
+(makes) Tj 37.1 0 Td
+(world) Tj 35 0 Td
+(Psalm) Tj 35 0 Td
+(in) Tj 16.1 0 Td
+(3:16) Tj 28 0 Td
+(beside) Tj 44.1 0 Td
+0.9 0 0 1 72.5 599.533 Tm
+(makes shepherd pastures that Lord He waters Psalm restores John) Tj
+0.9 0 0 1 72.5 583.433 Tm
+[(\225) -40 (my) -600 (faith) 5 (John) 5 (makes) -40 (soul) -600 (John) -190 (I) -190 (soul) -40 (\225)] TJ
+0.9 0 0 1 72.5 567.333 Tm
+(waters) Tj 44.1 0 Td
+(23:1-4) Tj 42 0 Td
+(want) Tj 32 0 Td
+(so) Tj 14 0 Td
+(still) Tj 39.2 0 Td
+(faith) Tj 35 0 Td
+(gave) Tj 32 0 Td
+(the) Tj 21 0 Td
+(makes) Tj 39 0 Td
+(me) Tj 18.2 0 Td
+(in) Tj 14 0 Td
+1 0 0 1 72.5 551.233 Tm
+[(in) -180 (waters) -200 (Romans) -333 (shall) -30 (is) -1000 (soul) -333 (\225) -250 (still) -200 (makes)] TJ
+0.9 0 0 1 72.5 535.133 Tm
+(he) Tj 14 0 Td
+(shepherd) Tj 60.2 0 Td
+(me) Tj 18.2 0 Td
+1 0 0 0.9 72.5 519.033 Tm
+(leads faith 1\) He not \225 waters beside that pastures still) Tj
+0.9 0 0 0.9 72.5 502.933 Tm
+[(grace) -40 (pastures) -310 (The) -600 (God) -600 (John) -600 (shepherd) 5 (pastures) -600 (that) 5 (my)] TJ
+1 0 0 1 72.5 486.833 Tm
+(2\) waters the is God down world makes Psalm world beside that) Tj
+1 0 0 1 72.5 470.733 Tm
+(He) Tj 16.1 0 Td
+(23:1-4) Tj 46.2 0 Td
+(down) Tj 28 0 Td
+(so) Tj 18 0 Td
+(23:1-4) Tj 46 0 Td
+1 0 0 1 72.5 454.633 Tm
+(not) Tj 25 0 Td
+(me) Tj 18 0 Td
+(not) Tj 21 0 Td
+(shepherd) Tj 56 0 Td
+(1\)) Tj 14 0 Td
+(He) Tj 14 0 Td
+(Psalm) Tj 39.2 0 Td
+(the) Tj 21 0 Td
+1 0 0 1 72.5 438.533 Tm
+[(pastures) -600 (down) -600 (still) -40 (I) 5 (the) -600 (I) -40 (Romans) -210 (Psalm) -210 (faith) -40 (beside) -210 (God) -190 (Psalm)] TJ
+1 0 0 1 72.5 422.433 Tm
+[(lie) -190 (2\)) -210 (in) -600 (loved) -190 (lie)] TJ
+0.9 0 0 0.9 72.5 406.333 Tm
+(green) Tj 39 0 Td
+(1\)) Tj 18 0 Td
+(Lord) Tj 28 0 Td
+(loved) Tj 39 0 Td
+(He) Tj 18.2 0 Td
+1 0 0 1 72.5 390.233 Tm
+[(Psalm) -190 (God) -190 (world) -190 (Lord) -310 (he) -600 (still) -210 (in) -190 (He)] TJ
+0.9 0 0 1 72.5 374.133 Tm
+[(He)] TJ
+ET
+
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 18 0 R /MediaBox [0 0 612 792] /Contents 19 0 R /Resources << /Font << /F10 13 0 R /F5 7 0 R /F2 2 0 R /F11 15 0 R /F8 10 0 R /F12 16 0 R /F6 8 0 R >> /XObject << /Fm0 17 0 R  >> >> >>
+endobj
+21 0 obj
+<< /Type /Catalog /Pages 18 0 R >>
+endobj
+xref
+0 22
+0000000000 65535 f 
+0000000015 00000 n 
+0000000112 00000 n 
+0000000184 00000 n 
+0000000251 00000 n 
+0000000970 00000 n 
+0000001626 00000 n 
+0000002506 00000 n 
+0000002900 00000 n 
+0000003141 00000 n 
+0000003337 00000 n 
+0000003436 00000 n 
+0000003670 00000 n 
+0000003753 00000 n 
+0000003999 00000 n 
+0000004719 00000 n 
+0000004808 00000 n 
+0000005045 00000 n 
+0000006133 00000 n 
+0000006193 00000 n 
+0000009217 00000 n 
+0000009441 00000 n 
+trailer
+<< /Size 22 /Root 21 0 R >>
+startxref
+9492
+%%EOF

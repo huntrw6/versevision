@@ -1384,6 +1384,10 @@ def main() -> None:
         for filename, rows in providers_oracle(out, REPO_ROOT).items():
             write_jsonl(out / "providers" / filename, rows)
             print(f"providers/{filename}: {len(rows)} lines")
+    if not args.only:
+        from oracle_documents import documents_oracle          # the document readers (S4): oracle/documents/
+        for kind, count in documents_oracle(out, REPO_ROOT).items():
+            print(f"documents/{kind}: {count}")
     print(f"cases: {len(cases)}")
     for group, count in sorted(groups.items()):
         print(f"   {group}: {count}")

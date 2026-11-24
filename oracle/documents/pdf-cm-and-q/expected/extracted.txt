@@ -1,0 +1,3 @@
+inside q
+after Q
+stray Q first

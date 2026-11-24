@@ -1,0 +1,5 @@
+  leading and trailing spaces  
+  kept   x
+   
+  default  
+two  inner   spaces

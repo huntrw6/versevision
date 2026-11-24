@@ -1,0 +1,5 @@
+a
+cdata <kept>
+
+  
+sym

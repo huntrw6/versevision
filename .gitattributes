@@ -7,3 +7,6 @@ Cargo.toml text eol=lf
 Cargo.lock text eol=lf
 rust-toolchain.toml text eol=lf
 .github/workflows/*.yml text eol=lf
+
+# ReportLab fixtures of the document oracle: binary, never converted
+python/tests/fixtures/pdf/*.pdf -text
