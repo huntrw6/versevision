@@ -100,6 +100,13 @@ fn normalise(text: &str, root: &Path) -> String {
             out = out.replace(&variant, "{ROOT}");
         }
     }
+    // the operating system's words for a refused connection (the oracle was made on Linux)
+    for system in [
+        "[Errno 61] Connection refused",
+        "[WinError 10061] No connection could be made because the target machine actively refused it",
+    ] {
+        out = out.replace(system, "[Errno 111] Connection refused");
+    }
     if cfg!(windows) {
         // inside a `{ROOT}...` token turn the separators into slashes
         let mut fixed = String::new();
@@ -232,6 +239,9 @@ fn every_case_matches_python() {
         let name = case["name"].as_str().unwrap().to_string();
         if !only.is_empty() && !name.contains(&only) {
             continue;
+        }
+        if name == "autostart-status" && !cfg!(target_os = "linux") {
+            continue; // the oracle's answer is the Linux one; the other systems' login items are in oracle_render.rs
         }
         total += 1;
         let root = scratch.path().join(format!("c{index}"));

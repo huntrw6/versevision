@@ -269,6 +269,7 @@ fn keys_help_is_stable() {
                 file.display()
             )
         });
-        assert_eq!(out, want, "help of {name}");
+        // a Windows checkout may turn the snapshot's line ends into CRLF
+        assert_eq!(out, want.replace("\r\n", "\n"), "help of {name}");
     }
 }

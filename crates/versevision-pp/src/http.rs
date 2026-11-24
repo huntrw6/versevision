@@ -49,7 +49,11 @@ pub fn transport_text(error: &ureq::Error) -> String {
                 .rsplit_once(" (os error")
                 .map_or(text.as_str(), |(head, _)| head);
             return if cfg!(windows) {
-                format!("[WinError {code}] {strerror}")
+                // CPython trims trailing dots and line ends from the system message
+                format!(
+                    "[WinError {code}] {}",
+                    strerror.trim_end_matches(['.', '\r', '\n', ' '])
+                )
             } else {
                 format!("[Errno {code}] {strerror}")
             };
