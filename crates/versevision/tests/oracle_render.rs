@@ -185,7 +185,10 @@ fn macos_autostart_writes_the_launch_agent_and_loads_it() {
     );
     let plist = root
         .path()
-        .join("home/Library/LaunchAgents/org.versevision.serve.plist");
+        .join("home")
+        .join("Library")
+        .join("LaunchAgents")
+        .join("org.versevision.serve.plist");
     let text = fs::read_to_string(&plist).unwrap();
     let log = root
         .path()
