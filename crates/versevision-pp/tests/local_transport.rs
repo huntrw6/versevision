@@ -11,7 +11,7 @@ use versevision_pp::process::FixedProbe;
 use versevision_pp::transport::{LocalTransport, Transport};
 
 fn sample() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR")).join("../../python/tests/fixtures/sample/Sample.pro")
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/fixtures/sample/Sample.pro")
 }
 
 fn transport(root: &Path) -> LocalTransport {

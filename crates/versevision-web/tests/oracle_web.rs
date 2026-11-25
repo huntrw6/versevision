@@ -165,7 +165,7 @@ fn corpus() -> Corpus {
         logs: work.join("logs"),
         keys: work.clone(),
     };
-    let themes = repo().join("python/tests/fixtures/themes");
+    let themes = repo().join("tests/fixtures/themes");
     let state = WebState::builder(dirs, config)
         .app_version("0.38.1")
         .transport(Arc::new(move |_| {

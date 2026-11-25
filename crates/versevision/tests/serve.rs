@@ -139,7 +139,7 @@ async fn status_reports_the_one_version_constant() {
     assert_eq!(code, 200, "{body}");
     let json: Value = serde_json::from_str(&body).unwrap();
     assert_eq!(json["version"], VERSEVISION_VERSION);
-    assert_eq!(VERSEVISION_VERSION, "1.0.0-dev");
+    assert_eq!(VERSEVISION_VERSION, "1.0.0");
     stop.send(()).unwrap();
     server.await.unwrap().unwrap();
 }

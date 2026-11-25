@@ -1,0 +1,116 @@
+# Publishes a VerseVision release: pushing a tag like v1.0.0 builds the `versevision` program on macOS (Intel and Apple Silicon), Windows and
+# Linux, packs each with the licence and a short how-to-start note, adds SHA256SUMS and creates a GitHub release with those files.
+# The tag must match VERSEVISION_VERSION in crates/versevision-core/src/lib.rs. Nothing is signed or notarised.
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build — ${{ matrix.name }}
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - name: macOS Intel
+            runner: macos-15-intel
+            file: versevision
+            slug: macos-intel
+            pack: tar
+          - name: macOS Apple Silicon
+            runner: macos-latest
+            file: versevision
+            slug: macos-apple-silicon
+            pack: tar
+          - name: Windows
+            runner: windows-latest
+            file: versevision.exe
+            slug: windows
+            pack: zip
+          - name: Linux
+            runner: ubuntu-latest
+            file: versevision
+            slug: linux
+            pack: tar
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: The tag matches the program's version
+        shell: bash
+        run: |
+          code=$(sed -n 's/^pub const VERSEVISION_VERSION: &str = "\(.*\)";/\1/p' crates/versevision-core/src/lib.rs)
+          test "v$code" = "${GITHUB_REF_NAME}" || { echo "tag ${GITHUB_REF_NAME} but the program says v$code"; exit 1; }
+
+      - name: Restore cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: bin-${{ matrix.runner }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml') }}
+
+      - name: Build
+        run: cargo build --release --locked -p versevision
+
+      - name: Pack
+        shell: bash
+        run: |
+          name="versevision-${GITHUB_REF_NAME}-${{ matrix.slug }}"
+          mkdir -p "pack/$name"
+          cp "target/release/${{ matrix.file }}" LICENSE "pack/$name/"
+          cp docs/START-HERE.txt "pack/$name/START-HERE.txt"
+          cd pack
+          if [ "${{ matrix.pack }}" = zip ]; then
+            7z a -tzip "../$name.zip" "$name" >/dev/null
+            echo "FILE=$name.zip" >> "$GITHUB_ENV"
+          else
+            tar -czf "../$name.tar.gz" "$name"
+            echo "FILE=$name.tar.gz" >> "$GITHUB_ENV"
+          fi
+
+      - name: The packed program starts
+        shell: bash
+        run: |
+          "target/release/${{ matrix.file }}" --version | tee version.txt
+          grep -q "VerseVision ${GITHUB_REF_NAME#v}" version.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pack-${{ matrix.slug }}
+          path: ${{ env.FILE }}
+          retention-days: 3
+
+  publish:
+    name: Publish the release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          pattern: pack-*
+          merge-multiple: true
+
+      - name: Checksums
+        run: cd dist && sha256sum * > SHA256SUMS && cat SHA256SUMS
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" dist/* \
+            --title "VerseVision ${GITHUB_REF_NAME#v}" \
+            --notes-file docs/RELEASE_NOTES.md --verify-tag

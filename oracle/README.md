@@ -1,5 +1,7 @@
 # The oracle
 
+> **The Python app is gone from this repository** (removed when the Rust app was proven live on ProPresenter). Its last version is the git tag `python-final` (0.38.1): `git checkout python-final` brings back `python/`, its tests and the scripts named below. Everything under `oracle/` is now fixed reference data, compared byte for byte by the Rust tests. To change a rule, change the Rust code *and* the matching expected file by hand (or check out `python-final`, regenerate there, and copy). References to `python/...` below describe how the data was made.
+
 What the Python app (`python/`) produces for a corpus of documents and for single lines. The Rust port must reproduce all of it; the exact shapes
 and the comparison rules are in [`docs/PLAN_CONTRACT.md`](../docs/PLAN_CONTRACT.md). **Nothing in this folder is edited by hand.**
 
@@ -46,7 +48,7 @@ file called `upload.<ext>`, like the web layer's upload.
 | `html-*` | 34 | sermon notes as HTML, about half malformed on purpose (unclosed and stray tags, `<` in text, odd attributes, comments, CDATA, processing instructions, entities with and without `;`, numeric references, scripts and styles, raw-text elements) |
 | `docx-*` | 16 | Word files: runs, tabs, breaks, hyperlinks, tables and headers (not read), tracked changes, content controls, fields, text boxes, odd text elements |
 | `text-*` | 6 | `.txt`/`.md` bytes: CRLF and lone CR, BOM, tabs, NBSP and other odd Unicode |
-| `pdf-*` | 119 | 43 PDFs made with ReportLab (`python/tests/fixtures/pdf`, written by `python/scripts/make_pdf_fixtures.py`: wrapped and justified paragraphs, two columns, bullets, ligature characters, standard and TrueType fonts, CJK fonts, rotated pages and text, tables, forms, encrypted with an empty password, object streams, linearized, a scanned page), 40 generated ones (`pdf-generated-*`, seeded: several font kinds, every text operator, kerning around the space threshold) and 36 hand-made ones (`pdf-<feature>`: one feature each: kerning, quote operators, rotations, fonts with `/Differences`, `/Widths`, `/ToUnicode`, Type0, Type3, East Asian CMaps, forms, filters, page trees; `pdf-error-*` do not read) |
+| `pdf-*` | 119 | 43 PDFs made with ReportLab (`tests/fixtures/pdf`, written by `python/scripts/make_pdf_fixtures.py`: wrapped and justified paragraphs, two columns, bullets, ligature characters, standard and TrueType fonts, CJK fonts, rotated pages and text, tables, forms, encrypted with an empty password, object streams, linearized, a scanned page), 40 generated ones (`pdf-generated-*`, seeded: several font kinds, every text operator, kerning around the space threshold) and 36 hand-made ones (`pdf-<feature>`: one feature each: kerning, quote operators, rotations, fonts with `/Differences`, `/Widths`, `/ToUnicode`, Type0, Type3, East Asian CMaps, forms, filters, page trees; `pdf-error-*` do not read) |
 | `error-*` | 19 | inputs that raise: UTF-8 that is not UTF-8, Word files that are not zip files or lack a part or have broken XML |
 
 Line level, one JSON object per line:
@@ -98,7 +100,7 @@ compare the Rust providers (against a local HTTP server that plays the same resp
 | `html_text.jsonl` | 255 | API.Bible verse `content` -> text: `BeautifulSoup(..., "html.parser").get_text(" ", strip=True)` and the leading `[16]` marker removed (tags, entities, numeric references, comments, declarations, CDATA, `script`/`style`/`template`/`rt`/`rp`, broken markup) |
 | `json_errors.jsonl` | 112 | `httpx.Response.json()` on a body: valid, or the exact `JSONDecodeError` / `UnicodeDecodeError` text the planner shows after `response failed:` |
 | `keys.jsonl` | 36 | `credentials._from_keys_file` on the text of a `keys.env` for three names (quotes, comments, blank and odd lines, line ends) |
-| `usfm.jsonl` | 8 scenarios | `LocalUsfmProvider` over `oracle/providers/usfm/*` (written by the exporter) and `python/tests/fixtures/usfm/synthetic`: versions, health, passages, errors. `{path}` and `{resolved}` stand for the folder as configured and as resolved |
+| `usfm.jsonl` | 8 scenarios | `LocalUsfmProvider` over `oracle/providers/usfm/*` (written by the exporter) and `tests/fixtures/usfm/synthetic`: versions, health, passages, errors. `{path}` and `{resolved}` stand for the folder as configured and as resolved |
 | `api_bible.jsonl`, `youversion.jsonl`, `esv.jsonl` | 35 / 18 / 11 scenarios | one provider against canned responses: list of Bibles, passages, configured ids, listing shapes, every status (401, 403, 429, 5xx, 3xx not followed, 204), timeouts, no retry, bad JSON, no key. Each row has the requests the provider made (method, path, sorted query, key header) as well as the results |
 | `registry.jsonl` | 4 scenarios | `ProviderRegistry._fetch` over several providers and a real SQLite cache: provider, source (`live`, `cache`, `live (not stored)`), verses, the routing errors, what was cached (the ESV text never) |
 

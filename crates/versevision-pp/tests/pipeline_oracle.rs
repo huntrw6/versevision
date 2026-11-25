@@ -127,7 +127,7 @@ impl Recorder {
             if after == op && !*done {
                 *done = true;
                 let rel = source.split_once(':').unwrap().1;
-                let data = fs::read(repo().join("python/tests/fixtures").join(rel)).unwrap();
+                let data = fs::read(repo().join("tests/fixtures").join(rel)).unwrap();
                 fs::write(path, data).unwrap();
                 self.ops.lock().unwrap().push(json!({
                     "t": round3(self.clock.elapsed()), "op": "hook:overwrite", "args": [self.rel(path), source]
@@ -348,7 +348,7 @@ struct Scenario {
 }
 
 fn build_library(spec: &Value, root: &Path) {
-    let fixtures = repo().join("python/tests/fixtures");
+    let fixtures = repo().join("tests/fixtures");
     for name in spec["libraries"].as_array().unwrap() {
         fs::create_dir_all(root.join("Libraries").join(name.as_str().unwrap())).unwrap();
     }
@@ -517,7 +517,7 @@ impl Scenario {
                     .join("Libraries")
                     .join(step["library"].as_str().unwrap())
                     .join(format!("{}.pro", step["name"].as_str().unwrap()));
-                fs::copy(repo().join("python/tests/fixtures").join(rel), to).unwrap();
+                fs::copy(repo().join("tests/fixtures").join(rel), to).unwrap();
             }
             "seed_runs" => {
                 let folder = self.root.join("logs/runs");
