@@ -7,6 +7,7 @@
 
 pub mod app;
 pub mod autostart;
+pub mod block;
 pub mod cmds;
 pub mod def;
 pub mod difflib;

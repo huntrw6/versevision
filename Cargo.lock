@@ -2175,7 +2175,6 @@ version = "0.0.0"
 dependencies = [
  "clap",
  "indexmap",
- "pollster",
  "rpassword",
  "serde_json",
  "tempfile",

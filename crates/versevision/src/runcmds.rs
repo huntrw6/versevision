@@ -134,7 +134,7 @@ pub fn run(rt: &Rt, a: RunArgs) -> i32 {
     };
     let mut context = ctx(rt, !as_json);
     let sources = bible(rt, &config);
-    let outcome = pollster::block_on(run_import(
+    let outcome = crate::block::block_on(run_import(
         &mut context,
         &request,
         &config,
@@ -335,7 +335,7 @@ pub fn providers_test(rt: &Rt, a: OutputOnly) -> i32 {
         Err(e) => return fail(rt, &e),
     };
     let sources = bible(rt, &config);
-    let results = pollster::block_on(sources.own().health_checks());
+    let results = crate::block::block_on(sources.own().health_checks());
     if is_json(&a.output) {
         let values: Vec<Value> = results
             .iter()

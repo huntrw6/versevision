@@ -74,7 +74,7 @@ pub fn import(rt: &Rt, a: ImportArgs) -> Result<i32, Usage> {
             no_fetch: a.no_fetch,
         };
         let mut trace = versevision_core::notes::trace::NoTrace;
-        let result = match pollster::block_on(versevision_core::workflow::plan_notes(
+        let result = match crate::block::block_on(versevision_core::workflow::plan_notes(
             &source,
             &config,
             &options,
@@ -126,7 +126,7 @@ pub fn import(rt: &Rt, a: ImportArgs) -> Result<i32, Usage> {
         || a.target_presentation
             .as_deref()
             .is_some_and(|t| !t.is_empty());
-    let result = match pollster::block_on(dry_run_import(
+    let result = match crate::block::block_on(dry_run_import(
         &source,
         &config,
         a.default_version.as_deref(),
