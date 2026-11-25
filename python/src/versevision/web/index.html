@@ -16,7 +16,7 @@
      sidebar headings, grey-outlined selection, 16:9 slide cards with a grey label strip. */
   :root{
     --toolbar:#4a4543; --toolbar-lo:#3b3837; --sidebar:#464646; --panel:#2f2f2f; --canvas:#1e1e1e;
-    --row-sel:#5c5c5c; --btn:#6e6e6e; --label:#5e5e5e;
+    --row-sel:#5c5c5c; --sel-blue:#2f6fd8; --btn:#6e6e6e; --label:#5e5e5e;
     --text:#f4f4f4; --dim:#c4c4c4; --head:#b8b8b8;
     --blue:#2f7bff; --orange:#fdb35f; --red:#e02020; --green:#3fb950; --amber:#e8a33d; --purple:#8f6bd8;
     --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Segoe UI",Roboto,sans-serif;
@@ -58,7 +58,12 @@
   .row.click{cursor:pointer} .row.click:hover:not(.sel){background:#ffffff12}
   .row .t{overflow:hidden;text-overflow:ellipsis}
   .row.dim{opacity:.8}
-  #side-note{padding:12px;color:#cfcfcf;font-size:12.5px;line-height:1.45}
+  /* The sidebar's three titles are bigger than the small headings elsewhere. The ones for the thing being chosen turn orange and its selected row is
+     blue: in New mode that is the Library or Playlist (it says where the new presentation goes); in Replace and Append it is the Presentation
+     (the Library and Playlist rows then keep the plain grey selection). aside[data-pick] is set by drawSidebar when the mode is not New. */
+  aside .sec{font-size:17px;letter-spacing:.05em;padding-top:14px}
+  aside:not([data-pick]) .s-nav,aside[data-pick] .s-pres{color:var(--orange)}
+  aside:not([data-pick]) #libs .row.sel,aside:not([data-pick]) #plists .row.sel,aside[data-pick] #pres .row.sel{background:var(--sel-blue);border-color:#6f9cf2}
 
   main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--canvas)}
   #titlebar{height:42px;flex:none;background:#1a1a1a;border-bottom:1px solid #000;display:flex;align-items:center;gap:10px;padding:0 16px}
@@ -235,13 +240,12 @@
 
 <div id="app">
   <aside>
-    <div class="sec">Library</div>
+    <div class="sec s-nav">Library</div>
     <div id="libs"></div>
-    <div class="sec" id="plSec">Playlists</div>
+    <div class="sec s-nav" id="plSec">Playlists</div>
     <div id="plists"></div>
-    <div class="sec">Presentations</div>
+    <div class="sec s-pres">Presentations</div>
     <div id="pres"></div>
-    <div id="side-note"></div>
   </aside>
 
   <main>
@@ -500,6 +504,7 @@ function drawSidebar(){
   const box = $('pres'); box.replaceChildren();
   const playlist = state.playlists.find(p=>p.uuid===state.plSel);
   const picking = state.mode!=='new';
+  document.querySelector('aside').toggleAttribute('data-pick', picking);
   const rows = playlist ? playlist.entries.filter(e=>e.library) : state.pres.filter(p=>p.library===state.libSel);
   let section = null;
   for(const p of rows){
@@ -512,7 +517,6 @@ function drawSidebar(){
     box.append(r);
   }
   if(!rows.length) box.append(el('div','empty', playlist ? 'No presentations in this playlist.' : 'No presentations in this library.'));
-  $('side-note').textContent = 'Select a Library or Presentation';
 }
 function fillSelects(){
   const ls = $('libSel'); ls.replaceChildren();

@@ -177,3 +177,17 @@ def test_a_left_out_line_ticked_in_the_review_becomes_a_slide_when_importing(sta
     assert done.result["slide_count"] == before + 1
     from versevision import runlog
     assert any(r["stage"] == "review_included" and r["added"][0]["text"] == "• Title 11/8/26" for r in runlog.read_trace(job.run_id))
+
+
+def test_the_sidebar_marks_what_is_chosen_in_orange_and_blue_without_a_hint_line():
+    """New mode: Library and Playlists titles are orange and their selected row is blue. Replace/Append (aside[data-pick]): the
+    Presentations title is orange and the picked presentation is blue, Library/Playlist rows go back to the plain selection.
+    The three titles are bigger than the rows, and the old "Select a Library or Presentation" hint line is gone."""
+    page = (Path(web.__file__).parent / "index.html").read_text(encoding="utf-8")
+    assert 'class="sec s-nav">Library<' in page and 'class="sec s-nav" id="plSec">Playlists<' in page
+    assert 'class="sec s-pres">Presentations<' in page
+    assert "aside:not([data-pick]) .s-nav,aside[data-pick] .s-pres{color:var(--orange)}" in page
+    assert "aside:not([data-pick]) #libs .row.sel,aside:not([data-pick]) #plists .row.sel,aside[data-pick] #pres .row.sel{background:var(--sel-blue)" in page
+    assert "document.querySelector('aside').toggleAttribute('data-pick', picking)" in page
+    assert "aside .sec{font-size:17px" in page
+    assert "Select a Library or Presentation" not in page and "side-note" not in page

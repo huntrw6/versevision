@@ -185,6 +185,25 @@ async fn the_sidebar_and_the_titles_use_the_pixel_icons() {
 }
 
 #[tokio::test]
+async fn the_sidebar_marks_what_is_chosen_in_orange_and_blue_without_a_hint_line() {
+    // Python's test of the same name: New mode = Library and Playlists titles orange and their selected row blue; Replace and Append
+    // (`aside[data-pick]`) = the Presentations title orange and the picked presentation blue; bigger titles; no hint line.
+    let (_h, router) = router();
+    let page = get(&router, "/").await.text();
+    assert!(
+        page.contains("class=\"sec s-nav\">Library<")
+            && page.contains("class=\"sec s-nav\" id=\"plSec\">Playlists<")
+    );
+    assert!(page.contains("class=\"sec s-pres\">Presentations<"));
+    assert!(page
+        .contains("aside:not([data-pick]) .s-nav,aside[data-pick] .s-pres{color:var(--orange)}"));
+    assert!(page.contains("aside:not([data-pick]) #libs .row.sel,aside:not([data-pick]) #plists .row.sel,aside[data-pick] #pres .row.sel{background:var(--sel-blue)"));
+    assert!(page.contains("document.querySelector('aside').toggleAttribute('data-pick', picking)"));
+    assert!(page.contains("aside .sec{font-size:17px"));
+    assert!(!page.contains("Select a Library or Presentation") && !page.contains("side-note"));
+}
+
+#[tokio::test]
 async fn the_review_panel_has_its_tiers_the_use_the_fix_box_and_add_as_slide() {
     let (_h, router) = router();
     let page = get(&router, "/").await.text();
