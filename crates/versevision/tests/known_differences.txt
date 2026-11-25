@@ -2,3 +2,4 @@
 # listed case now passes, and when an unlisted case fails.
 config-broken-toml | the wording of a TOML syntax error: Python's tomllib says "Expected ']' at the end of a table declaration (at line 1, column 7)", the toml crate has its own words
 run-offline | a default install now has built-in Bible providers (S8a): with no key and no StagePilot installation the NIV line says "YouVersion key is missing. Set the YOUVERSION_API_KEY environment variable." where Python says "No Bible provider route is configured for NIV". A config that defines provider tables still answers as Python does (tested in versevision-bible/tests/builtin.rs).
+
