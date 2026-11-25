@@ -1,0 +1,23 @@
+VerseVision: sermon notes to ProPresenter slides
+================================================
+
+1. Start it
+   macOS / Linux:  open a Terminal in this folder and run   ./versevision serve
+   Windows:        open PowerShell in this folder and run   .\versevision.exe serve
+   Your browser opens the VerseVision page (http://127.0.0.1:8777/ unless that port is taken; the address is printed).
+
+2. First time: add a Bible key
+   VerseVision looks verses up with a Bible key. Until you add one, the Import page shows "Add a Bible key first" with a button that
+   takes you to Config > Bible keys. Free keys: API.Bible (scripture.api.bible), YouVersion (platform.youversion.com), ESV (api.esv.org).
+   Keys stay on your computer. (Inside StagePilot, VerseVision needs no key of its own.)
+
+3. Drop your notes (PDF, Word, text, Markdown or HTML) on the page, check the review, and press Import.
+   ProPresenter must be running with its Network API on (ProPresenter > Settings > Network).
+
+macOS says the program "cannot be opened because the developer cannot be verified"?
+   This build is not signed. In Terminal, once:   xattr -d com.apple.quarantine ./versevision
+   Windows SmartScreen: More info > Run anyway.
+
+To start VerseVision whenever you log in:   versevision autostart --help
+
+Version and licence: see `versevision --version` and LICENSE.
