@@ -21,10 +21,7 @@ async fn the_planner_gets_its_text_from_usfm_files() {
     let expected: Value =
         serde_json::from_str(&fs::read_to_string(case.join("expected/plan.json")).unwrap())
             .unwrap();
-    let fixture = format!(
-        "{}/tests/fixtures/usfm/synthetic",
-        repo_root().display()
-    );
+    let fixture = format!("{}/tests/fixtures/usfm/synthetic", repo_root().display());
     let bible = bible_config(
         &json!({
             "version_routes": {"NIV": "synthetic_niv", "NKJV": "synthetic_nkjv"},

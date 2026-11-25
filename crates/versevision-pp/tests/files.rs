@@ -33,11 +33,7 @@ fn append_in_place_makes_a_backup_and_writes_the_oracle_bytes() {
     let (plan, definition, options, dir) = case("append-sample");
     let work = scratch("append");
     let target = work.join("Sample.pro");
-    fs::copy(
-        repo().join("tests/fixtures/sample/Sample.pro"),
-        &target,
-    )
-    .unwrap();
+    fs::copy(repo().join("tests/fixtures/sample/Sample.pro"), &target).unwrap();
     let original = fs::read(&target).unwrap();
     let mut writer =
         PresentationWriter::new(SeededUuids::new(options["uuid_seed"].as_str().unwrap()));
