@@ -11,6 +11,11 @@
 //! | `auto` | own providers when the key store has the key of the provider that serves the version (or the provider needs no key: local USFM); else the service when the host gave an [`InstallationAuth`]; else own providers (their normal missing-key text) | own providers |
 //!
 //! The choice is made at every lookup and the key is read then, so a key added in the Config page counts at once.
+//!
+//! **Default install** (deliberate, additive difference from Python): a config with no `[bible.providers.*]` gets the built-in API.Bible,
+//! YouVersion and ESV providers and a route for each version the service offers ([`versevision_core::config::BibleConfig::builtin_providers`]),
+//! so "own" above means those, and a key saved in the key store is used by the versions its provider serves (ESV key: ESV; API.Bible key:
+//! NKJV NLT KJV MSG WEB; YouVersion key: NIV AMP BSB LSV NIRV NASB1995 NASB2020 TPT). A config that defines any provider table is not touched.
 
 use std::sync::Arc;
 
@@ -42,6 +47,8 @@ pub enum Route {
 /// What the planner reads Bible text through when the StagePilot service may be used; it follows `bible.source`.
 pub struct BibleSources {
     own: ProviderRegistry<AnyProvider>,
+    /// The built-in providers and routes, in use when the config defines no provider table (then they answer instead of `own`).
+    builtin: Option<ProviderRegistry<AnyProvider>>,
     service: ProviderRegistry<AnyProvider>,
     keys: Arc<dyn KeyStore>,
     auth: Option<Arc<dyn InstallationAuth>>,
@@ -61,6 +68,7 @@ impl std::fmt::Debug for BibleSources {
 impl BibleSources {
     pub(crate) fn new(
         own: ProviderRegistry<AnyProvider>,
+        builtin: Option<ProviderRegistry<AnyProvider>>,
         source: BibleSource,
         keys: Arc<dyn KeyStore>,
         cache: Option<Arc<dyn VerseCache>>,
@@ -93,6 +101,7 @@ impl BibleSources {
         }
         Self {
             own,
+            builtin,
             service,
             keys,
             auth,
@@ -103,6 +112,16 @@ impl BibleSources {
     /// The user's own providers, as [`RegistryBuilder::build`](crate::RegistryBuilder::build) makes them.
     pub fn own(&self) -> &ProviderRegistry<AnyProvider> {
         &self.own
+    }
+
+    /// The registry that answers "own" lookups: the built-in providers when the config defines none, else [`BibleSources::own`].
+    fn effective_own(&self) -> &ProviderRegistry<AnyProvider> {
+        self.builtin.as_ref().unwrap_or(&self.own)
+    }
+
+    /// Is the config using the built-in providers (it defines no `[bible.providers.*]`)?
+    pub fn uses_builtin_providers(&self) -> bool {
+        self.builtin.is_some()
     }
 
     pub fn source(&self) -> BibleSource {
@@ -120,8 +139,8 @@ impl BibleSources {
     /// Can the user's own providers answer `version` right now: a provider routes it and has its key (or needs none)?
     fn own_ready(&self, version: &str) -> bool {
         let wanted = casefold(version);
-        let Some(route) = self
-            .own
+        let own = self.effective_own();
+        let Some(route) = own
             .version_routes
             .iter()
             .find(|(label, _)| casefold(label) == wanted)
@@ -129,8 +148,7 @@ impl BibleSources {
         else {
             return false;
         };
-        self.own
-            .providers
+        own.providers
             .get(route)
             .is_some_and(|provider| provider.own_ready(self.keys.as_ref()))
     }
@@ -179,14 +197,15 @@ impl BiblePassages for BibleSources {
             None => Route::Own,
         };
         match route {
-            Route::Own => self.own.fetch(reference, trace).await,
+            Route::Own => self.effective_own().fetch(reference, trace).await,
             Route::Service => self.service.fetch(reference, trace).await,
         }
     }
 
     fn description(&self) -> String {
-        let own = self.own.description();
-        let own = if self.own.providers.is_empty() {
+        let effective = self.effective_own();
+        let own = effective.description();
+        let own = if effective.providers.is_empty() {
             "providers: none of your own".to_string()
         } else {
             own

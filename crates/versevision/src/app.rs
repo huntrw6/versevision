@@ -12,7 +12,7 @@ use crate::help::{render_error, render_help};
 use crate::paths::Paths;
 use crate::rich::Console;
 
-pub const VERSION: &str = env!("CARGO_PKG_VERSION");
+pub use versevision_core::VERSEVISION_VERSION as VERSION;
 
 /// The terminal facts the output depends on (`rich.console.Console`'s own detection, for the three streams).
 #[derive(Debug, Clone)]

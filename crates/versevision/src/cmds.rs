@@ -747,13 +747,21 @@ fn autostart_setup<'a>(
     rt: &Rt,
     runner: &'a dyn crate::autostart::Runner,
 ) -> crate::autostart::Setup<'a> {
+    autostart_setup_for(&rt.paths, runner)
+}
+
+/// What autostart needs from this machine (also what the web page's start-at-login switch uses).
+pub(crate) fn autostart_setup_for<'a>(
+    paths: &crate::paths::Paths,
+    runner: &'a dyn crate::autostart::Runner,
+) -> crate::autostart::Setup<'a> {
     crate::autostart::Setup {
         platform: crate::autostart::Platform::current(),
-        home: rt.paths.home.clone(),
+        home: paths.home.clone(),
         xdg_config_home: std::env::var_os("XDG_CONFIG_HOME")
             .filter(|v| !v.is_empty())
             .map(PathBuf::from),
-        os_logs: rt.paths.os_logs.clone(),
+        os_logs: paths.os_logs.clone(),
         program: std::env::current_exe().unwrap_or_else(|_| PathBuf::from("versevision")),
         uid: current_uid(),
         runner,

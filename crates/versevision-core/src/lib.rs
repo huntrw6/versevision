@@ -15,3 +15,7 @@ pub mod references;
 pub mod slides;
 pub mod versions;
 pub mod workflow;
+
+/// The version the program reports: `versevision --version`, the web page's `/api/status`, the run log, the User-Agent. The one place it is
+/// written (the Cargo workspace version is a separate, internal label).
+pub const VERSEVISION_VERSION: &str = "1.0.0-dev";

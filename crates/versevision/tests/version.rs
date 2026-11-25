@@ -9,12 +9,12 @@ fn run(args: &[&str]) -> std::process::Output {
 }
 
 #[test]
-fn version_flag_prints_the_name_and_the_workspace_version() {
+fn version_flag_prints_the_name_and_the_version_constant() {
     let out = run(&["--version"]);
     assert!(out.status.success());
     assert_eq!(
         String::from_utf8_lossy(&out.stdout),
-        format!("VerseVision {}\n", env!("CARGO_PKG_VERSION"))
+        format!("VerseVision {}\n", versevision_core::VERSEVISION_VERSION)
     );
 }
 

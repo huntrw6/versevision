@@ -23,6 +23,9 @@ versevision-core = { path = "../versevision-core" }
 versevision-pp = { path = "../versevision-pp" }
 versevision-bible = { path = "../versevision-bible" }
 versevision-docs = { path = "../versevision-docs" }
+versevision-web = { path = "../versevision-web" }
+tokio = { version = "1", default-features = false, features = ["rt-multi-thread", "net", "signal", "time", "macros"] }
+uuid = { version = "1", features = ["v4"] }
 clap = { version = "4", default-features = false, features = ["std", "derive", "error-context", "usage"] }
 unicode-width = "0.2"
 terminal_size = "0.4"

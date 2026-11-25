@@ -140,6 +140,7 @@ pub struct RegistryBuilder {
     cache: Option<Arc<dyn VerseCache>>,
     extra: IndexMap<String, AnyProvider>,
     auth: Option<Arc<dyn InstallationAuth>>,
+    builtin: Option<BibleConfig>,
 }
 
 impl std::fmt::Debug for RegistryBuilder {
@@ -158,7 +159,15 @@ impl RegistryBuilder {
             cache: None,
             extra: IndexMap::new(),
             auth: None,
+            builtin: None,
         }
+    }
+
+    /// The providers and routes [`RegistryBuilder::build_sources`] uses for a config that defines no `[bible.providers.*]`
+    /// (default: [`BibleConfig::builtin_providers`], the real endpoints). Tests point them at a fake server.
+    pub fn builtin_providers(mut self, builtin: BibleConfig) -> Self {
+        self.builtin = Some(builtin);
+        self
     }
 
     /// Keep verses in `cache` (a [`crate::ScriptureCache`]); without one every lookup asks the provider.
@@ -181,15 +190,37 @@ impl RegistryBuilder {
 
     /// The registry that follows `bible.source`: the user's own providers ([`RegistryBuilder::build`]) and the StagePilot
     /// service, chosen per version at every lookup. See [`BibleSources`].
+    ///
+    /// A config with no `[bible.providers.*]` (and no provider added with [`RegistryBuilder::provider`]) gets the built-in
+    /// providers and routes ([`BibleConfig::builtin_providers`]), so a key saved in the key store is used by the versions its
+    /// provider serves on a default install. A config that defines any provider table is built exactly as [`RegistryBuilder::build`].
     pub fn build_sources(self, bible: &BibleConfig) -> BibleSources {
         let keys = self.keys.clone();
         let cache = self.cache.clone();
         let auth = self.auth.clone();
+        let builtin = if bible.providers.is_empty() && self.extra.is_empty() {
+            let defaults = self
+                .builtin
+                .clone()
+                .unwrap_or_else(BibleConfig::builtin_providers);
+            let effective = bible.with_builtin_providers(&defaults);
+            let registry = ProviderRegistry::new(
+                effective.version_routes.clone(),
+                self.config_providers(&effective),
+            );
+            Some(match &self.cache {
+                Some(cache) => registry.with_cache(cache.clone()),
+                None => registry,
+            })
+        } else {
+            None
+        };
         let own = self.build(bible);
-        BibleSources::new(own, bible.source, keys, cache, auth)
+        BibleSources::new(own, builtin, bible.source, keys, cache, auth)
     }
 
-    pub fn build(self, bible: &BibleConfig) -> ProviderRegistry<AnyProvider> {
+    /// One provider per `[bible.providers.NAME]`, in the file's order.
+    fn config_providers(&self, bible: &BibleConfig) -> IndexMap<String, AnyProvider> {
         let mut providers: IndexMap<String, AnyProvider> = IndexMap::new();
         for (name, config) in &bible.providers {
             let provider = match config {
@@ -210,6 +241,11 @@ impl RegistryBuilder {
             };
             providers.insert(name.clone(), provider);
         }
+        providers
+    }
+
+    pub fn build(self, bible: &BibleConfig) -> ProviderRegistry<AnyProvider> {
+        let mut providers = self.config_providers(bible);
         providers.extend(self.extra);
         let registry = ProviderRegistry::new(bible.version_routes.clone(), providers);
         match self.cache {

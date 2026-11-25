@@ -275,3 +275,18 @@ pub fn build_provider(
     let mut registry = RegistryBuilder::new(keys).build(&bible);
     registry.providers.shift_remove(&name).unwrap()
 }
+
+/// The built-in providers and routes with their base URLs on a fake server at `origin`: API.Bible `/v1`, YouVersion `/yv`, ESV `/v3`.
+pub fn builtin_at(origin: &str) -> BibleConfig {
+    use versevision_core::config::ProviderConfig;
+    let mut bible = BibleConfig::builtin_providers();
+    for (name, provider) in bible.providers.iter_mut() {
+        match (name.as_str(), provider) {
+            ("api_bible", ProviderConfig::ApiBible(c)) => c.base_url = format!("{origin}/v1"),
+            ("youversion", ProviderConfig::YouVersion(c)) => c.base_url = format!("{origin}/yv"),
+            ("esv", ProviderConfig::Esv(c)) => c.base_url = format!("{origin}/v3"),
+            _ => {}
+        }
+    }
+    bible
+}
