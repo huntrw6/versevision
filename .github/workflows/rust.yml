@@ -15,7 +15,6 @@ on:
       - "crates/**"
       - "oracle/**"
       - "proto/**"
-      - "python/**"
       - ".github/workflows/rust.yml"
   pull_request:
     paths:
@@ -25,7 +24,6 @@ on:
       - "crates/**"
       - "oracle/**"
       - "proto/**"
-      - "python/**"
       - ".github/workflows/rust.yml"
 
 permissions:
@@ -97,27 +95,3 @@ jobs:
 
       - name: The ProPresenter pipeline oracle in numbers
         run: cargo test -p versevision-pp --test pipeline_oracle --test selection_oracle -- --nocapture --test-threads=1
-
-  python:
-    name: Python suite (the oracle)
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v6
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.13"
-
-      - name: Install uv
-        run: python -m pip install uv
-
-      # Typer forces coloured output when GITHUB_ACTIONS is set, which splits the option names a CLI test looks for
-      # (tests/test_cli_import.py); a dumb terminal switches the styling off. Test environment only: no Python behaviour changes.
-      - name: pytest
-        working-directory: python
-        env:
-          TERM: dumb
-        run: uv run --extra dev pytest -q -p no:cacheprovider

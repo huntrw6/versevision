@@ -35,7 +35,7 @@ fn roundtrip(message: &str, files: &[PathBuf]) {
 
 #[test]
 fn presentation_fixtures_roundtrip() {
-    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../python/tests/fixtures");
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/fixtures");
     let mut files = Vec::new();
     files_named(
         &root,
@@ -53,7 +53,7 @@ fn presentation_fixtures_roundtrip() {
 
 #[test]
 fn theme_fixtures_roundtrip() {
-    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../python/tests/fixtures/themes");
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/fixtures/themes");
     let mut files = Vec::new();
     files_named(
         &root,

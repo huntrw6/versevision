@@ -1,6 +1,6 @@
 # The plan contract
 
-VerseVision is being rewritten in Rust (see `README.md`). Until the Rust app matches it, **the Python app in `python/` is the specification**.
+VerseVision is being rewritten in Rust (see `README.md`). The Rust app now matches it and the Python app has been removed; **the oracle files in `oracle/` are the specification** (the last Python source is the git tag `python-final`).
 This file says exactly what the Python app produces for a document, so the Rust port can be checked against it file by file.
 The expected results live in `oracle/` (how to regenerate and what is not covered: `oracle/README.md`).
 

@@ -50,7 +50,7 @@ fn copy_dir(from: &Path, to: &Path) {
 
 /// Make the libraries and themes of a scenario under `root`.
 fn build_library(spec: &Value, root: &Path) {
-    let fixtures = repo().join("python/tests/fixtures");
+    let fixtures = repo().join("tests/fixtures");
     for name in spec["libraries"].as_array().unwrap() {
         fs::create_dir_all(root.join("Libraries").join(name.as_str().unwrap())).unwrap();
     }

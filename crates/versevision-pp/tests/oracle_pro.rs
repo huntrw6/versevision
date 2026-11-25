@@ -61,7 +61,7 @@ struct Options {
 
 fn resolve(reference: &str) -> PathBuf {
     match reference.strip_prefix("fixture:") {
-        Some(rest) => repo().join("python/tests/fixtures").join(rest),
+        Some(rest) => repo().join("tests/fixtures").join(rest),
         None => pro().join(format!("{reference}.pro")),
     }
 }
@@ -361,7 +361,7 @@ fn oracle_template_candidates_match_python() {
     let mut bad = Vec::new();
     for (name, want) in expected.as_object().unwrap() {
         let path = if name == "sample" {
-            repo().join("python/tests/fixtures/sample/Sample.pro")
+            repo().join("tests/fixtures/sample/Sample.pro")
         } else {
             pro().join(format!("files/{name}.pro"))
         };

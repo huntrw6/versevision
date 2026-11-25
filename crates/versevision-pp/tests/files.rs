@@ -34,7 +34,7 @@ fn append_in_place_makes_a_backup_and_writes_the_oracle_bytes() {
     let work = scratch("append");
     let target = work.join("Sample.pro");
     fs::copy(
-        repo().join("python/tests/fixtures/sample/Sample.pro"),
+        repo().join("tests/fixtures/sample/Sample.pro"),
         &target,
     )
     .unwrap();

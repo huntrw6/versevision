@@ -14,7 +14,7 @@ checks the committed files are exactly what comes out.
   replaces the module attributes (`pipeline.time`, `pipeline.uuid`, `protobuf_writer.new_uuid`, `runlog.os`, ...) while it runs.
 * **ProPresenter is a scripted fake HTTP server** (`FakePP` in `oracle_pipeline.py`, `tests/fake_pp/mod.rs` in Rust: the same rules).
 * **The Bible text is made up**, recorded into `expected/bible.json` and served back by both sides.
-* **The files** are real: the library folders are copies of the fixtures `python/tests/fixtures/{sample,propresenter19,themes}` and
+* **The files** are real: the library folders are copies of the fixtures `tests/fixtures/{sample,propresenter19,themes}` and
   `oracle/pro/files`, in a scratch folder (`<ROOT>` in the evidence).
 
 ## The fake ProPresenter
