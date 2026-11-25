@@ -112,12 +112,33 @@ pub fn describe(state: &WebState) -> Value {
         auth.installation_id().is_some_and(|id| !id.is_empty())
             && auth.credential().is_some_and(|c| !c.is_empty())
     });
+    // Can VerseVision look verses up at all? Through the person's own key (or a local USFM provider), when `bible.source` allows their own
+    // keys; or through the StagePilot service, when it is available and `bible.source` allows it. The page keeps the drop box closed
+    // and offers the keys section until this is true.
+    let any_key = keys.iter().any(|k| k["set"] == json!(true));
+    let has_local = config
+        .bible
+        .providers
+        .values()
+        .any(|p| matches!(p, ProviderConfig::Usfm(_)));
+    let own_ok = !matches!(config.bible.source, BibleSource::StagePilot) && (any_key || has_local);
+    let service_ok = !matches!(config.bible.source, BibleSource::OwnKeys) && available;
+    let ready = own_ok || service_ok;
+    let reason = if ready {
+        Value::Null
+    } else if matches!(config.bible.source, BibleSource::StagePilot) {
+        json!("Bible source is set to the StagePilot service, which is not available here. Add your own Bible key, or change the source.")
+    } else {
+        json!("VerseVision looks verses up with a Bible key (API.Bible, YouVersion or ESV). Add one before you import notes.")
+    };
     let current = match config.bible.source {
         BibleSource::Auto => "auto",
         BibleSource::StagePilot => "stagepilot",
         BibleSource::OwnKeys => "own_keys",
     };
     json!({
+        "ready": ready,
+        "reason": reason,
         "source": current,
         "sources": SOURCES.iter().map(|(id, label, help)| json!({"id": id, "label": label, "help": help})).collect::<Vec<_>>(),
         "service": {

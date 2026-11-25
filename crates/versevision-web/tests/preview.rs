@@ -1,5 +1,5 @@
 //! Not a test: `VV_PREVIEW_PORT=8890 cargo test -p versevision-web --test preview -- --ignored` serves the page on that port, against the scripted
-//! ProPresenter, with one import already in the history and one Bible key saved, so a browser (Playwright) can take its screenshots.
+//! ProPresenter, with one import already in the history and one Bible key saved (not with VV_PREVIEW_NO_KEY=1), so a browser (Playwright) can take its screenshots.
 
 mod common;
 use common::*;
@@ -20,9 +20,12 @@ async fn preview_server() {
         .unwrap_or(600);
     let h = Harness::new("themes-look");
     let router = h.router();
-    h.keys
-        .set_key("ESV_API_KEY", Secret::new("preview-key-not-real"))
-        .unwrap();
+    // VV_PREVIEW_NO_KEY=1 leaves the key out: the page then shows its "Add a Bible key first" card.
+    if std::env::var("VV_PREVIEW_NO_KEY").is_err() {
+        h.keys
+            .set_key("ESV_API_KEY", Secret::new("preview-key-not-real"))
+            .unwrap();
+    }
     for (name, notes) in [
         ("sermon-1.txt", NOTES),
         (

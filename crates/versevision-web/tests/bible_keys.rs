@@ -401,6 +401,67 @@ async fn the_page_says_whether_the_stagepilot_service_is_available() {
     }
 }
 
+/// `ready` is what lets the page open its drop box: a Bible key of the person's own (or a local USFM provider) that `bible.source` allows,
+/// or the StagePilot service when it is available and `bible.source` allows it. Nothing else.
+#[tokio::test]
+async fn the_page_is_told_when_there_is_no_way_to_look_verses_up() {
+    let ready = |section: &Value| section["ready"].as_bool().unwrap();
+    let service = || {
+        Arc::new(Auth {
+            id: Some("inst-1".into()),
+            credential: Some("cred-CANARY".into()),
+        })
+    };
+    // standalone, no key: not ready, and the reason names the keys
+    let h = Harness::new("new");
+    let router = h.router();
+    let section = get(&router, "/api/bible/keys").await.json();
+    assert!(!ready(&section));
+    assert!(section["reason"].as_str().unwrap().contains("Bible key"));
+    // saving one key opens it; removing it closes it again
+    let saved = post_json(
+        &router,
+        "/api/bible/keys",
+        &json!({"id": "esv", "key": GOOD}),
+    )
+    .await;
+    assert!(ready(&saved.json()) && saved.json()["reason"].is_null());
+    let removed = post_json(&router, "/api/bible/keys/remove", &json!({"id": "esv"})).await;
+    assert!(!ready(&removed.json()));
+    // a key but the source says "the StagePilot service only", which is not there: not ready, and it says why
+    post_json(
+        &router,
+        "/api/bible/keys",
+        &json!({"id": "esv", "key": GOOD}),
+    )
+    .await;
+    let only = post_json(
+        &router,
+        "/api/bible/source",
+        &json!({"source": "stagepilot"}),
+    )
+    .await;
+    assert!(!ready(&only.json()));
+    assert!(only.json()["reason"]
+        .as_str()
+        .unwrap()
+        .contains("StagePilot service"));
+    // inside StagePilot (the service is available): ready with no key of its own...
+    let h = Harness::with("new", move |b| b.installation_auth(service()));
+    let router = h.router();
+    assert!(ready(&get(&router, "/api/bible/keys").await.json()));
+    // ...unless the person chose their own keys only
+    let own = post_json(&router, "/api/bible/source", &json!({"source": "own_keys"})).await;
+    assert!(!ready(&own.json()));
+    // a service without its credential is no service
+    let broken = Arc::new(Auth {
+        id: Some("inst-1".into()),
+        credential: None,
+    });
+    let h = Harness::with("new", move |b| b.installation_auth(broken));
+    assert!(!ready(&get(&h.router(), "/api/bible/keys").await.json()));
+}
+
 fn walk(dir: &std::path::Path, out: &mut Vec<std::path::PathBuf>) {
     for entry in std::fs::read_dir(dir).into_iter().flatten().flatten() {
         let path = entry.path();

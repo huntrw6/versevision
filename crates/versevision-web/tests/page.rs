@@ -204,6 +204,26 @@ async fn the_sidebar_marks_what_is_chosen_in_orange_and_blue_without_a_hint_line
 }
 
 #[tokio::test]
+async fn the_drop_box_is_closed_until_there_is_a_way_to_look_verses_up() {
+    // The behaviour (card instead of the drop box, a button to the Config page with the Bible keys section open, drag and file refusals)
+    // was driven in a real browser against `tests/preview.rs` with VV_PREVIEW_NO_KEY=1; here the page's wiring is pinned.
+    let (_h, router) = router();
+    let page = get(&router, "/").await.text();
+    assert!(
+        page.contains("id=\"needKey\"")
+            && page.contains("id=\"needKeyBtn\"")
+            && page.contains("Add a Bible key first")
+    );
+    assert!(
+        page.contains("function keysNeeded(){ return !!(bk.data && bk.data.ready === false); }")
+    );
+    assert!(page.contains("function gotoBibleKeys(){ cfg.focusKeys = true; setView('config'); }"));
+    assert!(page.contains("function lockedNow(){ return keysNeeded() ||"));
+    assert!(page.contains("if(keysNeeded()){ setView('import'); flash('Add a Bible key first.');"));
+    assert!(page.contains("showBibleKeys(); }"));
+}
+
+#[tokio::test]
 async fn the_review_panel_has_its_tiers_the_use_the_fix_box_and_add_as_slide() {
     let (_h, router) = router();
     let page = get(&router, "/").await.text();

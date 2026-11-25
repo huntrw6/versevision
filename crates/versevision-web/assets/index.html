@@ -153,6 +153,15 @@
   #drop.locked .big,#drop.locked h2,#drop.locked p{opacity:.4}
   #drop.locked #dropHint{font-size:14px;font-weight:600;color:#ffc470}
   #drop.locked:hover{border-color:#4a4a4a;background:#232323}
+  /* No way to look verses up yet (no Bible key, no StagePilot service): this card takes the drop box's place and sends the person to the keys. */
+  #needKey{width:min(520px,100%);min-height:280px;border:2px dashed var(--amber);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;background:#2a2518;padding:30px}
+  #needKey .big{width:64px;height:64px;border-radius:14px;background:#3a3220;display:grid;place-items:center;border:1px solid #6b5a2e}
+  #needKey .big svg{width:32px;height:32px;stroke:var(--amber);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  #needKey h2{margin:6px 0 0;font-size:20px;font-weight:500}
+  #needKey p{margin:0;color:var(--dim);max-width:400px}
+  #needKey .btn{margin-top:6px;padding:9px 22px;font-size:14px}
+  .cfg.pulse{animation:keypulse 1.6s ease-out 1}
+  @keyframes keypulse{0%{box-shadow:0 0 0 0 #e8a33dcc}100%{box-shadow:0 0 0 14px #e8a33d00}}
   .help{font-size:12.5px;color:var(--dim);line-height:1.4;min-height:35px}
 
   .summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 14px}
@@ -303,6 +312,12 @@
             <p>PDF, Word, text or Markdown</p>
             <span class="hint" id="dropHint">or click to pick a file</span>
             <input id="file" type="file" accept=".pdf,.docx,.txt,.md,.html,.htm" class="hidden">
+          </div>
+          <div id="needKey" class="hidden" role="alert">
+            <div class="big"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/></svg></div>
+            <h2>Add a Bible key first</h2>
+            <p id="needKeyWhy">VerseVision looks verses up with a Bible key. Add one before you import notes.</p>
+            <button class="btn primary" id="needKeyBtn" type="button">Add a Bible key</button>
           </div>
           </div>
         </div>
@@ -570,6 +585,7 @@ function updateHelp(){
   
 }
 document.querySelectorAll('#mode button').forEach(b=>b.onclick = ()=>setMode(b.dataset.mode));
+$('needKeyBtn').onclick = gotoBibleKeys;
 
 async function poll(jobId, onTick){
   for(;;){
@@ -584,6 +600,7 @@ function banner(kind, text){ return el('div','banner '+kind, text); }
 
 async function handleFile(file){
   if(!file) return;
+  if(keysNeeded()){ setView('import'); flash('Add a Bible key first.'); $('file').value=''; return; }
   if(state.mode!=='new' && !state.target){ $('targetBtn').focus(); flash('Pick a presentation first.'); $('file').value=''; return; }
   show('setup', false); show('result', false); show('progress', true); show('actions', false);
   $('progMsg').textContent = 'Reading '+file.name+'\u2026';
@@ -815,7 +832,7 @@ const cfg = {data:null, edits:{}};
 const fieldMap = () => Object.fromEntries((cfg.data?cfg.data.sections:[]).flatMap(s=>s.fields).map(f=>[f.key,f]));
 const same = (a,b) => JSON.stringify(a)===JSON.stringify(b);
 async function loadConfig(){
-  try{ cfg.data = await api('api/config'); cfg.edits = {}; await loadBibleKeys(); drawConfig(); }
+  try{ cfg.data = await api('api/config'); cfg.edits = {}; await loadBibleKeys(); drawConfig(); showBibleKeys(); }
   catch(e){ $('cfgBody').replaceChildren(el('div','cfgnote','Could not load the settings: '+e.message)); }
 }
 function drawConfig(){
@@ -857,7 +874,22 @@ function configRow(f){
 }
 /* ---- Bible keys: write-only. The page only ever learns "set" or "not set"; a key typed here goes to the key store and nowhere else ---- */
 const bk = {data:null, note:{}};
-async function loadBibleKeys(){ try{ bk.data = await api('api/bible/keys'); }catch(e){ bk.data = null; } }
+async function loadBibleKeys(){ try{ bk.data = await api('api/bible/keys'); }catch(e){ bk.data = null; } updateKeyGate(); }
+/* Only a definite "not ready" from the server closes the drop box; if the answer is missing the box stays open (the import then says what is wrong). */
+function keysNeeded(){ return !!(bk.data && bk.data.ready === false); }
+function updateKeyGate(){
+  const need = keysNeeded();
+  show('needKey', need); show('drop', !need);
+  if(need) $('needKeyWhy').textContent = bk.data.reason || 'VerseVision looks verses up with a Bible key. Add one before you import notes.';
+}
+/* The button of the gate: the Config page, with the Bible keys section opened, in view, and the first key box ready to type in. */
+function gotoBibleKeys(){ cfg.focusKeys = true; setView('config'); }
+function showBibleKeys(){
+  if(!cfg.focusKeys) return; cfg.focusKeys = false;
+  const sec = document.querySelector('#cfgBody details[data-id="bible_keys"]'); if(!sec) return;
+  sec.open = true; sec.scrollIntoView({block:'center'}); sec.classList.add('pulse');
+  const first = [...sec.querySelectorAll('input')].find(i=>i.type==='password' || i.type==='text'); if(first) first.focus({preventScroll:true});
+}
 function bibleKeysSection(q, open){
   const d = bk.data; if(!d) return null;
   const words = ('bible keys api.bible youversion esv source stagepilot service '+d.keys.map(k=>k.label+' '+k.env).join(' ')).toLowerCase();
@@ -934,11 +966,12 @@ function setView(v){
   if(v==='config'){ $('ttl').textContent='Config'; titleIcon('config'); $('meta').textContent=''; show('actions', false); loadConfig(); return; }
   if(v==='history'){ $('ttl').textContent='History'; titleIcon('history'); $('meta').textContent=''; loadHistory(); loadRuns(); show('actions', false); }
   else if(state.current){ show('actions', true); } else { setMode(state.mode); }
+  if(v==='import') loadBibleKeys();
 }
 document.querySelectorAll('.tool').forEach(b=>b.onclick = ()=>setView(b.dataset.view));
 
 const drop = $('drop'), fileInput = $('file');
-drop.addEventListener('click', ()=>{ if(state.mode!=='new' && !state.target){ $('targetBtn').focus(); flash('Pick a presentation first.'); return; } fileInput.click(); });
+drop.addEventListener('click', ()=>{ if(keysNeeded()){ gotoBibleKeys(); return; } if(state.mode!=='new' && !state.target){ $('targetBtn').focus(); flash('Pick a presentation first.'); return; } fileInput.click(); });
 drop.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); drop.click(); }});
 fileInput.addEventListener('change', ()=>handleFile(fileInput.files[0]));
 for(const ev of ['dragenter','dragover']) drop.addEventListener(ev, e=>{ e.preventDefault(); drop.classList.add('over'); });
@@ -949,9 +982,9 @@ let dragDepth = 0;
 const hasFile = e => e.dataTransfer && [...(e.dataTransfer.types||[])].includes('Files');
 const busy = () => !$('progress').classList.contains('hidden');
 function veil(on, bad, text){ $('dropveil').classList.toggle('on', on); $('dropveil').classList.toggle('bad', !!bad); if(text) $('veilText').textContent = text; }
-function lockedNow(){ return state.mode!=='new' && !state.target; }
+function lockedNow(){ return keysNeeded() || (state.mode!=='new' && !state.target); }
 window.addEventListener('dragenter', e=>{ if(!hasFile(e)) return; e.preventDefault(); dragDepth++;
-  veil(true, busy()||lockedNow(), busy() ? 'Hold on, still working\u2026' : lockedNow() ? 'Pick a presentation first' : 'Drop to import'); });
+  veil(true, busy()||lockedNow(), busy() ? 'Hold on, still working\u2026' : keysNeeded() ? 'Add a Bible key first' : lockedNow() ? 'Pick a presentation first' : 'Drop to import'); });
 window.addEventListener('dragover', e=>{ e.preventDefault(); if(e.dataTransfer) e.dataTransfer.dropEffect = (busy()||lockedNow()) ? 'none' : 'copy'; });
 window.addEventListener('dragleave', e=>{ if(!hasFile(e)) return; dragDepth = Math.max(0, dragDepth-1); if(!dragDepth) veil(false); });
 window.addEventListener('drop', e=>{
@@ -981,7 +1014,7 @@ $('auto').onchange = async (ev)=>{
   if(want) setTimeout(autostart, 1500);
 };
 
-setMode('new'); updateHelp(); status(); loadPresentations(); loadHistory(); autostart();
+setMode('new'); updateHelp(); status(); loadBibleKeys(); loadPresentations(); loadHistory(); autostart();
 </script>
 <script>if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js", {scope:"./"}).catch(()=>{});</script>
 </body>
