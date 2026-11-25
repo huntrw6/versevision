@@ -2,9 +2,9 @@ VerseVision: sermon notes to ProPresenter slides
 ================================================
 
 1. Start it
-   macOS / Linux:  open a Terminal in this folder and run   ./versevision serve
-   Windows:        open PowerShell in this folder and run   .\versevision.exe serve
-   Your browser opens the VerseVision page (http://127.0.0.1:8777/ unless that port is taken; the address is printed).
+   macOS / Linux:  open a Terminal in this folder and run   ./versevision serve --open
+   Windows:        open PowerShell in this folder and run   .\versevision.exe serve --open
+   Your browser opens the VerseVision page. Without --open, go to http://127.0.0.1:8777/ yourself.
 
 2. First time: add a Bible key
    VerseVision looks verses up with a Bible key. Until you add one, the Import page shows "Add a Bible key first" with a button that
