@@ -1,0 +1,61 @@
+# Builds the `versevision` command-line binary (release profile) on each platform and keeps it as a workflow artifact for 14 days,
+# so a build can be tried on a real machine before anything is released. Run by hand only (workflow_dispatch). Nothing here is
+# tagged, published or signed; the artifact name carries the commit it was built from.
+name: binaries
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Binary — ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS Intel
+            runner: macos-15-intel
+            file: versevision
+            slug: macos-intel-x64
+          - name: macOS Apple Silicon
+            runner: macos-latest
+            file: versevision
+            slug: macos-silicon-aarch64
+          - name: Windows
+            runner: windows-latest
+            file: versevision.exe
+            slug: windows-x64
+          - name: Linux
+            runner: ubuntu-latest
+            file: versevision
+            slug: linux-x64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Restore cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: bin-${{ matrix.runner }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml') }}
+
+      - name: Build
+        run: cargo build --release --locked -p versevision
+
+      - name: Version and checksum
+        shell: bash
+        run: |
+          ./target/release/${{ matrix.file }} --version
+          cd target/release && (shasum -a 256 ${{ matrix.file }} 2>/dev/null || sha256sum ${{ matrix.file }})
+
+      - name: Keep the binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: versevision-${{ matrix.slug }}-${{ github.sha }}
+          path: target/release/${{ matrix.file }}
+          retention-days: 14
