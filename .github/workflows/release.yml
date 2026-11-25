@@ -1,6 +1,9 @@
 # Publishes a VerseVision release: pushing a tag like v1.0.0 builds the `versevision` program on macOS (Intel and Apple Silicon), Windows and
 # Linux, packs each with the licence and a short how-to-start note, adds SHA256SUMS and creates a GitHub release with those files.
 # The tag must match VERSEVISION_VERSION in crates/versevision-core/src/lib.rs. Nothing is signed or notarised.
+# A final release (a tag with no "-" in it, like v1.2.0) then moves the branch `stable` to that tag. StagePilot's Cargo.toml follows
+# `stable`, so every StagePilot release is built with the newest VerseVision release without anyone editing a version or a commit.
+# A pre-release tag (v1.2.0-rc1) is published as a pre-release and leaves `stable` alone.
 name: release
 
 on:
@@ -113,4 +116,14 @@ jobs:
         run: |
           gh release create "${GITHUB_REF_NAME}" dist/* \
             --title "VerseVision ${GITHUB_REF_NAME#v}" \
-            --notes-file docs/RELEASE_NOTES.md --verify-tag
+            --notes-file docs/RELEASE_NOTES.md --verify-tag \
+            $(case "${GITHUB_REF_NAME}" in *-*) echo --prerelease;; esac)
+
+      # Last, so a failed release never moves it. `stable` only ever points at a tag that has a published release.
+      - name: Move `stable` to this release
+        run: |
+          case "${GITHUB_REF_NAME}" in
+            *-*) echo "pre-release ${GITHUB_REF_NAME}: stable stays where it is"; exit 0;;
+          esac
+          git push --force origin "${GITHUB_SHA}:refs/heads/stable"
+          git ls-remote origin refs/heads/stable
